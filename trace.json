@@ -1,0 +1,276 @@
+{
+  "trace_version": "0.2.0",
+  "trace_id": "example-public-speaking-rei-low-acceptance",
+  "created_at": "2026-03-21T11:30:00+01:00",
+  "language": "sl",
+  "provider": {
+    "mode": "example",
+    "model": "spec-only"
+  },
+  "scenario": {
+    "title": "Javni nastop in trema",
+    "prompt": "Človek mora čez pet minut stopiti pred polno dvorano. Zunaj deluje mirno, v sebi pa čuti, da se lahko v nastopu razkrije razpoka v njegovi podobi kompetentnosti."
+  },
+  "psyche_state": {
+    "character_id": "REI",
+    "acceptance_level": 0.34,
+    "pairwise_conflict": {
+      "RE": 0.52,
+      "RI": 0.48,
+      "EI": 0.74
+    },
+    "active_triggers": [
+      {
+        "id": "public_exposure",
+        "label": "Javna izpostavljenost",
+        "description": "Velika skupina ljudi bo istočasno gledala in ocenjevala nastop.",
+        "target_minds": [
+          "E",
+          "I"
+        ],
+        "intensity": 0.91
+      },
+      {
+        "id": "time_pressure",
+        "label": "Časovni pritisk",
+        "description": "Do nastopa je le še nekaj minut.",
+        "target_minds": [
+          "R",
+          "I"
+        ],
+        "intensity": 0.72
+      }
+    ],
+    "kulise": [
+      {
+        "id": "competence_mask",
+        "label": "Kulisa brezhibne kompetentnosti",
+        "protected_truth": "Ne prenese možnosti, da bi drugi videli negotovost ali notranjo zmedo.",
+        "activation_cue": "Možnost napake pred občinstvom.",
+        "intensity": 0.83
+      }
+    ],
+    "unmet_goals": [
+      {
+        "mind_id": "R",
+        "goal": "Oddati logično in nadzorovano sporočilo brez lukenj.",
+        "pressure": 0.78
+      },
+      {
+        "mind_id": "E",
+        "goal": "Pustiti močan vtis in dobiti občudovanje publike.",
+        "pressure": 0.69
+      },
+      {
+        "mind_id": "I",
+        "goal": "Preživeti situacijo brez ponižanja ali razkritja.",
+        "pressure": 0.88
+      }
+    ],
+    "context": {
+      "setting": "oder pred polno dvorano",
+      "social_exposure": 0.94,
+      "time_pressure": 0.72,
+      "relationship_stake": 0.44,
+      "bodily_state": "povišan srčni utrip in napeta drža"
+    },
+    "deviation_state": {
+      "fear_closure": 0.81,
+      "image_projection": 0.58,
+      "abstract_detachment": 0.63
+    },
+    "corrective_cycle": {
+      "dominant_edge": "E_over_I",
+      "edge_weights": {
+        "E_over_I": 0.81,
+        "R_over_E": 0.58,
+        "I_over_R": 0.63
+      },
+      "school_pressure": 0.81,
+      "note": "Primarni odmik je strahovno zapiranje pred javno izpostavljenostjo; korekcija zahteva, da Emocio prebije Instinkt, ne pa da ga izbriše."
+    }
+  },
+  "knowledge_refs": [
+    {
+      "id": "OD-13",
+      "kind": "OD",
+      "label": "erosov značaj"
+    },
+    {
+      "id": "OD-I",
+      "kind": "OD",
+      "label": "REI osnova Instinkt"
+    },
+    {
+      "id": "OD-R",
+      "kind": "OD",
+      "label": "REI osnova Racio"
+    },
+    {
+      "id": "OD-E",
+      "kind": "OD",
+      "label": "REI osnova Emocio"
+    },
+    {
+      "id": "EK-Fobije",
+      "kind": "EK",
+      "label": "Fobije"
+    },
+    {
+      "id": "EK-Kako-vidi-Instinkt",
+      "kind": "EK",
+      "label": "Kako vidi Instinkt?"
+    },
+    {
+      "id": "EK-Sodelovanje-med-razumi",
+      "kind": "EK",
+      "label": "Sodelovanje med razumi"
+    },
+    {
+      "id": "EK-O-nesprejemanju",
+      "kind": "EK",
+      "label": "O nesprejemanju"
+    },
+    {
+      "id": "PD-GEO",
+      "kind": "PD",
+      "label": "geološki dokaz"
+    },
+    {
+      "id": "PD-ANT",
+      "kind": "PD",
+      "label": "antropološki dokaz"
+    },
+    {
+      "id": "PD-PSI",
+      "kind": "PD",
+      "label": "psihološki dokaz"
+    },
+    {
+      "id": "PD-SED",
+      "kind": "PD",
+      "label": "sedmi dokaz"
+    },
+    {
+      "id": "PD-ZGOD",
+      "kind": "PD",
+      "label": "zgodovinski dokaz"
+    }
+  ],
+  "mind_turns": [
+    {
+      "mind_id": "R",
+      "perception": "Vidi strukturo nastopa, časovno omejitev in možnost, da se govor sesuje, če izgubi zaporedje.",
+      "interpretation": "Težava ni publika sama, ampak možnost izgube reda in posledična škoda za podobo kompetentnosti.",
+      "goal": "Stisniti nastop v jasen, obvladljiv kostur.",
+      "fear_or_desire": "Želja po kontroli in po čim manj improvizacije.",
+      "proposed_action": "Skrči sporočilo na tri točke, govori počasneje in odreži vse, kar ni nujno.",
+      "inner_line": "Če zadržim strukturo, lahko preživim tudi slabšo energijo v prostoru.",
+      "intensity": 0.81,
+      "evidence_refs": [
+        {
+          "id": "OD-R",
+          "kind": "OD",
+          "label": "REI osnova Racio"
+        },
+        {
+          "id": "EK-Kdo-poslusa-besede",
+          "kind": "EK",
+          "label": "Kdo posluša besede"
+        }
+      ]
+    },
+    {
+      "mind_id": "E",
+      "perception": "Vidi dvorano kot prizor, v katerem lahko bodisi zasije bodisi izgubi stik z ljudmi.",
+      "interpretation": "Nastop je priložnost za vtis, občudovanje in potrditev slike o sebi.",
+      "goal": "Vzpostaviti stik in pustiti močan emocionalni odtis.",
+      "fear_or_desire": "Želja po navdušenju, priznanju in občutku, da ga publika 'nosi'.",
+      "proposed_action": "Govori bolj živo, ujami poglede in pusti, da del nastopa nastane spontano.",
+      "inner_line": "Če jih osvojim, mi bodo odpustili tudi manjšo napako.",
+      "intensity": 0.67,
+      "evidence_refs": [
+        {
+          "id": "OD-E",
+          "kind": "OD",
+          "label": "REI osnova Emocio"
+        },
+        {
+          "id": "EK-Kako-spraviti-misli-na-papir",
+          "kind": "EK",
+          "label": "Kako spraviti misli na papir?"
+        }
+      ]
+    },
+    {
+      "mind_id": "I",
+      "perception": "Skenira možnost ponižanja, zmrznitve, posmeha ali razkritja kulise brezhibnosti.",
+      "interpretation": "Oder je nevaren prostor, ker lahko javno razgali šibko točko, ki jo sicer ščiti kulisa kompetentnosti.",
+      "goal": "Znižati izpostavljenost in zmanjšati možnost razkritja.",
+      "fear_or_desire": "Močan strah pred javnim razpadom podobe in kasnejšo bolečo posledico.",
+      "proposed_action": "Skrajšaj izpostavljenost, govori strogo po opornikih in se izogni nepotrebnemu očesnemu stiku.",
+      "inner_line": "Najvarneje je, da skozi to situacijo čim bolj tiho spolzim in ne odprem ničesar, kar bi lahko počilo.",
+      "intensity": 0.89,
+      "evidence_refs": [
+        {
+          "id": "OD-I",
+          "kind": "OD",
+          "label": "REI osnova Instinkt"
+        },
+        {
+          "id": "EK-Kako-vidi-Instinkt",
+          "kind": "EK",
+          "label": "Kako vidi Instinkt?"
+        }
+      ]
+    }
+  ],
+  "synthesis_turn": {
+    "dominant_coalition": [
+      "R",
+      "I"
+    ],
+    "blocked_mind": "E",
+    "dominant_correction": "E_over_I",
+    "decision_rule": "vecina_2_od_3; par R+I premaga E po baznih parih, vendar aktivni korektivni rob E>I ostane neizpeljan",
+    "correction_explanation": "Stanje kliče po tem, da Emocio prebije Instinktov strah pred razkritjem, vendar nizko sprejemanje in močna kulisa potisneta sintezo v obrambno koalicijo R+I. Korekcija je zaznana, a odložena.",
+    "final_monologue": "Ne bom tvegal odprtega, sproščenega nastopa. Šel bom v strogo, varno verzijo: manj spontanosti, jasen kostur, čim manj možnosti, da me publika vrže iz ritma. Glavno ni, da izpadem navdihujoče, ampak da ne pokažem razpoke.",
+    "risk_tags": [
+      "umik_beg",
+      "kulisa_aktivirana",
+      "konfliktna_samorazlaga"
+    ],
+    "evidence_refs": [
+      {
+        "id": "OD-13",
+        "kind": "OD",
+        "label": "erosov značaj"
+      },
+      {
+        "id": "EK-Sodelovanje-med-razumi",
+        "kind": "EK",
+        "label": "Sodelovanje med razumi"
+      },
+      {
+        "id": "EK-O-nesprejemanju",
+        "kind": "EK",
+        "label": "O nesprejemanju"
+      },
+      {
+        "id": "PD-GEO",
+        "kind": "PD",
+        "label": "geološki dokaz"
+      },
+      {
+        "id": "PD-ANT",
+        "kind": "PD",
+        "label": "antropološki dokaz"
+      },
+      {
+        "id": "PD-PSI",
+        "kind": "PD",
+        "label": "psihološki dokaz"
+      }
+    ]
+  }
+}

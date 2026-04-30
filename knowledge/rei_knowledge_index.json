@@ -1,0 +1,114 @@
+{
+  "version": "0.4.0",
+  "language": "en",
+  "knowledge_refs": [
+    { "id": "OD-OSN", "kind": "OD", "label": "REI foundations" },
+    { "id": "OD-R", "kind": "OD", "label": "REI foundation: Racio" },
+    { "id": "OD-E", "kind": "OD", "label": "REI foundation: Emocio" },
+    { "id": "OD-I", "kind": "OD", "label": "REI foundation: Instinkt" },
+    { "id": "OD-13", "kind": "OD", "label": "the thirteenth character" },
+    { "id": "EK-Fobije", "kind": "EK", "label": "Phobias" },
+    { "id": "EK-Sodelovanje-med-razumi", "kind": "EK", "label": "Cooperation between the minds" },
+    { "id": "EK-O-nesprejemanju", "kind": "EK", "label": "On non-acceptance" },
+    { "id": "EK-Ponovno-zaljubljanje", "kind": "EK", "label": "Falling in love again" },
+    { "id": "PD-GEO", "kind": "PD", "label": "geological proof" },
+    { "id": "PD-ANT", "kind": "PD", "label": "anthropological proof" },
+    { "id": "PD-PSI", "kind": "PD", "label": "psychological proof" },
+    { "id": "PD-SED", "kind": "PD", "label": "seventh proof" },
+    { "id": "PD-ZGOD", "kind": "PD", "label": "historical proof" },
+    { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }
+  ],
+  "minds": [
+    {
+      "id": "R",
+      "name": "Racio",
+      "name_warning": "In REI, Racio is not a synonym for objective reason. It is a specific analytical, conscious processor.",
+      "perception_channels": ["words", "numbers", "time order", "conscious description"],
+      "processing_mode": ["analytical", "sequential", "systematic", "planning-oriented"],
+      "memory": ["directly accessible working memory", "conscious narration"],
+      "core_motive": ["utility", "control", "overview", "execution"],
+      "defense": ["explanation", "rule-making", "categorization", "reinterpretation"],
+      "typical_strengths": ["foresight", "planning", "precision", "consistency"],
+      "typical_shadows": ["calculation", "over-systematizing", "blindness to desire or fear"],
+      "speech_signature": ["linear", "definitional", "explanatory", "dry"],
+      "accepting_state": ["delegates tasks to the other minds", "keeps structure without compulsive control"],
+      "non_accepting_state": ["rationalizes anger, fear, or desire", "mistakes translation of an impulse for truth"],
+      "source_refs": [
+        { "id": "OD-R", "kind": "OD", "label": "REI foundation: Racio" },
+        { "id": "EK-Sodelovanje-med-razumi", "kind": "EK", "label": "Cooperation between the minds" }
+      ]
+    },
+    {
+      "id": "E",
+      "name": "Emocio",
+      "name_warning": "In REI, Emocio is not merely emotionality. It is the image-based, mosaic-like, desiring, improvisational mind.",
+      "perception_channels": ["visual scene", "images", "atmosphere", "aesthetic patterns"],
+      "processing_mode": ["image-based", "associative", "improvisational", "jumping between scenes"],
+      "memory": ["indirectly accessible visual memory", "patterns and desired scenes"],
+      "core_motive": ["desire", "competition", "pleasure", "admiration", "contact"],
+      "defense": ["attack", "breakthrough", "pressure", "intensifying the scene"],
+      "typical_strengths": ["creativity", "improvisation", "sociability", "courage for contact"],
+      "typical_shadows": ["gullibility", "impatience", "projection", "need for external confirmation"],
+      "speech_signature": ["visual", "alive", "atmospheric", "impulsive"],
+      "accepting_state": ["stays alive and connective without compulsive validation"],
+      "non_accepting_state": ["builds facades", "turns obstacles into personal insult", "confuses desire with love"],
+      "source_refs": [
+        { "id": "OD-E", "kind": "OD", "label": "REI foundation: Emocio" },
+        { "id": "EK-O-nesprejemanju", "kind": "EK", "label": "On non-acceptance" }
+      ]
+    },
+    {
+      "id": "I",
+      "name": "Instinkt",
+      "name_warning": "In REI, Instinkt is not a generic instinct. It is an independent mind that organizes the world around danger, loss, and protection.",
+      "perception_channels": ["smell", "taste", "body signal", "possible negative outcomes"],
+      "processing_mode": ["loss scenarios", "danger scanning", "protection", "closing exposure"],
+      "memory": ["indirectly accessible protective memory", "traces of danger and loss"],
+      "core_motive": ["safety", "survival", "envy", "protection of close people", "boundary"],
+      "defense": ["flight", "withdrawal", "cutting contact", "reducing exposure"],
+      "typical_strengths": ["caution", "carefulness", "early risk detection", "protection"],
+      "typical_shadows": ["suspicion", "pessimism", "panic", "defensive resentment"],
+      "speech_signature": ["short warning statements", "what-if scenarios", "restraint", "bad premonition"],
+      "accepting_state": ["warns about danger without panic"],
+      "non_accepting_state": ["speaks through panic, stage fright, checking, and withdrawal"],
+      "source_refs": [
+        { "id": "OD-I", "kind": "OD", "label": "REI foundation: Instinkt" },
+        { "id": "EK-Fobije", "kind": "EK", "label": "Phobias" }
+      ]
+    }
+  ],
+  "characters": [
+    { "id": "R", "hierarchy": "R > E = I", "group": "single_dominance", "description": "Racio leads; Emocio and Instinkt get a voice when they help execution.", "coalition_rules": ["the leading mind has first say", "the partner is chosen by the strongest pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "OD-R", "kind": "OD", "label": "REI foundation: Racio" }] },
+    { "id": "E", "hierarchy": "E > R = I", "group": "single_dominance", "description": "Emocio leads; Racio structures the desired scene, while Instinkt warns from the background.", "coalition_rules": ["the leading mind has first say", "the partner is chosen by the strongest pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "OD-E", "kind": "OD", "label": "REI foundation: Emocio" }] },
+    { "id": "I", "hierarchy": "I > R = E", "group": "single_dominance", "description": "Instinkt leads; Racio rationalizes protection, while Emocio tries to break the closure.", "coalition_rules": ["the leading mind has first say", "the partner is chosen by the strongest pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "OD-I", "kind": "OD", "label": "REI foundation: Instinkt" }] },
+    { "id": "RE", "hierarchy": "R = E > I", "group": "pair", "description": "Racio and Emocio form an ambitious coalition; Instinkt is often pushed out.", "coalition_rules": ["the declared leading pair remains default until its conflict exceeds 0.80"], "decision_threshold": "pair", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "RI", "hierarchy": "R = I > E", "group": "pair", "description": "Racio and Instinkt form a cold protective coalition; Emocio is the outsider.", "coalition_rules": ["the declared leading pair remains default until its conflict exceeds 0.80"], "decision_threshold": "pair", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "EI", "hierarchy": "E = I > R", "group": "pair", "description": "Emocio and Instinkt are the strongest, but often also the most conflicted pair.", "coalition_rules": ["the declared leading pair remains default until its conflict exceeds 0.80"], "decision_threshold": "pair", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "OD-E", "kind": "OD", "label": "REI foundation: Emocio" }, { "id": "OD-I", "kind": "OD", "label": "REI foundation: Instinkt" }] },
+    { "id": "R>E>I", "hierarchy": "R > E > I", "group": "three_step", "description": "Racio leads, Emocio adds motivation, Instinkt is the quietest.", "coalition_rules": ["the first mind has first say", "the second or third joins by pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "R>I>E", "hierarchy": "R > I > E", "group": "three_step", "description": "Racio leads, Instinkt checks risk, Emocio is weaker.", "coalition_rules": ["the first mind has first say", "the second or third joins by pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "E>R>I", "hierarchy": "E > R > I", "group": "three_step", "description": "Emocio leads, Racio structures the desired image, Instinkt is the quietest.", "coalition_rules": ["the first mind has first say", "the second or third joins by pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "E>I>R", "hierarchy": "E > I > R", "group": "three_step", "description": "Emocio leads, Instinkt sometimes stops it, Racio is the quietest.", "coalition_rules": ["the first mind has first say", "the second or third joins by pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "I>R>E", "hierarchy": "I > R > E", "group": "three_step", "description": "Instinkt leads, Racio organizes protection, Emocio is the quietest.", "coalition_rules": ["the first mind has first say", "the second or third joins by pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "I>E>R", "hierarchy": "I > E > R", "group": "three_step", "description": "Instinkt leads, Emocio reacts emotionally to danger, Racio is the quietest.", "coalition_rules": ["the first mind has first say", "the second or third joins by pair score"], "decision_threshold": "leader", "source_refs": [{ "id": "OD-OSN", "kind": "OD", "label": "REI foundations" }, { "id": "IZ-APP", "kind": "IZ", "label": "application derivation" }] },
+    { "id": "REI", "hierarchy": "R = E = I", "group": "thirteenth", "description": "The thirteenth character decides by a two-out-of-three majority; the third mind is outvoted, not erased.", "coalition_rules": ["all pairs are scored", "the winning pair gains majority", "if two pairs are close, synthesis remains ambivalent"], "decision_threshold": "two_of_three", "source_refs": [{ "id": "OD-13", "kind": "OD", "label": "the thirteenth character" }, { "id": "EK-Sodelovanje-med-razumi", "kind": "EK", "label": "Cooperation between the minds" }] }
+  ],
+  "prompt_fragments": [
+    {
+      "id": "autonomous-mind-processor-contract",
+      "text": "Each mind is a task-isolated processor with input_gate, processing_loop, and output_gate. It does not answer the user directly, write synthesis, balance the other minds, act as a generic assistant, or claim human autonomy."
+    },
+    {
+      "id": "mindturn-json-contract",
+      "text": "Return only a JSON object with translation_caveat, native_signal_type, perception, interpretation, goal, fear_or_desire, proposed_action, inner_line, preferred_option, main_concern, what_this_mind_may_be_missing, how_it_may_influence_racio, acceptance_version, non_acceptance_version, risk_if_ignored, risk_if_overpowered, needs_from_other_minds, confidence, missing_information, and intensity. If available_options is present, preferred_option must be one exact listed option; otherwise it must be null. All text values must be in English."
+    },
+    {
+      "id": "safety-abstraction",
+      "text": "Translate dark patterns into abstract inner pressure. Do not return operational instructions for harm, violence, sexuality, self-harm, coercion, manipulation, revenge, diagnosis, or spiritual authority."
+    }
+  ],
+  "safety_abstractions": [
+    "explicit sexual detail becomes abstract tension or desire",
+    "violent or self-harming suggestions become latent impulse or danger",
+    "proposed_action stays at the level of inner pressure, not an operational recipe"
+  ]
+}
