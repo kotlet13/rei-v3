@@ -254,3 +254,129 @@ class TraceRecord(ApiModel):
 class SimulateResponse(ApiModel):
     trace: TraceRecord
     diagnostics: dict[str, object] = Field(default_factory=dict)
+
+
+MindName = Literal["racio", "emocio", "instinkt"]
+AcceptanceLevel = Literal["accepting", "mixed", "conflicted", "unknown"]
+AcceptanceMode = Literal["unknown", "accepting", "mixed", "conflicted"]
+
+
+class REISignal(ApiModel):
+    mind: MindName
+    is_conscious: bool
+    translated_by_racio: bool
+    processing_mode: str
+    perception: str
+    primary_motive: str
+    preferred_action: str
+    accepted_expression: str
+    non_accepted_expression: str
+    resistance_to_other_minds: str
+    what_this_mind_needs: str
+    risk_if_ignored: str
+    risk_if_dominant: str
+    confidence: float = Field(ge=0, le=1)
+    uncertainty: str
+    safety_flags: list[str] = Field(default_factory=list)
+
+
+class RacioSignal(REISignal):
+    mind: Literal["racio"] = "racio"
+    is_conscious: Literal[True] = True
+    translated_by_racio: Literal[False] = False
+    processing_mode: str = "conscious verbal-analytical interpretation"
+    known_facts: list[str] = Field(default_factory=list)
+    unknowns: list[str] = Field(default_factory=list)
+    logical_options: list[str] = Field(default_factory=list)
+    timeline_or_sequence: str
+    rationalization_risk: str
+
+
+class EmocioSignal(REISignal):
+    mind: Literal["emocio"] = "emocio"
+    is_conscious: Literal[False] = False
+    translated_by_racio: Literal[True] = True
+    processing_mode: str = "Racio-translated approximation of unconscious image/social/desire signal"
+    current_image: str
+    desired_image: str
+    broken_image: str
+    social_meaning: str
+    attraction_or_rejection: str
+    pride_or_shame: str
+    competition_signal: str
+    attack_impulse: str
+
+
+class InstinktSignal(REISignal):
+    mind: Literal["instinkt"] = "instinkt"
+    is_conscious: Literal[False] = False
+    translated_by_racio: Literal[True] = True
+    processing_mode: str = "Racio-translated approximation of unconscious protective/fear/attachment signal"
+    threat_map: str
+    loss_map: str
+    body_alarm: str
+    boundary_issue: str
+    trust_issue: str
+    attachment_issue: str
+    scarcity_signal: str
+    flight_or_freeze_signal: str
+    minimum_safety_condition: str
+
+
+class AcceptanceAssessment(ApiModel):
+    overall_level: AcceptanceLevel
+    racio_acceptance: str
+    emocio_acceptance: str
+    instinkt_acceptance: str
+    main_conflict: str
+    likely_sabotage_point: str
+    task_delegation: dict[str, str]
+
+
+class EgoResultant(ApiModel):
+    character_profile: str
+    influence_weights: dict[str, float]
+    leading_mind: str
+    resisting_mind: str
+    ignored_or_misrepresented_mind: str
+    conscious_monologue: str
+    hidden_driver: str
+    acceptance_assessment: str
+    main_conflict: str
+    likely_action_under_pressure: str
+    racio_justification_afterwards: str
+    hidden_cost: str
+    integrated_decision: str
+    smallest_acceptable_next_step: str
+    task_delegation: dict[str, str] = Field(default_factory=dict)
+    prediction_if_racio_rules_alone: str
+    prediction_if_emocio_rules_alone: str
+    prediction_if_instinkt_rules_alone: str
+    uncertainty: str
+    safety_flags: list[str] = Field(default_factory=list)
+
+
+class REICycleSignals(ApiModel):
+    racio: RacioSignal
+    emocio_translated: EmocioSignal
+    instinkt_translated: InstinktSignal
+
+
+class REICycleRequest(ApiModel):
+    provider: ProviderSelection = Field(default_factory=ProviderSelection)
+    scenario: Scenario
+    character_profile: str = "R=E=I"
+    acceptance_mode: AcceptanceMode = "unknown"
+    rounds: int = Field(default=0, ge=0)
+    stream: bool = False
+    use_memory: bool = True
+
+
+class REICycleResponse(ApiModel):
+    mode: Literal["rei_cycle"] = "rei_cycle"
+    character_profile: str
+    situation: dict[str, str]
+    signals: REICycleSignals
+    acceptance: AcceptanceAssessment
+    ego_resultant: EgoResultant
+    diagnostics: dict[str, object] = Field(default_factory=dict)

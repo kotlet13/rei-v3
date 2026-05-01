@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from typing import Any, Optional, Union
+
+from .json_utils import extract_json_object
 
 
 class ProviderError(RuntimeError):
@@ -165,16 +166,10 @@ class OllamaProvider:
         if not content:
             raise ProviderError("Provider returned an empty response")
         try:
-            value = json.loads(content)
-        except json.JSONDecodeError:
-            match = re.search(r"\{.*\}", content, re.DOTALL)
-            if not match:
-                snippet = content.replace("\n", " ")[:240]
-                raise ProviderError(f"Provider did not return a JSON object; content={snippet!r}")
-            value = json.loads(match.group(0))
-        if not isinstance(value, dict):
-            raise ProviderError("Provider JSON response is not an object")
-        return value
+            return extract_json_object(content)
+        except (json.JSONDecodeError, ValueError) as exc:
+            snippet = content.replace("\n", " ")[:240]
+            raise ProviderError(f"Provider did not return a JSON object; content={snippet!r}") from exc
 
 
 class LMStudioProvider:

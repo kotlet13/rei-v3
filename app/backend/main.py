@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from rei.engine import ReiEngine
 from rei.knowledge import KnowledgeIndex
-from rei.models import ProviderSelection, SimulateRequest, SimulateResponse
+from rei.models import ProviderSelection, REICycleRequest, REICycleResponse, SimulateRequest, SimulateResponse
 from rei.providers import LMStudioProvider, OllamaProvider
 
 
@@ -81,3 +81,17 @@ def simulate(request: SimulateRequest) -> SimulateResponse:
         provider=request.provider,
     )
     return SimulateResponse(trace=trace, diagnostics=diagnostics)
+
+
+@app.post("/api/v1/rei-cycle", response_model=REICycleResponse)
+def rei_cycle(request: REICycleRequest) -> REICycleResponse:
+    response, _diagnostics = engine.run_rei_cycle(
+        user_prompt=request.scenario.prompt,
+        character_profile=request.character_profile,
+        acceptance_mode=request.acceptance_mode,
+        rounds=request.rounds,
+        stream=request.stream,
+        use_memory=request.use_memory,
+        provider=request.provider,
+    )
+    return response

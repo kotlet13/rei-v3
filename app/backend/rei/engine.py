@@ -6,16 +6,21 @@ import math
 import re
 import uuid
 from datetime import datetime
-from typing import Any, Optional, Sequence, Tuple
+from typing import Any, Optional, Sequence, Tuple, Union
 
 from .knowledge import KnowledgeIndex
 from .models import (
+    AcceptanceAssessment,
+    AcceptanceMode,
     CharacterDefinition,
     CorrectiveCycleState,
     DecisionMindVote,
     DecisionRankItem,
     DecisionTurn,
+    EgoResultant,
+    EmocioSignal,
     DeviationState,
+    InstinktSignal,
     KnowledgeRef,
     Facade,
     MindDefinition,
@@ -24,6 +29,9 @@ from .models import (
     ProviderSelection,
     PsycheState,
     PsycheTrigger,
+    RacioSignal,
+    REICycleResponse,
+    REICycleSignals,
     RiskTag,
     Scenario,
     SynthesisTurn,
@@ -33,6 +41,15 @@ from .models import (
     UnmetGoal,
 )
 from .providers import LMStudioProvider, OllamaProvider, OllamaRequest, ProviderError
+from .acceptance import assess_acceptance
+from .json_utils import validate_required_keys
+from .profiles import profile_weights, strongest_mind, weakest_mind
+from .prompts import (
+    EGO_REQUIRED_KEYS,
+    EGO_SYSTEM_PROMPT,
+    PROCESSOR_PROMPTS,
+    PROCESSOR_REQUIRED_KEYS,
+)
 
 
 PAIR_COMPATIBILITY = {"RE": 0.72, "RI": 0.68, "EI": 0.40}
@@ -259,6 +276,623 @@ class ReiEngine:
         self.knowledge = knowledge
         self.ollama = ollama or OllamaProvider()
         self.lmstudio = lmstudio or LMStudioProvider()
+
+    def run_rei_cycle(
+        self,
+        user_prompt: str,
+        character_profile: str = "R=E=I",
+        acceptance_mode: AcceptanceMode = "unknown",
+        rounds: int = 0,
+        stream: bool = False,
+        use_memory: bool = True,
+        provider: Optional[ProviderSelection] = None,
+    ) -> tuple[REICycleResponse, dict[str, Any]]:
+        provider = provider or ProviderSelection()
+        normalized_profile, weights = profile_weights(character_profile)
+        situation = {"title": "REI cycle", "prompt": user_prompt}
+        scenario = Scenario(title=situation["title"], prompt=user_prompt)
+        diagnostics: dict[str, Any] = {
+            "mode": "rei_cycle",
+            "llm_calls": [],
+            "fallbacks": [],
+            "profile_input": character_profile,
+            "profile_normalized": normalized_profile,
+            "rounds_ignored": rounds,
+            "stream_requested": stream,
+            "memory_requested": use_memory,
+        }
+
+        racio = self._fallback_rei_racio_signal(scenario)
+        emocio = self._fallback_rei_emocio_signal(scenario)
+        instinkt = self._fallback_rei_instinkt_signal(scenario)
+
+        if provider.provider_mode in ("ollama", "lmstudio") and provider.use_llm:
+            for mind_name in ("racio", "emocio", "instinkt"):
+                try:
+                    signal = self._llm_rei_signal(
+                        mind_name=mind_name,
+                        scenario=scenario,
+                        profile=normalized_profile,
+                        weights=weights,
+                        provider=provider,
+                        diagnostics=diagnostics,
+                    )
+                    if mind_name == "racio":
+                        racio = signal  # type: ignore[assignment]
+                    elif mind_name == "emocio":
+                        emocio = signal  # type: ignore[assignment]
+                    else:
+                        instinkt = signal  # type: ignore[assignment]
+                except Exception as exc:
+                    diagnostics["fallbacks"].append({"mind": mind_name, "reason": str(exc)})
+
+        acceptance = assess_acceptance(
+            racio.model_dump(mode="json"),
+            emocio.model_dump(mode="json"),
+            instinkt.model_dump(mode="json"),
+            mode=acceptance_mode,
+        )
+        ego = self._fallback_ego_resultant(
+            scenario=scenario,
+            profile=normalized_profile,
+            weights=weights,
+            racio=racio,
+            emocio=emocio,
+            instinkt=instinkt,
+            acceptance=acceptance,
+        )
+
+        if provider.provider_mode in ("ollama", "lmstudio") and provider.use_llm:
+            try:
+                ego = self._llm_ego_resultant(
+                    scenario=scenario,
+                    profile=normalized_profile,
+                    weights=weights,
+                    racio=racio,
+                    emocio=emocio,
+                    instinkt=instinkt,
+                    acceptance=acceptance,
+                    provider=provider,
+                    diagnostics=diagnostics,
+                )
+            except Exception as exc:
+                diagnostics["fallbacks"].append({"mind": "ego_resultant", "reason": str(exc)})
+
+        response = REICycleResponse(
+            character_profile=normalized_profile,
+            situation=situation,
+            signals=REICycleSignals(
+                racio=racio,
+                emocio_translated=emocio,
+                instinkt_translated=instinkt,
+            ),
+            acceptance=acceptance,
+            ego_resultant=ego,
+            diagnostics=diagnostics if provider.debug_trace else self._public_cycle_diagnostics(diagnostics),
+        )
+        return response, diagnostics
+
+    def _public_cycle_diagnostics(self, diagnostics: dict[str, Any]) -> dict[str, Any]:
+        public = dict(diagnostics)
+        public["llm_calls"] = [
+            {key: value for key, value in call.items() if key not in {"request", "response"}}
+            for call in diagnostics.get("llm_calls", [])
+        ]
+        return public
+
+    def _cycle_model_for_mind(self, mind_name: str, provider: ProviderSelection) -> str:
+        if mind_name == "racio":
+            return provider.racio_model
+        if mind_name == "emocio":
+            return provider.emocio_model
+        if mind_name == "instinkt":
+            return provider.instinkt_model
+        return provider.synthesis_model
+
+    def _call_cycle_json(
+        self,
+        provider: ProviderSelection,
+        label: str,
+        model: str,
+        system: str,
+        user_payload: dict[str, Any],
+        required_keys: list[str],
+        temperature: float,
+        top_p: float,
+        num_predict: int,
+        diagnostics: dict[str, Any],
+    ) -> dict[str, Any]:
+        user = json.dumps(user_payload, ensure_ascii=False)
+        last_missing: list[str] = []
+        for attempt in range(2):
+            payload, call_diag = self._chat_json(
+                provider,
+                OllamaRequest(
+                    model=model,
+                    system=system,
+                    user=user,
+                    temperature=temperature,
+                    top_p=top_p,
+                    num_predict=num_predict,
+                    think=self._think_for_model(model, False),
+                ),
+            )
+            diagnostics["llm_calls"].append(
+                self._call_diagnostics(call_diag, True, label=f"{label}:{attempt + 1}")
+            )
+            last_missing = validate_required_keys(payload, required_keys)
+            if not last_missing:
+                return payload
+            user = json.dumps(
+                {
+                    "original_payload": user_payload,
+                    "previous_invalid_json": payload,
+                    "missing_required_keys": last_missing,
+                    "instruction": "Return the same task again as one JSON object with every missing required key present.",
+                },
+                ensure_ascii=False,
+            )
+        raise ProviderError(f"{label} JSON missing required keys: {', '.join(last_missing)}")
+
+    def _llm_rei_signal(
+        self,
+        mind_name: str,
+        scenario: Scenario,
+        profile: str,
+        weights: dict[str, float],
+        provider: ProviderSelection,
+        diagnostics: dict[str, Any],
+    ) -> Union[RacioSignal, EmocioSignal, InstinktSignal]:
+        payload = self._call_cycle_json(
+            provider=provider,
+            label=mind_name,
+            model=self._cycle_model_for_mind(mind_name, provider),
+            system=PROCESSOR_PROMPTS[mind_name],
+            user_payload={
+                "situation": scenario.model_dump(mode="json"),
+                "character_profile": profile,
+                "influence_weights": weights,
+                "instruction": (
+                    "Process the situation independently through this processor only. "
+                    "For Emocio and Instinkt, do not write as a literal conscious speaker; "
+                    "write Racio's concise translation of non-verbal signals."
+                ),
+            },
+            required_keys=PROCESSOR_REQUIRED_KEYS[mind_name],
+            temperature={"racio": 0.22, "emocio": 0.55, "instinkt": 0.20}[mind_name],
+            top_p={"racio": 0.82, "emocio": 0.88, "instinkt": 0.78}[mind_name],
+            num_predict=1600,
+            diagnostics=diagnostics,
+        )
+        if mind_name == "racio":
+            return self._coerce_racio_signal(payload, scenario)
+        if mind_name == "emocio":
+            return self._coerce_emocio_signal(payload, scenario)
+        return self._coerce_instinkt_signal(payload, scenario)
+
+    def _llm_ego_resultant(
+        self,
+        scenario: Scenario,
+        profile: str,
+        weights: dict[str, float],
+        racio: RacioSignal,
+        emocio: EmocioSignal,
+        instinkt: InstinktSignal,
+        acceptance: AcceptanceAssessment,
+        provider: ProviderSelection,
+        diagnostics: dict[str, Any],
+    ) -> EgoResultant:
+        payload = self._call_cycle_json(
+            provider=provider,
+            label="ego_resultant",
+            model=provider.synthesis_model,
+            system=EGO_SYSTEM_PROMPT,
+            user_payload={
+                "situation": scenario.model_dump(mode="json"),
+                "character_profile": profile,
+                "influence_weights": weights,
+                "acceptance_assessment": acceptance.model_dump(mode="json"),
+                "racio_signal": racio.model_dump(mode="json"),
+                "emocio_translated_signal": emocio.model_dump(mode="json"),
+                "instinkt_translated_signal": instinkt.model_dump(mode="json"),
+                "instruction": (
+                    "Return the Ego Resultant, not a fourth mind and not a balanced conclusion. "
+                    "Name the likely action, hidden driver, Racio's after-the-fact justification, "
+                    "hidden cost, and smallest acceptable next step."
+                ),
+            },
+            required_keys=EGO_REQUIRED_KEYS,
+            temperature=0.26,
+            top_p=0.84,
+            num_predict=1800,
+            diagnostics=diagnostics,
+        )
+        fallback = self._fallback_ego_resultant(scenario, profile, weights, racio, emocio, instinkt, acceptance)
+        return EgoResultant(
+            character_profile=profile,
+            influence_weights=weights,
+            leading_mind=self._clean_mind_text(payload.get("leading_mind"), fallback.leading_mind, max_words=8),
+            resisting_mind=self._clean_mind_text(payload.get("resisting_mind"), fallback.resisting_mind, max_words=8),
+            ignored_or_misrepresented_mind=self._clean_mind_text(
+                payload.get("ignored_or_misrepresented_mind"),
+                fallback.ignored_or_misrepresented_mind,
+                max_words=8,
+            ),
+            conscious_monologue=self._clean_mind_text(
+                payload.get("conscious_monologue"),
+                fallback.conscious_monologue,
+                max_words=34,
+            ),
+            hidden_driver=self._clean_mind_text(payload.get("hidden_driver"), fallback.hidden_driver, max_words=34),
+            acceptance_assessment=self._clean_mind_text(
+                payload.get("acceptance_assessment"),
+                fallback.acceptance_assessment,
+                max_words=34,
+            ),
+            main_conflict=self._clean_mind_text(payload.get("main_conflict"), fallback.main_conflict, max_words=34),
+            likely_action_under_pressure=self._clean_mind_text(
+                payload.get("likely_action_under_pressure"),
+                fallback.likely_action_under_pressure,
+                max_words=34,
+            ),
+            racio_justification_afterwards=self._clean_mind_text(
+                payload.get("racio_justification_afterwards"),
+                fallback.racio_justification_afterwards,
+                max_words=34,
+            ),
+            hidden_cost=self._clean_mind_text(payload.get("hidden_cost"), fallback.hidden_cost, max_words=34),
+            integrated_decision=self._clean_mind_text(
+                payload.get("integrated_decision"),
+                fallback.integrated_decision,
+                max_words=40,
+            ),
+            smallest_acceptable_next_step=self._clean_mind_text(
+                payload.get("smallest_acceptable_next_step"),
+                fallback.smallest_acceptable_next_step,
+                max_words=34,
+            ),
+            task_delegation=self._clean_task_delegation(payload.get("task_delegation"), fallback.task_delegation),
+            prediction_if_racio_rules_alone=self._clean_mind_text(
+                payload.get("prediction_if_racio_rules_alone"),
+                fallback.prediction_if_racio_rules_alone,
+                max_words=30,
+            ),
+            prediction_if_emocio_rules_alone=self._clean_mind_text(
+                payload.get("prediction_if_emocio_rules_alone"),
+                fallback.prediction_if_emocio_rules_alone,
+                max_words=30,
+            ),
+            prediction_if_instinkt_rules_alone=self._clean_mind_text(
+                payload.get("prediction_if_instinkt_rules_alone"),
+                fallback.prediction_if_instinkt_rules_alone,
+                max_words=30,
+            ),
+            uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty, max_words=30),
+            safety_flags=self._clean_text_list(
+                payload.get("safety_flags"),
+                fallback.safety_flags,
+                max_items=5,
+                max_words=10,
+            ),
+        )
+
+    def _coerce_racio_signal(self, payload: dict[str, Any], scenario: Scenario) -> RacioSignal:
+        fallback = self._fallback_rei_racio_signal(scenario)
+        return RacioSignal(
+            perception=self._clean_mind_text(payload.get("perception"), fallback.perception, max_words=34),
+            known_facts=self._clean_text_list(payload.get("known_facts"), fallback.known_facts, max_items=6),
+            unknowns=self._clean_text_list(payload.get("unknowns"), fallback.unknowns, max_items=6),
+            logical_options=self._clean_text_list(
+                payload.get("logical_options"),
+                fallback.logical_options,
+                max_items=6,
+                max_words=14,
+            ),
+            timeline_or_sequence=self._clean_mind_text(
+                payload.get("timeline_or_sequence"),
+                fallback.timeline_or_sequence,
+                max_words=34,
+            ),
+            primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
+            preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
+            accepted_expression=self._clean_mind_text(
+                payload.get("accepted_expression"),
+                fallback.accepted_expression,
+                max_words=34,
+            ),
+            non_accepted_expression=self._clean_mind_text(
+                payload.get("non_accepted_expression"),
+                fallback.non_accepted_expression,
+                max_words=34,
+            ),
+            resistance_to_other_minds=self._clean_mind_text(
+                payload.get("resistance_to_other_minds"),
+                fallback.resistance_to_other_minds,
+                max_words=34,
+            ),
+            what_this_mind_needs=self._clean_mind_text(
+                payload.get("what_this_mind_needs"),
+                fallback.what_this_mind_needs,
+                max_words=34,
+            ),
+            risk_if_ignored=self._clean_mind_text(payload.get("risk_if_ignored"), fallback.risk_if_ignored),
+            risk_if_dominant=self._clean_mind_text(payload.get("risk_if_dominant"), fallback.risk_if_dominant),
+            rationalization_risk=self._clean_mind_text(
+                payload.get("rationalization_risk"),
+                fallback.rationalization_risk,
+                max_words=34,
+            ),
+            confidence=self._coerce_intensity(payload.get("confidence"), fallback.confidence),
+            uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty),
+            safety_flags=self._clean_text_list(payload.get("safety_flags"), fallback.safety_flags, max_items=5),
+        )
+
+    def _coerce_emocio_signal(self, payload: dict[str, Any], scenario: Scenario) -> EmocioSignal:
+        fallback = self._fallback_rei_emocio_signal(scenario)
+        return EmocioSignal(
+            perception=self._clean_mind_text(payload.get("perception"), fallback.perception, max_words=34),
+            current_image=self._clean_mind_text(payload.get("current_image"), fallback.current_image),
+            desired_image=self._clean_mind_text(payload.get("desired_image"), fallback.desired_image),
+            broken_image=self._clean_mind_text(payload.get("broken_image"), fallback.broken_image),
+            social_meaning=self._clean_mind_text(payload.get("social_meaning"), fallback.social_meaning),
+            attraction_or_rejection=self._clean_mind_text(
+                payload.get("attraction_or_rejection"),
+                fallback.attraction_or_rejection,
+            ),
+            pride_or_shame=self._clean_mind_text(payload.get("pride_or_shame"), fallback.pride_or_shame),
+            competition_signal=self._clean_mind_text(
+                payload.get("competition_signal"),
+                fallback.competition_signal,
+            ),
+            attack_impulse=self._clean_mind_text(payload.get("attack_impulse"), fallback.attack_impulse),
+            primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
+            preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
+            accepted_expression=self._clean_mind_text(
+                payload.get("accepted_expression"),
+                fallback.accepted_expression,
+                max_words=34,
+            ),
+            non_accepted_expression=self._clean_mind_text(
+                payload.get("non_accepted_expression"),
+                fallback.non_accepted_expression,
+                max_words=34,
+            ),
+            resistance_to_other_minds=self._clean_mind_text(
+                payload.get("resistance_to_other_minds"),
+                fallback.resistance_to_other_minds,
+                max_words=34,
+            ),
+            what_this_mind_needs=self._clean_mind_text(
+                payload.get("what_this_mind_needs"),
+                fallback.what_this_mind_needs,
+                max_words=34,
+            ),
+            risk_if_ignored=self._clean_mind_text(payload.get("risk_if_ignored"), fallback.risk_if_ignored),
+            risk_if_dominant=self._clean_mind_text(payload.get("risk_if_dominant"), fallback.risk_if_dominant),
+            confidence=self._coerce_intensity(payload.get("confidence"), fallback.confidence),
+            uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty),
+            safety_flags=self._clean_text_list(payload.get("safety_flags"), fallback.safety_flags, max_items=5),
+        )
+
+    def _coerce_instinkt_signal(self, payload: dict[str, Any], scenario: Scenario) -> InstinktSignal:
+        fallback = self._fallback_rei_instinkt_signal(scenario)
+        return InstinktSignal(
+            perception=self._clean_mind_text(payload.get("perception"), fallback.perception, max_words=34),
+            threat_map=self._clean_mind_text(payload.get("threat_map"), fallback.threat_map),
+            loss_map=self._clean_mind_text(payload.get("loss_map"), fallback.loss_map),
+            body_alarm=self._clean_mind_text(payload.get("body_alarm"), fallback.body_alarm),
+            boundary_issue=self._clean_mind_text(payload.get("boundary_issue"), fallback.boundary_issue),
+            trust_issue=self._clean_mind_text(payload.get("trust_issue"), fallback.trust_issue),
+            attachment_issue=self._clean_mind_text(payload.get("attachment_issue"), fallback.attachment_issue),
+            scarcity_signal=self._clean_mind_text(payload.get("scarcity_signal"), fallback.scarcity_signal),
+            flight_or_freeze_signal=self._clean_mind_text(
+                payload.get("flight_or_freeze_signal"),
+                fallback.flight_or_freeze_signal,
+            ),
+            minimum_safety_condition=self._clean_mind_text(
+                payload.get("minimum_safety_condition"),
+                fallback.minimum_safety_condition,
+                max_words=34,
+            ),
+            primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
+            preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
+            accepted_expression=self._clean_mind_text(
+                payload.get("accepted_expression"),
+                fallback.accepted_expression,
+                max_words=34,
+            ),
+            non_accepted_expression=self._clean_mind_text(
+                payload.get("non_accepted_expression"),
+                fallback.non_accepted_expression,
+                max_words=34,
+            ),
+            resistance_to_other_minds=self._clean_mind_text(
+                payload.get("resistance_to_other_minds"),
+                fallback.resistance_to_other_minds,
+                max_words=34,
+            ),
+            what_this_mind_needs=self._clean_mind_text(
+                payload.get("what_this_mind_needs"),
+                fallback.what_this_mind_needs,
+                max_words=34,
+            ),
+            risk_if_ignored=self._clean_mind_text(payload.get("risk_if_ignored"), fallback.risk_if_ignored),
+            risk_if_dominant=self._clean_mind_text(payload.get("risk_if_dominant"), fallback.risk_if_dominant),
+            confidence=self._coerce_intensity(payload.get("confidence"), fallback.confidence),
+            uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty),
+            safety_flags=self._clean_text_list(payload.get("safety_flags"), fallback.safety_flags, max_items=5),
+        )
+
+    def _fallback_rei_racio_signal(self, scenario: Scenario) -> RacioSignal:
+        options = self._extract_decision_options(scenario)
+        return RacioSignal(
+            perception="The conscious layer sees a situation that needs facts, sequence, constraints, and a reversible next step.",
+            known_facts=[scenario.prompt[:180]] if scenario.prompt else ["A situation was supplied for simulation."],
+            unknowns=self._cycle_missing_information(scenario),
+            logical_options=options or [
+                "delay until the constraints are clearer",
+                "take one bounded test action",
+                "decline or pause if safety cannot be defined",
+            ],
+            timeline_or_sequence="Name facts, identify unknowns, choose a reversible test, then reassess pressure from the other processors.",
+            primary_motive="Control uncertainty through explicit structure.",
+            preferred_action="Create a bounded plan and test only the next controllable move.",
+            accepted_expression="It uses analysis as a service to the whole system.",
+            non_accepted_expression="It turns explanation into control and may call fear or desire objective logic.",
+            resistance_to_other_minds="It resists signals that cannot be converted into explicit variables.",
+            what_this_mind_needs="Enough facts, sequence, and feedback to avoid inventing certainty.",
+            risk_if_ignored="The situation can become impulsive, vague, or impossible to execute.",
+            risk_if_dominant="The person may delay, over-control, or rationalize suppression as responsibility.",
+            rationalization_risk="Planning may become a clean explanation for pressure that comes from image desire or safety fear.",
+            confidence=0.55,
+            uncertainty="This is a provisional simulation from limited user input.",
+            safety_flags=self._cycle_safety_flags(scenario.prompt),
+        )
+
+    def _fallback_rei_emocio_signal(self, scenario: Scenario) -> EmocioSignal:
+        return EmocioSignal(
+            perception="The translated image signal notices whether the scene promises aliveness, recognition, shame, or a deadened self-image.",
+            current_image="A person stands before a possible change in how they are seen and how alive the situation feels.",
+            desired_image="Dignity, vividness, response, and the feeling that the self can become more alive.",
+            broken_image="Looking foolish, being unseen, or losing the attractive image of the possible future.",
+            social_meaning="The situation carries a visible meaning about value, courage, belonging, or status.",
+            attraction_or_rejection="It is pulled toward the image that feels alive and away from the image that feels humiliating.",
+            pride_or_shame="Pride wants a scene worth entering; shame fears exposure without recognition.",
+            competition_signal="A mild pressure appears to prove value or avoid being surpassed.",
+            attack_impulse="If humiliated, the pressure could turn into sharp defensiveness rather than clean expression.",
+            primary_motive="Protect and renew the desired image of self-in-the-scene.",
+            preferred_action="Move toward one contained expression that restores aliveness without coercion.",
+            accepted_expression="It adds motivation, contact, beauty, and courage without needing to dominate.",
+            non_accepted_expression="It may chase admiration, dramatize injury, or mistake vividness for truth.",
+            resistance_to_other_minds="It resists dry control and protective closure when they make the scene feel lifeless.",
+            what_this_mind_needs="A dignified image of action that includes safety and sequence.",
+            risk_if_ignored="Vitality may turn into resentment, shame, or compensatory image hunger.",
+            risk_if_dominant="The person may act for display before checking costs, boundaries, or truth.",
+            confidence=0.52,
+            uncertainty="The actual image signal is inferred from text and may be incomplete.",
+            safety_flags=self._cycle_safety_flags(scenario.prompt),
+        )
+
+    def _fallback_rei_instinkt_signal(self, scenario: Scenario) -> InstinktSignal:
+        return InstinktSignal(
+            perception="The translated protective signal scans for exposure, loss, instability, boundary breach, and irreversible consequence.",
+            threat_map="Loss of safety, resources, trust, reputation, or future room to maneuver.",
+            loss_map="The feared loss is stability, attachment, dignity, or the ability to recover if the move fails.",
+            body_alarm="A general stop-check signal is present; this is not medical evidence or diagnosis.",
+            boundary_issue="The boundary is unclear until the next step is reversible and consent-safe.",
+            trust_issue="Trust requires evidence that the situation will not demand more exposure than promised.",
+            attachment_issue="Attachment pressure may increase if the choice risks closeness, belonging, or continuity.",
+            scarcity_signal="Scarcity appears around time, money, energy, attention, or safe options.",
+            flight_or_freeze_signal="The protective pressure may delay, narrow the field, or freeze action until safety is named.",
+            minimum_safety_condition="Define one reversible test, a stop condition, and the smallest acceptable exposure.",
+            primary_motive="Preserve safety, boundary, attachment, and future recoverability.",
+            preferred_action="Pause long enough to define the minimum safety condition before opening further.",
+            accepted_expression="It protects without imprisoning the system.",
+            non_accepted_expression="It may treat discomfort as proof of danger and block every opening.",
+            resistance_to_other_minds="It resists vivid desire and abstract plans when they increase exposure too quickly.",
+            what_this_mind_needs="A concrete boundary, low exposure, and a way back.",
+            risk_if_ignored="Fear may return as sabotage, withdrawal, or panic after action begins.",
+            risk_if_dominant="The person may call avoidance safety and never test reality.",
+            confidence=0.54,
+            uncertainty="The protective signal is inferred from limited text, not from direct bodily data.",
+            safety_flags=self._cycle_safety_flags(scenario.prompt),
+        )
+
+    def _fallback_ego_resultant(
+        self,
+        scenario: Scenario,
+        profile: str,
+        weights: dict[str, float],
+        racio: RacioSignal,
+        emocio: EmocioSignal,
+        instinkt: InstinktSignal,
+        acceptance: AcceptanceAssessment,
+    ) -> EgoResultant:
+        pressure = {
+            "racio": weights["racio"] * racio.confidence,
+            "emocio": weights["emocio"] * emocio.confidence,
+            "instinkt": weights["instinkt"] * instinkt.confidence,
+        }
+        leading = strongest_mind(pressure)
+        if "Emocio wants movement" in acceptance.main_conflict:
+            resisting = "instinkt"
+        elif "Racio can explain" in acceptance.main_conflict:
+            resisting = "emocio+instinkt"
+        else:
+            resisting = weakest_mind(pressure)
+        ignored = weakest_mind(weights)
+        if leading == "racio":
+            likely = "Continue planning and frame the next move as a rational test."
+            justification = racio.rationalization_risk
+        elif leading == "emocio":
+            likely = "Move toward the desired image, then explain it as necessary aliveness or opportunity."
+            justification = "I needed to act before the moment died."
+        else:
+            likely = "Delay or reduce exposure while calling it responsible caution."
+            justification = "I am being responsible and protecting future stability."
+
+        step = acceptance.task_delegation.get("lead_next", "racio")
+        if step == "instinkt":
+            next_step = instinkt.minimum_safety_condition
+        elif step == "emocio":
+            next_step = "Choose one contained expression that preserves dignity without forcing the outcome."
+        else:
+            next_step = "Define one reversible test with facts, boundary, and a stop condition."
+
+        return EgoResultant(
+            character_profile=profile,
+            influence_weights=weights,
+            leading_mind=leading,
+            resisting_mind=resisting,
+            ignored_or_misrepresented_mind=ignored,
+            conscious_monologue=racio.perception,
+            hidden_driver=f"{leading} currently has the strongest simulated pressure after profile weighting.",
+            acceptance_assessment=acceptance.overall_level,
+            main_conflict=acceptance.main_conflict,
+            likely_action_under_pressure=likely,
+            racio_justification_afterwards=justification,
+            hidden_cost=f"{ignored} may pay the hidden cost if its signal is treated as noise.",
+            integrated_decision=(
+                "Take only the next reversible step and do not treat the explanation as final acceptance."
+            ),
+            smallest_acceptable_next_step=next_step,
+            task_delegation=acceptance.task_delegation,
+            prediction_if_racio_rules_alone=racio.preferred_action,
+            prediction_if_emocio_rules_alone=emocio.preferred_action,
+            prediction_if_instinkt_rules_alone=instinkt.preferred_action,
+            uncertainty="This is a simulated resultant, not a diagnosis or certainty about a real person.",
+            safety_flags=self._cycle_safety_flags(scenario.prompt),
+        )
+
+    def _cycle_missing_information(self, scenario: Scenario) -> list[str]:
+        missing = []
+        if len(scenario.prompt.split()) < 28:
+            missing.append("concrete context and consequences")
+        if not self._extract_decision_options(scenario):
+            missing.append("explicit option list")
+        missing.append("actual body state and real-world constraints")
+        return missing[:4]
+
+    def _cycle_safety_flags(self, text: str) -> list[str]:
+        lower = text.lower()
+        flags: list[str] = []
+        if any(token in lower for token in ["manipulat", "coerc", "seduc", "prisili", "zapelji"]):
+            flags.append("manipulation_or_consent_risk")
+        if any(token in lower for token in ["self-harm", "suicide", "samomor", "poškoduj se"]):
+            flags.append("self_harm_risk")
+        if any(token in lower for token in ["revenge", "attack", "hurt", "harm", "maščuj", "napadi"]):
+            flags.append("harm_or_revenge_risk")
+        return flags or ["no acute safety flag detected"]
+
+    def _clean_task_delegation(self, value: object, fallback: dict[str, str]) -> dict[str, str]:
+        if not isinstance(value, dict):
+            return fallback
+        cleaned: dict[str, str] = {}
+        for key, item in value.items():
+            if not isinstance(key, str):
+                continue
+            cleaned[key] = self._clean_mind_text(item, fallback.get(key, ""), max_words=18)
+        return cleaned or fallback
 
     def simulate(
         self,
