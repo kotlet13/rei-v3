@@ -49,9 +49,34 @@ def profile_weights(profile: Optional[str]) -> tuple[str, dict[str, float]]:
     return normalized, dict(PROFILE_WEIGHTS[normalized])
 
 
+def strongest_minds(weights: Mapping[str, float], epsilon: float = 1e-9) -> list[str]:
+    max_value = max(weights.values())
+    return [mind for mind, value in weights.items() if abs(value - max_value) <= epsilon]
+
+
+def weakest_minds(weights: Mapping[str, float], epsilon: float = 1e-9) -> list[str]:
+    min_value = min(weights.values())
+    return [mind for mind, value in weights.items() if abs(value - min_value) <= epsilon]
+
+
+def profile_leader_label(weights: Mapping[str, float]) -> str:
+    leaders = strongest_minds(weights)
+    if len(leaders) == 1:
+        return leaders[0]
+    if len(leaders) == 3:
+        return "tie"
+    return "mixed"
+
+
+def is_equal_profile(profile: str) -> bool:
+    return normalize_profile(profile) == DEFAULT_PROFILE
+
+
 def strongest_mind(weights: Mapping[str, float]) -> str:
-    return max(weights, key=weights.get)
+    leaders = strongest_minds(weights)
+    return leaders[0]
 
 
 def weakest_mind(weights: Mapping[str, float]) -> str:
-    return min(weights, key=weights.get)
+    weakest = weakest_minds(weights)
+    return weakest[0]

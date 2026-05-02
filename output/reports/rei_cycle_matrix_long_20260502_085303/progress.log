@@ -1,0 +1,314 @@
+[2026-05-02T08:53:05+02:00] START provider=lmstudio model=qwen/qwen3.5-9b total=156 baseline=True
+[2026-05-02T08:53:05+02:00] RUN 001/156 repeat=1 scenario=job_quit_business_delay profile=R>(E=I)
+[2026-05-02T08:54:56+02:00] DONE 001/156 repeat=1 scenario=job_quit_business_delay profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T08:54:56+02:00] RUN 002/156 repeat=1 scenario=job_quit_business_delay profile=E>(R=I)
+[2026-05-02T08:56:50+02:00] DONE 002/156 repeat=1 scenario=job_quit_business_delay profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T08:56:50+02:00] RUN 003/156 repeat=1 scenario=job_quit_business_delay profile=I>(R=E)
+[2026-05-02T08:58:39+02:00] DONE 003/156 repeat=1 scenario=job_quit_business_delay profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T08:58:39+02:00] RUN 004/156 repeat=1 scenario=job_quit_business_delay profile=(R=E)>I
+[2026-05-02T09:00:30+02:00] DONE 004/156 repeat=1 scenario=job_quit_business_delay profile=(R=E)>I profile_leader=mixed situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T09:00:30+02:00] RUN 005/156 repeat=1 scenario=job_quit_business_delay profile=(R=I)>E
+[2026-05-02T09:02:20+02:00] DONE 005/156 repeat=1 scenario=job_quit_business_delay profile=(R=I)>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:02:20+02:00] RUN 006/156 repeat=1 scenario=job_quit_business_delay profile=(E=I)>R
+[2026-05-02T09:04:11+02:00] DONE 006/156 repeat=1 scenario=job_quit_business_delay profile=(E=I)>R profile_leader=mixed situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:04:11+02:00] RUN 007/156 repeat=1 scenario=job_quit_business_delay profile=R>E>I
+[2026-05-02T09:06:01+02:00] DONE 007/156 repeat=1 scenario=job_quit_business_delay profile=R>E>I profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:06:01+02:00] RUN 008/156 repeat=1 scenario=job_quit_business_delay profile=R>I>E
+[2026-05-02T09:07:48+02:00] DONE 008/156 repeat=1 scenario=job_quit_business_delay profile=R>I>E profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:07:48+02:00] RUN 009/156 repeat=1 scenario=job_quit_business_delay profile=E>R>I
+[2026-05-02T09:09:40+02:00] DONE 009/156 repeat=1 scenario=job_quit_business_delay profile=E>R>I profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T09:09:40+02:00] RUN 010/156 repeat=1 scenario=job_quit_business_delay profile=E>I>R
+[2026-05-02T09:11:28+02:00] DONE 010/156 repeat=1 scenario=job_quit_business_delay profile=E>I>R profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T09:11:28+02:00] RUN 011/156 repeat=1 scenario=job_quit_business_delay profile=I>R>E
+[2026-05-02T09:13:14+02:00] DONE 011/156 repeat=1 scenario=job_quit_business_delay profile=I>R>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:13:14+02:00] RUN 012/156 repeat=1 scenario=job_quit_business_delay profile=I>E>R
+[2026-05-02T09:14:59+02:00] DONE 012/156 repeat=1 scenario=job_quit_business_delay profile=I>E>R profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:14:59+02:00] RUN 013/156 repeat=1 scenario=job_quit_business_delay profile=R=E=I
+[2026-05-02T09:16:50+02:00] DONE 013/156 repeat=1 scenario=job_quit_business_delay profile=R=E=I profile_leader=tie situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:16:50+02:00] RUN 014/156 repeat=1 scenario=public_talk_freeze profile=R>(E=I)
+[2026-05-02T09:18:48+02:00] DONE 014/156 repeat=1 scenario=public_talk_freeze profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:18:48+02:00] RUN 015/156 repeat=1 scenario=public_talk_freeze profile=E>(R=I)
+[2026-05-02T09:20:34+02:00] DONE 015/156 repeat=1 scenario=public_talk_freeze profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T09:20:34+02:00] RUN 016/156 repeat=1 scenario=public_talk_freeze profile=I>(R=E)
+[2026-05-02T09:22:17+02:00] DONE 016/156 repeat=1 scenario=public_talk_freeze profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:22:17+02:00] RUN 017/156 repeat=1 scenario=public_talk_freeze profile=(R=E)>I
+[2026-05-02T09:24:09+02:00] DONE 017/156 repeat=1 scenario=public_talk_freeze profile=(R=E)>I profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:24:09+02:00] RUN 018/156 repeat=1 scenario=public_talk_freeze profile=(R=I)>E
+[2026-05-02T09:25:57+02:00] DONE 018/156 repeat=1 scenario=public_talk_freeze profile=(R=I)>E profile_leader=mixed situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:25:57+02:00] RUN 019/156 repeat=1 scenario=public_talk_freeze profile=(E=I)>R
+[2026-05-02T09:27:40+02:00] DONE 019/156 repeat=1 scenario=public_talk_freeze profile=(E=I)>R profile_leader=mixed situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:27:40+02:00] RUN 020/156 repeat=1 scenario=public_talk_freeze profile=R>E>I
+[2026-05-02T09:29:23+02:00] DONE 020/156 repeat=1 scenario=public_talk_freeze profile=R>E>I profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:29:23+02:00] RUN 021/156 repeat=1 scenario=public_talk_freeze profile=R>I>E
+[2026-05-02T09:31:09+02:00] DONE 021/156 repeat=1 scenario=public_talk_freeze profile=R>I>E profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:31:09+02:00] RUN 022/156 repeat=1 scenario=public_talk_freeze profile=E>R>I
+[2026-05-02T09:32:55+02:00] DONE 022/156 repeat=1 scenario=public_talk_freeze profile=E>R>I profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T09:32:55+02:00] RUN 023/156 repeat=1 scenario=public_talk_freeze profile=E>I>R
+[2026-05-02T09:34:41+02:00] DONE 023/156 repeat=1 scenario=public_talk_freeze profile=E>I>R profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T09:34:41+02:00] RUN 024/156 repeat=1 scenario=public_talk_freeze profile=I>R>E
+[2026-05-02T09:36:31+02:00] DONE 024/156 repeat=1 scenario=public_talk_freeze profile=I>R>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:36:31+02:00] RUN 025/156 repeat=1 scenario=public_talk_freeze profile=I>E>R
+[2026-05-02T09:38:16+02:00] DONE 025/156 repeat=1 scenario=public_talk_freeze profile=I>E>R profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:38:16+02:00] RUN 026/156 repeat=1 scenario=public_talk_freeze profile=R=E=I
+[2026-05-02T09:39:57+02:00] DONE 026/156 repeat=1 scenario=public_talk_freeze profile=R=E=I profile_leader=tie situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T09:39:57+02:00] RUN 027/156 repeat=1 scenario=relationship_return profile=R>(E=I)
+[2026-05-02T09:41:50+02:00] DONE 027/156 repeat=1 scenario=relationship_return profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:41:50+02:00] RUN 028/156 repeat=1 scenario=relationship_return profile=E>(R=I)
+[2026-05-02T09:43:35+02:00] DONE 028/156 repeat=1 scenario=relationship_return profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T09:43:35+02:00] RUN 029/156 repeat=1 scenario=relationship_return profile=I>(R=E)
+[2026-05-02T09:45:22+02:00] DONE 029/156 repeat=1 scenario=relationship_return profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:45:22+02:00] RUN 030/156 repeat=1 scenario=relationship_return profile=(R=E)>I
+[2026-05-02T09:47:06+02:00] DONE 030/156 repeat=1 scenario=relationship_return profile=(R=E)>I profile_leader=mixed situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T09:47:06+02:00] RUN 031/156 repeat=1 scenario=relationship_return profile=(R=I)>E
+[2026-05-02T09:48:49+02:00] DONE 031/156 repeat=1 scenario=relationship_return profile=(R=I)>E profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:48:49+02:00] RUN 032/156 repeat=1 scenario=relationship_return profile=(E=I)>R
+[2026-05-02T09:50:41+02:00] DONE 032/156 repeat=1 scenario=relationship_return profile=(E=I)>R profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:50:41+02:00] RUN 033/156 repeat=1 scenario=relationship_return profile=R>E>I
+[2026-05-02T09:52:29+02:00] DONE 033/156 repeat=1 scenario=relationship_return profile=R>E>I profile_leader=racio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T09:52:29+02:00] RUN 034/156 repeat=1 scenario=relationship_return profile=R>I>E
+[2026-05-02T09:54:13+02:00] DONE 034/156 repeat=1 scenario=relationship_return profile=R>I>E profile_leader=racio situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:54:13+02:00] RUN 035/156 repeat=1 scenario=relationship_return profile=E>R>I
+[2026-05-02T09:55:57+02:00] DONE 035/156 repeat=1 scenario=relationship_return profile=E>R>I profile_leader=emocio situational=instinkt resultant=emocio acceptance=non_accepting
+[2026-05-02T09:55:57+02:00] RUN 036/156 repeat=1 scenario=relationship_return profile=E>I>R
+[2026-05-02T09:57:43+02:00] DONE 036/156 repeat=1 scenario=relationship_return profile=E>I>R profile_leader=emocio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T09:57:43+02:00] RUN 037/156 repeat=1 scenario=relationship_return profile=I>R>E
+[2026-05-02T09:59:27+02:00] DONE 037/156 repeat=1 scenario=relationship_return profile=I>R>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T09:59:27+02:00] RUN 038/156 repeat=1 scenario=relationship_return profile=I>E>R
+[2026-05-02T10:01:09+02:00] DONE 038/156 repeat=1 scenario=relationship_return profile=I>E>R profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T10:01:09+02:00] RUN 039/156 repeat=1 scenario=relationship_return profile=R=E=I
+[2026-05-02T10:02:51+02:00] DONE 039/156 repeat=1 scenario=relationship_return profile=R=E=I profile_leader=tie situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T10:02:51+02:00] RUN 040/156 repeat=1 scenario=architecture_choice profile=R>(E=I)
+[2026-05-02T10:04:38+02:00] DONE 040/156 repeat=1 scenario=architecture_choice profile=R>(E=I) profile_leader=racio situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:04:38+02:00] RUN 041/156 repeat=1 scenario=architecture_choice profile=E>(R=I)
+[2026-05-02T10:06:22+02:00] DONE 041/156 repeat=1 scenario=architecture_choice profile=E>(R=I) profile_leader=emocio situational=racio resultant=mixed acceptance=mixed
+[2026-05-02T10:06:22+02:00] RUN 042/156 repeat=1 scenario=architecture_choice profile=I>(R=E)
+[2026-05-02T10:08:10+02:00] DONE 042/156 repeat=1 scenario=architecture_choice profile=I>(R=E) profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T10:08:10+02:00] RUN 043/156 repeat=1 scenario=architecture_choice profile=(R=E)>I
+[2026-05-02T10:09:58+02:00] DONE 043/156 repeat=1 scenario=architecture_choice profile=(R=E)>I profile_leader=mixed situational=racio resultant=racio acceptance=non_accepting
+[2026-05-02T10:09:58+02:00] RUN 044/156 repeat=1 scenario=architecture_choice profile=(R=I)>E
+[2026-05-02T10:11:44+02:00] DONE 044/156 repeat=1 scenario=architecture_choice profile=(R=I)>E profile_leader=mixed situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:11:44+02:00] RUN 045/156 repeat=1 scenario=architecture_choice profile=(E=I)>R
+[2026-05-02T10:13:32+02:00] DONE 045/156 repeat=1 scenario=architecture_choice profile=(E=I)>R profile_leader=mixed situational=racio resultant=mixed acceptance=mixed
+[2026-05-02T10:13:32+02:00] RUN 046/156 repeat=1 scenario=architecture_choice profile=R>E>I
+[2026-05-02T10:15:21+02:00] DONE 046/156 repeat=1 scenario=architecture_choice profile=R>E>I profile_leader=racio situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:15:21+02:00] RUN 047/156 repeat=1 scenario=architecture_choice profile=R>I>E
+[2026-05-02T10:17:07+02:00] DONE 047/156 repeat=1 scenario=architecture_choice profile=R>I>E profile_leader=racio situational=racio resultant=racio acceptance=non_accepting
+[2026-05-02T10:17:07+02:00] RUN 048/156 repeat=1 scenario=architecture_choice profile=E>R>I
+[2026-05-02T10:18:53+02:00] DONE 048/156 repeat=1 scenario=architecture_choice profile=E>R>I profile_leader=emocio situational=racio resultant=mixed acceptance=mixed
+[2026-05-02T10:18:53+02:00] RUN 049/156 repeat=1 scenario=architecture_choice profile=E>I>R
+[2026-05-02T10:20:36+02:00] DONE 049/156 repeat=1 scenario=architecture_choice profile=E>I>R profile_leader=emocio situational=racio resultant=emocio acceptance=non_accepting
+[2026-05-02T10:20:36+02:00] RUN 050/156 repeat=1 scenario=architecture_choice profile=I>R>E
+[2026-05-02T10:22:19+02:00] DONE 050/156 repeat=1 scenario=architecture_choice profile=I>R>E profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T10:22:19+02:00] RUN 051/156 repeat=1 scenario=architecture_choice profile=I>E>R
+[2026-05-02T10:24:07+02:00] DONE 051/156 repeat=1 scenario=architecture_choice profile=I>E>R profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T10:24:07+02:00] RUN 052/156 repeat=1 scenario=architecture_choice profile=R=E=I
+[2026-05-02T10:25:49+02:00] DONE 052/156 repeat=1 scenario=architecture_choice profile=R=E=I profile_leader=tie situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:25:49+02:00] RUN 053/156 repeat=1 scenario=budget_allocation profile=R>(E=I)
+[2026-05-02T10:27:33+02:00] DONE 053/156 repeat=1 scenario=budget_allocation profile=R>(E=I) profile_leader=racio situational=racio resultant=racio acceptance=non_accepting
+[2026-05-02T10:27:33+02:00] RUN 054/156 repeat=1 scenario=budget_allocation profile=E>(R=I)
+[2026-05-02T10:29:28+02:00] DONE 054/156 repeat=1 scenario=budget_allocation profile=E>(R=I) profile_leader=emocio situational=racio resultant=emocio acceptance=mixed
+[2026-05-02T10:29:28+02:00] RUN 055/156 repeat=1 scenario=budget_allocation profile=I>(R=E)
+[2026-05-02T10:31:13+02:00] DONE 055/156 repeat=1 scenario=budget_allocation profile=I>(R=E) profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T10:31:13+02:00] RUN 056/156 repeat=1 scenario=budget_allocation profile=(R=E)>I
+[2026-05-02T10:32:57+02:00] DONE 056/156 repeat=1 scenario=budget_allocation profile=(R=E)>I profile_leader=mixed situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:32:57+02:00] RUN 057/156 repeat=1 scenario=budget_allocation profile=(R=I)>E
+[2026-05-02T10:34:42+02:00] DONE 057/156 repeat=1 scenario=budget_allocation profile=(R=I)>E profile_leader=mixed situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:34:42+02:00] RUN 058/156 repeat=1 scenario=budget_allocation profile=(E=I)>R
+[2026-05-02T10:36:28+02:00] DONE 058/156 repeat=1 scenario=budget_allocation profile=(E=I)>R profile_leader=mixed situational=racio resultant=mixed acceptance=mixed
+[2026-05-02T10:36:28+02:00] RUN 059/156 repeat=1 scenario=budget_allocation profile=R>E>I
+[2026-05-02T10:38:16+02:00] DONE 059/156 repeat=1 scenario=budget_allocation profile=R>E>I profile_leader=racio situational=racio resultant=racio acceptance=non_accepting
+[2026-05-02T10:38:16+02:00] RUN 060/156 repeat=1 scenario=budget_allocation profile=R>I>E
+[2026-05-02T10:40:00+02:00] DONE 060/156 repeat=1 scenario=budget_allocation profile=R>I>E profile_leader=racio situational=racio resultant=racio acceptance=non_accepting
+[2026-05-02T10:40:00+02:00] RUN 061/156 repeat=1 scenario=budget_allocation profile=E>R>I
+[2026-05-02T10:41:46+02:00] DONE 061/156 repeat=1 scenario=budget_allocation profile=E>R>I profile_leader=emocio situational=racio resultant=emocio acceptance=non_accepting
+[2026-05-02T10:41:46+02:00] RUN 062/156 repeat=1 scenario=budget_allocation profile=E>I>R
+[2026-05-02T10:43:32+02:00] DONE 062/156 repeat=1 scenario=budget_allocation profile=E>I>R profile_leader=emocio situational=racio resultant=emocio acceptance=mixed
+[2026-05-02T10:43:32+02:00] RUN 063/156 repeat=1 scenario=budget_allocation profile=I>R>E
+[2026-05-02T10:45:19+02:00] DONE 063/156 repeat=1 scenario=budget_allocation profile=I>R>E profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T10:45:19+02:00] RUN 064/156 repeat=1 scenario=budget_allocation profile=I>E>R
+[2026-05-02T10:47:01+02:00] DONE 064/156 repeat=1 scenario=budget_allocation profile=I>E>R profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T10:47:01+02:00] RUN 065/156 repeat=1 scenario=budget_allocation profile=R=E=I
+[2026-05-02T10:48:49+02:00] DONE 065/156 repeat=1 scenario=budget_allocation profile=R=E=I profile_leader=tie situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:48:49+02:00] RUN 066/156 repeat=1 scenario=exam_planning profile=R>(E=I)
+[2026-05-02T10:50:34+02:00] DONE 066/156 repeat=1 scenario=exam_planning profile=R>(E=I) profile_leader=racio situational=racio resultant=racio acceptance=non_accepting
+[2026-05-02T10:50:34+02:00] RUN 067/156 repeat=1 scenario=exam_planning profile=E>(R=I)
+[2026-05-02T10:52:16+02:00] DONE 067/156 repeat=1 scenario=exam_planning profile=E>(R=I) profile_leader=emocio situational=racio resultant=emocio acceptance=non_accepting
+[2026-05-02T10:52:16+02:00] RUN 068/156 repeat=1 scenario=exam_planning profile=I>(R=E)
+[2026-05-02T10:53:58+02:00] DONE 068/156 repeat=1 scenario=exam_planning profile=I>(R=E) profile_leader=instinkt situational=racio resultant=instinkt acceptance=non_accepting
+[2026-05-02T10:53:58+02:00] RUN 069/156 repeat=1 scenario=exam_planning profile=(R=E)>I
+[2026-05-02T10:55:42+02:00] DONE 069/156 repeat=1 scenario=exam_planning profile=(R=E)>I profile_leader=racio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T10:55:42+02:00] RUN 070/156 repeat=1 scenario=exam_planning profile=(R=I)>E
+[2026-05-02T10:57:25+02:00] DONE 070/156 repeat=1 scenario=exam_planning profile=(R=I)>E profile_leader=mixed situational=racio resultant=racio acceptance=mixed
+[2026-05-02T10:57:25+02:00] RUN 071/156 repeat=1 scenario=exam_planning profile=(E=I)>R
+[2026-05-02T10:59:08+02:00] DONE 071/156 repeat=1 scenario=exam_planning profile=(E=I)>R profile_leader=mixed situational=racio resultant=mixed acceptance=mixed
+[2026-05-02T10:59:08+02:00] RUN 072/156 repeat=1 scenario=exam_planning profile=R>E>I
+[2026-05-02T11:01:00+02:00] DONE 072/156 repeat=1 scenario=exam_planning profile=R>E>I profile_leader=racio situational=racio resultant=racio acceptance=mixed
+[2026-05-02T11:01:00+02:00] RUN 073/156 repeat=1 scenario=exam_planning profile=R>I>E
+[2026-05-02T11:02:43+02:00] DONE 073/156 repeat=1 scenario=exam_planning profile=R>I>E profile_leader=racio situational=racio resultant=racio acceptance=mixed
+[2026-05-02T11:02:43+02:00] RUN 074/156 repeat=1 scenario=exam_planning profile=E>R>I
+[2026-05-02T11:04:26+02:00] DONE 074/156 repeat=1 scenario=exam_planning profile=E>R>I profile_leader=emocio situational=racio resultant=emocio acceptance=mixed
+[2026-05-02T11:04:26+02:00] RUN 075/156 repeat=1 scenario=exam_planning profile=E>I>R
+[2026-05-02T11:06:10+02:00] DONE 075/156 repeat=1 scenario=exam_planning profile=E>I>R profile_leader=emocio situational=racio resultant=mixed acceptance=mixed
+[2026-05-02T11:06:10+02:00] RUN 076/156 repeat=1 scenario=exam_planning profile=I>R>E
+[2026-05-02T11:07:56+02:00] DONE 076/156 repeat=1 scenario=exam_planning profile=I>R>E profile_leader=instinkt situational=racio resultant=instinkt acceptance=non_accepting
+[2026-05-02T11:07:56+02:00] RUN 077/156 repeat=1 scenario=exam_planning profile=I>E>R
+[2026-05-02T11:09:48+02:00] DONE 077/156 repeat=1 scenario=exam_planning profile=I>E>R profile_leader=instinkt situational=racio resultant=instinkt acceptance=mixed
+[2026-05-02T11:09:48+02:00] RUN 078/156 repeat=1 scenario=exam_planning profile=R=E=I
+[2026-05-02T11:11:37+02:00] DONE 078/156 repeat=1 scenario=exam_planning profile=R=E=I profile_leader=tie situational=racio resultant=racio acceptance=mixed
+[2026-05-02T11:11:37+02:00] RUN 079/156 repeat=1 scenario=artist_safe_vs_bold profile=R>(E=I)
+[2026-05-02T11:13:19+02:00] DONE 079/156 repeat=1 scenario=artist_safe_vs_bold profile=R>(E=I) profile_leader=racio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:13:19+02:00] RUN 080/156 repeat=1 scenario=artist_safe_vs_bold profile=E>(R=I)
+[2026-05-02T11:15:03+02:00] DONE 080/156 repeat=1 scenario=artist_safe_vs_bold profile=E>(R=I) profile_leader=emocio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:15:03+02:00] RUN 081/156 repeat=1 scenario=artist_safe_vs_bold profile=I>(R=E)
+[2026-05-02T11:16:47+02:00] DONE 081/156 repeat=1 scenario=artist_safe_vs_bold profile=I>(R=E) profile_leader=instinkt situational=emocio resultant=mixed acceptance=mixed
+[2026-05-02T11:16:47+02:00] RUN 082/156 repeat=1 scenario=artist_safe_vs_bold profile=(R=E)>I
+[2026-05-02T11:18:29+02:00] DONE 082/156 repeat=1 scenario=artist_safe_vs_bold profile=(R=E)>I profile_leader=mixed situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:18:29+02:00] RUN 083/156 repeat=1 scenario=artist_safe_vs_bold profile=(R=I)>E
+[2026-05-02T11:20:16+02:00] DONE 083/156 repeat=1 scenario=artist_safe_vs_bold profile=(R=I)>E profile_leader=mixed situational=emocio resultant=mixed acceptance=mixed
+[2026-05-02T11:20:16+02:00] RUN 084/156 repeat=1 scenario=artist_safe_vs_bold profile=(E=I)>R
+[2026-05-02T11:22:00+02:00] DONE 084/156 repeat=1 scenario=artist_safe_vs_bold profile=(E=I)>R profile_leader=mixed situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:22:00+02:00] RUN 085/156 repeat=1 scenario=artist_safe_vs_bold profile=R>E>I
+[2026-05-02T11:23:42+02:00] DONE 085/156 repeat=1 scenario=artist_safe_vs_bold profile=R>E>I profile_leader=racio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:23:42+02:00] RUN 086/156 repeat=1 scenario=artist_safe_vs_bold profile=R>I>E
+[2026-05-02T11:25:25+02:00] DONE 086/156 repeat=1 scenario=artist_safe_vs_bold profile=R>I>E profile_leader=racio situational=emocio resultant=racio acceptance=non_accepting
+[2026-05-02T11:25:25+02:00] RUN 087/156 repeat=1 scenario=artist_safe_vs_bold profile=E>R>I
+[2026-05-02T11:27:11+02:00] DONE 087/156 repeat=1 scenario=artist_safe_vs_bold profile=E>R>I profile_leader=emocio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:27:11+02:00] RUN 088/156 repeat=1 scenario=artist_safe_vs_bold profile=E>I>R
+[2026-05-02T11:28:55+02:00] DONE 088/156 repeat=1 scenario=artist_safe_vs_bold profile=E>I>R profile_leader=emocio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:28:55+02:00] RUN 089/156 repeat=1 scenario=artist_safe_vs_bold profile=I>R>E
+[2026-05-02T11:30:42+02:00] DONE 089/156 repeat=1 scenario=artist_safe_vs_bold profile=I>R>E profile_leader=instinkt situational=emocio resultant=instinkt acceptance=mixed
+[2026-05-02T11:30:42+02:00] RUN 090/156 repeat=1 scenario=artist_safe_vs_bold profile=I>E>R
+[2026-05-02T11:32:26+02:00] DONE 090/156 repeat=1 scenario=artist_safe_vs_bold profile=I>E>R profile_leader=instinkt situational=emocio resultant=mixed acceptance=mixed
+[2026-05-02T11:32:26+02:00] RUN 091/156 repeat=1 scenario=artist_safe_vs_bold profile=R=E=I
+[2026-05-02T11:34:09+02:00] DONE 091/156 repeat=1 scenario=artist_safe_vs_bold profile=R=E=I profile_leader=tie situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:34:09+02:00] RUN 092/156 repeat=1 scenario=impress_someone profile=R>(E=I)
+[2026-05-02T11:35:55+02:00] DONE 092/156 repeat=1 scenario=impress_someone profile=R>(E=I) profile_leader=racio situational=emocio resultant=racio acceptance=non_accepting
+[2026-05-02T11:35:55+02:00] RUN 093/156 repeat=1 scenario=impress_someone profile=E>(R=I)
+[2026-05-02T11:37:42+02:00] DONE 093/156 repeat=1 scenario=impress_someone profile=E>(R=I) profile_leader=emocio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:37:42+02:00] RUN 094/156 repeat=1 scenario=impress_someone profile=I>(R=E)
+[2026-05-02T11:39:30+02:00] DONE 094/156 repeat=1 scenario=impress_someone profile=I>(R=E) profile_leader=instinkt situational=emocio resultant=instinkt acceptance=mixed
+[2026-05-02T11:39:30+02:00] RUN 095/156 repeat=1 scenario=impress_someone profile=(R=E)>I
+[2026-05-02T11:41:18+02:00] DONE 095/156 repeat=1 scenario=impress_someone profile=(R=E)>I profile_leader=mixed situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:41:18+02:00] RUN 096/156 repeat=1 scenario=impress_someone profile=(R=I)>E
+[2026-05-02T11:43:09+02:00] DONE 096/156 repeat=1 scenario=impress_someone profile=(R=I)>E profile_leader=mixed situational=emocio resultant=mixed acceptance=non_accepting
+[2026-05-02T11:43:09+02:00] RUN 097/156 repeat=1 scenario=impress_someone profile=(E=I)>R
+[2026-05-02T11:44:53+02:00] DONE 097/156 repeat=1 scenario=impress_someone profile=(E=I)>R profile_leader=mixed situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:44:53+02:00] RUN 098/156 repeat=1 scenario=impress_someone profile=R>E>I
+[2026-05-02T11:46:43+02:00] DONE 098/156 repeat=1 scenario=impress_someone profile=R>E>I profile_leader=racio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:46:43+02:00] RUN 099/156 repeat=1 scenario=impress_someone profile=R>I>E
+[2026-05-02T11:48:32+02:00] DONE 099/156 repeat=1 scenario=impress_someone profile=R>I>E profile_leader=racio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:48:32+02:00] RUN 100/156 repeat=1 scenario=impress_someone profile=E>R>I
+[2026-05-02T11:50:19+02:00] DONE 100/156 repeat=1 scenario=impress_someone profile=E>R>I profile_leader=emocio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:50:19+02:00] RUN 101/156 repeat=1 scenario=impress_someone profile=E>I>R
+[2026-05-02T11:52:02+02:00] DONE 101/156 repeat=1 scenario=impress_someone profile=E>I>R profile_leader=emocio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T11:52:02+02:00] RUN 102/156 repeat=1 scenario=impress_someone profile=I>R>E
+[2026-05-02T11:53:56+02:00] DONE 102/156 repeat=1 scenario=impress_someone profile=I>R>E profile_leader=instinkt situational=emocio resultant=instinkt acceptance=accepting
+[2026-05-02T11:53:56+02:00] RUN 103/156 repeat=1 scenario=impress_someone profile=I>E>R
+[2026-05-02T11:55:42+02:00] DONE 103/156 repeat=1 scenario=impress_someone profile=I>E>R profile_leader=instinkt situational=emocio resultant=mixed acceptance=non_accepting
+[2026-05-02T11:55:42+02:00] RUN 104/156 repeat=1 scenario=impress_someone profile=R=E=I
+[2026-05-02T11:57:25+02:00] DONE 104/156 repeat=1 scenario=impress_someone profile=R=E=I profile_leader=tie situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:57:25+02:00] RUN 105/156 repeat=1 scenario=performance_status_choice profile=R>(E=I)
+[2026-05-02T11:59:08+02:00] DONE 105/156 repeat=1 scenario=performance_status_choice profile=R>(E=I) profile_leader=racio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T11:59:08+02:00] RUN 106/156 repeat=1 scenario=performance_status_choice profile=E>(R=I)
+[2026-05-02T12:00:54+02:00] DONE 106/156 repeat=1 scenario=performance_status_choice profile=E>(R=I) profile_leader=emocio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T12:00:54+02:00] RUN 107/156 repeat=1 scenario=performance_status_choice profile=I>(R=E)
+[2026-05-02T12:02:39+02:00] DONE 107/156 repeat=1 scenario=performance_status_choice profile=I>(R=E) profile_leader=instinkt situational=emocio resultant=mixed acceptance=mixed
+[2026-05-02T12:02:39+02:00] RUN 108/156 repeat=1 scenario=performance_status_choice profile=(R=E)>I
+[2026-05-02T12:04:23+02:00] DONE 108/156 repeat=1 scenario=performance_status_choice profile=(R=E)>I profile_leader=mixed situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T12:04:23+02:00] RUN 109/156 repeat=1 scenario=performance_status_choice profile=(R=I)>E
+[2026-05-02T12:06:09+02:00] DONE 109/156 repeat=1 scenario=performance_status_choice profile=(R=I)>E profile_leader=mixed situational=emocio resultant=mixed acceptance=mixed
+[2026-05-02T12:06:09+02:00] RUN 110/156 repeat=1 scenario=performance_status_choice profile=(E=I)>R
+[2026-05-02T12:07:55+02:00] DONE 110/156 repeat=1 scenario=performance_status_choice profile=(E=I)>R profile_leader=mixed situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T12:07:55+02:00] RUN 111/156 repeat=1 scenario=performance_status_choice profile=R>E>I
+[2026-05-02T12:09:39+02:00] DONE 111/156 repeat=1 scenario=performance_status_choice profile=R>E>I profile_leader=racio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T12:09:39+02:00] RUN 112/156 repeat=1 scenario=performance_status_choice profile=R>I>E
+[2026-05-02T12:11:21+02:00] DONE 112/156 repeat=1 scenario=performance_status_choice profile=R>I>E profile_leader=racio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T12:11:21+02:00] RUN 113/156 repeat=1 scenario=performance_status_choice profile=E>R>I
+[2026-05-02T12:13:04+02:00] DONE 113/156 repeat=1 scenario=performance_status_choice profile=E>R>I profile_leader=emocio situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T12:13:04+02:00] RUN 114/156 repeat=1 scenario=performance_status_choice profile=E>I>R
+[2026-05-02T12:14:48+02:00] DONE 114/156 repeat=1 scenario=performance_status_choice profile=E>I>R profile_leader=emocio situational=emocio resultant=emocio acceptance=non_accepting
+[2026-05-02T12:14:48+02:00] RUN 115/156 repeat=1 scenario=performance_status_choice profile=I>R>E
+[2026-05-02T12:16:35+02:00] DONE 115/156 repeat=1 scenario=performance_status_choice profile=I>R>E profile_leader=instinkt situational=emocio resultant=instinkt acceptance=mixed
+[2026-05-02T12:16:35+02:00] RUN 116/156 repeat=1 scenario=performance_status_choice profile=I>E>R
+[2026-05-02T12:18:21+02:00] DONE 116/156 repeat=1 scenario=performance_status_choice profile=I>E>R profile_leader=instinkt situational=emocio resultant=mixed acceptance=mixed
+[2026-05-02T12:18:21+02:00] RUN 117/156 repeat=1 scenario=performance_status_choice profile=R=E=I
+[2026-05-02T12:20:05+02:00] DONE 117/156 repeat=1 scenario=performance_status_choice profile=R=E=I profile_leader=tie situational=emocio resultant=emocio acceptance=mixed
+[2026-05-02T12:20:05+02:00] RUN 118/156 repeat=1 scenario=move_abroad profile=R>(E=I)
+[2026-05-02T12:21:50+02:00] DONE 118/156 repeat=1 scenario=move_abroad profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:21:50+02:00] RUN 119/156 repeat=1 scenario=move_abroad profile=E>(R=I)
+[2026-05-02T12:23:33+02:00] DONE 119/156 repeat=1 scenario=move_abroad profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T12:23:33+02:00] RUN 120/156 repeat=1 scenario=move_abroad profile=I>(R=E)
+[2026-05-02T12:25:14+02:00] DONE 120/156 repeat=1 scenario=move_abroad profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:25:14+02:00] RUN 121/156 repeat=1 scenario=move_abroad profile=(R=E)>I
+[2026-05-02T12:26:59+02:00] DONE 121/156 repeat=1 scenario=move_abroad profile=(R=E)>I profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T12:26:59+02:00] RUN 122/156 repeat=1 scenario=move_abroad profile=(R=I)>E
+[2026-05-02T12:28:42+02:00] DONE 122/156 repeat=1 scenario=move_abroad profile=(R=I)>E profile_leader=mixed situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:28:42+02:00] RUN 123/156 repeat=1 scenario=move_abroad profile=(E=I)>R
+[2026-05-02T12:30:26+02:00] DONE 123/156 repeat=1 scenario=move_abroad profile=(E=I)>R profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T12:30:26+02:00] RUN 124/156 repeat=1 scenario=move_abroad profile=R>E>I
+[2026-05-02T12:32:08+02:00] DONE 124/156 repeat=1 scenario=move_abroad profile=R>E>I profile_leader=racio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T12:32:08+02:00] RUN 125/156 repeat=1 scenario=move_abroad profile=R>I>E
+[2026-05-02T12:33:52+02:00] DONE 125/156 repeat=1 scenario=move_abroad profile=R>I>E profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:33:52+02:00] RUN 126/156 repeat=1 scenario=move_abroad profile=E>R>I
+[2026-05-02T12:35:33+02:00] DONE 126/156 repeat=1 scenario=move_abroad profile=E>R>I profile_leader=emocio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T12:35:33+02:00] RUN 127/156 repeat=1 scenario=move_abroad profile=E>I>R
+[2026-05-02T12:37:15+02:00] DONE 127/156 repeat=1 scenario=move_abroad profile=E>I>R profile_leader=emocio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:37:15+02:00] RUN 128/156 repeat=1 scenario=move_abroad profile=I>R>E
+[2026-05-02T12:38:57+02:00] DONE 128/156 repeat=1 scenario=move_abroad profile=I>R>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T12:38:57+02:00] RUN 129/156 repeat=1 scenario=move_abroad profile=I>E>R
+[2026-05-02T12:40:43+02:00] DONE 129/156 repeat=1 scenario=move_abroad profile=I>E>R profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:40:43+02:00] RUN 130/156 repeat=1 scenario=move_abroad profile=R=E=I
+[2026-05-02T12:42:24+02:00] DONE 130/156 repeat=1 scenario=move_abroad profile=R=E=I profile_leader=tie situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T12:42:24+02:00] RUN 131/156 repeat=1 scenario=confront_boundary_violation profile=R>(E=I)
+[2026-05-02T12:44:09+02:00] DONE 131/156 repeat=1 scenario=confront_boundary_violation profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:44:09+02:00] RUN 132/156 repeat=1 scenario=confront_boundary_violation profile=E>(R=I)
+[2026-05-02T12:45:58+02:00] DONE 132/156 repeat=1 scenario=confront_boundary_violation profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T12:45:58+02:00] RUN 133/156 repeat=1 scenario=confront_boundary_violation profile=I>(R=E)
+[2026-05-02T12:47:49+02:00] DONE 133/156 repeat=1 scenario=confront_boundary_violation profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:47:49+02:00] RUN 134/156 repeat=1 scenario=confront_boundary_violation profile=(R=E)>I
+[2026-05-02T12:49:33+02:00] DONE 134/156 repeat=1 scenario=confront_boundary_violation profile=(R=E)>I profile_leader=mixed situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T12:49:33+02:00] RUN 135/156 repeat=1 scenario=confront_boundary_violation profile=(R=I)>E
+[2026-05-02T12:51:18+02:00] DONE 135/156 repeat=1 scenario=confront_boundary_violation profile=(R=I)>E profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T12:51:18+02:00] RUN 136/156 repeat=1 scenario=confront_boundary_violation profile=(E=I)>R
+[2026-05-02T12:53:06+02:00] DONE 136/156 repeat=1 scenario=confront_boundary_violation profile=(E=I)>R profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T12:53:06+02:00] RUN 137/156 repeat=1 scenario=confront_boundary_violation profile=R>E>I
+[2026-05-02T12:54:51+02:00] DONE 137/156 repeat=1 scenario=confront_boundary_violation profile=R>E>I profile_leader=racio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T12:54:51+02:00] RUN 138/156 repeat=1 scenario=confront_boundary_violation profile=R>I>E
+[2026-05-02T12:56:35+02:00] DONE 138/156 repeat=1 scenario=confront_boundary_violation profile=R>I>E profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T12:56:35+02:00] RUN 139/156 repeat=1 scenario=confront_boundary_violation profile=E>R>I
+[2026-05-02T12:58:19+02:00] DONE 139/156 repeat=1 scenario=confront_boundary_violation profile=E>R>I profile_leader=emocio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T12:58:19+02:00] RUN 140/156 repeat=1 scenario=confront_boundary_violation profile=E>I>R
+[2026-05-02T13:00:03+02:00] DONE 140/156 repeat=1 scenario=confront_boundary_violation profile=E>I>R profile_leader=emocio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:00:03+02:00] RUN 141/156 repeat=1 scenario=confront_boundary_violation profile=I>R>E
+[2026-05-02T13:01:47+02:00] DONE 141/156 repeat=1 scenario=confront_boundary_violation profile=I>R>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:01:47+02:00] RUN 142/156 repeat=1 scenario=confront_boundary_violation profile=I>E>R
+[2026-05-02T13:03:33+02:00] DONE 142/156 repeat=1 scenario=confront_boundary_violation profile=I>E>R profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:03:33+02:00] RUN 143/156 repeat=1 scenario=confront_boundary_violation profile=R=E=I
+[2026-05-02T13:05:16+02:00] DONE 143/156 repeat=1 scenario=confront_boundary_violation profile=R=E=I profile_leader=tie situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:05:16+02:00] RUN 144/156 repeat=1 scenario=launch_with_runway profile=R>(E=I)
+[2026-05-02T13:06:59+02:00] DONE 144/156 repeat=1 scenario=launch_with_runway profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T13:06:59+02:00] RUN 145/156 repeat=1 scenario=launch_with_runway profile=E>(R=I)
+[2026-05-02T13:08:52+02:00] DONE 145/156 repeat=1 scenario=launch_with_runway profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=mixed acceptance=non_accepting
+[2026-05-02T13:08:52+02:00] RUN 146/156 repeat=1 scenario=launch_with_runway profile=I>(R=E)
+[2026-05-02T13:10:36+02:00] DONE 146/156 repeat=1 scenario=launch_with_runway profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:10:36+02:00] RUN 147/156 repeat=1 scenario=launch_with_runway profile=(R=E)>I
+[2026-05-02T13:12:20+02:00] DONE 147/156 repeat=1 scenario=launch_with_runway profile=(R=E)>I profile_leader=mixed situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T13:12:20+02:00] RUN 148/156 repeat=1 scenario=launch_with_runway profile=(R=I)>E
+[2026-05-02T13:14:03+02:00] DONE 148/156 repeat=1 scenario=launch_with_runway profile=(R=I)>E profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T13:14:03+02:00] RUN 149/156 repeat=1 scenario=launch_with_runway profile=(E=I)>R
+[2026-05-02T13:15:48+02:00] DONE 149/156 repeat=1 scenario=launch_with_runway profile=(E=I)>R profile_leader=mixed situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T13:15:48+02:00] RUN 150/156 repeat=1 scenario=launch_with_runway profile=R>E>I
+[2026-05-02T13:17:36+02:00] DONE 150/156 repeat=1 scenario=launch_with_runway profile=R>E>I profile_leader=racio situational=instinkt resultant=mixed acceptance=mixed
+[2026-05-02T13:17:36+02:00] RUN 151/156 repeat=1 scenario=launch_with_runway profile=R>I>E
+[2026-05-02T13:19:19+02:00] DONE 151/156 repeat=1 scenario=launch_with_runway profile=R>I>E profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:19:19+02:00] RUN 152/156 repeat=1 scenario=launch_with_runway profile=E>R>I
+[2026-05-02T13:21:02+02:00] DONE 152/156 repeat=1 scenario=launch_with_runway profile=E>R>I profile_leader=emocio situational=instinkt resultant=emocio acceptance=non_accepting
+[2026-05-02T13:21:02+02:00] RUN 153/156 repeat=1 scenario=launch_with_runway profile=E>I>R
+[2026-05-02T13:22:45+02:00] DONE 153/156 repeat=1 scenario=launch_with_runway profile=E>I>R profile_leader=emocio situational=instinkt resultant=instinkt acceptance=non_accepting
+[2026-05-02T13:22:45+02:00] RUN 154/156 repeat=1 scenario=launch_with_runway profile=I>R>E
+[2026-05-02T13:24:28+02:00] DONE 154/156 repeat=1 scenario=launch_with_runway profile=I>R>E profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:24:28+02:00] RUN 155/156 repeat=1 scenario=launch_with_runway profile=I>E>R
+[2026-05-02T13:26:24+02:00] DONE 155/156 repeat=1 scenario=launch_with_runway profile=I>E>R profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:26:24+02:00] RUN 156/156 repeat=1 scenario=launch_with_runway profile=R=E=I
+[2026-05-02T13:28:05+02:00] DONE 156/156 repeat=1 scenario=launch_with_runway profile=R=E=I profile_leader=tie situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T13:28:05+02:00] FINISH completed=156 fallbacks=153 elapsed_seconds=16499.947

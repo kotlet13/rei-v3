@@ -1,0 +1,349 @@
+{
+  "total_cases": 156,
+  "fallback_count": 153,
+  "instinkt_dominance_ratio": 0.4359,
+  "racio_dominance_ratio": 0.1218,
+  "emocio_dominance_ratio": 0.2179,
+  "mixed_dominance_ratio": 0.2244,
+  "profile_sensitivity_score": 0.8889,
+  "scenario_sensitivity_score": 1.0,
+  "enum_normalization_errors": 0,
+  "average_llm_time_ms": 23945,
+  "resultant_counts": {
+    "instinkt": 68,
+    "mixed": 35,
+    "emocio": 34,
+    "racio": 19
+  },
+  "profile_leader_counts": {
+    "racio": 37,
+    "emocio": 36,
+    "instinkt": 37,
+    "mixed": 34,
+    "tie": 12
+  },
+  "situational_driver_counts": {
+    "instinkt": 78,
+    "racio": 38,
+    "emocio": 40
+  },
+  "behavioral_alignment_counts": {
+    "split": 65,
+    "ambivalent": 61,
+    "aligned": 30
+  },
+  "acceptance_quality_counts": {
+    "mixed": 95,
+    "non_accepting": 60,
+    "accepting": 1
+  },
+  "per_scenario": {
+    "job_quit_business_delay": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 4,
+        "mixed": 2,
+        "tie": 1
+      },
+      "situational_driver": {
+        "instinkt": 13
+      },
+      "resultant_leader_under_pressure": {
+        "instinkt": 9,
+        "mixed": 4
+      },
+      "behavioral_alignment": {
+        "split": 4,
+        "ambivalent": 8,
+        "aligned": 1
+      },
+      "acceptance_quality": {
+        "mixed": 10,
+        "non_accepting": 3
+      }
+    },
+    "public_talk_freeze": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "instinkt": 13
+      },
+      "resultant_leader_under_pressure": {
+        "instinkt": 10,
+        "mixed": 3
+      },
+      "behavioral_alignment": {
+        "aligned": 10,
+        "ambivalent": 3
+      },
+      "acceptance_quality": {
+        "mixed": 10,
+        "non_accepting": 3
+      }
+    },
+    "relationship_return": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "instinkt": 13
+      },
+      "resultant_leader_under_pressure": {
+        "instinkt": 8,
+        "mixed": 4,
+        "emocio": 1
+      },
+      "behavioral_alignment": {
+        "aligned": 11,
+        "ambivalent": 2
+      },
+      "acceptance_quality": {
+        "non_accepting": 13
+      }
+    },
+    "architecture_choice": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "racio": 13
+      },
+      "resultant_leader_under_pressure": {
+        "racio": 6,
+        "mixed": 3,
+        "instinkt": 3,
+        "emocio": 1
+      },
+      "behavioral_alignment": {
+        "split": 7,
+        "ambivalent": 6
+      },
+      "acceptance_quality": {
+        "mixed": 10,
+        "non_accepting": 3
+      }
+    },
+    "budget_allocation": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "racio": 13
+      },
+      "resultant_leader_under_pressure": {
+        "racio": 6,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 1
+      },
+      "behavioral_alignment": {
+        "ambivalent": 5,
+        "split": 8
+      },
+      "acceptance_quality": {
+        "non_accepting": 4,
+        "mixed": 9
+      }
+    },
+    "exam_planning": {
+      "profile_leader": {
+        "racio": 4,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 2,
+        "tie": 1
+      },
+      "situational_driver": {
+        "racio": 12,
+        "emocio": 1
+      },
+      "resultant_leader_under_pressure": {
+        "racio": 5,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 2
+      },
+      "behavioral_alignment": {
+        "split": 9,
+        "ambivalent": 4
+      },
+      "acceptance_quality": {
+        "non_accepting": 5,
+        "mixed": 8
+      }
+    },
+    "artist_safe_vs_bold": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "emocio": 13
+      },
+      "resultant_leader_under_pressure": {
+        "emocio": 8,
+        "mixed": 3,
+        "racio": 1,
+        "instinkt": 1
+      },
+      "behavioral_alignment": {
+        "split": 9,
+        "ambivalent": 4
+      },
+      "acceptance_quality": {
+        "mixed": 9,
+        "non_accepting": 4
+      }
+    },
+    "impress_someone": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "emocio": 13
+      },
+      "resultant_leader_under_pressure": {
+        "racio": 1,
+        "emocio": 8,
+        "instinkt": 2,
+        "mixed": 2
+      },
+      "behavioral_alignment": {
+        "split": 7,
+        "aligned": 3,
+        "ambivalent": 3
+      },
+      "acceptance_quality": {
+        "non_accepting": 6,
+        "mixed": 6,
+        "accepting": 1
+      }
+    },
+    "performance_status_choice": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "emocio": 13
+      },
+      "resultant_leader_under_pressure": {
+        "emocio": 9,
+        "mixed": 3,
+        "instinkt": 1
+      },
+      "behavioral_alignment": {
+        "split": 9,
+        "ambivalent": 3,
+        "aligned": 1
+      },
+      "acceptance_quality": {
+        "non_accepting": 4,
+        "mixed": 9
+      }
+    },
+    "move_abroad": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "instinkt": 13
+      },
+      "resultant_leader_under_pressure": {
+        "instinkt": 10,
+        "mixed": 3
+      },
+      "behavioral_alignment": {
+        "aligned": 2,
+        "ambivalent": 6,
+        "split": 5
+      },
+      "acceptance_quality": {
+        "mixed": 6,
+        "non_accepting": 7
+      }
+    },
+    "confront_boundary_violation": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "instinkt": 13
+      },
+      "resultant_leader_under_pressure": {
+        "instinkt": 9,
+        "mixed": 4
+      },
+      "behavioral_alignment": {
+        "ambivalent": 11,
+        "aligned": 2
+      },
+      "acceptance_quality": {
+        "mixed": 11,
+        "non_accepting": 2
+      }
+    },
+    "launch_with_runway": {
+      "profile_leader": {
+        "racio": 3,
+        "emocio": 3,
+        "instinkt": 3,
+        "mixed": 3,
+        "tie": 1
+      },
+      "situational_driver": {
+        "instinkt": 13
+      },
+      "resultant_leader_under_pressure": {
+        "instinkt": 9,
+        "mixed": 3,
+        "emocio": 1
+      },
+      "behavioral_alignment": {
+        "ambivalent": 6,
+        "split": 7
+      },
+      "acceptance_quality": {
+        "non_accepting": 6,
+        "mixed": 7
+      }
+    }
+  },
+  "warnings": []
+}

@@ -1,0 +1,288 @@
+[
+  {
+    "character_id": "REI",
+    "elapsed_s": 55.3,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "decision": {
+      "options": [
+        "software engineer",
+        "UX designer",
+        "cybersecurity analyst",
+        "clinical psychologist",
+        "brand strategist",
+        "teacher",
+        "emergency nurse",
+        "lawyer",
+        "product manager",
+        "performer"
+      ],
+      "chosen_option": "brand strategist",
+      "confidence": 0.685,
+      "ranking": [
+        {
+          "option": "brand strategist",
+          "score": 0.842
+        },
+        {
+          "option": "UX designer",
+          "score": 0.724
+        },
+        {
+          "option": "product manager",
+          "score": 0.718
+        },
+        {
+          "option": "clinical psychologist",
+          "score": 0.702
+        },
+        {
+          "option": "performer",
+          "score": 0.663
+        },
+        {
+          "option": "software engineer",
+          "score": 0.658
+        },
+        {
+          "option": "lawyer",
+          "score": 0.644
+        },
+        {
+          "option": "cybersecurity analyst",
+          "score": 0.642
+        },
+        {
+          "option": "teacher",
+          "score": 0.64
+        },
+        {
+          "option": "emergency nurse",
+          "score": 0.58
+        }
+      ],
+      "mind_votes": [
+        {
+          "mind_id": "R",
+          "chosen_option": "software engineer",
+          "score": 0.9,
+          "rationale": "Racio votes for software engineer because it best preserves structure, status, and executable planning."
+        },
+        {
+          "mind_id": "E",
+          "chosen_option": "performer",
+          "score": 0.97,
+          "rationale": "Emocio votes for performer because it offers expression, contact, and a vivid self-image."
+        },
+        {
+          "mind_id": "I",
+          "chosen_option": "cybersecurity analyst",
+          "score": 0.97,
+          "rationale": "Instinkt votes for cybersecurity analyst because it best reduces risk and protects the future boundary."
+        }
+      ],
+      "rationale": "R+E coalition selects brand strategist; I is blocked by the current conflict rule."
+    },
+    "first_sentence": "I choose brand strategist to merge the structural stability my family requires with the creative visibility I desperately need to feel alive.",
+    "final": "I choose brand strategist to merge the structural stability my family requires with the creative visibility I desperately need to feel alive.",
+    "voices": {
+      "R": "I will choose product manager to combine strategy, creativity, and stability.",
+      "E": "Let the creative image burn through the fear of closure and claim the visible path.",
+      "I": "Their respect is a shield; my truth is the blade I’m afraid to draw."
+    }
+  },
+  {
+    "character_id": "R",
+    "elapsed_s": 54.5,
+    "fallback_count": 0,
+    "coalition": [
+      "R"
+    ],
+    "blocked": "E",
+    "decision": {
+      "options": [
+        "software engineer",
+        "UX designer",
+        "cybersecurity analyst",
+        "clinical psychologist",
+        "brand strategist",
+        "teacher",
+        "emergency nurse",
+        "lawyer",
+        "product manager",
+        "performer"
+      ],
+      "chosen_option": "software engineer",
+      "confidence": 0.548,
+      "ranking": [
+        {
+          "option": "software engineer",
+          "score": 0.853
+        },
+        {
+          "option": "brand strategist",
+          "score": 0.833
+        },
+        {
+          "option": "product manager",
+          "score": 0.82
+        },
+        {
+          "option": "lawyer",
+          "score": 0.807
+        },
+        {
+          "option": "cybersecurity analyst",
+          "score": 0.781
+        },
+        {
+          "option": "UX designer",
+          "score": 0.666
+        },
+        {
+          "option": "clinical psychologist",
+          "score": 0.637
+        },
+        {
+          "option": "teacher",
+          "score": 0.585
+        },
+        {
+          "option": "emergency nurse",
+          "score": 0.54
+        },
+        {
+          "option": "performer",
+          "score": 0.445
+        }
+      ],
+      "mind_votes": [
+        {
+          "mind_id": "R",
+          "chosen_option": "software engineer",
+          "score": 0.9,
+          "rationale": "Racio votes for software engineer because it best preserves structure, status, and executable planning."
+        },
+        {
+          "mind_id": "E",
+          "chosen_option": "performer",
+          "score": 0.97,
+          "rationale": "Emocio votes for performer because it offers expression, contact, and a vivid self-image."
+        },
+        {
+          "mind_id": "I",
+          "chosen_option": "cybersecurity analyst",
+          "score": 0.97,
+          "rationale": "Instinkt votes for cybersecurity analyst because it best reduces risk and protects the future boundary."
+        }
+      ],
+      "rationale": "R coalition selects software engineer; E is blocked by the current conflict rule."
+    },
+    "first_sentence": "I choose software engineer to build a stable foundation that honors my family's expectations while allowing me to solve complex, tangible problems.",
+    "final": "I choose software engineer to build a stable foundation that honors my family's expectations while allowing me to solve complex, tangible problems.",
+    "voices": {
+      "R": "I will choose product manager to combine strategy, creativity, and stability.",
+      "E": "Create something visible that breaks the silence and touches hearts.",
+      "I": "Safe choices cage you; unstable ones break you—find the edge where neither wins."
+    }
+  },
+  {
+    "character_id": "I",
+    "elapsed_s": 54.1,
+    "fallback_count": 0,
+    "coalition": [
+      "I"
+    ],
+    "blocked": "E",
+    "decision": {
+      "options": [
+        "software engineer",
+        "UX designer",
+        "cybersecurity analyst",
+        "clinical psychologist",
+        "brand strategist",
+        "teacher",
+        "emergency nurse",
+        "lawyer",
+        "product manager",
+        "performer"
+      ],
+      "chosen_option": "cybersecurity analyst",
+      "confidence": 0.643,
+      "ranking": [
+        {
+          "option": "cybersecurity analyst",
+          "score": 0.927
+        },
+        {
+          "option": "emergency nurse",
+          "score": 0.839
+        },
+        {
+          "option": "lawyer",
+          "score": 0.777
+        },
+        {
+          "option": "clinical psychologist",
+          "score": 0.713
+        },
+        {
+          "option": "software engineer",
+          "score": 0.654
+        },
+        {
+          "option": "brand strategist",
+          "score": 0.595
+        },
+        {
+          "option": "product manager",
+          "score": 0.582
+        },
+        {
+          "option": "teacher",
+          "score": 0.569
+        },
+        {
+          "option": "UX designer",
+          "score": 0.49
+        },
+        {
+          "option": "performer",
+          "score": 0.445
+        }
+      ],
+      "mind_votes": [
+        {
+          "mind_id": "R",
+          "chosen_option": "software engineer",
+          "score": 0.9,
+          "rationale": "Racio votes for software engineer because it best preserves structure, status, and executable planning."
+        },
+        {
+          "mind_id": "E",
+          "chosen_option": "performer",
+          "score": 0.97,
+          "rationale": "Emocio votes for performer because it offers expression, contact, and a vivid self-image."
+        },
+        {
+          "mind_id": "I",
+          "chosen_option": "cybersecurity analyst",
+          "score": 0.97,
+          "rationale": "Instinkt votes for cybersecurity analyst because it best reduces risk and protects the future boundary."
+        }
+      ],
+      "rationale": "I coalition selects cybersecurity analyst; E is blocked by the current conflict rule."
+    },
+    "first_sentence": "I choose cybersecurity analyst to secure the future boundary while maintaining the practical respect my family demands.",
+    "final": "I choose cybersecurity analyst to secure the future boundary while maintaining the practical respect my family demands.",
+    "voices": {
+      "R": "I will choose product manager to combine strategy, creativity, and stability.",
+      "E": "Choose the work that pulses with life and let the fear fade into the moment.",
+      "I": "Safe enough to hide in, sharp enough to cut through their expectations—what’s the edge?"
+    }
+  }
+]

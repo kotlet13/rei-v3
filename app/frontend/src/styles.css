@@ -547,6 +547,53 @@ input[type="range"] {
   padding: 18px;
 }
 
+.cycle-result-grid {
+  align-items: stretch;
+}
+
+.cycle-drivers-panel,
+.cycle-acceptance-panel,
+.cycle-prediction-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.driver-list {
+  display: grid;
+  gap: 9px;
+}
+
+.cycle-feedback-panel {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 18px;
+}
+
+.cycle-feedback-panel .panel-header {
+  margin-bottom: 0;
+}
+
+.cycle-feedback-panel .panel-header span {
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.feedback-text {
+  grid-column: span 2;
+}
+
+.feedback-text textarea {
+  min-height: 86px;
+}
+
 .metric {
   display: grid;
   gap: 8px;
@@ -969,6 +1016,7 @@ blockquote {
   .result-grid,
   .simple-result-grid,
   .integration-grid,
+  .feedback-grid,
   .voices-grid {
     grid-template-columns: 1fr;
   }
@@ -982,6 +1030,10 @@ blockquote {
   .provider-panel .diagnostics,
   .provider-panel .error-box {
     grid-column: 1 / -1;
+  }
+
+  .feedback-text {
+    grid-column: auto;
   }
 }
 

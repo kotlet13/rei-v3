@@ -257,8 +257,31 @@ class SimulateResponse(ApiModel):
 
 
 MindName = Literal["racio", "emocio", "instinkt"]
+MindNameExtended = Literal["racio", "emocio", "instinkt", "mixed", "unknown", "tie"]
 AcceptanceLevel = Literal["accepting", "mixed", "conflicted", "unknown"]
 AcceptanceMode = Literal["unknown", "accepting", "mixed", "conflicted"]
+BehavioralAlignment = Literal["aligned", "split", "ambivalent", "unknown"]
+AcceptanceQuality = Literal["accepting", "non_accepting", "mixed", "unknown"]
+RacioRole = Literal["clear_analysis", "rationalizer", "overcontroller", "translator", "suppressed", "unknown"]
+EmocioRole = Literal[
+    "motivator",
+    "image_hunger",
+    "shame_driver",
+    "status_driver",
+    "connector",
+    "suppressed",
+    "unknown",
+]
+InstinktRole = Literal[
+    "protector",
+    "freeze_driver",
+    "boundary_guard",
+    "panic_driver",
+    "attachment_guard",
+    "suppressed",
+    "unknown",
+]
+DecisionStability = Literal["stable", "fragile", "unstable", "unknown"]
 
 
 class REISignal(ApiModel):
@@ -331,14 +354,29 @@ class AcceptanceAssessment(ApiModel):
     main_conflict: str
     likely_sabotage_point: str
     task_delegation: dict[str, str]
+    behavioral_alignment: BehavioralAlignment = "unknown"
+    acceptance_quality: AcceptanceQuality = "unknown"
+    non_acceptance_pattern: str = ""
+    coalition_pattern: str = ""
+    sabotage_mechanism: str = ""
 
 
 class EgoResultant(ApiModel):
     character_profile: str
     influence_weights: dict[str, float]
-    leading_mind: str
-    resisting_mind: str
-    ignored_or_misrepresented_mind: str
+    leading_mind: MindNameExtended
+    resisting_mind: MindNameExtended
+    ignored_or_misrepresented_mind: MindNameExtended
+    profile_leader: MindNameExtended = "unknown"
+    profile_leader_minds: list[MindName] = Field(default_factory=list)
+    situational_driver: MindNameExtended = "unknown"
+    resultant_leader_under_pressure: MindNameExtended = "unknown"
+    profile_influence_explanation: str = ""
+    racio_role: RacioRole = "unknown"
+    emocio_role: EmocioRole = "unknown"
+    instinkt_role: InstinktRole = "unknown"
+    decision_stability: DecisionStability = "unknown"
+    profile_sensitivity_note: str = ""
     conscious_monologue: str
     hidden_driver: str
     acceptance_assessment: str

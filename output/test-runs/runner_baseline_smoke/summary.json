@@ -1,0 +1,18 @@
+{
+  "run_id": "20260502_084831",
+  "provider": "deterministic",
+  "model": "qwen/qwen3.5-9b",
+  "total": 3,
+  "completed": 3,
+  "fallback_count": 0,
+  "elapsed_seconds": 0.003,
+  "jsonl": "output/test-runs/runner_baseline_smoke/results.jsonl",
+  "markdown": "output/test-runs/runner_baseline_smoke/report.md",
+  "aggregate_markdown": "output/test-runs/runner_baseline_smoke/aggregate_summary.md",
+  "aggregate_json": "output/test-runs/runner_baseline_smoke/aggregate_summary.json",
+  "progress": "output/test-runs/runner_baseline_smoke/progress.log",
+  "summary": "output/test-runs/runner_baseline_smoke/summary.json",
+  "warnings": [
+    "WARNING: Instinkt dominance ratio > 0.80. Check scenario balance, prompts, and Ego arbitration."
+  ]
+}

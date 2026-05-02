@@ -1,4 +1,4 @@
-import type { CharacterDefinition, SimulateRequest, SimulateResponse } from "./types";
+import type { CharacterDefinition, REICycleRequest, REICycleResponse, SimulateRequest, SimulateResponse } from "./types";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8010";
 
@@ -29,6 +29,13 @@ export async function getProviders(): Promise<{
 
 export async function simulate(payload: SimulateRequest): Promise<SimulateResponse> {
   return request<SimulateResponse>("/api/v1/simulate", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function runReiCycle(payload: REICycleRequest): Promise<REICycleResponse> {
+  return request<REICycleResponse>("/api/v1/rei-cycle", {
     method: "POST",
     body: JSON.stringify(payload),
   });

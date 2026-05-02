@@ -1,0 +1,135 @@
+[
+  {
+    "character_id": "REI",
+    "elapsed_s": 50.2,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "first_sentence": "I choose product manager to blend the structural stability my family requires with the creative strategy that keeps my spirit alive.",
+    "final": "I choose product manager to blend the structural stability my family requires with the creative strategy that keeps my spirit alive.",
+    "voices": {
+      "R": "I will choose product manager to blend structure with creative strategy.",
+      "E": "I choose the path that burns bright, not the one that keeps me safe.",
+      "I": "Their respect isn’t worth a life you’ll resent by thirty."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "manipulation",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "R",
+    "elapsed_s": 49.6,
+    "fallback_count": 0,
+    "coalition": [
+      "R"
+    ],
+    "blocked": "E",
+    "first_sentence": "I choose clinical psychologist.",
+    "final": "I choose clinical psychologist.",
+    "voices": {
+      "R": "I will evaluate each career by stability, respect, and creative satisfaction, then choose the best fit.",
+      "E": "Choose the path that makes your heart beat faster now.",
+      "I": "Safe choices feel like chains; creative ones like falling—pick the one that doesn’t break you."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "E",
+    "elapsed_s": 48.5,
+    "fallback_count": 0,
+    "coalition": [
+      "E"
+    ],
+    "blocked": "I",
+    "first_sentence": "I choose to become a brand strategist, merging creative vision with market stability.",
+    "final": "I choose to become a brand strategist, merging creative vision with market stability.",
+    "voices": {
+      "R": "I choose to become a brand strategist, merging creative vision with market stability.",
+      "E": "Let the image of creating now break the fear of stability.",
+      "I": "The door won’t open if you don’t test the hinge quietly."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "I",
+    "elapsed_s": 49.5,
+    "fallback_count": 0,
+    "coalition": [
+      "I"
+    ],
+    "blocked": "E",
+    "first_sentence": "I choose product manager.",
+    "final": "I choose product manager.",
+    "voices": {
+      "R": "I will choose product manager to secure stability while engaging in creative strategy.",
+      "E": "I choose the visible path that feels real and alive for me.",
+      "I": "I won’t let them lock me in, but I won’t jump blindly either."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "RI",
+    "elapsed_s": 50.1,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "I"
+    ],
+    "blocked": "E",
+    "first_sentence": "I choose cybersecurity analyst.",
+    "final": "I choose cybersecurity analyst.",
+    "voices": {
+      "R": "I will choose cybersecurity analyst to satisfy both stability and a hint of creative problem solving.",
+      "E": "Step into the role where my work breathes and people see my true light.",
+      "I": "I’ll choose the path that hides my fear best, even if it’s not mine."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "EI",
+    "elapsed_s": 50.6,
+    "fallback_count": 0,
+    "coalition": [
+      "E",
+      "I"
+    ],
+    "blocked": "R",
+    "first_sentence": "I choose performer.",
+    "final": "I choose performer.",
+    "voices": {
+      "R": "I must choose a career that satisfies both family expectations and my creative drive.",
+      "E": "Step into the light and let your true image burn bright.",
+      "I": "What if the safest choice is the one that still lets me breathe?"
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  }
+]

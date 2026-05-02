@@ -179,6 +179,147 @@ export interface ProviderSelection {
   debug_trace: boolean;
 }
 
+export type MindName = "racio" | "emocio" | "instinkt";
+export type MindNameExtended = MindName | "mixed" | "unknown" | "tie";
+export type AcceptanceLevel = "accepting" | "mixed" | "conflicted" | "unknown";
+export type AcceptanceMode = "unknown" | "accepting" | "mixed" | "conflicted";
+export type BehavioralAlignment = "aligned" | "split" | "ambivalent" | "unknown";
+export type AcceptanceQuality = "accepting" | "non_accepting" | "mixed" | "unknown";
+
+export interface REISignal {
+  mind: MindName;
+  is_conscious: boolean;
+  translated_by_racio: boolean;
+  processing_mode: string;
+  perception: string;
+  primary_motive: string;
+  preferred_action: string;
+  accepted_expression: string;
+  non_accepted_expression: string;
+  resistance_to_other_minds: string;
+  what_this_mind_needs: string;
+  risk_if_ignored: string;
+  risk_if_dominant: string;
+  confidence: number;
+  uncertainty: string;
+  safety_flags: string[];
+}
+
+export interface RacioSignal extends REISignal {
+  mind: "racio";
+  is_conscious: true;
+  translated_by_racio: false;
+  known_facts: string[];
+  unknowns: string[];
+  logical_options: string[];
+  timeline_or_sequence: string;
+  rationalization_risk: string;
+}
+
+export interface EmocioSignal extends REISignal {
+  mind: "emocio";
+  is_conscious: false;
+  translated_by_racio: true;
+  current_image: string;
+  desired_image: string;
+  broken_image: string;
+  social_meaning: string;
+  attraction_or_rejection: string;
+  pride_or_shame: string;
+  competition_signal: string;
+  attack_impulse: string;
+}
+
+export interface InstinktSignal extends REISignal {
+  mind: "instinkt";
+  is_conscious: false;
+  translated_by_racio: true;
+  threat_map: string;
+  loss_map: string;
+  body_alarm: string;
+  boundary_issue: string;
+  trust_issue: string;
+  attachment_issue: string;
+  scarcity_signal: string;
+  flight_or_freeze_signal: string;
+  minimum_safety_condition: string;
+}
+
+export interface AcceptanceAssessment {
+  overall_level: AcceptanceLevel;
+  racio_acceptance: string;
+  emocio_acceptance: string;
+  instinkt_acceptance: string;
+  main_conflict: string;
+  likely_sabotage_point: string;
+  task_delegation: Record<string, string>;
+  behavioral_alignment: BehavioralAlignment;
+  acceptance_quality: AcceptanceQuality;
+  non_acceptance_pattern: string;
+  coalition_pattern: string;
+  sabotage_mechanism: string;
+}
+
+export interface EgoResultant {
+  character_profile: string;
+  influence_weights: Record<string, number>;
+  leading_mind: MindNameExtended;
+  resisting_mind: MindNameExtended;
+  ignored_or_misrepresented_mind: MindNameExtended;
+  profile_leader: MindNameExtended;
+  profile_leader_minds: MindName[];
+  situational_driver: MindNameExtended;
+  resultant_leader_under_pressure: MindNameExtended;
+  profile_influence_explanation: string;
+  racio_role: "clear_analysis" | "rationalizer" | "overcontroller" | "translator" | "suppressed" | "unknown";
+  emocio_role: "motivator" | "image_hunger" | "shame_driver" | "status_driver" | "connector" | "suppressed" | "unknown";
+  instinkt_role: "protector" | "freeze_driver" | "boundary_guard" | "panic_driver" | "attachment_guard" | "suppressed" | "unknown";
+  decision_stability: "stable" | "fragile" | "unstable" | "unknown";
+  profile_sensitivity_note: string;
+  conscious_monologue: string;
+  hidden_driver: string;
+  acceptance_assessment: string;
+  main_conflict: string;
+  likely_action_under_pressure: string;
+  racio_justification_afterwards: string;
+  hidden_cost: string;
+  integrated_decision: string;
+  smallest_acceptable_next_step: string;
+  task_delegation: Record<string, string>;
+  prediction_if_racio_rules_alone: string;
+  prediction_if_emocio_rules_alone: string;
+  prediction_if_instinkt_rules_alone: string;
+  uncertainty: string;
+  safety_flags: string[];
+}
+
+export interface REICycleRequest {
+  provider: ProviderSelection;
+  scenario: {
+    title: string;
+    prompt: string;
+  };
+  character_profile: string;
+  acceptance_mode: AcceptanceMode;
+  rounds: number;
+  stream: boolean;
+  use_memory: boolean;
+}
+
+export interface REICycleResponse {
+  mode: "rei_cycle";
+  character_profile: string;
+  situation: Record<string, string>;
+  signals: {
+    racio: RacioSignal;
+    emocio_translated: EmocioSignal;
+    instinkt_translated: InstinktSignal;
+  };
+  acceptance: AcceptanceAssessment;
+  ego_resultant: EgoResultant;
+  diagnostics: Record<string, unknown>;
+}
+
 export interface SimulateRequest {
   provider: ProviderSelection;
   scenario: {

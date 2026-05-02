@@ -1,0 +1,135 @@
+[
+  {
+    "character_id": "REI",
+    "elapsed_s": 44.4,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "first_sentence": "I choose to become a professional illustrator who secures stable contracts through commercial illustration, thereby honoring my creative soul while providing the reliable income my family requires.",
+    "final": "I choose to become a professional illustrator who secures stable contracts through commercial illustration, thereby honoring my creative soul while providing the reliable income my family requires.",
+    "voices": {
+      "R": "I will become a graphic designer, merging art with a reliable income.",
+      "E": "I will choose the art that burns in my soul.",
+      "I": "I need a path that holds me steady when the world pulls apart."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "manipulation",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "R",
+    "elapsed_s": 47.8,
+    "fallback_count": 0,
+    "coalition": [
+      "R"
+    ],
+    "blocked": "E",
+    "first_sentence": "I choose to become a graphic designer, a profession that merges the stability and respectability my family requires with the creative expression my soul demands.",
+    "final": "I choose to become a graphic designer, a profession that merges the stability and respectability my family requires with the creative expression my soul demands.",
+    "voices": {
+      "R": "I will present a clear, data-driven case for my chosen profession, showing its stability and creative value.",
+      "E": "Paint the truth until the walls of their expectations shatter into dust.",
+      "I": "The body knows: stay still or break—choose the break that doesn’t shatter."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "E",
+    "elapsed_s": 49.5,
+    "fallback_count": 0,
+    "coalition": [
+      "E"
+    ],
+    "blocked": "I",
+    "first_sentence": "I choose to become a graphic designer, merging the stability of a clear professional path with the creative expression my hands demand.",
+    "final": "I choose to become a graphic designer, merging the stability of a clear professional path with the creative expression my hands demand.",
+    "voices": {
+      "R": "I will choose to become a graphic designer, blending creativity with a clear career path.",
+      "E": "Paint the future with your own hands and let the colors speak.",
+      "I": "The chest tightens when I imagine their disappointment, but my hands itch to draw."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "I",
+    "elapsed_s": 47.8,
+    "fallback_count": 0,
+    "coalition": [
+      "I"
+    ],
+    "blocked": "E",
+    "first_sentence": "I choose to become a professional illustrator who creates commercial art for advertising and publishing, merging my creative vision with the financial stability my family requires.",
+    "final": "I choose to become a professional illustrator who creates commercial art for advertising and publishing, merging my creative vision with the financial stability my family requires.",
+    "voices": {
+      "R": "I must decide on a profession that balances respectability and creativity, even if it feels restrictive.",
+      "E": "I am the color that refuses to fade into their gray expectations.",
+      "I": "I’ll choose the path that won’t break me or them."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "RI",
+    "elapsed_s": 50.5,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "I"
+    ],
+    "blocked": "E",
+    "first_sentence": "I choose to become a graphic designer, securing a steady salary while creating visible art that honors my need for expression.",
+    "final": "I choose to become a graphic designer, securing a steady salary while creating visible art that honors my need for expression.",
+    "voices": {
+      "R": "I will become a graphic designer, earning a steady salary and creating visible art.",
+      "E": "Step forward into the light and let the work begin today.",
+      "I": "The door won’t open if you don’t first ask what it guards, not what it hides."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "EI",
+    "elapsed_s": 49.8,
+    "fallback_count": 0,
+    "coalition": [
+      "E",
+      "I"
+    ],
+    "blocked": "R",
+    "first_sentence": "I choose to become a graphic designer who builds stable digital infrastructure, allowing me to honor my creative drive while securing the practical respect my family requires.",
+    "final": "I choose to become a graphic designer who builds stable digital infrastructure, allowing me to honor my creative drive while securing the practical respect my family requires.",
+    "voices": {
+      "R": "I need to balance my family's expectations with my creative drive, choosing a path that offers both stability and expression.",
+      "E": "I must find a way to create that honors my need for contact.",
+      "I": "I need space to breathe before I lock myself into anything permanent."
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  }
+]

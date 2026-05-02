@@ -1,0 +1,4 @@
+date: invalid argument 's' for -I
+[] START long REI test run
+RUN_DIR=output/test-runs/rei_long_20260502_085125
+REPORT_DIR=output/reports/rei_cycle_matrix_long_20260502_085125

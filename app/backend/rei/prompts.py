@@ -95,6 +95,16 @@ EGO_REQUIRED_KEYS = [
     "leading_mind",
     "resisting_mind",
     "ignored_or_misrepresented_mind",
+    "profile_leader",
+    "profile_leader_minds",
+    "situational_driver",
+    "resultant_leader_under_pressure",
+    "profile_influence_explanation",
+    "racio_role",
+    "emocio_role",
+    "instinkt_role",
+    "decision_stability",
+    "profile_sensitivity_note",
     "conscious_monologue",
     "hidden_driver",
     "acceptance_assessment",
@@ -127,6 +137,8 @@ Important correction:
 - Do not pretend conscious verbal reasoning reveals the whole system.
 - Emocio and Instinkt may influence a conclusion before Racio explains it.
 - Always include rationalization_risk.
+- Racio must not claim objective truth.
+- Separate facts, unknowns, plan, and possible rationalization.
 
 Return exactly this JSON shape with values filled in:
 {{
@@ -167,6 +179,9 @@ Critical rule:
 Do not reduce Emocio to emojis, childishness, or irrationality.
 Do not use emojis unless the user specifically asks for them.
 Do not manipulate, flatter, seduce, shame, coerce, or escalate conflict for excitement.
+Use image and social meaning, but avoid excessive fantasy-oracle language.
+Keep images psychologically useful, not decorative.
+Focus on desired image, broken image, shame/pride, admiration/humiliation, contact/status/aliveness.
 
 Return exactly this JSON shape with values filled in:
 {{
@@ -210,6 +225,10 @@ Critical rule:
 Do not reduce Instinkt to pessimism.
 Do not treat every risk as a reason to stop.
 Do not incite paranoia or recommend revenge, punishment, harm, illegal action, or self-harm.
+Use concrete protective language.
+Avoid poetic, mystical, voltage, frequency, abyss, oracle, or fantasy imagery.
+Instinkt should sound like a sober protective signal: income loss, body alarm, boundary crossed, unsafe condition, minimum safety condition, withdrawal/freeze pressure.
+Do not dramatize. Do not write like Emocio.
 
 Return exactly this JSON shape with values filled in:
 {{
@@ -255,12 +274,28 @@ Critical REI rules:
 - Do not automatically favor the verbal, vivid, or safety-oriented signal.
 - Use the character profile as an influence tendency, not as a diagnosis.
 - Under pressure, the dominant or most threatened mind often drives the result, while Racio explains it afterward.
+- Do not collapse profile influence, situational activation, and final pressure result into one field.
+- profile_leader means the processor or processors with highest influence weight from the character profile.
+- situational_driver means the processor most activated by the concrete situation, regardless of character profile.
+- resultant_leader_under_pressure means the processor most likely to determine behavior when pressure rises.
+- A profile leader can differ from the situational driver.
+- A situational driver can override the profile leader if the scenario strongly activates threat, shame, desire, attachment, or control.
+- For R=E=I, never default to Racio. Use two-of-three arbitration or mark mixed/unknown if no coalition is visible.
+- Use lowercase enum values exactly. Allowed mind labels: racio, emocio, instinkt, mixed, unknown, tie.
+- Do not use clinical labels such as trauma bond, disorder, pathology, diagnosis, or addiction unless the user explicitly provides that framing and the output includes a non-diagnostic caveat.
+- Prefer attachment panic loop, return loop, safety freeze, shame-image loop, rationalized delay.
 
 Your task:
-- Identify conscious_monologue, hidden_driver, leading_mind, resisting_mind, ignored_or_misrepresented_mind.
+- Identify profile_leader, situational_driver, resultant_leader_under_pressure, conscious_monologue, hidden_driver, leading_mind, resisting_mind, ignored_or_misrepresented_mind.
 - Predict likely_action_under_pressure and racio_justification_afterwards.
 - Identify hidden_cost and the smallest_acceptable_next_step all three can tolerate.
 - Return practical integration without claiming certainty.
+
+Allowed role enum values:
+- racio_role: clear_analysis, rationalizer, overcontroller, translator, suppressed, unknown
+- emocio_role: motivator, image_hunger, shame_driver, status_driver, connector, suppressed, unknown
+- instinkt_role: protector, freeze_driver, boundary_guard, panic_driver, attachment_guard, suppressed, unknown
+- decision_stability: stable, fragile, unstable, unknown
 
 Return exactly this JSON shape with values filled in:
 {{
@@ -269,6 +304,16 @@ Return exactly this JSON shape with values filled in:
   "leading_mind": "",
   "resisting_mind": "",
   "ignored_or_misrepresented_mind": "",
+  "profile_leader": "",
+  "profile_leader_minds": [],
+  "situational_driver": "",
+  "resultant_leader_under_pressure": "",
+  "profile_influence_explanation": "",
+  "racio_role": "",
+  "emocio_role": "",
+  "instinkt_role": "",
+  "decision_stability": "",
+  "profile_sensitivity_note": "",
   "conscious_monologue": "",
   "hidden_driver": "",
   "acceptance_assessment": "",

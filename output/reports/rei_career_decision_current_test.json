@@ -1,0 +1,141 @@
+[
+  {
+    "character_id": "REI",
+    "elapsed_s": 53.3,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "decision_rule": "undecided two-out-of-three; synthesis remains ambivalent",
+    "voices": {
+      "R": "I will secure a reliable job first, then slowly shift toward my artistic dreams.",
+      "E": "Step into the light and let the color of your truth speak.",
+      "I": "Stability is the only truth you can trust right now."
+    },
+    "final": "I will anchor myself in the stability required by those who depend on me, while simultaneously cultivating my creative voice in the margins. I will not abandon the safety net, but I will refuse to let it define my entire existence. By building a portfolio in secret and taking small, calculated risks, I can honor my family's need for security without suffocating my own spirit. The path forward is not a sudden leap into the unknown, but a gradual expansion of my world where safety and expression coexist.",
+    "correction": "The synthesis prioritizes the dominant coalition (R and E) to resolve the ambivalence. Mind R provides the structural plan for stability, while Mind E injects the necessary desire for creative expression. Mind I is identified as the blocked mind; its intense fear of instability is not erased but integrated as a boundary condition that dictates the pace of the transition. The corrective cycle E_over_I ensures that the drive for authenticity opens the 'lock' of fear, transforming the static pressure into a dynamic, manageable tension rather than a paralysis. The resulting monologue is a pragmatic synthesis that validates the fear without letting it dictate the outcome.",
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "manipulation",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "R",
+    "elapsed_s": 48.0,
+    "fallback_count": 0,
+    "coalition": [
+      "R"
+    ],
+    "blocked": "E",
+    "decision_rule": "the leading mind acts almost alone",
+    "voices": {
+      "R": "Outline a clear, measurable plan that satisfies family expectations while allowing creative expression.",
+      "E": "Let the spark fly; your life breathes through your art, not their approval.",
+      "I": "The body knows before the mind does: is this breathable or just borrowed air?"
+    },
+    "final": "I will not abandon my creative spark, nor will I ignore the weight of those who depend on me. I will construct a bridge: a practical foundation that secures our shared safety, upon which I will build a visible, breathing structure of my own making. The path is not a choice between silence and ruin, but a measured step where my art becomes the very engine of my stability.",
+    "correction": "The dominant coalition (R) initiates a stepwise transition to satisfy safety needs. The blocked mind (E) is corrected not by suppression, but by the dominant correction (E_over_I), which validates the creative impulse as the source of stability rather than a threat. The fear of failure is reframed as a manageable variable within a structured plan, allowing the creative self to emerge without erasing the protective instincts of the instinctual mind.",
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "E",
+    "elapsed_s": 47.4,
+    "fallback_count": 0,
+    "coalition": [
+      "E"
+    ],
+    "blocked": "I",
+    "decision_rule": "the leading mind acts almost alone",
+    "voices": {
+      "R": "I will outline a clear, realistic roadmap for my creative career, addressing family concerns.",
+      "E": "Let the image burn bright enough to warm the cold fear inside.",
+      "I": "Stay sharp, but don’t let fear lock you into someone else’s script."
+    },
+    "final": "The path forward is not a compromise of the self, but an expansion of the horizon. I will not dim the creative fire to satisfy the expectation of safety, nor will I let the fear of collapse freeze the current entirely. Instead, I will channel the restless energy into a tangible demonstration of stability. By building a bridge where the creative impulse proves its own reliability, I transform the family's concern into a witness to my growth. The choice is to act with the electric hum of passion, using that very energy to construct the security they fear I lack.",
+    "correction": "The dominant coalition (E) drives the synthesis by converting the blocked mind's (I) fear-based withdrawal into active, demonstrable stability. The correction explains that the 'instinct' to avoid judgment is resolved not by submission, but by the 'electric' proof of competence. This aligns with the rule that the leading mind acts alone, using its intensity to reframe the 'fear of collapse' as a challenge to be met through visible action, thereby satisfying the need for security without erasing the creative desire.",
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "I",
+    "elapsed_s": 44.5,
+    "fallback_count": 0,
+    "coalition": [
+      "I"
+    ],
+    "blocked": "E",
+    "decision_rule": "the leading mind acts almost alone",
+    "voices": {
+      "R": "I will outline a clear, logical path to a secure, family-approved career, ensuring every step is measurable and controlled.",
+      "E": "Break the silence with a bold, beautiful, and risky act of pure expression.",
+      "I": "Stay low, stay quiet—no one sees the stillness before the storm."
+    },
+    "final": "I will not vanish into the shadows of safety, nor will I shatter the glass of expectation without a plan. I will stand still, holding the tension between the family's need for stability and my own creative pulse, waiting for the moment to act not from fear, but from a deliberate choice to integrate both truths.",
+    "correction": "The dominant coalition (I) enforces withdrawal to avoid the risk of failure, while the blocked mind (E) demands expression. The corrective cycle dictates E_over_I, meaning Emocio must unlock Instinkt's fear-based closure. The synthesis does not average these states but allows the blocked creative energy to permeate the withdrawn stance, transforming paralysis into a poised readiness for a measured, authentic step forward.",
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "RI",
+    "elapsed_s": 44.9,
+    "fallback_count": 0,
+    "coalition": [
+      "R",
+      "I"
+    ],
+    "blocked": "E",
+    "decision_rule": "declared leading pair remains the coalition",
+    "voices": {
+      "R": "Assess options methodically, weigh risks, and prepare fallback plans.",
+      "E": "Breathe the color of the unknown into the gray room now.",
+      "I": "A wall can be a door if you know where to look for the hinge."
+    },
+    "final": "The wall of expectation is not a barrier but a hinge; by researching stable creative roles, we find the opening that honors both the need for security and the desire to be seen. We do not surrender to fear nor to obligation, but weave a path where structure breathes.",
+    "correction": "The synthesis respects the dominant coalition (R, I) while applying the corrective cycle (E_over_I). The blocked mind (E) is not averaged out but integrated: its fear of closure is acknowledged and used to refine the 'breathing' aspect of the compromise, ensuring the final path does not erase the creative impulse but channels it through a structured approach.",
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape"
+    ],
+    "fallbacks": []
+  },
+  {
+    "character_id": "EI",
+    "elapsed_s": 46.7,
+    "fallback_count": 0,
+    "coalition": [
+      "E",
+      "I"
+    ],
+    "blocked": "R",
+    "decision_rule": "declared leading pair remains the coalition",
+    "voices": {
+      "R": "I will outline a realistic creative path that meets family expectations and my passion.",
+      "E": "Feel the spark rise and let it shake the heavy silence without fear.",
+      "I": "Stay rooted, but don’t let roots strangle the sky you’re reaching for."
+    },
+    "final": "I will not vanish into silence, nor will I suffocate my spark under the weight of fear. I will find the smallest, quietest step that keeps my feet on the ground while leaving the door cracked. I will feel the spark rise and let it shake the heavy silence without fear, outlining a realistic creative path that honors both my need to create and the bonds of love that hold me.",
+    "correction": "The dominant coalition (E, I) drives the synthesis by integrating the emotional urge to create with the instinctual need for safety, rather than averaging the rational proposal. The correction explains that the 'smallest step' resolves the fear-based closure by validating the creative urge without erasing the protective instinct, allowing the blocked mind (R) to be bypassed in favor of a lived, felt compromise.",
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency"
+    ],
+    "fallbacks": []
+  }
+]

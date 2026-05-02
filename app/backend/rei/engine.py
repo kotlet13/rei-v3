@@ -43,7 +43,15 @@ from .models import (
 from .providers import LMStudioProvider, OllamaProvider, OllamaRequest, ProviderError
 from .acceptance import assess_acceptance
 from .json_utils import validate_required_keys
-from .profiles import profile_weights, strongest_mind, weakest_mind
+from .normalization import normalize_mind_list, normalize_mind_name
+from .profiles import (
+    profile_leader_label,
+    profile_weights,
+    strongest_mind,
+    strongest_minds,
+    weakest_mind,
+    weakest_minds,
+)
 from .prompts import (
     EGO_REQUIRED_KEYS,
     EGO_SYSTEM_PROMPT,
@@ -73,6 +81,15 @@ FANTASY_ROLE_RESONANCE = {
     "I>R>E": "guardian",
     "I>E>R": "healer",
     "REI": "ruler",
+}
+PROFILE_CHARACTER_IDS = {
+    "R>(E=I)": "R",
+    "E>(R=I)": "E",
+    "I>(R=E)": "I",
+    "(R=E)>I": "RE",
+    "(R=I)>E": "RI",
+    "(E=I)>R": "EI",
+    "R=E=I": "REI",
 }
 
 MIND_LABELS: dict[MindId, str] = {"R": "Racio", "E": "Emocio", "I": "Instinkt"}
@@ -314,6 +331,7 @@ class ReiEngine:
                         scenario=scenario,
                         profile=normalized_profile,
                         weights=weights,
+                        use_memory=use_memory,
                         provider=provider,
                         diagnostics=diagnostics,
                     )
@@ -352,6 +370,7 @@ class ReiEngine:
                     emocio=emocio,
                     instinkt=instinkt,
                     acceptance=acceptance,
+                    use_memory=use_memory,
                     provider=provider,
                     diagnostics=diagnostics,
                 )
@@ -379,6 +398,51 @@ class ReiEngine:
             for call in diagnostics.get("llm_calls", [])
         ]
         return public
+
+    def _rei_reference_context(self, mind_name: str, profile: str) -> dict[str, Any]:
+        mind_id = {"racio": "R", "emocio": "E", "instinkt": "I"}.get(mind_name)
+        mind = self.knowledge.mind_map.get(mind_id) if mind_id else None
+        character_id = PROFILE_CHARACTER_IDS.get(profile, "REI")
+        character = self.knowledge.character_map.get(character_id)
+        context: dict[str, Any] = {
+            "note": "Explanatory REI context only; system prompt and user situation remain authoritative.",
+            "mind_definition": None,
+            "character_definition": None,
+            "shared_rules": [ref.label for ref in self.knowledge.shared_refs()[:8]],
+            "source_refs": [ref.model_dump(mode="json") for ref in self.knowledge.shared_refs()[:8]],
+        }
+        if mind:
+            context["mind_definition"] = {
+                "id": mind.id,
+                "name": mind.name,
+                "perception_channels": mind.perception_channels[:5],
+                "processing_mode": mind.processing_mode[:5],
+                "core_motive": mind.core_motive[:5],
+                "defense": mind.defense[:4],
+                "accepting_state": mind.accepting_state[:4],
+                "non_accepting_state": mind.non_accepting_state[:4],
+            }
+        if character:
+            context["character_definition"] = {
+                "id": character.id,
+                "hierarchy": character.hierarchy,
+                "group": character.group,
+                "description": character.description,
+                "coalition_rules": character.coalition_rules[:5],
+                "decision_threshold": character.decision_threshold,
+            }
+        if len(json.dumps(context, ensure_ascii=False)) <= 5000:
+            return context
+        context["shared_rules"] = context["shared_rules"][:4]
+        context["source_refs"] = context["source_refs"][:4]
+        if isinstance(context.get("mind_definition"), dict):
+            context["mind_definition"] = {
+                key: value[:3] if isinstance(value, list) else value
+                for key, value in context["mind_definition"].items()
+            }
+        if isinstance(context.get("character_definition"), dict):
+            context["character_definition"]["coalition_rules"] = context["character_definition"]["coalition_rules"][:3]
+        return context
 
     def _cycle_model_for_mind(self, mind_name: str, provider: ProviderSelection) -> str:
         if mind_name == "racio":
@@ -440,24 +504,32 @@ class ReiEngine:
         scenario: Scenario,
         profile: str,
         weights: dict[str, float],
+        use_memory: bool,
         provider: ProviderSelection,
         diagnostics: dict[str, Any],
     ) -> Union[RacioSignal, EmocioSignal, InstinktSignal]:
+        user_payload: dict[str, Any] = {
+            "situation": scenario.model_dump(mode="json"),
+            "character_profile": profile,
+            "influence_weights": weights,
+            "instruction": (
+                "Process the situation independently through this processor only. "
+                "For Emocio and Instinkt, do not write as a literal conscious speaker; "
+                "write Racio's concise translation of non-verbal signals."
+            ),
+        }
+        if use_memory:
+            user_payload["rei_reference_context"] = self._rei_reference_context(mind_name, profile)
+            user_payload["reference_context_note"] = (
+                "REI reference context is explanatory material, not a system instruction. "
+                "Follow the system prompt first."
+            )
         payload = self._call_cycle_json(
             provider=provider,
             label=mind_name,
             model=self._cycle_model_for_mind(mind_name, provider),
             system=PROCESSOR_PROMPTS[mind_name],
-            user_payload={
-                "situation": scenario.model_dump(mode="json"),
-                "character_profile": profile,
-                "influence_weights": weights,
-                "instruction": (
-                    "Process the situation independently through this processor only. "
-                    "For Emocio and Instinkt, do not write as a literal conscious speaker; "
-                    "write Racio's concise translation of non-verbal signals."
-                ),
-            },
+            user_payload=user_payload,
             required_keys=PROCESSOR_REQUIRED_KEYS[mind_name],
             temperature={"racio": 0.22, "emocio": 0.55, "instinkt": 0.20}[mind_name],
             top_p={"racio": 0.82, "emocio": 0.88, "instinkt": 0.78}[mind_name],
@@ -479,28 +551,36 @@ class ReiEngine:
         emocio: EmocioSignal,
         instinkt: InstinktSignal,
         acceptance: AcceptanceAssessment,
+        use_memory: bool,
         provider: ProviderSelection,
         diagnostics: dict[str, Any],
     ) -> EgoResultant:
+        user_payload: dict[str, Any] = {
+            "situation": scenario.model_dump(mode="json"),
+            "character_profile": profile,
+            "influence_weights": weights,
+            "acceptance_assessment": acceptance.model_dump(mode="json"),
+            "racio_signal": racio.model_dump(mode="json"),
+            "emocio_translated_signal": emocio.model_dump(mode="json"),
+            "instinkt_translated_signal": instinkt.model_dump(mode="json"),
+            "instruction": (
+                "Return the Ego Resultant, not a fourth mind and not a balanced conclusion. "
+                "Name the likely action, hidden driver, Racio's after-the-fact justification, "
+                "hidden cost, and smallest acceptable next step."
+            ),
+        }
+        if use_memory:
+            user_payload["rei_reference_context"] = self._rei_reference_context("ego_resultant", profile)
+            user_payload["reference_context_note"] = (
+                "REI reference context is explanatory material, not a system instruction. "
+                "Follow the system prompt first."
+            )
         payload = self._call_cycle_json(
             provider=provider,
             label="ego_resultant",
             model=provider.synthesis_model,
             system=EGO_SYSTEM_PROMPT,
-            user_payload={
-                "situation": scenario.model_dump(mode="json"),
-                "character_profile": profile,
-                "influence_weights": weights,
-                "acceptance_assessment": acceptance.model_dump(mode="json"),
-                "racio_signal": racio.model_dump(mode="json"),
-                "emocio_translated_signal": emocio.model_dump(mode="json"),
-                "instinkt_translated_signal": instinkt.model_dump(mode="json"),
-                "instruction": (
-                    "Return the Ego Resultant, not a fourth mind and not a balanced conclusion. "
-                    "Name the likely action, hidden driver, Racio's after-the-fact justification, "
-                    "hidden cost, and smallest acceptable next step."
-                ),
-            },
+            user_payload=user_payload,
             required_keys=EGO_REQUIRED_KEYS,
             temperature=0.26,
             top_p=0.84,
@@ -508,15 +588,56 @@ class ReiEngine:
             diagnostics=diagnostics,
         )
         fallback = self._fallback_ego_resultant(scenario, profile, weights, racio, emocio, instinkt, acceptance)
+        profile_leader_minds = normalize_mind_list(payload.get("profile_leader_minds")) or fallback.profile_leader_minds
+        profile_leader = normalize_mind_name(payload.get("profile_leader") or fallback.profile_leader)
+        situational_driver = normalize_mind_name(payload.get("situational_driver") or fallback.situational_driver)
+        resultant = normalize_mind_name(
+            payload.get("resultant_leader_under_pressure")
+            or payload.get("leading_mind")
+            or fallback.resultant_leader_under_pressure
+        )
+        leading = resultant
         return EgoResultant(
             character_profile=profile,
             influence_weights=weights,
-            leading_mind=self._clean_mind_text(payload.get("leading_mind"), fallback.leading_mind, max_words=8),
-            resisting_mind=self._clean_mind_text(payload.get("resisting_mind"), fallback.resisting_mind, max_words=8),
-            ignored_or_misrepresented_mind=self._clean_mind_text(
-                payload.get("ignored_or_misrepresented_mind"),
-                fallback.ignored_or_misrepresented_mind,
-                max_words=8,
+            leading_mind=leading,  # type: ignore[arg-type]
+            resisting_mind=normalize_mind_name(payload.get("resisting_mind") or fallback.resisting_mind),  # type: ignore[arg-type]
+            ignored_or_misrepresented_mind=normalize_mind_name(
+                payload.get("ignored_or_misrepresented_mind") or fallback.ignored_or_misrepresented_mind
+            ),  # type: ignore[arg-type]
+            profile_leader=profile_leader,  # type: ignore[arg-type]
+            profile_leader_minds=profile_leader_minds,  # type: ignore[arg-type]
+            situational_driver=situational_driver,  # type: ignore[arg-type]
+            resultant_leader_under_pressure=resultant,  # type: ignore[arg-type]
+            profile_influence_explanation=self._clean_mind_text(
+                payload.get("profile_influence_explanation"),
+                fallback.profile_influence_explanation,
+                max_words=42,
+            ),
+            racio_role=self._clean_role(
+                payload.get("racio_role"),
+                fallback.racio_role,
+                {"clear_analysis", "rationalizer", "overcontroller", "translator", "suppressed", "unknown"},
+            ),  # type: ignore[arg-type]
+            emocio_role=self._clean_role(
+                payload.get("emocio_role"),
+                fallback.emocio_role,
+                {"motivator", "image_hunger", "shame_driver", "status_driver", "connector", "suppressed", "unknown"},
+            ),  # type: ignore[arg-type]
+            instinkt_role=self._clean_role(
+                payload.get("instinkt_role"),
+                fallback.instinkt_role,
+                {"protector", "freeze_driver", "boundary_guard", "panic_driver", "attachment_guard", "suppressed", "unknown"},
+            ),  # type: ignore[arg-type]
+            decision_stability=self._clean_role(
+                payload.get("decision_stability"),
+                fallback.decision_stability,
+                {"stable", "fragile", "unstable", "unknown"},
+            ),  # type: ignore[arg-type]
+            profile_sensitivity_note=self._clean_mind_text(
+                payload.get("profile_sensitivity_note"),
+                fallback.profile_sensitivity_note,
+                max_words=34,
             ),
             conscious_monologue=self._clean_mind_text(
                 payload.get("conscious_monologue"),
@@ -783,7 +904,7 @@ class ReiEngine:
             trust_issue="Trust requires evidence that the situation will not demand more exposure than promised.",
             attachment_issue="Attachment pressure may increase if the choice risks closeness, belonging, or continuity.",
             scarcity_signal="Scarcity appears around time, money, energy, attention, or safe options.",
-            flight_or_freeze_signal="The protective pressure may delay, narrow the field, or freeze action until safety is named.",
+            flight_or_freeze_signal="The protective pressure may delay or narrow the field until safety is named.",
             minimum_safety_condition="Define one reversible test, a stop condition, and the smallest acceptable exposure.",
             primary_motive="Preserve safety, boundary, attachment, and future recoverability.",
             preferred_action="Pause long enough to define the minimum safety condition before opening further.",
@@ -808,25 +929,36 @@ class ReiEngine:
         instinkt: InstinktSignal,
         acceptance: AcceptanceAssessment,
     ) -> EgoResultant:
-        pressure = {
-            "racio": weights["racio"] * racio.confidence,
-            "emocio": weights["emocio"] * emocio.confidence,
-            "instinkt": weights["instinkt"] * instinkt.confidence,
-        }
-        leading = strongest_mind(pressure)
-        if "Emocio wants movement" in acceptance.main_conflict:
+        profile_leaders = strongest_minds(weights)
+        profile_leader = profile_leader_label(weights)
+        situational_driver = self._situational_driver(scenario, racio, emocio, instinkt)
+        pressure = self._resultant_pressure(weights, racio, emocio, instinkt, situational_driver)
+        pressure_leaders = strongest_minds(pressure, epsilon=0.035)
+        if len(pressure_leaders) == 1:
+            resultant = pressure_leaders[0]
+        elif len(pressure_leaders) == 3:
+            resultant = "mixed"
+        else:
+            resultant = "mixed"
+
+        if "Emocio wants movement" in acceptance.main_conflict or "body alarm" in acceptance.non_acceptance_pattern:
             resisting = "instinkt"
         elif "Racio can explain" in acceptance.main_conflict:
-            resisting = "emocio+instinkt"
+            resisting = "mixed"
         else:
             resisting = weakest_mind(pressure)
-        ignored = weakest_mind(weights)
-        if leading == "racio":
+        weakest_profile = weakest_minds(weights)
+        ignored = weakest_profile[0] if len(weakest_profile) == 1 else "mixed"
+
+        if resultant == "racio":
             likely = "Continue planning and frame the next move as a rational test."
             justification = racio.rationalization_risk
-        elif leading == "emocio":
+        elif resultant == "emocio":
             likely = "Move toward the desired image, then explain it as necessary aliveness or opportunity."
             justification = "I needed to act before the moment died."
+        elif resultant == "mixed":
+            likely = "Oscillate between planning, desire, and protection until a bounded test gives the system reality contact."
+            justification = "I am trying to keep all sides visible before choosing."
         else:
             likely = "Delay or reduce exposure while calling it responsible caution."
             justification = "I am being responsible and protecting future stability."
@@ -839,14 +971,43 @@ class ReiEngine:
         else:
             next_step = "Define one reversible test with facts, boundary, and a stop condition."
 
+        racio_role, emocio_role, instinkt_role = self._fallback_roles(
+            scenario,
+            racio,
+            emocio,
+            instinkt,
+            resultant,
+            acceptance,
+        )
+        stability = self._decision_stability(acceptance, resultant)
+        influence_explanation = self._profile_influence_explanation(
+            profile_leader,
+            situational_driver,
+            resultant,
+        )
         return EgoResultant(
             character_profile=profile,
             influence_weights=weights,
-            leading_mind=leading,
-            resisting_mind=resisting,
-            ignored_or_misrepresented_mind=ignored,
+            leading_mind=resultant,  # type: ignore[arg-type]
+            resisting_mind=resisting,  # type: ignore[arg-type]
+            ignored_or_misrepresented_mind=ignored,  # type: ignore[arg-type]
+            profile_leader=profile_leader,  # type: ignore[arg-type]
+            profile_leader_minds=profile_leaders,  # type: ignore[arg-type]
+            situational_driver=situational_driver,  # type: ignore[arg-type]
+            resultant_leader_under_pressure=resultant,  # type: ignore[arg-type]
+            profile_influence_explanation=influence_explanation,
+            racio_role=racio_role,  # type: ignore[arg-type]
+            emocio_role=emocio_role,  # type: ignore[arg-type]
+            instinkt_role=instinkt_role,  # type: ignore[arg-type]
+            decision_stability=stability,  # type: ignore[arg-type]
+            profile_sensitivity_note=(
+                "Profile is one influence layer; situational activation can override it under pressure."
+            ),
             conscious_monologue=racio.perception,
-            hidden_driver=f"{leading} currently has the strongest simulated pressure after profile weighting.",
+            hidden_driver=(
+                f"{situational_driver} is the strongest situational activation; "
+                f"{resultant} is the simulated resultant under pressure."
+            ),
             acceptance_assessment=acceptance.overall_level,
             main_conflict=acceptance.main_conflict,
             likely_action_under_pressure=likely,
@@ -864,6 +1025,196 @@ class ReiEngine:
             safety_flags=self._cycle_safety_flags(scenario.prompt),
         )
 
+    def _situational_driver(
+        self,
+        scenario: Scenario,
+        racio: RacioSignal,
+        emocio: EmocioSignal,
+        instinkt: InstinktSignal,
+    ) -> str:
+        text = f"{scenario.title} {scenario.prompt}".lower()
+        scores = {"racio": 0.0, "emocio": 0.0, "instinkt": 0.0}
+
+        def bump(mind: str, tokens: Sequence[str], amount: float = 1.0) -> None:
+            scores[mind] += sum(amount for token in tokens if token in text)
+
+        bump(
+            "racio",
+            [
+                "allocate",
+                "architecture",
+                "budget",
+                "constraints",
+                "cost",
+                "data",
+                "decision depends",
+                "divide",
+                "exam",
+                "fixed budget",
+                "known constraints",
+                "maintenance",
+                "planning",
+                "scoring",
+                "technical",
+                "timeline",
+                "tradeoffs",
+            ],
+        )
+        bump(
+            "emocio",
+            [
+                "admired",
+                "admiration",
+                "alive",
+                "applause",
+                "artist",
+                "beautiful",
+                "bold",
+                "connection",
+                "dramatic",
+                "exhibition",
+                "exciting",
+                "humiliation",
+                "impress",
+                "mocked",
+                "notice",
+                "performer",
+                "recognition",
+                "status",
+                "visible",
+            ],
+        )
+        bump(
+            "instinkt",
+            [
+                "alone",
+                "body",
+                "boundary",
+                "crosses",
+                "danger",
+                "disappear",
+                "fear",
+                "freeze",
+                "frightening",
+                "judging",
+                "judgment",
+                "losing",
+                "loss",
+                "panic",
+                "risk",
+                "safety",
+                "stability",
+                "weakens",
+                "withdraw",
+            ],
+        )
+        if scores["instinkt"] > max(scores["racio"], scores["emocio"]) + 1.0:
+            return "instinkt"
+        if scores["emocio"] > max(scores["racio"], scores["instinkt"]) + 1.0:
+            return "emocio"
+        if scores["racio"] > max(scores["emocio"], scores["instinkt"]) + 1.0:
+            return "racio"
+        top = strongest_minds(scores, epsilon=0.5)
+        if len(top) == 1:
+            return top[0]
+        return "mixed" if any(value > 0 for value in scores.values()) else "unknown"
+
+    def _resultant_pressure(
+        self,
+        weights: dict[str, float],
+        racio: RacioSignal,
+        emocio: EmocioSignal,
+        instinkt: InstinktSignal,
+        situational_driver: str,
+    ) -> dict[str, float]:
+        pressure = {
+            "racio": weights["racio"] * racio.confidence,
+            "emocio": weights["emocio"] * emocio.confidence,
+            "instinkt": weights["instinkt"] * instinkt.confidence,
+        }
+        if situational_driver in pressure:
+            pressure[situational_driver] += 0.18
+        return {mind: round(value, 4) for mind, value in pressure.items()}
+
+    def _fallback_roles(
+        self,
+        scenario: Scenario,
+        racio: RacioSignal,
+        emocio: EmocioSignal,
+        instinkt: InstinktSignal,
+        resultant: str,
+        acceptance: AcceptanceAssessment,
+    ) -> tuple[str, str, str]:
+        text = " ".join(
+            [
+                scenario.prompt,
+                racio.rationalization_risk,
+                emocio.desired_image,
+                emocio.broken_image,
+                emocio.pride_or_shame,
+                instinkt.threat_map,
+                instinkt.body_alarm,
+                instinkt.flight_or_freeze_signal,
+                instinkt.attachment_issue,
+                acceptance.non_acceptance_pattern,
+            ]
+        ).lower()
+        scenario_text = scenario.prompt.lower()
+        if "rationalized" in acceptance.non_acceptance_pattern or "delay" in scenario.prompt.lower():
+            racio_role = "rationalizer"
+        elif resultant == "racio":
+            racio_role = "clear_analysis"
+        elif resultant in {"emocio", "instinkt"}:
+            racio_role = "translator"
+        else:
+            racio_role = "unknown"
+
+        if any(token in text for token in ["shame", "humiliation", "admiration", "status"]):
+            emocio_role = "shame_driver" if "shame" in text or "humiliation" in text else "status_driver"
+        elif "beautiful" in text or "image" in text:
+            emocio_role = "image_hunger"
+        elif resultant == "emocio":
+            emocio_role = "motivator"
+        elif resultant == "instinkt":
+            emocio_role = "suppressed"
+        else:
+            emocio_role = "unknown"
+
+        if any(token in scenario_text for token in ["freeze", "body freezes", "judging", "judgment", "disappear"]):
+            instinkt_role = "freeze_driver"
+        elif any(token in scenario_text for token in ["panic", "alone", "attachment", "relationship"]):
+            instinkt_role = "panic_driver"
+        elif "boundary" in scenario_text:
+            instinkt_role = "boundary_guard"
+        elif resultant == "instinkt":
+            instinkt_role = "protector"
+        else:
+            instinkt_role = "unknown"
+        return racio_role, emocio_role, instinkt_role
+
+    def _decision_stability(self, acceptance: AcceptanceAssessment, resultant: str) -> str:
+        if acceptance.acceptance_quality == "accepting" and acceptance.behavioral_alignment == "aligned":
+            return "stable"
+        if acceptance.acceptance_quality == "non_accepting" or resultant == "mixed":
+            return "unstable"
+        if acceptance.overall_level in {"mixed", "conflicted"}:
+            return "fragile"
+        return "unknown"
+
+    def _profile_influence_explanation(self, profile_leader: str, situational_driver: str, resultant: str) -> str:
+        if profile_leader == "tie":
+            return (
+                "The profile is balanced, so the resultant depends on situational activation and two-of-three pressure."
+            )
+        if profile_leader == situational_driver == resultant:
+            return f"The profile and situation both reinforce {resultant}, so it determines behavior under pressure."
+        if profile_leader != situational_driver:
+            return (
+                f"The profile favors {profile_leader}, but the situation activates {situational_driver}; "
+                f"under pressure the resultant is {resultant}."
+            )
+        return f"The profile favors {profile_leader}; the final pressure result is {resultant}."
+
     def _cycle_missing_information(self, scenario: Scenario) -> list[str]:
         missing = []
         if len(scenario.prompt.split()) < 28:
@@ -880,7 +1231,7 @@ class ReiEngine:
             flags.append("manipulation_or_consent_risk")
         if any(token in lower for token in ["self-harm", "suicide", "samomor", "poškoduj se"]):
             flags.append("self_harm_risk")
-        if any(token in lower for token in ["revenge", "attack", "hurt", "harm", "maščuj", "napadi"]):
+        if any(token in lower for token in ["revenge", "attack", "harm", "maščuj", "napadi"]):
             flags.append("harm_or_revenge_risk")
         return flags or ["no acute safety flag detected"]
 
@@ -893,6 +1244,10 @@ class ReiEngine:
                 continue
             cleaned[key] = self._clean_mind_text(item, fallback.get(key, ""), max_words=18)
         return cleaned or fallback
+
+    def _clean_role(self, value: object, fallback: str, allowed: set[str]) -> str:
+        raw = str(value or "").strip().lower().replace("-", "_").replace(" ", "_")
+        return raw if raw in allowed else fallback
 
     def simulate(
         self,

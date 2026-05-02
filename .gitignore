@@ -16,5 +16,7 @@ app/frontend/dist/
 app/frontend/.vite/
 
 .playwright-cli/
-output/
 
+# Keep REI evaluation reports under output/ versioned so model behavior
+# can be compared over time. Dev-server scratch logs stay local.
+output/test-runs/frontend-dev.log

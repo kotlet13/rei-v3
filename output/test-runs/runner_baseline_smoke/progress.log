@@ -1,0 +1,8 @@
+[2026-05-02T08:48:31+02:00] START provider=deterministic model=qwen/qwen3.5-9b total=3 baseline=True
+[2026-05-02T08:48:31+02:00] RUN 001/3 repeat=1 scenario=job_quit_business_delay profile=R>(E=I)
+[2026-05-02T08:48:31+02:00] DONE 001/3 repeat=1 scenario=job_quit_business_delay profile=R>(E=I) profile_leader=racio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T08:48:31+02:00] RUN 002/3 repeat=1 scenario=job_quit_business_delay profile=E>(R=I)
+[2026-05-02T08:48:31+02:00] DONE 002/3 repeat=1 scenario=job_quit_business_delay profile=E>(R=I) profile_leader=emocio situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T08:48:31+02:00] RUN 003/3 repeat=1 scenario=job_quit_business_delay profile=I>(R=E)
+[2026-05-02T08:48:31+02:00] DONE 003/3 repeat=1 scenario=job_quit_business_delay profile=I>(R=E) profile_leader=instinkt situational=instinkt resultant=instinkt acceptance=mixed
+[2026-05-02T08:48:31+02:00] FINISH completed=3 fallbacks=0 elapsed_seconds=0.003

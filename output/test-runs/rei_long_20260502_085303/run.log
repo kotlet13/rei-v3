@@ -1,0 +1,41 @@
+[2026-05-02T08:53:03+0200] START long REI test run
+RUN_DIR=output/test-runs/rei_long_20260502_085303
+REPORT_DIR=output/reports/rei_cycle_matrix_long_20260502_085303
+Listing 'app/backend/rei'...
+Listing 'scripts'...
+Listing 'tests'...
+................
+----------------------------------------------------------------------
+Ran 16 tests in 0.120s
+
+OK
+
+> rei-poc-frontend@0.3.0 build
+> tsc -p tsconfig.json && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 1582 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.43 kB │ gzip:  0.28 kB
+dist/assets/index-_HMYPjSE.css   13.30 kB │ gzip:  3.09 kB
+dist/assets/index-BEhEyZlr.js   176.49 kB │ gzip: 55.37 kB
+✓ built in 554ms
+{
+  "run_id": "20260502_085305",
+  "provider": "lmstudio",
+  "model": "qwen/qwen3.5-9b",
+  "total": 156,
+  "completed": 156,
+  "fallback_count": 153,
+  "elapsed_seconds": 16499.947,
+  "jsonl": "output/reports/rei_cycle_matrix_long_20260502_085303/results.jsonl",
+  "markdown": "output/reports/rei_cycle_matrix_long_20260502_085303/report.md",
+  "aggregate_markdown": "output/reports/rei_cycle_matrix_long_20260502_085303/aggregate_summary.md",
+  "aggregate_json": "output/reports/rei_cycle_matrix_long_20260502_085303/aggregate_summary.json",
+  "progress": "output/reports/rei_cycle_matrix_long_20260502_085303/progress.log",
+  "summary": "output/reports/rei_cycle_matrix_long_20260502_085303/summary.json",
+  "warnings": []
+}
+[2026-05-02T13:28:05+0200] FINISH status=0

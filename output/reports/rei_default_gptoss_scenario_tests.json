@@ -1,0 +1,255 @@
+[
+  {
+    "id": "public_performance_rei",
+    "title": "Public performance under scrutiny",
+    "character_id": "REI",
+    "acceptance_level": 0.34,
+    "status": 200,
+    "elapsed_s": 53.1,
+    "provider": "R=gpt-oss:20b;E=qwen3.5:9b;I=ministral-3:14b;S=qwen3.5:9b",
+    "language": "en",
+    "fallback_count": 0,
+    "elapsed_calls": [
+      {
+        "provider": "ollama",
+        "model": "gpt-oss:20b",
+        "elapsed_ms": 9902,
+        "raw_chars": 447
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 12709,
+        "raw_chars": 503
+      },
+      {
+        "provider": "ollama",
+        "model": "ministral-3:14b",
+        "elapsed_ms": 15970,
+        "raw_chars": 597
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 14492,
+        "raw_chars": 763
+      }
+    ],
+    "final_words": 54,
+    "avg_voice_words": 13.7,
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "decision_rule": "undecided two-out-of-three; synthesis remains ambivalent",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "voices": {
+      "R": "I will deliver the first sentence with calm precision, keeping the audience engaged and my image intact.",
+      "E": "Let the crack shine so the light can touch the real human beneath.",
+      "I": "Stay rigid. Let them see nothing but the armor you wear."
+    },
+    "final": "The stage is not a wall of judgment but a mirror of shared humanity. I will not hide the tremor; I will breathe it into the room. The crack in my image is not a failure, but the entry point for the truth. I step forward, not as armor, but as a living presence.",
+    "correction": "Mind I (rigid facade) was blocked by the dominant coalition of R (control) and E (vulnerability). The synthesis prioritized E_over_I to resolve the fear_closure deviation, transforming the desire to vanish into an acceptance of raw presence. The resulting monologue integrates R's precision with E's openness, explicitly rejecting I's withdrawal strategy to ensure the performance reveals competence through authenticity rather than perfection.",
+    "fallbacks": []
+  },
+  {
+    "id": "relationship_silence_ei",
+    "title": "Relationship silence before dinner",
+    "character_id": "EI",
+    "acceptance_level": 0.29,
+    "status": 200,
+    "elapsed_s": 50.5,
+    "provider": "R=gpt-oss:20b;E=qwen3.5:9b;I=ministral-3:14b;S=qwen3.5:9b",
+    "language": "en",
+    "fallback_count": 0,
+    "elapsed_calls": [
+      {
+        "provider": "ollama",
+        "model": "gpt-oss:20b",
+        "elapsed_ms": 8741,
+        "raw_chars": 383
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 10625,
+        "raw_chars": 395
+      },
+      {
+        "provider": "ollama",
+        "model": "ministral-3:14b",
+        "elapsed_ms": 14426,
+        "raw_chars": 614
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 16714,
+        "raw_chars": 1063
+      }
+    ],
+    "final_words": 84,
+    "avg_voice_words": 11,
+    "coalition": [
+      "E",
+      "I"
+    ],
+    "blocked": "R",
+    "decision_rule": "declared leading pair remains the coalition",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.731,
+      "image_projection": 0.653,
+      "abstract_detachment": 0.471
+    },
+    "risk_tags": [
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "aggressive_tendency",
+      "envy"
+    ],
+    "voices": {
+      "R": "I will ask calmly, but I fear it may end us.",
+      "E": "Speak now or face the void of total abandonment.",
+      "I": "Silence is a wall, not a door—wait for the lock to turn itself."
+    },
+    "final": "The silence is not a verdict, but a pause in the rhythm we share. I feel the heat of accusation rising, yet I choose to cool it with stillness. The fear of abandonment is loud, but the body knows how to hold ground without collapsing. I will not force the door open with a shout; I will wait for the lock to turn on its own terms, keeping my voice steady and my heart present, trusting that the connection remains even in the quiet.",
+    "correction": "The dominant coalition (E and I) successfully suppressed the blocked mind (R)'s desire for immediate conflict avoidance. The correction applied the 'E_over_I' rule: Emotional urgency (E) demanded action, while Instinctual stillness (I) provided the necessary containment to prevent an aggressive outburst. The synthesis avoided averaging the voices; instead, it prioritized the coalition's ability to transform fear into a grounded, non-confrontational presence, effectively neutralizing the risk of withdrawal or aggression while maintaining the relationship's integrity.",
+    "fallbacks": []
+  },
+  {
+    "id": "parking_garage_instinkt",
+    "title": "Footsteps in a dark parking garage",
+    "character_id": "I",
+    "acceptance_level": 0.42,
+    "status": 200,
+    "elapsed_s": 48.1,
+    "provider": "R=gpt-oss:20b;E=qwen3.5:9b;I=ministral-3:14b;S=qwen3.5:9b",
+    "language": "en",
+    "fallback_count": 0,
+    "elapsed_calls": [
+      {
+        "provider": "ollama",
+        "model": "gpt-oss:20b",
+        "elapsed_ms": 9050,
+        "raw_chars": 431
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 11642,
+        "raw_chars": 494
+      },
+      {
+        "provider": "ollama",
+        "model": "ministral-3:14b",
+        "elapsed_ms": 14548,
+        "raw_chars": 560
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 12830,
+        "raw_chars": 630
+      }
+    ],
+    "final_words": 34,
+    "avg_voice_words": 12.7,
+    "coalition": [
+      "I"
+    ],
+    "blocked": "E",
+    "decision_rule": "the leading mind acts almost alone",
+    "dominant_edge": "I_over_R",
+    "deviation": {
+      "fear_closure": 0.626,
+      "image_projection": 0.282,
+      "abstract_detachment": 0.662
+    },
+    "risk_tags": [
+      "withdrawal_escape"
+    ],
+    "voices": {
+      "R": "I will move fast, stay low, and keep my head down to avoid detection.",
+      "E": "Run now to feel the impact of breaking the dark silence.",
+      "I": "Stay small, stay silent, stay alive—no one sees you, no one follows you."
+    },
+    "final": "I press into the shadows, moving like a ghost. I stay small, stay silent, and vanish before the threat solidifies. No one sees me; no one follows me. I exit unseen, unnoticed, and unchallenged.",
+    "correction": "The dominant coalition (I) overrides the blocked mind (E) and the rational plan (R). The synthesis prioritizes immediate, instinctual withdrawal to ensure survival, suppressing the desire for impact or contact. The correction explains that abstract control has grounded the rational mind into a state of silent, rapid escape, accepting the risk of withdrawal to avoid detection.",
+    "fallbacks": []
+  },
+  {
+    "id": "deadline_decision_racio",
+    "title": "Deadline decision with reputation risk",
+    "character_id": "R",
+    "acceptance_level": 0.52,
+    "status": 200,
+    "elapsed_s": 51.2,
+    "provider": "R=gpt-oss:20b;E=qwen3.5:9b;I=ministral-3:14b;S=qwen3.5:9b",
+    "language": "en",
+    "fallback_count": 0,
+    "elapsed_calls": [
+      {
+        "provider": "ollama",
+        "model": "gpt-oss:20b",
+        "elapsed_ms": 9082,
+        "raw_chars": 484
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 12149,
+        "raw_chars": 514
+      },
+      {
+        "provider": "ollama",
+        "model": "ministral-3:14b",
+        "elapsed_ms": 14557,
+        "raw_chars": 630
+      },
+      {
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "elapsed_ms": 15444,
+        "raw_chars": 919
+      }
+    ],
+    "final_words": 72,
+    "avg_voice_words": 12.3,
+    "coalition": [
+      "R"
+    ],
+    "blocked": "E",
+    "decision_rule": "the leading mind acts almost alone",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.786,
+      "image_projection": 0.644,
+      "abstract_detachment": 0.682
+    },
+    "risk_tags": [
+      "facade_activated",
+      "withdrawal_escape"
+    ],
+    "voices": {
+      "R": "We must act decisively, keep the plan tight, and protect our reputation.",
+      "E": "Speak the truth now and let the connection heal the flaw.",
+      "I": "Trust the team to handle the fallout if we act with honesty, not haste."
+    },
+    "final": "The hour is not a wall to breach but a window to frame. We do not ship the flaw nor hide it; we expose the gap and name the repair. The decision is to pause the launch, articulate the specific defect, and commit to a rapid, transparent fix. This preserves the integrity of the work and the trust of the team, turning a moment of potential failure into a demonstration of reliability.",
+    "correction": "The synthesis resolves the fear-based closure (I) and the desire for immediate connection (E) by adopting the controlled, decisive stance of the dominant coalition (R). The correction applies the E_over_I edge not by erasing the emotional need for honesty, but by channeling it into a structured plan that addresses the flaw directly. This prevents the withdrawal escape and facade activation, ensuring the decision remains grounded in reality rather than impulse or avoidance.",
+    "fallbacks": []
+  }
+]

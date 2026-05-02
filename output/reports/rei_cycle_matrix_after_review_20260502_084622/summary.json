@@ -1,0 +1,16 @@
+{
+  "run_id": "20260502_084622",
+  "provider": "deterministic",
+  "model": "qwen/qwen3.5-9b",
+  "total": 156,
+  "completed": 156,
+  "fallback_count": 0,
+  "elapsed_seconds": 0.086,
+  "jsonl": "output/reports/rei_cycle_matrix_after_review_20260502_084622/results.jsonl",
+  "markdown": "output/reports/rei_cycle_matrix_after_review_20260502_084622/report.md",
+  "aggregate_markdown": "output/reports/rei_cycle_matrix_after_review_20260502_084622/aggregate_summary.md",
+  "aggregate_json": "output/reports/rei_cycle_matrix_after_review_20260502_084622/aggregate_summary.json",
+  "progress": "output/reports/rei_cycle_matrix_after_review_20260502_084622/progress.log",
+  "summary": "output/reports/rei_cycle_matrix_after_review_20260502_084622/summary.json",
+  "warnings": []
+}

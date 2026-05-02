@@ -1,0 +1,16 @@
+{
+  "run_id": "20260502_085305",
+  "provider": "lmstudio",
+  "model": "qwen/qwen3.5-9b",
+  "total": 156,
+  "completed": 156,
+  "fallback_count": 153,
+  "elapsed_seconds": 16499.947,
+  "jsonl": "output/reports/rei_cycle_matrix_long_20260502_085303/results.jsonl",
+  "markdown": "output/reports/rei_cycle_matrix_long_20260502_085303/report.md",
+  "aggregate_markdown": "output/reports/rei_cycle_matrix_long_20260502_085303/aggregate_summary.md",
+  "aggregate_json": "output/reports/rei_cycle_matrix_long_20260502_085303/aggregate_summary.json",
+  "progress": "output/reports/rei_cycle_matrix_long_20260502_085303/progress.log",
+  "summary": "output/reports/rei_cycle_matrix_long_20260502_085303/summary.json",
+  "warnings": []
+}

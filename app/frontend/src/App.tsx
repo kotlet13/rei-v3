@@ -1,11 +1,12 @@
-import { BriefcaseBusiness, Download, Home, Play, RefreshCw, Server, ShieldCheck, Sparkles } from "lucide-react";
+import { BrainCircuit, BriefcaseBusiness, Download, Home, Play, RefreshCw, Server, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { API_BASE, getCharacters, getProviders, simulate } from "./api";
+import { API_BASE, getCharacters, getProviders, runReiCycle, simulate } from "./api";
 import type {
   CharacterDefinition,
   CharacterId,
   MindId,
   ProviderSelection,
+  REICycleResponse,
   SimulateRequest,
   TraceRecord,
 } from "./types";
@@ -36,6 +37,7 @@ const defaultProvider: ProviderSelection = {
 };
 
 const HISTORY_STORAGE_KEY = "rei.runHistory.v1";
+const CYCLE_FEEDBACK_STORAGE_KEY = "rei.cycleFeedback.v1";
 const MAX_HISTORY_ITEMS = 40;
 
 interface ScenarioPreset {
@@ -69,6 +71,15 @@ interface SimpleRunResult {
   trace: TraceRecord;
   diagnostics: Record<string, unknown> | null;
 }
+
+interface CycleFeedback {
+  accuracy: string;
+  novelty: string;
+  plausible: string;
+  wrong: string;
+}
+
+type CycleSignal = REICycleResponse["signals"][keyof REICycleResponse["signals"]];
 
 const scenarioPresets: ScenarioPreset[] = [
   {
@@ -124,6 +135,7 @@ export default function App() {
   const [providerStatus, setProviderStatus] = useState({ ollama: false, lmstudio: false });
   const [provider, setProvider] = useState<ProviderSelection>(defaultProvider);
   const [simpleMode, setSimpleMode] = useState(true);
+  const [reiCycleMode, setReiCycleMode] = useState(false);
   const [title, setTitle] = useState("Public speaking and stage fright");
   const [prompt, setPrompt] = useState(DEFAULT_SCENARIO);
   const [characterId, setCharacterId] = useState<CharacterId>("REI");
@@ -134,6 +146,8 @@ export default function App() {
   const [relationshipStake, setRelationshipStake] = useState(0.44);
   const [bodilyState, setBodilyState] = useState("elevated heart rate and tense posture");
   const [trace, setTrace] = useState<TraceRecord | null>(null);
+  const [cycleResponse, setCycleResponse] = useState<REICycleResponse | null>(null);
+  const [cycleFeedback, setCycleFeedback] = useState<CycleFeedback>(readStoredCycleFeedback);
   const [diagnostics, setDiagnostics] = useState<Record<string, unknown> | null>(null);
   const [simpleRuns, setSimpleRuns] = useState<SimpleRunResult[]>([]);
   const [history, setHistory] = useState<RunHistoryItem[]>(readStoredHistory);
@@ -162,6 +176,14 @@ export default function App() {
     }
   }, [history]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(CYCLE_FEEDBACK_STORAGE_KEY, JSON.stringify(cycleFeedback));
+    } catch {
+      // Local feedback should never block a simulation.
+    }
+  }, [cycleFeedback]);
+
   const selectedCharacter = useMemo(
     () => characters.find((character) => character.id === characterId),
     [characters, characterId],
@@ -171,12 +193,31 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
+      if (reiCycleMode) {
+        const response = await runReiCycle({
+          provider,
+          scenario: { title, prompt },
+          character_profile: characterId,
+          acceptance_mode: "unknown",
+          rounds: 0,
+          stream: false,
+          use_memory: true,
+        });
+        setCycleResponse(response);
+        setDiagnostics(response.diagnostics);
+        setTrace(null);
+        setSimpleRuns([]);
+        setSelectedHistoryId(null);
+        return;
+      }
+
       if (simpleMode) {
         if (!characters.length) {
           throw new Error("Characters are not loaded yet.");
         }
         const lowContextScenario = buildLowContextScenario(title, prompt);
         const results: SimpleRunResult[] = [];
+        setCycleResponse(null);
         setTrace(null);
         setDiagnostics(null);
         setSimpleRuns([]);
@@ -186,21 +227,21 @@ export default function App() {
           const payload: SimulateRequest = {
             provider,
             scenario: lowContextScenario,
-              psyche_state: {
-                character_id: character.id,
-                acceptance_level: acceptance,
-                active_triggers: [],
-                facades: [],
-                unmet_goals: [],
-                context: {
-                  setting,
-                  social_exposure: socialExposure,
-                  time_pressure: timePressure,
-                  relationship_stake: relationshipStake,
-                  bodily_state: bodilyState || undefined,
-                },
+            psyche_state: {
+              character_id: character.id,
+              acceptance_level: acceptance,
+              active_triggers: [],
+              facades: [],
+              unmet_goals: [],
+              context: {
+                setting,
+                social_exposure: socialExposure,
+                time_pressure: timePressure,
+                relationship_stake: relationshipStake,
+                bodily_state: bodilyState || undefined,
               },
-            };
+            },
+          };
           const response = await simulate(payload);
           results.push({ character, trace: response.trace, diagnostics: response.diagnostics });
           setSimpleRuns([...results]);
@@ -228,6 +269,7 @@ export default function App() {
       };
       const response = await simulate(payload);
       const historyItem = buildHistoryItem(response.trace, response.diagnostics);
+      setCycleResponse(null);
       setTrace(response.trace);
       setDiagnostics(response.diagnostics);
       setSimpleRuns([]);
@@ -244,12 +286,13 @@ export default function App() {
   }
 
   function exportRun() {
-    if (!trace) return;
-    const blob = new Blob([JSON.stringify({ trace, diagnostics }, null, 2)], { type: "application/json" });
+    if (!trace && !cycleResponse) return;
+    const exportPayload = cycleResponse ? { cycleResponse, diagnostics } : { trace, diagnostics };
+    const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `${trace.trace_id}-run.json`;
+    anchor.download = cycleResponse ? "rei-cycle-run.json" : `${trace?.trace_id ?? "rei"}-run.json`;
     anchor.click();
     URL.revokeObjectURL(url);
   }
@@ -268,6 +311,7 @@ export default function App() {
     setTimePressure(preset.timePressure);
     setRelationshipStake(preset.relationshipStake);
     setBodilyState(preset.bodilyState);
+    setCycleResponse(null);
     setTrace(null);
     setDiagnostics(null);
     setSimpleRuns([]);
@@ -275,6 +319,7 @@ export default function App() {
   }
 
   function openHistoryItem(item: RunHistoryItem) {
+    setCycleResponse(null);
     setTrace(item.trace);
     setDiagnostics(item.diagnostics);
     setSimpleRuns([]);
@@ -285,6 +330,10 @@ export default function App() {
   function clearHistory() {
     setHistory([]);
     setSelectedHistoryId(null);
+  }
+
+  function updateCycleFeedback<K extends keyof CycleFeedback>(key: K, value: CycleFeedback[K]) {
+    setCycleFeedback((previous) => ({ ...previous, [key]: value }));
   }
 
   return (
@@ -321,12 +370,29 @@ export default function App() {
                   checked={simpleMode}
                   onChange={(event) => {
                     setSimpleMode(event.target.checked);
+                    if (event.target.checked) setReiCycleMode(false);
+                    setCycleResponse(null);
                     setTrace(null);
                     setDiagnostics(null);
                     setSimpleRuns([]);
                   }}
                 />
                 <span>Simple</span>
+              </label>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={reiCycleMode}
+                  onChange={(event) => {
+                    setReiCycleMode(event.target.checked);
+                    if (event.target.checked) setSimpleMode(false);
+                    setCycleResponse(null);
+                    setTrace(null);
+                    setDiagnostics(null);
+                    setSimpleRuns([]);
+                  }}
+                />
+                <span>Cycle</span>
               </label>
               <button
                 className="primary-button"
@@ -335,7 +401,7 @@ export default function App() {
                 disabled={loading || (simpleMode && !characters.length)}
               >
                 {loading ? <RefreshCw className="spin" size={18} /> : <Play size={18} />}
-                {loading ? "Simulating" : simpleMode ? "Run all" : "Simulate"}
+                {loading ? "Simulating" : reiCycleMode ? "Run cycle" : simpleMode ? "Run all" : "Simulate"}
               </button>
             </div>
           </div>
@@ -527,6 +593,88 @@ export default function App() {
         </section>
       )}
 
+      {cycleResponse && (
+        <section className="result-grid cycle-result-grid" aria-label="Inner monologue cycle">
+          <section className="panel cycle-drivers-panel">
+            <div className="panel-header">
+              <h2>Inner Monologue Cycle</h2>
+              <button className="secondary-button" type="button" onClick={exportRun}>
+                <Download size={18} />
+                Export run
+              </button>
+            </div>
+            <div className="driver-list">
+              <Field label="Profile" value={cycleResponse.character_profile} />
+              <Field label="Profile leader" value={cycleResponse.ego_resultant.profile_leader} />
+              <Field label="Profile leader minds" value={cycleResponse.ego_resultant.profile_leader_minds} />
+              <Field label="Situational driver" value={cycleResponse.ego_resultant.situational_driver} />
+              <Field label="Resultant under pressure" value={cycleResponse.ego_resultant.resultant_leader_under_pressure} />
+              <Field label="Racio role" value={cycleResponse.ego_resultant.racio_role} />
+              <Field label="Emocio role" value={cycleResponse.ego_resultant.emocio_role} />
+              <Field label="Instinkt role" value={cycleResponse.ego_resultant.instinkt_role} />
+              <Field label="Decision stability" value={cycleResponse.ego_resultant.decision_stability} />
+              <Field label="Profile influence" value={cycleResponse.ego_resultant.profile_influence_explanation} />
+            </div>
+          </section>
+
+          <section className="panel cycle-acceptance-panel">
+            <h2>Acceptance / Non-acceptance</h2>
+            <div className="driver-list">
+              <Field label="Overall level" value={cycleResponse.acceptance.overall_level} />
+              <Field label="Behavioral alignment" value={cycleResponse.acceptance.behavioral_alignment} />
+              <Field label="Acceptance quality" value={cycleResponse.acceptance.acceptance_quality} />
+              <Field label="Non-acceptance pattern" value={cycleResponse.acceptance.non_acceptance_pattern} />
+              <Field label="Coalition pattern" value={cycleResponse.acceptance.coalition_pattern} />
+              <Field label="Sabotage mechanism" value={cycleResponse.acceptance.sabotage_mechanism} />
+              <Field label="Main conflict" value={cycleResponse.acceptance.main_conflict} />
+              <Field label="Task delegation" value={cycleResponse.acceptance.task_delegation} />
+            </div>
+          </section>
+
+          <section className="panel cycle-prediction-panel">
+            <div className="panel-header compact">
+              <h2>Ego Resultant</h2>
+              <BrainCircuit size={20} aria-hidden="true" />
+            </div>
+            <p className="final-monologue">{cycleResponse.ego_resultant.likely_action_under_pressure}</p>
+            <div className="integration-grid">
+              <Field label="Racio justification afterward" value={cycleResponse.ego_resultant.racio_justification_afterwards} />
+              <Field label="Hidden driver" value={cycleResponse.ego_resultant.hidden_driver} />
+              <Field label="Hidden cost" value={cycleResponse.ego_resultant.hidden_cost} />
+              <Field label="Integrated decision" value={cycleResponse.ego_resultant.integrated_decision} />
+              <Field label="Smallest acceptable next step" value={cycleResponse.ego_resultant.smallest_acceptable_next_step} />
+              <Field label="Uncertainty" value={cycleResponse.ego_resultant.uncertainty} />
+            </div>
+          </section>
+        </section>
+      )}
+
+      {cycleResponse && (
+        <section className="voices-grid" aria-label="REI cycle processor signals">
+          <CycleSignalCard title="Conscious Racio Monologue" signal={cycleResponse.signals.racio} />
+          <CycleSignalCard title="Translated Emocio Signal" signal={cycleResponse.signals.emocio_translated} />
+          <CycleSignalCard title="Translated Instinkt Signal" signal={cycleResponse.signals.instinkt_translated} />
+        </section>
+      )}
+
+      {cycleResponse && (
+        <section className="panel cycle-feedback-panel" aria-label="Cycle feedback">
+          <div className="panel-header compact">
+            <h2>Feedback</h2>
+            <span>local</span>
+          </div>
+          <div className="feedback-grid">
+            <RatingSelect label="Accuracy" value={cycleFeedback.accuracy} onChange={(value) => updateCycleFeedback("accuracy", value)} />
+            <RatingSelect label="New signal" value={cycleFeedback.novelty} onChange={(value) => updateCycleFeedback("novelty", value)} />
+            <RatingSelect label="Prediction" value={cycleFeedback.plausible} onChange={(value) => updateCycleFeedback("plausible", value)} />
+            <label className="feedback-text">
+              Wrong
+              <textarea value={cycleFeedback.wrong} onChange={(event) => updateCycleFeedback("wrong", event.target.value)} rows={3} />
+            </label>
+          </div>
+        </section>
+      )}
+
       {trace && (
         <section className="result-grid">
           <section className="panel">
@@ -681,6 +829,63 @@ export default function App() {
   );
 }
 
+function CycleSignalCard({ title, signal }: { title: string; signal: CycleSignal }) {
+  return (
+    <article className={`voice-card ${cycleMindClass(signal.mind)}`}>
+      <div className="voice-head">
+        <span>{signal.mind[0].toUpperCase()}</span>
+        <div>
+          <h3>{title}</h3>
+          <p>
+            {signal.translated_by_racio ? "translated" : "conscious"} / confidence {signal.confidence.toFixed(2)}
+          </p>
+        </div>
+      </div>
+      <Field label="Processing mode" value={signal.processing_mode} />
+      <Field label="Perception" value={signal.perception} />
+      <Field label="Primary motive" value={signal.primary_motive} />
+      <Field label="Preferred action" value={signal.preferred_action} />
+      <Field label="Accepted expression" value={signal.accepted_expression} />
+      <Field label="Non-accepted expression" value={signal.non_accepted_expression} />
+      <Field label="Resistance" value={signal.resistance_to_other_minds} />
+      <Field label="Needs" value={signal.what_this_mind_needs} />
+      <Field label="Risk if ignored" value={signal.risk_if_ignored} />
+      <Field label="Risk if dominant" value={signal.risk_if_dominant} />
+      {signal.mind === "racio" && (
+        <>
+          <ListField label="Known facts" values={signal.known_facts} />
+          <ListField label="Unknowns" values={signal.unknowns} />
+          <ListField label="Options" values={signal.logical_options} />
+          <Field label="Sequence" value={signal.timeline_or_sequence} />
+          <Field label="Rationalization risk" value={signal.rationalization_risk} />
+        </>
+      )}
+      {signal.mind === "emocio" && (
+        <>
+          <Field label="Current image" value={signal.current_image} />
+          <Field label="Desired image" value={signal.desired_image} />
+          <Field label="Broken image" value={signal.broken_image} />
+          <Field label="Social meaning" value={signal.social_meaning} />
+          <Field label="Pride / shame" value={signal.pride_or_shame} />
+          <Field label="Attack impulse" value={signal.attack_impulse} />
+        </>
+      )}
+      {signal.mind === "instinkt" && (
+        <>
+          <Field label="Threat map" value={signal.threat_map} />
+          <Field label="Loss map" value={signal.loss_map} />
+          <Field label="Body alarm" value={signal.body_alarm} />
+          <Field label="Boundary issue" value={signal.boundary_issue} />
+          <Field label="Attachment issue" value={signal.attachment_issue} />
+          <Field label="Minimum safety" value={signal.minimum_safety_condition} />
+        </>
+      )}
+      <Field label="Uncertainty" value={signal.uncertainty} />
+      <ListField label="Safety flags" values={signal.safety_flags} />
+    </article>
+  );
+}
+
 function buildHistoryItem(trace: TraceRecord, diagnostics: Record<string, unknown> | null): RunHistoryItem {
   return {
     id: trace.trace_id,
@@ -737,6 +942,29 @@ function readStoredHistory(): RunHistoryItem[] {
     localStorage.removeItem(HISTORY_STORAGE_KEY);
     return [];
   }
+}
+
+function readStoredCycleFeedback(): CycleFeedback {
+  try {
+    const storedFeedback = localStorage.getItem(CYCLE_FEEDBACK_STORAGE_KEY);
+    if (!storedFeedback) return { accuracy: "", novelty: "", plausible: "", wrong: "" };
+    const parsed = JSON.parse(storedFeedback) as Partial<CycleFeedback>;
+    return {
+      accuracy: parsed.accuracy ?? "",
+      novelty: parsed.novelty ?? "",
+      plausible: parsed.plausible ?? "",
+      wrong: parsed.wrong ?? "",
+    };
+  } catch {
+    localStorage.removeItem(CYCLE_FEEDBACK_STORAGE_KEY);
+    return { accuracy: "", novelty: "", plausible: "", wrong: "" };
+  }
+}
+
+function cycleMindClass(mind: string) {
+  if (mind === "racio") return "mind-r";
+  if (mind === "emocio") return "mind-e";
+  return "mind-i";
 }
 
 function summarizeText(text: string) {
@@ -817,6 +1045,30 @@ function ModelSelect({
   );
 }
 
+function RatingSelect({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label>
+      {label}
+      <select value={value} onChange={(event) => onChange(event.target.value)}>
+        <option value="">-</option>
+        {[1, 2, 3, 4, 5].map((rating) => (
+          <option key={rating} value={String(rating)}>
+            {rating}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 function MetricBar({ label, value }: { label: string; value: number }) {
   return (
     <div className="metric">
@@ -831,12 +1083,18 @@ function MetricBar({ label, value }: { label: string; value: number }) {
   );
 }
 
-function Field({ label, value }: { label: string; value?: string | null }) {
-  if (!value) return null;
+function Field({ label, value }: { label: string; value?: unknown }) {
+  if (value === null || value === undefined || value === "") return null;
+  const rendered = Array.isArray(value)
+    ? value.join("; ")
+    : typeof value === "object"
+      ? JSON.stringify(value)
+      : String(value);
+  if (!rendered) return null;
   return (
     <div className="voice-field">
       <span>{label}</span>
-      <p>{value}</p>
+      <p>{rendered}</p>
     </div>
   );
 }

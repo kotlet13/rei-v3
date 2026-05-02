@@ -1,0 +1,768 @@
+[
+  {
+    "name": "deterministic-en",
+    "elapsed_s": 0.0,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 43,
+    "avg_voice_words": 10.7,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "Synthesis moves into controlled breakthrough: enough structure to keep the scene intact, enough life to avoid pure defense. Coalition line: If I keep the structure, I can withstand unfavorable pressure. / If I can feel them, the scene can turn in my favor.",
+    "voices": {
+      "R": "If I keep the structure, I can withstand unfavorable pressure.",
+      "E": "If I can feel them, the scene can turn in my favor.",
+      "I": "Get through safely first; everything else can be considered later."
+    },
+    "diagnostics": {
+      "llm_calls": [],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "mixed-default-en",
+    "elapsed_s": 50.8,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 64,
+    "avg_voice_words": 10.7,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "The auditorium breathes as a living partner, not a judge. The heat of their gaze fuels the voice rather than silencing it. The script is a map, not a cage; the path forward is found in the rhythm of the room, not the rigid sequence of points. Control is not the absence of tremor, but the ability to move through it with the audience.",
+    "voices": {
+      "R": "I must follow the established sequence without deviation.",
+      "E": "Breathe the room until the heat validates you instead of hiding.",
+      "I": "The stage is a blade; step back before it cuts deeper than words."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 7665,
+          "raw_chars": 464
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 12164,
+          "raw_chars": 472
+        },
+        {
+          "provider": "ollama",
+          "model": "ministral-3:14b",
+          "elapsed_ms": 15134,
+          "raw_chars": 607
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 15862,
+          "raw_chars": 887
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "mixed-default-sl-input",
+    "elapsed_s": 56.7,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 137,
+    "avg_voice_words": 11.7,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.828,
+      "image_projection": 0.723,
+      "abstract_detachment": 0.636
+    },
+    "final": "The silence before the curtain is not empty; it is a held breath. You stand at the threshold where the polished mask meets the trembling flesh. The desire to vanish, to tighten the core and retreat into the lie of perfection, is a heavy anchor. Yet, the room does not demand a statue; it demands a living presence. Do not seal the crack in your image. Let the tremor be the first word of the speech, not a failure to be edited out. The fear is not a barrier to entry, but the very texture of the truth you carry. Speak through the shaking hands; let the heartbeat sync with the silence of the audience. The exit is not the only truth; the vulnerability you refuse to show is the only thing that makes the performance real.",
+    "voices": {
+      "R": "I must execute the plan exactly as structured.",
+      "E": "Breathe the fear in and let the real you speak through the shaking hands.",
+      "I": "The stage is a lie; the exit is the only truth you own."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 7458,
+          "raw_chars": 421
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 12508,
+          "raw_chars": 497
+        },
+        {
+          "provider": "ollama",
+          "model": "ministral-3:14b",
+          "elapsed_ms": 14434,
+          "raw_chars": 555
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 22286,
+          "raw_chars": 1462
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "qwen35-9b-all-en",
+    "elapsed_s": 64.9,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 1,
+    "final_words": 70,
+    "avg_voice_words": 11.3,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "The facade holds, yet the tremor beneath it is not a crack but a threshold. To execute the routine without feeling is to remain a statue, not a speaker. The fear of exposure is the very proof of the connection waiting to be made. Do not seal the door; step through the trembling. The image does not need to be perfect to be real; it only needs to be present.",
+    "voices": {
+      "R": "Execute the plan. The image must remain intact. Do not show the crack.",
+      "E": "Let the wall fall so the real contact can finally begin.",
+      "I": "Get through safely first; everything else can be considered later."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 11411,
+          "raw_chars": 547
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 8568,
+          "raw_chars": 486
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 13657,
+          "raw_chars": 979
+        }
+      ],
+      "fallbacks": [
+        {
+          "mind": "I",
+          "reason": "Ollama returned an empty response; thinking='Thinking Process:  1.  **Analyze the Request:**     *   **Role:** REI PoC (Point of Consciousness) generator for one inner voice.     *   **Voice:** Instinkt (protective, skeptical, bodily, focused on risk, boundary, and withdrawal).     * '"
+        }
+      ],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "gemma4-8b-all-en",
+    "elapsed_s": 29.8,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 40,
+    "avg_voice_words": 9.7,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "The immediate focus must shift from internal maintenance to external connection. Leverage the structured content (R) to facilitate a genuine, directed engagement (E). Acknowledge the physical need for grounding (I) not as a struggle, but as a deliberate, controlled presence.",
+    "voices": {
+      "R": "Maintain the established structure; do not deviate from the script.",
+      "E": "I must find a single point of warm connection.",
+      "I": "I must keep my body still and my voice steady."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 7904,
+          "raw_chars": 485
+        },
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 3558,
+          "raw_chars": 401
+        },
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 12866,
+          "raw_chars": 389
+        },
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 5482,
+          "raw_chars": 851
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "mistral-7b-all-en",
+    "elapsed_s": 27.8,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 92,
+    "avg_voice_words": 6,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "In the face of public speaking and stage fright, it's crucial to find a balance between maintaining control (R) and connecting with the audience (E). Emotions (E) should be expressed authentically to foster human connection, but not at the expense of protective instincts (I), which urge caution amidst scrutiny. The individual must focus on breathing techniques to calm nerves (R), while also considering sharing a genuine vulnerability to connect with the audience (E). However, the mind is ambivalent about exposing too much due to fear of exposure and loss of status (I).",
+    "voices": {
+      "R": "Stay composed, project confidence",
+      "E": "Break through fear to feel human connection",
+      "I": "Protective Instinkt urges caution amidst the scrutiny"
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "mistral:latest",
+          "elapsed_ms": 8398,
+          "raw_chars": 446
+        },
+        {
+          "provider": "ollama",
+          "model": "mistral:latest",
+          "elapsed_ms": 5556,
+          "raw_chars": 448
+        },
+        {
+          "provider": "ollama",
+          "model": "mistral:latest",
+          "elapsed_ms": 5654,
+          "raw_chars": 438
+        },
+        {
+          "provider": "ollama",
+          "model": "mistral:latest",
+          "elapsed_ms": 8187,
+          "raw_chars": 943
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "dolphin3-8b-all-en",
+    "elapsed_s": 26.2,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 21,
+    "avg_voice_words": 13,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "Inhale confidence, exhale doubt; speak with clarity. Evaluating my performance will reveal true connection or cracks in my image of competence.",
+    "voices": {
+      "R": "Inhale confidence, exhale doubt; speak with clarity.",
+      "E": "Evaluating my performance will reveal true connection or cracks in my image of competence.",
+      "I": "Instinkt: protective, skeptical, bodily, focused on risk, boundary, and withdrawal. Short, sober, non-poetic, and without operational harmful instructions."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "dolphin3:latest",
+          "elapsed_ms": 9504,
+          "raw_chars": 505
+        },
+        {
+          "provider": "ollama",
+          "model": "dolphin3:latest",
+          "elapsed_ms": 6157,
+          "raw_chars": 523
+        },
+        {
+          "provider": "ollama",
+          "model": "dolphin3:latest",
+          "elapsed_ms": 6104,
+          "raw_chars": 517
+        },
+        {
+          "provider": "ollama",
+          "model": "dolphin3:latest",
+          "elapsed_ms": 4422,
+          "raw_chars": 293
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "gemma3-12b-all-en",
+    "elapsed_s": 39.2,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 31,
+    "avg_voice_words": 10,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "The sequence initiates. Acknowledge the impulse to project, but anchor in the procedural framework. The perceived risk is a distortion; the performance is a conduit, not a reflection. Maintain forward momentum.",
+    "voices": {
+      "R": "Adhere to the plan; any deviation is a system malfunction.",
+      "E": "Breathe deeply, let the light shine, become the spectacle they desire.",
+      "I": "This isn't worth the potential damage to my standing."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gemma3:12b",
+          "elapsed_ms": 12042,
+          "raw_chars": 485
+        },
+        {
+          "provider": "ollama",
+          "model": "gemma3:12b",
+          "elapsed_ms": 9449,
+          "raw_chars": 498
+        },
+        {
+          "provider": "ollama",
+          "model": "gemma3:12b",
+          "elapsed_ms": 7932,
+          "raw_chars": 354
+        },
+        {
+          "provider": "ollama",
+          "model": "gemma3:12b",
+          "elapsed_ms": 9820,
+          "raw_chars": 635
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "gpt-oss-20b-all-en",
+    "elapsed_s": 23.0,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 36,
+    "avg_voice_words": 14.3,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "Step forward with calm intent. Breathe deeply, anchor your center, and let each sentence unfold naturally. Trust the plan, yet remain open to the audience’s response. Your presence is a canvas—paint it with confidence, not fear.",
+    "voices": {
+      "R": "Step forward, breathe, deliver the first line, keep the plan tight.",
+      "E": "Hold the breath, let the words flow, let the stage be my canvas, not a battlefield.",
+      "I": "Keep your body steady, breathe, and let the words flow from the center of your chest."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 9051,
+          "raw_chars": 384
+        },
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 4688,
+          "raw_chars": 480
+        },
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 4248,
+          "raw_chars": 438
+        },
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 5041,
+          "raw_chars": 521
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "gpt-oss-20b-racio-synthesis-en",
+    "elapsed_s": 48.2,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 44,
+    "avg_voice_words": 14.3,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "I will breathe through the fear, let the heat of the moment shape my words, and trust the structure I have rehearsed. The audience will see a speaker who is present, not perfect, and that presence is enough to maintain my image of competence.",
+    "voices": {
+      "R": "Step by step, I will deliver the plan, keep the audience engaged, and preserve my image of competence.",
+      "E": "Breathe the fear into the air and let your voice be the truth.",
+      "I": "Stay rigid, stay unseen, do not let them see the fracture beneath."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 9265,
+          "raw_chars": 436
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 13221,
+          "raw_chars": 437
+        },
+        {
+          "provider": "ollama",
+          "model": "ministral-3:14b",
+          "elapsed_ms": 14475,
+          "raw_chars": 574
+        },
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 11205,
+          "raw_chars": 592
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  },
+  {
+    "name": "gpt-oss-20b-synthesis-only-en",
+    "elapsed_s": 48.5,
+    "status": 200,
+    "language": "en",
+    "fallback_count": 0,
+    "final_words": 71,
+    "avg_voice_words": 12.3,
+    "possible_sl_leak": false,
+    "risk_tags": [
+      "facade_activated",
+      "conflicted_self_explanation",
+      "withdrawal_escape",
+      "obsessiveness"
+    ],
+    "coalition": [
+      "R",
+      "E"
+    ],
+    "blocked": "I",
+    "dominant_edge": "E_over_I",
+    "deviation": {
+      "fear_closure": 0.843,
+      "image_projection": 0.738,
+      "abstract_detachment": 0.636
+    },
+    "final": "I acknowledge the tension that grips me, yet I choose to let the pulse of the audience guide my voice. I will breathe through the fear, allowing it to become the rhythm of my words, and I will trust that the authenticity of my presence will resonate more than any flawless script. I release the need to conceal any flaw, embracing the moment as a shared experience of vulnerability and strength.",
+    "voices": {
+      "R": "I must keep the structure rigid and the pace consistent.",
+      "E": "Let the fear fuel the fire; speak from the wound and live the moment.",
+      "I": "Stay rigid, stay silent, stay invisible—do not let them see the fracture beneath."
+    },
+    "diagnostics": {
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "gemma4:latest",
+          "elapsed_ms": 7869,
+          "raw_chars": 462
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "elapsed_ms": 12656,
+          "raw_chars": 515
+        },
+        {
+          "provider": "ollama",
+          "model": "ministral-3:14b",
+          "elapsed_ms": 16684,
+          "raw_chars": 710
+        },
+        {
+          "provider": "ollama",
+          "model": "gpt-oss:20b",
+          "elapsed_ms": 11242,
+          "raw_chars": 788
+        }
+      ],
+      "fallbacks": [],
+      "pair_scores": {
+        "RE": 0.235,
+        "RI": 0.26,
+        "EI": 0.095
+      },
+      "voice_scores": {
+        "R": 0.674,
+        "E": 0.674,
+        "I": 0.674
+      }
+    }
+  }
+]
