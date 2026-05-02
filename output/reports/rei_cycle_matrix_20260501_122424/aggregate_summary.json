@@ -1,0 +1,33 @@
+[
+  {
+    "scenario": "job_quit_business_delay",
+    "leading": {
+      "instinkt": 13
+    },
+    "acceptance": {
+      "mixed": 12,
+      "conflicted": 1
+    }
+  },
+  {
+    "scenario": "relationship_return",
+    "leading": {
+      "instinkt": 11,
+      "emocio": 2
+    },
+    "acceptance": {
+      "accepting": 3,
+      "mixed": 10
+    }
+  },
+  {
+    "scenario": "public_talk_freeze",
+    "leading": {
+      "instinkt": 13
+    },
+    "acceptance": {
+      "mixed": 12,
+      "conflicted": 1
+    }
+  }
+]
