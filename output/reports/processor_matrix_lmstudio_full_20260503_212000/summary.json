@@ -1,0 +1,394 @@
+{
+  "run_id": "20260503_211923",
+  "provider": "lmstudio",
+  "model": "qwen/qwen3.5-9b",
+  "mind": "all",
+  "total": 18,
+  "completed": 18,
+  "elapsed_seconds": 196.611,
+  "strict": true,
+  "strict_pass": true,
+  "strict_failures": [],
+  "summary": "output/reports/processor_matrix_lmstudio_full_20260503_212000/summary.json",
+  "results_jsonl": "output/reports/processor_matrix_lmstudio_full_20260503_212000/results.jsonl",
+  "aggregate_markdown": "output/reports/processor_matrix_lmstudio_full_20260503_212000/aggregate_summary.md",
+  "aggregate_json": "output/reports/processor_matrix_lmstudio_full_20260503_212000/aggregate_summary.json",
+  "progress": "output/reports/processor_matrix_lmstudio_full_20260503_212000/progress.log",
+  "metrics": {
+    "total_calls": 18,
+    "fallback_count": 0,
+    "fallback_rate": 0.0,
+    "valid_json_rate": 1.0,
+    "average_schema_score": 1.0,
+    "average_role_score": 0.86,
+    "average_distinctness_score": 1.0,
+    "average_overall_score": 0.958,
+    "style_violations": {},
+    "rei_violations": {},
+    "per_mind": {
+      "emocio": {
+        "total_calls": 6,
+        "fallback_count": 0,
+        "fallback_rate": 0.0,
+        "valid_json_rate": 1.0,
+        "average_schema_score": 1.0,
+        "average_role_score": 0.92,
+        "average_distinctness_score": 1.0,
+        "average_overall_score": 0.976,
+        "style_violations": {},
+        "rei_violations": {}
+      },
+      "instinkt": {
+        "total_calls": 6,
+        "fallback_count": 0,
+        "fallback_rate": 0.0,
+        "valid_json_rate": 1.0,
+        "average_schema_score": 1.0,
+        "average_role_score": 0.9,
+        "average_distinctness_score": 1.0,
+        "average_overall_score": 0.97,
+        "style_violations": {},
+        "rei_violations": {}
+      },
+      "racio": {
+        "total_calls": 6,
+        "fallback_count": 0,
+        "fallback_rate": 0.0,
+        "valid_json_rate": 1.0,
+        "average_schema_score": 1.0,
+        "average_role_score": 0.76,
+        "average_distinctness_score": 1.0,
+        "average_overall_score": 0.928,
+        "style_violations": {},
+        "rei_violations": {}
+      }
+    },
+    "per_model": {
+      "qwen/qwen3.5-9b": {
+        "total_calls": 18,
+        "fallback_count": 0,
+        "fallback_rate": 0.0,
+        "valid_json_rate": 1.0,
+        "average_schema_score": 1.0,
+        "average_role_score": 0.86,
+        "average_distinctness_score": 1.0,
+        "average_overall_score": 0.958,
+        "style_violations": {},
+        "rei_violations": {}
+      }
+    },
+    "distinctness_comparisons": [
+      {
+        "repeat_index": 1,
+        "scenario_id": "business-runway",
+        "model": "qwen/qwen3.5-9b",
+        "comparison": {
+          "threshold": 0.45,
+          "max_overlap": 0.1163,
+          "distinctness_pass": true,
+          "pairwise": {
+            "racio_emocio": {
+              "overlap": 0.0,
+              "shared_terms": [],
+              "passes_threshold": true
+            },
+            "racio_instinkt": {
+              "overlap": 0.1163,
+              "shared_terms": [
+                "additional",
+                "cash",
+                "collapse",
+                "customer",
+                "financial",
+                "fit",
+                "product-market",
+                "revenue",
+                "runway",
+                "secure"
+              ],
+              "passes_threshold": true
+            },
+            "emocio_instinkt": {
+              "overlap": 0.0299,
+              "shared_terms": [
+                "safety",
+                "single",
+                "tension",
+                "thin"
+              ],
+              "passes_threshold": true
+            }
+          },
+          "notes": []
+        }
+      },
+      {
+        "repeat_index": 1,
+        "scenario_id": "career-family",
+        "model": "qwen/qwen3.5-9b",
+        "comparison": {
+          "threshold": 0.45,
+          "max_overlap": 0.0938,
+          "distinctness_pass": true,
+          "pairwise": {
+            "racio_emocio": {
+              "overlap": 0.0576,
+              "shared_terms": [
+                "both",
+                "creative",
+                "disappointing",
+                "family",
+                "immediately",
+                "path",
+                "potential",
+                "while"
+              ],
+              "passes_threshold": true
+            },
+            "racio_instinkt": {
+              "overlap": 0.0938,
+              "shared_terms": [
+                "creative",
+                "disappointing",
+                "family",
+                "financial",
+                "instability",
+                "path",
+                "risk",
+                "when",
+                "work"
+              ],
+              "passes_threshold": true
+            },
+            "emocio_instinkt": {
+              "overlap": 0.0556,
+              "shared_terms": [
+                "creative",
+                "disappointing",
+                "family",
+                "path",
+                "respect",
+                "security"
+              ],
+              "passes_threshold": true
+            }
+          },
+          "notes": []
+        }
+      },
+      {
+        "repeat_index": 1,
+        "scenario_id": "creative-exposure",
+        "model": "qwen/qwen3.5-9b",
+        "comparison": {
+          "threshold": 0.45,
+          "max_overlap": 0.0964,
+          "distinctness_pass": true,
+          "pairwise": {
+            "racio_emocio": {
+              "overlap": 0.019,
+              "shared_terms": [
+                "fear",
+                "work"
+              ],
+              "passes_threshold": true
+            },
+            "racio_instinkt": {
+              "overlap": 0.0964,
+              "shared_terms": [
+                "anonymous",
+                "audience",
+                "fear",
+                "public",
+                "record",
+                "ridicule",
+                "safety",
+                "social"
+              ],
+              "passes_threshold": true
+            },
+            "emocio_instinkt": {
+              "overlap": 0.0467,
+              "shared_terms": [
+                "fear",
+                "mockery",
+                "others",
+                "standing",
+                "will"
+              ],
+              "passes_threshold": true
+            }
+          },
+          "notes": []
+        }
+      },
+      {
+        "repeat_index": 1,
+        "scenario_id": "lifestyle-choice",
+        "model": "qwen/qwen3.5-9b",
+        "comparison": {
+          "threshold": 0.45,
+          "max_overlap": 0.0861,
+          "distinctness_pass": true,
+          "pairwise": {
+            "racio_emocio": {
+              "overlap": 0.0592,
+              "shared_terms": [
+                "any",
+                "constant",
+                "cost",
+                "demands",
+                "each",
+                "fear",
+                "isolation",
+                "life",
+                "path"
+              ],
+              "passes_threshold": true
+            },
+            "racio_instinkt": {
+              "overlap": 0.0861,
+              "shared_terms": [
+                "against",
+                "autonomy",
+                "current",
+                "demands",
+                "home-centered",
+                "instability",
+                "life",
+                "nomadic",
+                "path",
+                "resource",
+                "stability",
+                "stagnation",
+                "urban"
+              ],
+              "passes_threshold": true
+            },
+            "emocio_instinkt": {
+              "overlap": 0.0305,
+              "shared_terms": [
+                "demands",
+                "life",
+                "loss",
+                "path"
+              ],
+              "passes_threshold": true
+            }
+          },
+          "notes": []
+        }
+      },
+      {
+        "repeat_index": 1,
+        "scenario_id": "public-stage",
+        "model": "qwen/qwen3.5-9b",
+        "comparison": {
+          "threshold": 0.45,
+          "max_overlap": 0.0583,
+          "distinctness_pass": true,
+          "pairwise": {
+            "racio_emocio": {
+              "overlap": 0.0362,
+              "shared_terms": [
+                "fear",
+                "potential",
+                "rather",
+                "risk",
+                "than"
+              ],
+              "passes_threshold": true
+            },
+            "racio_instinkt": {
+              "overlap": 0.0583,
+              "shared_terms": [
+                "exit",
+                "exposure",
+                "incompetence",
+                "internal",
+                "perceived",
+                "public",
+                "self-image"
+              ],
+              "passes_threshold": true
+            },
+            "emocio_instinkt": {
+              "overlap": 0.0323,
+              "shared_terms": [
+                "competent",
+                "exposing",
+                "performance"
+              ],
+              "passes_threshold": true
+            }
+          },
+          "notes": []
+        }
+      },
+      {
+        "repeat_index": 1,
+        "scenario_id": "relationship-boundary",
+        "model": "qwen/qwen3.5-9b",
+        "comparison": {
+          "threshold": 0.45,
+          "max_overlap": 0.1159,
+          "distinctness_pass": true,
+          "pairwise": {
+            "racio_emocio": {
+              "overlap": 0.0629,
+              "shared_terms": [
+                "boundary",
+                "closeness",
+                "connection",
+                "desire",
+                "fear",
+                "personal",
+                "potentially",
+                "speed",
+                "while"
+              ],
+              "passes_threshold": true
+            },
+            "racio_instinkt": {
+              "overlap": 0.1159,
+              "shared_terms": [
+                "boundaries",
+                "capacity",
+                "connection",
+                "current",
+                "emotional",
+                "explicit",
+                "fear",
+                "future",
+                "interaction",
+                "loss",
+                "maintain",
+                "pace",
+                "personal",
+                "potential",
+                "regarding",
+                "speed"
+              ],
+              "passes_threshold": true
+            },
+            "emocio_instinkt": {
+              "overlap": 0.0588,
+              "shared_terms": [
+                "connection",
+                "fear",
+                "personal",
+                "saying",
+                "self",
+                "speed",
+                "yes"
+              ],
+              "passes_threshold": true
+            }
+          },
+          "notes": []
+        }
+      }
+    ],
+    "distinctness_pass_rate": 1.0
+  }
+}

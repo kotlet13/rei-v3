@@ -1,0 +1,38 @@
+[2026-05-03T21:15:30+02:00] START provider=deterministic model=qwen/qwen3.5-9b mind=all total=18
+[2026-05-03T21:15:30+02:00] RUN 001/18 repeat=1 scenario=public-stage mind=racio
+[2026-05-03T21:15:30+02:00] DONE 001/18 repeat=1 scenario=public-stage mind=racio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 002/18 repeat=1 scenario=public-stage mind=emocio
+[2026-05-03T21:15:30+02:00] DONE 002/18 repeat=1 scenario=public-stage mind=emocio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 003/18 repeat=1 scenario=public-stage mind=instinkt
+[2026-05-03T21:15:30+02:00] DONE 003/18 repeat=1 scenario=public-stage mind=instinkt valid_json=True fallback=False overall=0.982
+[2026-05-03T21:15:30+02:00] RUN 004/18 repeat=1 scenario=career-family mind=racio
+[2026-05-03T21:15:30+02:00] DONE 004/18 repeat=1 scenario=career-family mind=racio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 005/18 repeat=1 scenario=career-family mind=emocio
+[2026-05-03T21:15:30+02:00] DONE 005/18 repeat=1 scenario=career-family mind=emocio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 006/18 repeat=1 scenario=career-family mind=instinkt
+[2026-05-03T21:15:30+02:00] DONE 006/18 repeat=1 scenario=career-family mind=instinkt valid_json=True fallback=False overall=0.982
+[2026-05-03T21:15:30+02:00] RUN 007/18 repeat=1 scenario=business-runway mind=racio
+[2026-05-03T21:15:30+02:00] DONE 007/18 repeat=1 scenario=business-runway mind=racio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 008/18 repeat=1 scenario=business-runway mind=emocio
+[2026-05-03T21:15:30+02:00] DONE 008/18 repeat=1 scenario=business-runway mind=emocio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 009/18 repeat=1 scenario=business-runway mind=instinkt
+[2026-05-03T21:15:30+02:00] DONE 009/18 repeat=1 scenario=business-runway mind=instinkt valid_json=True fallback=False overall=0.982
+[2026-05-03T21:15:30+02:00] RUN 010/18 repeat=1 scenario=relationship-boundary mind=racio
+[2026-05-03T21:15:30+02:00] DONE 010/18 repeat=1 scenario=relationship-boundary mind=racio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 011/18 repeat=1 scenario=relationship-boundary mind=emocio
+[2026-05-03T21:15:30+02:00] DONE 011/18 repeat=1 scenario=relationship-boundary mind=emocio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 012/18 repeat=1 scenario=relationship-boundary mind=instinkt
+[2026-05-03T21:15:30+02:00] DONE 012/18 repeat=1 scenario=relationship-boundary mind=instinkt valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 013/18 repeat=1 scenario=creative-exposure mind=racio
+[2026-05-03T21:15:30+02:00] DONE 013/18 repeat=1 scenario=creative-exposure mind=racio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 014/18 repeat=1 scenario=creative-exposure mind=emocio
+[2026-05-03T21:15:30+02:00] DONE 014/18 repeat=1 scenario=creative-exposure mind=emocio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 015/18 repeat=1 scenario=creative-exposure mind=instinkt
+[2026-05-03T21:15:30+02:00] DONE 015/18 repeat=1 scenario=creative-exposure mind=instinkt valid_json=True fallback=False overall=0.982
+[2026-05-03T21:15:30+02:00] RUN 016/18 repeat=1 scenario=lifestyle-choice mind=racio
+[2026-05-03T21:15:30+02:00] DONE 016/18 repeat=1 scenario=lifestyle-choice mind=racio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 017/18 repeat=1 scenario=lifestyle-choice mind=emocio
+[2026-05-03T21:15:30+02:00] DONE 017/18 repeat=1 scenario=lifestyle-choice mind=emocio valid_json=True fallback=False overall=1.0
+[2026-05-03T21:15:30+02:00] RUN 018/18 repeat=1 scenario=lifestyle-choice mind=instinkt
+[2026-05-03T21:15:30+02:00] DONE 018/18 repeat=1 scenario=lifestyle-choice mind=instinkt valid_json=True fallback=False overall=0.982
+[2026-05-03T21:15:30+02:00] FINISH completed=18 fallbacks=0 elapsed_seconds=0.006 strict_pass=True
