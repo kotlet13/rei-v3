@@ -1,0 +1,52 @@
+{
+  "run_id": "20260516_090517",
+  "status": "completed",
+  "provider": "ollama",
+  "model": "granite4.1:30b",
+  "num_ctx": 65536,
+  "num_gpu": 999,
+  "case_count": 104,
+  "live_mode": "dashboard",
+  "live_stream": true,
+  "completed_cases": 104,
+  "error_count": 0,
+  "remaining_cases": 0,
+  "elapsed_seconds": 8084.927,
+  "metrics": {
+    "total_cases": 104,
+    "fallback_count": 0,
+    "average_elapsed_seconds": 77.7347,
+    "average_max_signal_jaccard": 0.1485,
+    "average_drift_by_mind": {
+      "emocio": 0.0569,
+      "instinkt": 0.1759,
+      "racio": 0.3677
+    },
+    "role_drift_flags": {
+      "emocio_uses_analysis_or_regulation_language": 30,
+      "instinkt_uses_rational_strategy_language": 79,
+      "racio_missing_native_terms": 13,
+      "racio_uses_fear_body_or_image_language": 86
+    },
+    "repetition_hits": {
+      "bounded test": 204,
+      "minimum safety condition": 4,
+      "responsible planning": 13
+    },
+    "leading_mind_counts": {
+      "emocio": 27,
+      "instinkt": 70,
+      "mixed": 1,
+      "racio": 6
+    },
+    "decision_stability_counts": {
+      "fragile": 97,
+      "stable": 7
+    }
+  },
+  "plan": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\scenario_plan.json",
+  "summary": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\summary.json",
+  "results_jsonl": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\results.jsonl",
+  "report": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\report.md",
+  "progress": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\progress.log"
+}

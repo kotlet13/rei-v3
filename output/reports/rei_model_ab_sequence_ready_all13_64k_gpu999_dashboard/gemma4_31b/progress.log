@@ -1,0 +1,5 @@
+[2026-05-16T08:45:04+02:00] START provider=ollama model=gemma4:31b num_ctx=65536 cases=104
+[2026-05-16T08:45:04+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)
+[2026-05-16T08:45:59+02:00] INTERRUPT requested by user; writing partial report
+[2026-05-16T08:45:59+02:00] UNLOAD model=gemma4:31b ok
+[2026-05-16T08:45:59+02:00] FINISH completed=0 errors=0

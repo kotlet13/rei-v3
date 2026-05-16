@@ -1,0 +1,7 @@
+[2026-05-16T08:35:52+02:00] START provider=ollama model=granite4.1:30b num_ctx=65536 cases=104
+[2026-05-16T08:35:52+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)
+[2026-05-16T08:36:41+02:00] INTERRUPT requested by user; writing partial report
+[2026-05-16T08:36:41+02:00] UNLOAD model=granite4.1:30b ok
+[2026-05-16T08:36:41+02:00] FINISH completed=0 errors=0
+[2026-05-16T08:43:44+02:00] START provider=ollama model=granite4.1:30b num_ctx=65536 cases=104
+[2026-05-16T08:43:44+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)

@@ -1,0 +1,45 @@
+{
+  "run_id": "20260516_084131",
+  "status": "completed",
+  "provider": "ollama",
+  "model": "granite4.1:30b",
+  "num_ctx": 4096,
+  "num_gpu": 999,
+  "case_count": 1,
+  "live_mode": "dashboard",
+  "live_stream": false,
+  "completed_cases": 1,
+  "error_count": 0,
+  "remaining_cases": 0,
+  "elapsed_seconds": 79.577,
+  "metrics": {
+    "total_cases": 1,
+    "fallback_count": 0,
+    "average_elapsed_seconds": 79.573,
+    "average_max_signal_jaccard": 0.2419,
+    "average_drift_by_mind": {
+      "emocio": 0.3333,
+      "instinkt": 0.3684,
+      "racio": 0.0556
+    },
+    "role_drift_flags": {
+      "emocio_uses_analysis_or_regulation_language": 1,
+      "instinkt_uses_rational_strategy_language": 1,
+      "racio_uses_fear_body_or_image_language": 1
+    },
+    "repetition_hits": {
+      "bounded test": 2
+    },
+    "leading_mind_counts": {
+      "instinkt": 1
+    },
+    "decision_stability_counts": {
+      "fragile": 1
+    }
+  },
+  "plan": "output\\reports\\rei_dashboard_calm_live_smoke_granite\\scenario_plan.json",
+  "summary": "output\\reports\\rei_dashboard_calm_live_smoke_granite\\summary.json",
+  "results_jsonl": "output\\reports\\rei_dashboard_calm_live_smoke_granite\\results.jsonl",
+  "report": "output\\reports\\rei_dashboard_calm_live_smoke_granite\\report.md",
+  "progress": "output\\reports\\rei_dashboard_calm_live_smoke_granite\\progress.log"
+}

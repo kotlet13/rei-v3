@@ -1,0 +1,1 @@
+Dashboard mode wrote directly to the PowerShell console. See progress.log, results.jsonl, and report.md.

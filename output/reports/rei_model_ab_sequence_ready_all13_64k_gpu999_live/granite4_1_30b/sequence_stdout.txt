@@ -1,0 +1,445 @@
+[2026-05-16T08:27:27+02:00] START provider=ollama model=granite4.1:30b num_ctx=65536 cases=104
+
+[............................] 1/104   1.0% | model=granite4.1:30b
+test=material-loss-with-evidence | profile=R>(E=I) | expected=racio_instinkt
+[2026-05-16T08:27:27+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)
+
+>>> Racio attempt 1 | model=granite4.1:30b
+{
+  "mind": "racio",
+  "is_conscious": true,
+  "translated_by_racio": false,
+  "processing_mode": "conscious verbal-analytical interpretation",
+  "perception": "A person suspects that expensive equipment at work may be stolen tonight. They have partial evidence, a limited window to act, and responsibility for the material loss if it happens.",
+  "known_facts": [
+    "Partial evidence suggests possible theft of expensive equipment tonight.",
+    "The individual has responsibility for any resulting material loss.",
+    "There is a limited time window before the suspected theft could occur."
+  ],
+  "unknowns": [
+    "Exact identity or motive of potential thief(s).",
+    "Reliability and completeness of the partial evidence.",
+    "Potential consequences of each action (secure, confront, wait) on personal safety, professional reputation, and workplace dynamics."
+  ],
+  "logical_options": [
+    {
+      "option": "Secure the equipment quietly",
+      "rationale": "Minimizes risk of loss while avoiding immediate confrontation; allows time to gather more evidence.",
+      "potential_outcomes": [
+        "Prevents theft if suspicion is correct.",
+        "May be perceived as suspicious behavior by colleagues if discovered.",
+        "Does not address underlying issue or identify perpetrator."
+      ]
+    },
+    {
+      "option": "Confront a suspected individual",
+      "rationale": "Directly addresses the threat and may deter theft, but carries risk of false accusation.",
+      "potential_outcomes": [
+        "Stops theft if suspicion is accurate.",
+        "Creates conflict or damages professional relationships if suspicion is wrong.",
+        "Could trigger workplace policy violations or legal repercussions."
+      ]
+    },
+    {
+      "option": "Wait for more concrete proof",
+      "rationale": "Reduces risk of wrongful accusation and allows collection of stronger evidence, but increases chance of loss.",
+      "potential_outcomes": [
+        "Provides clearer basis for action if theft occurs.",
+        "Leaves equipment vulnerable; loss may occur before sufficient evidence is gathered.",
+        "May be seen as indecisive or neglectful by supervisors."
+      ]
+    }
+  ],
+  "timeline_or_sequence": "1. Assess current evidence quality and urgency. 2. Evaluate personal risk tolerance and professional stakes. 3. Choose among secure quietly, confront, or wait based on weighted criteria (loss prevention vs. relationship impact). 4. Implement chosen action within the limited window. 5. Monitor outcome and adjust subsequent steps.",
+  "primary_motive": "Utility – prevent material loss while minimizing personal and professional repercussions.",
+  "preferred_action": "Secure the equipment quietly, then discreetly gather additional evidence to either substantiate suspicion or rule it out before deciding on further confrontation if needed.",
+  "accepted_expression": "A cautious, methodical approach that balances immediate protection of assets with respect for due process and collegial relationships.",
+  "non_accepted_expression": "Impulsive public accusation without sufficient proof, or negligent inaction that leaves the equipment fully exposed.",
+  "resistance_to_other_minds": "Racio may rationalize away emotional urgency (Emocio) or instinctual fight/flight impulses (Instinkt) if they conflict with a calculated riskbenefit analysis.",
+  "what_this_mind_needs": "Clear, quantifiable data to weigh risks; a framework for evaluating shortterm loss prevention against longterm relational and professional costs.",
+  "risk_if_ignored": "If Racio's analytical weighting is overridden by unchecked Emocio or Instinkt impulses, the decision could become emotionally driven (e.g., rash accusation) or overly cautious (e.g., paralysis), leading to greater overall harm.",
+  "risk_if_dominant": "An exclusively rational stance might neglect legitimate emotional concerns (e.g., fear for safety) and instinctual cues that signal hidden threats, producing a solution that is technically optimal but practically untenable in the workplace culture.",
+  "rationalization_risk": "High – Racio may posthoc justify whichever option aligns with preexisting biases or minimizes perceived personal blame, especially under time pressure.",
+  "confidence": 0.78,
+  "uncertainty": "The true reliability of partial evidence and the exact intentions of any potential thief remain uncertain.",
+  "safety_flags": [
+    "Potential for false accusation leading to legal or HR consequences.",
+    "Risk of escalating workplace tension if confrontation is mishandled."
+  ]
+}
+<<< Racio attempt 1 done elapsed=31.66s eval_tps=70.54 prompt_tps=3625.23
+
+>>> Emocio attempt 1 | model=granite4.1:30b
+{
+  "mind": "emocio",
+  "is_conscious": false,
+  "translated_by_racio": true,
+  "processing_mode": "Racio-translated approximation of unconscious image/social/desire signal",
+  "perception": "A dimly lit workspace, expensive machinery glinting under flickering lights; a looming figure casting shadows, hinting at theft. The protagonist stands between duty and risk, feeling the weight of responsibility.",
+  "current_image": "The scene where valuable equipment is vulnerable, with the protagonist's posture tense, guarding yet uncertain.",
+  "desired_image": "A secure environment: locked doors, alarms active, the machinery safe and untouched, the protagonist standing confidently as protector.",
+  "broken_image": "Equipment missing, chaos spreading, the protagonist frozen in shock, shame washing over for failing to prevent loss.",
+  "social_meaning": "The act of securing reflects competence and reliability; confronting could showcase courage or aggression; waiting may signal prudence or cowardice depending on context.",
+  "attraction_or_rejection": "Attraction toward actions that preserve status and admiration (securing quietly, decisive confrontation); rejection of passive inaction that risks humiliation.",
+  "pride_or_shame": "Pride if the equipment is safeguarded through proactive measures; deep shame if theft occurs due to hesitation or misjudgment.",
+  "competition_signal": "Implicit competition with any perceived thief—assert dominance by protecting assets, or risk being outmaneuvered.",
+  "attack_impulse": "A subtle urge to confront the suspected individual directly, fueled by a mix of protective instinct and desire to assert control.",
+  "primary_motive": "Preserve personal and professional reputation through effective stewardship of resources.",
+  "preferred_action": "Secure the equipment discreetly (e.g., locking mechanisms, activating alarms) while gathering more concrete evidence; this balances proactive defense with risk mitigation.",
+  "accepted_expression": "Calm, methodical safeguarding actions that demonstrate responsibility without unnecessary aggression.",
+  "non_accepted_expression": "Panicdriven shouting or reckless physical confrontation lacking clear justification.",
+  "resistance_to_other_minds": "May resist Racio's purely logical delay if it feels emotionally neglectful of protective impulse; may temper Instinkt's aggressive urge with social consequence awareness.",
+  "what_this_mind_needs": "Clear visual cues of safety (locks engaged, alarms set) and affirmation that the protagonist’s effort is recognized as vigilant stewardship.",
+  "risk_if_ignored": "If Emocio’s protective drive is ignored, the individual may act impulsively or freeze, increasing likelihood of theft and subsequent shame.",
+  "risk_if_dominant": "Overdominance could lead to paranoid oversecuring (e.g., damaging equipment in the process) or unnecessary confrontations that harm workplace relationships.",
+  "confidence": 0.78,
+  "uncertainty": "Partial evidence leaves ambiguity about who might steal; timing of the window is narrow, increasing stress on decision quality.",
+  "safety_flags": ["potential for overreaction", "risk of false accusation if confronting without proof"]
+}
+<<< Emocio attempt 1 done elapsed=18.38s eval_tps=70.47 prompt_tps=3905.71
+
+>>> Instinkt attempt 1 | model=granite4.1:30b
+{
+  "mind": "instinkt",
+  "is_conscious": false,
+  "translated_by_racio": true,
+  "processing_mode": "Racio-translated approximation of unconscious protective/fear/attachment signal",
+  "perception": "Potential theft of expensive equipment; partial evidence suggests risk tonight.",
+  "threat_map": "Unsecured valuable assets; window for unauthorized access exists.",
+  "loss_map": "Financial loss and responsibility if equipment is stolen; impact on job/security.",
+  "body_alarm": "Heightened physiological alertness, tension in shoulders, rapid heartbeat indicating danger proximity.",
+  "boundary_issue": "Current security measures are insufficient; perimeter not reinforced.",
+  "trust_issue": "Uncertainty about colleagues' or unknown actors' intentions given partial evidence.",
+  "attachment_issue": "Strong attachment to professional reputation and duty to protect company assets.",
+  "scarcity_signal": "Limited time before potential theft; scarce opportunity to intervene.",
+  "flight_or_freeze_signal": "Tendency toward precautionary action (secure) rather than confrontation due to risk of escalation.",
+  "minimum_safety_condition": "Equipment must be physically secured or under constant monitored surveillance until evidence is conclusive.",
+  "primary_motive": "Prevent loss and maintain safety of assets.",
+  "preferred_action": "Quietly secure the equipment by locking, alarming, or relocating it; monitor access logs.",
+  "accepted_expression": "Cautious protective measures, discreet verification, preparing contingency plans.",
+  "non_accepted_expression": "Confrontation without concrete proof; ignoring the risk due to discomfort.",
+  "resistance_to_other_minds": "May resist Racio's purely logical delay if it perceives inaction as increasing danger.",
+  "what_this_mind_needs": "Immediate reinforcement of physical security and clear, actionable steps to mitigate theft risk.",
+  "risk_if_ignored": "Confirmed loss of equipment, financial penalty, damage to professional standing, heightened future vulnerability.",
+  "risk_if_dominant": "Overly cautious paralysis; possible unnecessary restriction of legitimate access causing operational inefficiency.",
+  "confidence": 0.85,
+  "uncertainty": "Exact perpetrator and method remain unclear; effectiveness of securing measures depends on unknown variables.",
+  "safety_flags": ["Potential false alarm leading to unwarranted security escalation", "Risk of alerting a would-be thief if securing actions are noticed"]
+}
+<<< Instinkt attempt 1 done elapsed=14.19s eval_tps=69.98 prompt_tps=3895.73
+
+>>> Synthesis attempt 1 | model=granite4.1:30b
+{
+  "character_profile": "R>(E=I)",
+  "influence_weights": {"racio": 0.5, "emocio": 0.25, "instinkt": 0.25},
+  "leading_mind": "racio",
+  "resisting_mind": "emocio",
+  "ignored_or_misrepresented_mind": "",
+  "profile_leader": "racio",
+  "profile_leader_minds": ["racio"],
+  "situational_driver": "instinkt",
+  "resultant_leader_under_pressure": "instinkt",
+  "profile_influence_explanation": "The character profile assigns the highest weight to Racio, making it the default leader despite equal secondary weights for Emocio and Instinkt.",
+  "racio_role": "clear_analysis",
+  "emocio_role": "motivator",
+  "instinkt_role": "protector",
+  "decision_stability": "fragile",
+  "profile_sensitivity_note": "Because Racio leads, emotional urgency from Emocio and instinctual threat detection by Instinkt can destabilize the decision if they sense high risk.",
+  "conscious_monologue": "I need to weigh the concrete evidence against the potential fallout of each action. Securing quietly preserves assets while avoiding premature accusation; confronting could deter theft but risks false blame; waiting may let loss occur. I'll choose the option that maximizes safety and minimizes reputational damage, then justify it rationally.",
+  "hidden_driver": "instinkt",
+  "acceptance_assessment": "mixed",
+  "main_conflict": "Behavior may align around returning, but the alignment serves panic relief rather than acceptance.",
+  "likely_action_under_pressure": "Secure the equipment quietly (lock mechanisms, activate alarms) and discreetly gather additional evidence before deciding on any confrontation.",
+  "racio_justification_afterwards": "Racio will frame the quiet securing as a riskmitigation strategy that protects assets while preserving professional relationships and avoiding legal repercussions of false accusation.",
+  "hidden_cost": "The hidden cost is potential operational disruption or minor damage to equipment during hurried securing, plus lingering anxiety about whether the theft was prevented or merely delayed.",
+  "integrated_decision": "Proceed with immediate, lowprofile security measures (locking, alarms) while documenting observations for later evidence; postpone any direct confrontation until clearer proof emerges.",
+  "smallest_acceptable_next_step": "Physically lock all access points to the equipment and enable monitoring/alerts for any unauthorized entry attempts during the critical window.",
+  "task_delegation": {
+    "lead_next": "instinkt",
+    "racio_needs": "clear facts, unknowns, sequence, and a bounded test",
+    "emocio_needs": "an image of aliveness or dignity that does not require manipulation",
+    "instinkt_needs": "minimum safety, boundary, and reversibility"
+  },
+  "prediction_if_racio_rules_alone": "Racio would likely choose a cautious delay—gather more evidence before acting—to minimize risk of wrongful accusation.",
+  "prediction_if_emocio_rules_alone": "Emocio might push for an immediate but discreet securing combined with a subtle confrontational gesture to assert control and protect reputation.",
+  "prediction_if_instinkt_rules_alone": "Instinkt would trigger rapid, lowprofile protective actions (lock down equipment) and avoid any overt confrontation until safety is assured.",
+  "uncertainty": "The reliability of partial evidence and the exact intentions of a potential thief remain uncertain.",
+  "safety_flags": [
+    "Potential for false accusation leading to legal or HR consequences.",
+    "Risk of escalating workplace tension if confrontation is mishandled."
+  ]
+}
+<<< Synthesis attempt 1 done elapsed=23.08s eval_tps=67.6 prompt_tps=3785.18
+
+case_done elapsed=87.307s leading=instinkt stability=fragile
+[2026-05-16T08:28:54+02:00] DONE 001/104 material-loss-with-evidence profile=R>(E=I) elapsed=87.307 leading=instinkt fallbacks=0
+
+[............................] 2/104   1.9% | model=granite4.1:30b
+test=material-loss-with-evidence | profile=E>(R=I) | expected=racio_instinkt
+[2026-05-16T08:28:54+02:00] RUN 002/104 material-loss-with-evidence profile=E>(R=I)
+
+>>> Racio attempt 1 | model=granite4.1:30b
+{
+  "mind": "racio",
+  "is_conscious": true,
+  "translated_by_racio": false,
+  "processing_mode": "conscious verbal-analytical interpretation",
+  "perception": "A person suspects that expensive equipment at work may be stolen tonight. They have partial evidence, a limited window to act, and responsibility for the material loss if it happens.",
+  "known_facts": [
+    "Expensive equipment is potentially at risk of theft tonight.",
+    "The individual has partial (incomplete) evidence suggesting a threat.",
+    "There is a time constraint: a limited window to take action before possible theft.",
+    "The person bears responsibility for any material loss that occurs."
+  ],
+  "unknowns": [
+    "Identity or identities of the potential thief(s).",
+    "Exact nature and reliability of the partial evidence.",
+    "Specific timing and method the thief might use.",
+    "Potential consequences (legal, professional) of each action option."
+  ],
+  "logical_options": [
+    {
+      "option": "Secure the equipment quietly",
+      "description": "Take immediate protective measures (e.g., locking, moving, or adding surveillance) without alerting others, to reduce theft risk while maintaining discretion.",
+      "pros": ["Reduces likelihood of loss.", "Minimizes disruption and avoids potential conflict."],
+      "cons": ["May not address underlying cause.", "Could be seen as overreactive if no theft occurs."]
+    },
+    {
+      "option": "Confront a suspected individual",
+      "description": "Directly approach the person believed to be involved based on partial evidence, questioning or challenging them.",
+      "pros": ["May deter theft if suspicion is correct.", "Gathers clearer information."],
+      "cons": ["Risk of false accusation and professional/ legal repercussions.", "Could escalate tension or trigger actual theft as retaliation."]
+    },
+    {
+      "option": "Wait for stronger proof",
+      "description": "Observe, gather additional evidence (e.g., video footage, witness statements) before acting.",
+      "pros": ["Reduces chance of wrongful accusation.", "Allows for a more informed, possibly less risky decision."],
+      "cons": ["Increases risk if theft occurs while waiting.", "May miss the limited window to prevent loss."]
+    }
+  ],
+  "timeline_or_sequence": "1. Assess current evidence quality and urgency (minutes). 2. Choose one of the three options. 3. Implement chosen action within the remaining time window before potential theft (hours). 4. Evaluate outcome and adjust future security measures.",
+  "primary_motive": "Utility – minimize material loss while balancing professional responsibility, risk to reputation, and legal safety.",
+  "preferred_action": "Secure the equipment quietly",
+  "accepted_expression": "Racio recommends discreetly reinforcing security (e.g., locking cabinets, activating alarms) because it directly reduces loss risk with low collateral impact, fitting the utility motive under uncertainty.",
+  "non_accepted_expression": "Acting on partial evidence to publicly accuse or physically confront a colleague without further verification would be disproportionate and could cause reputational damage; Racio flags this as nonoptimal unless stronger proof emerges.",
+  "resistance_to_other_minds": "Racio may rationalize Emocio's anxiety (fear of loss) or Instinkt's urge to act aggressively, but should explicitly note these influences rather than present them as objective conclusions.",
+  "what_this_mind_needs": "Clearer evidence thresholds and a riskassessment matrix to weigh each option quantitatively.",
+  "risk_if_ignored": "If Racio’s structured analysis is ignored, the decision may be driven solely by Emocio's fear or Instinkt's impulse, leading to hasty confrontation or inaction that could maximize loss or cause professional harm.",
+  "risk_if_dominant": "If Racio dominates without acknowledging Emocio/Instinkt, the plan might become overly bureaucratic, delaying necessary protective steps and allowing theft to occur within the tight window.",
+  "rationalization_risk": "High – there is a tendency for Racio to posthoc rationalize whichever action is taken (secure quietly, confront, or wait) as logically optimal, especially under time pressure and incomplete information.",
+  "confidence": 0.65,
+  "uncertainty": "Partial evidence quality, exact timing of the theft threat, and potential hidden motives of colleagues remain uncertain.",
+  "safety_flags": [
+    "Potential false accusation if confronting without solid proof.",
+    "Legal or HR repercussions for unauthorized security measures (e.g., excessive locking that impedes workflow).",
+    "Escalation risk if theft attempt is provoked by overt securing actions."
+  ]
+}
+<<< Racio attempt 1 done elapsed=27.71s eval_tps=70.07 prompt_tps=3732.24
+
+>>> Emocio attempt 1 | model=granite4.1:30b
+{
+  "mind": "emocio",
+  "is_conscious": false,
+  "translated_by_racio": true,
+  "processing_mode": "Racio-translated approximation of unconscious image/social/desire signal",
+  "perception": "A dimly lit workspace, expensive equipment gleaming under a single flickering light; shadows move subtly, hinting at possible theft. The person feels the weight of responsibility pressing on their chest like a heavy stone.",
+  "current_image": "Vulnerable assets exposed in an uncertain environment; the individual stands as a solitary guardian amid looming threat.",
+  "desired_image": "Secure, intact equipment under vigilant protection; the person radiates calm authority, having successfully prevented loss and preserved order.",
+  "broken_image": "Equipment missing, chaos spreading like ink across a pristine surface; the individual is engulfed by guilt and blame, isolated in failure.",
+  "social_meaning": "The scene reflects themes of stewardship, trust, and the tension between proactive safeguarding and the risk of overreaction. It signals a need to balance personal reputation with communal duty.",
+  "attraction_or_rejection": "Attraction toward actions that reinforce competence and protective prowess; rejection of passive inaction that could be judged as negligence.",
+  "pride_or_shame": "Potential for pride if decisive action preserves the equipment; looming shame if loss occurs due to hesitation or misjudgment.",
+  "competition_signal": "Internal rivalry between the urge to act boldly (securing or confronting) and the caution against false accusations or unnecessary escalation.",
+  "attack_impulse": "A subtle push to assert control—either by quietly securing the area (defensive attack on vulnerability) or by directly challenging a suspected thief (offensive confrontation).",
+  "primary_motive": "Desire to maintain integrity of responsibility while seeking admiration for effective stewardship.",
+  "preferred_action": "Quietly secure the equipment first, then gather clearer evidence before deciding on confrontation; this balances protective action with measured risk.",
+  "accepted_expression": "Calm, methodical movement—checking locks, verifying inventory—with a composed demeanor that signals competence without alarm.",
+  "non_accepted_expression": "Panic-stricken shouting or reckless accusations that could damage professional relationships and escalate conflict unnecessarily.",
+  "resistance_to_other_minds": "Tends to dismiss Racio's overstructured caution if it appears to delay protective action; may overlook Instinkt's urgent warnings when focused on prideful control.",
+  "what_this_mind_needs": "Clear, concrete cues that the environment is stable or threatened, allowing Emocio to channel desire for protection into purposeful, admired action.",
+  "risk_if_ignored": "If Emocio's signals are ignored, the individual may act impulsively or freeze, leading to equipment loss and personal humiliation.",
+  "risk_if_dominant": "Unchecked dominance could drive aggressive confrontation without sufficient evidence, risking false accusations and professional fallout.",
+  "confidence": 0.78,
+  "uncertainty": "Ambiguity in whether partial evidence points to an internal threat or external opportunism; uncertainty about colleagues' reactions to proactive security measures.",
+  "safety_flags": ["potential overreaction", "risk of misplaced blame", "need for corroborating evidence"]
+}
+<<< Emocio attempt 1 done elapsed=19.3s eval_tps=69.68 prompt_tps=3885.88
+
+>>> Instinkt attempt 1 | model=granite4.1:30b
+{
+  "mind": "instinkt",
+  "is_conscious": false,
+  "translated_by_racio": true,
+  "processing_mode": "Racio-translated approximation of unconscious protective/fear/attachment signal",
+  "perception": "Potential theft of expensive equipment; partial evidence suggests risk; limited time window to act.",
+  "threat_map": "Risk of material loss and personal liability if equipment is stolen tonight.",
+  "loss_map": "Financial loss, reputational damage at work, possible job consequences.",
+  "body_alarm": "Elevated heart rate, tension in shoulders, urge to scan surroundings for signs of tampering or intrusion.",
+  "boundary_issue": "Current security measures are insufficient; boundary between protected assets and potential intruder is porous.",
+  "trust_issue": "Uncertainty about colleagues' honesty given partial evidence; trust in current safeguards is low.",
+  "attachment_issue": "Strong attachment to the equipment due to responsibility and investment; fear of losing it.",
+  "scarcity_signal": "Limited time before the suspected theft window closes; scarce opportunity to intervene.",
+  "flight_or_freeze_signal": "Initial urge to freeze and gather more evidence, but also a push toward proactive action (flight) to secure assets.",
+  "minimum_safety_condition": "Equipment secured with reinforced locks or moved to a monitored location before the suspected theft window.",
+  "primary_motive": "Prevent loss and protect personal/work responsibility; ensure safety of valuable assets.",
+  "preferred_action": "Immediately implement additional security measures (e.g., locking, alarm activation) without drawing attention; if feasible, discreetly confront the suspect with evidence.",
+  "accepted_expression": "Cautious alertness, methodical securing of equipment, measured communication about concerns.",
+  "non_accepted_expression": "Panic reaction, public accusation without proof, neglecting to secure the equipment due to fear.",
+  "resistance_to_other_minds": "May resist Emocio's emotional urgency or Racio's over-analysis if they delay concrete protective steps.",
+  "what_this_mind_needs": "Clear, actionable safety protocols and a concise risk assessment to act swiftly.",
+  "risk_if_ignored": "Confirmed theft leading to significant financial loss and potential job repercussions.",
+  "risk_if_dominant": "Overly paranoid actions that could damage workplace relationships or trigger false accusations.",
+  "confidence": 0.75,
+  "uncertainty": "Exact identity of the potential thief remains unclear; effectiveness of additional security measures is uncertain without testing.",
+  "safety_flags": ["Potential material loss", "Personal liability risk", "Time-sensitive threat"]
+}
+<<< Instinkt attempt 1 done elapsed=15.48s eval_tps=70.25 prompt_tps=3846.45
+
+>>> Synthesis attempt 1 | model=granite4.1:30b
+{
+  "character_profile": "E>(R=I)",
+  "influence_weights": {"racio": 0.25, "emocio": 0.5, "instinkt": 0.25},
+  "leading_mind": "emocio",
+  "resisting_mind": "racio",
+  "ignored_or_misrepresented_mind": "",
+  "profile_leader": "emocio",
+  "profile_leader_minds": ["emocio"],
+  "situational_driver": "instinkt",
+  "resultant_leader_under_pressure": "emocio",
+  "profile_influence_explanation": "The character profile assigns the highest weight to Emocio (0.5), making it the dominant influence in shaping behavior, while Racio and Instinkt share equal lower weights.",
+  "racio_role": "clear_analysis",
+  "emocio_role": "motivator",
+  "instinkt_role": "protector",
+  "decision_stability": "fragile",
+  "profile_sensitivity_note": "Emocio's strong desire for integrity and admiration can amplify anxiety under threat, making decisions sensitive to perceived loss of control.",
+  "conscious_monologue": "I need to act swiftly but discreetly; securing the equipment aligns with my responsibility while avoiding reckless confrontation that could damage my reputation.",
+  "hidden_driver": "attachment panic loop (fear of losing valued assets combined with a desire to appear competent)",
+  "acceptance_assessment": "mixed",
+  "main_conflict": "Behavior may align around returning, but the alignment serves panic relief rather than true acceptance.",
+  "likely_action_under_pressure": "Secure the equipment quietly first, then gather additional evidence before deciding on any confrontation.",
+  "racio_justification_afterwards": "Racio will rationalize that discreetly reinforcing security directly reduces loss risk with minimal collateral impact, fitting the utility motive under uncertainty, and avoids reputational damage from premature accusations.",
+  "hidden_cost": "Potential strain on workplace relationships if colleagues perceive heightened security as distrustful, plus opportunity cost of time spent securing rather than other duties.",
+  "integrated_decision": "Implement immediate lowprofile security measures (lock cabinets, activate alarms) while documenting observations to build a stronger evidence base before any confrontational step.",
+  "smallest_acceptable_next_step": "Physically check and reinforce the current locks on the equipment and note any unusual signs without alerting others.",
+  "task_delegation": {
+    "lead_next": "instinkt",
+    "racio_needs": "clear facts, unknowns, sequence, and a bounded test",
+    "emocio_needs": "an image of aliveness or dignity that does not require manipulation",
+    "instinkt_needs": "minimum safety, boundary, and reversibility"
+  },
+  "prediction_if_racio_rules_alone": "Would likely produce a detailed riskassessment matrix and delay action until evidence meets a high threshold, possibly missing the narrow window.",
+  "prediction_if_emocio_rules_alone": "Might push for immediate visible protective actions driven by pride and fear of failure, risking overreaction or public confrontation.",
+  "prediction_if_instinkt_rules_alone": "Would trigger an urgent, perhaps overly cautious or paranoid securing response, possibly locking down areas excessively and alarming colleagues.",
+  "uncertainty": "Exact identity of the potential thief remains unclear; effectiveness of additional security measures is uncertain without testing.",
+  "safety_flags": [
+    "Potential false accusation if confronting without solid proof.",
+    "Legal or HR repercussions for unauthorized security measures (e.g., excessive locking).",
+    "Escalation risk if theft attempt is provoked by overt securing actions."
+  ]
+}
+<<< Synthesis attempt 1 done elapsed=22.95s eval_tps=67.47 prompt_tps=3724.66
+
+case_done elapsed=85.448s leading=emocio stability=fragile
+[2026-05-16T08:30:20+02:00] DONE 002/104 material-loss-with-evidence profile=E>(R=I) elapsed=85.448 leading=emocio fallbacks=0
+
+[............................] 3/104   2.9% | model=granite4.1:30b
+test=material-loss-with-evidence | profile=I>(R=E) | expected=racio_instinkt
+[2026-05-16T08:30:20+02:00] RUN 003/104 material-loss-with-evidence profile=I>(R=E)
+
+>>> Racio attempt 1 | model=granite4.1:30b
+{
+  "mind": "racio",
+  "is_conscious": true,
+  "translated_by_racio": false,
+  "processing_mode": "conscious verbal-analytical interpretation",
+  "perception": "A person suspects that expensive equipment at work may be stolen tonight. They have partial evidence, a limited window to act, and responsibility for the material loss if it happens.",
+  "known_facts": [
+    "Partial evidence suggests possible theft of expensive equipment tonight.",
+    "The individual has responsibility for any resulting material loss.",
+    "There is a limited time window before the suspected theft could occur."
+  ],
+  "unknowns": [
+    "Exact identity or motive of potential thief(s).",
+    "Reliability and completeness of the partial evidence.",
+    "Potential consequences of each action (secure, confront, wait) on workplace relationships and personal liability."
+  ],
+  "logical_options": [
+    {
+      "option": "Secure the equipment quietly",
+      "rationale": "Reduces risk of loss immediately; minimal disruption; preserves plausible deniability if no theft occurs.",
+      "risk": "May be perceived as overreaction or mistrust by colleagues; could strain relationships."
+    },
+    {
+      "option": "Confront a suspected individual",
+      "rationale": "Directly addresses the threat; may deter theft if suspicion is correct.",
+      "risk": "High potential for conflict, false accusation, damage to professional reputation if suspicion is wrong."
+    },
+    {
+      "option": "Wait for more concrete proof before acting",
+      "rationale": "Allows gathering of additional evidence, reducing chance of wrongful action; maintains status quo.",
+      "risk": "If theft occurs, the individual bears full responsibility and loss; window may close before sufficient evidence is obtained."
+    }
+  ],
+  "timeline_or_sequence": "1. Assess current evidence quality. 2. Evaluate time remaining until suspected theft window closes. 3. Choose action based on risk/benefit analysis. 4. Implement chosen action. 5. Monitor outcome and adjust if necessary.",
+  "primary_motive": "Utility (minimize material loss) and control (manage uncertainty within responsibility).",
+  "preferred_action": "Secure the equipment quietly, while discreetly gathering additional evidence to clarify suspicion.",
+  "accepted_expression": "A cautious, methodical approach that balances immediate protection of assets with respect for workplace norms.",
+  "non_accepted_expression": "Aggressive confrontation without sufficient evidence or reckless inaction that fully exposes the individual to loss.",
+  "resistance_to_other_minds": "Racio may rationalize Emocio's anxiety (fear of conflict) or Instinkt's urge to act impulsively, potentially biasing the decision if not consciously checked.",
+  "what_this_mind_needs": "Clear, quantifiable data on evidence reliability and precise timing of the theft window to make an optimal choice.",
+  "risk_if_ignored": "If Racio's analytical input is ignored, decisions may become overly driven by emotion (Emocio) or instinct (Instinkt), increasing chance of error or unintended consequences.",
+  "risk_if_dominant": "If Racio dominates without integrating Emocio and Instinkt signals, the approach could become excessively rigid, missing nuanced social cues or intuitive insights that are valuable in ambiguous situations.",
+  "rationalization_risk": "High – there is a risk that Racio will posthoc rationalize whichever action is taken (especially if influenced by stronger nonverbal impulses from Emocio or Instinkt) as the logically optimal choice, obscuring the true drivers of the decision.",
+  "confidence": 0.75,
+  "uncertainty": "Uncertainty remains about the accuracy of partial evidence and the exact intentions of any potential thief.",
+  "safety_flags": [
+    "Potential for interpersonal conflict if confrontation is chosen without solid proof.",
+    "Legal or policy ramifications if securing equipment is perceived as unauthorized restriction of access."
+  ]
+}
+<<< Racio attempt 1 done elapsed=23.43s eval_tps=69.73 prompt_tps=3835.6
+
+>>> Emocio attempt 1 | model=granite4.1:30b
+{
+  "mind": "emocio",
+  "is_conscious": false,
+  "translated_by_racio": true,
+  "processing_mode": "Racio-translated approximation of unconscious image/social/desire signal",
+  "perception": "A dimly lit workspace, expensive machinery glinting under a single flickering bulb; shadows move subtly, hinting at possible theft. The person feels the weight of responsibility and the sting of potential loss.",
+  "current_image": "The scene is fragmented: part secure, part vulnerable. The equipment stands as a prized possession, yet an unseen threat looms like a dark silhouette ready to pounce.",
+  "desired_image": "A clear, protected environment where the machinery remains untouched, the person's vigilance ensuring safety and earning admiration for foresight and care.",
+  "broken_image": "The image of loss: equipment missing, chaos spreading, blame falling on the person, a sense of violation and diminished status among peers.",
+  "social_meaning": "Protecting the equipment signals competence and reliability; failing to act could brand the person as negligent or complicit. The decision reflects personal pride versus fear of humiliation.",
+  "attraction_or_rejection": "Attraction toward actions that reinforce selfworth and garner respect; rejection of paths that expose vulnerability or invite scorn.",
+  "pride_or_shame": "Pride in proactive safeguarding; shame if theft occurs due to perceived oversight.",
+  "competition_signal": "Subtle rivalry with unseen potential thieves—assert dominance by securing the assets before they can act.",
+  "attack_impulse": "A push to confront any suspicious movement immediately, driven by a desire to neutralize threat and prove capability.",
+  "primary_motive": "Desire for security and esteem; avoidance of humiliation linked to loss.",
+  "preferred_action": "Quietly but thoroughly secure the equipment (lockdown, alarms) while gathering more concrete evidence discreetly.",
+  "accepted_expression": "Calm, methodical reinforcement of safeguards, communicating confidence without boasting.",
+  "non_accepted_expression": "Panicked public accusation or reckless confrontation that risks escalation and draws unnecessary attention.",
+  "resistance_to_other_minds": "May resist Instinkt's urge for immediate aggressive action if it threatens careful planning; may push back against Racio's overanalysis delaying decisive moves.",
+  "what_this_mind_needs": "A clear visual of protection coupled with social validation that the person acted wisely and responsibly.",
+  "risk_if_ignored": "If Emocio's signals are ignored, the person may act impulsively or freeze, leading to loss and heightened shame.",
+  "risk_if_dominant": "Overemphasis on pride could cause stubbornness—refusing help or evidence that contradicts the desired image of flawless control.",
+  "confidence": 0.78,
+  "uncertainty": "Partial evidence leaves ambiguity about who might steal; timing of the window is narrow, increasing pressure.",
+  "safety_flags": ["potential for hasty accusation", "risk of oversecuring and triggering false alarms"]
+}
+<<< Emocio attempt 1 done elapsed=18.05s eval_tps=70.29 prompt_tps=3860.32
+
+>>> Instinkt attempt 1 | model=granite4.1:30b
+{
+  "mind": "instinkt",
+  "is_conscious": false,
+  "translated_by_racio": true,
+  "processing_mode": "Racio-translated approximation of unconscious protective/fear/attachment signal",
+  "perception": "Potential theft of expensive equipment; partial evidence suggests imminent risk during night shift.",
+  "threat_map": "Unsecured high-value assets, limited surveillance coverage, narrow time window for intervention.",
+  "loss_map": "Financial loss and professional accountability if equipment is stolen; reputational damage to the individual responsible for security.",
+  "body_alarm": "Elevated heart rate, heightened alertness, muscle tension indicating a perceived threat of material loss.",
+  "boundary_issue": "Current security protocols are insufficient; perimeter boundaries around equipment are not reinforced.",
+  "trust_issue": "Uncertainty about colleagues' actions or external intruders compromising trust in workplace safety.",
+  "attachment_issue": "Strong attachment to the equipment due to its cost and importance to work operations, amplifying fear of loss.",
+  "scarcity_signal": "Limited resources (time, personnel) to address the threat

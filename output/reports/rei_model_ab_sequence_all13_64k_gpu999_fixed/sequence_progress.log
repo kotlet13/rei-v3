@@ -1,0 +1,2 @@
+[2026-05-16T08:48:57+02:00] START models=granite4.1:30b,gemma4:31b,qwen3.6:35b num_ctx=65536 profiles_count=13 profiles=R>(E=I),E>(R=I),I>(R=E),(R=E)>I,(R=I)>E,(E=I)>R,R>E>I,R>I>E,E>R>I,E>I>R,I>R>E,I>E>R,R=E=I
+[2026-05-16T08:48:57+02:00] RUN model=granite4.1:30b output_dir=output\reports\rei_model_ab_sequence_all13_64k_gpu999_fixed\granite4_1_30b

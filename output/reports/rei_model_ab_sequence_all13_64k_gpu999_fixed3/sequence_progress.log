@@ -1,0 +1,13 @@
+[2026-05-16T08:56:07+02:00] START models=granite4.1:30b,gemma4:31b,qwen3.6:35b num_ctx=65536 profiles_count=13 profiles=R>(E=I),E>(R=I),I>(R=E),(R=E)>I,(R=I)>E,(E=I)>R,R>E>I,R>I>E,E>R>I,E>I>R,I>R>E,I>E>R,R=E=I
+[2026-05-16T08:56:07+02:00] RUN model=granite4.1:30b output_dir=output\reports\rei_model_ab_sequence_all13_64k_gpu999_fixed3\granite4_1_30b
+[2026-05-16T09:05:17+02:00] START models=granite4.1:30b,gemma4:31b,qwen3.6:35b num_ctx=65536 profiles_count=13 profiles=R>(E=I),E>(R=I),I>(R=E),(R=E)>I,(R=I)>E,(E=I)>R,R>E>I,R>I>E,E>R>I,E>I>R,I>R>E,I>E>R,R=E=I
+[2026-05-16T09:05:17+02:00] RUN model=granite4.1:30b output_dir=output\reports\rei_model_ab_sequence_all13_64k_gpu999_fixed3\granite4_1_30b
+[2026-05-16T11:20:02+02:00] DONE model=granite4.1:30b returncode=0 elapsed=8085.177 errors=0
+[2026-05-16T11:20:02+02:00] UNLOAD model=granite4.1:30b ok
+[2026-05-16T11:20:02+02:00] RUN model=gemma4:31b output_dir=output\reports\rei_model_ab_sequence_all13_64k_gpu999_fixed3\gemma4_31b
+[2026-05-16T12:48:17+02:00] DONE model=gemma4:31b returncode=0 elapsed=5295.118 errors=0
+[2026-05-16T12:48:17+02:00] UNLOAD model=gemma4:31b ok
+[2026-05-16T12:48:17+02:00] RUN model=qwen3.6:35b output_dir=output\reports\rei_model_ab_sequence_all13_64k_gpu999_fixed3\qwen3_6_35b
+[2026-05-16T13:42:33+02:00] DONE model=qwen3.6:35b returncode=0 elapsed=3256.259 errors=0
+[2026-05-16T13:42:33+02:00] UNLOAD model=qwen3.6:35b ok
+[2026-05-16T13:42:33+02:00] FINISH elapsed=16636.648 failed=0

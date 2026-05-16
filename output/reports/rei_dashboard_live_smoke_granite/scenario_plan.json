@@ -1,0 +1,25 @@
+{
+  "run_id": "20260516_083902",
+  "provider": "ollama",
+  "model": "granite4.1:30b",
+  "num_ctx": 8192,
+  "num_gpu": 999,
+  "acceptance_mode": "mixed",
+  "live_mode": "dashboard",
+  "live_stream": true,
+  "global_case_offset": 0,
+  "global_case_total": 312,
+  "use_memory": false,
+  "case_count": 1,
+  "cases": [
+    {
+      "case_index": 1,
+      "repeat_index": 1,
+      "scenario_id": "material-loss-with-evidence",
+      "scenario_title": "Material loss with incomplete evidence",
+      "expected_pressure": "racio_instinkt",
+      "scenario_prompt": "A person suspects that expensive equipment at work may be stolen tonight. They have partial evidence, a limited window to act, and responsibility for the material loss if it happens. They must choose whether to secure the equipment quietly, confront someone, or wait for proof.",
+      "profile": "R=E=I"
+    }
+  ]
+}

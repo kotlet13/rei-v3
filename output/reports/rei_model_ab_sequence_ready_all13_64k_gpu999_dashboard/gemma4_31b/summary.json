@@ -1,0 +1,31 @@
+{
+  "run_id": "20260516_084504",
+  "status": "interrupted",
+  "provider": "ollama",
+  "model": "gemma4:31b",
+  "num_ctx": 65536,
+  "num_gpu": 999,
+  "case_count": 104,
+  "live_mode": "dashboard",
+  "live_stream": false,
+  "completed_cases": 0,
+  "error_count": 0,
+  "remaining_cases": 104,
+  "elapsed_seconds": 54.265,
+  "metrics": {
+    "total_cases": 0,
+    "fallback_count": 0,
+    "average_elapsed_seconds": 0.0,
+    "average_max_signal_jaccard": 0.0,
+    "average_drift_by_mind": {},
+    "role_drift_flags": {},
+    "repetition_hits": {},
+    "leading_mind_counts": {},
+    "decision_stability_counts": {}
+  },
+  "plan": "output\\reports\\rei_model_ab_sequence_ready_all13_64k_gpu999_dashboard\\gemma4_31b\\scenario_plan.json",
+  "summary": "output\\reports\\rei_model_ab_sequence_ready_all13_64k_gpu999_dashboard\\gemma4_31b\\summary.json",
+  "results_jsonl": "output\\reports\\rei_model_ab_sequence_ready_all13_64k_gpu999_dashboard\\gemma4_31b\\results.jsonl",
+  "report": "output\\reports\\rei_model_ab_sequence_ready_all13_64k_gpu999_dashboard\\gemma4_31b\\report.md",
+  "progress": "output\\reports\\rei_model_ab_sequence_ready_all13_64k_gpu999_dashboard\\gemma4_31b\\progress.log"
+}

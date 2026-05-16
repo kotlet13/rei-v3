@@ -1,0 +1,162 @@
+[?25l[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: llm | phase_elapsed: 0s | case_elapsed: 0.0s | eval_tps: -[0m                                               [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Racio attempt 1 | phase_elapsed: 0.0s | case_elapsed: 0.0s | eval_tps: -[0m                                 [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Racio attempt 1 | phase_elapsed: 25.0s | case_elapsed: 25.0s | eval_tps: 70.47[0m                           [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Emocio attempt 1 | phase_elapsed: 0.0s | case_elapsed: 25.0s | eval_tps: -[0m                               [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Emocio attempt 1 | phase_elapsed: 17.9s | case_elapsed: 42.9s | eval_tps: 70.79[0m                          [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Instinkt attempt 1 | phase_elapsed: 0.0s | case_elapsed: 42.9s | eval_tps: -[0m                             [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Instinkt attempt 1 | phase_elapsed: 15.9s | case_elapsed: 58.8s | eval_tps: 70.77[0m                        [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+and heightened future vulnerability.",                                                                          [K
+"risk_if_dominant": "Overly paranoid security measures that disrupt normal operations or cause unnecessary      [K
+conflict with colleagues.",                                                                                     [K
+"confidence": 0.85,                                                                                             [K
+"uncertainty": "Exact identity and intent of the potential thief remain unclear; evidence is partial.",         [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Synthesis attempt 1 | phase_elapsed: 0.0s | case_elapsed: 58.8s | eval_tps: -[0m                            [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Synthesis attempt 1 | phase_elapsed: 21.5s | case_elapsed: 80.3s | eval_tps: 68.16[0m                       [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+public warning) that could backfire without solid proof.",                                                      [K
+"prediction_if_instinkt_rules_alone": "Instinkt would trigger immediate protective measures, possibly           [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[--------------------------------------------] 1/312   0.3%[0m                                                     [K
+[34mmodel 1/3 | granite4.1:30b | ctx active via Ollama | run 1/312[0m                                                  [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Synthesis attempt 1 | phase_elapsed: 21.5s | case_elapsed: 80.3s | eval_tps: 68.16[0m                       [K
+[33mlast case: elapsed=80.305s leading=instinkt stability=fragile[0m                                                   [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+public warning) that could backfire without solid proof.",                                                      [K
+"prediction_if_instinkt_rules_alone": "Instinkt would trigger immediate protective measures, possibly           [K
+Traceback (most recent call last):
+  File "C:\Users\Kotlet\Codex\github\rei-v3\scripts\run_rei_role_drift_probe.py", line 1183, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Kotlet\Codex\github\rei-v3\scripts\run_rei_role_drift_probe.py", line 1134, in main
+    live_console.finish_case(case)
+  File "C:\Users\Kotlet\Codex\github\rei-v3\scripts\run_rei_role_drift_probe.py", line 360, in finish_case
+    self.render(force=True)
+  File "C:\Users\Kotlet\Codex\github\rei-v3\scripts\run_rei_role_drift_probe.py", line 442, in render
+    sys.stdout.write(self.pad_ansi(line, width) + "\x1b[K\n")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2011' in position 4: character maps to <undefined>

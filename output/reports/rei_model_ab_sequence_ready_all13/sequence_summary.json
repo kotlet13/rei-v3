@@ -1,0 +1,43 @@
+{
+  "run_id": "20260516_073643",
+  "status": "planned_only",
+  "models": [
+    "granite4.1:30b",
+    "gemma4:31b",
+    "qwen3.6:35b"
+  ],
+  "num_ctx": 131072,
+  "profiles": "R>(E=I),E>(R=I),I>(R=E),(R=E)>I,(R=I)>E,(E=I)>R,R>E>I,R>I>E,E>R>I,E>I>R,I>R>E,I>E>R,R=E=I",
+  "profiles_count": 13,
+  "profiles_list": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "profiles_preset": "all",
+  "scenario_filter": null,
+  "repeat": 1,
+  "max_cases": null,
+  "acceptance_mode": "mixed",
+  "use_memory": true,
+  "unload_between": true,
+  "confirm_run_required": true,
+  "message": "No model calls were made. Re-run with --confirm-run when other tests are paused.",
+  "plan": "output\\reports\\rei_model_ab_sequence_ready_all13\\sequence_plan.json",
+  "summary": "output\\reports\\rei_model_ab_sequence_ready_all13\\sequence_summary.json",
+  "report": "output\\reports\\rei_model_ab_sequence_ready_all13\\sequence_report.md",
+  "synthesis_jsonl": "output\\reports\\rei_model_ab_sequence_ready_all13\\sequence_synthesis.jsonl",
+  "synthesis_report": "output\\reports\\rei_model_ab_sequence_ready_all13\\sequence_synthesis_report.md",
+  "progress": "output\\reports\\rei_model_ab_sequence_ready_all13\\sequence_progress.log",
+  "results": []
+}

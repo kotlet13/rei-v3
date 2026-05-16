@@ -1,0 +1,1 @@
+stderr was merged into sequence_stdout.txt for live progress streaming.

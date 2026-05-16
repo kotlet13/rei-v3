@@ -1,0 +1,9 @@
+[2026-05-16T08:52:35+02:00] START provider=ollama model=granite4.1:30b num_ctx=65536 cases=104
+[2026-05-16T08:52:35+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)
+[2026-05-16T08:53:56+02:00] DONE 001/104 material-loss-with-evidence profile=R>(E=I) elapsed=81.271 leading=instinkt fallbacks=0
+[2026-05-16T08:53:56+02:00] RUN 002/104 material-loss-with-evidence profile=E>(R=I)
+[2026-05-16T08:55:17+02:00] DONE 002/104 material-loss-with-evidence profile=E>(R=I) elapsed=80.764 leading=emocio fallbacks=0
+[2026-05-16T08:55:17+02:00] RUN 003/104 material-loss-with-evidence profile=I>(R=E)
+[2026-05-16T08:55:40+02:00] INTERRUPT requested by user; writing partial report
+[2026-05-16T08:55:40+02:00] UNLOAD model=granite4.1:30b ok
+[2026-05-16T08:55:40+02:00] FINISH completed=2 errors=0

@@ -1,0 +1,151 @@
+[?25l[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: llm | phase_elapsed: 0s | case_elapsed: 0.0s | eval_tps: -[0m                                               [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Racio attempt 1 | phase_elapsed: 0.0s | case_elapsed: 0.0s | eval_tps: -[0m                                 [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Racio attempt 1 | phase_elapsed: 17.6s | case_elapsed: 17.6s | eval_tps: 59.52[0m                           [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+"risk_if_dominant": "Over-analysis leading to 'analysis paralysis' while the window of opportunity              [K
+closes.",                                                                                                       [K
+"rationalization_risk": "Framing the decision to secure equipment as 'purely logical' while actually            [K
+responding to a fear of failure (Emocio) or a territorial protective urge (Instinkt).",                         [K
+"confidence": 0.85,                                                                                             [K
+"uncertainty": "The gap between partial evidence and absolute proof.",                                          [K
+"safety_flags": []                                                                                              [K
+}                                                                                                               [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Emocio attempt 1 | phase_elapsed: 0.0s | case_elapsed: 17.6s | eval_tps: -[0m                               [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Emocio attempt 1 | phase_elapsed: 10.5s | case_elapsed: 28.1s | eval_tps: 58.91[0m                          [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+"what_this_mind_needs": "Certainty that the professional image remains intact and respected.",                  [K
+"risk_if_ignored": "Deep internal shame and a feeling of powerlessness if the theft occurs.",                   [K
+"risk_if_dominant": "Impulsive confrontation based on 'feeling' the threat, potentially damaging social         [K
+ties without proof.",                                                                                           [K
+"confidence": 0.8,                                                                                              [K
+"uncertainty": "Whether the suspicion is a projection of anxiety or a real external threat.",                   [K
+"safety_flags": []                                                                                              [K
+}                                                                                                               [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Instinkt attempt 1 | phase_elapsed: 0.0s | case_elapsed: 28.1s | eval_tps: -[0m                             [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Instinkt attempt 1 | phase_elapsed: 9.9s | case_elapsed: 38.0s | eval_tps: 59.17[0m                         [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+"confidence": 0.8,                                                                                              [K
+"uncertainty": "Lack of definitive proof of who the thief is.",                                                 [K
+"safety_flags": [                                                                                               [K
+"material_loss_risk",                                                                                           [K
+"professional_liability",                                                                                       [K
+"security_breach"                                                                                               [K
+]                                                                                                               [K
+}                                                                                                               [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K
+[18A
+[33m[1mREI role probe[0m[0m                                                                                                  [K
+[32m[==============------------------------------] 105/312  33.7%[0m                                                   [K
+[34mmodel 2/3 | gemma4:31b | ctx active via Ollama | run 105/312[0m                                                    [K
+test: material-loss-with-evidence | profile: R>(E=I) | expected: racio_instinkt                                 [K
+[34mphase: Synthesis attempt 1 | phase_elapsed: 0.0s | case_elapsed: 38.0s | eval_tps: -[0m                            [K
+[2mlast case: none yet[0m                                                                                             [K
+----------------------------------------------------------------------------------------------------------------[K
+[33mcurrent mind output (rewriting, last lines):[0m                                                                    [K
+waiting for phase to finish...                                                                                  [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+                                                                                                                [K
+----------------------------------------------------------------------------------------------------------------[K
+[2mCtrl+C writes partial summary and unloads the current Ollama model.[0m                                             [K

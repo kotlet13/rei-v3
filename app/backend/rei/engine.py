@@ -479,6 +479,7 @@ class ReiEngine:
                     top_p=top_p,
                     num_predict=num_predict,
                     think=self._think_for_model(model, False),
+                    progress_label=f"{label}:{attempt + 1}",
                 ),
             )
             diagnostics["llm_calls"].append(

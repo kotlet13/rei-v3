@@ -1,0 +1,179 @@
+{
+  "run_id": "20260516_090517",
+  "status": "completed",
+  "models": [
+    "granite4.1:30b",
+    "gemma4:31b",
+    "qwen3.6:35b"
+  ],
+  "num_ctx": 65536,
+  "num_gpu": 999,
+  "profiles": "R>(E=I),E>(R=I),I>(R=E),(R=E)>I,(R=I)>E,(E=I)>R,R>E>I,R>I>E,E>R>I,E>I>R,I>R>E,I>E>R,R=E=I",
+  "profiles_count": 13,
+  "profiles_list": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "profiles_preset": "all",
+  "scenario_filter": null,
+  "repeat": 1,
+  "max_cases": null,
+  "acceptance_mode": "mixed",
+  "live_mode": "dashboard",
+  "live_stream": true,
+  "dashboard_refresh_seconds": 1.0,
+  "estimated_cases_per_model": 104,
+  "estimated_total_cases": 312,
+  "use_memory": true,
+  "unload_between": true,
+  "confirm_run_required": true,
+  "elapsed_seconds": 16636.648,
+  "failed_models": [],
+  "plan": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\sequence_plan.json",
+  "summary": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\sequence_summary.json",
+  "report": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\sequence_report.md",
+  "synthesis_jsonl": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\sequence_synthesis.jsonl",
+  "synthesis_report": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\sequence_synthesis_report.md",
+  "progress": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\sequence_progress.log",
+  "results": [
+    {
+      "model": "granite4.1:30b",
+      "returncode": 0,
+      "elapsed_seconds": 8085.177,
+      "output_dir": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b",
+      "summary": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\summary.json",
+      "stdout": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\sequence_stdout.txt",
+      "stderr": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\granite4_1_30b\\sequence_stderr.txt",
+      "metrics": {
+        "total_cases": 104,
+        "fallback_count": 0,
+        "average_elapsed_seconds": 77.7347,
+        "average_max_signal_jaccard": 0.1485,
+        "average_drift_by_mind": {
+          "emocio": 0.0569,
+          "instinkt": 0.1759,
+          "racio": 0.3677
+        },
+        "role_drift_flags": {
+          "emocio_uses_analysis_or_regulation_language": 30,
+          "instinkt_uses_rational_strategy_language": 79,
+          "racio_missing_native_terms": 13,
+          "racio_uses_fear_body_or_image_language": 86
+        },
+        "repetition_hits": {
+          "bounded test": 204,
+          "minimum safety condition": 4,
+          "responsible planning": 13
+        },
+        "leading_mind_counts": {
+          "emocio": 27,
+          "instinkt": 70,
+          "mixed": 1,
+          "racio": 6
+        },
+        "decision_stability_counts": {
+          "fragile": 97,
+          "stable": 7
+        }
+      },
+      "status": "completed",
+      "error_count": 0
+    },
+    {
+      "model": "gemma4:31b",
+      "returncode": 0,
+      "elapsed_seconds": 5295.118,
+      "output_dir": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\gemma4_31b",
+      "summary": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\gemma4_31b\\summary.json",
+      "stdout": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\gemma4_31b\\sequence_stdout.txt",
+      "stderr": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\gemma4_31b\\sequence_stderr.txt",
+      "metrics": {
+        "total_cases": 104,
+        "fallback_count": 0,
+        "average_elapsed_seconds": 50.9077,
+        "average_max_signal_jaccard": 0.1287,
+        "average_drift_by_mind": {
+          "emocio": 0.0187,
+          "instinkt": 0.1083,
+          "racio": 0.3078
+        },
+        "role_drift_flags": {
+          "emocio_uses_analysis_or_regulation_language": 20,
+          "instinkt_uses_rational_strategy_language": 72,
+          "racio_missing_native_terms": 1,
+          "racio_uses_fear_body_or_image_language": 73
+        },
+        "repetition_hits": {
+          "bounded test": 166,
+          "minimum safety condition": 4,
+          "responsible planning": 22
+        },
+        "leading_mind_counts": {
+          "emocio": 13,
+          "instinkt": 87,
+          "racio": 4
+        },
+        "decision_stability_counts": {
+          "fragile": 71,
+          "stable": 29,
+          "unstable": 4
+        }
+      },
+      "status": "completed",
+      "error_count": 0
+    },
+    {
+      "model": "qwen3.6:35b",
+      "returncode": 0,
+      "elapsed_seconds": 3256.259,
+      "output_dir": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\qwen3_6_35b",
+      "summary": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\qwen3_6_35b\\summary.json",
+      "stdout": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\qwen3_6_35b\\sequence_stdout.txt",
+      "stderr": "output\\reports\\rei_model_ab_sequence_all13_64k_gpu999_fixed3\\qwen3_6_35b\\sequence_stderr.txt",
+      "metrics": {
+        "total_cases": 104,
+        "fallback_count": 0,
+        "average_elapsed_seconds": 31.302,
+        "average_max_signal_jaccard": 0.0904,
+        "average_drift_by_mind": {
+          "emocio": 0.0175,
+          "instinkt": 0.1336,
+          "racio": 0.2019
+        },
+        "role_drift_flags": {
+          "emocio_uses_analysis_or_regulation_language": 13,
+          "instinkt_uses_rational_strategy_language": 74,
+          "racio_missing_native_terms": 1,
+          "racio_uses_fear_body_or_image_language": 77
+        },
+        "repetition_hits": {
+          "bounded test": 206,
+          "minimum safety condition": 4,
+          "responsible planning": 10
+        },
+        "leading_mind_counts": {
+          "emocio": 15,
+          "instinkt": 88,
+          "mixed": 1
+        },
+        "decision_stability_counts": {
+          "fragile": 75,
+          "unstable": 29
+        }
+      },
+      "status": "completed",
+      "error_count": 0
+    }
+  ]
+}

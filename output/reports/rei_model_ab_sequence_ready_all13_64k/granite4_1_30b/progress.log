@@ -1,0 +1,4 @@
+[2026-05-16T08:14:18+02:00] START provider=ollama model=granite4.1:30b num_ctx=65536 cases=104
+[2026-05-16T08:14:18+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)
+[2026-05-16T08:16:43+02:00] DONE 001/104 material-loss-with-evidence profile=R>(E=I) elapsed=145.163 leading=instinkt fallbacks=0
+[2026-05-16T08:16:43+02:00] RUN 002/104 material-loss-with-evidence profile=E>(R=I)

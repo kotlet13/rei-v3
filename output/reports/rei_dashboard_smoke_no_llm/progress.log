@@ -1,0 +1,4 @@
+[2026-05-16T08:34:26+02:00] START provider=deterministic model=qwen/qwen3.5-9b num_ctx=65536 cases=1
+[2026-05-16T08:34:26+02:00] RUN 001/1 material-loss-with-evidence profile=R=E=I
+[2026-05-16T08:34:26+02:00] DONE 001/1 material-loss-with-evidence profile=R=E=I elapsed=0.001 leading=instinkt fallbacks=0
+[2026-05-16T08:34:26+02:00] FINISH completed=1 errors=0

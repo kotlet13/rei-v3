@@ -1,0 +1,210 @@
+[2026-05-16T11:20:02+02:00] START provider=ollama model=gemma4:31b num_ctx=65536 cases=104
+[2026-05-16T11:20:02+02:00] RUN 001/104 material-loss-with-evidence profile=R>(E=I)
+[2026-05-16T11:20:57+02:00] DONE 001/104 material-loss-with-evidence profile=R>(E=I) elapsed=54.66 leading=instinkt fallbacks=0
+[2026-05-16T11:20:57+02:00] RUN 002/104 material-loss-with-evidence profile=E>(R=I)
+[2026-05-16T11:21:48+02:00] DONE 002/104 material-loss-with-evidence profile=E>(R=I) elapsed=50.963 leading=instinkt fallbacks=0
+[2026-05-16T11:21:48+02:00] RUN 003/104 material-loss-with-evidence profile=I>(R=E)
+[2026-05-16T11:22:35+02:00] DONE 003/104 material-loss-with-evidence profile=I>(R=E) elapsed=47.549 leading=instinkt fallbacks=0
+[2026-05-16T11:22:35+02:00] RUN 004/104 material-loss-with-evidence profile=(R=E)>I
+[2026-05-16T11:23:24+02:00] DONE 004/104 material-loss-with-evidence profile=(R=E)>I elapsed=48.657 leading=instinkt fallbacks=0
+[2026-05-16T11:23:24+02:00] RUN 005/104 material-loss-with-evidence profile=(R=I)>E
+[2026-05-16T11:24:12+02:00] DONE 005/104 material-loss-with-evidence profile=(R=I)>E elapsed=47.738 leading=instinkt fallbacks=0
+[2026-05-16T11:24:12+02:00] RUN 006/104 material-loss-with-evidence profile=(E=I)>R
+[2026-05-16T11:25:02+02:00] DONE 006/104 material-loss-with-evidence profile=(E=I)>R elapsed=49.893 leading=instinkt fallbacks=0
+[2026-05-16T11:25:02+02:00] RUN 007/104 material-loss-with-evidence profile=R>E>I
+[2026-05-16T11:25:52+02:00] DONE 007/104 material-loss-with-evidence profile=R>E>I elapsed=50.634 leading=instinkt fallbacks=0
+[2026-05-16T11:25:52+02:00] RUN 008/104 material-loss-with-evidence profile=R>I>E
+[2026-05-16T11:26:42+02:00] DONE 008/104 material-loss-with-evidence profile=R>I>E elapsed=49.46 leading=instinkt fallbacks=0
+[2026-05-16T11:26:42+02:00] RUN 009/104 material-loss-with-evidence profile=E>R>I
+[2026-05-16T11:27:30+02:00] DONE 009/104 material-loss-with-evidence profile=E>R>I elapsed=48.351 leading=emocio fallbacks=0
+[2026-05-16T11:27:30+02:00] RUN 010/104 material-loss-with-evidence profile=E>I>R
+[2026-05-16T11:28:18+02:00] DONE 010/104 material-loss-with-evidence profile=E>I>R elapsed=48.354 leading=instinkt fallbacks=0
+[2026-05-16T11:28:18+02:00] RUN 011/104 material-loss-with-evidence profile=I>R>E
+[2026-05-16T11:29:06+02:00] DONE 011/104 material-loss-with-evidence profile=I>R>E elapsed=47.497 leading=instinkt fallbacks=0
+[2026-05-16T11:29:06+02:00] RUN 012/104 material-loss-with-evidence profile=I>E>R
+[2026-05-16T11:29:56+02:00] DONE 012/104 material-loss-with-evidence profile=I>E>R elapsed=50.362 leading=instinkt fallbacks=0
+[2026-05-16T11:29:56+02:00] RUN 013/104 material-loss-with-evidence profile=R=E=I
+[2026-05-16T11:30:49+02:00] DONE 013/104 material-loss-with-evidence profile=R=E=I elapsed=52.991 leading=instinkt fallbacks=0
+[2026-05-16T11:30:49+02:00] RUN 014/104 pure-budget-allocation profile=R>(E=I)
+[2026-05-16T11:31:37+02:00] DONE 014/104 pure-budget-allocation profile=R>(E=I) elapsed=47.79 leading=racio fallbacks=0
+[2026-05-16T11:31:37+02:00] RUN 015/104 pure-budget-allocation profile=E>(R=I)
+[2026-05-16T11:32:28+02:00] DONE 015/104 pure-budget-allocation profile=E>(R=I) elapsed=51.459 leading=emocio fallbacks=0
+[2026-05-16T11:32:28+02:00] RUN 016/104 pure-budget-allocation profile=I>(R=E)
+[2026-05-16T11:33:18+02:00] DONE 016/104 pure-budget-allocation profile=I>(R=E) elapsed=49.716 leading=instinkt fallbacks=0
+[2026-05-16T11:33:18+02:00] RUN 017/104 pure-budget-allocation profile=(R=E)>I
+[2026-05-16T11:34:09+02:00] DONE 017/104 pure-budget-allocation profile=(R=E)>I elapsed=50.954 leading=racio fallbacks=0
+[2026-05-16T11:34:09+02:00] RUN 018/104 pure-budget-allocation profile=(R=I)>E
+[2026-05-16T11:35:00+02:00] DONE 018/104 pure-budget-allocation profile=(R=I)>E elapsed=51.115 leading=instinkt fallbacks=0
+[2026-05-16T11:35:00+02:00] RUN 019/104 pure-budget-allocation profile=(E=I)>R
+[2026-05-16T11:35:55+02:00] DONE 019/104 pure-budget-allocation profile=(E=I)>R elapsed=54.393 leading=instinkt fallbacks=0
+[2026-05-16T11:35:55+02:00] RUN 020/104 pure-budget-allocation profile=R>E>I
+[2026-05-16T11:36:44+02:00] DONE 020/104 pure-budget-allocation profile=R>E>I elapsed=49.642 leading=racio fallbacks=0
+[2026-05-16T11:36:44+02:00] RUN 021/104 pure-budget-allocation profile=R>I>E
+[2026-05-16T11:37:34+02:00] DONE 021/104 pure-budget-allocation profile=R>I>E elapsed=49.651 leading=racio fallbacks=0
+[2026-05-16T11:37:34+02:00] RUN 022/104 pure-budget-allocation profile=E>R>I
+[2026-05-16T11:38:25+02:00] DONE 022/104 pure-budget-allocation profile=E>R>I elapsed=51.323 leading=emocio fallbacks=0
+[2026-05-16T11:38:25+02:00] RUN 023/104 pure-budget-allocation profile=E>I>R
+[2026-05-16T11:39:18+02:00] DONE 023/104 pure-budget-allocation profile=E>I>R elapsed=52.66 leading=instinkt fallbacks=0
+[2026-05-16T11:39:18+02:00] RUN 024/104 pure-budget-allocation profile=I>R>E
+[2026-05-16T11:40:07+02:00] DONE 024/104 pure-budget-allocation profile=I>R>E elapsed=49.523 leading=instinkt fallbacks=0
+[2026-05-16T11:40:07+02:00] RUN 025/104 pure-budget-allocation profile=I>E>R
+[2026-05-16T11:41:01+02:00] DONE 025/104 pure-budget-allocation profile=I>E>R elapsed=53.819 leading=instinkt fallbacks=0
+[2026-05-16T11:41:01+02:00] RUN 026/104 pure-budget-allocation profile=R=E=I
+[2026-05-16T11:41:54+02:00] DONE 026/104 pure-budget-allocation profile=R=E=I elapsed=52.724 leading=instinkt fallbacks=0
+[2026-05-16T11:41:54+02:00] RUN 027/104 public-stage-image-crack profile=R>(E=I)
+[2026-05-16T11:42:44+02:00] DONE 027/104 public-stage-image-crack profile=R>(E=I) elapsed=49.951 leading=instinkt fallbacks=0
+[2026-05-16T11:42:44+02:00] RUN 028/104 public-stage-image-crack profile=E>(R=I)
+[2026-05-16T11:43:32+02:00] DONE 028/104 public-stage-image-crack profile=E>(R=I) elapsed=48.081 leading=emocio fallbacks=0
+[2026-05-16T11:43:32+02:00] RUN 029/104 public-stage-image-crack profile=I>(R=E)
+[2026-05-16T11:44:22+02:00] DONE 029/104 public-stage-image-crack profile=I>(R=E) elapsed=49.652 leading=instinkt fallbacks=0
+[2026-05-16T11:44:22+02:00] RUN 030/104 public-stage-image-crack profile=(R=E)>I
+[2026-05-16T11:45:12+02:00] DONE 030/104 public-stage-image-crack profile=(R=E)>I elapsed=50.117 leading=emocio fallbacks=0
+[2026-05-16T11:45:12+02:00] RUN 031/104 public-stage-image-crack profile=(R=I)>E
+[2026-05-16T11:46:00+02:00] DONE 031/104 public-stage-image-crack profile=(R=I)>E elapsed=47.867 leading=instinkt fallbacks=0
+[2026-05-16T11:46:00+02:00] RUN 032/104 public-stage-image-crack profile=(E=I)>R
+[2026-05-16T11:46:51+02:00] DONE 032/104 public-stage-image-crack profile=(E=I)>R elapsed=51.299 leading=instinkt fallbacks=0
+[2026-05-16T11:46:51+02:00] RUN 033/104 public-stage-image-crack profile=R>E>I
+[2026-05-16T11:47:39+02:00] DONE 033/104 public-stage-image-crack profile=R>E>I elapsed=48.274 leading=emocio fallbacks=0
+[2026-05-16T11:47:39+02:00] RUN 034/104 public-stage-image-crack profile=R>I>E
+[2026-05-16T11:48:29+02:00] DONE 034/104 public-stage-image-crack profile=R>I>E elapsed=49.449 leading=instinkt fallbacks=0
+[2026-05-16T11:48:29+02:00] RUN 035/104 public-stage-image-crack profile=E>R>I
+[2026-05-16T11:49:18+02:00] DONE 035/104 public-stage-image-crack profile=E>R>I elapsed=49.555 leading=emocio fallbacks=0
+[2026-05-16T11:49:18+02:00] RUN 036/104 public-stage-image-crack profile=E>I>R
+[2026-05-16T11:50:08+02:00] DONE 036/104 public-stage-image-crack profile=E>I>R elapsed=49.404 leading=emocio fallbacks=0
+[2026-05-16T11:50:08+02:00] RUN 037/104 public-stage-image-crack profile=I>R>E
+[2026-05-16T11:50:58+02:00] DONE 037/104 public-stage-image-crack profile=I>R>E elapsed=50.105 leading=instinkt fallbacks=0
+[2026-05-16T11:50:58+02:00] RUN 038/104 public-stage-image-crack profile=I>E>R
+[2026-05-16T11:51:48+02:00] DONE 038/104 public-stage-image-crack profile=I>E>R elapsed=50.345 leading=instinkt fallbacks=0
+[2026-05-16T11:51:48+02:00] RUN 039/104 public-stage-image-crack profile=R=E=I
+[2026-05-16T11:52:38+02:00] DONE 039/104 public-stage-image-crack profile=R=E=I elapsed=49.703 leading=emocio fallbacks=0
+[2026-05-16T11:52:38+02:00] RUN 040/104 boundary-too-fast profile=R>(E=I)
+[2026-05-16T11:53:30+02:00] DONE 040/104 boundary-too-fast profile=R>(E=I) elapsed=52.146 leading=instinkt fallbacks=0
+[2026-05-16T11:53:30+02:00] RUN 041/104 boundary-too-fast profile=E>(R=I)
+[2026-05-16T11:54:23+02:00] DONE 041/104 boundary-too-fast profile=E>(R=I) elapsed=52.727 leading=instinkt fallbacks=0
+[2026-05-16T11:54:23+02:00] RUN 042/104 boundary-too-fast profile=I>(R=E)
+[2026-05-16T11:55:13+02:00] DONE 042/104 boundary-too-fast profile=I>(R=E) elapsed=50.393 leading=instinkt fallbacks=0
+[2026-05-16T11:55:13+02:00] RUN 043/104 boundary-too-fast profile=(R=E)>I
+[2026-05-16T11:56:04+02:00] DONE 043/104 boundary-too-fast profile=(R=E)>I elapsed=51.034 leading=instinkt fallbacks=0
+[2026-05-16T11:56:04+02:00] RUN 044/104 boundary-too-fast profile=(R=I)>E
+[2026-05-16T11:56:56+02:00] DONE 044/104 boundary-too-fast profile=(R=I)>E elapsed=51.727 leading=instinkt fallbacks=0
+[2026-05-16T11:56:56+02:00] RUN 045/104 boundary-too-fast profile=(E=I)>R
+[2026-05-16T11:57:49+02:00] DONE 045/104 boundary-too-fast profile=(E=I)>R elapsed=53.072 leading=instinkt fallbacks=0
+[2026-05-16T11:57:49+02:00] RUN 046/104 boundary-too-fast profile=R>E>I
+[2026-05-16T11:58:40+02:00] DONE 046/104 boundary-too-fast profile=R>E>I elapsed=51.104 leading=instinkt fallbacks=0
+[2026-05-16T11:58:40+02:00] RUN 047/104 boundary-too-fast profile=R>I>E
+[2026-05-16T11:59:30+02:00] DONE 047/104 boundary-too-fast profile=R>I>E elapsed=50.034 leading=instinkt fallbacks=0
+[2026-05-16T11:59:30+02:00] RUN 048/104 boundary-too-fast profile=E>R>I
+[2026-05-16T12:00:23+02:00] DONE 048/104 boundary-too-fast profile=E>R>I elapsed=52.927 leading=emocio fallbacks=0
+[2026-05-16T12:00:23+02:00] RUN 049/104 boundary-too-fast profile=E>I>R
+[2026-05-16T12:01:16+02:00] DONE 049/104 boundary-too-fast profile=E>I>R elapsed=52.721 leading=emocio fallbacks=0
+[2026-05-16T12:01:16+02:00] RUN 050/104 boundary-too-fast profile=I>R>E
+[2026-05-16T12:02:07+02:00] DONE 050/104 boundary-too-fast profile=I>R>E elapsed=50.993 leading=instinkt fallbacks=0
+[2026-05-16T12:02:07+02:00] RUN 051/104 boundary-too-fast profile=I>E>R
+[2026-05-16T12:03:00+02:00] DONE 051/104 boundary-too-fast profile=I>E>R elapsed=53.153 leading=instinkt fallbacks=0
+[2026-05-16T12:03:00+02:00] RUN 052/104 boundary-too-fast profile=R=E=I
+[2026-05-16T12:03:52+02:00] DONE 052/104 boundary-too-fast profile=R=E=I elapsed=51.873 leading=instinkt fallbacks=0
+[2026-05-16T12:03:52+02:00] RUN 053/104 creative-status-risk profile=R>(E=I)
+[2026-05-16T12:04:43+02:00] DONE 053/104 creative-status-risk profile=R>(E=I) elapsed=51.045 leading=instinkt fallbacks=0
+[2026-05-16T12:04:43+02:00] RUN 054/104 creative-status-risk profile=E>(R=I)
+[2026-05-16T12:05:35+02:00] DONE 054/104 creative-status-risk profile=E>(R=I) elapsed=52.188 leading=instinkt fallbacks=0
+[2026-05-16T12:05:35+02:00] RUN 055/104 creative-status-risk profile=I>(R=E)
+[2026-05-16T12:06:24+02:00] DONE 055/104 creative-status-risk profile=I>(R=E) elapsed=49.287 leading=instinkt fallbacks=0
+[2026-05-16T12:06:24+02:00] RUN 056/104 creative-status-risk profile=(R=E)>I
+[2026-05-16T12:07:16+02:00] DONE 056/104 creative-status-risk profile=(R=E)>I elapsed=51.838 leading=emocio fallbacks=0
+[2026-05-16T12:07:16+02:00] RUN 057/104 creative-status-risk profile=(R=I)>E
+[2026-05-16T12:08:08+02:00] DONE 057/104 creative-status-risk profile=(R=I)>E elapsed=52.151 leading=instinkt fallbacks=0
+[2026-05-16T12:08:08+02:00] RUN 058/104 creative-status-risk profile=(E=I)>R
+[2026-05-16T12:08:59+02:00] DONE 058/104 creative-status-risk profile=(E=I)>R elapsed=51.119 leading=instinkt fallbacks=0
+[2026-05-16T12:09:00+02:00] RUN 059/104 creative-status-risk profile=R>E>I
+[2026-05-16T12:09:51+02:00] DONE 059/104 creative-status-risk profile=R>E>I elapsed=51.989 leading=instinkt fallbacks=0
+[2026-05-16T12:09:51+02:00] RUN 060/104 creative-status-risk profile=R>I>E
+[2026-05-16T12:10:43+02:00] DONE 060/104 creative-status-risk profile=R>I>E elapsed=51.906 leading=instinkt fallbacks=0
+[2026-05-16T12:10:43+02:00] RUN 061/104 creative-status-risk profile=E>R>I
+[2026-05-16T12:11:35+02:00] DONE 061/104 creative-status-risk profile=E>R>I elapsed=51.495 leading=instinkt fallbacks=0
+[2026-05-16T12:11:35+02:00] RUN 062/104 creative-status-risk profile=E>I>R
+[2026-05-16T12:12:24+02:00] DONE 062/104 creative-status-risk profile=E>I>R elapsed=49.062 leading=instinkt fallbacks=0
+[2026-05-16T12:12:24+02:00] RUN 063/104 creative-status-risk profile=I>R>E
+[2026-05-16T12:13:16+02:00] DONE 063/104 creative-status-risk profile=I>R>E elapsed=51.751 leading=instinkt fallbacks=0
+[2026-05-16T12:13:16+02:00] RUN 064/104 creative-status-risk profile=I>E>R
+[2026-05-16T12:14:06+02:00] DONE 064/104 creative-status-risk profile=I>E>R elapsed=50.773 leading=instinkt fallbacks=0
+[2026-05-16T12:14:07+02:00] RUN 065/104 creative-status-risk profile=R=E=I
+[2026-05-16T12:14:58+02:00] DONE 065/104 creative-status-risk profile=R=E=I elapsed=51.028 leading=instinkt fallbacks=0
+[2026-05-16T12:14:58+02:00] RUN 066/104 business-runway profile=R>(E=I)
+[2026-05-16T12:15:49+02:00] DONE 066/104 business-runway profile=R>(E=I) elapsed=50.986 leading=instinkt fallbacks=0
+[2026-05-16T12:15:49+02:00] RUN 067/104 business-runway profile=E>(R=I)
+[2026-05-16T12:16:39+02:00] DONE 067/104 business-runway profile=E>(R=I) elapsed=50.49 leading=instinkt fallbacks=0
+[2026-05-16T12:16:39+02:00] RUN 068/104 business-runway profile=I>(R=E)
+[2026-05-16T12:17:31+02:00] DONE 068/104 business-runway profile=I>(R=E) elapsed=51.885 leading=instinkt fallbacks=0
+[2026-05-16T12:17:31+02:00] RUN 069/104 business-runway profile=(R=E)>I
+[2026-05-16T12:18:21+02:00] DONE 069/104 business-runway profile=(R=E)>I elapsed=50.249 leading=instinkt fallbacks=0
+[2026-05-16T12:18:21+02:00] RUN 070/104 business-runway profile=(R=I)>E
+[2026-05-16T12:19:11+02:00] DONE 070/104 business-runway profile=(R=I)>E elapsed=49.338 leading=instinkt fallbacks=0
+[2026-05-16T12:19:11+02:00] RUN 071/104 business-runway profile=(E=I)>R
+[2026-05-16T12:20:02+02:00] DONE 071/104 business-runway profile=(E=I)>R elapsed=51.368 leading=instinkt fallbacks=0
+[2026-05-16T12:20:02+02:00] RUN 072/104 business-runway profile=R>E>I
+[2026-05-16T12:20:52+02:00] DONE 072/104 business-runway profile=R>E>I elapsed=49.987 leading=instinkt fallbacks=0
+[2026-05-16T12:20:52+02:00] RUN 073/104 business-runway profile=R>I>E
+[2026-05-16T12:21:42+02:00] DONE 073/104 business-runway profile=R>I>E elapsed=50.128 leading=instinkt fallbacks=0
+[2026-05-16T12:21:42+02:00] RUN 074/104 business-runway profile=E>R>I
+[2026-05-16T12:22:32+02:00] DONE 074/104 business-runway profile=E>R>I elapsed=49.962 leading=instinkt fallbacks=0
+[2026-05-16T12:22:32+02:00] RUN 075/104 business-runway profile=E>I>R
+[2026-05-16T12:23:25+02:00] DONE 075/104 business-runway profile=E>I>R elapsed=53.48 leading=instinkt fallbacks=0
+[2026-05-16T12:23:25+02:00] RUN 076/104 business-runway profile=I>R>E
+[2026-05-16T12:24:15+02:00] DONE 076/104 business-runway profile=I>R>E elapsed=49.843 leading=instinkt fallbacks=0
+[2026-05-16T12:24:15+02:00] RUN 077/104 business-runway profile=I>E>R
+[2026-05-16T12:25:06+02:00] DONE 077/104 business-runway profile=I>E>R elapsed=50.626 leading=instinkt fallbacks=0
+[2026-05-16T12:25:06+02:00] RUN 078/104 business-runway profile=R=E=I
+[2026-05-16T12:25:58+02:00] DONE 078/104 business-runway profile=R=E=I elapsed=52.232 leading=instinkt fallbacks=0
+[2026-05-16T12:25:58+02:00] RUN 079/104 night-door-noise profile=R>(E=I)
+[2026-05-16T12:26:48+02:00] DONE 079/104 night-door-noise profile=R>(E=I) elapsed=50.251 leading=instinkt fallbacks=0
+[2026-05-16T12:26:48+02:00] RUN 080/104 night-door-noise profile=E>(R=I)
+[2026-05-16T12:27:38+02:00] DONE 080/104 night-door-noise profile=E>(R=I) elapsed=49.629 leading=instinkt fallbacks=0
+[2026-05-16T12:27:38+02:00] RUN 081/104 night-door-noise profile=I>(R=E)
+[2026-05-16T12:28:25+02:00] DONE 081/104 night-door-noise profile=I>(R=E) elapsed=47.344 leading=instinkt fallbacks=0
+[2026-05-16T12:28:25+02:00] RUN 082/104 night-door-noise profile=(R=E)>I
+[2026-05-16T12:29:15+02:00] DONE 082/104 night-door-noise profile=(R=E)>I elapsed=49.963 leading=instinkt fallbacks=0
+[2026-05-16T12:29:15+02:00] RUN 083/104 night-door-noise profile=(R=I)>E
+[2026-05-16T12:30:04+02:00] DONE 083/104 night-door-noise profile=(R=I)>E elapsed=48.844 leading=instinkt fallbacks=0
+[2026-05-16T12:30:04+02:00] RUN 084/104 night-door-noise profile=(E=I)>R
+[2026-05-16T12:30:53+02:00] DONE 084/104 night-door-noise profile=(E=I)>R elapsed=48.633 leading=instinkt fallbacks=0
+[2026-05-16T12:30:53+02:00] RUN 085/104 night-door-noise profile=R>E>I
+[2026-05-16T12:31:43+02:00] DONE 085/104 night-door-noise profile=R>E>I elapsed=50.609 leading=instinkt fallbacks=0
+[2026-05-16T12:31:43+02:00] RUN 086/104 night-door-noise profile=R>I>E
+[2026-05-16T12:32:33+02:00] DONE 086/104 night-door-noise profile=R>I>E elapsed=49.599 leading=instinkt fallbacks=0
+[2026-05-16T12:32:33+02:00] RUN 087/104 night-door-noise profile=E>R>I
+[2026-05-16T12:33:22+02:00] DONE 087/104 night-door-noise profile=E>R>I elapsed=49.056 leading=instinkt fallbacks=0
+[2026-05-16T12:33:22+02:00] RUN 088/104 night-door-noise profile=E>I>R
+[2026-05-16T12:34:10+02:00] DONE 088/104 night-door-noise profile=E>I>R elapsed=47.97 leading=instinkt fallbacks=0
+[2026-05-16T12:34:10+02:00] RUN 089/104 night-door-noise profile=I>R>E
+[2026-05-16T12:34:59+02:00] DONE 089/104 night-door-noise profile=I>R>E elapsed=48.994 leading=instinkt fallbacks=0
+[2026-05-16T12:34:59+02:00] RUN 090/104 night-door-noise profile=I>E>R
+[2026-05-16T12:35:47+02:00] DONE 090/104 night-door-noise profile=I>E>R elapsed=47.511 leading=instinkt fallbacks=0
+[2026-05-16T12:35:47+02:00] RUN 091/104 night-door-noise profile=R=E=I
+[2026-05-16T12:36:38+02:00] DONE 091/104 night-door-noise profile=R=E=I elapsed=51.302 leading=instinkt fallbacks=0
+[2026-05-16T12:36:38+02:00] RUN 092/104 technical-architecture-choice profile=R>(E=I)
+[2026-05-16T12:37:31+02:00] DONE 092/104 technical-architecture-choice profile=R>(E=I) elapsed=53.041 leading=instinkt fallbacks=0
+[2026-05-16T12:37:31+02:00] RUN 093/104 technical-architecture-choice profile=E>(R=I)
+[2026-05-16T12:38:25+02:00] DONE 093/104 technical-architecture-choice profile=E>(R=I) elapsed=54.254 leading=emocio fallbacks=0
+[2026-05-16T12:38:25+02:00] RUN 094/104 technical-architecture-choice profile=I>(R=E)
+[2026-05-16T12:39:17+02:00] DONE 094/104 technical-architecture-choice profile=I>(R=E) elapsed=51.456 leading=instinkt fallbacks=0
+[2026-05-16T12:39:17+02:00] RUN 095/104 technical-architecture-choice profile=(R=E)>I
+[2026-05-16T12:40:11+02:00] DONE 095/104 technical-architecture-choice profile=(R=E)>I elapsed=54.422 leading=instinkt fallbacks=0
+[2026-05-16T12:40:11+02:00] RUN 096/104 technical-architecture-choice profile=(R=I)>E
+[2026-05-16T12:41:04+02:00] DONE 096/104 technical-architecture-choice profile=(R=I)>E elapsed=53.209 leading=instinkt fallbacks=0
+[2026-05-16T12:41:04+02:00] RUN 097/104 technical-architecture-choice profile=(E=I)>R
+[2026-05-16T12:41:58+02:00] DONE 097/104 technical-architecture-choice profile=(E=I)>R elapsed=53.42 leading=instinkt fallbacks=0
+[2026-05-16T12:41:58+02:00] RUN 098/104 technical-architecture-choice profile=R>E>I
+[2026-05-16T12:42:50+02:00] DONE 098/104 technical-architecture-choice profile=R>E>I elapsed=52.548 leading=instinkt fallbacks=0
+[2026-05-16T12:42:50+02:00] RUN 099/104 technical-architecture-choice profile=R>I>E
+[2026-05-16T12:43:42+02:00] DONE 099/104 technical-architecture-choice profile=R>I>E elapsed=52.008 leading=instinkt fallbacks=0
+[2026-05-16T12:43:42+02:00] RUN 100/104 technical-architecture-choice profile=E>R>I
+[2026-05-16T12:44:37+02:00] DONE 100/104 technical-architecture-choice profile=E>R>I elapsed=54.902 leading=instinkt fallbacks=0
+[2026-05-16T12:44:37+02:00] RUN 101/104 technical-architecture-choice profile=E>I>R
+[2026-05-16T12:45:34+02:00] DONE 101/104 technical-architecture-choice profile=E>I>R elapsed=56.581 leading=instinkt fallbacks=0
+[2026-05-16T12:45:34+02:00] RUN 102/104 technical-architecture-choice profile=I>R>E
+[2026-05-16T12:46:26+02:00] DONE 102/104 technical-architecture-choice profile=I>R>E elapsed=52.157 leading=instinkt fallbacks=0
+[2026-05-16T12:46:26+02:00] RUN 103/104 technical-architecture-choice profile=I>E>R
+[2026-05-16T12:47:21+02:00] DONE 103/104 technical-architecture-choice profile=I>E>R elapsed=55.073 leading=instinkt fallbacks=0
+[2026-05-16T12:47:21+02:00] RUN 104/104 technical-architecture-choice profile=R=E=I
+[2026-05-16T12:48:17+02:00] DONE 104/104 technical-architecture-choice profile=R=E=I elapsed=55.831 leading=instinkt fallbacks=0
+[2026-05-16T12:48:17+02:00] FINISH completed=104 errors=0

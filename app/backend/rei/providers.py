@@ -6,7 +6,7 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
-from typing import Any, Optional, Union
+from typing import Any, Callable, Optional, Union
 
 from .json_utils import extract_json_object
 
@@ -26,6 +26,7 @@ class OllamaRequest:
     think: Optional[Union[str, bool]] = None
     keep_alive: Optional[Union[str, int]] = "10m"
     timeout_seconds: int = 180
+    progress_label: Optional[str] = None
     extra_options: dict[str, Any] = field(default_factory=dict)
 
 
@@ -33,6 +34,8 @@ class OllamaProvider:
     def __init__(self, base_url: str = "http://localhost:11434") -> None:
         self.base_url = base_url.rstrip("/")
         self.default_options = self._default_options_from_env()
+        self.stream_responses = False
+        self.stream_callback: Optional[Callable[[dict[str, Any]], None]] = None
 
     def list_models(self, timeout_seconds: int = 5) -> list[str]:
         try:
@@ -54,7 +57,7 @@ class OllamaProvider:
 
         payload = {
             "model": request.model,
-            "stream": False,
+            "stream": self.stream_responses,
             "format": "json",
             "messages": [
                 {"role": "system", "content": request.system},
@@ -75,8 +78,22 @@ class OllamaProvider:
         )
 
         try:
-            with urllib.request.urlopen(http_request, timeout=request.timeout_seconds) as response:
-                api_payload = json.loads(response.read().decode("utf-8"))
+            if self.stream_responses:
+                api_payload = self._read_streaming_response(http_request, request)
+            else:
+                self._emit_stream_event({"type": "start", "label": request.progress_label, "model": request.model})
+                with urllib.request.urlopen(http_request, timeout=request.timeout_seconds) as response:
+                    api_payload = json.loads(response.read().decode("utf-8"))
+                self._emit_stream_event(
+                    {
+                        "type": "done",
+                        "label": request.progress_label,
+                        "model": request.model,
+                        "content": api_payload.get("message", {}).get("content", ""),
+                        "thinking": api_payload.get("message", {}).get("thinking", ""),
+                        "stats": self._stats(api_payload),
+                    }
+                )
         except urllib.error.URLError as exc:
             raise ProviderError(f"Ollama is not reachable: {exc}") from exc
         except TimeoutError as exc:
@@ -110,6 +127,61 @@ class OllamaProvider:
         }
         return parsed, diagnostics
 
+    def _emit_stream_event(self, event: dict[str, Any]) -> None:
+        if self.stream_callback is None:
+            return
+        try:
+            self.stream_callback(event)
+        except Exception:
+            pass
+
+    def _read_streaming_response(
+        self,
+        http_request: urllib.request.Request,
+        request: OllamaRequest,
+    ) -> dict[str, Any]:
+        content_parts: list[str] = []
+        thinking_parts: list[str] = []
+        final_payload: dict[str, Any] = {}
+        self._emit_stream_event({"type": "start", "label": request.progress_label, "model": request.model})
+        with urllib.request.urlopen(http_request, timeout=request.timeout_seconds) as response:
+            for raw_line in response:
+                line = raw_line.decode("utf-8").strip()
+                if not line:
+                    continue
+                chunk = json.loads(line)
+                message = chunk.get("message", {})
+                content_delta = str(message.get("content") or "")
+                thinking_delta = str(message.get("thinking") or "")
+                if content_delta:
+                    content_parts.append(content_delta)
+                if thinking_delta:
+                    thinking_parts.append(thinking_delta)
+                if content_delta or thinking_delta:
+                    self._emit_stream_event(
+                        {
+                            "type": "delta",
+                            "label": request.progress_label,
+                            "model": request.model,
+                            "content": content_delta,
+                            "thinking": thinking_delta,
+                        }
+                    )
+                final_payload = chunk
+        final_payload["message"] = dict(final_payload.get("message", {}))
+        final_payload["message"]["content"] = "".join(content_parts)
+        if thinking_parts:
+            final_payload["message"]["thinking"] = "".join(thinking_parts)
+        self._emit_stream_event(
+            {
+                "type": "done",
+                "label": request.progress_label,
+                "model": request.model,
+                "stats": self._stats(final_payload),
+            }
+        )
+        return final_payload
+
     @staticmethod
     def _default_options_from_env() -> dict[str, int]:
         options = {
@@ -120,6 +192,7 @@ class OllamaProvider:
             "REI_OLLAMA_NUM_CTX": "num_ctx",
             "REI_OLLAMA_NUM_THREAD": "num_thread",
             "REI_OLLAMA_NUM_BATCH": "num_batch",
+            "REI_OLLAMA_NUM_GPU": "num_gpu",
         }
         for env_name, option_name in env_map.items():
             raw_value = os.getenv(env_name)

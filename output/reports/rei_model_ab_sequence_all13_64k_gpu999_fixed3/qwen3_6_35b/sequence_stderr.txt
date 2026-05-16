@@ -1,0 +1,1 @@
+Dashboard mode inherited stderr directly from the child process.

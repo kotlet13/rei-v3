@@ -1,0 +1,35 @@
+{
+  "run_id": "20260516_080758",
+  "status": "ready_to_run",
+  "models": [
+    "granite4.1:30b",
+    "gemma4:31b",
+    "qwen3.6:35b"
+  ],
+  "num_ctx": 131072,
+  "profiles": "R>(E=I),E>(R=I),I>(R=E),(R=E)>I,(R=I)>E,(E=I)>R,R>E>I,R>I>E,E>R>I,E>I>R,I>R>E,I>E>R,R=E=I",
+  "profiles_count": 13,
+  "profiles_list": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "profiles_preset": "all",
+  "scenario_filter": null,
+  "repeat": 1,
+  "max_cases": null,
+  "acceptance_mode": "mixed",
+  "use_memory": true,
+  "unload_between": true,
+  "confirm_run_required": true
+}
