@@ -199,6 +199,12 @@ class DecisionTurn(ApiModel):
 class SynthesisTurn(ApiModel):
     dominant_coalition: list[MindId]
     blocked_mind: Optional[MindId]
+    processor_weights: dict[MindId, float] = Field(default_factory=dict)
+    weighted_contributions: dict[MindId, float] = Field(default_factory=dict)
+    contribution_ranking: list[MindId] = Field(default_factory=list)
+    synthesis_tilt: Optional[MindId] = None
+    underrepresented_signal: Optional[MindId] = None
+    hijack_risk: str = ""
     dominant_correction: Optional[CorrectiveEdgeId]
     decision_rule: str
     correction_explanation: str

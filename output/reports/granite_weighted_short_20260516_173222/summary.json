@@ -1,0 +1,151 @@
+{
+  "run_id": "20260516_173222",
+  "model": "granite4.1:30b",
+  "num_ctx": 65536,
+  "num_gpu": 999,
+  "planned_cases": 65,
+  "scenario_ids": [
+    "pure-budget-allocation",
+    "technical-architecture-choice",
+    "business-runway",
+    "creative-status-risk",
+    "night-door-noise"
+  ],
+  "profiles": [
+    "R",
+    "E",
+    "I",
+    "RE",
+    "RI",
+    "EI",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "REI"
+  ],
+  "output_dir": "C:\\Users\\Kotlet\\Codex\\github\\rei-v3\\output\\reports\\granite_weighted_short_20260516_173222",
+  "goal_file": "C:\\Users\\Kotlet\\Codex\\github\\rei-v3\\Docs\\REI_granite_weighted_short_test_goal_2026-05-16.md",
+  "started_at": "2026-05-16T17:32:22+02:00",
+  "elapsed_seconds": 3542.003,
+  "status": "completed",
+  "completed_cases": 65,
+  "error_count": 0,
+  "tilt_counts": {
+    "E": 24,
+    "I": 17,
+    "R": 24
+  },
+  "underrepresented_counts": {
+    "E": 21,
+    "I": 26,
+    "R": 18
+  },
+  "profile_top_match": {
+    "matched": 65,
+    "total": 65,
+    "rate": 1.0
+  },
+  "scenario_profile_match": {
+    "business-runway": {
+      "matched": 13,
+      "total": 13,
+      "rate": 1.0
+    },
+    "creative-status-risk": {
+      "matched": 13,
+      "total": 13,
+      "rate": 1.0
+    },
+    "night-door-noise": {
+      "matched": 13,
+      "total": 13,
+      "rate": 1.0
+    },
+    "pure-budget-allocation": {
+      "matched": 13,
+      "total": 13,
+      "rate": 1.0
+    },
+    "technical-architecture-choice": {
+      "matched": 13,
+      "total": 13,
+      "rate": 1.0
+    }
+  },
+  "profile_match": {
+    "E": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "E>I>R": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "E>R>I": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "EI": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "I": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "I>E>R": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "I>R>E": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "R": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "R>E>I": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "R>I>E": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "RE": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "REI": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    },
+    "RI": {
+      "matched": 5,
+      "total": 5,
+      "rate": 1.0
+    }
+  },
+  "repetition_hits": {
+    "blocked": 132,
+    "reversible": 65,
+    "safety requirement": 1
+  },
+  "finished_at": "2026-05-16T18:31:24+02:00"
+}

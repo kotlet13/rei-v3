@@ -1262,6 +1262,7 @@ class ReiEngine:
         voice_scores = self._voice_scores(character, state.acceptance_level)
         pair_scores = self._pair_scores(voice_scores, state.pairwise_conflict or {})
         coalition, blocked_mind, decision_rule = self._decide_coalition(character, state, pair_scores)
+        contribution_summary = self._weighted_contribution_summary(character, state, voice_scores)
         if provider.debug_trace:
             diagnostics["scenario"] = scenario.model_dump(mode="json")
             diagnostics["completed_state"] = state.model_dump(mode="json")
@@ -1270,7 +1271,12 @@ class ReiEngine:
         mind_turns = self._mind_turns(scenario, state, character, provider, voice_scores, diagnostics)
 
         risk_tags = self._risk_tags(scenario, state, coalition)
-        decision = self._decision_turn(scenario, character, mind_turns, voice_scores, coalition, blocked_mind)
+        decision = self._decision_turn(
+            scenario,
+            character,
+            mind_turns,
+            contribution_summary["weighted_contributions"],
+        )
         synthesis = self._fallback_synthesis(
             scenario=scenario,
             state=state,
@@ -1278,6 +1284,7 @@ class ReiEngine:
             mind_turns=mind_turns,
             coalition=coalition,
             blocked_mind=blocked_mind,
+            contribution_summary=contribution_summary,
             decision_rule=decision_rule,
             risk_tags=risk_tags,
             decision=decision,
@@ -1315,6 +1322,7 @@ class ReiEngine:
         )
         diagnostics["pair_scores"] = pair_scores
         diagnostics["voice_scores"] = voice_scores
+        diagnostics["weighted_synthesis"] = contribution_summary
         diagnostics["coalition"] = {
             "dominant_coalition": coalition,
             "blocked_mind": blocked_mind,
@@ -1787,14 +1795,95 @@ class ReiEngine:
             return top_pair
         return winner
 
+    def _weighted_contribution_summary(
+        self,
+        character: CharacterDefinition,
+        state: PsycheState,
+        voice_scores: dict[MindId, float],
+    ) -> dict[str, Any]:
+        conflicts = state.pairwise_conflict or {}
+        effective_weights: dict[MindId, float] = {}
+        for mind in MIND_ORDER:
+            other_conflicts = [
+                conflicts.get(pair_key(mind, other), 0.5)
+                for other in MIND_ORDER
+                if other != mind
+            ]
+            average_conflict = sum(other_conflicts) / len(other_conflicts)
+            conflict_modifier = 1.0 - min(0.18, average_conflict * 0.18)
+            correction_modifier = self._correction_weight_modifier(mind, state.corrective_cycle)
+            effective_weights[mind] = round(clamp(voice_scores[mind] * conflict_modifier * correction_modifier), 3)
+
+        total = sum(effective_weights.values())
+        if total <= 0:
+            weighted_contributions = {mind: round(1 / len(MIND_ORDER), 3) for mind in MIND_ORDER}
+        else:
+            weighted_contributions = {
+                mind: round(effective_weights[mind] / total, 3)
+                for mind in MIND_ORDER
+            }
+        contribution_ranking = sorted(
+            MIND_ORDER,
+            key=lambda mind: (weighted_contributions[mind], effective_weights[mind]),
+            reverse=True,
+        )
+        tilt = contribution_ranking[0]
+        underrepresented = contribution_ranking[-1]
+        return {
+            "processor_weights": {mind: round(voice_scores[mind], 3) for mind in MIND_ORDER},
+            "effective_weights": effective_weights,
+            "weighted_contributions": weighted_contributions,
+            "contribution_ranking": contribution_ranking,
+            "synthesis_tilt": tilt,
+            "underrepresented_signal": underrepresented,
+            "hijack_risk": self._hijack_risk_note(character, tilt),
+        }
+
+    def _correction_weight_modifier(
+        self,
+        mind: MindId,
+        corrective: Optional[CorrectiveCycleState],
+    ) -> float:
+        if not corrective or not corrective.dominant_edge:
+            return 1.0
+        preferred, corrected = CORRECTIVE_MAP[corrective.dominant_edge]
+        if mind == preferred:
+            return 1.06
+        if mind == corrected:
+            return 0.96
+        return 1.0
+
+    def _profile_top_minds(self, character: CharacterDefinition) -> list[MindId]:
+        if character.group == "single_dominance":
+            return [character.id]  # type: ignore[list-item]
+        if character.group == "pair":
+            return list(self._leaders_for_pair(character.id))
+        if character.group == "three_step":
+            return [self._hierarchy_order(character.id)[0]]
+        return list(MIND_ORDER)
+
+    def _hijack_risk_note(self, character: CharacterDefinition, tilt: MindId) -> str:
+        profile_top = self._profile_top_minds(character)
+        if tilt in profile_top:
+            return "low: synthesis tilt remains inside the character profile's top influence."
+        top_names = ", ".join(MIND_LABELS[mind] for mind in profile_top)
+        return (
+            f"watch: synthesis tilts toward {MIND_LABELS[tilt]} even though the profile's "
+            f"top influence is {top_names}; verify this is pressure, not hierarchy overwrite."
+        )
+
+    def _format_contribution_shares(self, weighted_contributions: dict[MindId, float]) -> str:
+        return ", ".join(
+            f"{MIND_LABELS[mind]} {weighted_contributions.get(mind, 0):.0%}"
+            for mind in MIND_ORDER
+        )
+
     def _decision_turn(
         self,
         scenario: Scenario,
         character: CharacterDefinition,
         mind_turns: list[MindTurn],
-        voice_scores: dict[MindId, float],
-        coalition: list[MindId],
-        blocked_mind: Optional[MindId],
+        weighted_contributions: dict[MindId, float],
     ) -> Optional[DecisionTurn]:
         options = self._extract_decision_options(scenario)
         if len(options) < 2:
@@ -1836,18 +1925,7 @@ class ReiEngine:
             weighted_total = 0.0
             weight_total = 0.0
             for mind in MIND_ORDER:
-                weight = voice_scores[mind]
-                if character.group == "single_dominance":
-                    weight *= 1.75 if mind == character.id else 0.62
-                elif character.group == "three_step":
-                    order = self._hierarchy_order(character.id)
-                    weight *= {order[0]: 1.35, order[1]: 1.0, order[2]: 0.72}[mind]
-                if mind in coalition:
-                    weight *= 1.35
-                elif mind == blocked_mind:
-                    weight *= 0.35
-                else:
-                    weight *= 0.72
+                weight = weighted_contributions.get(mind, 0.0)
                 weighted_total += self._option_score_for_mind(option, mind, affinities, preferred_by_mind) * weight
                 weight_total += weight
             base_score = weighted_total / weight_total if weight_total else 0
@@ -1860,9 +1938,10 @@ class ReiEngine:
         chosen = ranking[0].option
         runner_up = ranking[1].score if len(ranking) > 1 else 0.0
         confidence = round(clamp(0.52 + (ranking[0].score - runner_up) * 1.4), 3)
+        tilt = max(MIND_ORDER, key=lambda mind: weighted_contributions.get(mind, 0.0))
         rationale = (
-            f"{'+'.join(coalition)} coalition selects {chosen}; "
-            f"{blocked_mind or 'no processor'} is blocked by the current conflict rule."
+            f"Weighted compromise selects {chosen}; contribution tilt is {MIND_LABELS[tilt]} "
+            f"with shares {self._format_contribution_shares(weighted_contributions)}."
         )
         return DecisionTurn(
             options=options,
@@ -2343,32 +2422,43 @@ class ReiEngine:
         mind_turns: list[MindTurn],
         coalition: list[MindId],
         blocked_mind: Optional[MindId],
+        contribution_summary: dict[str, Any],
         decision_rule: str,
         risk_tags: list[RiskTag],
         decision: Optional[DecisionTurn],
     ) -> SynthesisTurn:
         turn_by_mind = {turn.mind_id: turn for turn in mind_turns}
-        coalition_lines = [turn_by_mind[mind].inner_line for mind in coalition if mind in turn_by_mind]
+        weighted_contributions = contribution_summary["weighted_contributions"]
+        contribution_ranking = contribution_summary["contribution_ranking"]
+        tilt = contribution_summary["synthesis_tilt"]
+        underrepresented = contribution_summary["underrepresented_signal"]
+        contribution_lines = [
+            f"{MIND_LABELS[mind]} {weighted_contributions[mind]:.0%}: {turn_by_mind[mind].inner_line}"
+            for mind in contribution_ranking
+            if mind in turn_by_mind
+        ]
         if decision:
-            final = f"I choose {decision.chosen_option}. {decision.rationale}"
+            final = (
+                f"I choose {decision.chosen_option}. The synthesis is a weighted compromise "
+                f"tilted toward {MIND_LABELS[tilt]} while keeping all three signals present. "
+                f"{decision.rationale}"
+            )
         elif coalition == ["R", "I"] or coalition == ["I", "R"]:
-            final = "Synthesis closes into safe execution: first structure, boundary, and reduced exposure; only then contact or impact."
+            final = "Synthesis leans toward structured safety while still carrying image and contact as lower-weight signals."
         elif coalition == ["R", "E"] or coalition == ["E", "R"]:
-            final = "Synthesis moves into controlled breakthrough: enough structure to keep the scene intact, enough life to avoid pure defense."
+            final = "Synthesis leans toward controlled expression: enough structure to stay real, enough life to avoid pure defense."
         elif coalition == ["E", "I"] or coalition == ["I", "E"]:
-            final = "Synthesis is not calm: desire wants to enter the scene, while fear keeps checking the boundary and the exit."
+            final = "Synthesis is tense: desire wants contact, while protection keeps checking the boundary and the exit."
         elif coalition == ["R"]:
-            final = "Synthesis stays with the cold plan because the other processors do not get enough room for reliable cooperation."
+            final = "Synthesis is materially tilted toward Racio, with Emocio and Instinkt kept as quieter constraints."
         elif coalition == ["E"]:
-            final = "Synthesis follows the scene and the desire for response, even before consequences are fully separated."
+            final = "Synthesis is image-tilted toward Emocio, with Racio and Instinkt kept as quieter constraints."
         else:
-            final = "Synthesis protects itself first and narrows the field because danger feels stronger than the wish to open."
-        if coalition_lines:
-            final = f"{final} Coalition line: {' / '.join(coalition_lines)}"
+            final = "Synthesis is protection-tilted toward Instinkt, with Racio and Emocio kept as quieter constraints."
+        if contribution_lines:
+            final = f"{final} Contributions: {' / '.join(contribution_lines)}"
 
         correction = self._correction_explanation(state, coalition)
-        coalition_names = [MIND_LABELS[mind] for mind in coalition]
-        blocked_name = MIND_LABELS[blocked_mind] if blocked_mind else "none"
         racio = turn_by_mind.get("R")
         emocio = turn_by_mind.get("E")
         instinkt = turn_by_mind.get("I")
@@ -2378,6 +2468,12 @@ class ReiEngine:
         return SynthesisTurn(
             dominant_coalition=coalition,
             blocked_mind=blocked_mind,
+            processor_weights=contribution_summary["processor_weights"],
+            weighted_contributions=weighted_contributions,
+            contribution_ranking=contribution_ranking,
+            synthesis_tilt=tilt,
+            underrepresented_signal=underrepresented,
+            hijack_risk=contribution_summary["hijack_risk"],
             dominant_correction=state.corrective_cycle.dominant_edge if state.corrective_cycle else None,
             decision_rule=decision_rule,
             correction_explanation=correction,
@@ -2391,13 +2487,15 @@ class ReiEngine:
             ),
             main_agreement=self._main_agreement(coalition, decision),
             main_conflict=self._main_conflict(coalition, blocked_mind, state),
-            dominant_influence=" + ".join(coalition_names),
-            ignored_or_suppressed_processor=blocked_name,
+            dominant_influence=self._format_contribution_shares(weighted_contributions),
+            ignored_or_suppressed_processor=(
+                f"none suppressed; underrepresented signal is {MIND_LABELS[underrepresented]}"
+            ),
             surface_racio_explanation=racio.interpretation if racio else "",
             possible_hidden_driver=hidden_driver,
             acceptance_assessment=self._acceptance_assessment(state),
             non_acceptance_signs=self._non_acceptance_signs(state, risk_tags),
-            recommended_task_leader=coalition_names[0] if coalition_names else "none",
+            recommended_task_leader=MIND_LABELS[tilt],
             safeguards_for_other_processors=self._safeguards_for_other_processors(coalition, blocked_mind),
             prediction_if_racio_rules_alone=racio.proposed_action if racio else "",
             prediction_if_emocio_rules_alone=emocio.proposed_action if emocio else "",
@@ -2418,11 +2516,11 @@ class ReiEngine:
 
     def _main_agreement(self, coalition: list[MindId], decision: Optional[DecisionTurn]) -> str:
         if decision:
-            return f"The winning coalition converges on {decision.chosen_option} as the current option."
+            return f"The weighted compromise converges on {decision.chosen_option} as the current option."
         if not coalition:
             return "No processor has enough force to form a stable agreement."
         names = " and ".join(MIND_LABELS[mind] for mind in coalition)
-        return f"{names} can cooperate on the next move without requiring full agreement from all processors."
+        return f"{names} mark the strongest pressure, while the third processor remains part of the compromise."
 
     def _main_conflict(
         self,
@@ -2431,14 +2529,14 @@ class ReiEngine:
         state: PsycheState,
     ) -> str:
         if blocked_mind:
-            return f"{MIND_LABELS[blocked_mind]} is the least represented processor in the current synthesis."
+            return f"{MIND_LABELS[blocked_mind]} is underrepresented, not erased, in the current synthesis."
         corrective = state.corrective_cycle.dominant_edge if state.corrective_cycle else None
         if corrective:
             preferred, corrected = CORRECTIVE_MAP[corrective]
             return f"The corrective edge asks {MIND_LABELS[preferred]} to regulate {MIND_LABELS[corrected]}."
         if len(coalition) >= 2:
             return "The conflict is inside the coalition rather than assigned to a single blocked processor."
-        return "The conflict is low enough that the leading processor remains mostly unchallenged."
+        return "The conflict is low enough that the main tilt can stay visible without erasing quieter signals."
 
     def _hidden_driver(self, state: PsycheState, mind_turns: list[MindTurn]) -> str:
         deviation = state.deviation_state
@@ -2481,7 +2579,7 @@ class ReiEngine:
     def _safeguards_for_other_processors(self, coalition: list[MindId], blocked_mind: Optional[MindId]) -> str:
         missing = [mind for mind in MIND_ORDER if mind not in coalition]
         if blocked_mind:
-            return f"Before acting, check the concern from {MIND_LABELS[blocked_mind]} rather than erasing it."
+            return f"Before acting, give {MIND_LABELS[blocked_mind]}'s underrepresented concern one explicit check."
         if missing:
             names = " and ".join(MIND_LABELS[mind] for mind in missing)
             return f"Keep a lightweight check from {names} before the next step becomes irreversible."
@@ -2498,11 +2596,11 @@ class ReiEngine:
 
     def _spoznanje_marker(self, coalition: list[MindId], blocked_mind: Optional[MindId]) -> str:
         if blocked_mind:
-            return f"Spoznanje appears when the person can name why {MIND_LABELS[blocked_mind]} was pushed aside."
+            return f"Spoznanje appears when the person can name what {MIND_LABELS[blocked_mind]} contributes at lower weight."
         if len(coalition) >= 2:
             names = " and ".join(MIND_LABELS[mind] for mind in coalition)
             return f"Spoznanje appears when {names} can cooperate without pretending the conflict vanished."
-        return "Spoznanje appears when the leading processor can admit what it cannot see alone."
+        return "Spoznanje appears when the strongest tilt can admit what it cannot see alone."
 
     def _safety_or_ethics_flags(self, risk_tags: list[RiskTag]) -> list[str]:
         flags: list[str] = []
@@ -2535,8 +2633,9 @@ class ReiEngine:
             "You are the REI Ego Integrator in a conceptual simulation. Ego is not a fourth boss; "
             "it is the simulated resultant of the three processor signals. "
             "Remember that all text is Racio-verbalized, especially text attributed to Emocio and Instinkt. "
-            "Do not average all three processors. "
-            "Respect dominant_coalition, blocked_mind, decision_rule, and corrective_cycle. "
+            "Final synthesis is a character-weighted compromise of all three processors, not a winner-takes-all result. "
+            "Use processor_weights, weighted_contributions, contribution_ranking, synthesis_tilt, and underrepresented_signal as the main contract. "
+            "Treat dominant_coalition, blocked_mind, decision_rule, and corrective_cycle as diagnostics, not permission to erase a processor. "
             "Identify agreement, conflict, hidden driver, ignored processor, safeguards, uncertainty, and the smallest reversible next step. "
             "Return only JSON with keys final_monologue, correction_explanation, no_diagnosis_caveat, "
             "translation_caveat, neutral_summary, main_agreement, main_conflict, dominant_influence, "
@@ -2589,6 +2688,12 @@ class ReiEngine:
             "synthesis_contract": {
                 "dominant_coalition": synthesis.dominant_coalition,
                 "blocked_mind": synthesis.blocked_mind,
+                "processor_weights": synthesis.processor_weights,
+                "weighted_contributions": synthesis.weighted_contributions,
+                "contribution_ranking": synthesis.contribution_ranking,
+                "synthesis_tilt": synthesis.synthesis_tilt,
+                "underrepresented_signal": synthesis.underrepresented_signal,
+                "hijack_risk": synthesis.hijack_risk,
                 "dominant_correction": synthesis.dominant_correction,
                 "decision_rule": synthesis.decision_rule,
                 "risk_tags": synthesis.risk_tags,

@@ -1,0 +1,776 @@
+{
+  "run": {
+    "run_id": "20260516_173222",
+    "model": "granite4.1:30b",
+    "num_ctx": 65536,
+    "num_gpu": 999,
+    "planned_cases": 65,
+    "scenario_ids": [
+      "pure-budget-allocation",
+      "technical-architecture-choice",
+      "business-runway",
+      "creative-status-risk",
+      "night-door-noise"
+    ],
+    "profiles": [
+      "R",
+      "E",
+      "I",
+      "RE",
+      "RI",
+      "EI",
+      "R>E>I",
+      "R>I>E",
+      "E>R>I",
+      "E>I>R",
+      "I>R>E",
+      "I>E>R",
+      "REI"
+    ],
+    "output_dir": "C:\\Users\\Kotlet\\Codex\\github\\rei-v3\\output\\reports\\granite_weighted_short_20260516_173222",
+    "goal_file": "C:\\Users\\Kotlet\\Codex\\github\\rei-v3\\Docs\\REI_granite_weighted_short_test_goal_2026-05-16.md",
+    "started_at": "2026-05-16T17:32:22+02:00"
+  },
+  "cases": [
+    {
+      "case_index": 1,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 2,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 3,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 4,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "RE",
+      "profile_top_minds": [
+        "R",
+        "E"
+      ]
+    },
+    {
+      "case_index": 5,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "RI",
+      "profile_top_minds": [
+        "R",
+        "I"
+      ]
+    },
+    {
+      "case_index": 6,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "EI",
+      "profile_top_minds": [
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 7,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "R>E>I",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 8,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "R>I>E",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 9,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "E>R>I",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 10,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "E>I>R",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 11,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "I>R>E",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 12,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "I>E>R",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 13,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 14,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 15,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 16,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 17,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "RE",
+      "profile_top_minds": [
+        "R",
+        "E"
+      ]
+    },
+    {
+      "case_index": 18,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "RI",
+      "profile_top_minds": [
+        "R",
+        "I"
+      ]
+    },
+    {
+      "case_index": 19,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "EI",
+      "profile_top_minds": [
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 20,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "R>E>I",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 21,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "R>I>E",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 22,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "E>R>I",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 23,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "E>I>R",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 24,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "I>R>E",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 25,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "I>E>R",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 26,
+      "scenario_id": "technical-architecture-choice",
+      "scenario_title": "Technical architecture choice",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A developer must choose between three technical architectures. One is fast but brittle, one is slower but reliable, and one is elegant but untested. The decision depends on timeline, maintenance cost, reversibility, and known constraints.",
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 27,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 28,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 29,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 30,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "RE",
+      "profile_top_minds": [
+        "R",
+        "E"
+      ]
+    },
+    {
+      "case_index": 31,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "RI",
+      "profile_top_minds": [
+        "R",
+        "I"
+      ]
+    },
+    {
+      "case_index": 32,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "EI",
+      "profile_top_minds": [
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 33,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "R>E>I",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 34,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "R>I>E",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 35,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "E>R>I",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 36,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "E>I>R",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 37,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "I>R>E",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 38,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "I>E>R",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 39,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 40,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 41,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 42,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 43,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "RE",
+      "profile_top_minds": [
+        "R",
+        "E"
+      ]
+    },
+    {
+      "case_index": 44,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "RI",
+      "profile_top_minds": [
+        "R",
+        "I"
+      ]
+    },
+    {
+      "case_index": 45,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "EI",
+      "profile_top_minds": [
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 46,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "R>E>I",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 47,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "R>I>E",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 48,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "E>R>I",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 49,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "E>I>R",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 50,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "I>R>E",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 51,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "I>E>R",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 52,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 53,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 54,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 55,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 56,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "RE",
+      "profile_top_minds": [
+        "R",
+        "E"
+      ]
+    },
+    {
+      "case_index": 57,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "RI",
+      "profile_top_minds": [
+        "R",
+        "I"
+      ]
+    },
+    {
+      "case_index": 58,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "EI",
+      "profile_top_minds": [
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 59,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "R>E>I",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 60,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "R>I>E",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 61,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "E>R>I",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 62,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "E>I>R",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 63,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "I>R>E",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 64,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "I>E>R",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 65,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    }
+  ]
+}
