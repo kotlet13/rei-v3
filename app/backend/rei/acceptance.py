@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any, Optional
 
 from .models import AcceptanceAssessment
@@ -120,13 +121,20 @@ FREEZE_WORDS = {
     "izginem",
 }
 RETURN_LOOP_WORDS = {
-    "returning",
-    "return to",
-    "go back",
-    "one more chance",
-    "hurts",
-    "painful",
-    "boli",
+    "return to relationship",
+    "return to the relationship",
+    "return to partner",
+    "return to the partner",
+    "return to my partner",
+    "return to my ex",
+    "go back to relationship",
+    "go back to the relationship",
+    "go back to partner",
+    "go back to the partner",
+    "go back to my ex",
+    "one more chance with partner",
+    "one more chance with the partner",
+    "one more chance with the relationship",
 }
 BOUNDED_ACTION_WORDS = {
     "bounded",
@@ -158,6 +166,15 @@ RETURN_RELATIONSHIP_WORDS = {
     "zapuščen",
     "zapuscen",
 }
+RETURN_LOOP_PATTERNS = tuple(
+    re.compile(pattern)
+    for pattern in (
+        r"\breturn(?:ing)?\s+(?:to|back to)\s+(?:my\s+|the\s+)?(?:relationship|partner|ex[- ]partner|ex|lover)\b",
+        r"\bgo back\s+to\s+(?:my\s+|the\s+)?(?:relationship|partner|ex[- ]partner|ex|lover)\b",
+        r"\bone more chance\s+(?:with|for)\s+(?:my\s+|the\s+)?(?:relationship|partner|ex[- ]partner|ex|lover)\b",
+        r"\bvrniti(?:\s+se)?\s+(?:v|k|nazaj k)\s+(?:odnos|partnerju|partnerki|bivsemu|bivsi)\b",
+    )
+)
 SIGNAL_TEXT_IGNORED_FIELDS = {
     "mind",
     "is_conscious",
@@ -206,11 +223,8 @@ def _signal_text(signal: dict[str, Any]) -> str:
 
 
 def _has_return_loop_language(text: str, mind: str) -> bool:
-    if not _has_any(text, RETURN_LOOP_WORDS):
-        return False
-    if mind != "instinkt":
-        return True
-    return _has_any(text, RETURN_RELATIONSHIP_WORDS)
+    normalized = re.sub(r"\s+", " ", text.lower())
+    return any(pattern.search(normalized) for pattern in RETURN_LOOP_PATTERNS)
 
 
 def infer_action_tag(signal: dict[str, Any], mind: str) -> str:

@@ -2,12 +2,18 @@ from __future__ import annotations
 
 from typing import Literal
 
-from .contract_loader import build_processor_prompt, required_keys_for
+from .contract_loader import build_processor_prompt, required_keys_for, runtime_required_keys_for
 
 
 ProcessorMind = Literal["racio", "emocio", "instinkt"]
 
 PROCESSOR_MINIMAL_REQUIRED_KEYS: dict[ProcessorMind, list[str]] = {
+    "racio": runtime_required_keys_for("racio"),
+    "emocio": runtime_required_keys_for("emocio"),
+    "instinkt": runtime_required_keys_for("instinkt"),
+}
+
+PROCESSOR_FULL_REQUIRED_KEYS: dict[ProcessorMind, list[str]] = {
     "racio": required_keys_for("racio"),
     "emocio": required_keys_for("emocio"),
     "instinkt": required_keys_for("instinkt"),

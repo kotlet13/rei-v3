@@ -38,15 +38,15 @@ class AcceptanceAssessmentTests(unittest.TestCase):
     def test_attachment_return_loop_is_not_acceptance(self) -> None:
         assessment = assess_acceptance(
             {
-                "preferred_action": "return for one more chance",
-                "rationalization_risk": "one more chance sounds reasonable",
+                "preferred_action": "return to the relationship for one more chance",
+                "rationalization_risk": "one more chance with the partner sounds reasonable",
             },
             {
-                "preferred_action": "return and repair the beautiful image",
+                "preferred_action": "return to the partner and repair the beautiful image",
                 "desired_image": "the relationship becomes beautiful again",
             },
             {
-                "preferred_action": "return to stop panic",
+                "preferred_action": "go back to the relationship to stop panic",
                 "attachment_issue": "panic when imagining being alone",
             },
         )
@@ -95,7 +95,83 @@ class AcceptanceAssessmentTests(unittest.TestCase):
         self.assertNotIn("fear of being alone", assessment.sabotage_mechanism)
 
     def test_return_loop_words_are_not_generic_emotion_terms(self) -> None:
-        self.assertFalse({"panic", "beautiful", "alone"} & RETURN_LOOP_WORDS)
+        self.assertFalse({"panic", "beautiful", "alone", "hurts", "painful", "boli", "returning", "go back"} & RETURN_LOOP_WORDS)
+
+    def test_return_loop_requires_relationship_return_phrase(self) -> None:
+        generic = assess_acceptance(
+            {
+                "preferred_action": "return to the office plan after checking data",
+                "unknowns": ["budget"],
+            },
+            {
+                "preferred_action": "repair the image by presenting calmly",
+                "desired_image": "competent and recognized",
+            },
+            {
+                "preferred_action": "pause before returning to the plan",
+                "trust_boundary": "check the scope first",
+            },
+        )
+        explicit = assess_acceptance(
+            {
+                "preferred_action": "return to the relationship for one more chance",
+                "rationalization_risk": "the partner return can be explained as fairness",
+            },
+            {
+                "preferred_action": "return to the partner and restore the beautiful image",
+                "desired_image": "the relationship becomes beautiful again",
+            },
+            {
+                "preferred_action": "go back to the relationship to stop panic",
+                "attachment_issue": "panic when imagining being alone",
+            },
+        )
+
+        self.assertNotEqual(generic.task_delegation["instinkt_action_tag"], "return")
+        self.assertEqual(explicit.task_delegation["instinkt_action_tag"], "return")
+        self.assertEqual(explicit.acceptance_quality, "non_accepting")
+
+    def test_painful_business_decision_is_not_return_loop(self) -> None:
+        assessment = assess_acceptance(
+            {
+                "preferred_action": "close the business line after reviewing cost data",
+                "known_facts": ["the decision is painful"],
+                "logical_options": ["close", "delay", "reprice"],
+            },
+            {
+                "preferred_action": "preserve dignity while the image of success hurts",
+                "desired_image": "competent and respected",
+            },
+            {
+                "preferred_action": "protect runway and pause before further exposure",
+                "threat_map": "painful financial loss",
+                "minimum_safety_condition": "a written runway threshold",
+            },
+        )
+
+        self.assertNotEqual(assessment.task_delegation["instinkt_action_tag"], "return")
+        self.assertNotIn("attachment panic", assessment.non_acceptance_pattern)
+        self.assertNotIn("fear of being alone", assessment.sabotage_mechanism)
+
+    def test_go_back_to_plan_is_not_relationship_return(self) -> None:
+        assessment = assess_acceptance(
+            {
+                "preferred_action": "go back to the plan and check the assumptions",
+                "unknowns": ["budget", "timeline"],
+            },
+            {
+                "preferred_action": "keep the presentation image calm",
+                "current_image": "a competent team in planning mode",
+            },
+            {
+                "preferred_action": "go back to the plan before increasing exposure",
+                "trust_boundary": "minimum safety requires a checked plan",
+            },
+        )
+
+        self.assertNotEqual(assessment.task_delegation["racio_action_tag"], "return")
+        self.assertNotEqual(assessment.task_delegation["instinkt_action_tag"], "return")
+        self.assertNotIn("beautiful-image hope", assessment.non_acceptance_pattern)
 
     def test_healthy_bounded_action_is_accepting(self) -> None:
         assessment = assess_acceptance(

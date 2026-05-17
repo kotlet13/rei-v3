@@ -5,6 +5,7 @@ from .contract_loader import (
     build_processor_prompt,
     ego_required_keys,
     required_keys_for,
+    runtime_required_keys_for,
 )
 
 
@@ -26,10 +27,14 @@ RACIO_AUDIT_PROMPT = build_processor_prompt("racio", mode="full")
 EMOCIO_AUDIT_PROMPT = build_processor_prompt("emocio", mode="full")
 INSTINKT_AUDIT_PROMPT = build_processor_prompt("instinkt", mode="full")
 
-RACIO_REQUIRED_KEYS = required_keys_for("racio")
-EMOCIO_REQUIRED_KEYS = required_keys_for("emocio")
-INSTINKT_REQUIRED_KEYS = required_keys_for("instinkt")
+RACIO_REQUIRED_KEYS = runtime_required_keys_for("racio")
+EMOCIO_REQUIRED_KEYS = runtime_required_keys_for("emocio")
+INSTINKT_REQUIRED_KEYS = runtime_required_keys_for("instinkt")
 EGO_REQUIRED_KEYS = ego_required_keys()
+
+RACIO_FULL_REQUIRED_KEYS = required_keys_for("racio")
+EMOCIO_FULL_REQUIRED_KEYS = required_keys_for("emocio")
+INSTINKT_FULL_REQUIRED_KEYS = required_keys_for("instinkt")
 
 PROCESSOR_PROMPTS = {
     "racio": RACIO_SYSTEM_PROMPT,
@@ -41,4 +46,10 @@ PROCESSOR_REQUIRED_KEYS = {
     "racio": RACIO_REQUIRED_KEYS,
     "emocio": EMOCIO_REQUIRED_KEYS,
     "instinkt": INSTINKT_REQUIRED_KEYS,
+}
+
+PROCESSOR_FULL_REQUIRED_KEYS = {
+    "racio": RACIO_FULL_REQUIRED_KEYS,
+    "emocio": EMOCIO_FULL_REQUIRED_KEYS,
+    "instinkt": INSTINKT_FULL_REQUIRED_KEYS,
 }

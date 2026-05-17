@@ -8,6 +8,7 @@ from app.backend.rei.contract_loader import (
     ego_required_keys,
     get_processor_contract,
     required_keys_for,
+    runtime_required_keys_for,
 )
 from app.backend.rei import prompts
 
@@ -16,6 +17,27 @@ def _prompt_shape(prompt: str) -> dict[str, object]:
     blob = prompt.split("Required JSON shape, fill every key:", maxsplit=1)[1].strip()
     shape, _end = json.JSONDecoder().raw_decode(blob)
     return shape
+
+
+CANONICAL_BOILERPLATE_KEYS = {
+    "native_language",
+    "world_filter",
+    "primary_motive",
+    "truth_model",
+    "defense_mode",
+    "justice_model",
+    "accepting_expression",
+    "accepted_expression",
+    "non_accepting_distortion",
+    "non_accepted_expression",
+    "resistance_to_other_minds",
+    "what_this_mind_needs",
+    "risk_if_ignored",
+    "risk_if_dominant",
+    "blind_spot",
+    "source_refs",
+    "safety_flags",
+}
 
 
 def test_processor_flags_are_canonical() -> None:
@@ -67,6 +89,21 @@ def test_processor_prompt_skeleton_uses_correct_constants() -> None:
         assert shape["is_conscious"] is is_conscious
         assert shape["translated_by_racio"] is translated_by_racio
         assert shape["processing_mode"] == processing_mode
+
+
+def test_runtime_prompt_does_not_require_canonical_boilerplate() -> None:
+    for mind in ("racio", "emocio", "instinkt"):
+        runtime_keys = set(runtime_required_keys_for(mind))  # type: ignore[arg-type]
+        full_keys = set(required_keys_for(mind))  # type: ignore[arg-type]
+        prompt = build_processor_prompt(mind, mode="compact")  # type: ignore[arg-type]
+        shape = _prompt_shape(prompt)
+
+        assert runtime_keys == set(prompts.PROCESSOR_REQUIRED_KEYS[mind])
+        assert full_keys == set(prompts.PROCESSOR_FULL_REQUIRED_KEYS[mind])
+        assert not runtime_keys & CANONICAL_BOILERPLATE_KEYS
+        assert CANONICAL_BOILERPLATE_KEYS & full_keys
+        assert not set(shape) & CANONICAL_BOILERPLATE_KEYS
+        assert "Required JSON keys, all must be present:" in prompt
 
 
 def test_runtime_prompts_are_compact_not_full() -> None:

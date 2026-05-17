@@ -5,10 +5,11 @@ import re
 import time
 from typing import Any, Optional
 
-from .contract_loader import get_processor_contract
+from .contract_loader import canonical_defaults_for
 from .json_utils import validate_required_keys
 from .models import ProviderSelection
 from .processor_contracts import (
+    PROCESSOR_FULL_REQUIRED_KEYS,
     PROCESSOR_MINIMAL_REQUIRED_KEYS,
     ProcessorMind,
     processor_prompt,
@@ -147,28 +148,10 @@ PROCESSING_MODES: dict[ProcessorMind, str] = {
 
 
 def _canonical_eval_base(mind: ProcessorMind, confidence: float, uncertainty: str) -> dict[str, Any]:
-    contract = get_processor_contract(mind)
     return {
-        "mind": mind,
-        "is_conscious": EXPECTED_FLAGS[mind]["is_conscious"],
-        "translated_by_racio": EXPECTED_FLAGS[mind]["translated_by_racio"],
-        "processing_mode": PROCESSING_MODES[mind],
+        **canonical_defaults_for(mind),
         "perception": "",
-        "native_language": list(contract.get("native_language", [])),
-        "world_filter": contract.get("world_filter", ""),
-        "primary_motive": contract.get("primary_motive", ""),
-        "truth_model": contract.get("truth_model", ""),
-        "defense_mode": contract.get("defense_mode", ""),
-        "justice_model": contract.get("justice_model", ""),
         "preferred_action": "",
-        "accepting_expression": contract.get("accepting_expression", ""),
-        "non_accepting_distortion": contract.get("non_accepting_distortion", ""),
-        "resistance_to_other_minds": contract.get("resistance_to_other_minds", ""),
-        "what_this_mind_needs": contract.get("what_this_mind_needs", ""),
-        "risk_if_ignored": contract.get("risk_if_ignored", ""),
-        "risk_if_dominant": contract.get("risk_if_dominant", ""),
-        "blind_spot": contract.get("blind_spot", ""),
-        "source_refs": list(contract.get("source_refs", [])),
         "confidence": confidence,
         "uncertainty": uncertainty,
         "safety_flags": [],
@@ -354,6 +337,9 @@ def score_processor_signal(
 ) -> dict[str, Any]:
     required = PROCESSOR_MINIMAL_REQUIRED_KEYS[mind]
     missing = validate_required_keys(signal, required)
+    full_required = PROCESSOR_FULL_REQUIRED_KEYS[mind]
+    full_coerced = {**signal, **canonical_defaults_for(mind)}
+    full_missing = validate_required_keys(full_coerced, full_required)
     extra = sorted(key for key in signal if key not in required)
     schema_score = max(0.0, 1.0 - (len(missing) / max(1, len(required))))
 
@@ -387,8 +373,11 @@ def score_processor_signal(
         "rei_violation_score": round(rei_score, 4),
         "overall_score": round(max(0.0, min(1.0, overall)), 4),
         "missing_required_keys": missing,
+        "full_missing_required_keys": full_missing,
         "extra_keys": extra,
-        "schema_violations": [f"missing:{key}" for key in missing] + [f"extra:{key}" for key in extra],
+        "schema_violations": [f"missing:{key}" for key in missing]
+        + [f"full_missing:{key}" for key in full_missing]
+        + [f"extra:{key}" for key in extra],
         "style_violations": style_violations,
         "rei_violations": rei_violations,
     }

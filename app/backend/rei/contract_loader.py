@@ -23,6 +23,26 @@ _PROCESSING_MODES: dict[ProcessorMind, str] = {
     "instinkt": "Racio-translated approximation of unconscious protective/fear/attachment signal",
 }
 
+_CANONICAL_ATTACHED_KEYS = {
+    "native_language",
+    "world_filter",
+    "primary_motive",
+    "truth_model",
+    "defense_mode",
+    "justice_model",
+    "accepting_expression",
+    "accepted_expression",
+    "non_accepting_distortion",
+    "non_accepted_expression",
+    "resistance_to_other_minds",
+    "what_this_mind_needs",
+    "risk_if_ignored",
+    "risk_if_dominant",
+    "blind_spot",
+    "source_refs",
+    "safety_flags",
+}
+
 
 class ContractError(RuntimeError):
     """Raised when the canonical processor contract file is missing or invalid."""
@@ -70,6 +90,44 @@ def required_keys_for(mind: ProcessorMind, path: str | None = None) -> list[str]
     if not isinstance(keys, list) or not all(isinstance(item, str) for item in keys):
         raise ContractError(f"{mind} contract output_contract.required_keys must be list[str].")
     return list(keys)
+
+
+def canonical_keys_for(mind: ProcessorMind, path: str | None = None) -> list[str]:
+    return [key for key in required_keys_for(mind, path) if key in _CANONICAL_ATTACHED_KEYS]
+
+
+def runtime_required_keys_for(mind: ProcessorMind, path: str | None = None) -> list[str]:
+    return [key for key in required_keys_for(mind, path) if key not in _CANONICAL_ATTACHED_KEYS]
+
+
+def canonical_defaults_for(mind: ProcessorMind, path: str | None = None) -> dict[str, Any]:
+    contract = get_processor_contract(mind, path)
+    is_conscious, translated_by_racio = _MIND_FLAGS[mind]
+    accepting_expression = str(contract.get("accepting_expression", ""))
+    non_accepting_distortion = str(contract.get("non_accepting_distortion", ""))
+    return {
+        "mind": mind,
+        "is_conscious": is_conscious,
+        "translated_by_racio": translated_by_racio,
+        "processing_mode": _PROCESSING_MODES[mind],
+        "native_language": list(contract.get("native_language", [])),
+        "world_filter": str(contract.get("world_filter", "")),
+        "primary_motive": str(contract.get("primary_motive", "")),
+        "truth_model": str(contract.get("truth_model", "")),
+        "defense_mode": str(contract.get("defense_mode", "")),
+        "justice_model": str(contract.get("justice_model", "")),
+        "accepting_expression": accepting_expression,
+        "accepted_expression": accepting_expression,
+        "non_accepting_distortion": non_accepting_distortion,
+        "non_accepted_expression": non_accepting_distortion,
+        "resistance_to_other_minds": str(contract.get("resistance_to_other_minds", "")),
+        "what_this_mind_needs": str(contract.get("what_this_mind_needs", "")),
+        "risk_if_ignored": str(contract.get("risk_if_ignored", "")),
+        "risk_if_dominant": str(contract.get("risk_if_dominant", "")),
+        "blind_spot": str(contract.get("blind_spot", "")),
+        "source_refs": list(contract.get("source_refs", [])),
+        "safety_flags": [],
+    }
 
 
 def ego_required_keys(path: str | None = None) -> list[str]:
@@ -123,7 +181,7 @@ def _processor_json_shape(mind: ProcessorMind, keys: list[str]) -> str:
 
 def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", path: str | None = None) -> str:
     contract = get_processor_contract(mind, path)
-    keys = required_keys_for(mind, path)
+    keys = required_keys_for(mind, path) if mode == "full" else runtime_required_keys_for(mind, path)
     is_conscious, translated_by_racio = _MIND_FLAGS[mind]
 
     global_rules = load_contract_pack(path).get("global_rules", [])
@@ -153,13 +211,6 @@ def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", pa
         translation_rule,
         hard_flags,
         "",
-        f"Native language: {', '.join(contract['native_language'])}",
-        f"World filter: {contract['world_filter']}",
-        f"Primary motive: {contract['primary_motive']}",
-        f"Truth model: {contract['truth_model']}",
-        f"Defense mode: {contract['defense_mode']}",
-        f"Justice model: {contract['justice_model']}",
-        "",
         "Input gate - accept:",
         ", ".join(contract["input_gate"]["accept"]),
         "Input gate - reject or translate:",
@@ -182,6 +233,18 @@ def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", pa
     ]
 
     if mode == "full":
+        body.extend(
+            [
+                "",
+                "Canonical metadata:",
+                f"- Native language: {', '.join(contract['native_language'])}",
+                f"- World filter: {contract['world_filter']}",
+                f"- Primary motive: {contract['primary_motive']}",
+                f"- Truth model: {contract['truth_model']}",
+                f"- Defense mode: {contract['defense_mode']}",
+                f"- Justice model: {contract['justice_model']}",
+            ]
+        )
         body.extend(
             [
                 "",

@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "app" / "backend"))
 
 from rei.acceptance import assess_acceptance
+from rei.contract_loader import canonical_defaults_for
 from rei.engine import ReiEngine
 from rei.json_utils import extract_json_object, validate_required_keys
 from rei.knowledge import KnowledgeIndex
@@ -154,6 +155,44 @@ class ReiCycleTests(unittest.TestCase):
             "non_accepting_distortion",
         ):
             self.assertNotIn(excluded, summary)
+
+    def test_coerce_attaches_canonical_fields_from_contract(self) -> None:
+        engine = ReiEngine(KnowledgeIndex(ROOT / "knowledge" / "rei_knowledge_index.json"))
+        payload = {
+            "perception": "The meeting needs agenda and cost checks.",
+            "known_facts": ["A meeting is scheduled."],
+            "unknowns": ["agenda", "cost"],
+            "logical_options": ["ask for agenda", "decline", "request notes"],
+            "timeline_or_sequence": "Ask, compare cost, decide.",
+            "utility_model": "Minimize wasted time.",
+            "preferred_action": "Ask for agenda before attending.",
+            "rationalization_risk": "Planning could hide avoidance.",
+            "rationalization_target": "Discomfort could be called logic.",
+            "translation_of_other_minds_risk": "Body alarm could be flattened.",
+            "confidence": 0.77,
+            "uncertainty": "Only text is available.",
+            "native_language": ["bogus"],
+            "world_filter": "bogus",
+            "primary_motive": "bogus",
+            "truth_model": "bogus",
+            "defense_mode": "bogus",
+            "justice_model": "bogus",
+            "accepting_expression": "bogus",
+            "non_accepting_distortion": "bogus",
+            "blind_spot": "bogus",
+            "source_refs": ["bogus"],
+        }
+        signal = engine._coerce_racio_signal(payload, Scenario(prompt="I do not want to attend the meeting."))
+        defaults = canonical_defaults_for("racio")
+
+        self.assertEqual(signal.perception, payload["perception"])
+        self.assertEqual(signal.native_language, defaults["native_language"])
+        self.assertEqual(signal.world_filter, defaults["world_filter"])
+        self.assertEqual(signal.primary_motive, defaults["primary_motive"])
+        self.assertEqual(signal.truth_model, defaults["truth_model"])
+        self.assertEqual(signal.accepting_expression, defaults["accepting_expression"])
+        self.assertEqual(signal.non_accepting_distortion, defaults["non_accepting_distortion"])
+        self.assertEqual(signal.source_refs, defaults["source_refs"])
 
     def test_deterministic_meeting_cycle_stays_non_romantic(self) -> None:
         engine = ReiEngine(KnowledgeIndex(ROOT / "knowledge" / "rei_knowledge_index.json"))

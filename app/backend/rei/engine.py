@@ -42,7 +42,7 @@ from .models import (
 )
 from .providers import LMStudioProvider, OllamaProvider, OllamaRequest, ProviderError
 from .acceptance import assess_acceptance
-from .contract_loader import get_processor_contract
+from .contract_loader import canonical_defaults_for, get_processor_contract
 from .json_utils import validate_required_keys
 from .normalization import normalize_mind_list, normalize_mind_name
 from .profiles import (
@@ -280,18 +280,9 @@ class ReiEngine:
         return public
 
     def _contract_signal_defaults(self, mind_name: str) -> dict[str, Any]:
-        contract = get_processor_contract(mind_name)  # type: ignore[arg-type]
-        return {
-            "native_language": list(contract.get("native_language", [])),
-            "world_filter": str(contract.get("world_filter", "")),
-            "truth_model": str(contract.get("truth_model", "")),
-            "defense_mode": str(contract.get("defense_mode", "")),
-            "justice_model": str(contract.get("justice_model", "")),
-            "accepting_expression": str(contract.get("accepting_expression", "")),
-            "non_accepting_distortion": str(contract.get("non_accepting_distortion", "")),
-            "blind_spot": str(contract.get("blind_spot", "")),
-            "source_refs": list(contract.get("source_refs", [])),
-        }
+        defaults = canonical_defaults_for(mind_name)  # type: ignore[arg-type]
+        defaults.pop("safety_flags", None)
+        return defaults
 
     def _coerce_common_signal_fields(
         self,
@@ -299,73 +290,90 @@ class ReiEngine:
         fallback: Union[RacioSignal, EmocioSignal, InstinktSignal],
     ) -> dict[str, Any]:
         defaults = self._contract_signal_defaults(fallback.mind)
-        accepting_default = fallback.accepting_expression or defaults["accepting_expression"] or fallback.accepted_expression
-        accepted_default = fallback.accepted_expression or fallback.accepting_expression or defaults["accepting_expression"]
-        distortion_default = (
-            fallback.non_accepting_distortion
-            or defaults["non_accepting_distortion"]
-            or fallback.non_accepted_expression
-        )
-        non_accepted_default = (
-            fallback.non_accepted_expression
-            or fallback.non_accepting_distortion
-            or defaults["non_accepting_distortion"]
-        )
         return {
+            "mind": defaults["mind"],
+            "is_conscious": defaults["is_conscious"],
+            "translated_by_racio": defaults["translated_by_racio"],
+            "processing_mode": defaults["processing_mode"],
             "native_language": self._clean_text_list(
-                payload.get("native_language"),
-                fallback.native_language or defaults["native_language"],
+                defaults["native_language"],
+                [],
                 max_items=10,
                 max_words=5,
             ),
             "world_filter": self._clean_mind_text(
-                payload.get("world_filter"),
-                fallback.world_filter or defaults["world_filter"],
+                defaults["world_filter"],
+                fallback.world_filter,
+                max_words=34,
+            ),
+            "primary_motive": self._clean_mind_text(
+                defaults["primary_motive"],
+                fallback.primary_motive,
                 max_words=34,
             ),
             "truth_model": self._clean_mind_text(
-                payload.get("truth_model"),
-                fallback.truth_model or defaults["truth_model"],
+                defaults["truth_model"],
+                fallback.truth_model,
                 max_words=34,
             ),
             "defense_mode": self._clean_mind_text(
-                payload.get("defense_mode"),
-                fallback.defense_mode or defaults["defense_mode"],
+                defaults["defense_mode"],
+                fallback.defense_mode,
                 max_words=24,
             ),
             "justice_model": self._clean_mind_text(
-                payload.get("justice_model"),
-                fallback.justice_model or defaults["justice_model"],
+                defaults["justice_model"],
+                fallback.justice_model,
                 max_words=24,
             ),
             "accepting_expression": self._clean_mind_text(
-                payload.get("accepting_expression") or payload.get("accepted_expression"),
-                accepting_default,
+                defaults["accepting_expression"],
+                fallback.accepting_expression,
                 max_words=34,
             ),
             "accepted_expression": self._clean_mind_text(
-                payload.get("accepted_expression") or payload.get("accepting_expression"),
-                accepted_default,
+                defaults["accepted_expression"],
+                fallback.accepted_expression,
                 max_words=34,
             ),
             "non_accepting_distortion": self._clean_mind_text(
-                payload.get("non_accepting_distortion") or payload.get("non_accepted_expression"),
-                distortion_default,
+                defaults["non_accepting_distortion"],
+                fallback.non_accepting_distortion,
                 max_words=34,
             ),
             "non_accepted_expression": self._clean_mind_text(
-                payload.get("non_accepted_expression") or payload.get("non_accepting_distortion"),
-                non_accepted_default,
+                defaults["non_accepted_expression"],
+                fallback.non_accepted_expression,
+                max_words=34,
+            ),
+            "resistance_to_other_minds": self._clean_mind_text(
+                defaults["resistance_to_other_minds"],
+                fallback.resistance_to_other_minds,
+                max_words=34,
+            ),
+            "what_this_mind_needs": self._clean_mind_text(
+                defaults["what_this_mind_needs"],
+                fallback.what_this_mind_needs,
+                max_words=34,
+            ),
+            "risk_if_ignored": self._clean_mind_text(
+                defaults["risk_if_ignored"],
+                fallback.risk_if_ignored,
+                max_words=34,
+            ),
+            "risk_if_dominant": self._clean_mind_text(
+                defaults["risk_if_dominant"],
+                fallback.risk_if_dominant,
                 max_words=34,
             ),
             "blind_spot": self._clean_mind_text(
-                payload.get("blind_spot"),
-                fallback.blind_spot or defaults["blind_spot"],
+                defaults["blind_spot"],
+                fallback.blind_spot,
                 max_words=34,
             ),
             "source_refs": self._clean_text_list(
-                payload.get("source_refs"),
-                fallback.source_refs or defaults["source_refs"],
+                defaults["source_refs"],
+                [],
                 max_items=8,
                 max_words=5,
             ),
@@ -787,20 +795,7 @@ class ReiEngine:
                 max_words=34,
             ),
             utility_model=self._clean_mind_text(payload.get("utility_model"), fallback.utility_model, max_words=34),
-            primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            resistance_to_other_minds=self._clean_mind_text(
-                payload.get("resistance_to_other_minds"),
-                fallback.resistance_to_other_minds,
-                max_words=34,
-            ),
-            what_this_mind_needs=self._clean_mind_text(
-                payload.get("what_this_mind_needs"),
-                fallback.what_this_mind_needs,
-                max_words=34,
-            ),
-            risk_if_ignored=self._clean_mind_text(payload.get("risk_if_ignored"), fallback.risk_if_ignored),
-            risk_if_dominant=self._clean_mind_text(payload.get("risk_if_dominant"), fallback.risk_if_dominant),
             rationalization_risk=self._clean_mind_text(
                 payload.get("rationalization_risk"),
                 fallback.rationalization_risk,
@@ -851,20 +846,7 @@ class ReiEngine:
                 fallback.substitute_solution_risk,
                 max_words=34,
             ),
-            primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            resistance_to_other_minds=self._clean_mind_text(
-                payload.get("resistance_to_other_minds"),
-                fallback.resistance_to_other_minds,
-                max_words=34,
-            ),
-            what_this_mind_needs=self._clean_mind_text(
-                payload.get("what_this_mind_needs"),
-                fallback.what_this_mind_needs,
-                max_words=34,
-            ),
-            risk_if_ignored=self._clean_mind_text(payload.get("risk_if_ignored"), fallback.risk_if_ignored),
-            risk_if_dominant=self._clean_mind_text(payload.get("risk_if_dominant"), fallback.risk_if_dominant),
             confidence=self._coerce_intensity(payload.get("confidence"), fallback.confidence),
             uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty),
             safety_flags=self._clean_text_list(payload.get("safety_flags"), fallback.safety_flags, max_items=5),
@@ -895,20 +877,7 @@ class ReiEngine:
                 fallback.minimum_safety_condition,
                 max_words=34,
             ),
-            primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            resistance_to_other_minds=self._clean_mind_text(
-                payload.get("resistance_to_other_minds"),
-                fallback.resistance_to_other_minds,
-                max_words=34,
-            ),
-            what_this_mind_needs=self._clean_mind_text(
-                payload.get("what_this_mind_needs"),
-                fallback.what_this_mind_needs,
-                max_words=34,
-            ),
-            risk_if_ignored=self._clean_mind_text(payload.get("risk_if_ignored"), fallback.risk_if_ignored),
-            risk_if_dominant=self._clean_mind_text(payload.get("risk_if_dominant"), fallback.risk_if_dominant),
             confidence=self._coerce_intensity(payload.get("confidence"), fallback.confidence),
             uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty),
             safety_flags=self._clean_text_list(payload.get("safety_flags"), fallback.safety_flags, max_items=5),
@@ -928,14 +897,7 @@ class ReiEngine:
             ],
             timeline_or_sequence="Name facts, identify unknowns, choose a reversible test, then reassess pressure from the other processors.",
             utility_model="Prefer the option with usable evidence, controlled cost, reversibility, and a clear next step.",
-            primary_motive="Control uncertainty through explicit structure.",
             preferred_action="Create a bounded plan and test only the next controllable move.",
-            accepted_expression="It uses analysis as a service to the whole system.",
-            non_accepted_expression="It turns explanation into control and may call fear or desire objective logic.",
-            resistance_to_other_minds="It resists signals that cannot be converted into explicit variables.",
-            what_this_mind_needs="Enough facts, sequence, and feedback to avoid inventing certainty.",
-            risk_if_ignored="The situation can become impulsive, vague, or impossible to execute.",
-            risk_if_dominant="The person may delay, over-control, or rationalize suppression as responsibility.",
             rationalization_risk="Planning may become a clean explanation for pressure that comes from image desire or safety fear.",
             rationalization_target="Emocio desire or Instinkt safety fear may be explained after the fact as pure logic.",
             translation_of_other_minds_risk="Racio may mistranslate image, status, body alarm, attachment, or boundary signals into sterile reasons.",
@@ -959,14 +921,7 @@ class ReiEngine:
             body_expression="The translated signal points toward visible posture, expression, contact, or withdrawal in the scene.",
             attack_impulse="If humiliated, the pressure could turn into sharp defensiveness rather than clean expression.",
             substitute_solution_risk="It may chase a vivid substitute scene instead of solving the actual constraint.",
-            primary_motive="Protect and renew the desired image of self-in-the-scene.",
             preferred_action="Move toward one contained expression that restores aliveness without coercion.",
-            accepted_expression="It adds motivation, contact, beauty, and courage without needing to dominate.",
-            non_accepted_expression="It may chase admiration, dramatize injury, or mistake vividness for truth.",
-            resistance_to_other_minds="It resists dry control and protective closure when they make the scene feel lifeless.",
-            what_this_mind_needs="A dignified image of action that includes safety and sequence.",
-            risk_if_ignored="Vitality may turn into resentment, shame, or compensatory image hunger.",
-            risk_if_dominant="The person may act for display before checking costs, boundaries, or truth.",
             confidence=0.52,
             uncertainty="The actual image signal is inferred from text and may be incomplete.",
             safety_flags=self._cycle_safety_flags(scenario.prompt),
@@ -989,14 +944,7 @@ class ReiEngine:
             scarcity_or_envy="Scarcity may narrow attention toward what others have, what is missing, or what cannot be replaced.",
             flight_or_freeze_signal="The protective pressure may delay or narrow the field until safety is named.",
             minimum_safety_condition="Define one reversible test, a stop condition, and the smallest acceptable exposure.",
-            primary_motive="Preserve safety, boundary, attachment, and future recoverability.",
             preferred_action="Pause long enough to define the minimum safety condition before opening further.",
-            accepted_expression="It protects without imprisoning the system.",
-            non_accepted_expression="It may treat discomfort as proof of danger and block every opening.",
-            resistance_to_other_minds="It resists vivid desire and abstract plans when they increase exposure too quickly.",
-            what_this_mind_needs="A concrete boundary, low exposure, and a way back.",
-            risk_if_ignored="Fear may return as sabotage, withdrawal, or panic after action begins.",
-            risk_if_dominant="The person may call avoidance safety and never test reality.",
             confidence=0.54,
             uncertainty="The protective signal is inferred from limited text, not from direct bodily data.",
             safety_flags=self._cycle_safety_flags(scenario.prompt),

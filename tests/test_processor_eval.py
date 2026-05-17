@@ -29,6 +29,7 @@ class ProcessorEvalTests(unittest.TestCase):
                 self.assertFalse(diagnostics["fallback_used"])
                 self.assertEqual(diagnostics["missing_required_keys"], [])
                 self.assertEqual(score["rei_violations"], [])
+                self.assertEqual(score["full_missing_required_keys"], [])
                 self.assertGreaterEqual(score["overall_score"], 0.75)
 
     def test_fallback_penalty_is_visible_in_score(self) -> None:
