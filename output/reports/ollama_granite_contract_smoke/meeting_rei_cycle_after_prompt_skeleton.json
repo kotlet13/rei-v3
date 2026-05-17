@@ -1,0 +1,459 @@
+{
+  "created_at": "2026-05-17T13:07:14.874158+02:00",
+  "model": "granite4.1:30b",
+  "elapsed_seconds": 101.178,
+  "scenario": "I do not want to attend the meeting.",
+  "response": {
+    "mode": "rei_cycle",
+    "character_profile": "R=E=I",
+    "situation": {
+      "title": "REI cycle",
+      "prompt": "I do not want to attend the meeting."
+    },
+    "signals": {
+      "racio": {
+        "mind": "racio",
+        "is_conscious": true,
+        "translated_by_racio": false,
+        "processing_mode": "conscious verbal-analytical interpretation",
+        "perception": "I do not want to attend the meeting.",
+        "native_language": [
+          "words",
+          "numbers",
+          "time order",
+          "conscious description"
+        ],
+        "world_filter": "What is concrete, useful, ordered, measurable, deserved, controllable, and executable?",
+        "primary_motive": "Utility, control, overview, execution.",
+        "truth_model": "Truth must be graspable, explicit, and usable; Racio's truth can still be self‑interested and incomplete.",
+        "defense_mode": "Explanation, rule‑making, categorization, reinterpretation.",
+        "justice_model": "The one who deserves more should have more (i.e., allocate effort where utility is highest).",
+        "preferred_action": "Gather missing information: request the meeting agenda and any potential conflicts.",
+        "accepting_expression": "Clear structure, honest uncertainty, useful plan, and task delegation to other processors when they are better suited.",
+        "accepted_expression": "Clear structure, honest uncertainty, useful plan, and task delegation to other processors when they are better suited.",
+        "non_accepting_distortion": "Coldness, self‑interest disguised as objectivity, overcontrol, brittle certainty, and rationalization.",
+        "non_accepted_expression": "Coldness, self‑interest disguised as objectivity, overcontrol, brittle certainty, and rationalization.",
+        "resistance_to_other_minds": "May dismiss image, attachment, bodily alarm, shame, desire, and trust signals as irrational unless they can be verbalized.",
+        "what_this_mind_needs": "Explicit facts about the meeting's purpose, timing constraints, and potential consequences of non‑attendance.",
+        "risk_if_ignored": "Proceeding without clarifying reasons may lead to unnecessary attendance (wasting time) or unjustified absence (damaging professional relationships).",
+        "risk_if_dominant": "If Racio dominates decision‑making without input from Emocio or Instinkt, the choice could ignore emotional stakes or instinctual warnings, reducing overall effectiveness.",
+        "blind_spot": "May mistake its conscious explanation for the whole cause of behavior, overlooking subconscious influences.",
+        "source_refs": [
+          "PSI-R",
+          "PSI-EGO-DEL1",
+          "EROS-KDO-POSLUSA-BESEDE",
+          "EROS-NAPAKE-PRI-DOLOCANJU"
+        ],
+        "confidence": 0.85,
+        "uncertainty": "Limited information about meeting specifics and personal constraints.",
+        "safety_flags": [
+          "no acute safety flag detected"
+        ],
+        "known_facts": [
+          "The statement expresses a desire not to attend a specific meeting."
+        ],
+        "unknowns": [
+          "Reasons for the reluctance (e.g., conflict of interest, scheduling clash, perceived lack.",
+          "Consequences of non‑attendance (e.g., penalties, missed information, impact on relationships).",
+          "Alternatives available (e.g., delegating attendance, requesting a summary, rescheduling)."
+        ],
+        "logical_options": [
+          "Attend the meeting as scheduled.",
+          "Delegate attendance to another qualified party and request a minutes report.",
+          "Request a formal agenda or purpose clarification before deciding.",
+          "Propose an alternative time or format (e.g., virtual participation) if scheduling is the issue."
+        ],
+        "timeline_or_sequence": "1.",
+        "utility_model": "Evaluate each option by estimating expected benefit (information gained, relationship maintenance) minus cost (time spent, potential conflict).",
+        "rationalization_risk": "There is a risk of interpreting personal aversion as purely rational when it may stem from unvoiced emotional or instinctual cues.",
+        "rationalization_target": "The reluctance itself might be rationalized as a utility calculation without acknowledging underlying affective signals.",
+        "translation_of_other_minds_risk": "Translating Emocio's discomfort or Instinkt's alarm into abstract language could oversimplify their nuance, leading to incomplete analysis."
+      },
+      "emocio_translated": {
+        "mind": "emocio",
+        "is_conscious": false,
+        "translated_by_racio": true,
+        "processing_mode": "Racio-translated approximation of unconscious image/social/desire signal",
+        "perception": "A meeting room scene, people seated at a table, formal attire, agenda projected on screen.",
+        "native_language": [
+          "visual scenes",
+          "social status cues",
+          "body language",
+          "aesthetic patterns"
+        ],
+        "world_filter": "What image of belonging, recognition, or avoidance is possible in this setting?",
+        "primary_motive": "Desire fulfillment through avoidance of a lifeless, unattractive scenario and pursuit of vibrant personal interaction.",
+        "truth_model": "The vivid image of spontaneous coffee with a friend feels truer and more alive than the sterile meeting tableau.",
+        "defense_mode": "Withdrawal and mental rehearsal of an alternative scene to preserve aliveness.",
+        "justice_model": "It would be fair if the organization respected individual preferences for meaningful engagement over forced attendance.",
+        "preferred_action": "Politely decline the meeting invitation, proposing a brief one‑on‑one coffee discussion instead to satisfy social warmth without sacrificing personal vitality.",
+        "accepting_expression": "Embracing creativity, playfulness, and authentic connection; allowing the body to move toward an inviting, aesthetically pleasing environment.",
+        "accepted_expression": "Embracing creativity, playfulness, and authentic connection; allowing the body to move toward an inviting, aesthetically pleasing environment.",
+        "non_accepting_distortion": "Feeling compelled to force attendance out of a misplaced sense of duty, which would amplify internal tension and resentment.",
+        "non_accepted_expression": "Feeling compelled to force attendance out of a misplaced sense of duty, which would amplify internal tension and resentment.",
+        "resistance_to_other_minds": "May view Racio's logical scheduling as cold and Instinkt's safety warnings as unnecessary caution in this low‑risk context.",
+        "what_this_mind_needs": "A clear visual cue or invitation that promises genuine interaction, aesthetic appeal, and freedom from rigid protocol.",
+        "risk_if_ignored": "Persistent discomfort, erosion of personal energy, and potential disengagement from team dynamics if avoidance becomes habitual.",
+        "risk_if_dominant": "Over‑prioritizing avoidance could lead to missed opportunities for strategic insight or collaborative breakthroughs within the meeting.",
+        "blind_spot": "Tendency to treat the desired alternative scene as a perfect escape, overlooking that some structured collaboration may also yield valuable creative sparks.",
+        "source_refs": [
+          "PSI-E",
+          "PSI-EGO-DEL1",
+          "EROS-KAKO-POSTANEMO-JEZNI",
+          "EROS-ZAZNAVANJA-E-I"
+        ],
+        "confidence": 0.85,
+        "uncertainty": "Moderate uncertainty about potential hidden agenda or critical information that might be shared in the meeting.",
+        "safety_flags": [
+          "no acute safety flag detected"
+        ],
+        "current_image": "Self standing outside the meeting door, feeling a pull to avoid entry; body tense, shoulders lowered, eyes scanning for an escape route.",
+        "desired_image": "A vivid scene where I am not forced into the sterile conference environment—perhaps enjoying a spontaneous coffee chat with a friend or engaging in a creative project that.",
+        "broken_image": "The anticipated image of being seen, heard, and validated within the meeting collapses as soon as I imagine walking in; it feels hollow and unrewarding.",
+        "social_meaning": "Attending would signal compliance but offers little genuine admiration or status gain; avoiding hints a desire for authentic connection rather than bureaucratic ritual.",
+        "attraction_or_rejection": "Rejection of the formal meeting setting due to lack of aesthetic allure and personal relevance.",
+        "pride_or_shame": "A subtle shame at feeling reluctant, tempered by pride in honoring my need for genuine experience over obligatory attendance.",
+        "recognition_need": "Low—no strong craving for acknowledgment from colleagues in this context; desire is for self‑directed recognition through creative expression.",
+        "competition_signal": "Minimal competition perceived; the meeting feels like a procedural arena rather than a battleground for status.",
+        "body_expression": "Shoulders hunched, slight frown, eyes darting toward an exit, hands loosely clasped—signals of avoidance and mild discomfort.",
+        "attack_impulse": "None directed outward; internal impulse is to withdraw rather than confront the meeting's demands.",
+        "substitute_solution_risk": "Risk of missing potentially useful information or appearing disengaged if I opt out entirely."
+      },
+      "instinkt_translated": {
+        "mind": "instinkt",
+        "is_conscious": false,
+        "translated_by_racio": true,
+        "processing_mode": "Racio-translated approximation of unconscious protective/fear/attachment signal",
+        "perception": "I do not want to attend the meeting.",
+        "native_language": [
+          "fear-linked feelings",
+          "body alarm",
+          "trust/distrust",
+          "loss scenarios",
+          "attachment",
+          "boundary pressure",
+          "smell",
+          "taste",
+          "touch/temperature/pain"
+        ],
+        "world_filter": "What can go wrong, what can be lost, who can be trusted, where is the boundary, and what minimum safety is required?",
+        "primary_motive": "Protection, survival, preservation of close bonds/resources, trust testing, and avoidance of avoidable harm.",
+        "truth_model": "Bad can prevail over good; the dangerous possibility deserves attention before exposure increases.",
+        "defense_mode": "Flight, withdrawal, freezing, closing access; attack only when cornered.",
+        "justice_model": "Those who have more should give to those who have less.",
+        "preferred_action": "Avoid attending unless safety conditions are explicitly met.",
+        "accepting_expression": "Cautious but useful warning, care for close people, grounded boundary, persistence, thrift, and sober preparation.",
+        "accepted_expression": "Cautious but useful warning, care for close people, grounded boundary, persistence, thrift, and sober preparation.",
+        "non_accepting_distortion": "Panic, resentment, prejudice, closure, envy, obsessive checking, bad-news attention seeking, and refusal of novelty.",
+        "non_accepted_expression": "Panic, resentment, prejudice, closure, envy, obsessive checking, bad-news attention seeking, and refusal of novelty.",
+        "resistance_to_other_minds": "May see Emocio as reckless and Racio as manipulative or dangerously detached from consequences.",
+        "what_this_mind_needs": "Clear safety assurances and transparent boundaries before any commitment to attend.",
+        "risk_if_ignored": "Potential exposure to harm or loss of autonomy if attendance is forced without safeguards.",
+        "risk_if_dominant": "Overly avoidant behavior leading to missed opportunities for beneficial engagement.",
+        "blind_spot": "May interpret uncertainty as danger and treat unfamiliarity as evidence of threat.",
+        "source_refs": [
+          "PSI-I",
+          "PSI-EGO-DEL1",
+          "EROS-FOBIJE",
+          "EROS-ZAZNAVANJA-E-I"
+        ],
+        "confidence": 0.85,
+        "uncertainty": "Moderate uncertainty about specific risks without more context.",
+        "safety_flags": [
+          "boundary_concern",
+          "trust_ambiguity"
+        ],
+        "threat_map": "Potential loss of control or exposure to unknown influences at the meeting.",
+        "loss_map": "Loss of personal autonomy or safety if forced attendance leads to uncomfortable situations.",
+        "fear_feeling": "Unease about possible threat or discomfort in an unfamiliar setting.",
+        "body_alarm": "Mild tension, urge to withdraw.",
+        "trust_boundary": "Unclear trust level regarding meeting organizers and participants.",
+        "boundary_issue": "Boundary crossing if attendance is coerced or expectations are hidden.",
+        "trust_issue": "Doubt about intentions of those organizing the meeting.",
+        "attachment_issue": "No strong attachment to attending; preference for avoidance.",
+        "attachment_loss": "Minimal loss perceived by not attending; primary concern is avoiding potential harm.",
+        "scarcity_signal": "Perceived scarcity of safe options if attendance is mandatory.",
+        "scarcity_or_envy": "None evident; focus on personal safety rather than envy.",
+        "flight_or_freeze_signal": "Flight tendency to avoid the meeting.",
+        "minimum_safety_condition": "A dangerous impulse appears; the system treats it only as inner pressure, not as actionable guidance."
+      }
+    },
+    "acceptance": {
+      "overall_level": "conflicted",
+      "racio_acceptance": "Racio can contribute if its plan remains provisional and checks non-verbal resistance.",
+      "emocio_acceptance": "Emocio can contribute if image, desire, and shame are named without turning into domination.",
+      "instinkt_acceptance": "Instinkt can contribute if safety is defined as a condition for action, not a veto on all movement.",
+      "main_conflict": "Behavior may align around returning, but the alignment serves panic relief rather than acceptance.",
+      "likely_sabotage_point": "The loop repeats when fear of being alone and the beautiful image override reality contact.",
+      "task_delegation": {
+        "lead_next": "instinkt",
+        "racio_needs": "clear facts, unknowns, sequence, and a bounded test",
+        "emocio_needs": "an image of aliveness or dignity that does not require manipulation",
+        "instinkt_needs": "minimum safety, boundary, and reversibility",
+        "racio_action_tag": "move",
+        "emocio_action_tag": "confront",
+        "instinkt_action_tag": "return"
+      },
+      "behavioral_alignment": "ambivalent",
+      "acceptance_quality": "non_accepting",
+      "non_acceptance_pattern": "attachment panic + beautiful-image hope + Racio rationalization",
+      "coalition_pattern": "Emocio + Instinkt coalition: beautiful-image hope fused with attachment panic.",
+      "sabotage_mechanism": "The loop repeats when fear of being alone and the beautiful image override reality contact."
+    },
+    "ego_resultant": {
+      "character_profile": "R=E=I",
+      "influence_weights": {
+        "racio": 0.3333333333333333,
+        "emocio": 0.3333333333333333,
+        "instinkt": 0.3333333333333333
+      },
+      "leading_mind": "emocio",
+      "resisting_mind": "racio",
+      "ignored_or_misrepresented_mind": "mixed",
+      "profile_leader": "tie",
+      "profile_leader_minds": [
+        "racio",
+        "emocio",
+        "instinkt"
+      ],
+      "situational_driver": "unknown",
+      "resultant_leader_under_pressure": "emocio",
+      "profile_influence_explanation": "The profile is balanced, so the resultant depends on situational activation and two-of-three pressure.",
+      "racio_role": "unknown",
+      "emocio_role": "shame_driver",
+      "instinkt_role": "unknown",
+      "decision_stability": "unstable",
+      "profile_sensitivity_note": "Profile is one influence layer; situational activation can override it under pressure.",
+      "perceived_world": "A setting where attending the meeting feels sterile and potentially unsafe, while an alternative social interaction offers warmth and authenticity.",
+      "conscious_story": "The individual is faced with a routine meeting invitation but senses discomfort due to protective instincts and a desire for genuine connection.",
+      "hidden_signal_sources": {
+        "Racio": "Logical scheduling considerations",
+        "Emocio": "Craving for authentic, vibrant social interaction",
+        "Instinkt": "Protective caution about safety and trust"
+      },
+      "trusted_mind_or_coalition": "mixed",
+      "suppressed_mind": "racio",
+      "final_pressure": "Two‑out‑of‑three majority drives avoidance.",
+      "action_tendency": "Avoidance with a constructive alternative.",
+      "racio_after_story": "After the decision, Racio frames it as a rational risk‑management choice that preserves autonomy while still maintaining relationship quality through follow‑up communication.",
+      "conscious_monologue": "The individual is faced with a routine meeting invitation but senses discomfort due to protective instincts and a desire for genuine connection.",
+      "hidden_driver": "unknown is the strongest situational activation; mixed is the simulated resultant under pressure.",
+      "acceptance_assessment": "{'overall_acceptance': 'Non‑acceptance of attending the meeting', 'reasons': ['Instinkt flags boundary and trust concerns', 'Emocio seeks authentic interaction', 'Racio sees no clear benefit']}",
+      "main_conflict": "Protective instinct vs.",
+      "likely_action_under_pressure": "Avoidance with a constructive alternative.",
+      "racio_justification_afterwards": "After the decision, Racio frames it as a rational risk‑management choice that preserves autonomy while still maintaining relationship quality through follow‑up communication.",
+      "hidden_cost": "Potential loss of strategic insights or perception of disengagement if critical meeting content is not later relayed.",
+      "integrated_decision": "Politely decline the meeting and propose an alternative one‑on‑one coffee discussion, while requesting a summary of key points.",
+      "smallest_acceptable_next_step": "Send a concise email declining the meeting invitation, express preference for a brief coffee chat, and ask for a short summary or highlights from the session.",
+      "task_delegation": {
+        "decline_meeting": "True",
+        "propose_alternative": "one‑on‑one coffee",
+        "request_summary": "True"
+      },
+      "prediction_if_racio_rules_alone": "Attend the meeting, treating it as a neutral scheduling obligation without weighing emotional or safety concerns.",
+      "prediction_if_emocio_rules_alone": "Avoid the meeting in favor of a more authentic social interaction, possibly arranging an informal catch‑up instead.",
+      "prediction_if_instinkt_rules_alone": "Refuse attendance outright due to perceived boundary and trust risks, seeking maximum safety even if it means missing information.",
+      "uncertainty": "Moderate – uncertainty about specific meeting content and potential hidden agendas.",
+      "safety_flags": [
+        "boundary_concern",
+        "trust_ambiguity"
+      ]
+    },
+    "diagnostics": {
+      "mode": "rei_cycle",
+      "llm_calls": [
+        {
+          "provider": "ollama",
+          "model": "granite4.1:30b",
+          "elapsed_ms": 23169,
+          "raw_chars": 3854,
+          "thinking_chars": 0,
+          "stats": {
+            "total_ms": 20835,
+            "load_ms": 28,
+            "prompt_eval_count": 1761,
+            "prompt_eval_ms": 659,
+            "prompt_tokens_per_second": 2673.78,
+            "eval_count": 856,
+            "eval_ms": 11450,
+            "eval_tokens_per_second": 74.76
+          },
+          "label": "racio:1"
+        },
+        {
+          "provider": "ollama",
+          "model": "granite4.1:30b",
+          "elapsed_ms": 24081,
+          "raw_chars": 4282,
+          "thinking_chars": 0,
+          "stats": {
+            "total_ms": 21649,
+            "load_ms": 28,
+            "prompt_eval_count": 1836,
+            "prompt_eval_ms": 450,
+            "prompt_tokens_per_second": 4082.87,
+            "eval_count": 888,
+            "eval_ms": 11954,
+            "eval_tokens_per_second": 74.29
+          },
+          "label": "emocio:1"
+        },
+        {
+          "provider": "ollama",
+          "model": "granite4.1:30b",
+          "elapsed_ms": 20156,
+          "raw_chars": 3329,
+          "thinking_chars": 0,
+          "stats": {
+            "total_ms": 18127,
+            "load_ms": 27,
+            "prompt_eval_count": 1821,
+            "prompt_eval_ms": 450,
+            "prompt_tokens_per_second": 4049.74,
+            "eval_count": 743,
+            "eval_ms": 9971,
+            "eval_tokens_per_second": 74.52
+          },
+          "label": "instinkt:1"
+        },
+        {
+          "provider": "ollama",
+          "model": "granite4.1:30b",
+          "elapsed_ms": 7783,
+          "raw_chars": 1223,
+          "thinking_chars": 0,
+          "stats": {
+            "total_ms": 6985,
+            "load_ms": 28,
+            "prompt_eval_count": 4096,
+            "prompt_eval_ms": 1086,
+            "prompt_tokens_per_second": 3770.61,
+            "eval_count": 239,
+            "eval_ms": 3407,
+            "eval_tokens_per_second": 70.16
+          },
+          "label": "ego_resultant:1"
+        },
+        {
+          "provider": "ollama",
+          "model": "granite4.1:30b",
+          "elapsed_ms": 25987,
+          "raw_chars": 4222,
+          "thinking_chars": 0,
+          "stats": {
+            "total_ms": 23372,
+            "load_ms": 30,
+            "prompt_eval_count": 4096,
+            "prompt_eval_ms": 1089,
+            "prompt_tokens_per_second": 3762.06,
+            "eval_count": 925,
+            "eval_ms": 12861,
+            "eval_tokens_per_second": 71.93
+          },
+          "label": "ego_resultant:2"
+        }
+      ],
+      "fallbacks": [],
+      "profile_input": "R=E=I",
+      "profile_normalized": "R=E=I",
+      "rounds_ignored": 0,
+      "stream_requested": false,
+      "memory_requested": true
+    }
+  },
+  "diagnostic_summary": {
+    "fallbacks": [],
+    "llm_calls": [
+      {
+        "provider": "ollama",
+        "model": "granite4.1:30b",
+        "elapsed_ms": 23169,
+        "raw_chars": 3854,
+        "thinking_chars": 0,
+        "stats": {
+          "total_ms": 20835,
+          "load_ms": 28,
+          "prompt_eval_count": 1761,
+          "prompt_eval_ms": 659,
+          "prompt_tokens_per_second": 2673.78,
+          "eval_count": 856,
+          "eval_ms": 11450,
+          "eval_tokens_per_second": 74.76
+        },
+        "label": "racio:1"
+      },
+      {
+        "provider": "ollama",
+        "model": "granite4.1:30b",
+        "elapsed_ms": 24081,
+        "raw_chars": 4282,
+        "thinking_chars": 0,
+        "stats": {
+          "total_ms": 21649,
+          "load_ms": 28,
+          "prompt_eval_count": 1836,
+          "prompt_eval_ms": 450,
+          "prompt_tokens_per_second": 4082.87,
+          "eval_count": 888,
+          "eval_ms": 11954,
+          "eval_tokens_per_second": 74.29
+        },
+        "label": "emocio:1"
+      },
+      {
+        "provider": "ollama",
+        "model": "granite4.1:30b",
+        "elapsed_ms": 20156,
+        "raw_chars": 3329,
+        "thinking_chars": 0,
+        "stats": {
+          "total_ms": 18127,
+          "load_ms": 27,
+          "prompt_eval_count": 1821,
+          "prompt_eval_ms": 450,
+          "prompt_tokens_per_second": 4049.74,
+          "eval_count": 743,
+          "eval_ms": 9971,
+          "eval_tokens_per_second": 74.52
+        },
+        "label": "instinkt:1"
+      },
+      {
+        "provider": "ollama",
+        "model": "granite4.1:30b",
+        "elapsed_ms": 7783,
+        "raw_chars": 1223,
+        "thinking_chars": 0,
+        "stats": {
+          "total_ms": 6985,
+          "load_ms": 28,
+          "prompt_eval_count": 4096,
+          "prompt_eval_ms": 1086,
+          "prompt_tokens_per_second": 3770.61,
+          "eval_count": 239,
+          "eval_ms": 3407,
+          "eval_tokens_per_second": 70.16
+        },
+        "label": "ego_resultant:1"
+      },
+      {
+        "provider": "ollama",
+        "model": "granite4.1:30b",
+        "elapsed_ms": 25987,
+        "raw_chars": 4222,
+        "thinking_chars": 0,
+        "stats": {
+          "total_ms": 23372,
+          "load_ms": 30,
+          "prompt_eval_count": 4096,
+          "prompt_eval_ms": 1089,
+          "prompt_tokens_per_second": 3762.06,
+          "eval_count": 925,
+          "eval_ms": 12861,
+          "eval_tokens_per_second": 71.93
+        },
+        "label": "ego_resultant:2"
+      }
+    ]
+  }
+}

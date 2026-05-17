@@ -296,14 +296,23 @@ class REISignal(ApiModel):
     translated_by_racio: bool
     processing_mode: str
     perception: str
+    native_language: list[str] = Field(default_factory=list)
+    world_filter: str = ""
     primary_motive: str
+    truth_model: str = ""
+    defense_mode: str = ""
+    justice_model: str = ""
     preferred_action: str
-    accepted_expression: str
-    non_accepted_expression: str
+    accepting_expression: str = ""
+    accepted_expression: str = ""
+    non_accepting_distortion: str = ""
+    non_accepted_expression: str = ""
     resistance_to_other_minds: str
     what_this_mind_needs: str
     risk_if_ignored: str
     risk_if_dominant: str
+    blind_spot: str = ""
+    source_refs: list[str] = Field(default_factory=list)
     confidence: float = Field(ge=0, le=1)
     uncertainty: str
     safety_flags: list[str] = Field(default_factory=list)
@@ -317,8 +326,11 @@ class RacioSignal(REISignal):
     known_facts: list[str] = Field(default_factory=list)
     unknowns: list[str] = Field(default_factory=list)
     logical_options: list[str] = Field(default_factory=list)
-    timeline_or_sequence: str
-    rationalization_risk: str
+    timeline_or_sequence: str = ""
+    utility_model: str = ""
+    rationalization_risk: str = ""
+    rationalization_target: str = ""
+    translation_of_other_minds_risk: str = ""
 
 
 class EmocioSignal(REISignal):
@@ -326,14 +338,17 @@ class EmocioSignal(REISignal):
     is_conscious: Literal[False] = False
     translated_by_racio: Literal[True] = True
     processing_mode: str = "Racio-translated approximation of unconscious image/social/desire signal"
-    current_image: str
-    desired_image: str
-    broken_image: str
-    social_meaning: str
-    attraction_or_rejection: str
-    pride_or_shame: str
-    competition_signal: str
-    attack_impulse: str
+    current_image: str = ""
+    desired_image: str = ""
+    broken_image: str = ""
+    social_meaning: str = ""
+    attraction_or_rejection: str = ""
+    pride_or_shame: str = ""
+    recognition_need: str = ""
+    competition_signal: str = ""
+    body_expression: str = ""
+    attack_impulse: str = ""
+    substitute_solution_risk: str = ""
 
 
 class InstinktSignal(REISignal):
@@ -341,15 +356,19 @@ class InstinktSignal(REISignal):
     is_conscious: Literal[False] = False
     translated_by_racio: Literal[True] = True
     processing_mode: str = "Racio-translated approximation of unconscious protective/fear/attachment signal"
-    threat_map: str
-    loss_map: str
-    body_alarm: str
-    boundary_issue: str
-    trust_issue: str
-    attachment_issue: str
-    scarcity_signal: str
-    flight_or_freeze_signal: str
-    minimum_safety_condition: str
+    threat_map: str = ""
+    loss_map: str = ""
+    fear_feeling: str = ""
+    body_alarm: str = ""
+    trust_boundary: str = ""
+    boundary_issue: str = ""
+    trust_issue: str = ""
+    attachment_issue: str = ""
+    attachment_loss: str = ""
+    scarcity_signal: str = ""
+    scarcity_or_envy: str = ""
+    flight_or_freeze_signal: str = ""
+    minimum_safety_condition: str = ""
 
 
 class AcceptanceAssessment(ApiModel):
@@ -383,6 +402,14 @@ class EgoResultant(ApiModel):
     instinkt_role: InstinktRole = "unknown"
     decision_stability: DecisionStability = "unknown"
     profile_sensitivity_note: str = ""
+    perceived_world: str = ""
+    conscious_story: str = ""
+    hidden_signal_sources: dict[str, str] = Field(default_factory=dict)
+    trusted_mind_or_coalition: MindNameExtended = "unknown"
+    suppressed_mind: MindNameExtended = "unknown"
+    final_pressure: str = ""
+    action_tendency: str = ""
+    racio_after_story: str = ""
     conscious_monologue: str
     hidden_driver: str
     acceptance_assessment: str

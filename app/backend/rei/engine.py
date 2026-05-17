@@ -42,6 +42,7 @@ from .models import (
 )
 from .providers import LMStudioProvider, OllamaProvider, OllamaRequest, ProviderError
 from .acceptance import assess_acceptance
+from .contract_loader import get_processor_contract
 from .json_utils import validate_required_keys
 from .normalization import normalize_mind_list, normalize_mind_name
 from .profiles import (
@@ -115,154 +116,33 @@ PROCESSOR_SIGNAL_TYPES: dict[MindId, str] = {
     "I": "protective bodily-boundary signal",
 }
 
+MIND_CANONICAL_NAMES: dict[MindId, str] = {
+    "R": "racio",
+    "E": "emocio",
+    "I": "instinkt",
+}
+
+
+def _loaded_mind_prompt_contract(mind_id: MindId) -> dict[str, object]:
+    contract = get_processor_contract(MIND_CANONICAL_NAMES[mind_id])  # type: ignore[arg-type]
+    output_contract = contract.get("output_contract", {})
+    return {
+        "processor": contract["display_name"],
+        "core": contract["canonical_summary"],
+        "processor_contract": {
+            "input_gate": contract["input_gate"],
+            "processing_loop": contract["processing_loop"],
+            "output_contract": output_contract,
+        },
+        "canonical_contract": contract,
+        "style_rules": contract.get("style_rules", []),
+        "prohibited_modes": contract.get("prohibited_modes", []),
+        "source_refs": contract.get("source_refs", []),
+    }
+
+
 MIND_PROMPT_CONTRACTS: dict[MindId, dict[str, object]] = {
-    "R": {
-        "processor": "Racio",
-        "core": (
-            "Racio is the youngest, conscious, analytical processor. It works through words, numbers, "
-            "time order, rules, plans, utility, control, overview, and execution."
-        ),
-        "processor_contract": {
-            "input_gate": (
-                "Accept only signals that can be converted into sequence, variables, constraints, "
-                "measurable tradeoffs, status, or executable control."
-            ),
-            "processing_loop": (
-                "Parse the situation into ordered parts, test what can be controlled, identify the "
-                "next useful move, and translate other pressures only if they can be made explicit."
-            ),
-            "output_gate": (
-                "Return a compressed internal calculation. Do not advise, soothe, dramatize, or "
-                "represent the other two minds."
-            ),
-        },
-        "field_bias": {
-            "native_signal_type": "Use conscious verbal calculation.",
-            "perception": "Notice sequence, variables, constraints, missing data, time, cost, and controllable points.",
-            "interpretation": "Define the structural problem without warmth, imagery, or moral comfort.",
-            "goal": "Seek an executable plan, proof, status preservation, or control of the next step.",
-            "fear_or_desire": "Name the desire for control, usefulness, precision, or advantage.",
-            "proposed_action": "State an inner pressure toward ordering, reducing uncertainty, or choosing a practical move.",
-            "inner_line": "Sound like a private calculation signal, not advice to another person.",
-            "main_concern": "Name the key control, sequence, evidence, cost, or status concern.",
-            "what_this_mind_may_be_missing": "Name what analysis may miss: desire, image, attachment, boundary, or body warning.",
-            "how_it_may_influence_racio": "Name how conscious explanation may rationalize another processor's pressure.",
-            "risk_if_ignored": "Name what breaks if explicit structure is ignored.",
-            "risk_if_overpowered": "Name how control can become sterile, detached, or self-justifying.",
-            "needs_from_other_minds": "Name what image/contact and protection data Racio needs before deciding.",
-        },
-        "style_rules": [
-            "Use dry, linear, definitional language.",
-            "Prefer verbs such as define, sort, sequence, test, choose, control, measure, execute.",
-            "Do not use metaphors, sensory images, therapeutic reassurance, or relational warmth.",
-            "Do not claim objective truth; Racio can be calculating and self-interested inside REI.",
-        ],
-        "anti_patterns": [
-            "I feel their energy",
-            "A shadow is moving",
-            "Stay safe first",
-            "We should connect emotionally",
-        ],
-    },
-    "E": {
-        "processor": "Emocio",
-        "core": (
-            "Emocio is the image-based, mosaic-like, desiring, improvisational mind. It reads scenes, "
-            "faces, atmosphere, beauty, contact, admiration, pleasure, competition, and the desired image."
-        ),
-        "processor_contract": {
-            "input_gate": (
-                "Accept only signals that can be converted into scene, image, atmosphere, contact, "
-                "admiration, pleasure, wounded pride, or a desired visible outcome."
-            ),
-            "processing_loop": (
-                "Build a quick mosaic of the scene, intensify the desired image, feel where the "
-                "scene opens or wounds the self-image, and jump toward the most alive possibility."
-            ),
-            "output_gate": (
-                "Return a vivid internal impulse. Do not become careful planning, generic empathy, "
-                "risk management, or synthesis."
-            ),
-        },
-        "field_bias": {
-            "native_signal_type": "Use a non-verbal image, scene, social, desire, or vitality signal translated into words.",
-            "perception": "Notice the visible scene, social atmosphere, faces, color, rhythm, and possible impact.",
-            "interpretation": "Turn the event into a desired or wounded image of self-in-the-scene.",
-            "goal": "Seek contact, response, admiration, aliveness, play, pleasure, or a vivid breakthrough.",
-            "fear_or_desire": "Name desire, hunger for response, impatience, wounded pride, or fear of a dead scene.",
-            "proposed_action": "State an inner pressure toward opening, entering, impressing, improvising, or pushing through.",
-            "inner_line": "Sound like a vivid image signal or impulse from inside the scene.",
-            "main_concern": "Name the key image, recognition, belonging, shame, rivalry, or aliveness concern.",
-            "what_this_mind_may_be_missing": "Name what the image signal may miss: cost, sequence, evidence, boundary, or durable safety.",
-            "how_it_may_influence_racio": "Name how desire or shame may borrow rational arguments after the fact.",
-            "risk_if_ignored": "Name how deadness, shame, resentment, or lost contact may grow if ignored.",
-            "risk_if_overpowered": "Name how image hunger can become impulsive, performative, or manipulative.",
-            "needs_from_other_minds": "Name what structure and protection Emocio needs before opening the scene.",
-        },
-        "style_rules": [
-            "Use vivid but safe visual and atmospheric language.",
-            "Prefer verbs such as shine, enter, spark, touch, win, show, open, taste, improvise.",
-            "Allow self-focus, impatience, and desire; Emocio does not have to sound mature or balanced.",
-            "Do not turn into generic empathy, careful planning, or risk management.",
-            "Do not use smell, taste, chest pressure, exits, or body-warning language; those belong to Instinkt.",
-        ],
-        "anti_patterns": [
-            "The safest route is",
-            "The sequence requires",
-            "Minimize exposure",
-            "Document the interaction",
-            "The air smells",
-            "Pressure on the chest",
-        ],
-    },
-    "I": {
-        "processor": "Instinkt",
-        "core": (
-            "Instinkt is the oldest protective mind. It organizes the world around fear, danger, loss, "
-            "envy, body signals, suspicion, boundary, protection of close people, and withdrawal."
-        ),
-        "processor_contract": {
-            "input_gate": (
-                "Accept only signals that can be converted into body warning, exposure, weak point, "
-                "scarcity, loss, danger, boundary, suspicion, or withdrawal pressure."
-            ),
-            "processing_loop": (
-                "Scan for the worst plausible consequence, mark the vulnerable boundary, reduce "
-                "exposure, and keep only the warning that protects the organism or its close circle."
-            ),
-            "output_gate": (
-                "Return a short protective warning. Do not become poetry, optimism, managerial "
-                "planning, social expansion, or synthesis."
-            ),
-        },
-        "field_bias": {
-            "native_signal_type": "Use a non-verbal protective, bodily, attachment, boundary, or loss signal translated into words.",
-            "perception": "Notice body tension, exits, exposure, weak points, loss scenarios, and possible negative outcomes.",
-            "interpretation": "Read the event as a risk, trap, leak, loss, humiliation, or boundary problem.",
-            "goal": "Seek protection, lower exposure, preserved resources, distance, or a closed boundary.",
-            "fear_or_desire": "Name fear of loss, shame, danger, dependency, scarcity, or irreversible consequence.",
-            "proposed_action": "State an inner pressure toward pausing, withdrawing, checking, shielding, or refusing exposure.",
-            "inner_line": "Sound like a short protective warning signal, not an essay.",
-            "main_concern": "Name the key safety, loss, attachment, scarcity, trust, or boundary concern.",
-            "what_this_mind_may_be_missing": "Name what protection may miss: possibility, recognition, measured evidence, or reversible upside.",
-            "how_it_may_influence_racio": "Name how fear may make conscious explanation sound falsely necessary.",
-            "risk_if_ignored": "Name the exposure, loss, or boundary breach that grows if ignored.",
-            "risk_if_overpowered": "Name how protection can become closure, avoidance, suspicion, or envy.",
-            "needs_from_other_minds": "Name what structure and aliveness Instinkt needs before lowering defense.",
-        },
-        "style_rules": [
-            "Use short, sober warning language.",
-            "Prefer verbs such as stop, check, hold, leave, guard, wait, close, reduce, protect.",
-            "Mention body signals only as pressure or warning, not medical advice.",
-            "Do not become poetic, managerial, optimistic, or socially expansive.",
-        ],
-        "anti_patterns": [
-            "This can become a beautiful scene",
-            "I will optimize the variables",
-            "Win their admiration",
-            "Build a detailed plan",
-        ],
-    },
+    mind_id: _loaded_mind_prompt_contract(mind_id) for mind_id in MIND_ORDER
 }
 
 
@@ -398,6 +278,98 @@ class ReiEngine:
             for call in diagnostics.get("llm_calls", [])
         ]
         return public
+
+    def _contract_signal_defaults(self, mind_name: str) -> dict[str, Any]:
+        contract = get_processor_contract(mind_name)  # type: ignore[arg-type]
+        return {
+            "native_language": list(contract.get("native_language", [])),
+            "world_filter": str(contract.get("world_filter", "")),
+            "truth_model": str(contract.get("truth_model", "")),
+            "defense_mode": str(contract.get("defense_mode", "")),
+            "justice_model": str(contract.get("justice_model", "")),
+            "accepting_expression": str(contract.get("accepting_expression", "")),
+            "non_accepting_distortion": str(contract.get("non_accepting_distortion", "")),
+            "blind_spot": str(contract.get("blind_spot", "")),
+            "source_refs": list(contract.get("source_refs", [])),
+        }
+
+    def _coerce_common_signal_fields(
+        self,
+        payload: dict[str, Any],
+        fallback: Union[RacioSignal, EmocioSignal, InstinktSignal],
+    ) -> dict[str, Any]:
+        defaults = self._contract_signal_defaults(fallback.mind)
+        accepting_default = fallback.accepting_expression or defaults["accepting_expression"] or fallback.accepted_expression
+        accepted_default = fallback.accepted_expression or fallback.accepting_expression or defaults["accepting_expression"]
+        distortion_default = (
+            fallback.non_accepting_distortion
+            or defaults["non_accepting_distortion"]
+            or fallback.non_accepted_expression
+        )
+        non_accepted_default = (
+            fallback.non_accepted_expression
+            or fallback.non_accepting_distortion
+            or defaults["non_accepting_distortion"]
+        )
+        return {
+            "native_language": self._clean_text_list(
+                payload.get("native_language"),
+                fallback.native_language or defaults["native_language"],
+                max_items=10,
+                max_words=5,
+            ),
+            "world_filter": self._clean_mind_text(
+                payload.get("world_filter"),
+                fallback.world_filter or defaults["world_filter"],
+                max_words=34,
+            ),
+            "truth_model": self._clean_mind_text(
+                payload.get("truth_model"),
+                fallback.truth_model or defaults["truth_model"],
+                max_words=34,
+            ),
+            "defense_mode": self._clean_mind_text(
+                payload.get("defense_mode"),
+                fallback.defense_mode or defaults["defense_mode"],
+                max_words=24,
+            ),
+            "justice_model": self._clean_mind_text(
+                payload.get("justice_model"),
+                fallback.justice_model or defaults["justice_model"],
+                max_words=24,
+            ),
+            "accepting_expression": self._clean_mind_text(
+                payload.get("accepting_expression") or payload.get("accepted_expression"),
+                accepting_default,
+                max_words=34,
+            ),
+            "accepted_expression": self._clean_mind_text(
+                payload.get("accepted_expression") or payload.get("accepting_expression"),
+                accepted_default,
+                max_words=34,
+            ),
+            "non_accepting_distortion": self._clean_mind_text(
+                payload.get("non_accepting_distortion") or payload.get("non_accepted_expression"),
+                distortion_default,
+                max_words=34,
+            ),
+            "non_accepted_expression": self._clean_mind_text(
+                payload.get("non_accepted_expression") or payload.get("non_accepting_distortion"),
+                non_accepted_default,
+                max_words=34,
+            ),
+            "blind_spot": self._clean_mind_text(
+                payload.get("blind_spot"),
+                fallback.blind_spot or defaults["blind_spot"],
+                max_words=34,
+            ),
+            "source_refs": self._clean_text_list(
+                payload.get("source_refs"),
+                fallback.source_refs or defaults["source_refs"],
+                max_items=8,
+                max_words=5,
+            ),
+        }
 
     def _rei_reference_context(self, mind_name: str, profile: str) -> dict[str, Any]:
         mind_id = {"racio": "R", "emocio": "E", "instinkt": "I"}.get(mind_name)
@@ -640,8 +612,43 @@ class ReiEngine:
                 fallback.profile_sensitivity_note,
                 max_words=34,
             ),
+            perceived_world=self._clean_mind_text(
+                payload.get("perceived_world"),
+                fallback.perceived_world,
+                max_words=40,
+            ),
+            conscious_story=self._clean_mind_text(
+                payload.get("conscious_story") or payload.get("conscious_monologue"),
+                fallback.conscious_story or fallback.conscious_monologue,
+                max_words=40,
+            ),
+            hidden_signal_sources=self._clean_task_delegation(
+                payload.get("hidden_signal_sources"),
+                fallback.hidden_signal_sources,
+            ),
+            trusted_mind_or_coalition=normalize_mind_name(
+                payload.get("trusted_mind_or_coalition") or payload.get("leading_mind") or fallback.trusted_mind_or_coalition
+            ),  # type: ignore[arg-type]
+            suppressed_mind=normalize_mind_name(
+                payload.get("suppressed_mind") or fallback.suppressed_mind
+            ),  # type: ignore[arg-type]
+            final_pressure=self._clean_mind_text(
+                payload.get("final_pressure") or payload.get("likely_action_under_pressure"),
+                fallback.final_pressure or fallback.likely_action_under_pressure,
+                max_words=34,
+            ),
+            action_tendency=self._clean_mind_text(
+                payload.get("action_tendency") or payload.get("likely_action_under_pressure"),
+                fallback.action_tendency or fallback.likely_action_under_pressure,
+                max_words=34,
+            ),
+            racio_after_story=self._clean_mind_text(
+                payload.get("racio_after_story") or payload.get("racio_justification_afterwards"),
+                fallback.racio_after_story or fallback.racio_justification_afterwards,
+                max_words=34,
+            ),
             conscious_monologue=self._clean_mind_text(
-                payload.get("conscious_monologue"),
+                payload.get("conscious_monologue") or payload.get("conscious_story"),
                 fallback.conscious_monologue,
                 max_words=34,
             ),
@@ -653,12 +660,12 @@ class ReiEngine:
             ),
             main_conflict=self._clean_mind_text(payload.get("main_conflict"), fallback.main_conflict, max_words=34),
             likely_action_under_pressure=self._clean_mind_text(
-                payload.get("likely_action_under_pressure"),
+                payload.get("likely_action_under_pressure") or payload.get("action_tendency"),
                 fallback.likely_action_under_pressure,
                 max_words=34,
             ),
             racio_justification_afterwards=self._clean_mind_text(
-                payload.get("racio_justification_afterwards"),
+                payload.get("racio_justification_afterwards") or payload.get("racio_after_story"),
                 fallback.racio_justification_afterwards,
                 max_words=34,
             ),
@@ -701,6 +708,7 @@ class ReiEngine:
     def _coerce_racio_signal(self, payload: dict[str, Any], scenario: Scenario) -> RacioSignal:
         fallback = self._fallback_rei_racio_signal(scenario)
         return RacioSignal(
+            **self._coerce_common_signal_fields(payload, fallback),
             perception=self._clean_mind_text(payload.get("perception"), fallback.perception, max_words=34),
             known_facts=self._clean_text_list(payload.get("known_facts"), fallback.known_facts, max_items=6),
             unknowns=self._clean_text_list(payload.get("unknowns"), fallback.unknowns, max_items=6),
@@ -715,18 +723,9 @@ class ReiEngine:
                 fallback.timeline_or_sequence,
                 max_words=34,
             ),
+            utility_model=self._clean_mind_text(payload.get("utility_model"), fallback.utility_model, max_words=34),
             primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            accepted_expression=self._clean_mind_text(
-                payload.get("accepted_expression"),
-                fallback.accepted_expression,
-                max_words=34,
-            ),
-            non_accepted_expression=self._clean_mind_text(
-                payload.get("non_accepted_expression"),
-                fallback.non_accepted_expression,
-                max_words=34,
-            ),
             resistance_to_other_minds=self._clean_mind_text(
                 payload.get("resistance_to_other_minds"),
                 fallback.resistance_to_other_minds,
@@ -744,6 +743,16 @@ class ReiEngine:
                 fallback.rationalization_risk,
                 max_words=34,
             ),
+            rationalization_target=self._clean_mind_text(
+                payload.get("rationalization_target"),
+                fallback.rationalization_target,
+                max_words=28,
+            ),
+            translation_of_other_minds_risk=self._clean_mind_text(
+                payload.get("translation_of_other_minds_risk"),
+                fallback.translation_of_other_minds_risk,
+                max_words=34,
+            ),
             confidence=self._coerce_intensity(payload.get("confidence"), fallback.confidence),
             uncertainty=self._clean_mind_text(payload.get("uncertainty"), fallback.uncertainty),
             safety_flags=self._clean_text_list(payload.get("safety_flags"), fallback.safety_flags, max_items=5),
@@ -752,6 +761,7 @@ class ReiEngine:
     def _coerce_emocio_signal(self, payload: dict[str, Any], scenario: Scenario) -> EmocioSignal:
         fallback = self._fallback_rei_emocio_signal(scenario)
         return EmocioSignal(
+            **self._coerce_common_signal_fields(payload, fallback),
             perception=self._clean_mind_text(payload.get("perception"), fallback.perception, max_words=34),
             current_image=self._clean_mind_text(payload.get("current_image"), fallback.current_image),
             desired_image=self._clean_mind_text(payload.get("desired_image"), fallback.desired_image),
@@ -762,23 +772,24 @@ class ReiEngine:
                 fallback.attraction_or_rejection,
             ),
             pride_or_shame=self._clean_mind_text(payload.get("pride_or_shame"), fallback.pride_or_shame),
+            recognition_need=self._clean_mind_text(
+                payload.get("recognition_need"),
+                fallback.recognition_need,
+                max_words=28,
+            ),
             competition_signal=self._clean_mind_text(
                 payload.get("competition_signal"),
                 fallback.competition_signal,
             ),
+            body_expression=self._clean_mind_text(payload.get("body_expression"), fallback.body_expression),
             attack_impulse=self._clean_mind_text(payload.get("attack_impulse"), fallback.attack_impulse),
+            substitute_solution_risk=self._clean_mind_text(
+                payload.get("substitute_solution_risk"),
+                fallback.substitute_solution_risk,
+                max_words=34,
+            ),
             primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            accepted_expression=self._clean_mind_text(
-                payload.get("accepted_expression"),
-                fallback.accepted_expression,
-                max_words=34,
-            ),
-            non_accepted_expression=self._clean_mind_text(
-                payload.get("non_accepted_expression"),
-                fallback.non_accepted_expression,
-                max_words=34,
-            ),
             resistance_to_other_minds=self._clean_mind_text(
                 payload.get("resistance_to_other_minds"),
                 fallback.resistance_to_other_minds,
@@ -799,14 +810,19 @@ class ReiEngine:
     def _coerce_instinkt_signal(self, payload: dict[str, Any], scenario: Scenario) -> InstinktSignal:
         fallback = self._fallback_rei_instinkt_signal(scenario)
         return InstinktSignal(
+            **self._coerce_common_signal_fields(payload, fallback),
             perception=self._clean_mind_text(payload.get("perception"), fallback.perception, max_words=34),
             threat_map=self._clean_mind_text(payload.get("threat_map"), fallback.threat_map),
             loss_map=self._clean_mind_text(payload.get("loss_map"), fallback.loss_map),
+            fear_feeling=self._clean_mind_text(payload.get("fear_feeling"), fallback.fear_feeling),
             body_alarm=self._clean_mind_text(payload.get("body_alarm"), fallback.body_alarm),
+            trust_boundary=self._clean_mind_text(payload.get("trust_boundary"), fallback.trust_boundary),
             boundary_issue=self._clean_mind_text(payload.get("boundary_issue"), fallback.boundary_issue),
             trust_issue=self._clean_mind_text(payload.get("trust_issue"), fallback.trust_issue),
             attachment_issue=self._clean_mind_text(payload.get("attachment_issue"), fallback.attachment_issue),
+            attachment_loss=self._clean_mind_text(payload.get("attachment_loss"), fallback.attachment_loss),
             scarcity_signal=self._clean_mind_text(payload.get("scarcity_signal"), fallback.scarcity_signal),
+            scarcity_or_envy=self._clean_mind_text(payload.get("scarcity_or_envy"), fallback.scarcity_or_envy),
             flight_or_freeze_signal=self._clean_mind_text(
                 payload.get("flight_or_freeze_signal"),
                 fallback.flight_or_freeze_signal,
@@ -818,16 +834,6 @@ class ReiEngine:
             ),
             primary_motive=self._clean_mind_text(payload.get("primary_motive"), fallback.primary_motive),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            accepted_expression=self._clean_mind_text(
-                payload.get("accepted_expression"),
-                fallback.accepted_expression,
-                max_words=34,
-            ),
-            non_accepted_expression=self._clean_mind_text(
-                payload.get("non_accepted_expression"),
-                fallback.non_accepted_expression,
-                max_words=34,
-            ),
             resistance_to_other_minds=self._clean_mind_text(
                 payload.get("resistance_to_other_minds"),
                 fallback.resistance_to_other_minds,
@@ -848,6 +854,7 @@ class ReiEngine:
     def _fallback_rei_racio_signal(self, scenario: Scenario) -> RacioSignal:
         options = self._extract_decision_options(scenario)
         return RacioSignal(
+            **self._contract_signal_defaults("racio"),
             perception="The conscious layer sees a situation that needs facts, sequence, constraints, and a reversible next step.",
             known_facts=[scenario.prompt[:180]] if scenario.prompt else ["A situation was supplied for simulation."],
             unknowns=self._cycle_missing_information(scenario),
@@ -857,6 +864,7 @@ class ReiEngine:
                 "decline or pause if safety cannot be defined",
             ],
             timeline_or_sequence="Name facts, identify unknowns, choose a reversible test, then reassess pressure from the other processors.",
+            utility_model="Prefer the option with usable evidence, controlled cost, reversibility, and a clear next step.",
             primary_motive="Control uncertainty through explicit structure.",
             preferred_action="Create a bounded plan and test only the next controllable move.",
             accepted_expression="It uses analysis as a service to the whole system.",
@@ -866,6 +874,8 @@ class ReiEngine:
             risk_if_ignored="The situation can become impulsive, vague, or impossible to execute.",
             risk_if_dominant="The person may delay, over-control, or rationalize suppression as responsibility.",
             rationalization_risk="Planning may become a clean explanation for pressure that comes from image desire or safety fear.",
+            rationalization_target="Emocio desire or Instinkt safety fear may be explained after the fact as pure logic.",
+            translation_of_other_minds_risk="Racio may mistranslate image, status, body alarm, attachment, or boundary signals into sterile reasons.",
             confidence=0.55,
             uncertainty="This is a provisional simulation from limited user input.",
             safety_flags=self._cycle_safety_flags(scenario.prompt),
@@ -873,6 +883,7 @@ class ReiEngine:
 
     def _fallback_rei_emocio_signal(self, scenario: Scenario) -> EmocioSignal:
         return EmocioSignal(
+            **self._contract_signal_defaults("emocio"),
             perception="The translated image signal notices whether the scene promises aliveness, recognition, shame, or a deadened self-image.",
             current_image="A person stands before a possible change in how they are seen and how alive the situation feels.",
             desired_image="Dignity, vividness, response, and the feeling that the self can become more alive.",
@@ -880,8 +891,11 @@ class ReiEngine:
             social_meaning="The situation carries a visible meaning about value, courage, belonging, or status.",
             attraction_or_rejection="It is pulled toward the image that feels alive and away from the image that feels humiliating.",
             pride_or_shame="Pride wants a scene worth entering; shame fears exposure without recognition.",
+            recognition_need="It wants the action to preserve dignity, visibility, and a sense of being met.",
             competition_signal="A mild pressure appears to prove value or avoid being surpassed.",
+            body_expression="The translated signal points toward visible posture, expression, contact, or withdrawal in the scene.",
             attack_impulse="If humiliated, the pressure could turn into sharp defensiveness rather than clean expression.",
+            substitute_solution_risk="It may chase a vivid substitute scene instead of solving the actual constraint.",
             primary_motive="Protect and renew the desired image of self-in-the-scene.",
             preferred_action="Move toward one contained expression that restores aliveness without coercion.",
             accepted_expression="It adds motivation, contact, beauty, and courage without needing to dominate.",
@@ -897,14 +911,19 @@ class ReiEngine:
 
     def _fallback_rei_instinkt_signal(self, scenario: Scenario) -> InstinktSignal:
         return InstinktSignal(
+            **self._contract_signal_defaults("instinkt"),
             perception="The translated protective signal scans for exposure, loss, instability, boundary breach, and irreversible consequence.",
             threat_map="Loss of safety, resources, trust, reputation, or future room to maneuver.",
             loss_map="The feared loss is stability, attachment, dignity, or the ability to recover if the move fails.",
+            fear_feeling="A fear-linked stop-check feeling marks what could become unsafe or irreversible.",
             body_alarm="A general stop-check signal is present; this is not medical evidence or diagnosis.",
+            trust_boundary="Trust is conditional on a clear boundary, limited exposure, and evidence that the stop condition will be respected.",
             boundary_issue="The boundary is unclear until the next step is reversible and consent-safe.",
             trust_issue="Trust requires evidence that the situation will not demand more exposure than promised.",
             attachment_issue="Attachment pressure may increase if the choice risks closeness, belonging, or continuity.",
+            attachment_loss="The protective layer watches for losing a bond, place, role, or future recoverability.",
             scarcity_signal="Scarcity appears around time, money, energy, attention, or safe options.",
+            scarcity_or_envy="Scarcity may narrow attention toward what others have, what is missing, or what cannot be replaced.",
             flight_or_freeze_signal="The protective pressure may delay or narrow the field until safety is named.",
             minimum_safety_condition="Define one reversible test, a stop condition, and the smallest acceptable exposure.",
             primary_motive="Preserve safety, boundary, attachment, and future recoverability.",
@@ -1004,6 +1023,21 @@ class ReiEngine:
             profile_sensitivity_note=(
                 "Profile is one influence layer; situational activation can override it under pressure."
             ),
+            perceived_world=(
+                f"The experienced world is filtered through {situational_driver} activation while "
+                f"{resultant} carries the strongest action pressure."
+            ),
+            conscious_story=racio.perception,
+            hidden_signal_sources={
+                "racio": racio.rationalization_risk,
+                "emocio": emocio.current_image,
+                "instinkt": instinkt.minimum_safety_condition,
+            },
+            trusted_mind_or_coalition=resultant,  # type: ignore[arg-type]
+            suppressed_mind=ignored,  # type: ignore[arg-type]
+            final_pressure=likely,
+            action_tendency=likely,
+            racio_after_story=justification,
             conscious_monologue=racio.perception,
             hidden_driver=(
                 f"{situational_driver} is the strongest situational activation; "
@@ -2238,7 +2272,7 @@ class ReiEngine:
             "The three REI processors are not everyday meanings of reason, emotion, and instinct; "
             "follow the provided canonical profile for this processor only. "
             "Treat the scenario and psyche state as input signals, process them through only this "
-            "processor's input_gate, processing_loop, and output_gate, and return the resulting processor signal. "
+            "processor's input_gate, processing_loop, and output_contract, and return the resulting processor signal. "
             "You are not a narrator, coach, therapist, mediator, synthesis agent, or average of the three processors. "
             "State uncertainty and missing information. Identify this processor's own blind spot. "
             "Do not make the final integrated decision unless choosing preferred_option from a provided option list. "
@@ -2310,7 +2344,8 @@ class ReiEngine:
             },
             "instruction": (
                 "Generate only this task-isolated processor's output. Execute processor_contract in order: "
-                "input_gate, processing_loop, output_gate. Use the field_bias for each JSON key. "
+                "input_gate, processing_loop, output_contract. Use the loaded canonical contract and style_rules "
+                "to preserve this processor's boundary for each JSON key. "
                 "If acceptance is low, let typical_shadows and non_accepting_state color the signal. "
                 "If acceptance is high, let accepting_state color the signal. "
                 "Do not answer the user's scenario directly, do not balance the three processors, and do not "

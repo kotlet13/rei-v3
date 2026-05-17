@@ -5,6 +5,7 @@ import re
 import time
 from typing import Any, Optional
 
+from .contract_loader import get_processor_contract
 from .json_utils import validate_required_keys
 from .models import ProviderSelection
 from .processor_contracts import (
@@ -35,19 +36,22 @@ EXPECTED_FLAGS: dict[ProcessorMind, dict[str, bool]] = {
 }
 
 ROLE_FIELDS: dict[ProcessorMind, list[str]] = {
-    "racio": ["facts", "unknowns", "options", "preferred_action", "rationalization_risk"],
+    "racio": ["known_facts", "unknowns", "logical_options", "utility_model", "preferred_action", "rationalization_risk"],
     "emocio": [
         "current_image",
         "desired_image",
         "broken_image",
-        "shame_or_pride",
+        "pride_or_shame",
+        "recognition_need",
         "attraction_or_rejection",
     ],
     "instinkt": [
         "threat_map",
         "loss_map",
+        "fear_feeling",
         "body_alarm",
-        "boundary_or_trust_issue",
+        "trust_boundary",
+        "boundary_issue",
         "minimum_safety_condition",
     ],
 }
@@ -135,64 +139,117 @@ STOPWORDS = {
 }
 
 
+PROCESSING_MODES: dict[ProcessorMind, str] = {
+    "racio": "conscious verbal-analytical interpretation",
+    "emocio": "Racio-translated approximation of unconscious image/social/desire signal",
+    "instinkt": "Racio-translated approximation of unconscious protective/fear/attachment signal",
+}
+
+
+def _canonical_eval_base(mind: ProcessorMind, confidence: float, uncertainty: str) -> dict[str, Any]:
+    contract = get_processor_contract(mind)
+    return {
+        "mind": mind,
+        "is_conscious": EXPECTED_FLAGS[mind]["is_conscious"],
+        "translated_by_racio": EXPECTED_FLAGS[mind]["translated_by_racio"],
+        "processing_mode": PROCESSING_MODES[mind],
+        "perception": "",
+        "native_language": list(contract.get("native_language", [])),
+        "world_filter": contract.get("world_filter", ""),
+        "primary_motive": contract.get("primary_motive", ""),
+        "truth_model": contract.get("truth_model", ""),
+        "defense_mode": contract.get("defense_mode", ""),
+        "justice_model": contract.get("justice_model", ""),
+        "preferred_action": "",
+        "accepting_expression": contract.get("accepting_expression", ""),
+        "non_accepting_distortion": contract.get("non_accepting_distortion", ""),
+        "resistance_to_other_minds": contract.get("resistance_to_other_minds", ""),
+        "what_this_mind_needs": contract.get("what_this_mind_needs", ""),
+        "risk_if_ignored": contract.get("risk_if_ignored", ""),
+        "risk_if_dominant": contract.get("risk_if_dominant", ""),
+        "blind_spot": contract.get("blind_spot", ""),
+        "source_refs": list(contract.get("source_refs", [])),
+        "confidence": confidence,
+        "uncertainty": uncertainty,
+        "safety_flags": [],
+    }
+
+
 def deterministic_processor_signal(mind: ProcessorMind, prompt: str) -> dict[str, Any]:
     snippet = _snippet(prompt)
     if mind == "racio":
-        return {
-            "mind": "racio",
-            "is_conscious": True,
-            "translated_by_racio": False,
-            "perception": f"The written input contains a decision pressure: {snippet}",
-            "facts": [
-                "Only the written scenario is available.",
-                "No external facts are verified inside this processor run.",
-                "The situation can be reduced to options, constraints, and evidence checks.",
-            ],
-            "unknowns": [
-                "Which consequence matters most is not yet established.",
-                "The cost of delay versus action is uncertain.",
-            ],
-            "options": [
-                "Define one bounded test.",
-                "Delay until a missing fact is checked.",
-                "Commit now and accept uncertain feedback.",
-            ],
-            "preferred_action": "Define one bounded test and one evidence check before committing.",
-            "rationalization_risk": (
-                "It may convert avoidance into a responsible-sounding need for more analysis."
-            ),
-            "what_it_may_ignore": "Image pressure, desire, shame, fear, body alarm, and trust signals.",
-            "confidence": 0.66,
-        }
+        signal = _canonical_eval_base(mind, 0.66, "Only the written scenario is available.")
+        signal.update(
+            {
+                "perception": f"The written input contains a decision pressure: {snippet}",
+                "known_facts": [
+                    "Only the written scenario is available.",
+                    "No external facts are verified inside this processor run.",
+                    "The situation can be reduced to options, constraints, and evidence checks.",
+                ],
+                "unknowns": [
+                    "Which consequence matters most is not yet established.",
+                    "The cost of delay versus action is uncertain.",
+                ],
+                "logical_options": [
+                    "Define one bounded test.",
+                    "Delay until a missing fact is checked.",
+                    "Commit now and accept uncertain feedback.",
+                ],
+                "timeline_or_sequence": "Name facts, mark unknowns, compare options, then test the smallest reversible step.",
+                "utility_model": "Prefer the option with usable evidence, low irreversible cost, and a clear next check.",
+                "preferred_action": "Define one bounded test and one evidence check before committing.",
+                "rationalization_risk": (
+                    "It may convert avoidance into a responsible-sounding need for more analysis."
+                ),
+                "rationalization_target": "Fear, shame, or image pressure may be explained afterward as pure logic.",
+                "translation_of_other_minds_risk": "Racio may flatten body alarm or image desire into tidy reasons.",
+            }
+        )
+        return signal
     if mind == "emocio":
-        return {
-            "mind": "emocio",
-            "is_conscious": False,
-            "translated_by_racio": True,
-            "perception": f"Racio translates an image/desire signal around: {snippet}",
-            "current_image": "The person appears split between the visible self and the wished-for self.",
-            "desired_image": "They want to feel alive, admirable, chosen, and congruent in the scene.",
-            "broken_image": "The feared picture is looking small, exposed, or disappointing.",
-            "shame_or_pride": "Pride rises if the move looks worthy; shame rises if the image collapses.",
-            "attraction_or_rejection": "Attraction moves toward vividness and recognition; rejection moves away from dullness.",
-            "preferred_action": "Move toward one expression that preserves dignity and contact with desire.",
-            "what_it_may_ignore": "Costs, sequence, hard constraints, and minimum safety conditions.",
-            "confidence": 0.64,
+        signal = _canonical_eval_base(mind, 0.64, "The actual image signal is inferred from text.")
+        signal.update(
+            {
+                "perception": f"Racio translates an image/desire signal around: {snippet}",
+                "current_image": "The person appears split between the visible self and the wished-for self.",
+                "desired_image": "They want to feel alive, admirable, chosen, and congruent in the scene.",
+                "broken_image": "The feared picture is looking small, exposed, or disappointing.",
+                "social_meaning": "The scene carries value, belonging, recognition, or humiliation pressure.",
+                "attraction_or_rejection": (
+                    "Attraction moves toward vividness and recognition; rejection moves away from dullness."
+                ),
+                "pride_or_shame": "Pride rises if the move looks worthy; shame rises if the image collapses.",
+                "recognition_need": "The signal wants dignity, response, and a visible sense of being met.",
+                "competition_signal": "There is mild pressure to avoid being surpassed or made small.",
+                "body_expression": "The translated image points toward posture, facial expression, contact, or withdrawal.",
+                "attack_impulse": "If humiliated, the signal could turn sharp and press for a breakthrough.",
+                "substitute_solution_risk": "It may chase a more vivid substitute image instead of the real constraint.",
+                "preferred_action": "Move toward one expression that preserves dignity and contact with desire.",
+            }
+        )
+        return signal
+    signal = _canonical_eval_base(mind, 0.65, "The protective signal is inferred from limited text.")
+    signal.update(
+        {
+            "perception": f"Racio translates a protection signal around: {snippet}",
+            "threat_map": "The exposed point is committing too much before the weak spot is protected.",
+            "loss_map": "Possible losses include stability, trust, time, energy, and room to recover.",
+            "fear_feeling": "A stop-check feeling marks what could become unsafe or irreversible.",
+            "body_alarm": "The alarm reads as pressure to slow down, check exits, and reduce exposure.",
+            "trust_boundary": "Trust stays conditional until the boundary and stop condition are explicit.",
+            "boundary_issue": "The boundary is unclear if the next move cannot be stopped or reversed.",
+            "trust_issue": "Trust is not yet high enough for a large irreversible move.",
+            "attachment_issue": "Attachment may tense if the choice risks closeness, belonging, or continuity.",
+            "attachment_loss": "The signal watches for losing a bond, role, place, or recoverable future.",
+            "scarcity_signal": "Scarcity appears around time, energy, money, support, or safe options.",
+            "scarcity_or_envy": "Scarcity may narrow attention toward what is missing or cannot be replaced.",
+            "flight_or_freeze_signal": "The pressure may delay or shrink the field until safety is named.",
+            "minimum_safety_condition": "Keep the next move bounded, reversible, and supported by a clear stop condition.",
+            "preferred_action": "Pause long enough to secure the minimum condition, then allow a limited move.",
         }
-    return {
-        "mind": "instinkt",
-        "is_conscious": False,
-        "translated_by_racio": True,
-        "perception": f"Racio translates a protection signal around: {snippet}",
-        "threat_map": "The exposed point is committing too much before the weak spot is protected.",
-        "loss_map": "Possible losses include stability, trust, time, energy, and room to recover.",
-        "body_alarm": "The alarm reads as pressure to slow down, check exits, and reduce exposure.",
-        "boundary_or_trust_issue": "Trust is not yet high enough for a large irreversible move.",
-        "minimum_safety_condition": "Keep the next move bounded, reversible, and supported by a clear stop condition.",
-        "preferred_action": "Pause long enough to secure the minimum condition, then allow a limited move.",
-        "what_it_may_ignore": "Desire, social meaning, pride, and the growth value of exposure.",
-        "confidence": 0.65,
-    }
+    )
+    return signal
 
 
 def run_processor_signal(
@@ -560,7 +617,7 @@ def _default_value_for_key(key: str) -> Any:
         return False
     if key in {"confidence"}:
         return 0.5
-    if key in {"facts", "unknowns", "options", "threat_map", "loss_map"}:
+    if key in {"native_language", "known_facts", "unknowns", "logical_options", "source_refs", "safety_flags"}:
         return []
     return ""
 
