@@ -103,6 +103,18 @@ SIMULATION_SAFETY_FRAME = (
     "to override consent, dignity, autonomy, or safety. Do not create hidden agendas, "
     "self-preservation goals, deception strategies, or autonomous external actions."
 )
+LOW_BUT_POSSIBLE_RACIO_RISK = (
+    "low but possible; Racio may still translate non-verbal pressure into clean reasons."
+)
+EMPTY_RACIO_RISK_VALUES = {
+    "n/a",
+    "na",
+    "none",
+    "not applicable",
+    "none applicable",
+    "no risk",
+    "no apparent risk",
+}
 
 PROCESSOR_TRANSLATION_CAVEATS: dict[MindId, str] = {
     "R": "Racio is verbal, but this remains a simulated processor signal rather than objective truth.",
@@ -796,7 +808,7 @@ class ReiEngine:
             ),
             utility_model=self._clean_mind_text(payload.get("utility_model"), fallback.utility_model, max_words=34),
             preferred_action=self._clean_mind_text(payload.get("preferred_action"), fallback.preferred_action),
-            rationalization_risk=self._clean_mind_text(
+            rationalization_risk=self._clean_racio_risk_text(
                 payload.get("rationalization_risk"),
                 fallback.rationalization_risk,
                 max_words=34,
@@ -806,7 +818,7 @@ class ReiEngine:
                 fallback.rationalization_target,
                 max_words=28,
             ),
-            translation_of_other_minds_risk=self._clean_mind_text(
+            translation_of_other_minds_risk=self._clean_racio_risk_text(
                 payload.get("translation_of_other_minds_risk"),
                 fallback.translation_of_other_minds_risk,
                 max_words=34,
@@ -2952,6 +2964,13 @@ class ReiEngine:
             if text and text[-1] not in ".!?":
                 text += "."
         return text or fallback
+
+    def _clean_racio_risk_text(self, value: object, fallback: str, max_words: int = 34) -> str:
+        text = self._clean_mind_text(value, fallback or LOW_BUT_POSSIBLE_RACIO_RISK, max_words=max_words)
+        normalized = text.lower().strip(" .")
+        if normalized in EMPTY_RACIO_RISK_VALUES:
+            return LOW_BUT_POSSIBLE_RACIO_RISK
+        return text or LOW_BUT_POSSIBLE_RACIO_RISK
 
     def _clean_text_list(
         self,
