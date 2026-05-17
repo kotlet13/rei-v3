@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "app" / "backend"))
 
-from rei.acceptance import assess_acceptance
+from rei.acceptance import RETURN_LOOP_WORDS, assess_acceptance
 
 
 class AcceptanceAssessmentTests(unittest.TestCase):
@@ -54,6 +54,48 @@ class AcceptanceAssessmentTests(unittest.TestCase):
         self.assertEqual(assessment.behavioral_alignment, "aligned")
         self.assertEqual(assessment.acceptance_quality, "non_accepting")
         self.assertIn("attachment panic", assessment.non_acceptance_pattern)
+
+    def test_meeting_scenario_does_not_trigger_romantic_return_loop(self) -> None:
+        assessment = assess_acceptance(
+            {
+                "perception": "I do not want to attend the meeting.",
+                "known_facts": ["A meeting is scheduled."],
+                "unknowns": ["agenda", "cost of skipping", "whether a summary is enough"],
+                "logical_options": ["ask for agenda", "decline", "request notes"],
+                "preferred_action": "Ask for the agenda and decide whether attendance is useful.",
+                "primary_motive": "Utility, control, and order.",
+                "accepted_expression": "Clear planning.",
+                "non_accepting_distortion": "Coldness with beautiful-image hope.",
+                "source_refs": ["PSI-R"],
+                "safety_flags": [],
+            },
+            {
+                "perception": "The meeting feels dull and status-loaded.",
+                "current_image": "A person sits unseen in a room.",
+                "desired_image": "Dignity and recognition without losing aliveness.",
+                "broken_image": "Being ignored or made small in the meeting.",
+                "recognition_need": "The signal wants useful recognition, not romantic return.",
+                "preferred_action": "Send a concise contribution without attending the full meeting.",
+                "accepting_expression": "Creativity and social warmth.",
+                "non_accepted_expression": "A beautiful-image hope for being special.",
+            },
+            {
+                "perception": "The meeting raises exposure and boundary pressure.",
+                "threat_map": "Unclear agenda, unwanted demands, and loss of time.",
+                "trust_boundary": "Trust requires a clear agenda and time limit.",
+                "minimum_safety_condition": "Clear agenda, time box, and permission to leave if irrelevant.",
+                "preferred_action": "Do not attend until the boundary and purpose are clear.",
+                "primary_motive": "Protection, survival, attachment, and resources.",
+                "non_accepted_expression": "Fear of being alone in a beautiful return loop.",
+            },
+        )
+
+        self.assertNotEqual(assessment.task_delegation["instinkt_action_tag"], "return")
+        self.assertNotIn("beautiful-image hope", assessment.non_acceptance_pattern)
+        self.assertNotIn("fear of being alone", assessment.sabotage_mechanism)
+
+    def test_return_loop_words_are_not_generic_emotion_terms(self) -> None:
+        self.assertFalse({"panic", "beautiful", "alone"} & RETURN_LOOP_WORDS)
 
     def test_healthy_bounded_action_is_accepting(self) -> None:
         assessment = assess_acceptance(

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from app.backend.rei.contract_loader import (
     build_ego_prompt,
     build_processor_prompt,
@@ -7,6 +9,13 @@ from app.backend.rei.contract_loader import (
     get_processor_contract,
     required_keys_for,
 )
+from app.backend.rei import prompts
+
+
+def _prompt_shape(prompt: str) -> dict[str, object]:
+    blob = prompt.split("Required JSON shape, fill every key:", maxsplit=1)[1].strip()
+    shape, _end = json.JSONDecoder().raw_decode(blob)
+    return shape
 
 
 def test_processor_flags_are_canonical() -> None:
@@ -44,6 +53,32 @@ def test_prompts_preserve_processor_boundaries() -> None:
     assert "image/social/desire signal" in emocio_prompt
     assert "protective/body/fear/loss signal" in instinkt_prompt
     assert "must not claim objective truth" in racio_prompt
+
+
+def test_processor_prompt_skeleton_uses_correct_constants() -> None:
+    expected = {
+        "racio": (True, False, "conscious verbal-analytical interpretation"),
+        "emocio": (False, True, "Racio-translated approximation of unconscious image/social/desire signal"),
+        "instinkt": (False, True, "Racio-translated approximation of unconscious protective/fear/attachment signal"),
+    }
+    for mind, (is_conscious, translated_by_racio, processing_mode) in expected.items():
+        shape = _prompt_shape(build_processor_prompt(mind))  # type: ignore[arg-type]
+        assert shape["mind"] == mind
+        assert shape["is_conscious"] is is_conscious
+        assert shape["translated_by_racio"] is translated_by_racio
+        assert shape["processing_mode"] == processing_mode
+
+
+def test_runtime_prompts_are_compact_not_full() -> None:
+    for prompt in (
+        prompts.RACIO_SYSTEM_PROMPT,
+        prompts.EMOCIO_SYSTEM_PROMPT,
+        prompts.INSTINKT_SYSTEM_PROMPT,
+    ):
+        assert "Canonical acceptance/non-acceptance:" not in prompt
+        assert "Source reference IDs to include in source_refs:" not in prompt
+
+    assert "Canonical acceptance/non-acceptance:" in prompts.RACIO_AUDIT_PROMPT
 
 
 def test_ego_is_not_fourth_mind() -> None:

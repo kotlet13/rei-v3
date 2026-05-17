@@ -18,6 +18,6 @@ app/backend/.venv/
 
 .playwright-cli/
 
-# Keep REI evaluation reports under output/ versioned so model behavior
-# can be compared over time. Dev-server scratch logs stay local.
-output/test-runs/frontend-dev.log
+output/
+*.zip
+rei_v3_next_upgrade_patch_pack/

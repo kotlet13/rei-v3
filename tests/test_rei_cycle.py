@@ -14,7 +14,7 @@ from rei.acceptance import assess_acceptance
 from rei.engine import ReiEngine
 from rei.json_utils import extract_json_object, validate_required_keys
 from rei.knowledge import KnowledgeIndex
-from rei.models import EmocioSignal, InstinktSignal, ProviderSelection, RacioSignal
+from rei.models import EmocioSignal, InstinktSignal, ProviderSelection, RacioSignal, Scenario
 from rei.profiles import profile_weights
 
 
@@ -133,6 +133,44 @@ class ReiCycleTests(unittest.TestCase):
         self.assertTrue(response.signals.racio.is_conscious)
         self.assertIn("likely_action_under_pressure", response.ego_resultant.model_dump())
         self.assertEqual(diagnostics["profile_normalized"], "I>E>R")
+
+    def test_ego_payload_summary_is_compact(self) -> None:
+        engine = ReiEngine(KnowledgeIndex(ROOT / "knowledge" / "rei_knowledge_index.json"))
+        signal = engine._fallback_rei_racio_signal(Scenario(prompt="I do not want to attend the meeting."))
+        full_payload = signal.model_dump(mode="json")
+        summary = engine._ego_signal_summary(signal)
+
+        self.assertLess(len(str(summary)), len(str(full_payload)))
+        self.assertIn("known_facts", summary)
+        self.assertIn("rationalization_risk", summary)
+        for excluded in (
+            "native_language",
+            "source_refs",
+            "safety_flags",
+            "truth_model",
+            "defense_mode",
+            "justice_model",
+            "accepting_expression",
+            "non_accepting_distortion",
+        ):
+            self.assertNotIn(excluded, summary)
+
+    def test_deterministic_meeting_cycle_stays_non_romantic(self) -> None:
+        engine = ReiEngine(KnowledgeIndex(ROOT / "knowledge" / "rei_knowledge_index.json"))
+        response, diagnostics = engine.run_rei_cycle(
+            "I do not want to attend the meeting.",
+            character_profile="R=E=I",
+            provider=ProviderSelection(provider_mode="deterministic", use_llm=False),
+        )
+        serialized = response.model_dump_json()
+
+        self.assertEqual(diagnostics["fallbacks"], [])
+        self.assertTrue(any("agenda" in item and "cost" in item for item in response.signals.racio.unknowns))
+        self.assertIn("recognition", response.signals.emocio_translated.recognition_need.lower())
+        self.assertIn("trust", response.signals.instinkt_translated.trust_boundary.lower())
+        self.assertNotEqual(response.acceptance.task_delegation["instinkt_action_tag"], "return")
+        self.assertNotIn("fear of being alone", serialized)
+        self.assertNotIn("beautiful-image hope", response.acceptance.non_acceptance_pattern)
 
 
 if __name__ == "__main__":

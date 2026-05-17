@@ -17,6 +17,12 @@ _MIND_FLAGS: dict[ProcessorMind, tuple[bool, bool]] = {
     "instinkt": (False, True),
 }
 
+_PROCESSING_MODES: dict[ProcessorMind, str] = {
+    "racio": "conscious verbal-analytical interpretation",
+    "emocio": "Racio-translated approximation of unconscious image/social/desire signal",
+    "instinkt": "Racio-translated approximation of unconscious protective/fear/attachment signal",
+}
+
 
 class ContractError(RuntimeError):
     """Raised when the canonical processor contract file is missing or invalid."""
@@ -101,6 +107,20 @@ def _json_shape(keys: list[str]) -> str:
     return json.dumps({key: _default_shape_value(key) for key in keys}, ensure_ascii=False, indent=2)
 
 
+def _processor_json_shape(mind: ProcessorMind, keys: list[str]) -> str:
+    shape = {key: _default_shape_value(key) for key in keys}
+    is_conscious, translated_by_racio = _MIND_FLAGS[mind]
+    shape.update(
+        {
+            "mind": mind,
+            "is_conscious": is_conscious,
+            "translated_by_racio": translated_by_racio,
+            "processing_mode": _PROCESSING_MODES[mind],
+        }
+    )
+    return json.dumps(shape, ensure_ascii=False, indent=2)
+
+
 def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", path: str | None = None) -> str:
     contract = get_processor_contract(mind, path)
     keys = required_keys_for(mind, path)
@@ -158,7 +178,7 @@ def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", pa
         ", ".join(keys),
         "",
         "Required JSON shape, fill every key:",
-        _json_shape(keys),
+        _processor_json_shape(mind, keys),
     ]
 
     if mode == "full":

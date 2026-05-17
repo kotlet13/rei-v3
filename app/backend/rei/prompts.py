@@ -17,10 +17,14 @@ Do not reveal hidden chain-of-thought. Return concise structured reasoning only.
 Return exactly one JSON object. No markdown. No extra commentary.
 """.strip()
 
-RACIO_SYSTEM_PROMPT = build_processor_prompt("racio", mode="full")
-EMOCIO_SYSTEM_PROMPT = build_processor_prompt("emocio", mode="full")
-INSTINKT_SYSTEM_PROMPT = build_processor_prompt("instinkt", mode="full")
+RACIO_SYSTEM_PROMPT = build_processor_prompt("racio", mode="compact")
+EMOCIO_SYSTEM_PROMPT = build_processor_prompt("emocio", mode="compact")
+INSTINKT_SYSTEM_PROMPT = build_processor_prompt("instinkt", mode="compact")
 EGO_SYSTEM_PROMPT = build_ego_prompt()
+
+RACIO_AUDIT_PROMPT = build_processor_prompt("racio", mode="full")
+EMOCIO_AUDIT_PROMPT = build_processor_prompt("emocio", mode="full")
+INSTINKT_AUDIT_PROMPT = build_processor_prompt("instinkt", mode="full")
 
 RACIO_REQUIRED_KEYS = required_keys_for("racio")
 EMOCIO_REQUIRED_KEYS = required_keys_for("emocio")

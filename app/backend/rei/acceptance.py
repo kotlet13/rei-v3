@@ -120,20 +120,13 @@ FREEZE_WORDS = {
     "izginem",
 }
 RETURN_LOOP_WORDS = {
-    "return",
     "returning",
+    "return to",
+    "go back",
     "one more chance",
-    "beautiful",
     "hurts",
     "painful",
-    "alone",
-    "panic",
-    "vrniti",
-    "lep",
     "boli",
-    "sam",
-    "sama",
-    "panika",
 }
 BOUNDED_ACTION_WORDS = {
     "bounded",
@@ -150,6 +143,40 @@ BOUNDED_ACTION_WORDS = {
     "pilot",
 }
 CONFRONT_WORDS = {"confront", "boundary violation", "honesty", "friend", "soočiti", "soociti", "meja"}
+RETURN_RELATIONSHIP_WORDS = {
+    "relationship",
+    "partner",
+    "ex partner",
+    "ex-partner",
+    "lover",
+    "attachment",
+    "abandonment",
+    "being alone",
+    "alone",
+    "odnos",
+    "navezanost",
+    "zapuščen",
+    "zapuscen",
+}
+SIGNAL_TEXT_IGNORED_FIELDS = {
+    "mind",
+    "is_conscious",
+    "translated_by_racio",
+    "processing_mode",
+    "native_language",
+    "world_filter",
+    "truth_model",
+    "defense_mode",
+    "justice_model",
+    "primary_motive",
+    "accepting_expression",
+    "accepted_expression",
+    "non_accepting_distortion",
+    "non_accepted_expression",
+    "blind_spot",
+    "source_refs",
+    "safety_flags",
+}
 
 
 def _text(*values: Any) -> str:
@@ -170,28 +197,25 @@ def _has_any(text: str, words: set[str]) -> bool:
 
 def _signal_text(signal: dict[str, Any]) -> str:
     return _text(
-        signal.get("preferred_action"),
-        signal.get("known_facts"),
-        signal.get("logical_options"),
-        signal.get("rationalization_risk"),
-        signal.get("unknowns"),
-        signal.get("desired_image"),
-        signal.get("broken_image"),
-        signal.get("pride_or_shame"),
-        signal.get("attack_impulse"),
-        signal.get("threat_map"),
-        signal.get("minimum_safety_condition"),
-        signal.get("flight_or_freeze_signal"),
-        signal.get("attachment_issue"),
-        signal.get("perception"),
-        signal.get("primary_motive"),
-        signal.get("non_accepted_expression"),
+        *(
+            value
+            for key, value in signal.items()
+            if key not in SIGNAL_TEXT_IGNORED_FIELDS
+        )
     )
+
+
+def _has_return_loop_language(text: str, mind: str) -> bool:
+    if not _has_any(text, RETURN_LOOP_WORDS):
+        return False
+    if mind != "instinkt":
+        return True
+    return _has_any(text, RETURN_RELATIONSHIP_WORDS)
 
 
 def infer_action_tag(signal: dict[str, Any], mind: str) -> str:
     text = _signal_text(signal)
-    if _has_any(text, RETURN_LOOP_WORDS):
+    if _has_return_loop_language(text, mind):
         return "return"
     if _has_any(text, FREEZE_WORDS):
         return "withdraw"
@@ -241,7 +265,7 @@ def _acceptance_quality(
     combined_text: str,
     action_tags: dict[str, str],
 ) -> tuple[str, str]:
-    if _has_any(combined_text, RETURN_LOOP_WORDS) and _has_any(combined_text, ATTACHMENT_WORDS):
+    if _has_return_loop_language(combined_text, "emocio") and _has_any(combined_text, ATTACHMENT_WORDS):
         return "non_accepting", "attachment panic + beautiful-image hope + Racio rationalization"
     if _has_any(combined_text, FREEZE_WORDS):
         return "mixed", "body alarm overrides conscious plan"

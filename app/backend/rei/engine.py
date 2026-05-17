@@ -462,14 +462,77 @@ class ReiEngine:
                 return payload
             user = json.dumps(
                 {
-                    "original_payload": user_payload,
                     "previous_invalid_json": payload,
                     "missing_required_keys": last_missing,
-                    "instruction": "Return the same task again as one JSON object with every missing required key present.",
+                    "required_keys": required_keys,
+                    "instruction": "Repair the JSON only. Return one JSON object with every required key present.",
                 },
                 ensure_ascii=False,
             )
         raise ProviderError(f"{label} JSON missing required keys: {', '.join(last_missing)}")
+
+    def _ego_signal_summary(self, signal: Union[RacioSignal, EmocioSignal, InstinktSignal]) -> dict[str, Any]:
+        common: dict[str, Any] = {
+            "mind": signal.mind,
+            "is_conscious": signal.is_conscious,
+            "translated_by_racio": signal.translated_by_racio,
+            "perception": signal.perception,
+            "preferred_action": signal.preferred_action,
+            "resistance_to_other_minds": signal.resistance_to_other_minds,
+            "what_this_mind_needs": signal.what_this_mind_needs,
+            "risk_if_ignored": signal.risk_if_ignored,
+            "risk_if_dominant": signal.risk_if_dominant,
+            "confidence": signal.confidence,
+            "uncertainty": signal.uncertainty,
+        }
+        if isinstance(signal, RacioSignal):
+            common.update(
+                {
+                    "known_facts": signal.known_facts[:4],
+                    "unknowns": signal.unknowns[:4],
+                    "logical_options": signal.logical_options[:4],
+                    "timeline_or_sequence": signal.timeline_or_sequence,
+                    "utility_model": signal.utility_model,
+                    "rationalization_risk": signal.rationalization_risk,
+                    "rationalization_target": signal.rationalization_target,
+                    "translation_of_other_minds_risk": signal.translation_of_other_minds_risk,
+                }
+            )
+        elif isinstance(signal, EmocioSignal):
+            common.update(
+                {
+                    "current_image": signal.current_image,
+                    "desired_image": signal.desired_image,
+                    "broken_image": signal.broken_image,
+                    "social_meaning": signal.social_meaning,
+                    "attraction_or_rejection": signal.attraction_or_rejection,
+                    "pride_or_shame": signal.pride_or_shame,
+                    "recognition_need": signal.recognition_need,
+                    "competition_signal": signal.competition_signal,
+                    "body_expression": signal.body_expression,
+                    "attack_impulse": signal.attack_impulse,
+                    "substitute_solution_risk": signal.substitute_solution_risk,
+                }
+            )
+        else:
+            common.update(
+                {
+                    "threat_map": signal.threat_map,
+                    "loss_map": signal.loss_map,
+                    "fear_feeling": signal.fear_feeling,
+                    "body_alarm": signal.body_alarm,
+                    "trust_boundary": signal.trust_boundary,
+                    "boundary_issue": signal.boundary_issue,
+                    "trust_issue": signal.trust_issue,
+                    "attachment_issue": signal.attachment_issue,
+                    "attachment_loss": signal.attachment_loss,
+                    "scarcity_signal": signal.scarcity_signal,
+                    "scarcity_or_envy": signal.scarcity_or_envy,
+                    "flight_or_freeze_signal": signal.flight_or_freeze_signal,
+                    "minimum_safety_condition": signal.minimum_safety_condition,
+                }
+            )
+        return common
 
     def _llm_rei_signal(
         self,
@@ -533,9 +596,9 @@ class ReiEngine:
             "character_profile": profile,
             "influence_weights": weights,
             "acceptance_assessment": acceptance.model_dump(mode="json"),
-            "racio_signal": racio.model_dump(mode="json"),
-            "emocio_translated_signal": emocio.model_dump(mode="json"),
-            "instinkt_translated_signal": instinkt.model_dump(mode="json"),
+            "racio_signal": self._ego_signal_summary(racio),
+            "emocio_translated_signal": self._ego_signal_summary(emocio),
+            "instinkt_translated_signal": self._ego_signal_summary(instinkt),
             "instruction": (
                 "Return the Ego Resultant, not a fourth mind and not a balanced conclusion. "
                 "Name the likely action, hidden driver, Racio's after-the-fact justification, "
@@ -891,7 +954,7 @@ class ReiEngine:
             social_meaning="The situation carries a visible meaning about value, courage, belonging, or status.",
             attraction_or_rejection="It is pulled toward the image that feels alive and away from the image that feels humiliating.",
             pride_or_shame="Pride wants a scene worth entering; shame fears exposure without recognition.",
-            recognition_need="It wants the action to preserve dignity, visibility, and a sense of being met.",
+            recognition_need="It wants the action to preserve dignity, recognition, visibility, and a sense of being met.",
             competition_signal="A mild pressure appears to prove value or avoid being surpassed.",
             body_expression="The translated signal points toward visible posture, expression, contact, or withdrawal in the scene.",
             attack_impulse="If humiliated, the pressure could turn into sharp defensiveness rather than clean expression.",
@@ -1252,6 +1315,9 @@ class ReiEngine:
 
     def _cycle_missing_information(self, scenario: Scenario) -> list[str]:
         missing = []
+        lower = scenario.prompt.lower()
+        if "meeting" in lower:
+            missing.append("meeting agenda and expected cost of attending or skipping")
         if len(scenario.prompt.split()) < 28:
             missing.append("concrete context and consequences")
         if not self._extract_decision_options(scenario):
