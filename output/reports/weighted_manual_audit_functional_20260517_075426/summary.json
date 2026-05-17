@@ -1,0 +1,352 @@
+{
+  "run_id": "20260517_075426",
+  "model": "granite4.1:30b",
+  "num_ctx": 65536,
+  "num_gpu": 999,
+  "manual_audit": true,
+  "strict_artifacts": true,
+  "strict_weighted": true,
+  "strict_functional": true,
+  "min_functional_presence_rate": 0.8,
+  "min_scenario_grounding_rate": 0.8,
+  "planned_cases": 16,
+  "scenario_ids": [
+    "pure-budget-allocation",
+    "business-runway",
+    "creative-status-risk",
+    "night-door-noise"
+  ],
+  "profiles": [
+    "R",
+    "E",
+    "I",
+    "REI"
+  ],
+  "output_dir": "output/reports/weighted_manual_audit_functional_20260517_075426",
+  "goal_file": "Docs/REI_granite_weighted_short_test_goal_2026-05-16.md",
+  "summary": "output/reports/weighted_manual_audit_functional_20260517_075426/summary.json",
+  "report": "output/reports/weighted_manual_audit_functional_20260517_075426/report.md",
+  "results_jsonl": "output/reports/weighted_manual_audit_functional_20260517_075426/results.jsonl",
+  "progress": "output/reports/weighted_manual_audit_functional_20260517_075426/progress.log",
+  "scenario_plan": "output/reports/weighted_manual_audit_functional_20260517_075426/scenario_plan.json",
+  "started_at": "2026-05-17T07:54:26+02:00",
+  "elapsed_seconds": 876.903,
+  "status": "failed_strict_checks",
+  "completed_cases": 16,
+  "error_count": 0,
+  "tilt_counts": {
+    "E": 6,
+    "I": 4,
+    "R": 6
+  },
+  "underrepresented_counts": {
+    "E": 6,
+    "I": 8,
+    "R": 2
+  },
+  "profile_top_match": {
+    "matched": 16,
+    "total": 16,
+    "rate": 1.0
+  },
+  "scenario_profile_match": {
+    "business-runway": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "creative-status-risk": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "night-door-noise": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "pure-budget-allocation": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    }
+  },
+  "profile_match": {
+    "E": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "I": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "R": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "REI": {
+      "matched": 4,
+      "total": 4,
+      "rate": 1.0
+    }
+  },
+  "decision_validity": {
+    "valid": 14,
+    "invalid": 2,
+    "rate": 0.875
+  },
+  "weighted_integrity": {
+    "all_cases_have_three_contributions": true,
+    "ranking_mismatch_count": 0,
+    "tilt_mismatch_count": 0,
+    "bad_sum_count": 0,
+    "missing_weighted_field_count": 0
+  },
+  "functional_presence_summary": {
+    "all_three_functionally_present": 0,
+    "total": 16,
+    "rate": 0.0,
+    "average_functional_presence_score": 0.117,
+    "per_mind_average_score": {
+      "R": 0.15,
+      "E": 0.062,
+      "I": 0.138
+    },
+    "role_name_only_warning_count": 0,
+    "generic_role_listing_warning_count": 0,
+    "low_scenario_grounding_warning_count": 9,
+    "scenario_grounding_pass": 7,
+    "scenario_grounding_rate": 0.438
+  },
+  "weighted_compromise_quality_counts": {
+    "good": 0,
+    "partial": 1,
+    "weak": 15,
+    "unknown": 0
+  },
+  "stock_phrase_diagnostics": {
+    "phrases": [
+      {
+        "phrase": "reversible",
+        "count": 16,
+        "case_ids": [
+          "001",
+          "002",
+          "003",
+          "004",
+          "005",
+          "006",
+          "007",
+          "008",
+          "009",
+          "010",
+          "011",
+          "012",
+          "013",
+          "014",
+          "015",
+          "016"
+        ],
+        "scenarios": {
+          "pure-budget-allocation": 4,
+          "business-runway": 4,
+          "creative-status-risk": 4,
+          "night-door-noise": 4
+        },
+        "profiles": {
+          "R": 4,
+          "E": 4,
+          "I": 4,
+          "REI": 4
+        }
+      },
+      {
+        "phrase": "blocked",
+        "count": 25,
+        "case_ids": [
+          "001",
+          "002",
+          "003",
+          "004",
+          "005",
+          "006",
+          "007",
+          "008",
+          "009",
+          "010",
+          "011",
+          "012",
+          "013",
+          "014",
+          "015",
+          "016"
+        ],
+        "scenarios": {
+          "pure-budget-allocation": 4,
+          "business-runway": 8,
+          "creative-status-risk": 4,
+          "night-door-noise": 9
+        },
+        "profiles": {
+          "R": 5,
+          "E": 6,
+          "I": 8,
+          "REI": 6
+        }
+      }
+    ],
+    "stock_phrase_density": 2.562,
+    "density_warning": true,
+    "worst_repetition_cases": [
+      {
+        "case_id": "007",
+        "scenario_id": "business-runway",
+        "profile": "I",
+        "count": 4,
+        "hits": {
+          "blocked": 3,
+          "reversible": 1
+        }
+      },
+      {
+        "case_id": "015",
+        "scenario_id": "night-door-noise",
+        "profile": "I",
+        "count": 4,
+        "hits": {
+          "blocked": 3,
+          "reversible": 1
+        }
+      },
+      {
+        "case_id": "006",
+        "scenario_id": "business-runway",
+        "profile": "E",
+        "count": 3,
+        "hits": {
+          "blocked": 2,
+          "reversible": 1
+        }
+      },
+      {
+        "case_id": "008",
+        "scenario_id": "business-runway",
+        "profile": "REI",
+        "count": 3,
+        "hits": {
+          "blocked": 2,
+          "reversible": 1
+        }
+      },
+      {
+        "case_id": "013",
+        "scenario_id": "night-door-noise",
+        "profile": "R",
+        "count": 3,
+        "hits": {
+          "blocked": 2,
+          "reversible": 1
+        }
+      }
+    ]
+  },
+  "rei_thirteenth_character_audit": {
+    "rows": [
+      {
+        "case_id": "004",
+        "scenario_id": "pure-budget-allocation",
+        "synthesis_tilt": "R",
+        "rei_two_of_three_explanation_present": true,
+        "rei_majority_pair": [
+          "R",
+          "E"
+        ],
+        "rei_minority_objection": "I",
+        "rei_top_two_gap": 0.024,
+        "rei_top_two_close": true,
+        "rei_minority_objection_visible": true,
+        "rei_arbitrary_tilt_warning": false
+      },
+      {
+        "case_id": "008",
+        "scenario_id": "business-runway",
+        "synthesis_tilt": "E",
+        "rei_two_of_three_explanation_present": false,
+        "rei_majority_pair": [
+          "E",
+          "I"
+        ],
+        "rei_minority_objection": "R",
+        "rei_top_two_gap": 0.015,
+        "rei_top_two_close": true,
+        "rei_minority_objection_visible": false,
+        "rei_arbitrary_tilt_warning": true
+      },
+      {
+        "case_id": "012",
+        "scenario_id": "creative-status-risk",
+        "synthesis_tilt": "R",
+        "rei_two_of_three_explanation_present": false,
+        "rei_majority_pair": [
+          "E",
+          "I"
+        ],
+        "rei_minority_objection": "R",
+        "rei_top_two_gap": 0.024,
+        "rei_top_two_close": true,
+        "rei_minority_objection_visible": false,
+        "rei_arbitrary_tilt_warning": true
+      },
+      {
+        "case_id": "016",
+        "scenario_id": "night-door-noise",
+        "synthesis_tilt": "E",
+        "rei_two_of_three_explanation_present": true,
+        "rei_majority_pair": [
+          "R",
+          "E"
+        ],
+        "rei_minority_objection": "I",
+        "rei_top_two_gap": 0.015,
+        "rei_top_two_close": true,
+        "rei_minority_objection_visible": true,
+        "rei_arbitrary_tilt_warning": false
+      }
+    ],
+    "arbitrary_tilt_warning_count": 2
+  },
+  "model_interpretation": {
+    "role": "quality_anchor",
+    "small_model_readiness": false,
+    "notes": "Granite 30B is used to reduce model weakness as a confounder."
+  },
+  "average_missing_mind_count": 2.625,
+  "missing_final_monologue_count": 0,
+  "artifact_integrity": {
+    "results_jsonl_exists": true,
+    "results_jsonl_lines": 16,
+    "expected_jsonl_lines": 16,
+    "results_jsonl_complete": true,
+    "report_exists": true,
+    "summary_exists": true,
+    "progress_exists": true,
+    "scenario_plan_exists": true
+  },
+  "warnings": [
+    "PROFILE_TOP_MATCH_MECHANICAL",
+    "STOCK_PHRASE_DENSITY_HIGH",
+    "REI_ARBITRARY_TILT",
+    "FUNCTIONAL_MIND_PRESENCE_LOW",
+    "LOW_SCENARIO_GROUNDING",
+    "WEIGHTED_COMPROMISE_QUALITY_LOW"
+  ],
+  "finished_at": "2026-05-17T08:09:03+02:00",
+  "strict_violations": [
+    "functional mind presence rate 0.0 is below 0.8",
+    "scenario grounding rate 0.438 is below 0.8",
+    "weak weighted compromise quality exists"
+  ]
+}

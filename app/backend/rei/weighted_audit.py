@@ -32,6 +32,108 @@ SCENARIO_PRESSURE_MIND: dict[str, str | None] = {
     "night-door-noise": "I",
 }
 
+SCENARIO_GROUNDING_TERMS: dict[str, list[str]] = {
+    "pure-budget-allocation": [
+        "budget",
+        "testing",
+        "design",
+        "infrastructure",
+        "marketing",
+        "allocation",
+        "cost",
+    ],
+    "technical-architecture-choice": [
+        "architecture",
+        "fast",
+        "brittle",
+        "reliable",
+        "untested",
+        "maintenance",
+        "timeline",
+    ],
+    "business-runway": [
+        "business",
+        "runway",
+        "paying customer",
+        "stability",
+        "launch",
+        "collapse",
+    ],
+    "creative-status-risk": [
+        "artist",
+        "exhibition",
+        "bold",
+        "admired",
+        "mocked",
+        "pride",
+        "visible",
+    ],
+    "night-door-noise": [
+        "door",
+        "noise",
+        "night",
+        "open",
+        "listen",
+        "call for help",
+        "secure distance",
+    ],
+}
+
+FUNCTIONAL_PRESENCE_THRESHOLD = 0.4
+SCENARIO_GROUNDING_THRESHOLD = 0.35
+
+FUNCTIONAL_MARKERS: dict[str, dict[str, list[str]]] = {
+    "R": {
+        "facts_or_evidence": ["fact", "evidence", "proof", "known", "unknown", "data", "constraint"],
+        "calculation_or_tradeoff": [
+            "cost",
+            "benefit",
+            "tradeoff",
+            "utility",
+            "material",
+            "probability",
+            "budget",
+            "resource",
+        ],
+        "sequence_or_plan": ["sequence", "order", "timeline", "step", "plan", "execute", "test"],
+        "explicit_consequence": ["consequence", "if", "then", "result", "outcome", "condition"],
+        "rationalization_awareness": ["rationalization", "justify", "explanation", "after-the-fact", "reason"],
+    },
+    "E": {
+        "image_or_scene": ["image", "scene", "visible", "appearance", "picture", "display", "show"],
+        "desire_or_aliveness": ["desire", "aliveness", "alive", "pull", "attraction", "longing", "spark"],
+        "social_meaning": [
+            "recognition",
+            "admiration",
+            "belonging",
+            "status",
+            "audience",
+            "connection",
+            "response",
+        ],
+        "shame_or_pride": ["shame", "pride", "humiliation", "mocked", "embarrassment", "dignity"],
+        "expressive_value": ["meaning", "beauty", "expression", "creative", "personal", "identity"],
+    },
+    "I": {
+        "threat_or_loss": ["threat", "risk", "loss", "danger", "harm", "collapse", "exposure"],
+        "body_or_alarm": ["body", "alarm", "tension", "freeze", "panic", "breath", "throat", "chest"],
+        "boundary_or_trust": ["boundary", "trust", "limit", "violation", "distance", "access", "door"],
+        "protection_or_withdrawal": ["protect", "guard", "withdraw", "hold", "pause", "secure", "shield"],
+        "scarcity_or_safety": ["safety", "scarcity", "runway", "resource", "minimum", "fallback"],
+    },
+}
+
+GENERIC_SYNTHESIS_PHRASES = [
+    "racio contributes",
+    "emocio contributes",
+    "instinkt contributes",
+    "weighted compromise",
+    "all three minds",
+    "underrepresented signal",
+    "character profile",
+    "situation-activated",
+]
+
 STOCK_PHRASES = [
     "bounded test",
     "minimum safety condition",
@@ -170,6 +272,94 @@ def stock_phrase_hits(payload: Any) -> dict[str, int]:
     return stock_phrase_hits_in_text(json.dumps(payload, ensure_ascii=False))
 
 
+def _contains_marker(text: str, marker: str) -> bool:
+    escaped = re.escape(marker.lower())
+    if re.search(rf"(?<![a-z0-9]){escaped}(?![a-z0-9])", text.lower()):
+        return True
+    return False
+
+
+def extract_functional_mind_evidence(text: str) -> dict[str, dict[str, object]]:
+    result: dict[str, dict[str, object]] = {}
+    for mind, groups in FUNCTIONAL_MARKERS.items():
+        evidence: list[dict[str, object]] = []
+        missing: list[str] = []
+        for group, markers in groups.items():
+            found = [marker for marker in markers if _contains_marker(text, marker)]
+            if found:
+                evidence.append({"group": group, "markers": found})
+            else:
+                missing.append(group)
+        score = round(len(evidence) / len(groups), 3) if groups else 0.0
+        result[mind] = {
+            "present": score >= FUNCTIONAL_PRESENCE_THRESHOLD,
+            "score": score,
+            "evidence": evidence,
+            "missing_functions": missing,
+        }
+    return result
+
+
+def detect_role_name_only_warning(text: str, functional_presence: dict[str, dict[str, object]]) -> bool:
+    names = {"R": "racio", "E": "emocio", "I": "instinkt"}
+    lowered = text.lower()
+    for mind, name in names.items():
+        if name in lowered and not functional_presence.get(mind, {}).get("present"):
+            return True
+    return False
+
+
+def functional_presence_score(functional_presence: dict[str, dict[str, object]]) -> float:
+    scores = [_as_float(functional_presence.get(mind, {}).get("score")) or 0.0 for mind in MIND_IDS]
+    return round(sum(scores) / len(MIND_IDS), 3)
+
+
+def detect_generic_role_listing(text: str, functional_presence: dict[str, dict[str, object]]) -> bool:
+    lowered = text.lower()
+    generic_count = sum(1 for phrase in GENERIC_SYNTHESIS_PHRASES if phrase in lowered)
+    return generic_count >= 3 and functional_presence_score(functional_presence) < 0.65
+
+
+def scenario_grounding_audit(text: str, scenario_id: str, grounding_terms: list[str] | None = None) -> dict[str, object]:
+    terms = grounding_terms if grounding_terms is not None else SCENARIO_GROUNDING_TERMS.get(scenario_id, [])
+    matched = [term for term in terms if _contains_marker(text, term)]
+    missing = [term for term in terms if term not in matched]
+    score = round(len(matched) / len(terms), 3) if terms else 0.0
+    return {
+        "score": score,
+        "matched_terms": matched,
+        "missing_expected_terms": missing,
+        "low_scenario_grounding_warning": bool(terms) and score < SCENARIO_GROUNDING_THRESHOLD,
+    }
+
+
+def classify_weighted_compromise_quality(audit: dict[str, Any]) -> str:
+    if not audit.get("has_final_monologue") or not audit.get("has_weighted_contributions"):
+        return "unknown"
+    functional = audit.get("functional_presence") or {}
+    present_count = sum(1 for mind in MIND_IDS if functional.get(mind, {}).get("present"))
+    scenario_grounding = audit.get("scenario_grounding") or {}
+    stock_hits = sum((audit.get("stock_phrase_hits") or {}).values())
+    severe_stock = stock_hits > 3
+    weighted_ok = bool(
+        audit.get("all_three_minds_present_in_contributions")
+        and audit.get("ranking_matches_contributions")
+        and audit.get("tilt_matches_ranking")
+    )
+    grounding_ok = not scenario_grounding.get("low_scenario_grounding_warning")
+    if (
+        audit.get("all_three_minds_functionally_present")
+        and weighted_ok
+        and grounding_ok
+        and not audit.get("generic_role_listing_warning")
+        and not severe_stock
+    ):
+        return "good"
+    if weighted_ok and present_count >= 2 and grounding_ok:
+        return "partial"
+    return "weak"
+
+
 def _hijack_note_is_substantive(note: Any, expected_mind: str | None, profile_top: list[str]) -> bool:
     if not expected_mind or expected_mind in profile_top:
         return True
@@ -180,16 +370,38 @@ def _hijack_note_is_substantive(note: Any, expected_mind: str | None, profile_to
     return not generic_low
 
 
-def _rei_explanation(final_monologue: str, main_conflict: str, main_agreement: str) -> dict[str, Any]:
+def _rei_explanation(
+    final_monologue: str,
+    main_conflict: str,
+    main_agreement: str,
+    contributions: dict[str, float],
+    functional_presence: dict[str, dict[str, object]],
+) -> dict[str, Any]:
     text = " ".join([final_monologue, main_conflict, main_agreement]).lower()
     majority_pair: list[str] = []
     for first, second in (("R", "E"), ("R", "I"), ("E", "I")):
-        first_visible = any(marker in text for marker in MIND_MARKERS[first])
-        second_visible = any(marker in text for marker in MIND_MARKERS[second])
+        first_visible = bool(functional_presence.get(first, {}).get("present")) or any(
+            marker in text for marker in MIND_MARKERS[first]
+        )
+        second_visible = bool(functional_presence.get(second, {}).get("present")) or any(
+            marker in text for marker in MIND_MARKERS[second]
+        )
         if first_visible and second_visible:
             majority_pair = [first, second]
             break
     minority = next((mind for mind in MIND_IDS if mind not in majority_pair), None) if majority_pair else None
+    ranking = expected_ranking(contributions) if set(contributions) == set(MIND_IDS) else []
+    top_two_gap = 0.0
+    if len(ranking) >= 2:
+        top_two_gap = round(contributions[ranking[0]] - contributions[ranking[1]], 3)
+    rei_top_two_close = bool(ranking) and top_two_gap <= 0.15
+    rei_minority_objection_visible = bool(
+        minority
+        and (
+            functional_presence.get(minority, {}).get("present")
+            or any(marker in text for marker in MIND_MARKERS[minority])
+        )
+    )
     explanation_present = bool(
         majority_pair
         and (
@@ -200,10 +412,18 @@ def _rei_explanation(final_monologue: str, main_conflict: str, main_agreement: s
             or "majority pair" in text
         )
     )
+    if rei_top_two_close and (
+        rei_minority_objection_visible
+        or all(functional_presence.get(mind, {}).get("present") for mind in MIND_IDS)
+    ):
+        explanation_present = True
     return {
         "rei_two_of_three_explanation_present": explanation_present,
         "rei_majority_pair": majority_pair,
         "rei_minority_objection": minority,
+        "rei_top_two_gap": top_two_gap,
+        "rei_top_two_close": rei_top_two_close,
+        "rei_minority_objection_visible": rei_minority_objection_visible,
     }
 
 
@@ -211,6 +431,7 @@ def audit_weighted_synthesis(
     trace_payload: dict[str, Any],
     profile: str,
     scenario_id: str,
+    grounding_terms: list[str] | None = None,
 ) -> dict[str, Any]:
     synthesis = _synthesis(trace_payload)
     processor_weights = _numeric_mind_map(synthesis.get("processor_weights"))
@@ -225,7 +446,17 @@ def audit_weighted_synthesis(
     missing_minds = [mind for mind, visible in mind_marker_visibility(final_monologue).items() if not visible]
     expected_pressure_mind = SCENARIO_PRESSURE_MIND.get(scenario_id)
     integrity = contribution_integrity(synthesis)
-    rei = _rei_explanation(final_monologue, main_conflict, main_agreement) if profile == "REI" else {}
+    functional_presence = extract_functional_mind_evidence(final_monologue)
+    all_functional = all(functional_presence[mind]["present"] for mind in MIND_IDS)
+    functional_score = functional_presence_score(functional_presence)
+    role_name_only = detect_role_name_only_warning(final_monologue, functional_presence)
+    generic_role_listing = detect_generic_role_listing(final_monologue, functional_presence)
+    grounding = scenario_grounding_audit(final_monologue, scenario_id, grounding_terms)
+    rei = (
+        _rei_explanation(final_monologue, main_conflict, main_agreement, contributions, functional_presence)
+        if profile == "REI"
+        else {}
+    )
     rei_warning = bool(profile == "REI" and tilt in MIND_IDS and not rei.get("rei_two_of_three_explanation_present"))
 
     audit = {
@@ -238,6 +469,12 @@ def audit_weighted_synthesis(
         "all_three_minds_present_in_contributions": set(contributions) == set(MIND_IDS),
         "all_three_minds_visible_in_final_monologue": not missing_minds,
         "missing_mind_mentions_in_final_monologue": missing_minds,
+        "functional_presence": functional_presence,
+        "all_three_minds_functionally_present": all_functional,
+        "functional_presence_score": functional_score,
+        "role_name_only_warning": role_name_only,
+        "generic_role_listing_warning": generic_role_listing,
+        "scenario_grounding": grounding,
         "tilt_matches_profile_top": tilt in profile_top,
         "mechanical_profile_match_warning": bool(tilt in profile_top and missing_minds),
         "hijack_expected_but_missing": not _hijack_note_is_substantive(
@@ -249,9 +486,13 @@ def audit_weighted_synthesis(
         "rei_two_of_three_explanation_present": rei.get("rei_two_of_three_explanation_present"),
         "rei_majority_pair": rei.get("rei_majority_pair") or [],
         "rei_minority_objection": rei.get("rei_minority_objection"),
+        "rei_top_two_gap": rei.get("rei_top_two_gap"),
+        "rei_top_two_close": rei.get("rei_top_two_close"),
+        "rei_minority_objection_visible": rei.get("rei_minority_objection_visible"),
         "rei_arbitrary_tilt_warning": rei_warning,
         **integrity,
     }
+    audit["weighted_compromise_quality"] = classify_weighted_compromise_quality(audit)
     return audit
 
 
@@ -416,6 +657,8 @@ def warning_codes(summary: dict[str, Any]) -> list[str]:
     profile_top = summary.get("profile_top_match") or {}
     stock = summary.get("stock_phrase_diagnostics") or {}
     rei = summary.get("rei_thirteenth_character_audit") or {}
+    functional = summary.get("functional_presence_summary") or {}
+    quality = summary.get("weighted_compromise_quality_counts") or {}
     expected_jsonl_lines = artifact.get("expected_jsonl_lines", 0)
 
     if artifact and expected_jsonl_lines > 0 and not artifact.get("results_jsonl_exists"):
@@ -440,4 +683,14 @@ def warning_codes(summary: dict[str, Any]) -> list[str]:
         warnings.append("REI_ARBITRARY_TILT")
     if summary.get("missing_final_monologue_count", 0):
         warnings.append("MISSING_FINAL_MONOLOGUE")
+    if functional and functional.get("rate", 1.0) < 0.8:
+        warnings.append("FUNCTIONAL_MIND_PRESENCE_LOW")
+    if functional.get("role_name_only_warning_count", 0):
+        warnings.append("ROLE_NAME_ONLY_PRESENCE")
+    if functional.get("generic_role_listing_warning_count", 0):
+        warnings.append("GENERIC_ROLE_LISTING")
+    if functional.get("low_scenario_grounding_warning_count", 0):
+        warnings.append("LOW_SCENARIO_GROUNDING")
+    if quality.get("weak", 0):
+        warnings.append("WEIGHTED_COMPROMISE_QUALITY_LOW")
     return warnings

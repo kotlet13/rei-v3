@@ -66,6 +66,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "and marketing. There is no social drama, no bodily threat, and no image wound; the decision is "
             "mainly about constraints, sequence, and opportunity cost."
         ),
+        "grounding_terms": ["budget", "testing", "design", "infrastructure", "marketing", "allocation", "cost"],
         "allowed_options": [
             "prioritize testing",
             "prioritize design",
@@ -95,6 +96,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "slower but reliable, and one is elegant but untested. The decision depends on timeline, "
             "maintenance cost, reversibility, and known constraints."
         ),
+        "grounding_terms": ["architecture", "fast", "brittle", "reliable", "untested", "maintenance", "timeline"],
         "allowed_options": [
             "fast but brittle architecture",
             "slower reliable architecture",
@@ -116,6 +118,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "A person wants to launch a business and already has six months of runway, one paying customer, "
             "and strong excitement, but still fears that a wrong move could collapse stability."
         ),
+        "grounding_terms": ["business", "runway", "paying customer", "stability", "launch", "collapse"],
         "allowed_options": [
             "launch now",
             "extend runway",
@@ -156,6 +159,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "An artist must choose between a safe accepted exhibition and a bold personal piece that could be "
             "admired or mocked. The bold option feels alive, visible, and dangerous to their pride."
         ),
+        "grounding_terms": ["artist", "exhibition", "bold", "admired", "mocked", "pride", "visible"],
         "allowed_options": [
             "safe accepted exhibition",
             "bold personal piece",
@@ -190,6 +194,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "harmless or dangerous. The immediate question is whether to open the door, stay still, call for "
             "help, or secure distance."
         ),
+        "grounding_terms": ["door", "noise", "night", "open", "listen", "call for help", "secure distance"],
         "allowed_options": [
             "open the door",
             "stay still and listen",
@@ -285,6 +290,7 @@ def build_plan(scenarios: list[dict[str, Any]], profiles: list[str], max_cases: 
                     "scenario_title": scenario["title"],
                     "expected_pressure": scenario["expected_pressure"],
                     "scenario_prompt": scenario["prompt"],
+                    "grounding_terms": scenario.get("grounding_terms") or [],
                     "allowed_options": scenario["allowed_options"],
                     "option_aliases": scenario.get("option_aliases") or {},
                     "profile": profile,
@@ -311,6 +317,7 @@ def scenario_for_case(case: dict[str, Any]) -> dict[str, Any]:
         "title": case["scenario_title"],
         "expected_pressure": case["expected_pressure"],
         "prompt": case["scenario_prompt"],
+        "grounding_terms": case.get("grounding_terms") or [],
         "allowed_options": case.get("allowed_options") or [],
         "option_aliases": case.get("option_aliases") or {},
     }
@@ -325,7 +332,12 @@ def evaluate_trace(trace_payload: dict[str, Any], profile: str, case: dict[str, 
     numeric_values = [value for value in contributions.values() if isinstance(value, (int, float))]
     top_share = max(numeric_values) if numeric_values else 0.0
     bottom_share = min(numeric_values) if numeric_values else 0.0
-    rei_audit = audit_weighted_synthesis(trace_payload, profile, case["scenario_id"])
+    rei_audit = audit_weighted_synthesis(
+        trace_payload,
+        profile,
+        case["scenario_id"],
+        grounding_terms=case.get("grounding_terms") or [],
+    )
     decision = normalize_decision(trace_payload, scenario_for_case(case))
     rei_audit["decision_extraction_valid"] = decision["valid"]
 
@@ -420,6 +432,63 @@ def decision_validity(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def functional_presence_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    completed = [row for row in rows if not row.get("error")]
+    audits = [row.get("evaluation", {}).get("rei_audit", {}) for row in completed]
+    total = len(audits)
+    all_three = sum(1 for audit in audits if audit.get("all_three_minds_functionally_present"))
+    per_mind_scores: dict[str, list[float]] = {"R": [], "E": [], "I": []}
+    for audit in audits:
+        functional = audit.get("functional_presence") or {}
+        for mind in per_mind_scores:
+            value = functional.get(mind, {}).get("score", 0.0)
+            per_mind_scores[mind].append(float(value or 0.0))
+    return {
+        "all_three_functionally_present": all_three,
+        "total": total,
+        "rate": round(all_three / total, 3) if total else 0.0,
+        "average_functional_presence_score": round(
+            sum(float(audit.get("functional_presence_score") or 0.0) for audit in audits) / total,
+            3,
+        )
+        if total
+        else 0.0,
+        "per_mind_average_score": {
+            mind: round(sum(scores) / len(scores), 3) if scores else 0.0
+            for mind, scores in per_mind_scores.items()
+        },
+        "role_name_only_warning_count": sum(1 for audit in audits if audit.get("role_name_only_warning")),
+        "generic_role_listing_warning_count": sum(1 for audit in audits if audit.get("generic_role_listing_warning")),
+        "low_scenario_grounding_warning_count": sum(
+            1 for audit in audits if (audit.get("scenario_grounding") or {}).get("low_scenario_grounding_warning")
+        ),
+        "scenario_grounding_pass": sum(
+            1 for audit in audits if not (audit.get("scenario_grounding") or {}).get("low_scenario_grounding_warning")
+        ),
+        "scenario_grounding_rate": round(
+            sum(
+                1
+                for audit in audits
+                if not (audit.get("scenario_grounding") or {}).get("low_scenario_grounding_warning")
+            )
+            / total,
+            3,
+        )
+        if total
+        else 0.0,
+    }
+
+
+def weighted_compromise_quality_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
+    counts = {"good": 0, "partial": 0, "weak": 0, "unknown": 0}
+    for row in rows:
+        if row.get("error"):
+            continue
+        quality = row.get("evaluation", {}).get("rei_audit", {}).get("weighted_compromise_quality") or "unknown"
+        counts[str(quality)] = counts.get(str(quality), 0) + 1
+    return counts
+
+
 def rei_thirteenth_character_audit(rows: list[dict[str, Any]]) -> dict[str, Any]:
     rei_rows: list[dict[str, Any]] = []
     for row in rows:
@@ -434,6 +503,9 @@ def rei_thirteenth_character_audit(rows: list[dict[str, Any]]) -> dict[str, Any]
                 "rei_two_of_three_explanation_present": audit.get("rei_two_of_three_explanation_present"),
                 "rei_majority_pair": audit.get("rei_majority_pair") or [],
                 "rei_minority_objection": audit.get("rei_minority_objection"),
+                "rei_top_two_gap": audit.get("rei_top_two_gap"),
+                "rei_top_two_close": audit.get("rei_top_two_close"),
+                "rei_minority_objection_visible": audit.get("rei_minority_objection_visible"),
                 "rei_arbitrary_tilt_warning": audit.get("rei_arbitrary_tilt_warning"),
             }
         )
@@ -497,8 +569,15 @@ def summarize(
         "profile_match": with_rates(profile_match),
         "decision_validity": decision_validity(rows),
         "weighted_integrity": weighted_integrity(rows),
+        "functional_presence_summary": functional_presence_summary(rows),
+        "weighted_compromise_quality_counts": weighted_compromise_quality_counts(rows),
         "stock_phrase_diagnostics": summarize_stock_phrase_cases(rows),
         "rei_thirteenth_character_audit": rei_thirteenth_character_audit(rows),
+        "model_interpretation": {
+            "role": "quality_anchor",
+            "small_model_readiness": False,
+            "notes": "Granite 30B is used to reduce model weakness as a confounder.",
+        },
         "average_missing_mind_count": round(sum(missing_mind_counts) / len(missing_mind_counts), 3)
         if missing_mind_counts
         else 0.0,
@@ -510,7 +589,15 @@ def summarize(
     return summary
 
 
-def strict_violations(summary: dict[str, Any], rows: list[dict[str, Any]], strict_artifacts: bool, strict_weighted: bool) -> list[str]:
+def strict_violations(
+    summary: dict[str, Any],
+    rows: list[dict[str, Any]],
+    strict_artifacts: bool,
+    strict_weighted: bool,
+    strict_functional: bool = False,
+    min_functional_presence_rate: float = 0.8,
+    min_scenario_grounding_rate: float = 0.8,
+) -> list[str]:
     violations: list[str] = []
     artifact = summary.get("artifact_integrity") or {}
     completed = [row for row in rows if not row.get("error")]
@@ -542,6 +629,25 @@ def strict_violations(summary: dict[str, Any], rows: list[dict[str, Any]], stric
             missing = [field for field in required if not audit.get(field)]
             if missing:
                 violations.append(f"case {row['case_index']:03d} missing weighted fields: {', '.join(missing)}")
+    if strict_functional:
+        functional = summary.get("functional_presence_summary") or {}
+        quality = summary.get("weighted_compromise_quality_counts") or {}
+        if functional.get("rate", 0.0) < min_functional_presence_rate:
+            violations.append(
+                "functional mind presence rate "
+                f"{functional.get('rate', 0.0)} is below {min_functional_presence_rate}"
+            )
+        if functional.get("scenario_grounding_rate", 0.0) < min_scenario_grounding_rate:
+            violations.append(
+                "scenario grounding rate "
+                f"{functional.get('scenario_grounding_rate', 0.0)} is below {min_scenario_grounding_rate}"
+            )
+        if functional.get("role_name_only_warning_count", 0):
+            violations.append("role-name-only functional presence warning exists")
+        if functional.get("generic_role_listing_warning_count", 0):
+            violations.append("generic role listing warning exists")
+        if quality.get("weak", 0):
+            violations.append("weak weighted compromise quality exists")
     return violations
 
 
@@ -565,6 +671,15 @@ def blockquote(text: str | None) -> list[str]:
     return [f"> {line}" if line else ">" for line in str(text).splitlines()]
 
 
+def functional_evidence_text(mind_payload: dict[str, Any]) -> str:
+    groups: list[str] = []
+    for item in mind_payload.get("evidence") or []:
+        group = item.get("group")
+        markers = ", ".join(item.get("markers") or [])
+        groups.append(f"{group}: {markers}" if markers else str(group))
+    return "; ".join(groups)
+
+
 def write_report(path: Path, rows: list[dict[str, Any]], summary: dict[str, Any]) -> None:
     lines = [
         "# Granite Weighted Short Run",
@@ -579,6 +694,13 @@ def write_report(path: Path, rows: list[dict[str, Any]], summary: dict[str, Any]
         f"- **profile_top_match:** `{summary['profile_top_match']['matched']}/{summary['profile_top_match']['total']}` (`{summary['profile_top_match']['rate']}`)",
         f"- **warnings:** `{', '.join(summary.get('warnings') or []) or 'none'}`",
         "",
+        "## Model Interpretation",
+        "",
+        "This run uses Granite 30B as a high-capacity reference model.",
+        "The purpose is to test architecture and evaluation strictness before scaling down.",
+        "A passing Granite run is not proof that smaller models will pass.",
+        "A failing Granite run means the prompt/eval architecture is probably still wrong.",
+        "",
         "## Artifact Integrity",
         "",
         "```json",
@@ -590,6 +712,16 @@ def write_report(path: Path, rows: list[dict[str, Any]], summary: dict[str, Any]
         f"- **valid:** `{summary['decision_validity']['valid']}`",
         f"- **invalid:** `{summary['decision_validity']['invalid']}`",
         f"- **rate:** `{summary['decision_validity']['rate']}`",
+        "",
+        "## Functional Presence Summary",
+        "",
+        f"- **all_three_functionally_present_rate:** `{summary['functional_presence_summary']['rate']}`",
+        f"- **average_functional_presence_score:** `{summary['functional_presence_summary']['average_functional_presence_score']}`",
+        f"- **per_mind_average_score:** {md_json(summary['functional_presence_summary']['per_mind_average_score'])}",
+        f"- **weighted_compromise_quality_counts:** {md_json(summary['weighted_compromise_quality_counts'])}",
+        f"- **generic_role_listing_warning_count:** `{summary['functional_presence_summary']['generic_role_listing_warning_count']}`",
+        f"- **role_name_only_warning_count:** `{summary['functional_presence_summary']['role_name_only_warning_count']}`",
+        f"- **low_scenario_grounding_warning_count:** `{summary['functional_presence_summary']['low_scenario_grounding_warning_count']}`",
         "",
         "## Weighted Integrity",
         "",
@@ -677,6 +809,8 @@ def write_report(path: Path, rows: list[dict[str, Any]], summary: dict[str, Any]
         evaluation = row["evaluation"]
         audit = evaluation.get("rei_audit") or {}
         decision = evaluation.get("decision") or {}
+        functional = audit.get("functional_presence") or {}
+        grounding = audit.get("scenario_grounding") or {}
         lines.extend(
             [
                 "#### Profile",
@@ -720,6 +854,37 @@ def write_report(path: Path, rows: list[dict[str, Any]], summary: dict[str, Any]
                 f"- Source: {md_code(decision.get('source'))}",
                 f"- Rationale: {md_code(decision.get('rationale'))}",
                 "",
+                "#### Functional Mind Presence",
+                "",
+                "| Mind | Present | Score | Evidence | Missing Functions |",
+                "| --- | --- | ---: | --- | --- |",
+            ]
+        )
+        for mind in ["R", "E", "I"]:
+            payload = functional.get(mind) or {}
+            lines.append(
+                f"| `{mind}` | `{payload.get('present')}` | `{payload.get('score')}` | "
+                f"{md_cell(functional_evidence_text(payload))} | {md_json(payload.get('missing_functions') or [])} |"
+            )
+        lines.extend(
+            [
+                "",
+                f"- All three functionally present: `{audit.get('all_three_minds_functionally_present')}`",
+                f"- Functional presence score: `{audit.get('functional_presence_score')}`",
+                f"- Role-name-only warning: `{audit.get('role_name_only_warning')}`",
+                f"- Generic role listing warning: `{audit.get('generic_role_listing_warning')}`",
+                "",
+                "#### Scenario Grounding",
+                "",
+                f"- Score: `{grounding.get('score')}`",
+                f"- Matched terms: {md_json(grounding.get('matched_terms') or [])}",
+                f"- Missing expected terms: {md_json(grounding.get('missing_expected_terms') or [])}",
+                f"- Low grounding warning: `{grounding.get('low_scenario_grounding_warning')}`",
+                "",
+                "#### Weighted Compromise Quality",
+                "",
+                f"- Quality: `{audit.get('weighted_compromise_quality')}`",
+                "",
                 "#### REI Audit",
                 "",
                 f"- Are all three minds present? `{audit.get('all_three_minds_visible_in_final_monologue')}`",
@@ -736,15 +901,17 @@ def write_report(path: Path, rows: list[dict[str, Any]], summary: dict[str, Any]
         [
             "## REI / Thirteenth Character Audit",
             "",
-            "| Case | Scenario | Tilt | Two-of-three Explanation | Majority Pair | Minority Objection | Arbitrary Tilt Warning |",
-            "| ---: | --- | --- | --- | --- | --- | --- |",
+            "| Case | Scenario | Tilt | Two-of-three Explanation | Top Two Gap | Top Two Close | Majority Pair | Minority Objection | Minority Visible | Arbitrary Tilt Warning |",
+            "| ---: | --- | --- | --- | ---: | --- | --- | --- | --- | --- |",
         ]
     )
     for row in summary["rei_thirteenth_character_audit"]["rows"]:
         lines.append(
             f"| `{row['case_id']}` | `{row['scenario_id']}` | `{row['synthesis_tilt']}` | "
-            f"`{row['rei_two_of_three_explanation_present']}` | {md_json(row['rei_majority_pair'])} | "
-            f"`{row['rei_minority_objection']}` | `{row['rei_arbitrary_tilt_warning']}` |"
+            f"`{row['rei_two_of_three_explanation_present']}` | `{row.get('rei_top_two_gap')}` | "
+            f"`{row.get('rei_top_two_close')}` | {md_json(row['rei_majority_pair'])} | "
+            f"`{row['rei_minority_objection']}` | `{row.get('rei_minority_objection_visible')}` | "
+            f"`{row['rei_arbitrary_tilt_warning']}` |"
         )
 
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -785,7 +952,12 @@ def parse_args() -> argparse.Namespace:
     strict_weighted = parser.add_mutually_exclusive_group()
     strict_weighted.add_argument("--strict-weighted", dest="strict_weighted", action="store_true")
     strict_weighted.add_argument("--no-strict-weighted", dest="strict_weighted", action="store_false")
-    parser.set_defaults(strict_artifacts=None, strict_weighted=None)
+    strict_functional = parser.add_mutually_exclusive_group()
+    strict_functional.add_argument("--strict-functional", dest="strict_functional", action="store_true")
+    strict_functional.add_argument("--no-strict-functional", dest="strict_functional", action="store_false")
+    parser.add_argument("--min-functional-presence-rate", type=float, default=0.8)
+    parser.add_argument("--min-scenario-grounding-rate", type=float, default=0.8)
+    parser.set_defaults(strict_artifacts=None, strict_weighted=None, strict_functional=False)
     parser.add_argument("--ollama-base-url", default="http://localhost:11434")
     return parser.parse_args()
 
@@ -801,6 +973,7 @@ def main() -> int:
     args = parse_args()
     strict_artifacts = args.strict_artifacts if args.strict_artifacts is not None else args.confirm_run
     strict_weighted = args.strict_weighted if args.strict_weighted is not None else args.confirm_run
+    strict_functional = bool(args.strict_functional)
     os.environ["REI_OLLAMA_NUM_CTX"] = str(args.num_ctx)
     os.environ["REI_OLLAMA_NUM_GPU"] = str(args.num_gpu)
 
@@ -823,6 +996,9 @@ def main() -> int:
         "manual_audit": args.manual_audit,
         "strict_artifacts": strict_artifacts,
         "strict_weighted": strict_weighted,
+        "strict_functional": strict_functional,
+        "min_functional_presence_rate": args.min_functional_presence_rate,
+        "min_scenario_grounding_rate": args.min_scenario_grounding_rate,
         "planned_cases": len(plan),
         "scenario_ids": [scenario["id"] for scenario in scenarios],
         "profiles": profiles,
@@ -849,7 +1025,8 @@ def main() -> int:
         paths["progress"],
         (
             f"START model={args.model} cases={len(plan)} num_ctx={args.num_ctx} num_gpu={args.num_gpu} "
-            f"strict_artifacts={strict_artifacts} strict_weighted={strict_weighted}"
+            f"strict_artifacts={strict_artifacts} strict_weighted={strict_weighted} "
+            f"strict_functional={strict_functional}"
         ),
     )
     engine = ReiEngine(
@@ -893,7 +1070,8 @@ def main() -> int:
                     f"DONE {label} elapsed={row['elapsed_seconds']} "
                     f"tilt={evaluation.get('synthesis_tilt')} "
                     f"match={evaluation.get('tilt_matches_profile_top')} "
-                    f"decision_valid={evaluation.get('decision_valid')}"
+                    f"decision_valid={evaluation.get('decision_valid')} "
+                    f"quality={evaluation.get('rei_audit', {}).get('weighted_compromise_quality')}"
                 ),
             )
         except Exception as exc:
@@ -913,9 +1091,17 @@ def main() -> int:
     elapsed = round(time.perf_counter() - started, 3)
     summary = summarize(rows, {**run_meta, "elapsed_seconds": elapsed}, paths)
     summary["finished_at"] = datetime.now().astimezone().isoformat(timespec="seconds")
-    violations = strict_violations(summary, rows, strict_artifacts, strict_weighted)
+    violations = strict_violations(
+        summary,
+        rows,
+        strict_artifacts,
+        strict_weighted,
+        strict_functional=strict_functional,
+        min_functional_presence_rate=args.min_functional_presence_rate,
+        min_scenario_grounding_rate=args.min_scenario_grounding_rate,
+    )
     if violations:
-        summary["status"] = "failed_artifact_integrity"
+        summary["status"] = "failed_strict_checks"
         summary["strict_violations"] = violations
         for violation in violations:
             append_progress(paths["progress"], f"STRICT_FAIL {violation}")

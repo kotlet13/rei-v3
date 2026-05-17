@@ -79,6 +79,56 @@ class WeightedAuditTests(unittest.TestCase):
         self.assertFalse(audit["rei_two_of_three_explanation_present"])
         self.assertTrue(audit["rei_arbitrary_tilt_warning"])
 
+    def test_rei_close_top_two_with_functional_presence_does_not_warn(self) -> None:
+        audit = audit_weighted_synthesis(
+            fake_trace(
+                weighted_contributions={"R": 0.36, "E": 0.34, "I": 0.3},
+                contribution_ranking=["R", "E", "I"],
+                final_monologue=(
+                    "Racio keeps the budget plan tied to cost, sequence, and tradeoff. "
+                    "Emocio keeps recognition, pride, and visible meaning in the choice. "
+                    "Instinkt keeps risk, boundary, and safety from being ignored."
+                ),
+            ),
+            profile="REI",
+            scenario_id="pure-budget-allocation",
+        )
+
+        self.assertTrue(audit["rei_top_two_close"])
+        self.assertFalse(audit["rei_arbitrary_tilt_warning"])
+
+    def test_rei_close_top_two_with_visible_minority_objection_does_not_warn(self) -> None:
+        audit = audit_weighted_synthesis(
+            fake_trace(
+                weighted_contributions={"R": 0.36, "E": 0.34, "I": 0.3},
+                contribution_ranking=["R", "E", "I"],
+                final_monologue=(
+                    "The budget plan keeps cost and sequence clear. "
+                    "Recognition still matters, while Instinkt raises a safety boundary as the minority objection."
+                ),
+            ),
+            profile="REI",
+            scenario_id="pure-budget-allocation",
+        )
+
+        self.assertTrue(audit["rei_top_two_close"])
+        self.assertTrue(audit["rei_minority_objection_visible"])
+        self.assertFalse(audit["rei_arbitrary_tilt_warning"])
+
+    def test_rei_wide_top_gap_without_explanation_warns(self) -> None:
+        audit = audit_weighted_synthesis(
+            fake_trace(
+                weighted_contributions={"R": 0.8, "E": 0.1, "I": 0.1},
+                contribution_ranking=["R", "E", "I"],
+                final_monologue="I choose balanced allocation because the evidence and sequence are clearest.",
+            ),
+            profile="REI",
+            scenario_id="pure-budget-allocation",
+        )
+
+        self.assertFalse(audit["rei_top_two_close"])
+        self.assertTrue(audit["rei_arbitrary_tilt_warning"])
+
     def test_stock_phrase_summary_tracks_cases(self) -> None:
         trace = fake_trace(final_monologue="Use a bounded test, then a reversible step. Reversible choices avoid blocked moves.")
         hits = stock_phrase_hits(trace)

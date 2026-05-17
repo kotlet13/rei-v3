@@ -131,6 +131,29 @@ class GraniteWeightedRunnerArtifactTests(unittest.TestCase):
 
         self.assertIn("case 001 missing weighted fields: has_final_monologue", violations)
 
+    def test_strict_functional_fails_low_functional_rate(self) -> None:
+        summary = {
+            "functional_presence_summary": {
+                "rate": 0.5,
+                "scenario_grounding_rate": 1.0,
+                "role_name_only_warning_count": 0,
+                "generic_role_listing_warning_count": 0,
+            },
+            "weighted_compromise_quality_counts": {"weak": 0},
+        }
+
+        violations = strict_violations(
+            summary,
+            [completed_row()],
+            strict_artifacts=False,
+            strict_weighted=False,
+            strict_functional=True,
+            min_functional_presence_rate=0.8,
+            min_scenario_grounding_rate=0.8,
+        )
+
+        self.assertIn("functional mind presence rate 0.5 is below 0.8", violations)
+
 
 if __name__ == "__main__":
     unittest.main()

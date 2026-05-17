@@ -1,0 +1,869 @@
+{
+  "run": {
+    "run_id": "20260517_075426",
+    "model": "granite4.1:30b",
+    "num_ctx": 65536,
+    "num_gpu": 999,
+    "manual_audit": true,
+    "strict_artifacts": true,
+    "strict_weighted": true,
+    "strict_functional": true,
+    "min_functional_presence_rate": 0.8,
+    "min_scenario_grounding_rate": 0.8,
+    "planned_cases": 16,
+    "scenario_ids": [
+      "pure-budget-allocation",
+      "business-runway",
+      "creative-status-risk",
+      "night-door-noise"
+    ],
+    "profiles": [
+      "R",
+      "E",
+      "I",
+      "REI"
+    ],
+    "output_dir": "output/reports/weighted_manual_audit_functional_20260517_075426",
+    "goal_file": "Docs/REI_granite_weighted_short_test_goal_2026-05-16.md",
+    "summary": "output/reports/weighted_manual_audit_functional_20260517_075426/summary.json",
+    "report": "output/reports/weighted_manual_audit_functional_20260517_075426/report.md",
+    "results_jsonl": "output/reports/weighted_manual_audit_functional_20260517_075426/results.jsonl",
+    "progress": "output/reports/weighted_manual_audit_functional_20260517_075426/progress.log",
+    "scenario_plan": "output/reports/weighted_manual_audit_functional_20260517_075426/scenario_plan.json",
+    "started_at": "2026-05-17T07:54:26+02:00"
+  },
+  "cases": [
+    {
+      "case_index": 1,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "grounding_terms": [
+        "budget",
+        "testing",
+        "design",
+        "infrastructure",
+        "marketing",
+        "allocation",
+        "cost"
+      ],
+      "allowed_options": [
+        "prioritize testing",
+        "prioritize design",
+        "prioritize infrastructure",
+        "prioritize marketing",
+        "balanced allocation"
+      ],
+      "option_aliases": {
+        "balanced allocation": [
+          "balanced quantitative model",
+          "balanced weighted model",
+          "weighted scoring model",
+          "balances expected returns",
+          "balances marginal utility",
+          "balances stakeholder",
+          "allocate the budget using",
+          "sufficient funds for"
+        ]
+      },
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 2,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "grounding_terms": [
+        "budget",
+        "testing",
+        "design",
+        "infrastructure",
+        "marketing",
+        "allocation",
+        "cost"
+      ],
+      "allowed_options": [
+        "prioritize testing",
+        "prioritize design",
+        "prioritize infrastructure",
+        "prioritize marketing",
+        "balanced allocation"
+      ],
+      "option_aliases": {
+        "balanced allocation": [
+          "balanced quantitative model",
+          "balanced weighted model",
+          "weighted scoring model",
+          "balances expected returns",
+          "balances marginal utility",
+          "balances stakeholder",
+          "allocate the budget using",
+          "sufficient funds for"
+        ]
+      },
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 3,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "grounding_terms": [
+        "budget",
+        "testing",
+        "design",
+        "infrastructure",
+        "marketing",
+        "allocation",
+        "cost"
+      ],
+      "allowed_options": [
+        "prioritize testing",
+        "prioritize design",
+        "prioritize infrastructure",
+        "prioritize marketing",
+        "balanced allocation"
+      ],
+      "option_aliases": {
+        "balanced allocation": [
+          "balanced quantitative model",
+          "balanced weighted model",
+          "weighted scoring model",
+          "balances expected returns",
+          "balances marginal utility",
+          "balances stakeholder",
+          "allocate the budget using",
+          "sufficient funds for"
+        ]
+      },
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 4,
+      "scenario_id": "pure-budget-allocation",
+      "scenario_title": "Pure budget allocation",
+      "expected_pressure": "racio",
+      "scenario_prompt": "A project lead has a fixed budget and must allocate it between testing, design, infrastructure, and marketing. There is no social drama, no bodily threat, and no image wound; the decision is mainly about constraints, sequence, and opportunity cost.",
+      "grounding_terms": [
+        "budget",
+        "testing",
+        "design",
+        "infrastructure",
+        "marketing",
+        "allocation",
+        "cost"
+      ],
+      "allowed_options": [
+        "prioritize testing",
+        "prioritize design",
+        "prioritize infrastructure",
+        "prioritize marketing",
+        "balanced allocation"
+      ],
+      "option_aliases": {
+        "balanced allocation": [
+          "balanced quantitative model",
+          "balanced weighted model",
+          "weighted scoring model",
+          "balances expected returns",
+          "balances marginal utility",
+          "balances stakeholder",
+          "allocate the budget using",
+          "sufficient funds for"
+        ]
+      },
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 5,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "grounding_terms": [
+        "business",
+        "runway",
+        "paying customer",
+        "stability",
+        "launch",
+        "collapse"
+      ],
+      "allowed_options": [
+        "launch now",
+        "extend runway",
+        "pilot with paying customer",
+        "delay launch",
+        "hybrid staged launch"
+      ],
+      "option_aliases": {
+        "launch now": [
+          "launch the business",
+          "start the launch"
+        ],
+        "extend runway": [
+          "extend the runway",
+          "preserve runway"
+        ],
+        "pilot with paying customer": [
+          "pilot",
+          "paying customer"
+        ],
+        "delay launch": [
+          "delay the launch",
+          "wait before launch"
+        ],
+        "hybrid staged launch": [
+          "staged launch",
+          "hybrid launch",
+          "launch in stages",
+          "structured incremental growth",
+          "incremental growth plan",
+          "controlled growth strategy",
+          "phased growth strategy",
+          "controlled phased launch",
+          "controlled, phased launch",
+          "phased launch strategy",
+          "incremental launch plan",
+          "controlled growth experiment",
+          "small, predefined budget",
+          "strict kpis",
+          "safety thresholds",
+          "balances runway preservation"
+        ]
+      },
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 6,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "grounding_terms": [
+        "business",
+        "runway",
+        "paying customer",
+        "stability",
+        "launch",
+        "collapse"
+      ],
+      "allowed_options": [
+        "launch now",
+        "extend runway",
+        "pilot with paying customer",
+        "delay launch",
+        "hybrid staged launch"
+      ],
+      "option_aliases": {
+        "launch now": [
+          "launch the business",
+          "start the launch"
+        ],
+        "extend runway": [
+          "extend the runway",
+          "preserve runway"
+        ],
+        "pilot with paying customer": [
+          "pilot",
+          "paying customer"
+        ],
+        "delay launch": [
+          "delay the launch",
+          "wait before launch"
+        ],
+        "hybrid staged launch": [
+          "staged launch",
+          "hybrid launch",
+          "launch in stages",
+          "structured incremental growth",
+          "incremental growth plan",
+          "controlled growth strategy",
+          "phased growth strategy",
+          "controlled phased launch",
+          "controlled, phased launch",
+          "phased launch strategy",
+          "incremental launch plan",
+          "controlled growth experiment",
+          "small, predefined budget",
+          "strict kpis",
+          "safety thresholds",
+          "balances runway preservation"
+        ]
+      },
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 7,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "grounding_terms": [
+        "business",
+        "runway",
+        "paying customer",
+        "stability",
+        "launch",
+        "collapse"
+      ],
+      "allowed_options": [
+        "launch now",
+        "extend runway",
+        "pilot with paying customer",
+        "delay launch",
+        "hybrid staged launch"
+      ],
+      "option_aliases": {
+        "launch now": [
+          "launch the business",
+          "start the launch"
+        ],
+        "extend runway": [
+          "extend the runway",
+          "preserve runway"
+        ],
+        "pilot with paying customer": [
+          "pilot",
+          "paying customer"
+        ],
+        "delay launch": [
+          "delay the launch",
+          "wait before launch"
+        ],
+        "hybrid staged launch": [
+          "staged launch",
+          "hybrid launch",
+          "launch in stages",
+          "structured incremental growth",
+          "incremental growth plan",
+          "controlled growth strategy",
+          "phased growth strategy",
+          "controlled phased launch",
+          "controlled, phased launch",
+          "phased launch strategy",
+          "incremental launch plan",
+          "controlled growth experiment",
+          "small, predefined budget",
+          "strict kpis",
+          "safety thresholds",
+          "balances runway preservation"
+        ]
+      },
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 8,
+      "scenario_id": "business-runway",
+      "scenario_title": "Business launch with runway",
+      "expected_pressure": "mixed",
+      "scenario_prompt": "A person wants to launch a business and already has six months of runway, one paying customer, and strong excitement, but still fears that a wrong move could collapse stability.",
+      "grounding_terms": [
+        "business",
+        "runway",
+        "paying customer",
+        "stability",
+        "launch",
+        "collapse"
+      ],
+      "allowed_options": [
+        "launch now",
+        "extend runway",
+        "pilot with paying customer",
+        "delay launch",
+        "hybrid staged launch"
+      ],
+      "option_aliases": {
+        "launch now": [
+          "launch the business",
+          "start the launch"
+        ],
+        "extend runway": [
+          "extend the runway",
+          "preserve runway"
+        ],
+        "pilot with paying customer": [
+          "pilot",
+          "paying customer"
+        ],
+        "delay launch": [
+          "delay the launch",
+          "wait before launch"
+        ],
+        "hybrid staged launch": [
+          "staged launch",
+          "hybrid launch",
+          "launch in stages",
+          "structured incremental growth",
+          "incremental growth plan",
+          "controlled growth strategy",
+          "phased growth strategy",
+          "controlled phased launch",
+          "controlled, phased launch",
+          "phased launch strategy",
+          "incremental launch plan",
+          "controlled growth experiment",
+          "small, predefined budget",
+          "strict kpis",
+          "safety thresholds",
+          "balances runway preservation"
+        ]
+      },
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 9,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "grounding_terms": [
+        "artist",
+        "exhibition",
+        "bold",
+        "admired",
+        "mocked",
+        "pride",
+        "visible"
+      ],
+      "allowed_options": [
+        "safe accepted exhibition",
+        "bold personal piece",
+        "hybrid staged release",
+        "delay and gather feedback"
+      ],
+      "option_aliases": {
+        "safe accepted exhibition": [
+          "accepted exhibition",
+          "safe exhibition"
+        ],
+        "bold personal piece": [
+          "personal piece",
+          "bold piece"
+        ],
+        "hybrid staged release": [
+          "staged release",
+          "hybrid release",
+          "alongside the safe accepted exhibition",
+          "alongside safe accepted exhibition",
+          "present both the safe accepted exhibition",
+          "both the safe accepted exhibition and the bold personal piece",
+          "both risk and recognition",
+          "maintaining a fallback",
+          "calculated risk for creative growth",
+          "controlled setting",
+          "complemented by presenting"
+        ],
+        "delay and gather feedback": [
+          "gather feedback",
+          "delay for feedback"
+        ]
+      },
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 10,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "grounding_terms": [
+        "artist",
+        "exhibition",
+        "bold",
+        "admired",
+        "mocked",
+        "pride",
+        "visible"
+      ],
+      "allowed_options": [
+        "safe accepted exhibition",
+        "bold personal piece",
+        "hybrid staged release",
+        "delay and gather feedback"
+      ],
+      "option_aliases": {
+        "safe accepted exhibition": [
+          "accepted exhibition",
+          "safe exhibition"
+        ],
+        "bold personal piece": [
+          "personal piece",
+          "bold piece"
+        ],
+        "hybrid staged release": [
+          "staged release",
+          "hybrid release",
+          "alongside the safe accepted exhibition",
+          "alongside safe accepted exhibition",
+          "present both the safe accepted exhibition",
+          "both the safe accepted exhibition and the bold personal piece",
+          "both risk and recognition",
+          "maintaining a fallback",
+          "calculated risk for creative growth",
+          "controlled setting",
+          "complemented by presenting"
+        ],
+        "delay and gather feedback": [
+          "gather feedback",
+          "delay for feedback"
+        ]
+      },
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 11,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "grounding_terms": [
+        "artist",
+        "exhibition",
+        "bold",
+        "admired",
+        "mocked",
+        "pride",
+        "visible"
+      ],
+      "allowed_options": [
+        "safe accepted exhibition",
+        "bold personal piece",
+        "hybrid staged release",
+        "delay and gather feedback"
+      ],
+      "option_aliases": {
+        "safe accepted exhibition": [
+          "accepted exhibition",
+          "safe exhibition"
+        ],
+        "bold personal piece": [
+          "personal piece",
+          "bold piece"
+        ],
+        "hybrid staged release": [
+          "staged release",
+          "hybrid release",
+          "alongside the safe accepted exhibition",
+          "alongside safe accepted exhibition",
+          "present both the safe accepted exhibition",
+          "both the safe accepted exhibition and the bold personal piece",
+          "both risk and recognition",
+          "maintaining a fallback",
+          "calculated risk for creative growth",
+          "controlled setting",
+          "complemented by presenting"
+        ],
+        "delay and gather feedback": [
+          "gather feedback",
+          "delay for feedback"
+        ]
+      },
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 12,
+      "scenario_id": "creative-status-risk",
+      "scenario_title": "Creative status risk",
+      "expected_pressure": "emocio",
+      "scenario_prompt": "An artist must choose between a safe accepted exhibition and a bold personal piece that could be admired or mocked. The bold option feels alive, visible, and dangerous to their pride.",
+      "grounding_terms": [
+        "artist",
+        "exhibition",
+        "bold",
+        "admired",
+        "mocked",
+        "pride",
+        "visible"
+      ],
+      "allowed_options": [
+        "safe accepted exhibition",
+        "bold personal piece",
+        "hybrid staged release",
+        "delay and gather feedback"
+      ],
+      "option_aliases": {
+        "safe accepted exhibition": [
+          "accepted exhibition",
+          "safe exhibition"
+        ],
+        "bold personal piece": [
+          "personal piece",
+          "bold piece"
+        ],
+        "hybrid staged release": [
+          "staged release",
+          "hybrid release",
+          "alongside the safe accepted exhibition",
+          "alongside safe accepted exhibition",
+          "present both the safe accepted exhibition",
+          "both the safe accepted exhibition and the bold personal piece",
+          "both risk and recognition",
+          "maintaining a fallback",
+          "calculated risk for creative growth",
+          "controlled setting",
+          "complemented by presenting"
+        ],
+        "delay and gather feedback": [
+          "gather feedback",
+          "delay for feedback"
+        ]
+      },
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    },
+    {
+      "case_index": 13,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "grounding_terms": [
+        "door",
+        "noise",
+        "night",
+        "open",
+        "listen",
+        "call for help",
+        "secure distance"
+      ],
+      "allowed_options": [
+        "open the door",
+        "stay still and listen",
+        "secure distance",
+        "call for help",
+        "check through a safe barrier"
+      ],
+      "option_aliases": {
+        "open the door": [
+          "open it",
+          "open the front door"
+        ],
+        "stay still and listen": [
+          "stay still",
+          "listen first"
+        ],
+        "secure distance": [
+          "keep distance",
+          "secure a distance",
+          "move away"
+        ],
+        "call for help": [
+          "call help",
+          "call someone",
+          "call emergency"
+        ],
+        "check through a safe barrier": [
+          "safe barrier",
+          "look through",
+          "check through"
+        ]
+      },
+      "profile": "R",
+      "profile_top_minds": [
+        "R"
+      ]
+    },
+    {
+      "case_index": 14,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "grounding_terms": [
+        "door",
+        "noise",
+        "night",
+        "open",
+        "listen",
+        "call for help",
+        "secure distance"
+      ],
+      "allowed_options": [
+        "open the door",
+        "stay still and listen",
+        "secure distance",
+        "call for help",
+        "check through a safe barrier"
+      ],
+      "option_aliases": {
+        "open the door": [
+          "open it",
+          "open the front door"
+        ],
+        "stay still and listen": [
+          "stay still",
+          "listen first"
+        ],
+        "secure distance": [
+          "keep distance",
+          "secure a distance",
+          "move away"
+        ],
+        "call for help": [
+          "call help",
+          "call someone",
+          "call emergency"
+        ],
+        "check through a safe barrier": [
+          "safe barrier",
+          "look through",
+          "check through"
+        ]
+      },
+      "profile": "E",
+      "profile_top_minds": [
+        "E"
+      ]
+    },
+    {
+      "case_index": 15,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "grounding_terms": [
+        "door",
+        "noise",
+        "night",
+        "open",
+        "listen",
+        "call for help",
+        "secure distance"
+      ],
+      "allowed_options": [
+        "open the door",
+        "stay still and listen",
+        "secure distance",
+        "call for help",
+        "check through a safe barrier"
+      ],
+      "option_aliases": {
+        "open the door": [
+          "open it",
+          "open the front door"
+        ],
+        "stay still and listen": [
+          "stay still",
+          "listen first"
+        ],
+        "secure distance": [
+          "keep distance",
+          "secure a distance",
+          "move away"
+        ],
+        "call for help": [
+          "call help",
+          "call someone",
+          "call emergency"
+        ],
+        "check through a safe barrier": [
+          "safe barrier",
+          "look through",
+          "check through"
+        ]
+      },
+      "profile": "I",
+      "profile_top_minds": [
+        "I"
+      ]
+    },
+    {
+      "case_index": 16,
+      "scenario_id": "night-door-noise",
+      "scenario_title": "Night door noise",
+      "expected_pressure": "instinkt",
+      "scenario_prompt": "A person hears a hard noise near the front door late at night. They do not know whether it is harmless or dangerous. The immediate question is whether to open the door, stay still, call for help, or secure distance.",
+      "grounding_terms": [
+        "door",
+        "noise",
+        "night",
+        "open",
+        "listen",
+        "call for help",
+        "secure distance"
+      ],
+      "allowed_options": [
+        "open the door",
+        "stay still and listen",
+        "secure distance",
+        "call for help",
+        "check through a safe barrier"
+      ],
+      "option_aliases": {
+        "open the door": [
+          "open it",
+          "open the front door"
+        ],
+        "stay still and listen": [
+          "stay still",
+          "listen first"
+        ],
+        "secure distance": [
+          "keep distance",
+          "secure a distance",
+          "move away"
+        ],
+        "call for help": [
+          "call help",
+          "call someone",
+          "call emergency"
+        ],
+        "check through a safe barrier": [
+          "safe barrier",
+          "look through",
+          "check through"
+        ]
+      },
+      "profile": "REI",
+      "profile_top_minds": [
+        "R",
+        "E",
+        "I"
+      ]
+    }
+  ]
+}
