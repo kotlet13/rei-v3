@@ -10,9 +10,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "app" / "backend"))
 
+from rei.acceptance import assess_acceptance
 from rei.engine import LOW_BUT_POSSIBLE_RACIO_RISK, ReiEngine
 from rei.knowledge import KnowledgeIndex
-from rei.models import Scenario
+from rei.models import ProviderSelection, Scenario
 from scripts import run_rei_profile_matrix as matrix
 
 
@@ -136,26 +137,45 @@ class ReiProfileMatrixScoringTests(unittest.TestCase):
         self.assertEqual(signal.rationalization_risk, LOW_BUT_POSSIBLE_RACIO_RISK)
         self.assertEqual(signal.translation_of_other_minds_risk, LOW_BUT_POSSIBLE_RACIO_RISK)
 
-    def test_rei_profile_does_not_default_to_racio_without_coalition(self) -> None:
-        for scenario_id in ["quit_job_start_business", "conflict_with_coworker"]:
-            with self.subTest(scenario_id=scenario_id):
-                fields = matrix.case_fields(
-                    payload(
-                        ego={
-                            "profile_leader": "tie",
-                            "situational_driver": "instinkt",
-                            "resultant_leader_under_pressure": "racio",
-                            "leading_mind": "racio",
-                            "trusted_mind_or_coalition": "racio",
-                            "action_tendency": "explain the decision cleanly",
-                        }
-                    ),
-                    profile_input="REI",
-                )
+    def test_rei_runtime_guard_prevents_racio_default(self) -> None:
+        engine = ReiEngine(KnowledgeIndex(ROOT / "knowledge" / "rei_knowledge_index.json"))
+        scenario = Scenario(prompt="I want to quit my job and start a business, but I keep delaying.")
+        racio = engine._fallback_rei_racio_signal(scenario)
+        emocio = engine._fallback_rei_emocio_signal(scenario)
+        instinkt = engine._fallback_rei_instinkt_signal(scenario)
+        acceptance = assess_acceptance(
+            racio.model_dump(mode="json"),
+            emocio.model_dump(mode="json"),
+            instinkt.model_dump(mode="json"),
+        )
 
-                self.assertEqual(fields["resultant_leader_under_pressure"], "mixed")
-                self.assertEqual(fields["leading_mind"], "mixed")
-                self.assertTrue(fields["rei_resultant_adjusted_to_mixed"])
+        def fake_call_cycle_json(**_kwargs: Any) -> dict[str, Any]:
+            return {
+                "profile_leader": "tie",
+                "profile_leader_minds": ["racio", "emocio", "instinkt"],
+                "situational_driver": "instinkt",
+                "resultant_leader_under_pressure": "racio",
+                "leading_mind": "racio",
+                "trusted_mind_or_coalition": "racio",
+                "action_tendency": "explain the delay as clean analysis",
+            }
+
+        engine._call_cycle_json = fake_call_cycle_json  # type: ignore[method-assign]
+        ego = engine._llm_ego_resultant(
+            scenario=scenario,
+            profile="R=E=I",
+            weights={"racio": 1.0, "emocio": 1.0, "instinkt": 1.0},
+            racio=racio,
+            emocio=emocio,
+            instinkt=instinkt,
+            acceptance=acceptance,
+            use_memory=False,
+            provider=ProviderSelection(provider_mode="deterministic", use_llm=False),
+            diagnostics={"llm_calls": []},
+        )
+
+        self.assertEqual(ego.resultant_leader_under_pressure, "mixed")
+        self.assertEqual(ego.leading_mind, "mixed")
 
     def test_creative_project_boundary_pressure_is_allowed(self) -> None:
         scenario = next(item for item in matrix.SCENARIOS if item["id"] == "creative_project_obsession")
@@ -169,6 +189,58 @@ class ReiProfileMatrixScoringTests(unittest.TestCase):
         )
 
         self.assertFalse(flags["boundary_pressure_on_unexpected_scenario"])
+
+    def test_moral_dilemma_can_classify_as_ethical_disclosure(self) -> None:
+        response = payload(
+            ego={
+                "action_tendency": (
+                    "Give a private warning, then make a formal disclosure to protect future clients."
+                )
+            }
+        )
+
+        self.assertEqual(matrix.action_tendency_class(response), "ethical_disclosure")
+
+    def test_creative_project_requires_emocio_aliveness_signal(self) -> None:
+        scenario = next(item for item in matrix.SCENARIOS if item["id"] == "creative_project_obsession")
+        only_ego_mentions_project = payload(
+            ego={"action_tendency": "protect the creative project because it feels alive"}
+        )
+        with_emocio_signal = payload(
+            emocio={"desired_image": "The creative image feels alive and wants recognition."}
+        )
+
+        self.assertIn(
+            "creative_project_emocio_true_positive",
+            matrix.expected_patterns_missing(scenario, only_ego_mentions_project),
+        )
+        self.assertNotIn(
+            "creative_project_emocio_true_positive",
+            matrix.expected_patterns_missing(scenario, with_emocio_signal),
+        )
+
+    def test_evaluator_warnings_do_not_inflate_false_negative_count(self) -> None:
+        warning_case = minimal_case(
+            false_negative_flags={
+                "expected_patterns_missing": ["agenda"],
+                "relationship_return_missing": False,
+                "body_freeze_missing": False,
+                "boundary_pressure_missing": False,
+                "rationalization_missing": False,
+                "quit_job_signature_missing": False,
+            },
+            false_negative_severity={
+                "hard_false_negative": [],
+                "soft_false_negative": [],
+                "evaluator_warning": ["expected_patterns_missing"],
+            },
+        )
+
+        summary = matrix.aggregate([warning_case])
+
+        self.assertEqual(summary["false_negative_case_count"], 0)
+        self.assertEqual(summary["actionable_failure_case_count"], 0)
+        self.assertEqual(summary["evaluator_warning_case_count"], 1)
 
     def test_romantic_return_loop_true_positive_detected(self) -> None:
         response = payload(

@@ -31,6 +31,7 @@ PREVIOUS_PROFILE_MATRIX_METRICS = {
     "true_missing_required_key_count": 0,
     "hard_false_negative_count": "not split",
     "soft_false_negative_count": "not split",
+    "actionable_failure_count": "not split",
     "false_positive_count": 1,
     "rei_racio_default_case_count": 2,
     "processor_identity_violation_count": 0,
@@ -177,7 +178,7 @@ SCENARIOS = [
         "title": "Creative project obsession",
         "expected_possible_drivers": ["emocio", "instinkt", "mixed"],
         "forbidden_patterns": ["romantic return", "meeting agenda"],
-        "expected_patterns": ["creative_obsession"],
+        "expected_patterns": ["creative_project_emocio_true_positive"],
         "boundary_pressure_allowed": True,
         "relationship_return_expected": False,
         "body_freeze_expected": False,
@@ -209,6 +210,14 @@ SCENARIOS = [
         "expected_possible_drivers": ["racio", "emocio", "instinkt", "mixed"],
         "forbidden_patterns": ["romantic return", "meeting agenda"],
         "expected_patterns": ["moral_conflict"],
+        "acceptable_action_classes": [
+            "ethical_disclosure",
+            "delay_analyze",
+            "protect_boundary",
+            "mixed_or_unclear",
+            "withdraw_freeze",
+        ],
+        "low_semantic_diversity_if_all_action_class": "withdraw_freeze",
         "relationship_return_expected": False,
         "body_freeze_expected": False,
         "boundary_violation_expected": False,
@@ -456,6 +465,26 @@ def quit_job_signature_detected(response_payload: dict[str, Any]) -> bool:
     )
 
 
+def creative_project_emocio_true_positive(response_payload: dict[str, Any]) -> bool:
+    emocio_text = json.dumps(signals_payload(response_payload)["emocio"], ensure_ascii=False).lower()
+    direct_signal = has_any(
+        emocio_text,
+        [
+            "aliveness",
+            "alive",
+            "creative image",
+            "project obsession",
+            "vitality",
+            "recognition",
+        ],
+    )
+    contextual_signal = has_any(emocio_text, ["creative", "project"]) and has_any(
+        emocio_text,
+        ["obsession", "obsessed", "consuming", "important", "image", "recognized", "seen"],
+    )
+    return direct_signal or contextual_signal
+
+
 def expected_pattern_detected(pattern: str, scenario: dict[str, Any], response_payload: dict[str, Any]) -> bool:
     text = output_text(response_payload)
     detectors = {
@@ -463,10 +492,7 @@ def expected_pattern_detected(pattern: str, scenario: dict[str, Any], response_p
         "body_freeze": lambda: body_freeze_detected(response_payload),
         "boundary_pressure": lambda: boundary_pressure_detected(response_payload),
         "quit_job_signature": lambda: quit_job_signature_detected(response_payload),
-        "creative_obsession": lambda: has_any(
-            text,
-            ["creative", "project", "alive", "consuming", "health", "money", "time", "relationships"],
-        ),
+        "creative_project_emocio_true_positive": lambda: creative_project_emocio_true_positive(response_payload),
         "moral_conflict": lambda: has_any(
             text,
             ["moral", "responsibility", "honesty", "consequence", "loyalty", "clients", "colleague", "disclosure"],
@@ -561,6 +587,20 @@ def active_false_negative_severity(flags: dict[str, Any]) -> dict[str, list[str]
     return severity
 
 
+def ethical_disclosure_language_detected(text: str) -> bool:
+    direct_terms = [
+        "report",
+        "disclose",
+        "formal disclosure",
+        "private warning",
+        "protect future clients",
+    ]
+    supporting_terms = ["honesty", "responsibility", "loyalty", "mistake", "colleague"]
+    if has_any(text, direct_terms):
+        return True
+    return sum(1 for term in supporting_terms if term in text) >= 2
+
+
 def action_tendency_class(response_payload: dict[str, Any]) -> str:
     ego = response_payload.get("ego_resultant") or {}
     tags = action_tags(response_payload)
@@ -575,6 +615,8 @@ def action_tendency_class(response_payload: dict[str, Any]) -> str:
     ).lower()
     if relationship_return_detected(response_payload):
         return "relationship_return"
+    if ethical_disclosure_language_detected(text):
+        return "ethical_disclosure"
     if has_any(text, ["delay", "wait", "more data", "analyze", "analyse"]):
         return "delay_analyze"
     if has_any(text, ["withdraw", "freeze", "disappear", "avoid"]):
@@ -590,46 +632,16 @@ def action_tendency_class(response_payload: dict[str, Any]) -> str:
     return "mixed_or_unclear"
 
 
-def explicit_racio_coalition_support(response_payload: dict[str, Any]) -> bool:
-    ego = response_payload.get("ego_resultant") or {}
-    text = " ".join(
-        str(ego.get(key) or "")
-        for key in [
-            "trusted_mind_or_coalition",
-            "profile_influence_explanation",
-            "profile_sensitivity_note",
-            "main_conflict",
-            "integrated_decision",
-            "final_pressure",
-        ]
-    ).lower()
-    return (
-        ("racio" in text or "reason" in text or "analysis" in text)
-        and ("coalition" in text or "two-of-three" in text or "two of three" in text or "with" in text or "and" in text)
-        and ("emocio" in text or "instinkt" in text or "image" in text or "body" in text or "safety" in text)
-    )
-
-
 def case_fields(response_payload: dict[str, Any], profile_input: str | None = None) -> dict[str, Any]:
     ego = response_payload.get("ego_resultant") or {}
-    resultant = ego.get("resultant_leader_under_pressure")
-    leading = ego.get("leading_mind")
-    rei_without_coalition = (
-        profile_input in {"REI", "R=E=I"}
-        and (resultant == "racio" or leading == "racio")
-        and not explicit_racio_coalition_support(response_payload)
-    )
-    if rei_without_coalition:
-        resultant = "mixed"
-        leading = "mixed"
     return {
         "profile_leader": ego.get("profile_leader"),
         "situational_driver": ego.get("situational_driver"),
-        "resultant_leader_under_pressure": resultant,
-        "leading_mind": leading,
+        "resultant_leader_under_pressure": ego.get("resultant_leader_under_pressure"),
+        "leading_mind": ego.get("leading_mind"),
         "action_tendency": ego.get("action_tendency"),
         "action_tendency_class": action_tendency_class(response_payload),
-        "rei_resultant_adjusted_to_mixed": rei_without_coalition,
+        "rei_resultant_adjusted_to_mixed": False,
     }
 
 
@@ -747,6 +759,26 @@ def severity_cases(cases: list[dict[str, Any]], severity: str) -> list[str]:
     ]
 
 
+def actionable_failure_case_ids(cases: list[dict[str, Any]]) -> list[str]:
+    actionable: list[str] = []
+    for case in cases:
+        severity = case.get("false_negative_severity") or active_false_negative_severity(case["false_negative_flags"])
+        if severity.get("hard_false_negative") or severity.get("soft_false_negative"):
+            actionable.append(f"{case['scenario_id']}::{case['profile_input']}")
+    return actionable
+
+
+def semantic_diversity_flags(scenario_id: str, group: list[dict[str, Any]]) -> list[str]:
+    scenario = next((item for item in SCENARIOS if item["id"] == scenario_id), {})
+    expected_single_class = scenario.get("low_semantic_diversity_if_all_action_class")
+    if not expected_single_class or len(group) < len(PROFILES):
+        return []
+    classes = [case.get("action_tendency_class", "mixed_or_unclear") for case in group]
+    if classes and all(action_class == expected_single_class for action_class in classes):
+        return [f"all_profiles_{expected_single_class}"]
+    return []
+
+
 def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
     summaries = [case_summary(case) for case in cases]
     scenario_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -768,6 +800,7 @@ def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
             "action_tendency_class_distribution": distribution(
                 [case.get("action_tendency_class", "mixed_or_unclear") for case in group]
             ),
+            "semantic_diversity_flags": semantic_diversity_flags(scenario_id, group),
         }
 
     equal_profile_cases = [case for case in cases if case["profile_input"] == "REI"]
@@ -782,11 +815,7 @@ def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
         for case in cases
         if any(flag_is_active(value) for value in case["false_positive_flags"].values())
     ]
-    false_negative_cases = [
-        f"{case['scenario_id']}::{case['profile_input']}"
-        for case in cases
-        if any(flag_is_active(value) for value in case["false_negative_flags"].values())
-    ]
+    actionable_failure_cases = actionable_failure_case_ids(cases)
     missing_cases = [
         f"{case['scenario_id']}::{case['profile_input']}"
         for case in cases
@@ -807,17 +836,19 @@ def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
         "fallback_count": sum(int(case["fallback_count"]) for case in cases),
         "total_tokens": sum(int(case["token_count"]["totals"]["total"]) for case in cases),
         "false_positive_case_count": len(false_positive_cases),
-        "false_negative_case_count": len(false_negative_cases),
         "hard_false_negative_case_count": len(hard_false_negative_cases),
         "soft_false_negative_case_count": len(soft_false_negative_cases),
         "evaluator_warning_case_count": len(evaluator_warning_cases),
+        "actionable_failure_case_count": len(actionable_failure_cases),
+        "false_negative_case_count": len(actionable_failure_cases),
         "missing_required_key_case_count": len(missing_cases),
         "true_missing_required_key_count": len(missing_cases),
         "processor_identity_violation_count": len(identity_violations),
         "rei_profile_racio_default_cases": rei_racio_defaults,
         "profile_sensitivity": profile_sensitivity,
         "false_positive_cases": false_positive_cases,
-        "false_negative_cases": false_negative_cases,
+        "false_negative_cases": actionable_failure_cases,
+        "actionable_failure_cases": actionable_failure_cases,
         "hard_false_negative_cases": hard_false_negative_cases,
         "soft_false_negative_cases": soft_false_negative_cases,
         "evaluator_warning_cases": evaluator_warning_cases,
@@ -852,6 +883,7 @@ def write_markdown(path: Path, run: dict[str, Any], summary: dict[str, Any]) -> 
         "true_missing_required_key_count": summary["true_missing_required_key_count"],
         "hard_false_negative_count": summary["hard_false_negative_case_count"],
         "soft_false_negative_count": summary["soft_false_negative_case_count"],
+        "actionable_failure_count": summary["actionable_failure_case_count"],
         "false_positive_count": summary["false_positive_case_count"],
         "rei_racio_default_case_count": len(summary["rei_profile_racio_default_cases"]),
         "processor_identity_violation_count": summary["processor_identity_violation_count"],
@@ -872,6 +904,7 @@ def write_markdown(path: Path, run: dict[str, Any], summary: dict[str, Any]) -> 
         f"- False-negative case count: `{summary['false_negative_case_count']}`",
         f"- Hard false-negative case count: `{summary['hard_false_negative_case_count']}`",
         f"- Soft false-negative case count: `{summary['soft_false_negative_case_count']}`",
+        f"- Actionable failure case count: `{summary['actionable_failure_case_count']}`",
         f"- Evaluator-warning case count: `{summary['evaluator_warning_case_count']}`",
         f"- Total tokens: `{summary['total_tokens']}`",
         "",
@@ -887,8 +920,8 @@ def write_markdown(path: Path, run: dict[str, Any], summary: dict[str, Any]) -> 
             "",
         "## Profile Sensitivity",
         "",
-            "| Scenario | Cases | Unique Ego signatures | Identical across profiles | Profile leaders | Situational drivers | Resultants | Action classes |",
-            "|---|---:|---:|---|---|---|---|---|",
+            "| Scenario | Cases | Unique Ego signatures | Identical across profiles | Profile leaders | Situational drivers | Resultants | Action classes | Semantic diversity flags |",
+            "|---|---:|---:|---|---|---|---|---|---|",
         ]
     )
     for scenario_id, data in summary["profile_sensitivity"].items():
@@ -896,7 +929,7 @@ def write_markdown(path: Path, run: dict[str, Any], summary: dict[str, Any]) -> 
             f"| `{scenario_id}` | `{data['case_count']}` | `{data['unique_ego_signatures']}` | "
             f"`{data['identical_across_all_profiles']}` | `{data['profile_leader_distribution']}` | "
             f"`{data['situational_driver_distribution']}` | `{data['resultant_leader_distribution']}` | "
-            f"`{data['action_tendency_class_distribution']}` |"
+            f"`{data['action_tendency_class_distribution']}` | `{data.get('semantic_diversity_flags', [])}` |"
         )
 
     lines.extend(
@@ -906,6 +939,7 @@ def write_markdown(path: Path, run: dict[str, Any], summary: dict[str, Any]) -> 
             "",
             f"- False positives: `{summary['false_positive_cases']}`",
             f"- False negatives: `{summary['false_negative_cases']}`",
+            f"- Actionable failures: `{summary['actionable_failure_cases']}`",
             f"- Hard false negatives: `{summary['hard_false_negative_cases']}`",
             f"- Soft false negatives: `{summary['soft_false_negative_cases']}`",
             f"- Evaluator warnings: `{summary['evaluator_warning_cases']}`",

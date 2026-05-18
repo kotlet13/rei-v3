@@ -652,6 +652,7 @@ class ReiEngine:
             or payload.get("leading_mind")
             or fallback.resultant_leader_under_pressure
         )
+        resultant = self._post_coerce_ego_resultant_leader(profile, payload, resultant)
         leading = resultant
         return EgoResultant(
             character_profile=profile,
@@ -787,6 +788,52 @@ class ReiEngine:
                 max_words=10,
             ),
         )
+
+    def _post_coerce_ego_resultant_leader(
+        self,
+        profile: str,
+        payload: dict[str, Any],
+        resultant: str,
+    ) -> str:
+        if profile == "R=E=I" and resultant == "racio" and not self._has_explicit_racio_coalition_support(payload):
+            return "mixed"
+        return resultant
+
+    def _has_explicit_racio_coalition_support(self, payload: dict[str, Any]) -> bool:
+        trusted_minds = normalize_mind_list(payload.get("trusted_mind_or_coalition"))
+        if "racio" in trusted_minds and any(mind in trusted_minds for mind in ("emocio", "instinkt")):
+            return True
+        text = " ".join(
+            str(payload.get(key) or "")
+            for key in [
+                "trusted_mind_or_coalition",
+                "profile_influence_explanation",
+                "profile_sensitivity_note",
+                "main_conflict",
+                "integrated_decision",
+                "final_pressure",
+                "hidden_driver",
+            ]
+        ).lower()
+        racio_language = "racio" in text or "reason" in text or "analysis" in text
+        other_mind_language = (
+            "emocio" in text
+            or "instinkt" in text
+            or "image" in text
+            or "body" in text
+            or "safety" in text
+            or "boundary" in text
+        )
+        coalition_language = (
+            "coalition" in text
+            or "two-of-three" in text
+            or "two of three" in text
+            or " with " in text
+            or " and " in text
+            or "+" in text
+            or "/" in text
+        )
+        return racio_language and other_mind_language and coalition_language
 
     def _coerce_racio_signal(self, payload: dict[str, Any], scenario: Scenario) -> RacioSignal:
         fallback = self._fallback_rei_racio_signal(scenario)
