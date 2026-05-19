@@ -14,6 +14,7 @@ from rei.acceptance import assess_acceptance
 from rei.engine import LOW_BUT_POSSIBLE_RACIO_RISK, ReiEngine
 from rei.knowledge import KnowledgeIndex
 from rei.models import ProviderSelection, Scenario
+from rei.profiles import profile_leader_label, profile_weights
 from scripts import run_rei_profile_matrix as matrix
 
 
@@ -177,6 +178,47 @@ class ReiProfileMatrixScoringTests(unittest.TestCase):
         self.assertEqual(ego.resultant_leader_under_pressure, "mixed")
         self.assertEqual(ego.leading_mind, "mixed")
 
+    def test_ego_profile_leader_is_never_unknown_for_known_profile(self) -> None:
+        engine = ReiEngine(KnowledgeIndex(ROOT / "knowledge" / "rei_knowledge_index.json"))
+        scenario = Scenario(prompt="I need to address a coworker conflict.")
+        racio = engine._fallback_rei_racio_signal(scenario)
+        emocio = engine._fallback_rei_emocio_signal(scenario)
+        instinkt = engine._fallback_rei_instinkt_signal(scenario)
+        acceptance = assess_acceptance(
+            racio.model_dump(mode="json"),
+            emocio.model_dump(mode="json"),
+            instinkt.model_dump(mode="json"),
+        )
+
+        def fake_call_cycle_json(**_kwargs: Any) -> dict[str, Any]:
+            return {
+                "profile_leader": "unknown",
+                "profile_leader_minds": [],
+                "situational_driver": "instinkt",
+                "resultant_leader_under_pressure": "instinkt",
+                "leading_mind": "instinkt",
+                "trusted_mind_or_coalition": "instinkt",
+                "action_tendency": "hold the boundary",
+            }
+
+        normalized, weights = profile_weights("E>R>I")
+        engine._call_cycle_json = fake_call_cycle_json  # type: ignore[method-assign]
+        ego = engine._llm_ego_resultant(
+            scenario=scenario,
+            profile=normalized,
+            weights=weights,
+            racio=racio,
+            emocio=emocio,
+            instinkt=instinkt,
+            acceptance=acceptance,
+            use_memory=False,
+            provider=ProviderSelection(provider_mode="deterministic", use_llm=False),
+            diagnostics={"llm_calls": []},
+        )
+
+        self.assertEqual(ego.profile_leader, "emocio")
+        self.assertEqual(ego.profile_leader_minds, ["emocio"])
+
     def test_creative_project_boundary_pressure_is_allowed(self) -> None:
         scenario = next(item for item in matrix.SCENARIOS if item["id"] == "creative_project_obsession")
         flags = matrix.false_positive_flags(
@@ -188,6 +230,20 @@ class ReiProfileMatrixScoringTests(unittest.TestCase):
             ),
         )
 
+        self.assertFalse(flags["boundary_pressure_on_unexpected_scenario"])
+
+    def test_romantic_return_loop_allows_boundary_pressure(self) -> None:
+        scenario = next(item for item in matrix.SCENARIOS if item["id"] == "romantic_return_loop")
+        flags = matrix.false_positive_flags(
+            scenario,
+            payload(
+                ego={"action_tendency": "return to the relationship while protecting a boundary"},
+                instinkt={"boundary_issue": "A boundary violation risk remains present."},
+                tags={"instinkt": "protect"},
+            ),
+        )
+
+        self.assertTrue(scenario["boundary_pressure_allowed"])
         self.assertFalse(flags["boundary_pressure_on_unexpected_scenario"])
 
     def test_moral_dilemma_can_classify_as_ethical_disclosure(self) -> None:
@@ -241,6 +297,29 @@ class ReiProfileMatrixScoringTests(unittest.TestCase):
         self.assertEqual(summary["false_negative_case_count"], 0)
         self.assertEqual(summary["actionable_failure_case_count"], 0)
         self.assertEqual(summary["evaluator_warning_case_count"], 1)
+
+    def test_profile_leader_distribution_has_no_unknown_in_full_matrix_summary_fixture(self) -> None:
+        cases: list[dict[str, Any]] = []
+        index = 0
+        for scenario in matrix.SCENARIOS:
+            for profile in matrix.PROFILES:
+                index += 1
+                normalized, weights = profile_weights(profile)
+                cases.append(
+                    minimal_case(
+                        case_index=index,
+                        scenario_id=scenario["id"],
+                        profile_input=profile,
+                        profile_normalized=normalized,
+                        profile_leader=profile_leader_label(weights),
+                    )
+                )
+
+        summary = matrix.aggregate(cases)
+
+        self.assertEqual(summary["case_count"], 156)
+        for scenario_summary in summary["profile_sensitivity"].values():
+            self.assertNotIn("unknown", scenario_summary["profile_leader_distribution"])
 
     def test_romantic_return_loop_true_positive_detected(self) -> None:
         response = payload(

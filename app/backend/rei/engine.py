@@ -644,8 +644,8 @@ class ReiEngine:
             diagnostics=diagnostics,
         )
         fallback = self._fallback_ego_resultant(scenario, profile, weights, racio, emocio, instinkt, acceptance)
-        profile_leader_minds = normalize_mind_list(payload.get("profile_leader_minds")) or fallback.profile_leader_minds
-        profile_leader = normalize_mind_name(payload.get("profile_leader") or fallback.profile_leader)
+        profile_leader_minds = fallback.profile_leader_minds
+        profile_leader = fallback.profile_leader
         situational_driver = normalize_mind_name(payload.get("situational_driver") or fallback.situational_driver)
         resultant = normalize_mind_name(
             payload.get("resultant_leader_under_pressure")

@@ -104,6 +104,7 @@ SCENARIOS = [
         "expected_possible_drivers": ["emocio", "instinkt", "mixed"],
         "forbidden_patterns": ["meeting agenda", "coworker"],
         "expected_patterns": ["relationship_return_loop"],
+        "boundary_pressure_allowed": True,
         "relationship_return_expected": True,
         "body_freeze_expected": False,
         "boundary_violation_expected": False,
