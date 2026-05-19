@@ -165,6 +165,7 @@ SCENARIOS = [
         "expected_possible_drivers": ["emocio", "instinkt", "mixed"],
         "forbidden_patterns": ["business runway", "meeting agenda"],
         "expected_patterns": ["grief", "loss", "withdraw"],
+        "boundary_pressure_allowed": True,
         "relationship_return_expected": False,
         "body_freeze_expected": False,
         "boundary_violation_expected": False,
@@ -407,16 +408,75 @@ def body_freeze_detected(response_payload: dict[str, Any]) -> bool:
     )
 
 
+BOUNDARY_PRESSURE_TERMS = [
+    "boundary",
+    "limit",
+    "crosses",
+    "breaches",
+    "oversteps",
+    "consequence",
+    "reduce contact",
+    "self-respect",
+    "autonomy",
+    "refusal",
+    "decline",
+    "protect",
+]
+
+
 def boundary_pressure_detected(response_payload: dict[str, Any]) -> bool:
-    text = output_text(response_payload)
+    instinkt = signals_payload(response_payload).get("instinkt") or {}
+    ego = dict(response_payload.get("ego_resultant") or {})
+    targeted_text = json.dumps(
+        {
+            "instinkt": {
+                key: instinkt.get(key)
+                for key in [
+                    "boundary_issue",
+                    "trust_boundary",
+                    "minimum_safety_condition",
+                    "threat_map",
+                    "loss_map",
+                ]
+            },
+            "ego_resultant": {
+                key: ego.get(key)
+                for key in [
+                    "integrated_decision",
+                    "smallest_acceptable_next_step",
+                ]
+            },
+        },
+        ensure_ascii=False,
+    ).lower()
+    if has_any(targeted_text, BOUNDARY_PRESSURE_TERMS):
+        return True
+
     tags = action_tags(response_payload)
+    text = output_text(response_payload)
     return tags.get("instinkt") in {"protect", "withdraw", "delay", "confront"} and has_any(
         text,
         ["boundary", "consequence", "protect", "trust", "exposure", "violation"],
     )
 
 
+RATIONALIZATION_SIGNAL_TERMS = [
+    "rationalize",
+    "rationalization",
+    "justify",
+    "justification",
+    "hope",
+    "fear",
+    "pressure",
+    "avoidance",
+]
+
+
 def rationalization_detected(response_payload: dict[str, Any]) -> bool:
+    racio_signal_text = " ".join(racio_rationalization_values(response_payload)).lower()
+    if has_any(racio_signal_text, RATIONALIZATION_SIGNAL_TERMS):
+        return True
+
     text = output_text(response_payload)
     tags = action_tags(response_payload)
     return tags.get("racio") in {"delay", "analyze", "withdraw"} and has_any(
@@ -425,16 +485,36 @@ def rationalization_detected(response_payload: dict[str, Any]) -> bool:
     )
 
 
+def racio_rationalization_values(response_payload: dict[str, Any]) -> list[str]:
+    racio = signals_payload(response_payload).get("racio") or {}
+    return [
+        str(racio.get("rationalization_risk") or "").strip(),
+        str(racio.get("rationalization_target") or "").strip(),
+    ]
+
+
 def racio_risk_values(response_payload: dict[str, Any]) -> list[str]:
     racio = signals_payload(response_payload).get("racio") or {}
     return [
         str(racio.get("rationalization_risk") or "").strip(),
+        str(racio.get("rationalization_target") or "").strip(),
         str(racio.get("translation_of_other_minds_risk") or "").strip(),
     ]
 
 
 def has_meaningful_racio_risk(response_payload: dict[str, Any]) -> bool:
-    empty_values = {"", "n/a", "na", "none", "not applicable", "none applicable", "no risk", "no apparent risk"}
+    empty_values = {
+        "",
+        "n/a",
+        "na",
+        "none",
+        "unclear",
+        "not clear",
+        "not applicable",
+        "none applicable",
+        "no risk",
+        "no apparent risk",
+    }
     return any(value.lower().strip(" .") not in empty_values for value in racio_risk_values(response_payload))
 
 

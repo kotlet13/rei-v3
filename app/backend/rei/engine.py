@@ -44,7 +44,7 @@ from .providers import LMStudioProvider, OllamaProvider, OllamaRequest, Provider
 from .acceptance import assess_acceptance
 from .contract_loader import canonical_defaults_for, get_processor_contract
 from .json_utils import validate_required_keys
-from .normalization import normalize_mind_list, normalize_mind_name
+from .normalization import normalize_mind_name
 from .profiles import (
     profile_leader_label,
     profile_weights,
@@ -706,9 +706,12 @@ class ReiEngine:
                 fallback.conscious_story or fallback.conscious_monologue,
                 max_words=40,
             ),
-            hidden_signal_sources=self._clean_task_delegation(
+            hidden_signal_sources=self._clean_hidden_signal_sources(
                 payload.get("hidden_signal_sources"),
                 fallback.hidden_signal_sources,
+                racio,
+                emocio,
+                instinkt,
             ),
             trusted_mind_or_coalition=normalize_mind_name(
                 payload.get("trusted_mind_or_coalition") or payload.get("leading_mind") or fallback.trusted_mind_or_coalition
@@ -800,40 +803,22 @@ class ReiEngine:
         return resultant
 
     def _has_explicit_racio_coalition_support(self, payload: dict[str, Any]) -> bool:
-        trusted_minds = normalize_mind_list(payload.get("trusted_mind_or_coalition"))
-        if "racio" in trusted_minds and any(mind in trusted_minds for mind in ("emocio", "instinkt")):
-            return True
-        text = " ".join(
-            str(payload.get(key) or "")
-            for key in [
-                "trusted_mind_or_coalition",
-                "profile_influence_explanation",
-                "profile_sensitivity_note",
-                "main_conflict",
-                "integrated_decision",
-                "final_pressure",
-                "hidden_driver",
-            ]
-        ).lower()
-        racio_language = "racio" in text or "reason" in text or "analysis" in text
-        other_mind_language = (
-            "emocio" in text
-            or "instinkt" in text
-            or "image" in text
-            or "body" in text
-            or "safety" in text
-            or "boundary" in text
-        )
-        coalition_language = (
-            "coalition" in text
-            or "two-of-three" in text
-            or "two of three" in text
-            or " with " in text
-            or " and " in text
-            or "+" in text
-            or "/" in text
-        )
-        return racio_language and other_mind_language and coalition_language
+        trusted = payload.get("trusted_mind_or_coalition")
+        if isinstance(trusted, list):
+            trusted_text = " ".join(str(item or "") for item in trusted)
+        else:
+            trusted_text = str(trusted or "")
+        if trusted_text.strip().lower() == "mixed":
+            return False
+        tokens = {token for token in re.split(r"[^a-z]+", trusted_text.lower()) if token}
+        minds: set[str] = set()
+        if tokens & {"r", "racio", "rational", "reason", "reasoning"}:
+            minds.add("racio")
+        if tokens & {"e", "emocio", "emotion", "emotional"}:
+            minds.add("emocio")
+        if tokens & {"i", "instinkt", "instinct", "instinctive"}:
+            minds.add("instinkt")
+        return "racio" in minds and bool(minds & {"emocio", "instinkt"})
 
     def _coerce_racio_signal(self, payload: dict[str, Any], scenario: Scenario) -> RacioSignal:
         fallback = self._fallback_rei_racio_signal(scenario)
@@ -1352,6 +1337,73 @@ class ReiEngine:
                 continue
             cleaned[key] = self._clean_mind_text(item, fallback.get(key, ""), max_words=18)
         return cleaned or fallback
+
+    def _clean_hidden_signal_sources(
+        self,
+        value: object,
+        fallback: dict[str, str],
+        racio: RacioSignal,
+        emocio: EmocioSignal,
+        instinkt: InstinktSignal,
+    ) -> dict[str, str]:
+        provided = value if isinstance(value, dict) else {}
+        summaries = {
+            "racio": self._hidden_signal_source_summary(racio),
+            "emocio": self._hidden_signal_source_summary(emocio),
+            "instinkt": self._hidden_signal_source_summary(instinkt),
+        }
+        cleaned: dict[str, str] = {}
+        for mind in ("racio", "emocio", "instinkt"):
+            item = provided.get(mind)
+            fallback_text = summaries[mind] or fallback.get(mind, "")
+            if item is None or self._looks_like_raw_signal_dict(item):
+                item = fallback_text
+            text = self._clean_mind_text(item, fallback_text, max_words=18)
+            if self._looks_like_raw_signal_dict(text):
+                text = fallback_text
+            cleaned[mind] = text or fallback_text
+        return cleaned
+
+    def _hidden_signal_source_summary(self, signal: Union[RacioSignal, EmocioSignal, InstinktSignal]) -> str:
+        summary = self._ego_signal_summary(signal)
+        priority_by_mind = {
+            "racio": [
+                "rationalization_risk",
+                "rationalization_target",
+                "perception",
+                "preferred_action",
+            ],
+            "emocio": [
+                "desired_image",
+                "current_image",
+                "social_meaning",
+                "recognition_need",
+                "preferred_action",
+            ],
+            "instinkt": [
+                "boundary_issue",
+                "minimum_safety_condition",
+                "threat_map",
+                "loss_map",
+                "perception",
+            ],
+        }
+        for key in priority_by_mind.get(signal.mind, []):
+            value = summary.get(key)
+            if value:
+                return self._clean_mind_text(value, "", max_words=18)
+        return self._clean_mind_text(signal.perception, "", max_words=18)
+
+    def _looks_like_raw_signal_dict(self, value: object) -> bool:
+        text = str(value or "").strip()
+        if not text:
+            return False
+        lower = text.lower()
+        return (
+            (text.startswith("{") and ("'mind'" in lower or '"mind"' in lower))
+            or (text.startswith("{") and "'perception'" in lower)
+            or (text.startswith("{") and '"perception"' in lower)
+        )
 
     def _clean_role(self, value: object, fallback: str, allowed: set[str]) -> str:
         raw = str(value or "").strip().lower().replace("-", "_").replace(" ", "_")
