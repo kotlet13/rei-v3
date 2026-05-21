@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>REI Workbench</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>REI Workbench</h1>
+          <p id="ollamaStatus">Ollama: checking</p>
+        </div>
+        <div class="top-actions">
+          <button id="refreshModelsBtn" type="button">Refresh models</button>
+          <button id="clearHistoryBtn" type="button">Clear history</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="prompt-pane" aria-label="Prompt editor">
+          <div class="section-head">
+            <h2>Navodila</h2>
+            <span id="promptMeta" class="meta-pill">baseline</span>
+          </div>
+          <nav id="promptTabs" class="tabs" aria-label="Prompt tabs"></nav>
+          <textarea id="promptEditor" spellcheck="false"></textarea>
+          <div class="prompt-actions">
+            <button id="savePromptBtn" type="button">Save prompt</button>
+            <button id="resetPromptBtn" type="button">Reset baseline</button>
+          </div>
+          <div id="requiredKeys" class="keys"></div>
+        </section>
+
+        <section class="run-pane" aria-label="Run controls">
+          <div class="section-head">
+            <h2>Test</h2>
+            <span id="activeRun" class="meta-pill">idle</span>
+          </div>
+
+          <div class="input-grid">
+            <label class="field span-2">
+              <span>Input</span>
+              <textarea id="testInput" rows="5" placeholder="Vnesi minimum inputa..."></textarea>
+            </label>
+            <label class="field">
+              <span>Profile</span>
+              <select id="profileSelect"></select>
+            </label>
+            <label class="field toggle-row">
+              <span>Kanon kontekst</span>
+              <input
+                id="referenceToggle"
+                type="checkbox"
+                checked
+                title="Doda REI reference context iz knowledge/ v Ollama klic."
+              />
+            </label>
+          </div>
+
+          <div id="settingsGrid" class="settings-grid"></div>
+
+          <div class="run-actions">
+            <button type="button" data-run="mind" data-target="racio">Run Racio</button>
+            <button type="button" data-run="mind" data-target="emocio">Run Emocio</button>
+            <button type="button" data-run="mind" data-target="instinkt">Run Instinkt</button>
+            <button type="button" data-run="ego">Run Ego</button>
+            <button id="runFullBtn" type="button">Run all</button>
+            <button id="stopBtn" type="button" disabled>Stop</button>
+          </div>
+
+          <div id="outputGrid" class="output-grid"></div>
+        </section>
+
+        <section class="history-pane" aria-label="History">
+          <div class="section-head">
+            <h2>Zgodovina</h2>
+            <span id="historyCount" class="meta-pill">0</span>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+      </main>
+    </div>
+    <script src="/static/app.js" type="module"></script>
+  </body>
+</html>

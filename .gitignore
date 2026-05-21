@@ -21,4 +21,7 @@ app/backend/.venv/
 output/
 *.zip
 Docs/*.pdf
+app/gui/data/prompt_overrides.json
+app/gui/data/prompt_overrides.tmp
+app/gui/data/test_history.jsonl
 /rei_v3_next_upgrade_patch_pack/
