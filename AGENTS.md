@@ -14,7 +14,7 @@ $env:REI_OLLAMA_NUM_GPU = "999"
 Or pass the equivalent script flags when available:
 
 ```powershell
-python scripts\run_rei_runtime_llm_matrix.py --model granite4.1:30b --num-ctx 65536 --num-gpu 999
+python scripts\run_rei_profile_matrix.py --model granite4.1:30b --num-ctx 65536 --num-gpu 999
 ```
 
 Why: on this machine, Granite 4.1 30B at 64k context previously landed partly on CPU unless `num_gpu=999` was sent in Ollama options. With `num_gpu=999`, `wsl ollama ps` showed `granite4.1:30b` as `100% GPU` at context `65536`.

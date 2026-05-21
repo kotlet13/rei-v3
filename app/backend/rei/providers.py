@@ -15,6 +15,13 @@ class ProviderError(RuntimeError):
     pass
 
 
+def _normalize_base_url(value: str) -> str:
+    url = value.strip()
+    if not url.startswith(("http://", "https://")):
+        url = f"http://{url}"
+    return url.rstrip("/")
+
+
 @dataclass(frozen=True)
 class OllamaRequest:
     model: str
@@ -31,8 +38,9 @@ class OllamaRequest:
 
 
 class OllamaProvider:
-    def __init__(self, base_url: str = "http://localhost:11434") -> None:
-        self.base_url = base_url.rstrip("/")
+    def __init__(self, base_url: Optional[str] = None) -> None:
+        configured_url = os.environ.get("REI_OLLAMA_BASE_URL") or os.environ.get("OLLAMA_HOST")
+        self.base_url = _normalize_base_url(configured_url or base_url or "http://localhost:11434")
         self.default_options = self._default_options_from_env()
         self.stream_responses = False
         self.stream_callback: Optional[Callable[[dict[str, Any]], None]] = None
@@ -246,8 +254,9 @@ class OllamaProvider:
 
 
 class LMStudioProvider:
-    def __init__(self, base_url: str = "http://localhost:1234") -> None:
-        self.base_url = base_url.rstrip("/")
+    def __init__(self, base_url: Optional[str] = None) -> None:
+        configured_url = os.environ.get("REI_LMSTUDIO_BASE_URL")
+        self.base_url = _normalize_base_url(configured_url or base_url or "http://localhost:1234")
         self.context_length = self._int_env("REI_LMSTUDIO_CONTEXT_LENGTH", 4096)
 
     def list_models(self, timeout_seconds: int = 5) -> list[str]:

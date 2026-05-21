@@ -20,4 +20,5 @@ app/backend/.venv/
 
 output/
 *.zip
-rei_v3_next_upgrade_patch_pack/
+Docs/*.pdf
+/rei_v3_next_upgrade_patch_pack/

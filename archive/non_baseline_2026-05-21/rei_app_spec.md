@@ -1,5 +1,10 @@
 # REI aplikacija: raziskovalni PoC spec
 
+> Historical spec note, 2026-05-21:
+> this document describes an earlier PoC target and old `/api/v1/simulate`
+> / `TraceRecord` surfaces. The current active engine/API/UI stack is defined in
+> `CURRENT.md` and exposed by `GET /api/v1/version`.
+
 ## Namen
 Ta specifikacija zaklene prvo implementacijsko tarčo za `REI v3`.
 

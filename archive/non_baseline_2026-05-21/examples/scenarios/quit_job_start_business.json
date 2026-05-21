@@ -1,0 +1,18 @@
+{
+  "id": "quit_job_start_business",
+  "title": "quit_job_start_business",
+  "situation": "I am considering leaving my job to start a business. The idea feels alive, but the income risk, timing, and social consequences make me hesitate.",
+  "decision_options": [
+    "A quit immediately",
+    "B 90-day pilot while employed",
+    "C drop the idea",
+    "D seek mentor/investor"
+  ],
+  "stakes": {
+    "financial_risk": 0.78,
+    "social_exposure": 0.56,
+    "time_pressure": 0.48,
+    "relationship_risk": 0.52,
+    "reversibility": 0.44
+  }
+}
