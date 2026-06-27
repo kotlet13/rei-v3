@@ -219,6 +219,9 @@ def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", pa
         "Processing loop:",
         "\n".join(f"- {item}" for item in contract["processing_loop"]),
         "",
+        "Processor isolation rules:",
+        "\n".join(f"- {item}" for item in contract.get("processor_isolation_rules", [])),
+        "",
         "Style rules:",
         "\n".join(f"- {item}" for item in contract["style_rules"]),
         "",
@@ -231,6 +234,15 @@ def build_processor_prompt(mind: ProcessorMind, mode: PromptMode = "compact", pa
         "Required JSON shape, fill every key:",
         _processor_json_shape(mind, keys),
     ]
+    output_constraints = contract.get("processor_output_constraints", [])
+    if output_constraints:
+        body.extend(
+            [
+                "",
+                "Final output constraints:",
+                "\n".join(f"- {item}" for item in output_constraints),
+            ]
+        )
 
     if mode == "full":
         body.extend(

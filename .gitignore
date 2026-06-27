@@ -26,4 +26,7 @@ app/gui/data/prompt_overrides.tmp
 app/gui/data/test_history.jsonl
 logs/gui_dataset_server*.log
 logs/rei_ft_*generation*.log
+datasets/archive/**/*.jsonl
+datasets/archive/**/*.log
+datasets/archive/**/reports/
 /rei_v3_next_upgrade_patch_pack/
