@@ -55,3 +55,17 @@ Validation and export:
 python scripts\validate_rei_ft_dataset.py rei_ft_profile_pilot_v1
 python scripts\export_rei_ft_dataset.py rei_ft_profile_pilot_v1
 ```
+
+## Profile Matrix Review
+
+Profile-matrix run outputs can be imported into the same dataset editor as
+review-only datasets:
+
+```powershell
+python scripts\import_rei_profile_matrix_review_dataset.py output\reports\rei_profile_matrix\prompt_isolation_20260627_121704\cases.jsonl --dataset-id rei_profile_matrix_review_20260627_121704 --overwrite
+```
+
+The committed review dataset `rei_profile_matrix_review_20260627_121704`
+contains 624 examples: 12 scenarios x 13 profiles x 4 targets. Use the GUI
+Target and Profile filters to inspect one processor/profile combination at a
+time. Review-only examples are skipped by SFT export.

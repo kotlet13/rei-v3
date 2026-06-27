@@ -166,6 +166,28 @@ def test_process_trace_is_required() -> None:
     assert "missing:process_trace" in validation["process_trace_errors"]
 
 
+def test_review_only_examples_skip_trace_requirement_and_export(tmp_path: Path) -> None:
+    dataset_dir = tmp_path / "rei_matrix_review"
+    item = example("rei_matrix_review", "scenario_001", "racio", status="approved")
+    payload = dict(item.assistant_payload)
+    payload.pop("process_trace", None)
+    item = item.model_copy(
+        update={
+            "assistant_payload": payload,
+            "generation_settings": {"review_only": True},
+        }
+    )
+    save_scenarios(dataset_dir, [scenario("rei_matrix_review", 1)])
+    save_examples(dataset_dir, [item])
+
+    validation = validate_example(item)
+    summary = export_dataset(dataset_dir)
+
+    assert validation["valid"] is True
+    assert "review_only_not_exported" in validation["warnings"]
+    assert summary["counts"] == {"train": 0, "validation": 0, "test": 0}
+
+
 def test_ten_scenarios_map_to_profile_expanded_examples_and_export_by_scenario(tmp_path: Path) -> None:
     dataset_dir = tmp_path / "rei_ft_profile_pilot_v1"
     write_dataset(dataset_dir, "rei_ft_profile_pilot_v1", scenario_count=10)

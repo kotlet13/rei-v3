@@ -624,6 +624,7 @@ def _example_summary(example: DatasetExample, scenarios: dict[str, dict[str, Any
         "target": example.target,
         "character_profile": example.character_profile,
         "influence_weights": example.influence_weights,
+        "review_only": bool(example.generation_settings.get("review_only")),
         "status": example.status,
         "split": example.split,
         "model": example.model,

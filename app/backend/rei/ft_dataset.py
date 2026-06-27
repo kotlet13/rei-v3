@@ -172,6 +172,10 @@ def validate_process_trace(target: DatasetTarget, payload: dict[str, Any]) -> li
     return []
 
 
+def is_review_only(example: DatasetExample) -> bool:
+    return bool(example.generation_settings.get("review_only"))
+
+
 def _weight_map(value: Any) -> dict[str, float] | None:
     if not isinstance(value, dict):
         return None
@@ -192,9 +196,11 @@ def validate_example(example: DatasetExample) -> dict[str, Any]:
     required = required_keys_for_target(example.target)
     payload = example.assistant_payload
     missing = validate_required_keys(payload, required)
-    trace_errors = validate_process_trace(example.target, payload)
+    trace_errors = [] if is_review_only(example) else validate_process_trace(example.target, payload)
     invalid_constants: list[str] = []
     warnings: list[str] = []
+    if is_review_only(example):
+        warnings.append("review_only_not_exported")
 
     if example.target in PROCESSOR_TARGETS:
         if payload.get("mind") != example.target:
@@ -264,12 +270,14 @@ def validate_dataset(dataset_dir: Path) -> dict[str, Any]:
     for example in examples:
         target_counts[example.target] = target_counts.get(example.target, 0) + 1
         status_counts[example.status] = status_counts.get(example.status, 0) + 1
+    review_only_count = sum(1 for example in examples if is_review_only(example))
     return {
         "dataset_dir": str(dataset_dir),
         "scenario_count": len(scenarios),
         "example_count": len(examples),
         "target_counts": target_counts,
         "status_counts": status_counts,
+        "review_only_count": review_only_count,
         "valid_example_count": len(examples) - len(invalid),
         "invalid_example_count": len(invalid),
         "approved_invalid_count": len(approved_invalid),
@@ -305,6 +313,8 @@ def approved_examples_by_split(dataset_dir: Path) -> dict[DatasetSplit, list[Dat
     split_by_scenario = scenario_split_map(scenarios)
     grouped: dict[DatasetSplit, list[DatasetExample]] = {"train": [], "validation": [], "test": []}
     for example in load_examples(dataset_dir):
+        if is_review_only(example):
+            continue
         if example.status != "approved":
             continue
         validation = validate_example(example)

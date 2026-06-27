@@ -51,6 +51,7 @@ const els = {
   datasetSelect: document.querySelector("#datasetSelect"),
   datasetTargetFilter: document.querySelector("#datasetTargetFilter"),
   datasetStatusFilter: document.querySelector("#datasetStatusFilter"),
+  datasetProfileFilter: document.querySelector("#datasetProfileFilter"),
   refreshDatasetsBtn: document.querySelector("#refreshDatasetsBtn"),
   validateDatasetBtn: document.querySelector("#validateDatasetBtn"),
   exportDatasetBtn: document.querySelector("#exportDatasetBtn"),
@@ -600,17 +601,34 @@ function renderDatasetSummary(datasetDetail) {
 function filteredDatasetExamples() {
   const target = els.datasetTargetFilter?.value || "";
   const status = els.datasetStatusFilter?.value || "";
+  const profile = els.datasetProfileFilter?.value || "";
   return state.datasetExamples.filter((item) => {
     if (target && item.target !== target) return false;
     if (status && item.status !== status) return false;
+    if (profile && item.character_profile !== profile) return false;
     return true;
   });
 }
 
 function renderDatasetPanel() {
   renderDatasetSelect();
+  renderDatasetProfileFilter();
   renderDatasetList();
   renderDatasetEditor();
+}
+
+function renderDatasetProfileFilter() {
+  if (!els.datasetProfileFilter) return;
+  const current = els.datasetProfileFilter.value || "";
+  const profiles = [...new Set(state.datasetExamples.map((item) => item.character_profile).filter(Boolean))].sort();
+  els.datasetProfileFilter.innerHTML = '<option value="">All</option>';
+  for (const profile of profiles) {
+    const option = document.createElement("option");
+    option.value = profile;
+    option.textContent = profile;
+    els.datasetProfileFilter.append(option);
+  }
+  els.datasetProfileFilter.value = profiles.includes(current) ? current : "";
 }
 
 function renderDatasetList() {
@@ -630,7 +648,8 @@ function renderDatasetList() {
     button.className = `dataset-item ${state.activeDatasetExample?.example_id === item.example_id ? "active" : ""}`;
     const valid = item.valid ? "valid" : "invalid";
     const profile = item.character_profile ? item.character_profile : "";
-    const meta = [item.target, profile, item.status, valid].filter(Boolean).join(" · ");
+    const review = item.review_only ? "review" : "";
+    const meta = [item.target, profile, item.status, valid, review].filter(Boolean).join(" · ");
     button.innerHTML = `
       <span>${escapeHtml(meta)}</span>
       <strong>${escapeHtml(item.scenario_title || item.scenario_id)}</strong>
@@ -949,6 +968,7 @@ els.datasetSelect.addEventListener("change", async () => {
 });
 els.datasetTargetFilter.addEventListener("change", renderDatasetPanel);
 els.datasetStatusFilter.addEventListener("change", renderDatasetPanel);
+els.datasetProfileFilter.addEventListener("change", renderDatasetPanel);
 els.validateDatasetBtn.addEventListener("click", validateActiveDataset);
 els.exportDatasetBtn.addEventListener("click", exportActiveDataset);
 els.saveDatasetExampleBtn.addEventListener("click", () => saveDatasetExample());
