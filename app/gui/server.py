@@ -26,6 +26,24 @@ if str(BACKEND) not in sys.path:
 from rei.acceptance import assess_acceptance
 from rei.contract_loader import build_ego_prompt, build_processor_prompt, ego_required_keys, runtime_required_keys_for
 from rei.engine import ReiEngine
+from rei.ft_dataset import (
+    DATASETS_ROOT,
+    DatasetExample,
+    DatasetSplit,
+    DatasetStatus,
+    DatasetTarget,
+    build_manifest,
+    dataset_path,
+    export_dataset,
+    load_examples,
+    load_scenarios,
+    save_examples,
+    utc_now,
+    validate_dataset,
+    validate_example,
+    write_json,
+    write_manifest,
+)
 from rei.json_utils import extract_json_object, validate_required_keys
 from rei.knowledge import KnowledgeIndex
 from rei.models import Scenario
@@ -106,6 +124,14 @@ class BaseRunRequest(BaseModel):
 
 class EgoRunRequest(BaseRunRequest):
     signals: dict[str, dict[str, Any]] = Field(default_factory=dict)
+
+
+class DatasetExampleUpdate(BaseModel):
+    status: Optional[DatasetStatus] = None
+    split: Optional[DatasetSplit] = None
+    assistant_payload: Optional[dict[str, Any]] = None
+    review_notes: Optional[str] = None
+    reviewer: Optional[str] = None
 
 
 @dataclass
@@ -545,6 +571,97 @@ def _history_tail(limit: int = 50) -> list[dict[str, Any]]:
     return list(reversed(records))
 
 
+def _dataset_dir(dataset_id: str) -> Path:
+    try:
+        resolved = dataset_path(dataset_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return resolved
+
+
+def _dataset_ids() -> list[str]:
+    if not DATASETS_ROOT.exists():
+        return []
+    return sorted(item.name for item in DATASETS_ROOT.iterdir() if item.is_dir())
+
+
+def _dataset_summary(dataset_id: str) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    manifest_path = dataset_dir / "manifest.json"
+    manifest: dict[str, Any] = {}
+    if manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            manifest = {}
+    validation = validate_dataset(dataset_dir)
+    return {
+        "dataset_id": dataset_id,
+        "path": str(dataset_dir),
+        "manifest": manifest,
+        "validation": {
+            key: value
+            for key, value in validation.items()
+            if key not in {"examples"}
+        },
+    }
+
+
+def _scenario_lookup(dataset_dir: Path) -> dict[str, dict[str, Any]]:
+    return {item.scenario_id: item.model_dump(mode="json") for item in load_scenarios(dataset_dir)}
+
+
+def _example_summary(example: DatasetExample, scenarios: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    validation = validate_example(example)
+    scenario = scenarios.get(example.scenario_id, {})
+    return {
+        "example_id": example.example_id,
+        "scenario_id": example.scenario_id,
+        "scenario_title": scenario.get("title", ""),
+        "scenario_prompt": scenario.get("prompt", ""),
+        "target": example.target,
+        "status": example.status,
+        "split": example.split,
+        "model": example.model,
+        "updated_at": example.updated_at,
+        "review_notes": example.review_notes,
+        "valid": validation["valid"],
+        "warnings": validation["warnings"],
+        "missing_required_keys": validation["missing_required_keys"],
+        "process_trace_errors": validation["process_trace_errors"],
+        "invalid_constants": validation["invalid_constants"],
+    }
+
+
+def _find_example(dataset_dir: Path, example_id: str) -> tuple[list[DatasetExample], DatasetExample]:
+    examples = load_examples(dataset_dir)
+    for example in examples:
+        if example.example_id == example_id:
+            return examples, example
+    raise HTTPException(status_code=404, detail=f"Example not found: {example_id}")
+
+
+def _write_dataset_manifest(dataset_id: str, dataset_dir: Path) -> None:
+    manifest = build_manifest(dataset_id=dataset_id, dataset_dir=dataset_dir)
+    previous_path = dataset_dir / "manifest.json"
+    if previous_path.exists():
+        try:
+            previous = json.loads(previous_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            previous = {}
+        manifest = manifest.model_copy(
+            update={
+                "description": previous.get("description", manifest.description),
+                "teacher_model": previous.get("teacher_model", manifest.teacher_model),
+                "thinking_policy": previous.get("thinking_policy", manifest.thinking_policy),
+                "created_at": previous.get("created_at", manifest.created_at),
+            }
+        )
+    write_manifest(dataset_dir, manifest)
+
+
 def _result_payload(result: ChatResult) -> dict[str, Any]:
     return {
         "target": result.target,
@@ -778,6 +895,111 @@ def clear_history() -> dict[str, Any]:
     if HISTORY_PATH.exists():
         HISTORY_PATH.unlink()
     return {"history": []}
+
+
+@app.get("/api/datasets")
+def datasets() -> dict[str, Any]:
+    ids = _dataset_ids()
+    return {"datasets": [_dataset_summary(dataset_id) for dataset_id in ids]}
+
+
+@app.get("/api/datasets/{dataset_id}")
+def dataset_detail(dataset_id: str) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    scenarios = _scenario_lookup(dataset_dir)
+    examples = load_examples(dataset_dir)
+    return {
+        **_dataset_summary(dataset_id),
+        "scenarios": list(scenarios.values()),
+        "examples": [_example_summary(example, scenarios) for example in examples],
+    }
+
+
+@app.get("/api/datasets/{dataset_id}/examples")
+def dataset_examples(
+    dataset_id: str,
+    target: Optional[DatasetTarget] = None,
+    status: Optional[DatasetStatus] = None,
+    scenario_id: Optional[str] = None,
+) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    scenarios = _scenario_lookup(dataset_dir)
+    examples = load_examples(dataset_dir)
+    if target:
+        examples = [example for example in examples if example.target == target]
+    if status:
+        examples = [example for example in examples if example.status == status]
+    if scenario_id:
+        examples = [example for example in examples if example.scenario_id == scenario_id]
+    return {"examples": [_example_summary(example, scenarios) for example in examples]}
+
+
+@app.get("/api/datasets/{dataset_id}/examples/{example_id}")
+def dataset_example(dataset_id: str, example_id: str) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    scenarios = _scenario_lookup(dataset_dir)
+    _examples, example = _find_example(dataset_dir, example_id)
+    payload = example.model_dump(mode="json")
+    payload["scenario"] = scenarios.get(example.scenario_id, {})
+    payload["validation"] = validate_example(example)
+    return {"example": payload}
+
+
+@app.put("/api/datasets/{dataset_id}/examples/{example_id}")
+def update_dataset_example(
+    dataset_id: str,
+    example_id: str,
+    payload: DatasetExampleUpdate,
+) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    examples, example = _find_example(dataset_dir, example_id)
+    updates: dict[str, Any] = {"updated_at": utc_now()}
+    if payload.status is not None:
+        updates["status"] = payload.status
+    if payload.split is not None:
+        updates["split"] = payload.split
+    if payload.assistant_payload is not None:
+        updates["assistant_payload"] = payload.assistant_payload
+    if payload.review_notes is not None:
+        updates["review_notes"] = payload.review_notes
+    if payload.reviewer is not None:
+        updates["reviewer"] = payload.reviewer
+    updated = example.model_copy(update=updates)
+    saved = [updated if item.example_id == example_id else item for item in examples]
+    save_examples(dataset_dir, saved)
+    _write_dataset_manifest(dataset_id, dataset_dir)
+    validation = validate_example(updated)
+    return {"example": updated.model_dump(mode="json"), "validation": validation}
+
+
+@app.post("/api/datasets/{dataset_id}/validate")
+def validate_dataset_endpoint(dataset_id: str) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    summary = validate_dataset(dataset_dir)
+    write_json(dataset_dir / "reports" / "validation_summary.json", summary)
+    return summary
+
+
+@app.post("/api/datasets/{dataset_id}/export")
+def export_dataset_endpoint(dataset_id: str) -> dict[str, Any]:
+    dataset_dir = _dataset_dir(dataset_id)
+    if not dataset_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Dataset not found: {dataset_id}")
+    validation = validate_dataset(dataset_dir)
+    write_json(dataset_dir / "reports" / "validation_summary.json", validation)
+    summary = export_dataset(dataset_dir)
+    _write_dataset_manifest(dataset_id, dataset_dir)
+    return {"validation": validation, "export": summary}
 
 
 @app.post("/api/run/mind/{target}")

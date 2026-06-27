@@ -7,6 +7,11 @@ the current baseline prompts from `app/backend/rei/contract_loader.py`, allows
 local prompt overrides, streams direct Ollama responses, and records local test
 history.
 
+Each output panel has a `View` selector. `RAW JSON` shows the complete raw model
+response. Other options are discovered dynamically from the top-level keys in
+the actual JSON output, including partial or truncated raw output where possible.
+The selected view is remembered locally per processor.
+
 Run:
 
 ```powershell
@@ -25,3 +30,24 @@ Runtime files are ignored by git:
 - `app/gui/data/test_history.jsonl`
 
 The baseline runner remains `scripts/run_rei_profile_matrix.py`.
+
+## Dataset Review
+
+The workbench also exposes a local dataset editor for REI fine-tune datasets
+under `datasets/{dataset_id}`. It can list examples, validate required REI
+keys plus `process_trace`, edit assistant JSON, approve/reject examples, and
+export approved valid examples to SFT chat JSONL.
+
+Pilot generation is explicit and does not run from the GUI:
+
+```powershell
+python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_pilot_v1 --model gemma4:26b --scenario-count 50 --dry-run
+python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_pilot_v1 --model gemma4:26b --scenario-count 50 --confirm-run
+```
+
+Validation and export:
+
+```powershell
+python scripts\validate_rei_ft_dataset.py rei_ft_pilot_v1
+python scripts\export_rei_ft_dataset.py rei_ft_pilot_v1
+```

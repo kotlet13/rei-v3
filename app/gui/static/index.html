@@ -75,6 +75,91 @@
           <div id="outputGrid" class="output-grid"></div>
         </section>
 
+        <section class="dataset-pane" aria-label="Dataset editor">
+          <div class="section-head">
+            <h2>Dataset</h2>
+            <span id="datasetSummary" class="meta-pill">none</span>
+          </div>
+
+          <div class="dataset-controls">
+            <label class="field">
+              <span>Dataset</span>
+              <select id="datasetSelect"></select>
+            </label>
+            <label class="field">
+              <span>Target</span>
+              <select id="datasetTargetFilter">
+                <option value="">All</option>
+                <option value="racio">Racio</option>
+                <option value="emocio">Emocio</option>
+                <option value="instinkt">Instinkt</option>
+                <option value="ego_resultant">EgoResultant</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Status</span>
+              <select id="datasetStatusFilter">
+                <option value="">All</option>
+                <option value="draft">draft</option>
+                <option value="needs_edit">needs_edit</option>
+                <option value="approved">approved</option>
+                <option value="rejected">rejected</option>
+              </select>
+            </label>
+            <div class="dataset-actions">
+              <button id="refreshDatasetsBtn" type="button">Refresh</button>
+              <button id="validateDatasetBtn" type="button">Validate</button>
+              <button id="exportDatasetBtn" type="button">Export</button>
+            </div>
+          </div>
+
+          <div class="dataset-workspace">
+            <div id="datasetList" class="dataset-list"></div>
+            <div class="dataset-editor">
+              <div id="datasetScenario" class="dataset-scenario">No dataset example selected.</div>
+              <div id="datasetValidation" class="dataset-validation"></div>
+              <div class="dataset-form">
+                <label class="field">
+                  <span>Status</span>
+                  <select id="datasetStatusSelect">
+                    <option value="draft">draft</option>
+                    <option value="needs_edit">needs_edit</option>
+                    <option value="approved">approved</option>
+                    <option value="rejected">rejected</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Split</span>
+                  <select id="datasetSplitSelect">
+                    <option value="">auto</option>
+                    <option value="train">train</option>
+                    <option value="validation">validation</option>
+                    <option value="test">test</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Reviewer</span>
+                  <input id="datasetReviewer" type="text" />
+                </label>
+              </div>
+              <label class="field dataset-notes">
+                <span>Review notes</span>
+                <textarea id="datasetNotes" rows="2"></textarea>
+              </label>
+              <label class="field dataset-json">
+                <span>Assistant payload JSON</span>
+                <textarea id="datasetJsonEditor" spellcheck="false"></textarea>
+              </label>
+              <div class="dataset-save-row">
+                <button id="saveDatasetExampleBtn" type="button">Save example</button>
+                <button type="button" data-dataset-status="approved">Approve</button>
+                <button type="button" data-dataset-status="needs_edit">Needs edit</button>
+                <button type="button" data-dataset-status="rejected">Reject</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="history-pane" aria-label="History">
           <div class="section-head">
             <h2>Zgodovina</h2>
