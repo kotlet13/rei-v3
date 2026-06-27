@@ -629,8 +629,10 @@ function renderDatasetList() {
     button.type = "button";
     button.className = `dataset-item ${state.activeDatasetExample?.example_id === item.example_id ? "active" : ""}`;
     const valid = item.valid ? "valid" : "invalid";
+    const profile = item.character_profile ? item.character_profile : "";
+    const meta = [item.target, profile, item.status, valid].filter(Boolean).join(" · ");
     button.innerHTML = `
-      <span>${escapeHtml(item.target)} · ${escapeHtml(item.status)} · ${escapeHtml(valid)}</span>
+      <span>${escapeHtml(meta)}</span>
       <strong>${escapeHtml(item.scenario_title || item.scenario_id)}</strong>
       <span>${escapeHtml((item.scenario_prompt || "").slice(0, 120))}</span>
     `;
@@ -663,8 +665,9 @@ function renderDatasetEditor() {
     return;
   }
   const scenario = example.scenario || {};
+  const profile = example.character_profile ? ` · ${example.character_profile}` : "";
   els.datasetScenario.innerHTML = `
-    <strong>${escapeHtml(example.target)} · ${escapeHtml(scenario.title || example.scenario_id)}</strong>
+    <strong>${escapeHtml(`${example.target}${profile} · ${scenario.title || example.scenario_id}`)}</strong>
     ${escapeHtml(scenario.prompt || "")}
   `;
   els.datasetStatusSelect.value = example.status || "draft";

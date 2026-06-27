@@ -19,6 +19,24 @@ from rei.ft_dataset import (
     validate_example,
 )
 from rei.processor_eval import deterministic_processor_signal
+from rei.profiles import profile_weights
+
+
+PROFILE_INPUTS = [
+    "R",
+    "E",
+    "I",
+    "RE",
+    "RI",
+    "EI",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "REI",
+]
 
 
 def processor_trace() -> dict[str, object]:
@@ -36,28 +54,35 @@ def ego_trace() -> dict[str, object]:
         "signal_read": ["Racio checks facts.", "Emocio wants contact.", "Instinkt protects safety."],
         "profile_weighting_route": ["Use R=E=I as equal arbitration."],
         "conflict_resolution": ["Preserve all three objections before choosing a small step."],
+        "situational_override_check": "The situation does not override the balanced profile in this fixture.",
         "acceptance_check": "The result keeps cooperation visible.",
         "decision_bridge": "The integration supports one reversible action.",
     }
 
 
-def ego_payload() -> dict[str, object]:
+def ego_payload(profile: str = "R=E=I", weights: dict[str, float] | None = None) -> dict[str, object]:
+    if weights is None:
+        _normalized, weights = profile_weights(profile)
     payload: dict[str, object] = {}
     for key in ego_required_keys():
         if key in {"influence_weights", "task_delegation"}:
-            payload[key] = {"racio": 1 / 3, "emocio": 1 / 3, "instinkt": 1 / 3}
+            payload[key] = dict(weights)
         elif key in {"profile_leader_minds", "safety_flags"}:
             payload[key] = []
         else:
             payload[key] = f"{key} value"
-    payload["character_profile"] = "R=E=I"
+    payload["character_profile"] = profile
     payload["process_trace"] = ego_trace()
     return payload
 
 
-def payload_for_target(target: str) -> dict[str, object]:
+def payload_for_target(
+    target: str,
+    profile: str = "R=E=I",
+    weights: dict[str, float] | None = None,
+) -> dict[str, object]:
     if target == "ego_resultant":
-        return ego_payload()
+        return ego_payload(profile, weights)
     payload = deterministic_processor_signal(target, "I need to choose a bounded next step.")
     payload["process_trace"] = processor_trace()
     return payload
@@ -75,16 +100,34 @@ def scenario(dataset_id: str, index: int) -> DatasetScenario:
     )
 
 
-def example(dataset_id: str, scenario_id: str, target: str, status: str = "approved") -> DatasetExample:
+def profile_slug(profile_input: str) -> str:
+    return "".join(char if char.isalnum() else "_" for char in profile_input).strip("_")
+
+
+def example(
+    dataset_id: str,
+    scenario_id: str,
+    target: str,
+    status: str = "approved",
+    profile_input: str = "REI",
+) -> DatasetExample:
+    profile = ""
+    weights: dict[str, float] = {}
+    example_id = f"{scenario_id}__{target}"
+    if target == "ego_resultant":
+        profile, weights = profile_weights(profile_input)
+        example_id = f"{scenario_id}__ego_resultant__{profile_slug(profile_input)}"
     return DatasetExample(
         dataset_id=dataset_id,
-        example_id=f"{scenario_id}__{target}",
+        example_id=example_id,
         scenario_id=scenario_id,
         target=target,
         status=status,
         system_prompt=f"system {target}",
         user_prompt=f"user {scenario_id}",
-        assistant_payload=payload_for_target(target),
+        assistant_payload=payload_for_target(target, profile, weights),
+        character_profile=profile,
+        influence_weights=weights,
         source_refs=["PSI-R"],
         model="test",
         created_at="2026-01-01T00:00:00+00:00",
@@ -94,11 +137,12 @@ def example(dataset_id: str, scenario_id: str, target: str, status: str = "appro
 
 def write_dataset(dataset_dir: Path, dataset_id: str, scenario_count: int = 50) -> None:
     scenarios = [scenario(dataset_id, index) for index in range(scenario_count)]
-    examples = [
-        example(dataset_id, item.scenario_id, target)
-        for item in scenarios
-        for target in ["racio", "emocio", "instinkt", "ego_resultant"]
-    ]
+    examples = []
+    for item in scenarios:
+        for target in ["racio", "emocio", "instinkt"]:
+            examples.append(example(dataset_id, item.scenario_id, target))
+        for profile_input in PROFILE_INPUTS:
+            examples.append(example(dataset_id, item.scenario_id, "ego_resultant", profile_input=profile_input))
     save_scenarios(dataset_dir, scenarios)
     save_examples(dataset_dir, examples)
 
@@ -122,19 +166,34 @@ def test_process_trace_is_required() -> None:
     assert "missing:process_trace" in validation["process_trace_errors"]
 
 
-def test_fifty_scenarios_map_to_two_hundred_examples_and_export_by_scenario(tmp_path: Path) -> None:
-    dataset_dir = tmp_path / "rei_ft_pilot_v1"
-    write_dataset(dataset_dir, "rei_ft_pilot_v1", scenario_count=50)
+def test_ten_scenarios_map_to_profile_expanded_examples_and_export_by_scenario(tmp_path: Path) -> None:
+    dataset_dir = tmp_path / "rei_ft_profile_pilot_v1"
+    write_dataset(dataset_dir, "rei_ft_profile_pilot_v1", scenario_count=10)
 
     examples = load_examples(dataset_dir)
     summary = export_dataset(dataset_dir)
 
-    assert len(examples) == 200
-    assert summary["counts"] == {"train": 160, "validation": 20, "test": 20}
-    train_line = (dataset_dir / "exports" / "train.jsonl").read_text(encoding="utf-8").splitlines()[0]
-    exported = json.loads(train_line)
+    assert len(examples) == 160
+    assert summary["counts"] == {"train": 128, "validation": 16, "test": 16}
+    train_lines = (dataset_dir / "exports" / "train.jsonl").read_text(encoding="utf-8").splitlines()
+    exported = json.loads(train_lines[0])
     assert [message["role"] for message in exported["messages"]] == ["system", "user", "assistant"]
     assert exported["metadata"]["target"] in {"racio", "emocio", "instinkt", "ego_resultant"}
+    ego_record = next(json.loads(line) for line in train_lines if "__ego_resultant__" in line)
+    assert ego_record["metadata"]["character_profile"]
+    assert set(ego_record["metadata"]["influence_weights"]) == {"racio", "emocio", "instinkt"}
+
+
+def test_ego_profile_mismatch_is_invalid() -> None:
+    item = example("test", "scenario_001", "ego_resultant", profile_input="R")
+    payload = dict(item.assistant_payload)
+    payload["character_profile"] = "E>(R=I)"
+    item = item.model_copy(update={"assistant_payload": payload})
+
+    validation = validate_example(item)
+
+    assert validation["valid"] is False
+    assert "ego payload character_profile must match example character_profile" in validation["invalid_constants"]
 
 
 def test_rejected_examples_never_export(tmp_path: Path) -> None:

@@ -5,12 +5,13 @@ import json
 from pathlib import Path
 from typing import Any, Literal, Optional
 
-from pydantic import Field, ValidationError
+from pydantic import Field, ValidationError, model_validator
 
 from .contract_loader import ego_required_keys, runtime_required_keys_for
 from .json_utils import validate_required_keys
 from .models import ApiModel
 from .processor_eval import score_processor_signal
+from .profiles import profile_weights
 
 
 DatasetTarget = Literal["racio", "emocio", "instinkt", "ego_resultant"]
@@ -34,11 +35,23 @@ class ProcessorProcessTrace(ApiModel):
 
 
 class EgoProcessTrace(ApiModel):
-    signal_read: list[str] = Field(min_length=3, max_length=6)
+    signal_read: list[str] | dict[str, str]
     profile_weighting_route: list[str] = Field(min_length=1, max_length=5)
     conflict_resolution: list[str] = Field(min_length=1, max_length=5)
+    situational_override_check: str = Field(min_length=1)
     acceptance_check: str = Field(min_length=1)
     decision_bridge: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_signal_read_shape(self) -> "EgoProcessTrace":
+        if isinstance(self.signal_read, list):
+            if not 3 <= len(self.signal_read) <= 6:
+                raise ValueError("signal_read list must contain 3 to 6 items")
+            return self
+        missing = [key for key in ("racio", "emocio", "instinkt") if not self.signal_read.get(key)]
+        if missing:
+            raise ValueError(f"signal_read map missing: {', '.join(missing)}")
+        return self
 
 
 class DatasetScenario(ApiModel):
@@ -63,6 +76,8 @@ class DatasetExample(ApiModel):
     system_prompt: str
     user_prompt: str
     assistant_payload: dict[str, Any]
+    character_profile: str = ""
+    influence_weights: dict[str, float] = Field(default_factory=dict)
     source_refs: list[str] = Field(default_factory=list)
     model: str = ""
     generation_settings: dict[str, Any] = Field(default_factory=dict)
@@ -157,6 +172,22 @@ def validate_process_trace(target: DatasetTarget, payload: dict[str, Any]) -> li
     return []
 
 
+def _weight_map(value: Any) -> dict[str, float] | None:
+    if not isinstance(value, dict):
+        return None
+    weights: dict[str, float] = {}
+    for key in ("racio", "emocio", "instinkt"):
+        raw = value.get(key)
+        if not isinstance(raw, (int, float)):
+            return None
+        weights[key] = float(raw)
+    return weights
+
+
+def _weights_close(left: dict[str, float], right: dict[str, float], tolerance: float = 0.001) -> bool:
+    return all(abs(left[key] - right[key]) <= tolerance for key in ("racio", "emocio", "instinkt"))
+
+
 def validate_example(example: DatasetExample) -> dict[str, Any]:
     required = required_keys_for_target(example.target)
     payload = example.assistant_payload
@@ -179,8 +210,26 @@ def validate_example(example: DatasetExample) -> dict[str, Any]:
         warnings.extend(score.get("rei_violations", []))
     else:
         score = {}
-        if payload.get("character_profile") in {"", None}:
-            warnings.append("ego_character_profile_empty")
+        payload_profile = str(payload.get("character_profile") or "").strip()
+        if not example.character_profile.strip():
+            invalid_constants.append("ego example character_profile is required")
+        if not payload_profile:
+            invalid_constants.append("ego payload character_profile is required")
+        if example.character_profile.strip() and payload_profile:
+            example_profile, expected_weights = profile_weights(example.character_profile)
+            normalized_payload_profile, _payload_expected_weights = profile_weights(payload_profile)
+            if example_profile != normalized_payload_profile:
+                invalid_constants.append("ego payload character_profile must match example character_profile")
+            example_weights = _weight_map(example.influence_weights)
+            payload_weights = _weight_map(payload.get("influence_weights"))
+            if example_weights is None:
+                invalid_constants.append("ego example influence_weights must contain racio/emocio/instinkt numbers")
+            elif not _weights_close(example_weights, expected_weights):
+                invalid_constants.append("ego example influence_weights must match character_profile")
+            if payload_weights is None:
+                invalid_constants.append("ego payload influence_weights must contain racio/emocio/instinkt numbers")
+            elif not _weights_close(payload_weights, expected_weights):
+                invalid_constants.append("ego payload influence_weights must match character_profile")
 
     valid = not missing and not trace_errors and not invalid_constants
     if example.status == "approved" and not valid:
@@ -281,6 +330,8 @@ def example_to_sft_record(example: DatasetExample) -> dict[str, Any]:
             "example_id": example.example_id,
             "scenario_id": example.scenario_id,
             "target": example.target,
+            "character_profile": example.character_profile,
+            "influence_weights": example.influence_weights,
             "source_refs": example.source_refs,
             "split": example.split,
         },

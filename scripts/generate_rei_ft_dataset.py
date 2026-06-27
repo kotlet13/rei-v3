@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Optional
@@ -28,10 +29,28 @@ from rei.ft_dataset import (
     write_manifest,
 )
 from rei.providers import OllamaProvider, OllamaRequest
+from rei.profiles import profile_weights
 
 
-DEFAULT_DATASET_ID = "rei_ft_pilot_v1"
+DEFAULT_DATASET_ID = "rei_ft_profile_pilot_v1"
 DEFAULT_MODEL = "gemma4:26b"
+DEFAULT_SCENARIO_COUNT = 10
+DEFAULT_PROFILE_INPUT = "REI"
+PROFILE_OPTIONS = [
+    "R",
+    "E",
+    "I",
+    "RE",
+    "RI",
+    "EI",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "REI",
+]
 SOURCE_REFS = ["PSI-R", "PSI-E", "PSI-I", "PSI-EGO-DEL1", "EROS-ZAZNAVANJA-E-I"]
 
 
@@ -303,9 +322,14 @@ PROCESS_TRACE_SHAPE = {
 }
 
 EGO_TRACE_SHAPE = {
-    "signal_read": ["one short read of each processor signal"],
+    "signal_read": {
+        "racio": "one short read of the Racio signal",
+        "emocio": "one short read of the Emocio signal",
+        "instinkt": "one short read of the Instinkt signal",
+    },
     "profile_weighting_route": ["short steps for applying the supplied profile weights"],
     "conflict_resolution": ["short steps for resolving conflict without making Ego a fourth mind"],
+    "situational_override_check": "one short sentence naming whether the situation overrides the profile leader",
     "acceptance_check": "one short sentence about cooperation or suppression",
     "decision_bridge": "one short sentence connecting integration to the next step",
 }
@@ -333,6 +357,25 @@ def title_from_id(value: str) -> str:
     return " ".join(part.capitalize() for part in value.split("_"))
 
 
+def selected_profiles(raw: str | None) -> list[str]:
+    if not raw:
+        return list(PROFILE_OPTIONS)
+    requested = [token.strip() for token in raw.split(",") if token.strip()]
+    unknown = [profile for profile in requested if profile not in PROFILE_OPTIONS]
+    if unknown:
+        raise SystemExit(f"Unknown profiles: {', '.join(unknown)}")
+    return requested
+
+
+def profile_slug(profile_input: str) -> str:
+    slug = re.sub(r"[^A-Za-z0-9]+", "_", profile_input).strip("_")
+    return slug or "profile"
+
+
+def ego_example_id(scenario_id: str, profile_input: str) -> str:
+    return f"{scenario_id}__ego_resultant__{profile_slug(profile_input)}"
+
+
 def user_payload_for_processor(scenario: DatasetScenario, target: DatasetTarget) -> dict[str, Any]:
     return {
         "dataset_task": "Create one high-quality supervised fine-tuning example output.",
@@ -357,7 +400,9 @@ def user_payload_for_processor(scenario: DatasetScenario, target: DatasetTarget)
 def user_payload_for_ego(
     scenario: DatasetScenario,
     signals: dict[str, dict[str, Any]],
+    profile_input: str = DEFAULT_PROFILE_INPUT,
 ) -> dict[str, Any]:
+    profile, weights = profile_weights(profile_input)
     return {
         "dataset_task": "Create one high-quality EgoResultant supervised fine-tuning example output.",
         "language": "English",
@@ -366,8 +411,9 @@ def user_payload_for_ego(
             "prompt": scenario.prompt,
             "category": scenario.category,
         },
-        "character_profile": "R=E=I",
-        "influence_weights": {"racio": 1 / 3, "emocio": 1 / 3, "instinkt": 1 / 3},
+        "profile_input": profile_input,
+        "character_profile": profile,
+        "influence_weights": weights,
         "validated_processor_outputs": {
             "racio": signals.get("racio", {}),
             "emocio_translated": signals.get("emocio", {}),
@@ -378,6 +424,10 @@ def user_payload_for_ego(
             "Fill every required EgoResultant field from the system prompt.",
             "Add process_trace as a visible, concise, structured integration trace.",
             "Do not make Ego a fourth mind, judge, living agent, or objective truth.",
+            "Use character_profile and influence_weights exactly as supplied.",
+            "Do not produce a neutral compromise unless the supplied profile and situation justify it.",
+            "The processor outputs are fixed; this example trains how the same signals become a different EgoResultant under this character profile.",
+            "If situational pressure overrides the profile leader, name that explicitly in situational_driver, resultant_leader_under_pressure, and process_trace.situational_override_check.",
         ],
         "process_trace_shape": EGO_TRACE_SHAPE,
     }
@@ -431,23 +481,35 @@ def build_example(
     model: str,
     think: Optional[object],
     user_payload: Optional[dict[str, Any]] = None,
+    profile_input: str = DEFAULT_PROFILE_INPUT,
+    character_profile: str = "",
+    influence_weights: Optional[dict[str, float]] = None,
 ) -> DatasetExample:
     if user_payload is None:
         user_payload = (
-            user_payload_for_ego(scenario, {})
+            user_payload_for_ego(scenario, {}, profile_input)
             if target == "ego_resultant"
             else user_payload_for_processor(scenario, target)
         )
+    if target == "ego_resultant":
+        character_profile = character_profile or str(user_payload.get("character_profile") or "")
+        influence_weights = influence_weights or dict(user_payload.get("influence_weights") or {})
+        example_id = ego_example_id(scenario.scenario_id, profile_input)
+    else:
+        example_id = f"{scenario.scenario_id}__{target}"
+        influence_weights = influence_weights or {}
     now = utc_now()
     return DatasetExample(
         dataset_id=dataset_id,
-        example_id=f"{scenario.scenario_id}__{target}",
+        example_id=example_id,
         scenario_id=scenario.scenario_id,
         target=target,
         status="draft",
         system_prompt=system_prompt_for_target(target),
         user_prompt=json.dumps(user_payload, ensure_ascii=False, indent=2),
         assistant_payload=assistant_payload,
+        character_profile=character_profile,
+        influence_weights=influence_weights,
         source_refs=SOURCE_REFS,
         model=model,
         generation_settings={"think": think, "teacher": "ollama"},
@@ -461,20 +523,18 @@ def thinking_smoke(
     *,
     model: str,
     scenarios: list[DatasetScenario],
+    profiles: list[str],
 ) -> dict[str, Any]:
     results: list[dict[str, Any]] = []
+    smoke_profile = profiles[0] if profiles else DEFAULT_PROFILE_INPUT
     for think in (False, "low"):
         valid_count = 0
         error_count = 0
         for scenario in scenarios[:3]:
             signals: dict[str, dict[str, Any]] = {}
-            for target in TARGETS:
+            for target in PROCESSOR_TARGETS:
                 try:
-                    user_payload = (
-                        user_payload_for_ego(scenario, signals)
-                        if target == "ego_resultant"
-                        else user_payload_for_processor(scenario, target)
-                    )
+                    user_payload = user_payload_for_processor(scenario, target)
                     payload = call_json(
                         provider,
                         model=model,
@@ -483,8 +543,7 @@ def thinking_smoke(
                         think=think,
                         num_predict=1800,
                     )
-                    if target in PROCESSOR_TARGETS:
-                        signals[target] = payload
+                    signals[target] = payload
                     example = build_example(
                         dataset_id="smoke",
                         scenario=scenario,
@@ -493,6 +552,34 @@ def thinking_smoke(
                         model=model,
                         think=think,
                         user_payload=user_payload,
+                    )
+                    if validate_example(example)["valid"]:
+                        valid_count += 1
+                except Exception:
+                    error_count += 1
+            if all(target in signals for target in PROCESSOR_TARGETS):
+                try:
+                    profile, weights = profile_weights(smoke_profile)
+                    user_payload = user_payload_for_ego(scenario, signals, smoke_profile)
+                    payload = call_json(
+                        provider,
+                        model=model,
+                        target="ego_resultant",
+                        user_payload=user_payload,
+                        think=think,
+                        num_predict=2200,
+                    )
+                    example = build_example(
+                        dataset_id="smoke",
+                        scenario=scenario,
+                        target="ego_resultant",
+                        assistant_payload=payload,
+                        model=model,
+                        think=think,
+                        user_payload=user_payload,
+                        profile_input=smoke_profile,
+                        character_profile=profile,
+                        influence_weights=weights,
                     )
                     if validate_example(example)["valid"]:
                         valid_count += 1
@@ -509,6 +596,7 @@ def generate_dataset(args: argparse.Namespace) -> int:
     os.environ["REI_OLLAMA_NUM_CTX"] = str(args.num_ctx)
     os.environ["REI_OLLAMA_NUM_GPU"] = str(args.num_gpu)
     provider = OllamaProvider(base_url=args.ollama_base_url)
+    profiles = selected_profiles(args.profiles)
     available = provider.list_models(timeout_seconds=10)
     if args.model not in available:
         print(f"Model {args.model!r} is not available through Ollama.")
@@ -522,8 +610,14 @@ def generate_dataset(args: argparse.Namespace) -> int:
         return 2
 
     scenarios = scenario_seeds(args.scenario_count, args.dataset_id)
+    examples_per_scenario = len(PROCESSOR_TARGETS) + len(profiles)
     if args.dry_run:
-        print(f"Dry run: would generate {len(scenarios)} scenarios and {len(scenarios) * 4} examples.")
+        print(
+            "Dry run: would generate "
+            f"{len(scenarios)} scenarios and {len(scenarios) * examples_per_scenario} examples "
+            f"({len(PROCESSOR_TARGETS)} processor + {len(profiles)} EgoResultant profile examples per scenario)."
+        )
+        print(f"Profiles: {', '.join(profiles)}")
         print(f"Dataset path: {dataset_dir}")
         return 0
     if not args.confirm_run:
@@ -538,7 +632,7 @@ def generate_dataset(args: argparse.Namespace) -> int:
     smoke_report: dict[str, Any] = {"selected_think": False, "skipped": True}
     think: Optional[object] = False
     if not args.skip_thinking_smoke:
-        smoke_report = thinking_smoke(provider, model=args.model, scenarios=scenarios)
+        smoke_report = thinking_smoke(provider, model=args.model, scenarios=scenarios, profiles=profiles)
         think = smoke_report["selected_think"]
         write_json(report_dir / "thinking_smoke.json", smoke_report)
 
@@ -569,27 +663,33 @@ def generate_dataset(args: argparse.Namespace) -> int:
                 )
             )
             save_examples(dataset_dir, examples)
-        ego_user_payload = user_payload_for_ego(scenario, signals)
-        ego_payload = call_json(
-            provider,
-            model=args.model,
-            target="ego_resultant",
-            user_payload=ego_user_payload,
-            think=think,
-            num_predict=args.ego_num_predict,
-        )
-        examples.append(
-            build_example(
-                dataset_id=args.dataset_id,
-                scenario=scenario,
-                target="ego_resultant",
-                assistant_payload=ego_payload,
+        for profile_input in profiles:
+            profile, weights = profile_weights(profile_input)
+            print(f"  ego_resultant profile={profile_input} normalized={profile}")
+            ego_user_payload = user_payload_for_ego(scenario, signals, profile_input)
+            ego_payload = call_json(
+                provider,
                 model=args.model,
-                think=think,
+                target="ego_resultant",
                 user_payload=ego_user_payload,
+                think=think,
+                num_predict=args.ego_num_predict,
             )
-        )
-        save_examples(dataset_dir, examples)
+            examples.append(
+                build_example(
+                    dataset_id=args.dataset_id,
+                    scenario=scenario,
+                    target="ego_resultant",
+                    assistant_payload=ego_payload,
+                    model=args.model,
+                    think=think,
+                    user_payload=ego_user_payload,
+                    profile_input=profile_input,
+                    character_profile=profile,
+                    influence_weights=weights,
+                )
+            )
+            save_examples(dataset_dir, examples)
 
     manifest = build_manifest(
         dataset_id=args.dataset_id,
@@ -607,7 +707,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate a REI fine-tune pilot dataset.")
     parser.add_argument("--dataset-id", default=DEFAULT_DATASET_ID)
     parser.add_argument("--model", default=DEFAULT_MODEL)
-    parser.add_argument("--scenario-count", type=int, default=50)
+    parser.add_argument("--scenario-count", type=int, default=DEFAULT_SCENARIO_COUNT)
+    parser.add_argument("--profiles", default=None, help="Comma-separated profile inputs. Defaults to all 13 profiles.")
     parser.add_argument("--num-ctx", type=int, default=65536)
     parser.add_argument("--num-gpu", type=int, default=999)
     parser.add_argument("--num-predict", type=int, default=1800)

@@ -41,13 +41,17 @@ export approved valid examples to SFT chat JSONL.
 Pilot generation is explicit and does not run from the GUI:
 
 ```powershell
-python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_pilot_v1 --model gemma4:26b --scenario-count 50 --dry-run
-python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_pilot_v1 --model gemma4:26b --scenario-count 50 --confirm-run
+python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_profile_pilot_v1 --model gemma4:26b --scenario-count 10 --dry-run
+python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_profile_pilot_v1 --model gemma4:26b --scenario-count 10 --confirm-run
 ```
+
+The default pilot shape is 10 matched situations. Each situation gets one
+Racio, Emocio, and Instinkt example, then 13 EgoResultant examples over the
+same processor signals, one per character profile.
 
 Validation and export:
 
 ```powershell
-python scripts\validate_rei_ft_dataset.py rei_ft_pilot_v1
-python scripts\export_rei_ft_dataset.py rei_ft_pilot_v1
+python scripts\validate_rei_ft_dataset.py rei_ft_profile_pilot_v1
+python scripts\export_rei_ft_dataset.py rei_ft_profile_pilot_v1
 ```

@@ -622,6 +622,8 @@ def _example_summary(example: DatasetExample, scenarios: dict[str, dict[str, Any
         "scenario_title": scenario.get("title", ""),
         "scenario_prompt": scenario.get("prompt", ""),
         "target": example.target,
+        "character_profile": example.character_profile,
+        "influence_weights": example.influence_weights,
         "status": example.status,
         "split": example.split,
         "model": example.model,
