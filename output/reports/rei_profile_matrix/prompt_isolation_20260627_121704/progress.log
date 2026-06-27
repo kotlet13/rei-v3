@@ -1,0 +1,314 @@
+2026-06-27T12:17:04 START run_id=20260627_121704 provider=ollama model=gemma4:26b num_ctx=65536 num_gpu=999 cases=156
+2026-06-27T12:17:06 RUN 1/156 scenario=meeting_avoidance profile=R
+2026-06-27T12:17:37 DONE 1/156 scenario=meeting_avoidance profile=R fallbacks=0 tokens=12547 resultant=instinkt leading=instinkt
+2026-06-27T12:17:37 RUN 2/156 scenario=meeting_avoidance profile=E
+2026-06-27T12:18:07 DONE 2/156 scenario=meeting_avoidance profile=E fallbacks=0 tokens=12529 resultant=emocio leading=emocio
+2026-06-27T12:18:07 RUN 3/156 scenario=meeting_avoidance profile=I
+2026-06-27T12:18:36 DONE 3/156 scenario=meeting_avoidance profile=I fallbacks=0 tokens=12362 resultant=instinkt leading=instinkt
+2026-06-27T12:18:36 RUN 4/156 scenario=meeting_avoidance profile=RE
+2026-06-27T12:19:06 DONE 4/156 scenario=meeting_avoidance profile=RE fallbacks=0 tokens=12682 resultant=emocio leading=emocio
+2026-06-27T12:19:06 RUN 5/156 scenario=meeting_avoidance profile=RI
+2026-06-27T12:19:36 DONE 5/156 scenario=meeting_avoidance profile=RI fallbacks=0 tokens=12618 resultant=instinkt leading=instinkt
+2026-06-27T12:19:36 RUN 6/156 scenario=meeting_avoidance profile=EI
+2026-06-27T12:20:05 DONE 6/156 scenario=meeting_avoidance profile=EI fallbacks=0 tokens=12423 resultant=instinkt leading=instinkt
+2026-06-27T12:20:05 RUN 7/156 scenario=meeting_avoidance profile=R>E>I
+2026-06-27T12:20:38 DONE 7/156 scenario=meeting_avoidance profile=R>E>I fallbacks=0 tokens=12809 resultant=mixed leading=mixed
+2026-06-27T12:20:38 RUN 8/156 scenario=meeting_avoidance profile=R>I>E
+2026-06-27T12:21:07 DONE 8/156 scenario=meeting_avoidance profile=R>I>E fallbacks=0 tokens=12573 resultant=mixed leading=mixed
+2026-06-27T12:21:07 RUN 9/156 scenario=meeting_avoidance profile=E>R>I
+2026-06-27T12:21:37 DONE 9/156 scenario=meeting_avoidance profile=E>R>I fallbacks=0 tokens=12687 resultant=mixed leading=mixed
+2026-06-27T12:21:37 RUN 10/156 scenario=meeting_avoidance profile=E>I>R
+2026-06-27T12:22:01 DONE 10/156 scenario=meeting_avoidance profile=E>I>R fallbacks=0 tokens=10495 resultant=mixed leading=mixed
+2026-06-27T12:22:01 RUN 11/156 scenario=meeting_avoidance profile=I>R>E
+2026-06-27T12:22:25 DONE 11/156 scenario=meeting_avoidance profile=I>R>E fallbacks=0 tokens=10511 resultant=mixed leading=mixed
+2026-06-27T12:22:25 RUN 12/156 scenario=meeting_avoidance profile=I>E>R
+2026-06-27T12:22:50 DONE 12/156 scenario=meeting_avoidance profile=I>E>R fallbacks=0 tokens=10619 resultant=mixed leading=mixed
+2026-06-27T12:22:50 RUN 13/156 scenario=meeting_avoidance profile=REI
+2026-06-27T12:23:20 DONE 13/156 scenario=meeting_avoidance profile=REI fallbacks=0 tokens=13051 resultant=instinkt leading=instinkt
+2026-06-27T12:23:20 RUN 14/156 scenario=quit_job_start_business profile=R
+2026-06-27T12:23:46 DONE 14/156 scenario=quit_job_start_business profile=R fallbacks=0 tokens=10839 resultant=instinkt leading=instinkt
+2026-06-27T12:23:46 RUN 15/156 scenario=quit_job_start_business profile=E
+2026-06-27T12:24:11 DONE 15/156 scenario=quit_job_start_business profile=E fallbacks=0 tokens=10725 resultant=emocio leading=emocio
+2026-06-27T12:24:11 RUN 16/156 scenario=quit_job_start_business profile=I
+2026-06-27T12:24:36 DONE 16/156 scenario=quit_job_start_business profile=I fallbacks=0 tokens=10649 resultant=instinkt leading=instinkt
+2026-06-27T12:24:36 RUN 17/156 scenario=quit_job_start_business profile=RE
+2026-06-27T12:25:01 DONE 17/156 scenario=quit_job_start_business profile=RE fallbacks=0 tokens=10744 resultant=instinkt leading=instinkt
+2026-06-27T12:25:01 RUN 18/156 scenario=quit_job_start_business profile=RI
+2026-06-27T12:25:27 DONE 18/156 scenario=quit_job_start_business profile=RI fallbacks=0 tokens=10837 resultant=instinkt leading=instinkt
+2026-06-27T12:25:27 RUN 19/156 scenario=quit_job_start_business profile=EI
+2026-06-27T12:25:52 DONE 19/156 scenario=quit_job_start_business profile=EI fallbacks=0 tokens=10729 resultant=instinkt leading=instinkt
+2026-06-27T12:25:52 RUN 20/156 scenario=quit_job_start_business profile=R>E>I
+2026-06-27T12:26:17 DONE 20/156 scenario=quit_job_start_business profile=R>E>I fallbacks=0 tokens=10746 resultant=mixed leading=mixed
+2026-06-27T12:26:17 RUN 21/156 scenario=quit_job_start_business profile=R>I>E
+2026-06-27T12:26:42 DONE 21/156 scenario=quit_job_start_business profile=R>I>E fallbacks=0 tokens=10770 resultant=instinkt leading=instinkt
+2026-06-27T12:26:42 RUN 22/156 scenario=quit_job_start_business profile=E>R>I
+2026-06-27T12:27:07 DONE 22/156 scenario=quit_job_start_business profile=E>R>I fallbacks=0 tokens=10849 resultant=mixed leading=mixed
+2026-06-27T12:27:07 RUN 23/156 scenario=quit_job_start_business profile=E>I>R
+2026-06-27T12:27:32 DONE 23/156 scenario=quit_job_start_business profile=E>I>R fallbacks=0 tokens=10854 resultant=mixed leading=mixed
+2026-06-27T12:27:32 RUN 24/156 scenario=quit_job_start_business profile=I>R>E
+2026-06-27T12:27:58 DONE 24/156 scenario=quit_job_start_business profile=I>R>E fallbacks=0 tokens=10878 resultant=mixed leading=mixed
+2026-06-27T12:27:58 RUN 25/156 scenario=quit_job_start_business profile=I>E>R
+2026-06-27T12:28:23 DONE 25/156 scenario=quit_job_start_business profile=I>E>R fallbacks=0 tokens=10930 resultant=instinkt leading=instinkt
+2026-06-27T12:28:23 RUN 26/156 scenario=quit_job_start_business profile=REI
+2026-06-27T12:28:49 DONE 26/156 scenario=quit_job_start_business profile=REI fallbacks=0 tokens=11113 resultant=instinkt leading=instinkt
+2026-06-27T12:28:49 RUN 27/156 scenario=public_speaking_freeze profile=R
+2026-06-27T12:29:14 DONE 27/156 scenario=public_speaking_freeze profile=R fallbacks=0 tokens=10575 resultant=instinkt leading=instinkt
+2026-06-27T12:29:14 RUN 28/156 scenario=public_speaking_freeze profile=E
+2026-06-27T12:29:39 DONE 28/156 scenario=public_speaking_freeze profile=E fallbacks=0 tokens=10731 resultant=instinkt leading=instinkt
+2026-06-27T12:29:39 RUN 29/156 scenario=public_speaking_freeze profile=I
+2026-06-27T12:30:03 DONE 29/156 scenario=public_speaking_freeze profile=I fallbacks=0 tokens=10504 resultant=instinkt leading=instinkt
+2026-06-27T12:30:03 RUN 30/156 scenario=public_speaking_freeze profile=RE
+2026-06-27T12:30:27 DONE 30/156 scenario=public_speaking_freeze profile=RE fallbacks=0 tokens=10544 resultant=instinkt leading=instinkt
+2026-06-27T12:30:27 RUN 31/156 scenario=public_speaking_freeze profile=RI
+2026-06-27T12:30:52 DONE 31/156 scenario=public_speaking_freeze profile=RI fallbacks=0 tokens=10759 resultant=instinkt leading=instinkt
+2026-06-27T12:30:52 RUN 32/156 scenario=public_speaking_freeze profile=EI
+2026-06-27T12:31:17 DONE 32/156 scenario=public_speaking_freeze profile=EI fallbacks=0 tokens=10534 resultant=instinkt leading=instinkt
+2026-06-27T12:31:17 RUN 33/156 scenario=public_speaking_freeze profile=R>E>I
+2026-06-27T12:31:42 DONE 33/156 scenario=public_speaking_freeze profile=R>E>I fallbacks=0 tokens=10825 resultant=mixed leading=mixed
+2026-06-27T12:31:42 RUN 34/156 scenario=public_speaking_freeze profile=R>I>E
+2026-06-27T12:32:07 DONE 34/156 scenario=public_speaking_freeze profile=R>I>E fallbacks=0 tokens=10741 resultant=instinkt leading=instinkt
+2026-06-27T12:32:07 RUN 35/156 scenario=public_speaking_freeze profile=E>R>I
+2026-06-27T12:32:32 DONE 35/156 scenario=public_speaking_freeze profile=E>R>I fallbacks=0 tokens=10808 resultant=mixed leading=mixed
+2026-06-27T12:32:32 RUN 36/156 scenario=public_speaking_freeze profile=E>I>R
+2026-06-27T12:32:56 DONE 36/156 scenario=public_speaking_freeze profile=E>I>R fallbacks=0 tokens=10504 resultant=instinkt leading=instinkt
+2026-06-27T12:32:56 RUN 37/156 scenario=public_speaking_freeze profile=I>R>E
+2026-06-27T12:33:20 DONE 37/156 scenario=public_speaking_freeze profile=I>R>E fallbacks=0 tokens=10608 resultant=instinkt leading=instinkt
+2026-06-27T12:33:20 RUN 38/156 scenario=public_speaking_freeze profile=I>E>R
+2026-06-27T12:33:45 DONE 38/156 scenario=public_speaking_freeze profile=I>E>R fallbacks=0 tokens=10781 resultant=instinkt leading=instinkt
+2026-06-27T12:33:45 RUN 39/156 scenario=public_speaking_freeze profile=REI
+2026-06-27T12:34:09 DONE 39/156 scenario=public_speaking_freeze profile=REI fallbacks=0 tokens=10736 resultant=instinkt leading=instinkt
+2026-06-27T12:34:09 RUN 40/156 scenario=romantic_return_loop profile=R
+2026-06-27T12:34:35 DONE 40/156 scenario=romantic_return_loop profile=R fallbacks=0 tokens=10960 resultant=instinkt leading=instinkt
+2026-06-27T12:34:35 RUN 41/156 scenario=romantic_return_loop profile=E
+2026-06-27T12:35:01 DONE 41/156 scenario=romantic_return_loop profile=E fallbacks=0 tokens=10924 resultant=emocio leading=emocio
+2026-06-27T12:35:01 RUN 42/156 scenario=romantic_return_loop profile=I
+2026-06-27T12:35:27 DONE 42/156 scenario=romantic_return_loop profile=I fallbacks=0 tokens=10932 resultant=instinkt leading=instinkt
+2026-06-27T12:35:27 RUN 43/156 scenario=romantic_return_loop profile=RE
+2026-06-27T12:35:53 DONE 43/156 scenario=romantic_return_loop profile=RE fallbacks=0 tokens=10874 resultant=instinkt leading=instinkt
+2026-06-27T12:35:53 RUN 44/156 scenario=romantic_return_loop profile=RI
+2026-06-27T12:36:19 DONE 44/156 scenario=romantic_return_loop profile=RI fallbacks=0 tokens=10871 resultant=instinkt leading=instinkt
+2026-06-27T12:36:19 RUN 45/156 scenario=romantic_return_loop profile=EI
+2026-06-27T12:36:50 DONE 45/156 scenario=romantic_return_loop profile=EI fallbacks=0 tokens=12887 resultant=instinkt leading=instinkt
+2026-06-27T12:36:50 RUN 46/156 scenario=romantic_return_loop profile=R>E>I
+2026-06-27T12:37:16 DONE 46/156 scenario=romantic_return_loop profile=R>E>I fallbacks=0 tokens=11057 resultant=mixed leading=mixed
+2026-06-27T12:37:16 RUN 47/156 scenario=romantic_return_loop profile=R>I>E
+2026-06-27T12:37:54 DONE 47/156 scenario=romantic_return_loop profile=R>I>E fallbacks=0 tokens=15540 resultant=mixed leading=mixed
+2026-06-27T12:37:54 RUN 48/156 scenario=romantic_return_loop profile=E>R>I
+2026-06-27T12:38:21 DONE 48/156 scenario=romantic_return_loop profile=E>R>I fallbacks=0 tokens=11058 resultant=mixed leading=mixed
+2026-06-27T12:38:21 RUN 49/156 scenario=romantic_return_loop profile=E>I>R
+2026-06-27T12:38:46 DONE 49/156 scenario=romantic_return_loop profile=E>I>R fallbacks=0 tokens=10995 resultant=mixed leading=mixed
+2026-06-27T12:38:46 RUN 50/156 scenario=romantic_return_loop profile=I>R>E
+2026-06-27T12:39:12 DONE 50/156 scenario=romantic_return_loop profile=I>R>E fallbacks=0 tokens=10971 resultant=mixed leading=mixed
+2026-06-27T12:39:12 RUN 51/156 scenario=romantic_return_loop profile=I>E>R
+2026-06-27T12:39:38 DONE 51/156 scenario=romantic_return_loop profile=I>E>R fallbacks=0 tokens=10955 resultant=mixed leading=mixed
+2026-06-27T12:39:38 RUN 52/156 scenario=romantic_return_loop profile=REI
+2026-06-27T12:40:04 DONE 52/156 scenario=romantic_return_loop profile=REI fallbacks=0 tokens=11153 resultant=mixed leading=mixed
+2026-06-27T12:40:04 RUN 53/156 scenario=conflict_with_coworker profile=R
+2026-06-27T12:40:28 DONE 53/156 scenario=conflict_with_coworker profile=R fallbacks=0 tokens=10675 resultant=mixed leading=mixed
+2026-06-27T12:40:28 RUN 54/156 scenario=conflict_with_coworker profile=E
+2026-06-27T12:40:59 DONE 54/156 scenario=conflict_with_coworker profile=E fallbacks=0 tokens=12795 resultant=mixed leading=mixed
+2026-06-27T12:40:59 RUN 55/156 scenario=conflict_with_coworker profile=I
+2026-06-27T12:41:24 DONE 55/156 scenario=conflict_with_coworker profile=I fallbacks=0 tokens=10721 resultant=instinkt leading=instinkt
+2026-06-27T12:41:25 RUN 56/156 scenario=conflict_with_coworker profile=RE
+2026-06-27T12:41:55 DONE 56/156 scenario=conflict_with_coworker profile=RE fallbacks=0 tokens=12849 resultant=emocio leading=emocio
+2026-06-27T12:41:55 RUN 57/156 scenario=conflict_with_coworker profile=RI
+2026-06-27T12:42:21 DONE 57/156 scenario=conflict_with_coworker profile=RI fallbacks=0 tokens=10815 resultant=instinkt leading=instinkt
+2026-06-27T12:42:21 RUN 58/156 scenario=conflict_with_coworker profile=EI
+2026-06-27T12:42:53 DONE 58/156 scenario=conflict_with_coworker profile=EI fallbacks=0 tokens=13050 resultant=instinkt leading=instinkt
+2026-06-27T12:42:53 RUN 59/156 scenario=conflict_with_coworker profile=R>E>I
+2026-06-27T12:43:23 DONE 59/156 scenario=conflict_with_coworker profile=R>E>I fallbacks=0 tokens=12700 resultant=mixed leading=mixed
+2026-06-27T12:43:23 RUN 60/156 scenario=conflict_with_coworker profile=R>I>E
+2026-06-27T12:43:49 DONE 60/156 scenario=conflict_with_coworker profile=R>I>E fallbacks=0 tokens=10917 resultant=mixed leading=mixed
+2026-06-27T12:43:49 RUN 61/156 scenario=conflict_with_coworker profile=E>R>I
+2026-06-27T12:44:20 DONE 61/156 scenario=conflict_with_coworker profile=E>R>I fallbacks=0 tokens=12901 resultant=mixed leading=mixed
+2026-06-27T12:44:20 RUN 62/156 scenario=conflict_with_coworker profile=E>I>R
+2026-06-27T12:44:50 DONE 62/156 scenario=conflict_with_coworker profile=E>I>R fallbacks=0 tokens=12774 resultant=mixed leading=mixed
+2026-06-27T12:44:51 RUN 63/156 scenario=conflict_with_coworker profile=I>R>E
+2026-06-27T12:45:21 DONE 63/156 scenario=conflict_with_coworker profile=I>R>E fallbacks=0 tokens=12803 resultant=mixed leading=mixed
+2026-06-27T12:45:21 RUN 64/156 scenario=conflict_with_coworker profile=I>E>R
+2026-06-27T12:45:51 DONE 64/156 scenario=conflict_with_coworker profile=I>E>R fallbacks=0 tokens=12666 resultant=mixed leading=mixed
+2026-06-27T12:45:51 RUN 65/156 scenario=conflict_with_coworker profile=REI
+2026-06-27T12:46:16 DONE 65/156 scenario=conflict_with_coworker profile=REI fallbacks=0 tokens=10977 resultant=mixed leading=mixed
+2026-06-27T12:46:16 RUN 66/156 scenario=risky_opportunity profile=R
+2026-06-27T12:46:41 DONE 66/156 scenario=risky_opportunity profile=R fallbacks=0 tokens=10717 resultant=mixed leading=mixed
+2026-06-27T12:46:41 RUN 67/156 scenario=risky_opportunity profile=E
+2026-06-27T12:47:06 DONE 67/156 scenario=risky_opportunity profile=E fallbacks=0 tokens=10687 resultant=emocio leading=emocio
+2026-06-27T12:47:06 RUN 68/156 scenario=risky_opportunity profile=I
+2026-06-27T12:47:31 DONE 68/156 scenario=risky_opportunity profile=I fallbacks=0 tokens=10647 resultant=mixed leading=mixed
+2026-06-27T12:47:31 RUN 69/156 scenario=risky_opportunity profile=RE
+2026-06-27T12:47:56 DONE 69/156 scenario=risky_opportunity profile=RE fallbacks=0 tokens=10610 resultant=emocio leading=emocio
+2026-06-27T12:47:56 RUN 70/156 scenario=risky_opportunity profile=RI
+2026-06-27T12:48:29 DONE 70/156 scenario=risky_opportunity profile=RI fallbacks=0 tokens=13595 resultant=mixed leading=mixed
+2026-06-27T12:48:29 RUN 71/156 scenario=risky_opportunity profile=EI
+2026-06-27T12:48:54 DONE 71/156 scenario=risky_opportunity profile=EI fallbacks=0 tokens=10637 resultant=instinkt leading=instinkt
+2026-06-27T12:48:54 RUN 72/156 scenario=risky_opportunity profile=R>E>I
+2026-06-27T12:49:19 DONE 72/156 scenario=risky_opportunity profile=R>E>I fallbacks=0 tokens=10761 resultant=mixed leading=mixed
+2026-06-27T12:49:19 RUN 73/156 scenario=risky_opportunity profile=R>I>E
+2026-06-27T12:49:49 DONE 73/156 scenario=risky_opportunity profile=R>I>E fallbacks=0 tokens=12739 resultant=instinkt leading=instinkt
+2026-06-27T12:49:49 RUN 74/156 scenario=risky_opportunity profile=E>R>I
+2026-06-27T12:50:14 DONE 74/156 scenario=risky_opportunity profile=E>R>I fallbacks=0 tokens=10752 resultant=mixed leading=mixed
+2026-06-27T12:50:14 RUN 75/156 scenario=risky_opportunity profile=E>I>R
+2026-06-27T12:50:40 DONE 75/156 scenario=risky_opportunity profile=E>I>R fallbacks=0 tokens=10890 resultant=mixed leading=mixed
+2026-06-27T12:50:40 RUN 76/156 scenario=risky_opportunity profile=I>R>E
+2026-06-27T12:51:13 DONE 76/156 scenario=risky_opportunity profile=I>R>E fallbacks=0 tokens=13412 resultant=mixed leading=mixed
+2026-06-27T12:51:13 RUN 77/156 scenario=risky_opportunity profile=I>E>R
+2026-06-27T12:51:37 DONE 77/156 scenario=risky_opportunity profile=I>E>R fallbacks=0 tokens=10611 resultant=instinkt leading=instinkt
+2026-06-27T12:51:37 RUN 78/156 scenario=risky_opportunity profile=REI
+2026-06-27T12:52:08 DONE 78/156 scenario=risky_opportunity profile=REI fallbacks=0 tokens=13094 resultant=instinkt leading=instinkt
+2026-06-27T12:52:08 RUN 79/156 scenario=expensive_purchase profile=R
+2026-06-27T12:52:33 DONE 79/156 scenario=expensive_purchase profile=R fallbacks=0 tokens=10685 resultant=instinkt leading=instinkt
+2026-06-27T12:52:33 RUN 80/156 scenario=expensive_purchase profile=E
+2026-06-27T12:52:59 DONE 80/156 scenario=expensive_purchase profile=E fallbacks=0 tokens=10765 resultant=emocio leading=emocio
+2026-06-27T12:52:59 RUN 81/156 scenario=expensive_purchase profile=I
+2026-06-27T12:53:24 DONE 81/156 scenario=expensive_purchase profile=I fallbacks=0 tokens=10711 resultant=mixed leading=mixed
+2026-06-27T12:53:24 RUN 82/156 scenario=expensive_purchase profile=RE
+2026-06-27T12:54:03 DONE 82/156 scenario=expensive_purchase profile=RE fallbacks=1 tokens=15552 resultant=emocio leading=emocio
+2026-06-27T12:54:03 RUN 83/156 scenario=expensive_purchase profile=RI
+2026-06-27T12:54:33 DONE 83/156 scenario=expensive_purchase profile=RI fallbacks=0 tokens=12664 resultant=mixed leading=mixed
+2026-06-27T12:54:33 RUN 84/156 scenario=expensive_purchase profile=EI
+2026-06-27T12:55:03 DONE 84/156 scenario=expensive_purchase profile=EI fallbacks=0 tokens=12567 resultant=instinkt leading=instinkt
+2026-06-27T12:55:03 RUN 85/156 scenario=expensive_purchase profile=R>E>I
+2026-06-27T12:55:28 DONE 85/156 scenario=expensive_purchase profile=R>E>I fallbacks=0 tokens=10810 resultant=mixed leading=mixed
+2026-06-27T12:55:28 RUN 86/156 scenario=expensive_purchase profile=R>I>E
+2026-06-27T12:55:58 DONE 86/156 scenario=expensive_purchase profile=R>I>E fallbacks=0 tokens=12608 resultant=mixed leading=mixed
+2026-06-27T12:55:58 RUN 87/156 scenario=expensive_purchase profile=E>R>I
+2026-06-27T12:56:23 DONE 87/156 scenario=expensive_purchase profile=E>R>I fallbacks=0 tokens=10636 resultant=mixed leading=mixed
+2026-06-27T12:56:23 RUN 88/156 scenario=expensive_purchase profile=E>I>R
+2026-06-27T12:56:57 DONE 88/156 scenario=expensive_purchase profile=E>I>R fallbacks=0 tokens=13761 resultant=mixed leading=mixed
+2026-06-27T12:56:57 RUN 89/156 scenario=expensive_purchase profile=I>R>E
+2026-06-27T12:57:22 DONE 89/156 scenario=expensive_purchase profile=I>R>E fallbacks=0 tokens=10851 resultant=mixed leading=mixed
+2026-06-27T12:57:22 RUN 90/156 scenario=expensive_purchase profile=I>E>R
+2026-06-27T12:57:53 DONE 90/156 scenario=expensive_purchase profile=I>E>R fallbacks=0 tokens=12741 resultant=mixed leading=mixed
+2026-06-27T12:57:53 RUN 91/156 scenario=expensive_purchase profile=REI
+2026-06-27T12:58:18 DONE 91/156 scenario=expensive_purchase profile=REI fallbacks=0 tokens=11142 resultant=mixed leading=mixed
+2026-06-27T12:58:19 RUN 92/156 scenario=grief_loss profile=R
+2026-06-27T12:58:44 DONE 92/156 scenario=grief_loss profile=R fallbacks=0 tokens=11043 resultant=instinkt leading=instinkt
+2026-06-27T12:58:45 RUN 93/156 scenario=grief_loss profile=E
+2026-06-27T12:59:10 DONE 93/156 scenario=grief_loss profile=E fallbacks=0 tokens=10883 resultant=emocio leading=emocio
+2026-06-27T12:59:10 RUN 94/156 scenario=grief_loss profile=I
+2026-06-27T12:59:35 DONE 94/156 scenario=grief_loss profile=I fallbacks=0 tokens=10733 resultant=instinkt leading=instinkt
+2026-06-27T12:59:35 RUN 95/156 scenario=grief_loss profile=RE
+2026-06-27T13:00:00 DONE 95/156 scenario=grief_loss profile=RE fallbacks=0 tokens=10756 resultant=emocio leading=emocio
+2026-06-27T13:00:00 RUN 96/156 scenario=grief_loss profile=RI
+2026-06-27T13:00:33 DONE 96/156 scenario=grief_loss profile=RI fallbacks=0 tokens=13448 resultant=instinkt leading=instinkt
+2026-06-27T13:00:33 RUN 97/156 scenario=grief_loss profile=EI
+2026-06-27T13:00:59 DONE 97/156 scenario=grief_loss profile=EI fallbacks=0 tokens=10882 resultant=instinkt leading=instinkt
+2026-06-27T13:00:59 RUN 98/156 scenario=grief_loss profile=R>E>I
+2026-06-27T13:01:25 DONE 98/156 scenario=grief_loss profile=R>E>I fallbacks=0 tokens=11057 resultant=mixed leading=mixed
+2026-06-27T13:01:25 RUN 99/156 scenario=grief_loss profile=R>I>E
+2026-06-27T13:01:51 DONE 99/156 scenario=grief_loss profile=R>I>E fallbacks=0 tokens=11093 resultant=mixed leading=mixed
+2026-06-27T13:01:51 RUN 100/156 scenario=grief_loss profile=E>R>I
+2026-06-27T13:02:17 DONE 100/156 scenario=grief_loss profile=E>R>I fallbacks=0 tokens=10996 resultant=mixed leading=mixed
+2026-06-27T13:02:17 RUN 101/156 scenario=grief_loss profile=E>I>R
+2026-06-27T13:02:43 DONE 101/156 scenario=grief_loss profile=E>I>R fallbacks=0 tokens=10907 resultant=mixed leading=mixed
+2026-06-27T13:02:43 RUN 102/156 scenario=grief_loss profile=I>R>E
+2026-06-27T13:03:09 DONE 102/156 scenario=grief_loss profile=I>R>E fallbacks=0 tokens=11043 resultant=mixed leading=mixed
+2026-06-27T13:03:09 RUN 103/156 scenario=grief_loss profile=I>E>R
+2026-06-27T13:03:35 DONE 103/156 scenario=grief_loss profile=I>E>R fallbacks=0 tokens=11052 resultant=mixed leading=mixed
+2026-06-27T13:03:35 RUN 104/156 scenario=grief_loss profile=REI
+2026-06-27T13:04:09 DONE 104/156 scenario=grief_loss profile=REI fallbacks=0 tokens=14047 resultant=mixed leading=mixed
+2026-06-27T13:04:09 RUN 105/156 scenario=creative_project_obsession profile=R
+2026-06-27T13:04:34 DONE 105/156 scenario=creative_project_obsession profile=R fallbacks=0 tokens=10689 resultant=instinkt leading=instinkt
+2026-06-27T13:04:34 RUN 106/156 scenario=creative_project_obsession profile=E
+2026-06-27T13:04:59 DONE 106/156 scenario=creative_project_obsession profile=E fallbacks=0 tokens=10741 resultant=emocio leading=emocio
+2026-06-27T13:04:59 RUN 107/156 scenario=creative_project_obsession profile=I
+2026-06-27T13:05:25 DONE 107/156 scenario=creative_project_obsession profile=I fallbacks=0 tokens=10819 resultant=mixed leading=mixed
+2026-06-27T13:05:25 RUN 108/156 scenario=creative_project_obsession profile=RE
+2026-06-27T13:05:50 DONE 108/156 scenario=creative_project_obsession profile=RE fallbacks=0 tokens=10706 resultant=mixed leading=mixed
+2026-06-27T13:05:50 RUN 109/156 scenario=creative_project_obsession profile=RI
+2026-06-27T13:06:16 DONE 109/156 scenario=creative_project_obsession profile=RI fallbacks=0 tokens=10887 resultant=instinkt leading=instinkt
+2026-06-27T13:06:16 RUN 110/156 scenario=creative_project_obsession profile=EI
+2026-06-27T13:06:41 DONE 110/156 scenario=creative_project_obsession profile=EI fallbacks=0 tokens=10762 resultant=instinkt leading=instinkt
+2026-06-27T13:06:41 RUN 111/156 scenario=creative_project_obsession profile=R>E>I
+2026-06-27T13:07:13 DONE 111/156 scenario=creative_project_obsession profile=R>E>I fallbacks=0 tokens=13130 resultant=mixed leading=mixed
+2026-06-27T13:07:13 RUN 112/156 scenario=creative_project_obsession profile=R>I>E
+2026-06-27T13:07:44 DONE 112/156 scenario=creative_project_obsession profile=R>I>E fallbacks=0 tokens=13000 resultant=mixed leading=mixed
+2026-06-27T13:07:44 RUN 113/156 scenario=creative_project_obsession profile=E>R>I
+2026-06-27T13:08:10 DONE 113/156 scenario=creative_project_obsession profile=E>R>I fallbacks=0 tokens=11013 resultant=mixed leading=mixed
+2026-06-27T13:08:10 RUN 114/156 scenario=creative_project_obsession profile=E>I>R
+2026-06-27T13:08:41 DONE 114/156 scenario=creative_project_obsession profile=E>I>R fallbacks=0 tokens=12943 resultant=mixed leading=mixed
+2026-06-27T13:08:41 RUN 115/156 scenario=creative_project_obsession profile=I>R>E
+2026-06-27T13:09:06 DONE 115/156 scenario=creative_project_obsession profile=I>R>E fallbacks=0 tokens=10793 resultant=instinkt leading=instinkt
+2026-06-27T13:09:06 RUN 116/156 scenario=creative_project_obsession profile=I>E>R
+2026-06-27T13:09:33 DONE 116/156 scenario=creative_project_obsession profile=I>E>R fallbacks=0 tokens=11082 resultant=mixed leading=mixed
+2026-06-27T13:09:33 RUN 117/156 scenario=creative_project_obsession profile=REI
+2026-06-27T13:09:58 DONE 117/156 scenario=creative_project_obsession profile=REI fallbacks=0 tokens=11117 resultant=instinkt leading=instinkt
+2026-06-27T13:09:59 RUN 118/156 scenario=boundary_violation profile=R
+2026-06-27T13:10:24 DONE 118/156 scenario=boundary_violation profile=R fallbacks=0 tokens=10795 resultant=mixed leading=mixed
+2026-06-27T13:10:24 RUN 119/156 scenario=boundary_violation profile=E
+2026-06-27T13:10:55 DONE 119/156 scenario=boundary_violation profile=E fallbacks=0 tokens=12827 resultant=mixed leading=mixed
+2026-06-27T13:10:55 RUN 120/156 scenario=boundary_violation profile=I
+2026-06-27T13:11:20 DONE 120/156 scenario=boundary_violation profile=I fallbacks=0 tokens=10773 resultant=mixed leading=mixed
+2026-06-27T13:11:20 RUN 121/156 scenario=boundary_violation profile=RE
+2026-06-27T13:11:46 DONE 121/156 scenario=boundary_violation profile=RE fallbacks=0 tokens=10785 resultant=emocio leading=emocio
+2026-06-27T13:11:46 RUN 122/156 scenario=boundary_violation profile=RI
+2026-06-27T13:12:11 DONE 122/156 scenario=boundary_violation profile=RI fallbacks=0 tokens=10740 resultant=instinkt leading=instinkt
+2026-06-27T13:12:11 RUN 123/156 scenario=boundary_violation profile=EI
+2026-06-27T13:12:37 DONE 123/156 scenario=boundary_violation profile=EI fallbacks=0 tokens=10879 resultant=mixed leading=mixed
+2026-06-27T13:12:37 RUN 124/156 scenario=boundary_violation profile=R>E>I
+2026-06-27T13:13:02 DONE 124/156 scenario=boundary_violation profile=R>E>I fallbacks=0 tokens=10905 resultant=mixed leading=mixed
+2026-06-27T13:13:02 RUN 125/156 scenario=boundary_violation profile=R>I>E
+2026-06-27T13:13:28 DONE 125/156 scenario=boundary_violation profile=R>I>E fallbacks=0 tokens=10881 resultant=mixed leading=mixed
+2026-06-27T13:13:28 RUN 126/156 scenario=boundary_violation profile=E>R>I
+2026-06-27T13:13:53 DONE 126/156 scenario=boundary_violation profile=E>R>I fallbacks=0 tokens=10801 resultant=mixed leading=mixed
+2026-06-27T13:13:53 RUN 127/156 scenario=boundary_violation profile=E>I>R
+2026-06-27T13:14:18 DONE 127/156 scenario=boundary_violation profile=E>I>R fallbacks=0 tokens=10808 resultant=mixed leading=mixed
+2026-06-27T13:14:19 RUN 128/156 scenario=boundary_violation profile=I>R>E
+2026-06-27T13:14:44 DONE 128/156 scenario=boundary_violation profile=I>R>E fallbacks=0 tokens=10912 resultant=mixed leading=mixed
+2026-06-27T13:14:44 RUN 129/156 scenario=boundary_violation profile=I>E>R
+2026-06-27T13:15:09 DONE 129/156 scenario=boundary_violation profile=I>E>R fallbacks=0 tokens=10660 resultant=mixed leading=mixed
+2026-06-27T13:15:09 RUN 130/156 scenario=boundary_violation profile=REI
+2026-06-27T13:15:35 DONE 130/156 scenario=boundary_violation profile=REI fallbacks=0 tokens=11183 resultant=mixed leading=mixed
+2026-06-27T13:15:35 RUN 131/156 scenario=moral_dilemma profile=R
+2026-06-27T13:16:06 DONE 131/156 scenario=moral_dilemma profile=R fallbacks=0 tokens=12880 resultant=racio leading=racio
+2026-06-27T13:16:06 RUN 132/156 scenario=moral_dilemma profile=E
+2026-06-27T13:16:38 DONE 132/156 scenario=moral_dilemma profile=E fallbacks=0 tokens=13176 resultant=emocio leading=emocio
+2026-06-27T13:16:38 RUN 133/156 scenario=moral_dilemma profile=I
+2026-06-27T13:17:09 DONE 133/156 scenario=moral_dilemma profile=I fallbacks=0 tokens=12923 resultant=instinkt leading=instinkt
+2026-06-27T13:17:09 RUN 134/156 scenario=moral_dilemma profile=RE
+2026-06-27T13:17:42 DONE 134/156 scenario=moral_dilemma profile=RE fallbacks=0 tokens=13093 resultant=emocio leading=emocio
+2026-06-27T13:17:42 RUN 135/156 scenario=moral_dilemma profile=RI
+2026-06-27T13:18:12 DONE 135/156 scenario=moral_dilemma profile=RI fallbacks=0 tokens=12724 resultant=mixed leading=mixed
+2026-06-27T13:18:12 RUN 136/156 scenario=moral_dilemma profile=EI
+2026-06-27T13:18:43 DONE 136/156 scenario=moral_dilemma profile=EI fallbacks=0 tokens=12844 resultant=instinkt leading=instinkt
+2026-06-27T13:18:43 RUN 137/156 scenario=moral_dilemma profile=R>E>I
+2026-06-27T13:19:09 DONE 137/156 scenario=moral_dilemma profile=R>E>I fallbacks=0 tokens=10900 resultant=mixed leading=mixed
+2026-06-27T13:19:09 RUN 138/156 scenario=moral_dilemma profile=R>I>E
+2026-06-27T13:19:40 DONE 138/156 scenario=moral_dilemma profile=R>I>E fallbacks=0 tokens=12970 resultant=mixed leading=mixed
+2026-06-27T13:19:40 RUN 139/156 scenario=moral_dilemma profile=E>R>I
+2026-06-27T13:20:11 DONE 139/156 scenario=moral_dilemma profile=E>R>I fallbacks=0 tokens=12910 resultant=mixed leading=mixed
+2026-06-27T13:20:11 RUN 140/156 scenario=moral_dilemma profile=E>I>R
+2026-06-27T13:20:43 DONE 140/156 scenario=moral_dilemma profile=E>I>R fallbacks=0 tokens=13062 resultant=mixed leading=mixed
+2026-06-27T13:20:43 RUN 141/156 scenario=moral_dilemma profile=I>R>E
+2026-06-27T13:21:14 DONE 141/156 scenario=moral_dilemma profile=I>R>E fallbacks=0 tokens=12996 resultant=mixed leading=mixed
+2026-06-27T13:21:14 RUN 142/156 scenario=moral_dilemma profile=I>E>R
+2026-06-27T13:21:45 DONE 142/156 scenario=moral_dilemma profile=I>E>R fallbacks=0 tokens=12865 resultant=mixed leading=mixed
+2026-06-27T13:21:45 RUN 143/156 scenario=moral_dilemma profile=REI
+2026-06-27T13:22:11 DONE 143/156 scenario=moral_dilemma profile=REI fallbacks=0 tokens=11099 resultant=mixed leading=mixed
+2026-06-27T13:22:11 RUN 144/156 scenario=family_attachment_decision profile=R
+2026-06-27T13:22:42 DONE 144/156 scenario=family_attachment_decision profile=R fallbacks=0 tokens=12928 resultant=mixed leading=mixed
+2026-06-27T13:22:42 RUN 145/156 scenario=family_attachment_decision profile=E
+2026-06-27T13:23:12 DONE 145/156 scenario=family_attachment_decision profile=E fallbacks=0 tokens=12718 resultant=emocio leading=emocio
+2026-06-27T13:23:12 RUN 146/156 scenario=family_attachment_decision profile=I
+2026-06-27T13:23:43 DONE 146/156 scenario=family_attachment_decision profile=I fallbacks=0 tokens=12743 resultant=instinkt leading=instinkt
+2026-06-27T13:23:43 RUN 147/156 scenario=family_attachment_decision profile=RE
+2026-06-27T13:24:14 DONE 147/156 scenario=family_attachment_decision profile=RE fallbacks=0 tokens=12961 resultant=emocio leading=emocio
+2026-06-27T13:24:14 RUN 148/156 scenario=family_attachment_decision profile=RI
+2026-06-27T13:24:44 DONE 148/156 scenario=family_attachment_decision profile=RI fallbacks=0 tokens=12662 resultant=instinkt leading=instinkt
+2026-06-27T13:24:44 RUN 149/156 scenario=family_attachment_decision profile=EI
+2026-06-27T13:25:14 DONE 149/156 scenario=family_attachment_decision profile=EI fallbacks=0 tokens=12711 resultant=instinkt leading=instinkt
+2026-06-27T13:25:14 RUN 150/156 scenario=family_attachment_decision profile=R>E>I
+2026-06-27T13:25:39 DONE 150/156 scenario=family_attachment_decision profile=R>E>I fallbacks=0 tokens=10741 resultant=mixed leading=mixed
+2026-06-27T13:25:39 RUN 151/156 scenario=family_attachment_decision profile=R>I>E
+2026-06-27T13:26:10 DONE 151/156 scenario=family_attachment_decision profile=R>I>E fallbacks=0 tokens=12834 resultant=mixed leading=mixed
+2026-06-27T13:26:10 RUN 152/156 scenario=family_attachment_decision profile=E>R>I
+2026-06-27T13:26:40 DONE 152/156 scenario=family_attachment_decision profile=E>R>I fallbacks=0 tokens=12822 resultant=mixed leading=mixed
+2026-06-27T13:26:40 RUN 153/156 scenario=family_attachment_decision profile=E>I>R
+2026-06-27T13:27:11 DONE 153/156 scenario=family_attachment_decision profile=E>I>R fallbacks=0 tokens=12875 resultant=mixed leading=mixed
+2026-06-27T13:27:11 RUN 154/156 scenario=family_attachment_decision profile=I>R>E
+2026-06-27T13:27:42 DONE 154/156 scenario=family_attachment_decision profile=I>R>E fallbacks=0 tokens=12911 resultant=instinkt leading=instinkt
+2026-06-27T13:27:42 RUN 155/156 scenario=family_attachment_decision profile=I>E>R
+2026-06-27T13:28:13 DONE 155/156 scenario=family_attachment_decision profile=I>E>R fallbacks=0 tokens=12980 resultant=mixed leading=mixed
+2026-06-27T13:28:13 RUN 156/156 scenario=family_attachment_decision profile=REI
+2026-06-27T13:28:37 DONE 156/156 scenario=family_attachment_decision profile=REI fallbacks=0 tokens=10863 resultant=instinkt leading=instinkt
+2026-06-27T13:28:38 COMPLETE run_id=20260627_121704 cases=156 docs_summary=C:\Users\Kotlet\Codex\github\rei-v3\output\reports\rei_profile_matrix_docs\rei_profile_matrix_summary_2026-06-27.md

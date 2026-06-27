@@ -1,0 +1,40 @@
+{
+  "run_id": "20260627_121704",
+  "provider": "ollama",
+  "model": "gemma4:26b",
+  "num_ctx": 65536,
+  "num_gpu": 999,
+  "profile_count": 13,
+  "scenario_count": 12,
+  "case_count": 156,
+  "output_dir": "C:\\Users\\Kotlet\\Codex\\github\\rei-v3\\output\\reports\\rei_profile_matrix\\prompt_isolation_20260627_121704",
+  "profiles": [
+    "R",
+    "E",
+    "I",
+    "RE",
+    "RI",
+    "EI",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "REI"
+  ],
+  "scenario_ids": [
+    "meeting_avoidance",
+    "quit_job_start_business",
+    "public_speaking_freeze",
+    "romantic_return_loop",
+    "conflict_with_coworker",
+    "risky_opportunity",
+    "expensive_purchase",
+    "grief_loss",
+    "creative_project_obsession",
+    "boundary_violation",
+    "moral_dilemma",
+    "family_attachment_decision"
+  ]
+}
