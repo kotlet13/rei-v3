@@ -74,7 +74,14 @@ scene_contract:
 visual_state_contract:
   contract_status: documented_for_b2
   status: implementation_hypothesis
-  fields: [current_scene, desired_scene, broken_scene, option_rollouts]
+  fields:
+    - source_scene_id
+    - source_packet_id
+    - current_scene
+    - desired_scene
+    - broken_scene
+    - option_rollouts
+    - option_valuations
   source_claim_ids: [C-EMOCIO-002, C-EMOCIO-003]
 
 valuation:

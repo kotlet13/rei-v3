@@ -108,11 +108,13 @@ flowchart TD
 The common B2 contracts are documented as `implementation_hypothesis`:
 
 - `MindId = R | E | I`, `LanguageCode = sl | en`, and `SourceModality = text | image | video | audio | body | smell | taste | simulator`;
-- `EvidenceItem(id, modality, content, grounded, source_ref, confidence, inferred_by)`;
-- `DecisionOption(id, label, description)`;
+- `EvidenceItem(evidence_id, modality, content, grounded, source_ref, confidence, provenance_kind, inferred_by)`;
+- `DecisionOption(option_id, label, description)`;
 - `SceneEvent(event_id, raw_input, language, evidence, options, actors, constraints, unknowns)`.
 
 Executable B2 models must be strictly typed and reject undeclared fields (`extra="forbid"`). Every artifact object must carry a schema version and stable, traceable ID.
+
+For canonical hashing, conceptual mapping fields from the plan are serialized as ordered tuples of typed key/value entries. Validators reject duplicate keys and enforce domain order (for example R/E/I, body dimensions, attention targets and Emocio valuation dimensions).
 
 The router produces modality-appropriate packets without pre-writing a processor's desire, fear or choice. Each processor uses its own world:
 
@@ -122,7 +124,7 @@ The router produces modality-appropriate packets without pre-writing a processor
 
 The documented world fields are `RacioWorld(explicit_beliefs, facts, rules, timelines, commitments)`, `EmocioWorld(visual_memories, desired_scenes, broken_scenes, social_identity_motifs, attraction_patterns, motor_patterns)` and `InstinktWorld(associations, trusted_patterns, threat_patterns, attachment_objects, unresolved_losses, boundary_patterns)`.
 
-The three conclusions are frozen into one hashable `NativeMindBundle(bundle_id, scene_hash, racio, emocio, instinkt, created_at, immutable_hash)`. B2 will define exact serialization, IDs and hashes; B1 deliberately leaves those mechanics open.
+The three conclusions are frozen into one hashable `NativeMindBundle(bundle_id, scene_id, scene_hash, allowed_option_ids, racio_packet_hash, emocio_packet_hash, instinkt_packet_hash, emocio_visual_state_id/hash, instinkt_body_state_id/hash, instinkt_rollout_hashes, racio, emocio, instinkt, created_at, immutable_hash)`. B2 defines canonical UTF-8 JSON, UTC timestamps, SHA-256 content hashes, stable domain-named IDs and trusted scene/packet/intermediate-artifact validation boundaries. Compact option, packet, visual-state, virtual-body and rollout provenance survives serialization without embedding the complete source objects.
 
 ## 7. Native processors and conscious access
 
@@ -139,7 +141,7 @@ Direct consciousness does not grant Racio structural priority, an extra vote or 
 
 ### 7.2 Emocio
 
-Emocio's computational core is a structured visual state: current, desired, broken and option-rollout scenes. It evaluates transformations and reaches a native conclusion before producing a manifestation. A renderer is optional presentation infrastructure, not Emocio itself. Renderer failure, hallucinated detail or absence must not alter the structured conclusion.
+Emocio's computational core is a structured visual state tied to one source scene and input packet: current, desired, broken and canonically ordered option-rollout scenes with matching option valuations. It evaluates transformations and reaches a native conclusion before producing a manifestation. A renderer is optional presentation infrastructure, not Emocio itself. Renderer failure, hallucinated detail or absence must not alter the structured conclusion.
 
 Evidence boundary: source review supports Emocio's image-oriented processing and indirect conscious access. Current/desired/broken scene schemas, rollouts, motor dimensions, visual valuation and rendering contracts are software operationalizations with `implementation_hypothesis` status, not direct-source psychology.
 
@@ -172,7 +174,7 @@ Sources support cooperation, tolerance and delegation as aspects of acceptance. 
 
 Acceptance may improve coordination while minds still disagree. Conversely, outward agreement can coexist with suppression or sabotage. It never assigns rank, proves a goal correct or forces a cautious action.
 
-`TranslationGap` compares frozen E/I conclusions with Racio interpretations for diagnostics. The comparison is visible to the trace/evaluator, not to Racio as ground truth. Initial behavior resolution is a transparent deterministic policy table whose project status is `implementation_hypothesis`.
+`TranslationGap` compares frozen E/I conclusions with Racio interpretations for diagnostics. The comparison is visible to the trace/evaluator, not to Racio as ground truth. Any observation introduced only by generated imagery is represented as `renderer_added_ungrounded`; it cannot silently become scene evidence. Initial behavior resolution is a transparent deterministic policy table whose project status is `implementation_hypothesis`.
 
 `BehaviorResultant` documents `option_id`, execution `status`, governance/conscious alignment, operational controller, residual tensions and predicted action. Its statuses are `executed`, `delayed`, `oscillating`, `sabotaged`, `blocked` and `unresolved`.
 
@@ -199,9 +201,9 @@ Later implementations remain provider-independent. The documented protocol bound
 
 Required deterministic/fake/store adapters are `DeterministicRacioProvider`, `DeterministicEmocioProvider`, `DeterministicInstinktProvider`, `NullImageRenderer`, `FakeVisionLanguageInterpreter`, `InMemoryEgoTraceStore` and `FileArtifactStore`. They are B2+ implementation work, not files to create in B1.
 
-Every artifact will carry a schema version and stable ID. Provider calls, if later approved and introduced, must record provider, model, revision, seed and parameters, plus timeout/fallback behavior. A run manifest will separately record source commit, canon version, profile, acceptance configuration, provider IDs, model revisions, seeds, native hashes, timing, warnings and safety flags.
+Every artifact carries a schema version and stable domain ID. B2 provider call specs record implementation identity/revision, model provenance when applicable, seed, canonically ordered parameters and timeout. Each call explicitly selects a compatible fallback provider or records why no fallback exists; execution records bind back to the immutable spec hash, preserve primary completion time and status, and represent successful, unsuccessful or explicitly skipped fallback outcomes without publishing outputs from failed attempts. A planned fallback after primary failure cannot disappear without an outcome or skip reason. Provider result artifacts require a successful final outcome and the matching capability kind; one immutable artifact ID cannot be both input and output of the same call. A run manifest separately records source commit, canon version, profile, acceptance configuration, provider identities, call specs/records, seeds, native hashes, their explicit `produced | inherited` source, deterministic bundle-assembly provenance, timing, warnings and safety flags. Each assembled native conclusion has exactly one successful provider producer completed before assembly starts; only assembly produces the final bundle. Inherited native hashes require an exact parent manifest ID/hash, external four-hash comparison and a parent completion time no later than the child start.
 
-The target run tree separates `scene/`, `native/`, `emocio/`, `instinkt/`, `communication/`, `governance/`, `conscious/`, `behavior/`, `ego/` and `diagnostics/` under `output/runs/{run_id}/`. `run_manifest.json` is the provenance root; no generated artifact silently replaces its grounded source.
+The target run tree separates `scene/`, `native/`, `emocio/`, `instinkt/`, `communication/`, `governance/`, `conscious/`, `behavior/`, `ego/` and `diagnostics/` under `output/runs/{run_id}/`. Artifact-store, image and mask paths are canonical portable paths relative to that run root; absolute, traversal, dot, backslash, control-character, trailing-dot/space and reserved-device paths are rejected. `run_manifest.json` is the provenance root; no generated artifact silently replaces its grounded source.
 
 ```text
 output/runs/{run_id}/
