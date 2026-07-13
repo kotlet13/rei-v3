@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from typing import Literal, Self
 
-from pydantic import model_validator
+from pydantic import Field, model_validator
 
 from ..ids import content_id, sha256_hex, utc_now
 from .character import CharacterProfileId
 from .common import (
     CommitDigest,
+    ArtifactRelativePath,
     FrozenArtifactModel,
     FrozenModel,
     HashDigest,
@@ -305,6 +306,28 @@ class SeedRecord(FrozenModel):
     seed: int
 
 
+class RunArtifactRecord(FrozenModel):
+    """Durable content-addressed inventory entry for one run file."""
+
+    schema_version: Literal["rei-native-stored-artifact-v1"] = (
+        "rei-native-stored-artifact-v1"
+    )
+    storage_id: NonEmptyId
+    run_id: NonEmptyId
+    relative_path: ArtifactRelativePath
+    content_sha256: HashDigest
+    size_bytes: int = Field(ge=0)
+
+    @model_validator(mode="after")
+    def validate_storage_id(self) -> Self:
+        payload = self.model_dump(
+            mode="python", round_trip=True, exclude={"storage_id"}
+        )
+        if self.storage_id != content_id("stored", payload):
+            raise ValueError("Run artifact storage ID differs from canonical metadata")
+        return self
+
+
 class NativeBundleAssemblyRecord(FrozenArtifactModel):
     """Deterministic core step that freezes three provider outputs into a bundle."""
 
@@ -343,8 +366,13 @@ NativeArtifactSource = Literal["produced", "inherited"]
 
 
 class RunManifest(FrozenArtifactModel):
-    schema_version: Literal["rei-native-run-manifest-v1"] = (
+    schema_version: Literal[
+        "rei-native-run-manifest-v1", "rei-native-run-manifest-v2"
+    ] = (
         "rei-native-run-manifest-v1"
+    )
+    manifest_id: NonEmptyId | None = Field(
+        default=None, exclude_if=lambda value: value is None
     )
     run_id: NonEmptyId
     parent_run_id: NonEmptyId | None = None
@@ -368,6 +396,15 @@ class RunManifest(FrozenArtifactModel):
     warnings: tuple[str, ...] = ()
     safety_flags: tuple[str, ...] = ()
     safety_notice: SafetyNotice = SafetyNotice()
+    artifact_inventory: tuple[RunArtifactRecord, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
+    artifact_inventory_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    manifest_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
 
     @model_validator(mode="after")
     def validate_manifest(self) -> Self:
@@ -567,7 +604,64 @@ class RunManifest(FrozenArtifactModel):
                     raise ValueError(
                         "Inherited native artifacts cannot be claimed as local provider outputs"
                     )
+        if self.schema_version == "rei-native-run-manifest-v1":
+            if (
+                self.manifest_id is not None
+                or self.artifact_inventory
+                or self.artifact_inventory_hash is not None
+                or self.manifest_hash is not None
+            ):
+                raise ValueError("V1 RunManifest cannot carry the V2 durable inventory")
+            return self
+        if (
+            self.manifest_id is None
+            or not self.artifact_inventory
+            or self.artifact_inventory_hash is None
+            or self.manifest_hash is None
+        ):
+            raise ValueError("V2 RunManifest requires identity, inventory and hashes")
+        paths = tuple(item.relative_path for item in self.artifact_inventory)
+        if paths != tuple(sorted(set(paths))):
+            raise ValueError("Run artifact inventory paths must be sorted and unique")
+        if any(item.run_id != self.run_id for item in self.artifact_inventory):
+            raise ValueError("Run artifact inventory entries belong to another run")
+        if any(
+            path in {"run_manifest.json", "diagnostics/prepared_manifest.json"}
+            for path in paths
+        ):
+            raise ValueError("Manifest files cannot inventory themselves")
+        if self.artifact_inventory_hash != sha256_hex(self.artifact_inventory):
+            raise ValueError("Run artifact inventory hash differs from its entries")
+        id_payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"manifest_id", "manifest_hash"},
+        )
+        if self.manifest_id != content_id("run_manifest", id_payload):
+            raise ValueError("Run manifest ID differs from canonical V2 content")
+        payload = {"manifest_id": self.manifest_id, **id_payload}
+        if self.manifest_hash != sha256_hex(payload):
+            raise ValueError("Run manifest hash differs from canonical V2 content")
         return self
+
+    @classmethod
+    def finalize_v2(
+        cls,
+        provisional: RunManifest,
+        inventory: tuple[RunArtifactRecord, ...],
+    ) -> RunManifest:
+        """Finalize a validated V1 manifest over a durable pre-manifest inventory."""
+
+        if provisional.schema_version != "rei-native-run-manifest-v1":
+            raise ValueError("Only a provisional V1 manifest can be finalized")
+        ordered = tuple(sorted(inventory, key=lambda item: item.relative_path))
+        base = provisional.model_dump(mode="python", round_trip=True)
+        base["schema_version"] = "rei-native-run-manifest-v2"
+        base["artifact_inventory"] = ordered
+        base["artifact_inventory_hash"] = sha256_hex(ordered)
+        manifest_id = content_id("run_manifest", base)
+        payload = {"manifest_id": manifest_id, **base}
+        return cls(**payload, manifest_hash=sha256_hex(payload))
 
     def validate_inherited_native_artifacts(
         self,
@@ -611,6 +705,7 @@ __all__ = [
     "NativeMindBundle",
     "NativeBundleAssemblyRecord",
     "RunManifest",
+    "RunArtifactRecord",
     "RunMode",
     "RunStatus",
     "SeedRecord",

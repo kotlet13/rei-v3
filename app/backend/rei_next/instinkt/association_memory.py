@@ -6,7 +6,11 @@ from dataclasses import dataclass
 from pydantic import Field, model_validator
 
 from ..models.common import FrozenModel, Score01
-from ..models.instinkt import AssociationMatch, InstinktAssociation
+from ..models.instinkt import (
+    AssociationMatch,
+    InstinktMemoryRecord,
+    instinkt_memory_record_id,
+)
 
 
 class AssociationMemoryConfig(FrozenModel):
@@ -24,7 +28,7 @@ class AssociationMemoryConfig(FrozenModel):
 
 @dataclass(frozen=True, slots=True)
 class _MemoryEntry:
-    association: InstinktAssociation
+    association: InstinktMemoryRecord
     inserted_cycle: int
     insertion_index: int
 
@@ -47,7 +51,7 @@ class BoundedAssociativeMemory:
         return self._cycle
 
     @property
-    def associations(self) -> tuple[InstinktAssociation, ...]:
+    def associations(self) -> tuple[InstinktMemoryRecord, ...]:
         ordered = sorted(self._entries, key=lambda entry: entry.insertion_index)
         return tuple(entry.association for entry in ordered)
 
@@ -58,12 +62,13 @@ class BoundedAssociativeMemory:
             raise ValueError("Association-memory cycle advance is outside its bounded range")
         self._cycle += cycles
 
-    def add(self, association: InstinktAssociation) -> None:
+    def add(self, association: InstinktMemoryRecord) -> None:
         if any(
-            entry.association.association_id == association.association_id
+            instinkt_memory_record_id(entry.association)
+            == instinkt_memory_record_id(association)
             for entry in self._entries
         ):
-            raise ValueError("Association IDs are immutable and cannot be replaced")
+            raise ValueError("Memory record IDs are immutable and cannot be replaced")
         self._entries.append(
             _MemoryEntry(
                 association=association,
@@ -78,7 +83,7 @@ class BoundedAssociativeMemory:
                 key=lambda entry: (
                     self._effective_strength(entry),
                     entry.insertion_index,
-                    entry.association.association_id,
+                    instinkt_memory_record_id(entry.association),
                 ),
             )
             self._entries.remove(victim)

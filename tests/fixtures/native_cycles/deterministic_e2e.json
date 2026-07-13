@@ -1,0 +1,238 @@
+{
+  "schema_version": "rei-native-cycle-request-v1",
+  "run_id": "b11-e2e-run",
+  "ego_id": "b11-e2e-ego",
+  "source_commit": "0123456789abcdef0123456789abcdef01234567",
+  "canon_version": "rei-native-canon-v3",
+  "mode": "person_longitudinal",
+  "scene": {
+    "schema_version": "rei-native-scene-event-v1",
+    "event_id": "b11_e2e_event",
+    "raw_input": "Choose whether to restore the shared workshop or leave it closed.",
+    "language": "en",
+    "evidence": [
+      {
+        "schema_version": "rei-native-evidence-v1",
+        "evidence_id": "b11_text_fact",
+        "modality": "text",
+        "content": "The workshop can be restored with available materials.",
+        "grounded": true,
+        "source_ref": "fixture:b11-e2e:text",
+        "confidence": 1.0,
+        "provenance_kind": "supplied"
+      },
+      {
+        "schema_version": "rei-native-evidence-v1",
+        "evidence_id": "b11_current_image",
+        "modality": "image",
+        "content": "dim workshop with a blocked doorway",
+        "grounded": true,
+        "source_ref": "fixture:b11-e2e:image",
+        "confidence": 1.0,
+        "provenance_kind": "supplied"
+      }
+    ],
+    "options": [
+      {
+        "schema_version": "rei-native-decision-option-v1",
+        "option_id": "option_restore",
+        "label": "restore workshop",
+        "description": "Open and restore the shared workshop."
+      },
+      {
+        "schema_version": "rei-native-decision-option-v1",
+        "option_id": "option_leave",
+        "label": "leave closed",
+        "description": "Keep the workshop closed."
+      }
+    ],
+    "actors": ["self", "neighbor"],
+    "constraints": ["Use only available materials."],
+    "unknowns": ["The neighbor response is unknown."]
+  },
+  "racio_world": {
+    "schema_version": "rei-native-racio-world-v1",
+    "world_id": "b11_racio_world",
+    "explicit_beliefs": ["The workshop is useful."],
+    "facts": ["Materials are available."],
+    "rules": ["Prefer reversible action."],
+    "timelines": ["Restoration begins after inspection."],
+    "commitments": ["Do not block the shared exit."]
+  },
+  "emocio_world": {
+    "schema_version": "rei-native-emocio-world-v1",
+    "world_id": "b11_emocio_world",
+    "visual_memories": ["sunlit shared workshop"],
+    "desired_scenes": ["bright restored workshop", "open doorway"],
+    "broken_scenes": ["dim workshop", "blocked doorway"],
+    "social_identity_motifs": ["recognized shared place"],
+    "attraction_patterns": ["restore workshop", "open doorway"],
+    "motor_patterns": ["step forward", "clear doorway"]
+  },
+  "body_state": {
+    "schema_version": "rei-native-body-state-v1",
+    "body_state_id": "b11_body_before",
+    "energy": 0.75,
+    "fatigue": 0.2,
+    "pain": 0.0,
+    "arousal": 0.35,
+    "tension": 0.3,
+    "physical_integrity": 1.0,
+    "uncertainty": 0.35,
+    "trust": 0.65,
+    "attachment_security": 0.7,
+    "resource_security": 0.8,
+    "boundary_integrity": 0.9,
+    "escape_availability": 0.9,
+    "predictability": 0.65
+  },
+  "character": {
+    "schema_version": "rei-native-character-authority-v1",
+    "character_id": "b11_e2e_character",
+    "profile_id": "R>E>I",
+    "authority_tiers": [["R"], ["E"], ["I"]],
+    "rule": "ordered_top"
+  },
+  "acceptance_state": {
+    "schema_version": "rei-native-acceptance-state-v1",
+    "acceptance_state_id": "acceptance_60a643e76a505c1e5c3e689b83a987d4",
+    "R_to_E": {
+      "visibility": 0.85,
+      "interpretation_fidelity": 0.8,
+      "tolerance": 0.75,
+      "delegation_willingness": 0.7,
+      "sabotage_risk": 0.05
+    },
+    "R_to_I": {
+      "visibility": 0.85,
+      "interpretation_fidelity": 0.8,
+      "tolerance": 0.75,
+      "delegation_willingness": 0.7,
+      "sabotage_risk": 0.05
+    },
+    "E_to_R": {
+      "visibility": 0.85,
+      "interpretation_fidelity": 0.8,
+      "tolerance": 0.75,
+      "delegation_willingness": 0.7,
+      "sabotage_risk": 0.05
+    },
+    "E_to_I": {
+      "visibility": 0.85,
+      "interpretation_fidelity": 0.8,
+      "tolerance": 0.75,
+      "delegation_willingness": 0.7,
+      "sabotage_risk": 0.05
+    },
+    "I_to_R": {
+      "visibility": 0.85,
+      "interpretation_fidelity": 0.8,
+      "tolerance": 0.75,
+      "delegation_willingness": 0.7,
+      "sabotage_risk": 0.05
+    },
+    "I_to_E": {
+      "visibility": 0.85,
+      "interpretation_fidelity": 0.8,
+      "tolerance": 0.75,
+      "delegation_willingness": 0.7,
+      "sabotage_risk": 0.05
+    },
+    "overall_mode": "accepting"
+  },
+  "instinkt_effect_specs": [
+    {
+      "option_id": "option_restore",
+      "body_deltas": [
+        {"dimension": "energy", "delta": -0.03},
+        {"dimension": "tension", "delta": -0.05},
+        {"dimension": "predictability", "delta": 0.08}
+      ],
+      "base_predicted_loss": 0.1,
+      "base_recoverability": 0.9,
+      "dominant_alarm": "Minor effort cost while restoring.",
+      "protected_targets": ["shared exit", "energy"],
+      "boundary_outcome": "preserved",
+      "trust_outcome": "improves",
+      "attachment_outcome": "stable",
+      "escape_outcome": "available",
+      "action_tendency": "maintain",
+      "minimum_safety_condition": "The shared exit stays clear.",
+      "association_cue_tokens": ["workshop", "repair"],
+      "triggering_evidence_ids": ["b11_text_fact"]
+    },
+    {
+      "option_id": "option_leave",
+      "body_deltas": [
+        {"dimension": "tension", "delta": 0.12},
+        {"dimension": "predictability", "delta": -0.08}
+      ],
+      "base_predicted_loss": 0.65,
+      "base_recoverability": 0.35,
+      "dominant_alarm": "Closure preserves unresolved blockage.",
+      "protected_targets": ["shared exit", "predictability"],
+      "boundary_outcome": "strained",
+      "trust_outcome": "declines",
+      "attachment_outcome": "strained",
+      "escape_outcome": "constrained",
+      "action_tendency": "withdraw",
+      "minimum_safety_condition": "The blocked doorway is monitored.",
+      "association_cue_tokens": ["workshop", "closure"],
+      "triggering_evidence_ids": ["b11_text_fact"]
+    }
+  ],
+  "instinkt_config": {
+    "schema_version": "rei-native-instinkt-simulation-config-v1",
+    "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+    "rollout_steps": 3,
+    "max_options": 16,
+    "max_abs_delta_per_step": 0.25,
+    "loss_base_weight": 0.5,
+    "loss_integrity_weight": 0.15,
+    "loss_pain_weight": 0.1,
+    "loss_tension_weight": 0.1,
+    "loss_boundary_weight": 0.05,
+    "loss_resource_weight": 0.05,
+    "loss_attachment_weight": 0.05,
+    "recovery_base_weight": 0.5,
+    "recovery_energy_weight": 0.15,
+    "recovery_escape_weight": 0.1,
+    "recovery_predictability_weight": 0.1,
+    "recovery_trust_weight": 0.05,
+    "recovery_attachment_weight": 0.05,
+    "recovery_resource_weight": 0.05,
+    "association_loss_weight": 0.2,
+    "association_recovery_penalty": 0.2,
+    "policy_recoverability_penalty": 0.25,
+    "policy_tension_penalty": 0.15,
+    "policy_uncertainty_penalty": 0.1,
+    "intensity_loss_weight": 0.6,
+    "intensity_tension_weight": 0.25,
+    "intensity_arousal_weight": 0.15,
+    "tie_epsilon": 1e-12,
+    "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93"
+  },
+  "symbolic_and_language_cues": ["restore shared workshop", "leave closed"],
+  "numeric_cues": [],
+  "time_cues": ["inspection before restoration"],
+  "explicit_rules": ["Prefer reversible action."],
+  "explicit_consequences": [
+    {
+      "option_id": "option_restore",
+      "consequence": "The workshop reopens.",
+      "evidence_ids": ["b11_text_fact"]
+    }
+  ],
+  "instinkt_physical_cues": ["available materials"],
+  "instinkt_uncertainty_cues": ["neighbor response unknown"],
+  "instinkt_trust_cues": [],
+  "instinkt_boundary_cues": ["shared exit must stay clear"],
+  "instinkt_attachment_cues": [],
+  "instinkt_scarcity_cues": [],
+  "instinkt_escape_cues": ["shared exit available"],
+  "instinkt_explicit_body_cues": ["moderate energy", "low pain"],
+  "instinkt_evidence_ids": ["b11_text_fact"],
+  "negotiation_rounds": [],
+  "historical_bundles": [],
+  "started_at": "2026-07-13T12:00:00Z"
+}

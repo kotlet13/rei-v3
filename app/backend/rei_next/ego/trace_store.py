@@ -34,11 +34,11 @@ def _provider_identity(
     implementation: str,
     discriminator: str,
 ) -> ProviderIdentity:
+    del discriminator
     base = {
         "kind": "ego_trace_store",
         "implementation": implementation,
         "implementation_revision": "b4-v1",
-        "discriminator": discriminator,
     }
     return ProviderIdentity(
         provider_id=content_id("provider", base),

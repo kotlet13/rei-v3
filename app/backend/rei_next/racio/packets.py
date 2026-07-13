@@ -34,6 +34,7 @@ def build_racio_packet(
     rules: Iterable[str] = (),
     explicit_consequences: Iterable[RacioConsequence] = (),
     previous_racio_projection_ids: Iterable[str] = (),
+    previous_racio_projection_hashes: Iterable[str] = (),
     caveat: str = RACIO_PACKET_CAVEAT,
 ) -> RacioInputPacket:
     """Build a content-addressed packet without interpreting scene semantics.
@@ -53,6 +54,10 @@ def build_racio_packet(
         else () if symbolic_and_language_cues is None
         else _as_tuple(symbolic_and_language_cues)
     )
+    projection_ids = tuple(previous_racio_projection_ids)
+    projection_hashes = tuple(previous_racio_projection_hashes)
+    if len(projection_ids) != len(projection_hashes):
+        raise ValueError("Racio projection IDs and hashes must have equal length")
     payload = {
         "schema_version": "rei-native-racio-input-packet-v1",
         "scene_id": scene.event_id,
@@ -70,9 +75,11 @@ def build_racio_packet(
         "allowed_option_ids": tuple(option.option_id for option in scene.options),
         "evidence_ids": tuple(evidence.evidence_id for evidence in grounded),
         "world": world,
-        "previous_racio_projection_ids": tuple(previous_racio_projection_ids),
+        "previous_racio_projection_ids": projection_ids,
         "caveat": caveat,
     }
+    if projection_hashes:
+        payload["previous_racio_projection_hashes"] = projection_hashes
     packet = RacioInputPacket(
         packet_id=content_id("racio_packet", payload),
         **payload,

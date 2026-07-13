@@ -132,6 +132,12 @@ class EmocioInputPacket(FrozenArtifactModel):
     explicit_identity_cues: tuple[str, ...]
     allowed_option_ids: tuple[NonEmptyId, ...]
     evidence_ids: tuple[NonEmptyId, ...]
+    previous_emocio_projection_ids: tuple[NonEmptyId, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
+    previous_emocio_projection_hashes: tuple[HashDigest, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     caveat: str
 
     @model_validator(mode="after")
@@ -140,6 +146,14 @@ class EmocioInputPacket(FrozenArtifactModel):
             raise ValueError("allowed_option_ids must be unique")
         if len(set(self.evidence_ids)) != len(self.evidence_ids):
             raise ValueError("evidence_ids must be unique")
+        if len(self.previous_emocio_projection_ids) != len(
+            self.previous_emocio_projection_hashes
+        ):
+            raise ValueError("Emocio projection IDs and hashes must have equal length")
+        if len(set(self.previous_emocio_projection_ids)) != len(
+            self.previous_emocio_projection_ids
+        ):
+            raise ValueError("Emocio projection IDs must be unique")
         return self
 
     def validate_against(self, scene: SceneEvent) -> Self:

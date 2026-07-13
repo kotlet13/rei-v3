@@ -349,7 +349,11 @@ class InstinktManifestation(FrozenArtifactModel):
     source_conclusion_hash: HashDigest | None = Field(
         default=None, exclude_if=lambda value: value is None
     )
-    manifestation_status: Literal["unverified_contract", "simulated_v1"] = Field(
+    manifestation_status: Literal[
+        "unverified_contract",
+        "simulated_v1",
+        "fixture_projection_b11",
+    ] = Field(
         default="unverified_contract",
         exclude_if=lambda value: value == "unverified_contract",
     )
@@ -437,7 +441,10 @@ class InstinktManifestation(FrozenArtifactModel):
             or self.source_body_state_hash != body_state.content_hash()
         ):
             raise ValueError("Instinkt manifestation BodyState lineage differs")
-        if conclusion.decisive_rollout_id is None:
+        if self.manifestation_status == "fixture_projection_b11":
+            if decisive_rollout is not None or self.source_decisive_rollout_id is not None:
+                raise ValueError("Fixture projection cannot claim a B8 decisive rollout")
+        elif conclusion.decisive_rollout_id is None:
             if decisive_rollout is not None or self.source_decisive_rollout_id is not None:
                 raise ValueError("Abstaining manifestation cannot cite a rollout")
             if conclusion.source_body_state_id != body_state.body_state_id:

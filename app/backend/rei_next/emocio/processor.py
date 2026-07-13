@@ -48,9 +48,11 @@ class EmocioProcessingResult:
             or self.source_world_hash != world.content_hash()
         ):
             raise ValueError("Emocio result source world lineage differs")
-        expected_packet = build_emocio_packet(scene)
-        if self.packet != expected_packet:
-            raise ValueError("Emocio packet differs from deterministic replay")
+        # B11 may admit an exact, content-addressed longitudinal projection in
+        # the packet. Revalidate that approved packet against the scene, then
+        # replay every downstream stage from it; rebuilding a projection-free
+        # default here would erase valid history lineage.
+        self.packet.validate_against(scene)
         compiled = compile_emocio_scenes(scene, self.packet, world)
         expected_state = build_emocio_visual_state(
             scene=scene,
@@ -168,11 +170,13 @@ def process_emocio(
     *,
     renderer: EmocioRenderer | None = None,
     render_seed: int = 0,
+    packet: EmocioInputPacket | None = None,
 ) -> EmocioProcessingResult:
     """Build the native result first, then optionally render frozen scenes."""
 
     stages: list[str] = []
-    packet = build_emocio_packet(scene)
+    packet = packet or build_emocio_packet(scene)
+    packet.validate_against(scene)
     stages.append("packet")
     compiled = compile_emocio_scenes(scene, packet, world)
     stages.append("scene_graph")

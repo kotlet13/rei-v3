@@ -19,6 +19,7 @@ from app.backend.rei_next.models.communication import InstinktManifestation
 from app.backend.rei_next.models.character import CharacterAuthority
 from app.backend.rei_next.models.instinkt import (
     BODY_DIMENSIONS,
+    AssociationMatch,
     BodyDelta,
     BodyState,
     BodyTransition,
@@ -27,6 +28,7 @@ from app.backend.rei_next.models.instinkt import (
     InstinktInputPacket,
     InstinktNativeConclusion,
     InstinktOptionRollout,
+    InstinktProjectionObservation,
     InstinktSimulationConfig,
     OptionBodyEffect,
 )
@@ -181,6 +183,43 @@ def _association(
         boundary_delta=0.0,
         decay=decay,
     )
+
+
+def test_projection_observation_never_masquerades_as_experienced_loss() -> None:
+    base = {
+        "schema_version": "rei-native-instinkt-projection-observation-v1",
+        "source_projection_id": "instinkt_projection_previous",
+        "source_projection_hash": "1" * 64,
+        "observation_kind": "loss",
+        "observation": "outcome-backed loss observation",
+        "evidence_measure_ids": ("measure_previous",),
+        "cue_signature": ("ego_projection:loss:observed",),
+        "felt_intensity": 0.5,
+        "protected_target": "ego_history_loss",
+        "decay": 0.0,
+    }
+    observation = InstinktProjectionObservation(
+        observation_id=content_id("instinkt_projection_observation", base),
+        **base,
+    )
+    memory = BoundedAssociativeMemory()
+    memory.add(observation)
+    match = memory.retrieve(observation.cue_signature)[0]
+
+    assert match.source_record_kind == "projection_observation"
+    assert match.carries_experienced_loss is False
+
+    invalid = match.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={"match_id"},
+    )
+    invalid["carries_experienced_loss"] = True
+    with pytest.raises(ValidationError, match="cannot claim an experienced loss"):
+        AssociationMatch(
+            match_id=content_id("association_match", invalid),
+            **invalid,
+        )
 
 
 def _assert_normalized(state: BodyState) -> None:

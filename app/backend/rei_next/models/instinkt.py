@@ -137,6 +137,12 @@ class InstinktInputPacket(FrozenArtifactModel):
     explicit_body_cues: tuple[str, ...]
     option_ids: tuple[NonEmptyId, ...]
     evidence_ids: tuple[NonEmptyId, ...]
+    previous_instinkt_projection_ids: tuple[NonEmptyId, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
+    previous_instinkt_projection_hashes: tuple[HashDigest, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     caveat: str
 
     @model_validator(mode="after")
@@ -145,6 +151,14 @@ class InstinktInputPacket(FrozenArtifactModel):
             raise ValueError("option_ids must be unique")
         if len(set(self.evidence_ids)) != len(self.evidence_ids):
             raise ValueError("evidence_ids must be unique")
+        if len(self.previous_instinkt_projection_ids) != len(
+            self.previous_instinkt_projection_hashes
+        ):
+            raise ValueError("Instinkt projection IDs and hashes must have equal length")
+        if len(set(self.previous_instinkt_projection_ids)) != len(
+            self.previous_instinkt_projection_ids
+        ):
+            raise ValueError("Instinkt projection IDs must be unique")
         return self
 
     def validate_against(self, scene: SceneEvent, body_state: BodyState) -> Self:
@@ -211,6 +225,76 @@ class InstinktAssociation(FrozenArtifactModel):
     decay: Score01
 
 
+InstinktProjectionObservationKind = Literal[
+    "body_consequence",
+    "danger",
+    "loss",
+    "trust",
+    "attachment",
+    "boundary",
+    "scarcity",
+    "recovery",
+]
+
+
+class InstinktProjectionObservation(FrozenArtifactModel):
+    """Observation-only Ego projection admitted to associative retrieval.
+
+    Unlike :class:`InstinktAssociation`, this record claims neither a concrete
+    historical body state nor an experienced outcome. It can affect audit
+    lineage and exact-token retrieval, but cannot activate experienced-loss
+    dynamics.
+    """
+
+    schema_version: Literal["rei-native-instinkt-projection-observation-v1"] = (
+        "rei-native-instinkt-projection-observation-v1"
+    )
+    observation_id: NonEmptyId
+    source_projection_id: NonEmptyId
+    source_projection_hash: HashDigest
+    observation_kind: InstinktProjectionObservationKind
+    observation: NonEmptyText
+    evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
+    cue_signature: tuple[NonEmptyText, ...] = Field(min_length=1)
+    felt_intensity: Score01
+    protected_target: NonEmptyText
+    decay: Score01 = 0.0
+
+    @model_validator(mode="after")
+    def validate_observation(self) -> Self:
+        if self.evidence_measure_ids != tuple(
+            sorted(set(self.evidence_measure_ids))
+        ):
+            raise ValueError(
+                "Projection observation evidence IDs must be sorted and unique"
+            )
+        if self.cue_signature != tuple(sorted(set(self.cue_signature))):
+            raise ValueError(
+                "Projection observation cue signature must be sorted and unique"
+            )
+        payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"observation_id"},
+        )
+        if self.observation_id != content_id(
+            "instinkt_projection_observation", payload
+        ):
+            raise ValueError(
+                "Instinkt projection observation ID differs from canonical content"
+            )
+        return self
+
+
+InstinktMemoryRecord = InstinktAssociation | InstinktProjectionObservation
+
+
+def instinkt_memory_record_id(record: InstinktMemoryRecord) -> NonEmptyId:
+    if isinstance(record, InstinktAssociation):
+        return record.association_id
+    return record.observation_id
+
+
 class AssociationMatch(FrozenArtifactModel):
     """Content-addressed snapshot of one bounded memory retrieval result."""
 
@@ -227,6 +311,12 @@ class AssociationMatch(FrozenArtifactModel):
     retrieval_score: Score01
     carries_experienced_loss: bool
     protected_target: str
+    source_record_kind: Literal[
+        "experienced_association", "projection_observation"
+    ] = Field(
+        default="experienced_association",
+        exclude_if=lambda value: value == "experienced_association",
+    )
 
     @model_validator(mode="after")
     def validate_match(self) -> Self:
@@ -237,6 +327,13 @@ class AssociationMatch(FrozenArtifactModel):
             raise ValueError("Association age cannot exceed the visible memory cycle")
         if self.retrieval_score > self.effective_strength:
             raise ValueError("Association retrieval score cannot exceed its strength")
+        if (
+            self.source_record_kind == "projection_observation"
+            and self.carries_experienced_loss
+        ):
+            raise ValueError(
+                "Projection observations cannot claim an experienced loss"
+            )
         id_payload = self.model_dump(
             mode="python",
             round_trip=True,
@@ -250,25 +347,30 @@ class AssociationMatch(FrozenArtifactModel):
     def create(
         cls,
         *,
-        association: InstinktAssociation,
+        association: InstinktMemoryRecord,
         memory_cycle: int,
         age_cycles: int,
         overlap_tokens: tuple[str, ...],
         effective_strength: float,
         retrieval_score: float,
     ) -> AssociationMatch:
+        is_experienced = isinstance(association, InstinktAssociation)
         base = {
             "schema_version": "rei-native-association-match-v1",
-            "association_id": association.association_id,
+            "association_id": instinkt_memory_record_id(association),
             "association_hash": association.content_hash(),
             "memory_cycle": memory_cycle,
             "age_cycles": age_cycles,
             "overlap_tokens": overlap_tokens,
             "effective_strength": effective_strength,
             "retrieval_score": retrieval_score,
-            "carries_experienced_loss": association.experienced_loss is not None,
+            "carries_experienced_loss": (
+                is_experienced and association.experienced_loss is not None
+            ),
             "protected_target": association.protected_target,
         }
+        if not is_experienced:
+            base["source_record_kind"] = "projection_observation"
         return cls(match_id=content_id("association_match", base), **base)
 
 
@@ -1159,6 +1261,9 @@ __all__ = [
     "BodyTransition",
     "InstinktActionTendency",
     "InstinktAssociation",
+    "InstinktMemoryRecord",
+    "InstinktProjectionObservation",
+    "InstinktProjectionObservationKind",
     "InstinktInputPacket",
     "InstinktNativeConclusion",
     "InstinktOptionRollout",
@@ -1168,4 +1273,5 @@ __all__ = [
     "PositiveUnit",
     "SimulationArtifactStatus",
     "UnitDelta",
+    "instinkt_memory_record_id",
 ]

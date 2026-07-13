@@ -77,6 +77,9 @@ class RacioInputPacket(FrozenArtifactModel):
     evidence_ids: tuple[NonEmptyId, ...]
     world: RacioWorld
     previous_racio_projection_ids: tuple[NonEmptyId, ...]
+    previous_racio_projection_hashes: tuple[HashDigest, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     caveat: str
 
     @model_validator(mode="after")
@@ -93,6 +96,14 @@ class RacioInputPacket(FrozenArtifactModel):
             raise ValueError("consequences must refer to explicit options")
         if len(set(self.evidence_ids)) != len(self.evidence_ids):
             raise ValueError("evidence_ids must be unique")
+        if len(self.previous_racio_projection_ids) != len(
+            self.previous_racio_projection_hashes
+        ):
+            raise ValueError("Racio projection IDs and hashes must have equal length")
+        if len(set(self.previous_racio_projection_ids)) != len(
+            self.previous_racio_projection_ids
+        ):
+            raise ValueError("Racio projection IDs must be unique")
         for consequence in self.explicit_consequences:
             if not set(consequence.evidence_ids).issubset(self.evidence_ids):
                 raise ValueError("consequence evidence must belong to the packet")

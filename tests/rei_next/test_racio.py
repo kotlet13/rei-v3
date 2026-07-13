@@ -117,7 +117,17 @@ def _packet(*, with_options: bool = True) -> RacioInputPacket:
         rules=("Use only allowed option IDs.",),
         explicit_consequences=consequences,
         previous_racio_projection_ids=("racio_projection_previous",),
+        previous_racio_projection_hashes=("1" * 64,),
     )
+
+
+def test_racio_projection_ids_require_exact_hashes() -> None:
+    with pytest.raises(ValueError, match="IDs and hashes"):
+        build_racio_packet(
+            _scene(),
+            _world(),
+            previous_racio_projection_ids=("racio_projection_previous",),
+        )
 
 
 def _structured_payload(packet: RacioInputPacket) -> dict[str, object]:
