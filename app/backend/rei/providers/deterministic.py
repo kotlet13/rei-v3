@@ -249,6 +249,12 @@ class NativeProviderExecution(Generic[NativeConclusionT]):
 class RacioNativeExecution(NativeProviderExecution[RacioNativeConclusion]):
     """Provider-bound deterministic Racio conclusion."""
 
+    @property
+    def reasoning_artifact(self) -> None:
+        """Deterministic Racio has no external model-response evidence."""
+
+        return None
+
 
 @dataclass(frozen=True, slots=True)
 class EmocioNativeExecution(NativeProviderExecution[EmocioNativeConclusion]):

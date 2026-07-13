@@ -32,7 +32,14 @@ from .governance.resolver import resolve_governance
 from .ids import canonical_json_bytes, content_id, utc_now
 from .instinkt.packets import InstinktEffectSpec, bind_instinkt_effects, build_instinkt_packet
 from .models.character import CharacterAuthority, EffectiveAuthority, FunctionalOverride
-from .models.common import CommitDigest, FrozenModel, NonEmptyId, NonEmptyText, UtcTimestamp
+from .models.common import (
+    CommitDigest,
+    FrozenArtifactModel,
+    FrozenModel,
+    NonEmptyId,
+    NonEmptyText,
+    UtcTimestamp,
+)
 from .models.communication import AcceptanceState, EmocioManifestation, InstinktManifestation
 from .models.conscious import (
     BehaviorResultant,
@@ -468,6 +475,30 @@ def _validate_preapproved_native_call(
         )
 
 
+def _validated_racio_reasoning_artifact(
+    execution: RacioNativeExecution,
+) -> FrozenArtifactModel | None:
+    """Close an optional model-response artifact before bundle assembly."""
+
+    artifact = execution.reasoning_artifact
+    expected_id = execution.conclusion.reasoning_provider_result_id
+    expected_hash = execution.conclusion.reasoning_provider_result_hash
+    if expected_id is None:
+        if artifact is not None or expected_hash is not None:
+            raise ValueError("Racio reasoning artifact lineage is only partially present")
+        return None
+    if expected_hash is None or not isinstance(artifact, FrozenArtifactModel):
+        raise ValueError("Racio conclusion references missing reasoning evidence")
+    if (
+        getattr(artifact, "result_id", None) != expected_id
+        or artifact.content_hash() != expected_hash
+    ):
+        raise ValueError("Racio reasoning evidence differs from conclusion lineage")
+    if expected_id not in execution.call_record.output_artifact_ids:
+        raise ValueError("Racio reasoning evidence is not a recorded provider output")
+    return artifact
+
+
 def _decisive_body_after(execution: InstinktNativeExecution) -> BodyState | None:
     decisive_id = execution.conclusion.decisive_rollout_id
     if decisive_id is None:
@@ -758,6 +789,9 @@ class ReiNativeEngine:
             raise ValueError(
                 "Native provider returned a call spec other than the pre-approved contract"
             )
+        racio_reasoning_artifact = _validated_racio_reasoning_artifact(
+            racio_execution
+        )
         if (
             emocio_execution.packet != emocio_packet
             or emocio_execution.source_world_id != emocio_world.world_id
@@ -966,6 +1000,7 @@ class ReiNativeEngine:
             emocio_packet=emocio_packet,
             instinkt_packet=instinkt_packet,
             racio_execution=racio_execution,
+            racio_reasoning_artifact=racio_reasoning_artifact,
             emocio_execution=emocio_execution,
             instinkt_execution=instinkt_execution,
             bundle=bundle,
@@ -1075,6 +1110,7 @@ class ReiNativeEngine:
         emocio_packet: EmocioInputPacket,
         instinkt_packet: InstinktInputPacket,
         racio_execution: RacioNativeExecution,
+        racio_reasoning_artifact: FrozenArtifactModel | None,
         emocio_execution: EmocioNativeExecution,
         instinkt_execution: InstinktNativeExecution,
         bundle: NativeMindBundle,
@@ -1118,6 +1154,11 @@ class ReiNativeEngine:
         write_json("scene/racio_world.json", racio_world)
         write_json("scene/emocio_world.json", emocio_world)
         write_json("native/bundle.json", bundle)
+        if racio_reasoning_artifact is not None:
+            write_json(
+                "native/racio_reasoning_evidence.json",
+                racio_reasoning_artifact,
+            )
         write_json("native/racio.json", racio_execution.conclusion)
         write_json("native/emocio.json", emocio_execution.conclusion)
         write_json("native/instinkt.json", instinkt_execution.conclusion)

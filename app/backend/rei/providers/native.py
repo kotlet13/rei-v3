@@ -7,7 +7,13 @@ from datetime import timedelta
 from typing import Protocol, runtime_checkable
 
 from ..ids import content_id, utc_now
-from ..models.common import HashDigest, NonEmptyId, SafetyNotice, UtcTimestamp
+from ..models.common import (
+    FrozenArtifactModel,
+    HashDigest,
+    NonEmptyId,
+    SafetyNotice,
+    UtcTimestamp,
+)
 from ..models.communication import InstinktManifestation
 from ..models.emocio import (
     EmocioInputPacket,
@@ -142,6 +148,9 @@ class RacioNativeExecution(Protocol):
     conclusion: RacioNativeConclusion
     call_spec: ProviderCallSpec
     call_record: ProviderCallRecord
+
+    @property
+    def reasoning_artifact(self) -> FrozenArtifactModel | None: ...
 
 
 @runtime_checkable
