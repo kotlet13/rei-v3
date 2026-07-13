@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import asyncio
 from dataclasses import dataclass
 import hashlib
 import json
@@ -12,6 +13,7 @@ import zlib
 
 from fastapi import HTTPException
 import pytest
+from starlette.requests import Request
 
 from app.backend.rei.engine import ReiNativeCycleRequest, ReiNativeEngine
 from app.backend.rei.ids import canonical_json_bytes
@@ -55,6 +57,36 @@ NATIVE_GAP_KEYS = {
 def _request(*, run_id: str, ego_id: str) -> ReiNativeCycleRequest:
     base = ReiNativeCycleRequest.model_validate_json(FIXTURE.read_bytes())
     return base.model_copy(update={"run_id": run_id, "ego_id": ego_id})
+
+
+def _http_request(
+    body: bytes,
+    *,
+    host: str = "127.0.0.1",
+    content_length: int | None = None,
+) -> Request:
+    delivered = False
+
+    async def receive() -> dict[str, Any]:
+        nonlocal delivered
+        if delivered:
+            return {"type": "http.disconnect"}
+        delivered = True
+        return {"type": "http.request", "body": body, "more_body": False}
+
+    headers = []
+    if content_length is not None:
+        headers.append((b"content-length", str(content_length).encode("ascii")))
+    return Request(
+        {
+            "type": "http",
+            "method": "POST",
+            "path": "/api/cycles",
+            "headers": headers,
+            "client": (host, 43100),
+        },
+        receive,
+    )
 
 
 @pytest.fixture(scope="module")
@@ -226,6 +258,71 @@ def test_cycle_route_uses_env_roots_and_duplicate_run_is_conflict(
     with pytest.raises(HTTPException) as raised:
         server.execute_native_cycle(request, debug=False)
     assert raised.value.status_code == 409
+
+
+def test_cycle_route_rejects_declared_and_streamed_oversize_bodies() -> None:
+    declared = _http_request(
+        b"{}",
+        content_length=server.MAX_CYCLE_REQUEST_BYTES + 1,
+    )
+    with pytest.raises(HTTPException) as raised:
+        asyncio.run(server._bounded_request_body(declared))
+    assert raised.value.status_code == 413
+    assert str(server.MAX_CYCLE_REQUEST_BYTES) in raised.value.detail
+
+    streamed = _http_request(b"x" * (server.MAX_CYCLE_REQUEST_BYTES + 1))
+    with pytest.raises(HTTPException) as raised:
+        asyncio.run(server._bounded_request_body(streamed))
+    assert raised.value.status_code == 413
+    assert "byte limit" in raised.value.detail
+
+
+def test_debug_route_is_loopback_only_without_explicit_remote_opt_in(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv(server.ALLOW_REMOTE_DEBUG_ENV, raising=False)
+    parsed = object()
+    monkeypatch.setattr(server, "_parse_cycle_request", lambda _content: parsed)
+    monkeypatch.setattr(
+        server,
+        "execute_native_cycle",
+        lambda request, *, debug: {"request": request, "debug": debug},
+    )
+
+    with pytest.raises(HTTPException) as raised:
+        asyncio.run(
+            server.run_native_cycle(
+                _http_request(b"{}", host="203.0.113.9"),
+                debug=True,
+            )
+        )
+    assert raised.value.status_code == 403
+    assert server.ALLOW_REMOTE_DEBUG_ENV in raised.value.detail
+
+    local_result = asyncio.run(
+        server.run_native_cycle(
+            _http_request(b"{}", host="::1"),
+            debug=True,
+        )
+    )
+    assert local_result == {"request": parsed, "debug": True}
+
+    remote_normal_result = asyncio.run(
+        server.run_native_cycle(
+            _http_request(b"{}", host="203.0.113.9"),
+            debug=False,
+        )
+    )
+    assert remote_normal_result == {"request": parsed, "debug": False}
+
+    monkeypatch.setenv(server.ALLOW_REMOTE_DEBUG_ENV, "true")
+    remote_debug_result = asyncio.run(
+        server.run_native_cycle(
+            _http_request(b"{}", host="203.0.113.9"),
+            debug=True,
+        )
+    )
+    assert remote_debug_result == {"request": parsed, "debug": True}
 
 
 def _stored(run_id: str, path: str, content: bytes) -> StoredArtifact:

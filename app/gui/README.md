@@ -50,12 +50,17 @@ invents a placeholder image or loads a remote image.
 - `GET /api/bootstrap` returns the frozen fixture, the 13 canonical character
   contracts, and runtime capability flags without executing the engine.
 - `POST /api/cycles?debug=false` accepts an exact
-  `ReiNativeCycleRequest` and runs only the deterministic provider set.
+  `ReiNativeCycleRequest` up to 1 MiB and runs only the deterministic provider
+  set.
 - `GET /api/runs/{run_id}/images/{image_id}` serves only a manifest-verified
   PNG artifact.
 
 No dataset, training, prompt-override, Ollama, or free-form filesystem route is
 part of this application.
+
+Evaluator ground truth requested with `debug=true` is loopback-only. A remote
+deployment must set `REI_GUI_ALLOW_REMOTE_DEBUG=true` explicitly before that
+view can be exposed; normal `debug=false` requests are unaffected.
 
 ## Verified dependency baseline
 

@@ -11,7 +11,7 @@ ACTIVE_ROOTS = (
     ROOT / "tests" / "rei",
     ROOT / "knowledge" / "canon_v2",
 )
-TEXT_SUFFIXES = {".css", ".html", ".js", ".md", ".py", ".yaml", ".yml"}
+TEXT_SUFFIXES = {".css", ".html", ".js", ".md", ".ps1", ".py", ".yaml", ".yml"}
 LEGACY_ENTRYPOINTS = (
     "export_rei_ft_dataset.py",
     "filter_rei_cases.py",

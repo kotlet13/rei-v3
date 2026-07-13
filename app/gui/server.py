@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import ipaddress
 import os
 from pathlib import Path
 from typing import Any
@@ -44,8 +45,10 @@ DEFAULT_FIXTURE = (
 )
 RUNS_ROOT_ENV = "REI_GUI_RUNS_ROOT"
 EGO_TRACES_ROOT_ENV = "REI_GUI_EGO_TRACES_ROOT"
+ALLOW_REMOTE_DEBUG_ENV = "REI_GUI_ALLOW_REMOTE_DEBUG"
 DEFAULT_RUNS_ROOT = ROOT / "output" / "runs"
 DEFAULT_EGO_TRACES_ROOT = ROOT / "output" / "ego_traces"
+MAX_CYCLE_REQUEST_BYTES = 1024 * 1024
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 IMAGE_INDEX_PATH = "emocio/images/index.json"
 IMAGE_INDEX_ADAPTER = TypeAdapter(tuple[ImageArtifact, ...])
@@ -134,6 +137,87 @@ def _parse_cycle_request(content: bytes) -> ReiNativeCycleRequest:
             else [{"type": "invalid_json", "msg": str(exc)}]
         )
         raise HTTPException(status_code=422, detail=detail) from exc
+
+
+async def _bounded_request_body(request: Request) -> bytes:
+    """Read a cycle request without allowing an unbounded in-memory body."""
+
+    content_length = request.headers.get("content-length")
+    if content_length is not None:
+        try:
+            declared_size = int(content_length)
+        except ValueError as exc:
+            raise HTTPException(
+                status_code=400,
+                detail="Content-Length must be a non-negative integer.",
+            ) from exc
+        if declared_size < 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Content-Length must be a non-negative integer.",
+            )
+        if declared_size > MAX_CYCLE_REQUEST_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=(
+                    "Cycle request body exceeds the "
+                    f"{MAX_CYCLE_REQUEST_BYTES}-byte limit."
+                ),
+            )
+
+    content = bytearray()
+    async for chunk in request.stream():
+        if len(content) + len(chunk) > MAX_CYCLE_REQUEST_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=(
+                    "Cycle request body exceeds the "
+                    f"{MAX_CYCLE_REQUEST_BYTES}-byte limit."
+                ),
+            )
+        content.extend(chunk)
+    return bytes(content)
+
+
+def _loopback_client(request: Request) -> bool:
+    if request.client is None:
+        return False
+    host = request.client.host.strip().strip("[]").split("%", maxsplit=1)[0]
+    if host.casefold() == "localhost":
+        return True
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    if address.is_loopback:
+        return True
+    return bool(
+        address.version == 6
+        and address.ipv4_mapped
+        and address.ipv4_mapped.is_loopback
+    )
+
+
+def _remote_debug_enabled() -> bool:
+    return os.environ.get(ALLOW_REMOTE_DEBUG_ENV, "").strip().casefold() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+
+def _require_debug_access(request: Request, *, debug: bool) -> None:
+    """Keep evaluator ground truth local unless explicitly exposed."""
+
+    if debug and not (_loopback_client(request) or _remote_debug_enabled()):
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Debug evaluator ground truth is restricted to loopback clients. "
+                f"Set {ALLOW_REMOTE_DEBUG_ENV}=true to opt in to remote exposure."
+            ),
+        )
 
 
 def _stored_artifact(record: Any) -> StoredArtifact:
@@ -263,7 +347,8 @@ async def run_native_cycle(
     request: Request,
     debug: bool = False,
 ) -> dict[str, Any]:
-    cycle_request = _parse_cycle_request(await request.body())
+    _require_debug_access(request, debug=debug)
+    cycle_request = _parse_cycle_request(await _bounded_request_body(request))
     return execute_native_cycle(cycle_request, debug=debug)
 
 
