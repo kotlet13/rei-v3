@@ -1,13 +1,18 @@
 # REI Native Modalities & Ego Composition Architecture
 
-Status: **Accepted for B1; documentation contract, no runtime effect**
+Status: **Accepted and active after the B13 cutover; B14 evidence recorded**
 Date: 2026-07-13
 Canonical language: Slovenian
 Supersedes: the active architectural direction in the archived canonical-v2/QLoRA plan
 
 ## 1. Purpose and boundary
 
-This document defines the target architecture for the next REI implementation. It is a contract for later phases, not executable code. The legacy package remains unchanged until the new implementation satisfies the cutover gates.
+This document defines the active architecture promoted in B13. It began as the
+B1 implementation contract; phases B2–B13 implemented and promoted it after the
+cutover gates passed. The former textual three-LLM package is preserved only in
+the immutable A1 archive. Final verification, limitations and rollback evidence
+are recorded in
+`Docs/evals/rei_native_architecture_acceptance_2026-07-13.md`.
 
 The architecture models three autonomous REI processors with different native modalities, deterministic ordinal character governance, Racio-mediated conscious access, and a computational representation of Ego as a temporal composition of cycles. The Measure/Trace/Snapshot representation is an accepted `implementation_hypothesis`, not a direct-source claim. It does not choose a final provider or model.
 
