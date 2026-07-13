@@ -12,7 +12,6 @@ ARCHIVE_TOOL = ROOT / "scripts" / "archive_rei_architecture.py"
 ACTIVE_SOURCE_ROOTS = (
     ROOT / "app" / "backend" / "rei",
     ROOT / "app" / "gui",
-    ROOT / "app" / "gui_next",
     ROOT / "scripts",
 )
 REQUIRED_NO_RECURSE_DIRS = {"archive", "output", ".git", ".venv"}

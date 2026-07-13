@@ -1,4 +1,4 @@
-"""Run the B11 12 x 13 matrix over checked-in frozen native bundles.
+"""Run the 12 x 13 matrix over checked-in frozen native bundles.
 
 This runner evaluates only character governance and the downstream B10 path.
 It never invokes a native processor, model provider, renderer, LLM, or GPU.
@@ -19,7 +19,7 @@ if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
 
-from rei_next.profile_matrix import run_native_profile_matrix  # noqa: E402
+from rei.profile_matrix import run_native_profile_matrix  # noqa: E402
 
 
 DEFAULT_FIXTURE_DIRECTORY = ROOT / "tests" / "fixtures" / "native_bundles"

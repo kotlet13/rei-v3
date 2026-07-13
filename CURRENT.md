@@ -1,77 +1,89 @@
-# Current Baseline
+# Current Project State
 
-The project is now organized around one active baseline entrypoint:
+As of 2026-07-13, the native REI composition architecture is the active
+runtime. Phase B13 completed the breaking cutover from the transitional
+packages to `app/backend/rei/` and `app/gui/`. Phase B14 owns the final
+acceptance record at
+`Docs/evals/rei_native_architecture_acceptance_2026-07-13.md`.
 
-```powershell
-python scripts\run_rei_profile_matrix.py --model granite4.1:30b --num-ctx 65536 --num-gpu 999
-```
+## Active execution boundary
 
-This is the current source of truth for evaluating REI-v3 logic and motorics.
+- engine: `app.backend.rei.engine.ReiNativeEngine`
+- deterministic cycle runner: `scripts/run_rei_native_cycle.py`
+- governance matrix runner: `scripts/run_rei_native_profile_matrix.py`
+- GUI server: `app.gui.server:app`
+- run artifacts: `output/runs/{run_id}/`
+- append-only Ego traces: `output/ego_traces/`
+- native tests: `tests/rei/`
+- immutable legacy archive:
+  `archive/rei_v3_text_llm_baseline_2026-07-13/`
 
-## Active Baseline
+There is no active `rei_next` or `gui_next` package. Active code does not
+import the archive. The old matrix runner, textual runtime, dataset-generation
+entrypoints, prompt/dataset GUI, and duplicate tests exist only in the frozen
+archive snapshot.
 
-- id: `rei-profile-matrix-156`
-- contract: `rei-profile-matrix-156-v1`
-- script: `scripts/run_rei_profile_matrix.py`
-- engine entrypoint under test: `ReiEngine.run_rei_cycle`
-- provider/model: `ollama` / `granite4.1:30b`
-- Ollama options: `num_ctx=65536`, `num_gpu=999`
-- matrix: 13 profiles x 12 scenarios = 156 cases
-- docs summary output: `Docs/evals/rei_profile_matrix_summary_{YYYY-MM-DD}.md`
+## Architecture contract
 
-## Active Dependency Boundary
+1. Racio, Emocio, and Instinkt receive profile-blind native inputs and conclude
+   independently.
+2. Emocio's structured visual world and Instinkt's virtual body are
+   authoritative even when no optional raster renderer is enabled.
+3. Racio interprets only observable manifestations; evaluator native truth is
+   excluded from the conscious input and appears only in explicit debug views.
+4. Character governance is ordinal. It does not use weighted-vote floats or an
+   LLM tie-breaker.
+5. Every conscious decision is Racio's. Governance mandate, conscious
+   decision, and behavior resultant remain three distinct records.
+6. Ego is an append-only measure/trace/composition history with sourced
+   modality projections. Ego has no decision or vote API.
+7. Run storage is create-only, content-addressed, manifest-closed, and
+   cold-verifiable.
 
-The active baseline keeps only the code needed by `scripts/run_rei_profile_matrix.py` and its support tests:
-
-- `app/backend/rei/acceptance.py`
-- `app/backend/rei/contract_loader.py`
-- `app/backend/rei/engine.py`
-- `app/backend/rei/json_utils.py`
-- `app/backend/rei/knowledge.py`
-- `app/backend/rei/models.py`
-- `app/backend/rei/normalization.py`
-- `app/backend/rei/processor_contracts.py`
-- `app/backend/rei/processor_eval.py`
-- `app/backend/rei/profiles.py`
-- `app/backend/rei/prompts.py`
-- `app/backend/rei/providers.py`
-- `knowledge/`
-- `Docs/evals/`
-
-## Archived Non-Baseline Surfaces
-
-Non-baseline UI/API/runner surfaces were moved to:
-
-- `archive/non_baseline_2026-05-21/`
-
-That archive includes the browser UI, FastAPI entrypoint, playground adapter, runtime manifest API, old matrix/probe runners, weighted-synthesis audit helpers, old tests for those surfaces, old API/UI specs, old REI v2 material, and prior upgrade/reference packs.
-
-## Baseline Run
-
-Use explicit Ollama GPU offload:
+## Deterministic commands
 
 ```powershell
-$env:REI_OLLAMA_NUM_CTX = "65536"
-$env:REI_OLLAMA_NUM_GPU = "999"
-python scripts\run_rei_profile_matrix.py --model granite4.1:30b --num-ctx 65536 --num-gpu 999
+python scripts/run_rei_native_cycle.py `
+  --runs-root output/runs `
+  --ego-traces-root output/ego_traces
+
+python scripts/run_rei_native_profile_matrix.py `
+  --output output/reports/rei_native_profile_matrix.json
+
+python -m uvicorn app.gui.server:app --host 127.0.0.1 --port 8765
 ```
 
-The script writes full run artifacts under:
+The matrix is 12 frozen native bundles × 13 canonical profiles = 156 rows. It
+executes governance and the downstream conscious/behavior path without
+rerunning a native processor or model.
 
-- `output/reports/rei_profile_matrix/{run_id}/`
+## Cutover evidence
 
-It also copies the markdown summary into:
+The B13 verification on 2026-07-13 established:
 
-- `Docs/evals/rei_profile_matrix_summary_{YYYY-MM-DD}.md`
+- archive SHA-256 inventory and source identity: passed;
+- promoted native core and cutover guards: 609 passed;
+- literal full worktree suite, including the user's unstaged v2 tests:
+  622 passed;
+- deterministic end-to-end cycle: all invariants passed, 45 stored artifacts;
+- canonical profile matrix: 156 rows, 12 fixtures, 13 profiles;
+- Edge GUI smoke: all four panels, explicit debug boundary, `R=E=I` majority
+  display, no horizontal overflow, no console warning/error.
 
-Important: filtered or smoke runs can also write into `Docs/evals`. Treat a docs summary as the 156-case baseline only when its `Cases` field is `156`.
+## Model boundary
 
-Latest known full 156-case run:
+The active architecture contains strict model-provider protocols and optional
+adapters, but deterministic execution remains the default. Exact real-provider
+coverage, local Ollama/Granite observations, and integrations still missing
+from the architecture are recorded by B14 rather than inferred here.
 
-- `output/reports/rei_profile_matrix/20260519_153731_granite4_1_30b_64k_gpu999_postfix/summary.md`
+## Legacy and rollback
 
-## Verification
+The old comparison baseline was the 13-profile × 12-scenario textual matrix
+using `ReiEngine.run_rei_cycle`, Ollama, and `granite4.1:30b` with explicit
+`num_ctx=65536` and `num_gpu=999`. Its source commit is
+`05996b2b4a34cf6dd654e032d5dbc26bb5373ef0`; the behavior-bearing ancestor is
+`995b572c893058c82d265d978a0391e317f1ea67`.
 
-Last local structural verification on 2026-05-21:
-
-- `python -m pytest -q`
+The final B14 acceptance report provides the exact tag-based rollback command.
+Do not import or modify files under the archive to implement active behavior.

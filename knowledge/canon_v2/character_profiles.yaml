@@ -1,6 +1,6 @@
 schema_version: rei-native-character-profiles-v2
 status: architecture_canon
-runtime_effect: implemented_in_rei_next_b3
+runtime_effect: implemented_in_rei_b3
 canon_language: sl
 
 authority_semantics:

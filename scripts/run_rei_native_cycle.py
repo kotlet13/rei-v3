@@ -1,4 +1,4 @@
-"""Run one deterministic B11 native REI cycle from a checked-in JSON request.
+"""Run one deterministic native REI cycle from a checked-in JSON request.
 
 This runner uses only the provider-free deterministic R/E/I implementations.
 It does not invoke a model, renderer, image generator, LLM, or GPU.
@@ -17,13 +17,13 @@ if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
 
-from rei_next.engine import (  # noqa: E402
+from rei.engine import (  # noqa: E402
     ReiNativeCycleRequest,
     ReiNativeCycleResult,
     ReiNativeEngine,
 )
-from rei_next.ids import canonical_json_bytes  # noqa: E402
-from rei_next.providers.native import DeterministicExecutionClock  # noqa: E402
+from rei.ids import canonical_json_bytes  # noqa: E402
+from rei.providers.native import DeterministicExecutionClock  # noqa: E402
 
 
 DEFAULT_INPUT = (

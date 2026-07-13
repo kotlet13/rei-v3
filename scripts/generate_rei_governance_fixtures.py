@@ -22,14 +22,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 
-from app.backend.rei_next.governance.fixtures import (  # noqa: E402
+from app.backend.rei.governance.fixtures import (  # noqa: E402
     CanonicalGovernanceFixture,
     LogicPattern,
     NativeReasonExpectation,
     canonical_expected_profile_outcomes,
 )
-from app.backend.rei_next.models.common import MindId  # noqa: E402
-from app.backend.rei_next.models.emocio import (  # noqa: E402
+from app.backend.rei.models.common import MindId  # noqa: E402
+from app.backend.rei.models.emocio import (  # noqa: E402
     EMOCIO_VALUATION_DIMENSIONS,
     EmocioInputPacket,
     EmocioNativeConclusion,
@@ -38,19 +38,19 @@ from app.backend.rei_next.models.emocio import (  # noqa: E402
     ValuationDimension,
     VisualSceneSpec,
 )
-from app.backend.rei_next.models.instinkt import (  # noqa: E402
+from app.backend.rei.models.instinkt import (  # noqa: E402
     BodyState,
     InstinktInputPacket,
     InstinktNativeConclusion,
     InstinktOptionRollout,
 )
-from app.backend.rei_next.models.racio import (  # noqa: E402
+from app.backend.rei.models.racio import (  # noqa: E402
     RacioInputPacket,
     RacioNativeConclusion,
     RacioWorld,
 )
-from app.backend.rei_next.models.run import NativeMindBundle  # noqa: E402
-from app.backend.rei_next.models.scene import (  # noqa: E402
+from app.backend.rei.models.run import NativeMindBundle  # noqa: E402
+from app.backend.rei.models.scene import (  # noqa: E402
     DecisionOption,
     EvidenceItem,
     SceneEvent,

@@ -1,989 +1,815 @@
-const targets = ["racio", "emocio", "instinkt", "ego_resultant"];
-const processorTargets = ["racio", "emocio", "instinkt"];
-const labels = {
-  racio: "Racio",
-  emocio: "Emocio",
-  instinkt: "Instinkt",
-  ego_resultant: "EgoResultant",
-};
-const rawJsonView = "__raw_json__";
-
 const state = {
-  prompts: {},
-  models: [],
-  running: [],
-  defaults: {},
-  activePrompt: "racio",
-  activeRunId: null,
-  activeReader: null,
-  outputs: {},
-  parsed: {},
-  settings: {},
-  outputViews: {},
-  history: [],
-  datasets: [],
-  activeDatasetId: "",
-  datasetExamples: [],
-  activeDatasetExample: null,
+  bootstrap: null,
+  result: null,
+  activePanel: "native",
+  busy: false,
 };
 
 const els = {
-  ollamaStatus: document.querySelector("#ollamaStatus"),
-  refreshModelsBtn: document.querySelector("#refreshModelsBtn"),
-  clearHistoryBtn: document.querySelector("#clearHistoryBtn"),
-  promptTabs: document.querySelector("#promptTabs"),
-  promptMeta: document.querySelector("#promptMeta"),
-  promptEditor: document.querySelector("#promptEditor"),
-  savePromptBtn: document.querySelector("#savePromptBtn"),
-  resetPromptBtn: document.querySelector("#resetPromptBtn"),
-  requiredKeys: document.querySelector("#requiredKeys"),
-  testInput: document.querySelector("#testInput"),
+  statusDot: document.querySelector("#statusDot"),
+  runtimeStatus: document.querySelector("#runtimeStatus"),
+  runtimeMeta: document.querySelector("#runtimeMeta"),
+  sceneSummary: document.querySelector("#sceneSummary"),
+  sceneId: document.querySelector("#sceneId"),
+  runId: document.querySelector("#runId"),
+  invariantState: document.querySelector("#invariantState"),
   profileSelect: document.querySelector("#profileSelect"),
-  referenceToggle: document.querySelector("#referenceToggle"),
-  settingsGrid: document.querySelector("#settingsGrid"),
-  runFullBtn: document.querySelector("#runFullBtn"),
-  stopBtn: document.querySelector("#stopBtn"),
-  activeRun: document.querySelector("#activeRun"),
-  outputGrid: document.querySelector("#outputGrid"),
-  historyList: document.querySelector("#historyList"),
-  historyCount: document.querySelector("#historyCount"),
-  datasetSummary: document.querySelector("#datasetSummary"),
-  datasetSelect: document.querySelector("#datasetSelect"),
-  datasetTargetFilter: document.querySelector("#datasetTargetFilter"),
-  datasetStatusFilter: document.querySelector("#datasetStatusFilter"),
-  datasetProfileFilter: document.querySelector("#datasetProfileFilter"),
-  refreshDatasetsBtn: document.querySelector("#refreshDatasetsBtn"),
-  validateDatasetBtn: document.querySelector("#validateDatasetBtn"),
-  exportDatasetBtn: document.querySelector("#exportDatasetBtn"),
-  datasetList: document.querySelector("#datasetList"),
-  datasetScenario: document.querySelector("#datasetScenario"),
-  datasetValidation: document.querySelector("#datasetValidation"),
-  datasetStatusSelect: document.querySelector("#datasetStatusSelect"),
-  datasetSplitSelect: document.querySelector("#datasetSplitSelect"),
-  datasetReviewer: document.querySelector("#datasetReviewer"),
-  datasetNotes: document.querySelector("#datasetNotes"),
-  datasetJsonEditor: document.querySelector("#datasetJsonEditor"),
-  saveDatasetExampleBtn: document.querySelector("#saveDatasetExampleBtn"),
+  debugToggle: document.querySelector("#debugToggle"),
+  runCycleBtn: document.querySelector("#runCycleBtn"),
+  tabs: [...document.querySelectorAll("[role='tab']")],
+  panels: {
+    native: document.querySelector("#panel-native"),
+    communication: document.querySelector("#panel-communication"),
+    character: document.querySelector("#panel-character"),
+    ego: document.querySelector("#panel-ego"),
+  },
 };
 
-function loadLocalSettings() {
-  try {
-    return JSON.parse(localStorage.getItem("reiWorkbenchSettings") || "{}");
-  } catch {
-    return {};
+const BODY_DIMENSIONS = [
+  "energy",
+  "fatigue",
+  "pain",
+  "arousal",
+  "tension",
+  "physical_integrity",
+  "uncertainty",
+  "trust",
+  "attachment_security",
+  "resource_security",
+  "boundary_integrity",
+  "escape_availability",
+  "predictability",
+];
+
+function element(tag, className = "", text = null) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== null && text !== undefined) node.textContent = String(text);
+  return node;
+}
+
+function append(parent, ...children) {
+  for (const child of children.flat()) {
+    if (child !== null && child !== undefined) parent.append(child);
   }
+  return parent;
 }
 
-function saveLocalSettings() {
-  localStorage.setItem("reiWorkbenchSettings", JSON.stringify(state.settings));
+function asArray(value) {
+  if (Array.isArray(value)) return value;
+  if (value === null || value === undefined || value === "") return [];
+  return [value];
 }
 
-function loadLocalOutputViews() {
-  try {
-    return JSON.parse(localStorage.getItem("reiWorkbenchOutputViews") || "{}");
-  } catch {
-    return {};
-  }
+function humanize(value) {
+  return String(value || "")
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
-function saveLocalOutputViews() {
-  localStorage.setItem("reiWorkbenchOutputViews", JSON.stringify(state.outputViews));
+function display(value) {
+  if (value === null || value === undefined || value === "") return "—";
+  if (typeof value === "boolean") return value ? "yes" : "no";
+  if (typeof value === "number") return Number.isInteger(value) ? String(value) : value.toFixed(3);
+  if (Array.isArray(value)) return value.length ? value.join(" · ") : "—";
+  if (typeof value === "object") return JSON.stringify(value);
+  return String(value);
 }
 
-function targetDefaults(target) {
-  return {
-    model: state.defaults.model || state.models[0] || "",
-    num_ctx: state.defaults.num_ctx || 65536,
-    num_gpu: state.defaults.num_gpu ?? 999,
-    temperature: state.defaults.temperature?.[target] ?? null,
-    top_p: state.defaults.top_p?.[target] ?? null,
-    num_predict: state.defaults.num_predict?.[target] ?? null,
-  };
+function compactId(value) {
+  const text = display(value);
+  if (text.length <= 34) return text;
+  return `${text.slice(0, 18)}…${text.slice(-10)}`;
 }
 
-function mergedSettings(target) {
-  return { ...targetDefaults(target), ...(state.settings[target] || {}) };
+function setRuntime(status, meta, mode = "idle") {
+  els.runtimeStatus.textContent = status;
+  els.runtimeMeta.textContent = meta;
+  els.statusDot.dataset.state = mode;
 }
 
-async function apiJson(url, options = {}) {
-  const response = await fetch(url, options);
+async function apiJson(path, options = {}) {
+  const response = await fetch(path, options);
+  const contentType = response.headers.get("content-type") || "";
+  const payload = contentType.includes("application/json") ? await response.json() : await response.text();
   if (!response.ok) {
-    const text = await response.text();
-    throw new Error(text || response.statusText);
+    const detail = typeof payload === "object" ? payload.detail || JSON.stringify(payload) : payload;
+    throw new Error(detail || `HTTP ${response.status}`);
   }
-  return response.json();
+  return payload;
 }
 
-async function loadState() {
-  const data = await apiJson("/api/state");
-  state.prompts = data.prompts;
-  state.models = data.ollama.models || [];
-  state.running = data.ollama.running || [];
-  state.defaults = data.defaults || {};
-  state.history = data.history || [];
-  state.settings = { ...Object.fromEntries(targets.map((target) => [target, targetDefaults(target)])), ...loadLocalSettings() };
-  state.outputViews = { ...Object.fromEntries(targets.map((target) => [target, rawJsonView])), ...loadLocalOutputViews() };
-  renderOllama(data.ollama);
-  renderProfiles();
-  renderPromptTabs();
-  renderPromptEditor();
-  renderSettings();
-  renderOutputs();
-  renderHistory();
-  await loadDatasets();
+function panelHeading(title, description, meta = "") {
+  const wrapper = element("div", "panel-heading");
+  const copy = element("div");
+  append(copy, element("h2", "", title), element("p", "", description));
+  append(wrapper, copy);
+  if (meta) append(wrapper, element("span", "meta-chip", meta));
+  return wrapper;
 }
 
-function renderOllama(ollama) {
-  const reachable = ollama.reachable ? "reachable" : "offline";
-  const running = (ollama.running || []).length ? `active: ${(ollama.running || []).join(", ")}` : "no active model";
-  els.ollamaStatus.textContent = `Ollama ${reachable} · ${ollama.models.length} models · ${running}`;
-  els.ollamaStatus.dataset.state = ollama.reachable ? "ok" : "bad";
-}
-
-function renderProfiles() {
-  els.profileSelect.innerHTML = "";
-  for (const profile of state.defaults.profiles || ["REI"]) {
-    const option = document.createElement("option");
-    option.value = profile;
-    option.textContent = profile;
-    if (profile === (state.defaults.profile || "REI")) option.selected = true;
-    els.profileSelect.append(option);
+function chips(values, emptyText = "None recorded") {
+  const list = element("div", "chip-list");
+  const items = asArray(values);
+  if (!items.length) {
+    append(list, element("span", "signal-chip", emptyText));
+    return list;
   }
+  for (const value of items) append(list, element("span", "signal-chip", display(value)));
+  return list;
 }
 
-function renderPromptTabs() {
-  els.promptTabs.innerHTML = "";
-  for (const target of targets) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = labels[target];
-    button.className = target === state.activePrompt ? "active" : "";
-    button.addEventListener("click", () => {
-      state.activePrompt = target;
-      renderPromptTabs();
-      renderPromptEditor();
-    });
-    els.promptTabs.append(button);
+function fieldGroup(label, value, { asChips = false } = {}) {
+  const group = element("div", "field-group");
+  append(group, element("h4", "", label));
+  append(group, asChips ? chips(value) : element("p", "", display(value)));
+  return group;
+}
+
+function choiceLine(label, value) {
+  const line = element("div", "choice-line");
+  append(line, element("span", "", label), element("strong", "", display(value)));
+  return line;
+}
+
+function keyValues(entries) {
+  const list = element("dl", "kv-list");
+  for (const [label, value] of entries) {
+    const row = element("div", "kv-row");
+    append(row, element("dt", "", label), element("dd", "", display(value)));
+    append(list, row);
   }
+  return list;
 }
 
-function renderPromptEditor() {
-  const entry = state.prompts[state.activePrompt];
-  if (!entry) return;
-  els.promptEditor.value = entry.prompt || "";
-  els.promptMeta.textContent = `${entry.has_override ? "override" : "baseline"} · ${entry.prompt_hash}`;
-  els.promptMeta.dataset.state = entry.has_override ? "warn" : "ok";
-  const keys = entry.required_keys || [];
-  els.requiredKeys.textContent = `${keys.length} required keys: ${keys.join(", ")}`;
+function rawDetails(label, payload) {
+  const details = element("details", "raw-details");
+  const summary = element("summary", "", label);
+  const pre = element("pre", "raw-json", JSON.stringify(payload, null, 2));
+  append(details, summary, pre);
+  return details;
 }
 
-function renderSettings() {
-  els.settingsGrid.innerHTML = "";
-  for (const target of targets) {
-    const settings = mergedSettings(target);
-    const panel = document.createElement("section");
-    panel.className = `settings-panel ${target}`;
-    panel.innerHTML = `
-      <div class="settings-title">${labels[target]}</div>
-      <label class="field">
-        <span>Model</span>
-        <select data-setting="${target}" data-key="model"></select>
-      </label>
-      <div class="mini-grid">
-        <label class="field">
-          <span>num_ctx</span>
-          <input data-setting="${target}" data-key="num_ctx" type="number" min="512" max="262144" step="512" value="${settings.num_ctx}" />
-        </label>
-        <label class="field">
-          <span>num_gpu</span>
-          <input data-setting="${target}" data-key="num_gpu" type="number" min="0" max="999" step="1" value="${settings.num_gpu}" />
-        </label>
-      </div>
-    `;
-    const select = panel.querySelector("select");
-    if (!state.models.length) {
-      const option = document.createElement("option");
-      option.value = "";
-      option.textContent = "No models";
-      select.append(option);
-    } else {
-      for (const model of state.models) {
-        const option = document.createElement("option");
-        option.value = model;
-        option.textContent = model;
-        if (model === settings.model) option.selected = true;
-        select.append(option);
-      }
-    }
-    panel.querySelectorAll("[data-setting]").forEach((input) => {
-      input.addEventListener("change", () => {
-        const targetName = input.dataset.setting;
-        const key = input.dataset.key;
-        const next = { ...mergedSettings(targetName) };
-        next[key] = input.type === "number" ? Number(input.value) : input.value;
-        state.settings[targetName] = next;
-        saveLocalSettings();
-      });
-    });
-    els.settingsGrid.append(panel);
+function card(title, payload = null) {
+  const wrapper = element("article", "card");
+  append(wrapper, element("h3", "", title));
+  if (payload !== null) append(wrapper, rawDetails("Inspect exact artifact", payload));
+  return wrapper;
+}
+
+function mindCard(title, letter, className, conclusion, groups) {
+  const wrapper = element("article", `mind-card ${className}`);
+  const heading = element("div", "mind-heading");
+  append(heading, element("h3", "", title), element("span", "mind-badge", letter));
+  append(wrapper, heading, choiceLine("Native option", conclusion?.option_id));
+  for (const group of groups) append(wrapper, group);
+  append(wrapper, rawDetails("Inspect native conclusion", conclusion));
+  return wrapper;
+}
+
+function renderNativePanel(payload) {
+  const panel = els.panels.native;
+  panel.replaceChildren();
+  const native = payload || {};
+  const racio = native.racio || {};
+  const emocio = native.emocio || {};
+  const instinkt = native.instinkt || {};
+  const eConclusion = emocio.conclusion || {};
+  const iConclusion = instinkt.conclusion || {};
+  const visualState = emocio.visual_state || {};
+
+  append(
+    panel,
+    panelHeading(
+      "Native layer",
+      "Three modality-specific conclusions, frozen before character authority or communication.",
+      state.result?.run?.profile_id || ""
+    )
+  );
+
+  const grid = element("div", "mind-grid");
+  append(
+    grid,
+    mindCard("Racio", "R", "racio", racio, [
+      fieldGroup("Facts used", racio.facts_used, { asChips: true }),
+      fieldGroup("Unknowns", racio.unknowns, { asChips: true }),
+      fieldGroup("Causal sequence", racio.causal_sequence, { asChips: true }),
+      fieldGroup("Utility structure", racio.utility_structure),
+      fieldGroup("Main objection", racio.main_objection),
+    ]),
+    mindCard("Emocio", "E", "emocio", eConclusion, [
+      fieldGroup("Desired transformation", eConclusion.desired_transformation),
+      fieldGroup("Main obstacle", eConclusion.main_obstacle),
+      fieldGroup("Action tendency", eConclusion.action_tendency),
+      fieldGroup("Valuation dimensions", eConclusion.valuation_dimensions, { asChips: true }),
+      fieldGroup("Intensity / uncertainty", [eConclusion.intensity, eConclusion.uncertainty], {
+        asChips: true,
+      }),
+    ]),
+    mindCard("Instinkt", "I", "instinkt", iConclusion, [
+      fieldGroup("Dominant alarm", iConclusion.dominant_alarm),
+      fieldGroup("Minimum safety condition", iConclusion.minimum_safety_condition),
+      fieldGroup("Protected targets", iConclusion.protected_targets, { asChips: true }),
+      fieldGroup("Action tendency", iConclusion.action_tendency),
+      fieldGroup("Danger claims", iConclusion.danger_claims, { asChips: true }),
+    ])
+  );
+  append(panel, grid);
+
+  const imageSlots = asArray(emocio.image_slots);
+  const imageTitle = element("div", "subsection-title");
+  append(
+    imageTitle,
+    element("h3", "", "Emocio visual scenes"),
+    element(
+      "span",
+      "",
+      imageSlots.some((slot) => slot.status === "available")
+        ? "Verified rendered artifacts"
+        : "Renderer disabled · structured scenes remain authoritative"
+    )
+  );
+  const imageSection = element("div", "subsection");
+  const sceneGrid = element("div", "scene-grid");
+  const valuationsByScene = new Map(
+    asArray(visualState.option_valuations).map((valuation) => [valuation.rollout_scene_id, valuation])
+  );
+  for (const slot of imageSlots) {
+    append(sceneGrid, renderSceneSlot(slot, valuationsByScene.get(slot.scene_id)));
   }
+  append(imageSection, imageTitle, sceneGrid, rawDetails("Inspect exact Emocio visual state", visualState));
+  append(panel, imageSection);
+
+  const trajectorySection = element("div", "subsection");
+  const trajectoryTitle = element("div", "subsection-title");
+  append(
+    trajectoryTitle,
+    element("h3", "", "Instinkt body trajectories"),
+    element("span", "", `${asArray(instinkt.rollouts).length} option rollouts · 13 body dimensions`)
+  );
+  append(trajectorySection, trajectoryTitle);
+  for (const rollout of asArray(instinkt.rollouts)) append(trajectorySection, renderRollout(rollout));
+  append(panel, trajectorySection);
 }
 
-function renderOutputs() {
-  els.outputGrid.innerHTML = "";
-  for (const target of targets) {
-    const output = state.outputs[target] || { text: "", status: "idle", meta: "" };
-    const tags = outputTags(target);
-    const selectedView = selectedOutputView(target, tags, output);
-    const outputText = outputTextForView(target, selectedView);
-    const panel = document.createElement("section");
-    panel.className = `output-panel ${target}`;
-    panel.innerHTML = `
-      <div class="output-head">
-        <h3>${labels[target]}</h3>
-        <span class="status">${output.status || "idle"}</span>
-      </div>
-      <div class="output-meta">${output.meta || ""}</div>
-      <div class="output-view">
-        <label>
-          <span>View</span>
-          <select data-output-view="${target}">
-            ${outputViewOptions(target, tags, selectedView)}
-          </select>
-        </label>
-      </div>
-      <pre>${escapeHtml(outputText)}</pre>
-    `;
-    panel.querySelector("[data-output-view]").addEventListener("change", (event) => {
-      state.outputViews[target] = event.target.value;
-      saveLocalOutputViews();
-      renderOutputs();
-    });
-    els.outputGrid.append(panel);
-  }
-}
-
-function outputViewOptions(target, tags, selectedView) {
-  const available = new Set(tags);
-  const options = tags.map((tag) => {
-    const label = tag === rawJsonView ? "RAW JSON" : tag;
-    return `<option value="${escapeHtml(tag)}" ${tag === selectedView ? "selected" : ""}>${escapeHtml(label)}</option>`;
-  });
-  if (selectedView !== rawJsonView && !available.has(selectedView)) {
-    options.push(
-      `<option value="${escapeHtml(selectedView)}" selected>${escapeHtml(`${selectedView} (not in output yet)`)}</option>`
+function renderSceneSlot(slot, valuation = null) {
+  const scene = slot.scene || slot.source_spec || {};
+  const wrapper = element("article", "scene-card");
+  const well = element("div", "image-well");
+  if (slot.status === "available" && slot.url) {
+    const image = element("img");
+    image.src = slot.url;
+    image.alt = `${humanize(scene.scene_kind || slot.scene_kind)} Emocio scene`;
+    image.loading = "lazy";
+    append(well, image);
+  } else {
+    const placeholder = element("div", "image-placeholder");
+    append(
+      placeholder,
+      element("strong", "", "No rendered image artifact"),
+      element("span", "", "The structured visual scene is available without invented pixels.")
     );
+    append(well, placeholder);
   }
-  return options.join("");
+  const body = element("div", "scene-body");
+  append(
+    body,
+    element("h4", "", humanize(scene.scene_kind || slot.scene_kind || "visual scene")),
+    element("p", "", asArray(scene.composition).join(" · ") || compactId(slot.scene_id)),
+    element("span", "image-status", humanize(slot.status || "not rendered"))
+  );
+  if (valuation) {
+    const dimensions = asArray(valuation.dimensions).map(
+      (dimension) => `${humanize(dimension.name)} ${display(dimension.score)}`
+    );
+    append(body, fieldGroup("Option valuation", dimensions, { asChips: true }));
+  }
+  append(wrapper, well, body);
+  return wrapper;
 }
 
-function outputTags(target) {
-  const output = state.outputs[target] || {};
-  const parsed = output.parsed || state.parsed[target];
-  const keys =
-    parsed && typeof parsed === "object" && !Array.isArray(parsed)
-      ? Object.keys(parsed)
-      : topLevelKeysFromJsonText(output.text || "");
-  return [rawJsonView, ...keys.filter((key, index, list) => key && list.indexOf(key) === index)];
-}
-
-function selectedOutputView(target, tags, output) {
-  const current = state.outputViews[target] || rawJsonView;
-  if (current === rawJsonView || tags.includes(current)) {
-    return current;
-  }
-  const finalStatus = ["done", "error", "stopped"].includes(output.status);
-  if (finalStatus && (output.text || output.parsed)) {
-    state.outputViews[target] = rawJsonView;
-    saveLocalOutputViews();
-    return rawJsonView;
-  }
-  return current;
-}
-
-function outputTextForView(target, selectedView) {
-  const output = state.outputs[target] || {};
-  const parsed = output.parsed || state.parsed[target];
-  if (selectedView === rawJsonView) {
-    if (output.text) return output.text;
-    return parsed ? JSON.stringify(parsed, null, 2) : "";
-  }
-  if (parsed && typeof parsed === "object" && !Array.isArray(parsed) && Object.hasOwn(parsed, selectedView)) {
-    return formatJsonValue(parsed[selectedView]);
-  }
-  const partial = topLevelValueFromJsonText(output.text || "", selectedView);
-  if (partial) {
-    const prefix = partial.complete ? "" : `Incomplete field "${selectedView}"\n\n`;
-    return `${prefix}${partial.value}`;
-  }
-  return output.text ? `Field "${selectedView}" is not available in this output.` : "";
-}
-
-function formatJsonValue(value) {
-  if (typeof value === "string") return value;
-  return JSON.stringify(value, null, 2);
-}
-
-function decodeJsonString(raw) {
-  try {
-    return JSON.parse(`"${raw}"`);
-  } catch {
-    return raw.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
-  }
-}
-
-function topLevelKeysFromJsonText(text) {
-  const keys = [];
-  let depth = 0;
-  let inString = false;
-  let escaped = false;
-  let stringStart = -1;
-  for (let index = 0; index < text.length; index += 1) {
-    const char = text[index];
-    if (inString) {
-      if (escaped) {
-        escaped = false;
-      } else if (char === "\\") {
-        escaped = true;
-      } else if (char === '"') {
-        const raw = text.slice(stringStart + 1, index);
-        inString = false;
-        if (depth === 1 && nextNonWhitespace(text, index + 1) === ":") {
-          keys.push(decodeJsonString(raw));
-        }
-      }
-      continue;
+function renderRollout(rollout) {
+  const wrapper = element("details", "card body-trajectory");
+  wrapper.open = rollout.option_id === state.result?.panels?.native?.instinkt?.conclusion?.option_id;
+  const summary = element(
+    "summary",
+    "",
+    `${rollout.option_id || "option"} · loss ${display(rollout.predicted_loss)} · recovery ${display(rollout.recoverability)}`
+  );
+  append(wrapper, summary);
+  append(
+    wrapper,
+    keyValues([
+      ["Alarm", rollout.dominant_alarm],
+      ["Boundary", rollout.boundary_outcome],
+      ["Trust", rollout.trust_outcome],
+      ["Attachment", rollout.attachment_outcome],
+      ["Escape", rollout.escape_outcome],
+    ])
+  );
+  asArray(rollout.trajectory).forEach((bodyState, index) => {
+    const step = element("div", "trajectory-step");
+    append(step, element("div", "step-label", index === 0 ? "body before" : `step ${index}`));
+    const bars = element("div", "body-bars");
+    for (const dimension of BODY_DIMENSIONS) {
+      const raw = Number(bodyState?.[dimension]);
+      const value = Number.isFinite(raw) ? Math.max(0, Math.min(1, raw)) : 0;
+      const row = element("div", "body-bar");
+      const track = element("span", "bar-track");
+      const fill = element("span", "bar-fill");
+      fill.style.width = `${value * 100}%`;
+      append(track, fill);
+      append(row, element("span", "", humanize(dimension)), track, element("output", "", display(raw)));
+      append(bars, row);
     }
-    if (char === '"') {
-      inString = true;
-      stringStart = index;
-    } else if (char === "{" || char === "[") {
-      depth += 1;
-    } else if (char === "}" || char === "]") {
-      depth = Math.max(0, depth - 1);
-    }
-  }
-  return keys;
-}
-
-function nextNonWhitespace(text, start) {
-  for (let index = start; index < text.length; index += 1) {
-    const char = text[index];
-    if (!/\s/.test(char)) return char;
-  }
-  return "";
-}
-
-function topLevelValueFromJsonText(text, key) {
-  const keyEnd = topLevelKeyEndIndex(text, key);
-  if (keyEnd < 0) return null;
-  let colon = keyEnd + 1;
-  while (colon < text.length && /\s/.test(text[colon])) colon += 1;
-  if (text[colon] !== ":") return null;
-  let start = colon + 1;
-  while (start < text.length && /\s/.test(text[start])) start += 1;
-  if (start >= text.length) return { value: "", complete: false };
-  const extracted = extractJsonValueText(text, start);
-  if (!extracted) return null;
-  const rawValue = extracted.value.trim();
-  if (extracted.complete) {
-    try {
-      return { value: formatJsonValue(JSON.parse(rawValue)), complete: true };
-    } catch {
-      return { value: rawValue, complete: true };
-    }
-  }
-  return { value: rawValue, complete: false };
-}
-
-function topLevelKeyEndIndex(text, wantedKey) {
-  let depth = 0;
-  let inString = false;
-  let escaped = false;
-  let stringStart = -1;
-  for (let index = 0; index < text.length; index += 1) {
-    const char = text[index];
-    if (inString) {
-      if (escaped) {
-        escaped = false;
-      } else if (char === "\\") {
-        escaped = true;
-      } else if (char === '"') {
-        const raw = text.slice(stringStart + 1, index);
-        inString = false;
-        if (depth === 1 && nextNonWhitespace(text, index + 1) === ":" && decodeJsonString(raw) === wantedKey) {
-          return index;
-        }
-      }
-      continue;
-    }
-    if (char === '"') {
-      inString = true;
-      stringStart = index;
-    } else if (char === "{" || char === "[") {
-      depth += 1;
-    } else if (char === "}" || char === "]") {
-      depth = Math.max(0, depth - 1);
-    }
-  }
-  return -1;
-}
-
-function extractJsonValueText(text, start) {
-  const first = text[start];
-  if (first === '"') return extractStringValue(text, start);
-  if (first === "{" || first === "[") return extractContainerValue(text, start);
-  return extractPrimitiveValue(text, start);
-}
-
-function extractStringValue(text, start) {
-  let escaped = false;
-  for (let index = start + 1; index < text.length; index += 1) {
-    const char = text[index];
-    if (escaped) {
-      escaped = false;
-    } else if (char === "\\") {
-      escaped = true;
-    } else if (char === '"') {
-      return { value: text.slice(start, index + 1), complete: true };
-    }
-  }
-  return { value: text.slice(start), complete: false };
-}
-
-function extractContainerValue(text, start) {
-  let depth = 0;
-  let inString = false;
-  let escaped = false;
-  for (let index = start; index < text.length; index += 1) {
-    const char = text[index];
-    if (inString) {
-      if (escaped) {
-        escaped = false;
-      } else if (char === "\\") {
-        escaped = true;
-      } else if (char === '"') {
-        inString = false;
-      }
-      continue;
-    }
-    if (char === '"') {
-      inString = true;
-    } else if (char === "{" || char === "[") {
-      depth += 1;
-    } else if (char === "}" || char === "]") {
-      depth -= 1;
-      if (depth === 0) {
-        return { value: text.slice(start, index + 1), complete: true };
-      }
-    }
-  }
-  return { value: text.slice(start), complete: false };
-}
-
-function extractPrimitiveValue(text, start) {
-  for (let index = start; index < text.length; index += 1) {
-    const char = text[index];
-    if (char === "," || char === "}") {
-      return { value: text.slice(start, index), complete: true };
-    }
-  }
-  return { value: text.slice(start), complete: false };
-}
-
-function renderHistory() {
-  els.historyList.innerHTML = "";
-  els.historyCount.textContent = String(state.history.length);
-  if (!state.history.length) {
-    const empty = document.createElement("div");
-    empty.className = "history-empty";
-    empty.textContent = "No history";
-    els.historyList.append(empty);
-    return;
-  }
-  for (const item of state.history) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "history-item";
-    button.innerHTML = `
-      <span>${formatTime(item.created_at)} · ${escapeHtml(item.mode || "")} · ${escapeHtml(item.status || "")}</span>
-      <strong>${escapeHtml((item.input || "").slice(0, 90))}</strong>
-    `;
-    button.addEventListener("click", () => loadHistoryItem(item));
-    els.historyList.append(button);
-  }
-}
-
-function loadHistoryItem(item) {
-  for (const target of targets) {
-    const output = item.outputs?.[target];
-    if (!output) continue;
-    state.outputs[target] = {
-      text: output.content || JSON.stringify(output.parsed || {}, null, 2),
-      parsed: output.parsed || null,
-      status: output.status || "done",
-      meta: output.error || metaFromOutput(output),
-    };
-    if (output.parsed) state.parsed[target] = output.parsed;
-  }
-  renderOutputs();
-}
-
-async function loadDatasets() {
-  try {
-    const data = await apiJson("/api/datasets");
-    state.datasets = data.datasets || [];
-    if (!state.activeDatasetId && state.datasets.length) {
-      state.activeDatasetId = state.datasets[0].dataset_id;
-    }
-    renderDatasetSelect();
-    if (state.activeDatasetId) {
-      await loadDatasetDetail(state.activeDatasetId);
-    } else {
-      state.datasetExamples = [];
-      state.activeDatasetExample = null;
-      renderDatasetPanel();
-    }
-  } catch (error) {
-    state.datasets = [];
-    state.datasetExamples = [];
-    state.activeDatasetExample = null;
-    if (els.datasetSummary) {
-      els.datasetSummary.textContent = `dataset error`;
-      els.datasetSummary.dataset.state = "bad";
-    }
-    console.error(error);
-  }
-}
-
-function renderDatasetSelect() {
-  if (!els.datasetSelect) return;
-  els.datasetSelect.innerHTML = "";
-  if (!state.datasets.length) {
-    const option = document.createElement("option");
-    option.value = "";
-    option.textContent = "No datasets";
-    els.datasetSelect.append(option);
-    return;
-  }
-  for (const dataset of state.datasets) {
-    const option = document.createElement("option");
-    option.value = dataset.dataset_id;
-    option.textContent = dataset.dataset_id;
-    if (dataset.dataset_id === state.activeDatasetId) option.selected = true;
-    els.datasetSelect.append(option);
-  }
-}
-
-async function loadDatasetDetail(datasetId) {
-  const data = await apiJson(`/api/datasets/${encodeURIComponent(datasetId)}`);
-  const existingId = state.activeDatasetExample?.example_id || "";
-  state.activeDatasetId = datasetId;
-  state.datasetExamples = data.examples || [];
-  state.activeDatasetExample =
-    state.datasetExamples.find((item) => item.example_id === existingId) || state.datasetExamples[0] || null;
-  renderDatasetSummary(data);
-  renderDatasetPanel();
-  if (state.activeDatasetExample) {
-    await loadDatasetExample(state.activeDatasetExample.example_id);
-  }
-}
-
-function renderDatasetSummary(datasetDetail) {
-  const validation = datasetDetail?.validation || datasetDetail?.manifest || {};
-  const examples = validation.example_count ?? datasetDetail?.manifest?.example_count ?? 0;
-  const scenarios = validation.scenario_count ?? datasetDetail?.manifest?.scenario_count ?? 0;
-  const invalid = validation.invalid_example_count ?? 0;
-  els.datasetSummary.textContent = `${scenarios} scenarios · ${examples} examples · ${invalid} invalid`;
-  els.datasetSummary.dataset.state = invalid ? "warn" : "ok";
-}
-
-function filteredDatasetExamples() {
-  const target = els.datasetTargetFilter?.value || "";
-  const status = els.datasetStatusFilter?.value || "";
-  const profile = els.datasetProfileFilter?.value || "";
-  return state.datasetExamples.filter((item) => {
-    if (target && item.target !== target) return false;
-    if (status && item.status !== status) return false;
-    if (profile && item.character_profile !== profile) return false;
-    return true;
+    append(step, bars);
+    append(wrapper, step);
   });
+  append(wrapper, rawDetails("Inspect exact rollout", rollout));
+  return wrapper;
 }
 
-function renderDatasetPanel() {
-  renderDatasetSelect();
-  renderDatasetProfileFilter();
-  renderDatasetList();
-  renderDatasetEditor();
-}
-
-function renderDatasetProfileFilter() {
-  if (!els.datasetProfileFilter) return;
-  const current = els.datasetProfileFilter.value || "";
-  const profiles = [...new Set(state.datasetExamples.map((item) => item.character_profile).filter(Boolean))].sort();
-  els.datasetProfileFilter.innerHTML = '<option value="">All</option>';
-  for (const profile of profiles) {
-    const option = document.createElement("option");
-    option.value = profile;
-    option.textContent = profile;
-    els.datasetProfileFilter.append(option);
+function byMind(items, mind, index) {
+  if (items && !Array.isArray(items) && typeof items === "object") {
+    const named = items[mind === "E" ? "emocio" : "instinkt"];
+    if (named) return named;
   }
-  els.datasetProfileFilter.value = profiles.includes(current) ? current : "";
+  return asArray(items).find((item) => item?.source_mind === mind || item?.mind === mind) || asArray(items)[index] || {};
 }
 
-function renderDatasetList() {
-  if (!els.datasetList) return;
-  els.datasetList.innerHTML = "";
-  const examples = filteredDatasetExamples();
-  if (!examples.length) {
-    const empty = document.createElement("div");
-    empty.className = "history-empty";
-    empty.textContent = state.activeDatasetId ? "No matching examples" : "No dataset";
-    els.datasetList.append(empty);
-    return;
-  }
-  for (const item of examples) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `dataset-item ${state.activeDatasetExample?.example_id === item.example_id ? "active" : ""}`;
-    const valid = item.valid ? "valid" : "invalid";
-    const profile = item.character_profile ? item.character_profile : "";
-    const review = item.review_only ? "review" : "";
-    const meta = [item.target, profile, item.status, valid, review].filter(Boolean).join(" · ");
-    button.innerHTML = `
-      <span>${escapeHtml(meta)}</span>
-      <strong>${escapeHtml(item.scenario_title || item.scenario_id)}</strong>
-      <span>${escapeHtml((item.scenario_prompt || "").slice(0, 120))}</span>
-    `;
-    button.addEventListener("click", () => loadDatasetExample(item.example_id));
-    els.datasetList.append(button);
-  }
-}
-
-async function loadDatasetExample(exampleId) {
-  if (!state.activeDatasetId) return;
-  const data = await apiJson(
-    `/api/datasets/${encodeURIComponent(state.activeDatasetId)}/examples/${encodeURIComponent(exampleId)}`
+function renderCommunicationPanel(payload) {
+  const panel = els.panels.communication;
+  panel.replaceChildren();
+  const communication = payload || {};
+  append(
+    panel,
+    panelHeading(
+      "Communication layer",
+      "Observable manifestation is separated from Racio’s fallible interpretation.",
+      communication.ground_truth_visible ? "debug visible" : "runtime view"
+    )
   );
-  state.activeDatasetExample = data.example;
-  renderDatasetPanel();
-}
 
-function renderDatasetEditor() {
-  const example = state.activeDatasetExample;
-  if (!els.datasetJsonEditor) return;
-  if (!example) {
-    els.datasetScenario.textContent = state.activeDatasetId ? "Select a dataset example." : "No dataset available.";
-    els.datasetValidation.textContent = "";
-    els.datasetValidation.dataset.state = "";
-    els.datasetStatusSelect.value = "draft";
-    els.datasetSplitSelect.value = "";
-    els.datasetReviewer.value = "";
-    els.datasetNotes.value = "";
-    els.datasetJsonEditor.value = "";
-    return;
-  }
-  const scenario = example.scenario || {};
-  const profile = example.character_profile ? ` · ${example.character_profile}` : "";
-  els.datasetScenario.innerHTML = `
-    <strong>${escapeHtml(`${example.target}${profile} · ${scenario.title || example.scenario_id}`)}</strong>
-    ${escapeHtml(scenario.prompt || "")}
-  `;
-  els.datasetStatusSelect.value = example.status || "draft";
-  els.datasetSplitSelect.value = example.split || "";
-  els.datasetReviewer.value = example.reviewer || "";
-  els.datasetNotes.value = example.review_notes || "";
-  els.datasetJsonEditor.value = JSON.stringify(example.assistant_payload || {}, null, 2);
-  renderDatasetValidation(example.validation);
-}
+  const warning = element("div", "warning-banner");
+  append(
+    warning,
+    element("strong", "", "Epistemic boundary"),
+    document.createTextNode(
+      communication.warning ||
+        "Racio receives manifestations only. Native Emocio and Instinkt conclusions are never supplied as runtime ground truth."
+    )
+  );
+  append(panel, warning);
 
-function renderDatasetValidation(validation) {
-  if (!els.datasetValidation) return;
-  if (!validation) {
-    els.datasetValidation.textContent = "";
-    els.datasetValidation.dataset.state = "";
-    return;
+  if (communication.evaluator_ground_truth) {
+    const banner = element("div", "debug-banner");
+    append(
+      banner,
+      element("strong", "", "DEBUG / EVALUATOR GROUND TRUTH"),
+      document.createTextNode(
+        "This comparison exists for evaluation only. Racio did not see these native motives or option IDs."
+      )
+    );
+    append(panel, banner);
   }
-  const pieces = [];
-  pieces.push(validation.valid ? "valid" : "invalid");
-  if (validation.missing_required_keys?.length) {
-    pieces.push(`missing: ${validation.missing_required_keys.join(", ")}`);
-  }
-  if (validation.process_trace_errors?.length) {
-    pieces.push(`trace: ${validation.process_trace_errors.join(", ")}`);
-  }
-  if (validation.invalid_constants?.length) {
-    pieces.push(`constants: ${validation.invalid_constants.join(", ")}`);
-  }
-  if (validation.warnings?.length) {
-    pieces.push(`warnings: ${validation.warnings.join(", ")}`);
-  }
-  els.datasetValidation.textContent = pieces.join(" · ");
-  els.datasetValidation.dataset.state = validation.valid ? "ok" : "bad";
-}
 
-async function saveDatasetExample(statusOverride = null) {
-  const example = state.activeDatasetExample;
-  if (!example || !state.activeDatasetId) return;
-  let assistantPayload;
-  try {
-    assistantPayload = JSON.parse(els.datasetJsonEditor.value || "{}");
-  } catch (error) {
-    els.datasetValidation.textContent = `JSON parse error: ${error.message}`;
-    els.datasetValidation.dataset.state = "bad";
-    return;
+  const comparison = element("div", "comparison-grid");
+  for (const [mind, index, label] of [
+    ["E", 0, "Emocio"],
+    ["I", 1, "Instinkt"],
+  ]) {
+    const manifestation = byMind(communication.manifestations, mind, index);
+    const interpretation = byMind(communication.interpretations, mind, index);
+    const gap = byMind(communication.translation_gaps, mind, index);
+    append(comparison, renderCommunicationFlow(label, mind, manifestation, interpretation, gap));
   }
-  const body = {
-    status: statusOverride || els.datasetStatusSelect.value,
-    split: els.datasetSplitSelect.value || null,
-    reviewer: els.datasetReviewer.value,
-    review_notes: els.datasetNotes.value,
-    assistant_payload: assistantPayload,
-  };
-  const data = await apiJson(
-    `/api/datasets/${encodeURIComponent(state.activeDatasetId)}/examples/${encodeURIComponent(example.example_id)}`,
-    {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+  append(panel, comparison);
+
+  if (communication.evaluator_ground_truth) {
+    const debugSection = element("div", "subsection");
+    const title = element("div", "subsection-title");
+    append(title, element("h3", "", "Evaluator-only native comparison"), element("span", "", "never an interpreter input"));
+    const debugGrid = element("div", "panel-grid two");
+    const truth = communication.evaluator_ground_truth;
+    for (const key of ["emocio", "instinkt"]) {
+      const value = truth[key];
+      if (!value) continue;
+      const truthCard = card(humanize(key));
+      append(
+        truthCard,
+        choiceLine("Native option", value?.native_option_id),
+        fieldGroup("Native action tendency", value?.native_action_tendency),
+        fieldGroup(
+          "Native motive",
+          value?.native_motive_summary || value?.desired_transformation || value?.minimum_safety_condition
+        ),
+        rawDetails("Inspect evaluator truth", value)
+      );
+      append(debugGrid, truthCard);
     }
+    append(debugSection, title, debugGrid);
+    append(panel, debugSection);
+  }
+}
+
+function renderCommunicationFlow(label, mind, manifestation, interpretation, gap) {
+  const wrapper = element("article", `mind-card ${mind === "E" ? "emocio" : "instinkt"}`);
+  const heading = element("div", "mind-heading");
+  append(heading, element("h3", "", label), element("span", "mind-badge", mind));
+  append(wrapper, heading);
+
+  const flow = element("div", "flow-column");
+  const manifested = card("Manifestation");
+  const manifestationFields = Object.entries(manifestation || {})
+    .filter(([key, value]) => typeof value !== "object" && !key.includes("hash") && !key.includes("id") && key !== "schema_version")
+    .slice(0, 8)
+    .map(([key, value]) => [humanize(key), value]);
+  append(manifested, keyValues(manifestationFields), rawDetails("Exact manifestation", manifestation));
+  const interpreted = card("Racio interpretation");
+  append(
+    interpreted,
+    keyValues([
+      ["Inferred tendency", interpretation?.inferred_action_tendency],
+      ["Inferred option", interpretation?.inferred_option_id],
+      ["Confidence", interpretation?.confidence],
+      ["Policy", interpretation?.interpreter_policy],
+    ]),
+    fieldGroup("Inferred motive", interpretation?.inferred_motive),
+    rawDetails("Exact interpretation", interpretation)
   );
-  state.activeDatasetExample = { ...data.example, scenario: example.scenario, validation: data.validation };
-  const index = state.datasetExamples.findIndex((item) => item.example_id === example.example_id);
-  if (index >= 0) {
-    state.datasetExamples[index] = {
-      ...state.datasetExamples[index],
-      status: data.example.status,
-      split: data.example.split,
-      review_notes: data.example.review_notes,
-      updated_at: data.example.updated_at,
-      valid: data.validation.valid,
-      warnings: data.validation.warnings,
-      missing_required_keys: data.validation.missing_required_keys,
-      process_trace_errors: data.validation.process_trace_errors,
-      invalid_constants: data.validation.invalid_constants,
+  append(flow, manifested, element("div", "flow-arrow", "→"), interpreted);
+  append(wrapper, flow);
+
+  const gapBox = element("div", "translation-gap");
+  append(
+    gapBox,
+    element("strong", "", `Translation gap · ${humanize(gap?.distortion_type || "not measured")}`),
+    element(
+      "p",
+      "",
+      `Motive fidelity ${display(gap?.motive_fidelity)} · option match ${display(gap?.option_match)} · status ${display(gap?.gap_status)}`
+    )
+  );
+  append(wrapper, gapBox, rawDetails("Inspect safe gap summary", gap));
+  return wrapper;
+}
+
+function renderCharacterPanel(payload) {
+  const panel = els.panels.character;
+  panel.replaceChildren();
+  const character = payload || {};
+  const structural = character.structural_profile || {};
+  const effective = character.effective_authority || {};
+  const mandate = character.governance_mandate || {};
+  const decision = character.conscious_decision || {};
+  const behavior = character.behavior_resultant || {};
+
+  append(
+    panel,
+    panelHeading(
+      "Character authority",
+      "Stable structure selects governance; Racio commits consciously; behavior remains a separate resultant.",
+      structural.profile_id || ""
+    )
+  );
+
+  const overview = element("div", "panel-grid two");
+  const authorityCard = card("Structural and effective authority");
+  append(authorityCard, choiceLine("Profile", structural.profile_id));
+  const tiers = element("div", "authority-tiers");
+  asArray(structural.authority_tiers || character.authority_tiers).forEach((tier, index, all) => {
+    append(tiers, element("span", "tier", asArray(tier).join(" = ")));
+    if (index < all.length - 1) append(tiers, element("span", "tier-arrow", ">"));
+  });
+  const authorityHeading = element("div", "field-group");
+  append(authorityHeading, element("h4", "", "Authority tiers"), tiers);
+  append(
+    authorityCard,
+    authorityHeading,
+    fieldGroup("Effective tiers", asArray(effective.effective_tiers).map((tier) => asArray(tier).join(" = ")), {
+      asChips: true,
+    }),
+    rawDetails("Inspect authority", { structural, effective })
+  );
+
+  const availabilityCard = card("Processor availability");
+  const availability = character.processor_availability || {};
+  const availabilityScores = availability.scores || {};
+  const unavailable = new Set(asArray(availability.unavailable_minds));
+  const availabilityList = element("div", "availability-list");
+  for (const mind of ["R", "E", "I"]) {
+    const row = element("div", "availability-row");
+    const value =
+      availability.explicit && Object.hasOwn(availabilityScores, mind)
+        ? availabilityScores[mind]
+        : unavailable.has(mind)
+          ? "unavailable"
+          : "retained · not explicitly measured";
+    append(row, element("span", "", mind), element("output", "", display(value)));
+    append(availabilityList, row);
+  }
+  append(
+    availabilityCard,
+    availabilityList,
+    fieldGroup(
+      "Availability basis",
+      availability.status ||
+        (effective.functional_override ? "explicit functional override" : "no explicit unavailability · all retained")
+    ),
+    rawDetails("Inspect availability evidence", effective.functional_override)
+  );
+  append(overview, authorityCard, availabilityCard);
+  append(panel, overview);
+
+  const governanceSection = element("div", "subsection");
+  const governanceTitle = element("div", "subsection-title");
+  append(governanceTitle, element("h3", "", "Governance resolution"), element("span", "", display(mandate.status)));
+  const governanceGrid = element("div", "panel-grid two");
+  const mandateCard = card("Mandate");
+  append(
+    mandateCard,
+    choiceLine("Governed option", mandate.option_id),
+    fieldGroup("Structural sources", mandate.structural_source_minds, { asChips: true }),
+    fieldGroup("Objections", mandate.objections, { asChips: true }),
+    fieldGroup("Delegation", character.delegation ? display(character.delegation) : "None"),
+    rawDetails("Inspect mandate", mandate)
+  );
+  const conflictCard = card("Conflict and majority");
+  const majority = character.thirteenth_majority || {};
+  const agreeingMinds = asArray(majority.agreeing_minds);
+  const majoritySummary = majority.applicable
+    ? `${display(majority.winning_option_id)} · ${agreeingMinds.length}/3 (${agreeingMinds.join(", ")})`
+    : "not applicable";
+  append(
+    conflictCard,
+    keyValues([
+      ["Pair conflict", character.pair_conflict ? "present" : "none"],
+      ["13th majority", majoritySummary],
+    ]),
+    rawDetails("Inspect pair conflict", character.pair_conflict),
+    rawDetails("Inspect 13th majority", character.thirteenth_majority)
+  );
+  append(governanceGrid, mandateCard, conflictCard);
+  append(governanceSection, governanceTitle, governanceGrid);
+  append(panel, governanceSection);
+
+  const chainSection = element("div", "subsection");
+  const chainTitle = element("div", "subsection-title");
+  append(chainTitle, element("h3", "", "Mandate → conscious decision → behavior"), element("span", "", "three distinct records"));
+  const chain = element("div", "decision-chain");
+  for (const [label, item, option, status] of [
+    ["Governance mandate", mandate, mandate.option_id, mandate.status],
+    ["Conscious decision", decision, decision.option_id, decision.decision_status],
+    ["Behavior resultant", behavior, behavior.option_id, behavior.status],
+  ]) {
+    const node = element("article", "decision-node");
+    append(node, element("span", "", label), element("strong", "", display(option)), element("p", "", humanize(status)));
+    append(node, rawDetails(`Inspect ${label.toLowerCase()}`, item));
+    append(chain, node);
+  }
+  append(chainSection, chainTitle, chain);
+  append(panel, chainSection);
+}
+
+function renderEgoPanel(payload) {
+  const panel = els.panels.ego;
+  panel.replaceChildren();
+  const ego = payload || {};
+  const snapshot = ego.composition_snapshot || {};
+  const measure = ego.measure || {};
+  const narrative = ego.self_narrative || {};
+  const projections = ego.projections || {};
+
+  append(
+    panel,
+    panelHeading(
+      "Ego composition",
+      "Executed history becomes sourced motifs, unresolved tensions, insights, and modality-specific projections.",
+      compactId(snapshot.snapshot_id)
+    )
+  );
+
+  const upper = element("div", "ego-grid");
+  const timelineCard = card("EgoTrace timeline");
+  const timeline = element("div", "trace-timeline");
+  for (const event of asArray(ego.timeline)) {
+    const node = element("div", "trace-node");
+    append(
+      node,
+      element("strong", "", humanize(event.event_kind || event.kind || "measure")),
+      element("code", "", compactId(event.event_id || event.measure_id || event.id))
+    );
+    append(timeline, node);
+  }
+  append(
+    timelineCard,
+    choiceLine("Current measure", measure.measure_id),
+    timeline,
+    rawDetails("Inspect EgoMeasure", measure)
+  );
+
+  const compositionCard = card("Composition snapshot");
+  append(
+    compositionCard,
+    fieldGroup("Identity motifs", snapshot.identity_motifs, { asChips: true }),
+    fieldGroup("Recurring conflicts", snapshot.recurring_conflicts, { asChips: true }),
+    fieldGroup("Translation errors", snapshot.recurring_translation_errors, { asChips: true }),
+    fieldGroup("Unresolved tensions", snapshot.unresolved_tensions, { asChips: true }),
+    fieldGroup("Resolved tensions", snapshot.resolved_tensions, { asChips: true }),
+    rawDetails("Inspect composition snapshot", snapshot)
+  );
+  append(upper, timelineCard, compositionCard);
+  append(panel, upper);
+
+  const insightSection = element("div", "subsection");
+  const insightTitle = element("div", "subsection-title");
+  append(insightTitle, element("h3", "", "Spoznanja and self-narrative"), element("span", "", "hypothesis vs trace-derived composition"));
+  const insightGrid = element("div", "panel-grid two");
+  const insightsCard = card("Trace-backed spoznanja");
+  const insightList = element("div", "insight-list");
+  for (const insight of asArray(snapshot.spoznanja)) append(insightList, element("div", "insight", display(insight)));
+  if (!asArray(snapshot.spoznanja).length) append(insightList, element("div", "insight", "No spoznanje recorded"));
+  append(insightsCard, insightList, rawDetails("Inspect sourced claims", snapshot.sourced_claims));
+  const narrativeCard = card("Racio self-narrative");
+  append(
+    narrativeCard,
+    fieldGroup("Claimed motive", narrative.claimed_motive),
+    fieldGroup("Explanation", narrative.explanation),
+    fieldGroup("Acknowledged minds", narrative.acknowledged_minds, { asChips: true }),
+    fieldGroup("Omitted minds", narrative.omitted_minds, { asChips: true }),
+    rawDetails("Inspect self-narrative", narrative)
+  );
+  append(insightGrid, insightsCard, narrativeCard);
+  append(insightSection, insightTitle, insightGrid);
+  append(panel, insightSection);
+
+  const projectionSection = element("div", "subsection");
+  const projectionTitle = element("div", "subsection-title");
+  append(projectionTitle, element("h3", "", "Three projected histories"), element("span", "", "same trace · modality-specific memory"));
+  const projectionGrid = element("div", "projection-grid");
+  append(
+    projectionGrid,
+    renderProjection("Racio projection", "racio", projections.racio, ["facts", "chronology", "causal_links", "commitments"]),
+    renderProjection("Emocio projection", "emocio", projections.emocio, ["recurring_scenes", "desire_motifs", "rupture_motifs", "belonging_motifs"]),
+    renderProjection("Instinkt projection", "instinkt", projections.instinkt, ["dangers", "losses", "recovery_patterns", "boundary_patterns", "trust_patterns"])
+  );
+  append(projectionSection, projectionTitle, projectionGrid);
+  append(panel, projectionSection);
+}
+
+function renderProjection(title, className, projection = {}, fields = []) {
+  const wrapper = element("article", `projection-card ${className}`);
+  append(wrapper, element("h3", "", title), choiceLine("Projection ID", compactId(projection?.projection_id)));
+  for (const field of fields) append(wrapper, fieldGroup(humanize(field), projection?.[field], { asChips: true }));
+  append(wrapper, rawDetails("Inspect exact projection", projection));
+  return wrapper;
+}
+
+function renderAll() {
+  if (!state.result) return;
+  const panels = state.result.panels || {};
+  renderNativePanel(panels.native);
+  renderCommunicationPanel(panels.communication);
+  renderCharacterPanel(panels.character);
+  renderEgoPanel(panels.ego);
+
+  const run = state.result.run || {};
+  els.runId.textContent = `run ${compactId(run.run_id)}`;
+  const passed = Boolean(run.all_invariants_passed ?? state.result.diagnostics?.invariants?.all_passed);
+  els.invariantState.textContent = passed ? "all invariants passed" : "invariant failure";
+  els.invariantState.dataset.state = passed ? "ok" : "bad";
+}
+
+function activatePanel(name, { focus = false } = {}) {
+  if (!els.panels[name]) return;
+  state.activePanel = name;
+  for (const tab of els.tabs) {
+    const active = tab.dataset.panel === name;
+    tab.classList.toggle("active", active);
+    tab.setAttribute("aria-selected", String(active));
+    tab.tabIndex = active ? 0 : -1;
+    if (active && focus) tab.focus();
+  }
+  for (const [panelName, panel] of Object.entries(els.panels)) {
+    const active = panelName === name;
+    panel.hidden = !active;
+    panel.classList.toggle("active", active);
+  }
+}
+
+function profileContracts() {
+  return state.bootstrap?.profile_contracts || state.bootstrap?.profiles || [];
+}
+
+function templateRequest() {
+  return state.bootstrap?.request || state.bootstrap?.default_request || state.bootstrap?.fixture;
+}
+
+function buildCycleRequest() {
+  const template = templateRequest();
+  if (!template) throw new Error("Bootstrap did not provide a deterministic request fixture.");
+  const request = structuredClone(template);
+  const token = `${Date.now().toString(36)}-${crypto.randomUUID().replaceAll("-", "").slice(0, 8)}`.toLowerCase();
+  request.run_id = `gui-${token}`;
+  request.ego_id = `gui-ego-${token}`;
+  request.started_at = new Date().toISOString();
+
+  const profileId = els.profileSelect.value;
+  const contract = profileContracts().find((item) => (typeof item === "string" ? item : item.profile_id) === profileId);
+  if (contract && typeof contract === "object") {
+    request.character = {
+      ...request.character,
+      profile_id: contract.profile_id,
+      authority_tiers: contract.authority_tiers,
+      rule: contract.rule,
     };
   }
-  renderDatasetPanel();
+  return request;
 }
 
-async function validateActiveDataset() {
-  if (!state.activeDatasetId) return;
-  const data = await apiJson(`/api/datasets/${encodeURIComponent(state.activeDatasetId)}/validate`, {
-    method: "POST",
-  });
-  renderDatasetSummary({ validation: data });
-  await loadDatasetDetail(state.activeDatasetId);
-}
-
-async function exportActiveDataset() {
-  if (!state.activeDatasetId) return;
-  const data = await apiJson(`/api/datasets/${encodeURIComponent(state.activeDatasetId)}/export`, {
-    method: "POST",
-  });
-  const counts = data.export?.counts || {};
-  els.datasetValidation.textContent = `exported train=${counts.train || 0} validation=${counts.validation || 0} test=${counts.test || 0}`;
-  els.datasetValidation.dataset.state = "ok";
-  await loadDatasetDetail(state.activeDatasetId);
-}
-
-function metaFromOutput(output) {
-  const missing = output.missing_required_keys || [];
-  const speed = output.stats?.eval_tokens_per_second;
-  const timing = output.elapsed_ms ? `${output.elapsed_ms} ms` : "";
-  const miss = missing.length ? `missing: ${missing.join(", ")}` : "keys ok";
-  return [miss, speed ? `${speed} tok/s` : "", timing].filter(Boolean).join(" · ");
-}
-
-function formatTime(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString();
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-async function savePrompt() {
-  const target = state.activePrompt;
-  const payload = await apiJson(`/api/prompts/${target}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: els.promptEditor.value }),
-  });
-  state.prompts[target] = { ...state.prompts[target], ...payload };
-  renderPromptEditor();
-}
-
-async function resetPrompt() {
-  const target = state.activePrompt;
-  const payload = await apiJson(`/api/prompts/${target}/reset`, { method: "POST" });
-  state.prompts[target] = { ...state.prompts[target], ...payload };
-  renderPromptEditor();
-}
-
-function runPayload(runId) {
-  return {
-    run_id: runId,
-    input: els.testInput.value,
-    profile: els.profileSelect.value,
-    use_reference_context: els.referenceToggle.checked,
-    settings: Object.fromEntries(targets.map((target) => [target, mergedSettings(target)])),
-    signals: {
-      racio: state.parsed.racio || {},
-      emocio: state.parsed.emocio || {},
-      instinkt: state.parsed.instinkt || {},
-    },
-  };
-}
-
-async function runEndpoint(endpoint, clearTargets) {
-  if (state.activeRunId) return;
-  const runId = crypto.randomUUID();
-  state.activeRunId = runId;
-  els.activeRun.textContent = runId.slice(0, 8);
-  els.stopBtn.disabled = false;
-  for (const target of clearTargets) {
-    state.outputs[target] = { text: "", status: "queued", meta: "" };
-    if (target !== "ego_resultant") delete state.parsed[target];
-  }
-  if (clearTargets.includes("ego_resultant")) delete state.parsed.ego_resultant;
-  renderOutputs();
-
+async function runCycle() {
+  if (state.busy) return;
+  state.busy = true;
+  els.runCycleBtn.disabled = true;
+  els.profileSelect.disabled = true;
+  setRuntime("Running native cycle…", "Deterministic R/E/I providers · CPU only", "working");
   try {
-    const response = await fetch(endpoint, {
+    const request = buildCycleRequest();
+    const debug = els.debugToggle.checked ? "true" : "false";
+    state.result = await apiJson(`/api/cycles?debug=${debug}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(runPayload(runId)),
+      body: JSON.stringify(request),
     });
-    if (!response.ok || !response.body) {
-      throw new Error(await response.text());
-    }
-    const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-    state.activeReader = reader;
-    let buffer = "";
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buffer += value;
-      const lines = buffer.split("\n");
-      buffer = lines.pop() || "";
-      for (const line of lines) {
-        if (!line.trim()) continue;
-        handleEvent(JSON.parse(line));
-      }
-    }
+    renderAll();
+    setRuntime(
+      "Cycle complete",
+      `${state.result.run?.profile_id || request.character.profile_id} · ${state.result.run?.run_id || request.run_id}`,
+      "ok"
+    );
   } catch (error) {
-    els.activeRun.textContent = `error`;
     console.error(error);
+    setRuntime("Cycle failed", error.message, "error");
+    const active = els.panels[state.activePanel];
+    const errorCard = element("div", "error-card");
+    append(errorCard, element("h2", "", "Workbench request failed"), element("p", "", error.message));
+    active.replaceChildren(errorCard);
   } finally {
-    state.activeRunId = null;
-    state.activeReader = null;
-    els.stopBtn.disabled = true;
-    if (els.activeRun.textContent !== "error") els.activeRun.textContent = "idle";
+    state.busy = false;
+    els.runCycleBtn.disabled = false;
+    els.profileSelect.disabled = false;
   }
 }
 
-function handleEvent(event) {
-  const target = event.target;
-  if (event.type === "start") {
-    state.outputs[target] = {
-      text: "",
-      parsed: null,
-      status: "streaming",
-      meta: `${event.model} · ${event.options?.num_ctx || ""} ctx · gpu ${event.options?.num_gpu ?? ""}`,
-    };
-  } else if (event.type === "delta") {
-    const output = state.outputs[target] || { text: "", status: "streaming", meta: "" };
-    output.text += event.content || "";
-    output.status = "streaming";
-    state.outputs[target] = output;
-  } else if (event.type === "done") {
-    state.outputs[target] = {
-      text: event.content || "",
-      parsed: event.parsed || null,
-      status: event.status || "done",
-      meta: event.error || metaFromOutput(event),
-    };
-    if (event.parsed) {
-      state.parsed[target] = event.parsed;
-    } else {
-      delete state.parsed[target];
+function loadProfiles() {
+  els.profileSelect.replaceChildren();
+  for (const item of profileContracts()) {
+    const profileId = typeof item === "string" ? item : item.profile_id;
+    const option = element("option", "", profileId);
+    option.value = profileId;
+    if (profileId === templateRequest()?.character?.profile_id) option.selected = true;
+    append(els.profileSelect, option);
+  }
+  els.profileSelect.disabled = false;
+}
+
+async function bootstrap() {
+  try {
+    state.bootstrap = await apiJson("/api/bootstrap");
+    const request = templateRequest();
+    if (!request) throw new Error("Missing deterministic request fixture.");
+    loadProfiles();
+    els.sceneSummary.textContent = request.scene?.raw_input || "Deterministic native cycle";
+    els.sceneId.textContent = `scene ${compactId(request.scene?.event_id)}`;
+    els.runCycleBtn.disabled = false;
+    setRuntime(
+      "Ready",
+      "Checked-in fixture · deterministic providers · no model or renderer",
+      "ok"
+    );
+  } catch (error) {
+    console.error(error);
+    setRuntime("Bootstrap failed", error.message, "error");
+    els.sceneSummary.textContent = error.message;
+  }
+}
+
+for (const tab of els.tabs) {
+  tab.addEventListener("click", () => activatePanel(tab.dataset.panel));
+  tab.addEventListener("keydown", (event) => {
+    const current = els.tabs.indexOf(tab);
+    let next = null;
+    if (event.key === "ArrowRight") next = (current + 1) % els.tabs.length;
+    if (event.key === "ArrowLeft") next = (current - 1 + els.tabs.length) % els.tabs.length;
+    if (event.key === "Home") next = 0;
+    if (event.key === "End") next = els.tabs.length - 1;
+    if (next !== null) {
+      event.preventDefault();
+      activatePanel(els.tabs[next].dataset.panel, { focus: true });
     }
-  } else if (event.type === "stopped") {
-    const output = state.outputs[target] || { text: "", status: "stopped", meta: "" };
-    output.status = "stopped";
-    state.outputs[target] = output;
-  } else if (event.type === "error") {
-    state.outputs[target] = {
-      text: state.outputs[target]?.text || "",
-      status: "error",
-      meta: event.error || "error",
-    };
-  } else if (event.type === "run_done") {
-    state.history = [event.record, ...state.history.filter((item) => item.id !== event.record.id)];
-    renderHistory();
-  }
-  renderOutputs();
-}
-
-async function stopRun() {
-  if (!state.activeRunId) return;
-  els.stopBtn.disabled = true;
-  els.activeRun.textContent = "stopping";
-  await fetch(`/api/runs/${state.activeRunId}/stop`, { method: "POST" });
-}
-
-async function refreshModels() {
-  const data = await apiJson("/api/models");
-  state.models = data.models || [];
-  state.running = data.running || [];
-  renderOllama(data);
-  renderSettings();
-}
-
-async function clearHistory() {
-  const data = await apiJson("/api/history/clear", { method: "POST" });
-  state.history = data.history || [];
-  renderHistory();
-}
-
-els.savePromptBtn.addEventListener("click", savePrompt);
-els.resetPromptBtn.addEventListener("click", resetPrompt);
-els.refreshModelsBtn.addEventListener("click", refreshModels);
-els.clearHistoryBtn.addEventListener("click", clearHistory);
-els.stopBtn.addEventListener("click", stopRun);
-els.runFullBtn.addEventListener("click", () => runEndpoint("/api/run/full", targets));
-els.refreshDatasetsBtn.addEventListener("click", loadDatasets);
-els.datasetSelect.addEventListener("change", async () => {
-  state.activeDatasetId = els.datasetSelect.value;
-  state.activeDatasetExample = null;
-  if (state.activeDatasetId) await loadDatasetDetail(state.activeDatasetId);
-});
-els.datasetTargetFilter.addEventListener("change", renderDatasetPanel);
-els.datasetStatusFilter.addEventListener("change", renderDatasetPanel);
-els.datasetProfileFilter.addEventListener("change", renderDatasetPanel);
-els.validateDatasetBtn.addEventListener("click", validateActiveDataset);
-els.exportDatasetBtn.addEventListener("click", exportActiveDataset);
-els.saveDatasetExampleBtn.addEventListener("click", () => saveDatasetExample());
-document.querySelectorAll("[data-dataset-status]").forEach((button) => {
-  button.addEventListener("click", () => saveDatasetExample(button.dataset.datasetStatus));
-});
-document.querySelectorAll("[data-run='mind']").forEach((button) => {
-  button.addEventListener("click", () => {
-    const target = button.dataset.target;
-    runEndpoint(`/api/run/mind/${target}`, [target]);
   });
-});
-document.querySelector("[data-run='ego']").addEventListener("click", () => runEndpoint("/api/run/ego", ["ego_resultant"]));
+}
 
-loadState().catch((error) => {
-  els.ollamaStatus.textContent = `Workbench failed: ${error.message}`;
-  els.ollamaStatus.dataset.state = "bad";
-});
+els.runCycleBtn.addEventListener("click", runCycle);
+activatePanel("native");
+bootstrap();

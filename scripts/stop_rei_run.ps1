@@ -1,11 +1,11 @@
 param(
-    [string[]]$Models = @("granite4.1:30b", "gemma4:31b", "qwen3.6:35b"),
+    [string[]]$Models = @("granite4.1:30b"),
     [string]$Distro = "Ubuntu-24.04"
 )
 
 $ErrorActionPreference = "Continue"
 
-Write-Host "Stopping REI probe Python processes..." -ForegroundColor Yellow
+Write-Host "Stopping REI Python processes..." -ForegroundColor Yellow
 Get-CimInstance Win32_Process |
     Where-Object { $_.CommandLine -match "run_rei_" -and $_.Name -match "python|python3" } |
     ForEach-Object {
