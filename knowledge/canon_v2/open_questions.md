@@ -543,6 +543,38 @@ Status: `implementation_hypothesis`, delno razrešeno samo na ravni sheme.
 Mandatna in zavestna poravnava uporabljata `aligned`, `diverged`, `unknown` ali
 `not_applicable`; tabela, ki iz teh stanj izpelje vedenje, ostaja za B10.
 
+### B10 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za začetni runtime,
+teoretično in empirično še odprto. B10 zamrzne tri javne politike z revizijo
+`1`: `b10-conscious-commit-table-v1`,
+`b10-behavior-resolution-table-v1` in
+`b10-racio-self-narrative-v1`.
+
+Tabela ima strogo prioriteto. `unknown` acceptance ali mandat, ki ni
+`actionable`, vedno vrne `deferred` zavestno odločitev in `unresolved`
+vedenje. `Actionable` pomeni status `resolved`, `delegated` ali
+`functionally_overridden` ter nenull `option_id`. Pri `accepting` Racio zavestno
+sprejme mandat in vedenje ga izvede. Pri `mixed` se mandat sprejme in izvede,
+če je R med strukturnimi viri ali če vsaj ena preverjena interpretacija
+strukturnega vira E/I sklepa isti `option_id`; sicer Racio ob lastni možnosti
+zavestno izbere svojo možnost in vedenje ostane `oscillating`, brez nje pa se
+odločitev odloži in vedenje je `delayed`. Pri `conflicted` Racio ob lastni
+možnosti zavestno izbere svojo možnost, vedenje pa je `sabotaged` tudi ob
+naključnem ujemanju z mandatom; brez Racijeve možnosti sta odločitev in vedenje
+`blocked`.
+
+Tabela ne uporablja pragov relacij, keywordov, confidence, karakternih uteži,
+B9 acceptance-fidelity audita, `TranslationGap` ali skritih nativnih motivov.
+`AcceptanceState.overall_mode` ostaja ekspliciten vhod, governance in
+authority tiers pa nespremenjeni. Natančen strojno berljiv zapis je v
+`knowledge/canon_v2/acceptance.yaml` pod `initial_behavior_mapping`.
+
+Odprto ostaja, ali ta začetna tabela psihološko ali empirično ustrezno modelira
+vedenje, kako naj se kalibrira in kateri prihodnji dokaz upraviči njeno
+zamenjavo. Prihodnja revizija zato potrebuje nov policy ID oziroma revizijo in
+ne sme tiho spremeniti pravil `v1`.
+
 ## OQ-EGO-001 — kanonična in opisna polja Ega
 
 Katera polja `EgoMeasure` in `EgoCompositionSnapshot` so nujna arhitekturna

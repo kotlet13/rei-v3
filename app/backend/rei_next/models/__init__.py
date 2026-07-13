@@ -1,4 +1,4 @@
-"""Strict native-architecture data contracts through B9 communication."""
+"""Strict native-architecture data contracts through B10 behavior."""
 
 from .common import LanguageCode, MindId, SourceModality
 from .communication import (
@@ -10,10 +10,23 @@ from .communication import (
     RacioInterpreterRequest,
     TranslationGap,
 )
+from .conscious import (
+    BehaviorResultant,
+    ConsciousDecision,
+    ConsciousInterpretationInput,
+    ConsciousManifestationRef,
+    ConsciousMandateView,
+    RacioSelfNarrative,
+)
 
 
 __all__ = [
     "AcceptanceFidelityAssessment",
+    "BehaviorResultant",
+    "ConsciousDecision",
+    "ConsciousInterpretationInput",
+    "ConsciousManifestationRef",
+    "ConsciousMandateView",
     "EmocioManifestation",
     "LanguageCode",
     "ManifestationObservation",
@@ -21,6 +34,7 @@ __all__ = [
     "ObservableManifestationView",
     "RacioInterpretation",
     "RacioInterpreterRequest",
+    "RacioSelfNarrative",
     "SourceModality",
     "TranslationGap",
 ]
