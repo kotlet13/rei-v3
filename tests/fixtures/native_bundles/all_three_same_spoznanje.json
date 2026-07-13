@@ -1,0 +1,878 @@
+{
+  "description": "Sintetični namenski primer konvergence vseh treh sklepov.",
+  "emocio_packet": {
+    "actor_positions": [],
+    "aesthetic_cues": [],
+    "allowed_option_ids": [
+      "all_three_same_spoznanje_option_a",
+      "all_three_same_spoznanje_option_b",
+      "all_three_same_spoznanje_option_c"
+    ],
+    "caveat": "Profilno slep sintetični paket; brez generiranja slik.",
+    "evidence_ids": [
+      "all_three_same_spoznanje_evidence"
+    ],
+    "explicit_identity_cues": [],
+    "grounded_visual_cues": [
+      "Strukturiran sintetični prizor brez renderirane slike."
+    ],
+    "movement_cues": [],
+    "observed_attention": [],
+    "packet_id": "all_three_same_spoznanje_emocio_packet",
+    "scene_id": "all_three_same_spoznanje_event",
+    "schema_version": "rei-native-emocio-input-packet-v1",
+    "social_layout": []
+  },
+  "emocio_visual_state": {
+    "broken_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "all_three_same_spoznanje_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "all_three_same_spoznanje_visual_broken",
+      "scene_kind": "broken",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "current_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "all_three_same_spoznanje_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "all_three_same_spoznanje_visual_current",
+      "scene_kind": "current",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "desired_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "all_three_same_spoznanje_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "all_three_same_spoznanje_visual_desired",
+      "scene_kind": "desired",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "option_rollouts": [
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "all_three_same_spoznanje_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "all_three_same_spoznanje_option_a",
+        "scene_id": "all_three_same_spoznanje_visual_rollout_a",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "all_three_same_spoznanje_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "all_three_same_spoznanje_option_b",
+        "scene_id": "all_three_same_spoznanje_visual_rollout_b",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "all_three_same_spoznanje_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "all_three_same_spoznanje_option_c",
+        "scene_id": "all_three_same_spoznanje_visual_rollout_c",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      }
+    ],
+    "option_valuations": [
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.8
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.8
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.8
+          },
+          {
+            "name": "belonging",
+            "score": 0.8
+          },
+          {
+            "name": "attention",
+            "score": 0.8
+          },
+          {
+            "name": "attraction",
+            "score": 0.8
+          },
+          {
+            "name": "novelty",
+            "score": 0.8
+          },
+          {
+            "name": "movement",
+            "score": 0.8
+          },
+          {
+            "name": "status",
+            "score": 0.8
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.8
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.8
+          }
+        ],
+        "option_id": "all_three_same_spoznanje_option_a",
+        "rollout_scene_id": "all_three_same_spoznanje_visual_rollout_a"
+      },
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "belonging",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attention",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attraction",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "novelty",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "movement",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "status",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.30000000000000004
+          }
+        ],
+        "option_id": "all_three_same_spoznanje_option_b",
+        "rollout_scene_id": "all_three_same_spoznanje_visual_rollout_b"
+      },
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.2
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.2
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.2
+          },
+          {
+            "name": "belonging",
+            "score": 0.2
+          },
+          {
+            "name": "attention",
+            "score": 0.2
+          },
+          {
+            "name": "attraction",
+            "score": 0.2
+          },
+          {
+            "name": "novelty",
+            "score": 0.2
+          },
+          {
+            "name": "movement",
+            "score": 0.2
+          },
+          {
+            "name": "status",
+            "score": 0.2
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.2
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.2
+          }
+        ],
+        "option_id": "all_three_same_spoznanje_option_c",
+        "rollout_scene_id": "all_three_same_spoznanje_visual_rollout_c"
+      }
+    ],
+    "schema_version": "rei-native-emocio-visual-state-v1",
+    "source_packet_id": "all_three_same_spoznanje_emocio_packet",
+    "source_scene_id": "all_three_same_spoznanje_event",
+    "visual_state_id": "all_three_same_spoznanje_emocio_visual_state"
+  },
+  "expected_native_reasons": [
+    {
+      "mind": "R",
+      "reason": "Izberi možnost, ki sledi dejstvom in preverljivemu cilju.",
+      "source_field": "explicit_goal"
+    },
+    {
+      "mind": "E",
+      "reason": "Izberi isti sklep zaradi skladnosti sedanjega in želenega prizora.",
+      "source_field": "desired_transformation"
+    },
+    {
+      "mind": "I",
+      "reason": "Izberi isti sklep ob ohranjeni varnosti, meji in obnovljivosti.",
+      "source_field": "minimum_safety_condition"
+    }
+  ],
+  "expected_profile_outcomes": [
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "R>(E=I)",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "E>(R=I)",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "I>(R=E)",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": "resolved",
+      "profile_id": "(R=E)>I",
+      "source_minds": [
+        "R",
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": "resolved",
+      "profile_id": "(R=I)>E",
+      "source_minds": [
+        "R",
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": "resolved",
+      "profile_id": "(E=I)>R",
+      "source_minds": [
+        "E",
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "R>E>I",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "R>I>E",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "E>R>I",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "E>I>R",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "I>R>E",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "I>E>R",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "all_three_same_spoznanje_option_a",
+      "pair_status": null,
+      "profile_id": "R=E=I",
+      "source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "status": "resolved"
+    }
+  ],
+  "expected_spoznanje": true,
+  "expected_spoznanje_status": "simulated_spoznanje",
+  "fixture_id": "fixture_all_three_same_spoznanje",
+  "fixture_status": "synthetic_architecture_fixture",
+  "instinkt_body_state": {
+    "arousal": 0.4,
+    "attachment_security": 0.6,
+    "body_state_id": "all_three_same_spoznanje_body_state",
+    "boundary_integrity": 0.8,
+    "energy": 0.7,
+    "escape_availability": 0.9,
+    "fatigue": 0.3,
+    "pain": 0.0,
+    "physical_integrity": 1.0,
+    "predictability": 0.5,
+    "resource_security": 0.7,
+    "schema_version": "rei-native-body-state-v1",
+    "tension": 0.3,
+    "trust": 0.6,
+    "uncertainty": 0.4
+  },
+  "instinkt_packet": {
+    "attachment_cues": [],
+    "boundary_cues": [],
+    "caveat": "Konceptualni virtual-body sintetični paket.",
+    "escape_cues": [],
+    "evidence_ids": [
+      "all_three_same_spoznanje_evidence"
+    ],
+    "explicit_body_cues": [],
+    "option_ids": [
+      "all_three_same_spoznanje_option_a",
+      "all_three_same_spoznanje_option_b",
+      "all_three_same_spoznanje_option_c"
+    ],
+    "packet_id": "all_three_same_spoznanje_instinkt_packet",
+    "physical_cues": [],
+    "scarcity_cues": [],
+    "scene_id": "all_three_same_spoznanje_event",
+    "schema_version": "rei-native-instinkt-input-packet-v1",
+    "source_body_state_id": "all_three_same_spoznanje_body_state",
+    "trust_cues": [],
+    "uncertainty_cues": []
+  },
+  "instinkt_rollouts": [
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "najnižji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "all_three_same_spoznanje_option_a",
+      "predicted_loss": 0.1,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.9,
+      "rollout_id": "all_three_same_spoznanje_instinkt_rollout_a",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "all_three_same_spoznanje_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    },
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "višji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "all_three_same_spoznanje_option_b",
+      "predicted_loss": 0.6,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.5,
+      "rollout_id": "all_three_same_spoznanje_instinkt_rollout_b",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "all_three_same_spoznanje_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    },
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "višji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "all_three_same_spoznanje_option_c",
+      "predicted_loss": 0.6,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.5,
+      "rollout_id": "all_three_same_spoznanje_instinkt_rollout_c",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "all_three_same_spoznanje_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    }
+  ],
+  "logic_pattern": "AAA",
+  "native_bundle": {
+    "allowed_option_ids": [
+      "all_three_same_spoznanje_option_a",
+      "all_three_same_spoznanje_option_b",
+      "all_three_same_spoznanje_option_c"
+    ],
+    "bundle_id": "bundle_18a17fdda74bfd9b043322f4f54fe6b3",
+    "created_at": "2026-07-13T12:00:00Z",
+    "emocio": {
+      "abstains": false,
+      "action_tendency": "approach",
+      "conclusion_id": "all_three_same_spoznanje_emocio_conclusion",
+      "current_scene_id": "all_three_same_spoznanje_visual_current",
+      "decisive_rollout_scene_id": "all_three_same_spoznanje_visual_rollout_a",
+      "desired_scene_id": "all_three_same_spoznanje_visual_desired",
+      "desired_transformation": "Izberi isti sklep zaradi skladnosti sedanjega in želenega prizora.",
+      "intensity": 0.7,
+      "main_obstacle": "Sintetična primerjalna ovira.",
+      "mind": "E",
+      "option_id": "all_three_same_spoznanje_option_a",
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "all_three_same_spoznanje_emocio_packet",
+      "source_scene_id": "all_three_same_spoznanje_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja.",
+      "valuation_dimensions": [
+        {
+          "name": "desired_scene_match",
+          "score": 0.8
+        },
+        {
+          "name": "distance_from_broken_scene",
+          "score": 0.8
+        },
+        {
+          "name": "self_visibility",
+          "score": 0.8
+        },
+        {
+          "name": "belonging",
+          "score": 0.8
+        },
+        {
+          "name": "attention",
+          "score": 0.8
+        },
+        {
+          "name": "attraction",
+          "score": 0.8
+        },
+        {
+          "name": "novelty",
+          "score": 0.8
+        },
+        {
+          "name": "movement",
+          "score": 0.8
+        },
+        {
+          "name": "status",
+          "score": 0.8
+        },
+        {
+          "name": "competitive_success",
+          "score": 0.8
+        },
+        {
+          "name": "attack_or_breakthrough_affordance",
+          "score": 0.8
+        }
+      ]
+    },
+    "emocio_packet_hash": "afe76d01e89299c88252e338bf911128ac12966a026979028a10a556b26c627a",
+    "emocio_visual_state_hash": "e23d4c1bacdae5e2af60af77651459e72c453b1a0713f27916a614f1464d47ef",
+    "emocio_visual_state_id": "all_three_same_spoznanje_emocio_visual_state",
+    "immutable_hash": "71bf7453ba5661fecdecca3a4b15301228bc8a55251ddc8c677efd8991950582",
+    "instinkt": {
+      "abstains": false,
+      "action_tendency": "protect",
+      "conclusion_id": "all_three_same_spoznanje_instinkt_conclusion",
+      "danger_claims": [],
+      "decisive_rollout_id": "all_three_same_spoznanje_instinkt_rollout_a",
+      "decisive_rollout_option_id": "all_three_same_spoznanje_option_a",
+      "dominant_alarm": "Sintetični zaščitni alarm.",
+      "intensity": 0.6,
+      "mind": "I",
+      "minimum_safety_condition": "Izberi isti sklep ob ohranjeni varnosti, meji in obnovljivosti.",
+      "option_id": "all_three_same_spoznanje_option_a",
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "all_three_same_spoznanje_body_state",
+      "source_packet_id": "all_three_same_spoznanje_instinkt_packet",
+      "source_scene_id": "all_three_same_spoznanje_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja."
+    },
+    "instinkt_body_state_hash": "29ec799ec303786254dba7e8fe9c2ad5758edefa7354287e638afe8c95d2635e",
+    "instinkt_body_state_id": "all_three_same_spoznanje_body_state",
+    "instinkt_packet_hash": "65114106ec465d6a4386b64b5970555923aa80206e1b44d0c40191f175f3a062",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "all_three_same_spoznanje_instinkt_rollout_a",
+        "sha256": "e8ee1f1dd658bba4cd81e6bc0fd578c6b44834e0b185a4345e8f1b489876ee50"
+      },
+      {
+        "artifact_id": "all_three_same_spoznanje_instinkt_rollout_b",
+        "sha256": "3ec615b8ae3cbb27a164ef096d0415bec13d7f8093c50e7867f1927f90d37b42"
+      },
+      {
+        "artifact_id": "all_three_same_spoznanje_instinkt_rollout_c",
+        "sha256": "e72bad864e6e9ad8b52304f329fded540d6dcd81d8ffb1762a01d378ae31a01f"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "grounded event -> native Racio option"
+      ],
+      "conclusion_id": "all_three_same_spoznanje_racio_conclusion",
+      "confidence": 0.8,
+      "explicit_goal": "Izberi možnost, ki sledi dejstvom in preverljivemu cilju.",
+      "facts_used": [
+        "Trije razumi po ločenih poteh sprejmejo isti sklep za isti sintetični dogodek."
+      ],
+      "main_objection": "Primerjalni ugovor proti možnosti a ni odločilen.",
+      "mind": "R",
+      "option_id": "all_three_same_spoznanje_option_a",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_id": "all_three_same_spoznanje_racio_packet",
+      "source_scene_id": "all_three_same_spoznanje_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja.",
+      "unknowns": [
+        "Dejanski izid ni del B3 fixtureja."
+      ],
+      "utility_structure": [
+        "fixture-specific explicit goal"
+      ]
+    },
+    "racio_packet_hash": "1ea894e385ddcbc68d37cae96e1df89ceee754c6605ebb81d8faa5a193343206",
+    "scene_hash": "4cb86c114761303f1f494b555fc5ab34c61698606f0d8088c1a2aaa41b4ef7a2",
+    "scene_id": "all_three_same_spoznanje_event",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "normative_scope": "governance_only",
+  "open_question_ids": [
+    "OQ-PAIR-001",
+    "OQ-DELEGATION-001",
+    "OQ-AVAILABILITY-001"
+  ],
+  "racio_packet": {
+    "allowed_option_ids": [
+      "all_three_same_spoznanje_option_a",
+      "all_three_same_spoznanje_option_b",
+      "all_three_same_spoznanje_option_c"
+    ],
+    "caveat": "Profilno slep sintetični paket.",
+    "constraints": [
+      "Fixture preverja samo deterministično governance."
+    ],
+    "evidence_ids": [
+      "all_three_same_spoznanje_evidence"
+    ],
+    "explicit_consequences": [],
+    "explicit_facts": [
+      "Trije razumi po ločenih poteh sprejmejo isti sklep za isti sintetični dogodek."
+    ],
+    "explicit_options": [
+      {
+        "description": "",
+        "label": "izvedi usklajeno možnost",
+        "option_id": "all_three_same_spoznanje_option_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "odloži možnost",
+        "option_id": "all_three_same_spoznanje_option_b",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "zavrni možnost",
+        "option_id": "all_three_same_spoznanje_option_c",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "explicit_unknowns": [
+      "Dejanski izid ni del B3 fixtureja."
+    ],
+    "numeric_cues": [],
+    "packet_id": "all_three_same_spoznanje_racio_packet",
+    "previous_racio_projection_ids": [],
+    "rules": [],
+    "scene_id": "all_three_same_spoznanje_event",
+    "schema_version": "rei-native-racio-input-packet-v1",
+    "symbolic_and_language_cues": [
+      "Trije razumi po ločenih poteh sprejmejo isti sklep za isti sintetični dogodek."
+    ],
+    "time": [],
+    "world": {
+      "commitments": [],
+      "explicit_beliefs": [],
+      "facts": [
+        "Trije razumi po ločenih poteh sprejmejo isti sklep za isti sintetični dogodek."
+      ],
+      "rules": [],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [],
+      "world_id": "all_three_same_spoznanje_racio_world"
+    }
+  },
+  "scene": {
+    "actors": [
+      "simulirana oseba"
+    ],
+    "constraints": [
+      "Fixture preverja samo deterministično governance."
+    ],
+    "event_id": "all_three_same_spoznanje_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Trije razumi po ločenih poteh sprejmejo isti sklep za isti sintetični dogodek.",
+        "evidence_id": "all_three_same_spoznanje_evidence",
+        "grounded": true,
+        "inferred_by": null,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "synthetic_fixture:all_three_same_spoznanje"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "",
+        "label": "izvedi usklajeno možnost",
+        "option_id": "all_three_same_spoznanje_option_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "odloži možnost",
+        "option_id": "all_three_same_spoznanje_option_b",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "zavrni možnost",
+        "option_id": "all_three_same_spoznanje_option_c",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Trije razumi po ločenih poteh sprejmejo isti sklep za isti sintetični dogodek.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Dejanski izid ni del B3 fixtureja."
+    ]
+  },
+  "schema_version": "rei-native-governance-fixture-v1"
+}

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
+from types import MappingProxyType
 from typing import Final, Literal, Self
 
 from pydantic import Field, model_validator
@@ -14,40 +16,36 @@ from .racio import RacioWorld
 
 
 CharacterRule = Literal["single_top", "ordered_top", "joint_top", "two_of_three"]
-CharacterProfileId = Literal[
-    "R>(E=I)",
-    "E>(R=I)",
-    "I>(R=E)",
-    "(R=E)>I",
-    "(R=I)>E",
-    "(E=I)>R",
-    "R>E>I",
-    "R>I>E",
-    "E>R>I",
-    "E>I>R",
-    "I>R>E",
-    "I>E>R",
-    "R=E=I",
-]
+
+# This tuple is the single source of truth for both profile parsing and profile
+# iteration.  Do not reproduce the 13-profile table in a resolver or fixture.
+_CHARACTER_PROFILE_ROWS: Final = (
+    ("R>(E=I)", (("R",), ("E", "I")), "single_top"),
+    ("E>(R=I)", (("E",), ("R", "I")), "single_top"),
+    ("I>(R=E)", (("I",), ("R", "E")), "single_top"),
+    ("(R=E)>I", (("R", "E"), ("I",)), "joint_top"),
+    ("(R=I)>E", (("R", "I"), ("E",)), "joint_top"),
+    ("(E=I)>R", (("E", "I"), ("R",)), "joint_top"),
+    ("R>E>I", (("R",), ("E",), ("I",)), "ordered_top"),
+    ("R>I>E", (("R",), ("I",), ("E",)), "ordered_top"),
+    ("E>R>I", (("E",), ("R",), ("I",)), "ordered_top"),
+    ("E>I>R", (("E",), ("I",), ("R",)), "ordered_top"),
+    ("I>R>E", (("I",), ("R",), ("E",)), "ordered_top"),
+    ("I>E>R", (("I",), ("E",), ("R",)), "ordered_top"),
+    ("R=E=I", (("R", "E", "I"),), "two_of_three"),
+)
+CHARACTER_PROFILE_ORDER: Final = tuple(row[0] for row in _CHARACTER_PROFILE_ROWS)
+CharacterProfileId = Literal[*CHARACTER_PROFILE_ORDER]
 FunctionalOverrideReason = Literal["explicit_functional_unavailability"]
 
-_PROFILE_CONTRACTS: Final[
-    dict[CharacterProfileId, tuple[tuple[tuple[MindId, ...], ...], CharacterRule]]
-] = {
-    "R>(E=I)": ((('R',), ('E', 'I')), "single_top"),
-    "E>(R=I)": ((('E',), ('R', 'I')), "single_top"),
-    "I>(R=E)": ((('I',), ('R', 'E')), "single_top"),
-    "(R=E)>I": ((('R', 'E'), ('I',)), "joint_top"),
-    "(R=I)>E": ((('R', 'I'), ('E',)), "joint_top"),
-    "(E=I)>R": ((('E', 'I'), ('R',)), "joint_top"),
-    "R>E>I": ((('R',), ('E',), ('I',)), "ordered_top"),
-    "R>I>E": ((('R',), ('I',), ('E',)), "ordered_top"),
-    "E>R>I": ((('E',), ('R',), ('I',)), "ordered_top"),
-    "E>I>R": ((('E',), ('I',), ('R',)), "ordered_top"),
-    "I>R>E": ((('I',), ('R',), ('E',)), "ordered_top"),
-    "I>E>R": ((('I',), ('E',), ('R',)), "ordered_top"),
-    "R=E=I": ((('R', 'E', 'I'),), "two_of_three"),
-}
+CHARACTER_PROFILE_CONTRACTS: Final[
+    Mapping[CharacterProfileId, tuple[tuple[tuple[MindId, ...], ...], CharacterRule]]
+] = MappingProxyType(
+    {
+        profile_id: (authority_tiers, rule)
+        for profile_id, authority_tiers, rule in _CHARACTER_PROFILE_ROWS
+    }
+)
 
 
 class CharacterAuthority(FrozenArtifactModel):
@@ -76,7 +74,7 @@ class CharacterAuthority(FrozenArtifactModel):
         }
         if tuple(len(tier) for tier in self.authority_tiers) != expected_shapes[self.rule]:
             raise ValueError("authority_tiers shape does not match the character rule")
-        expected_tiers, expected_rule = _PROFILE_CONTRACTS[self.profile_id]
+        expected_tiers, expected_rule = CHARACTER_PROFILE_CONTRACTS[self.profile_id]
         if self.authority_tiers != expected_tiers or self.rule != expected_rule:
             raise ValueError("profile_id, authority_tiers, and rule must describe one profile")
         return self
@@ -107,6 +105,11 @@ class FunctionalOverride(FrozenArtifactModel):
     def validate_unavailable_minds(self) -> Self:
         if len(set(self.unavailable_minds)) != len(self.unavailable_minds):
             raise ValueError("unavailable_minds must be unique")
+        canonical_minds = tuple(
+            mind for mind in ("R", "E", "I") if mind in set(self.unavailable_minds)
+        )
+        if self.unavailable_minds != canonical_minds:
+            raise ValueError("unavailable_minds must use canonical R, E, I order")
         if len(set(self.evidence_ids)) != len(self.evidence_ids):
             raise ValueError("Functional override evidence IDs must be unique")
         return self
@@ -150,7 +153,10 @@ class EffectiveAuthority(FrozenArtifactModel):
             removed_minds = {"R", "E", "I"} - retained_minds
             if set(self.functional_override.unavailable_minds) != removed_minds:
                 raise ValueError("Functional override must identify exactly the removed minds")
-        elif self.override_reason is not None or self.functional_override is not None:
+        elif (
+            self.override_reason is not None
+            or self.functional_override is not None
+        ):
             raise ValueError("Functional override is only valid when effective authority changes")
         return self
 
@@ -217,6 +223,8 @@ class PersonShell(FrozenArtifactModel):
 
 
 __all__ = [
+    "CHARACTER_PROFILE_CONTRACTS",
+    "CHARACTER_PROFILE_ORDER",
     "CharacterAuthority",
     "CharacterProfileId",
     "CharacterRule",

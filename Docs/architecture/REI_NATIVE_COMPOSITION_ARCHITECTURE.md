@@ -168,6 +168,34 @@ Single- and ordered-top profiles give the highest tier governance authority whil
 
 `PairConflict` documents `top_minds`, `option_by_mind`, `status` and `negotiation_rounds`. A person is not reducible to character: the initial person contract contains at least `CharacterAuthority`, `MindDevelopment`, `MindWorlds`, `AcceptanceState`, `CurrentState` and `EgoComposition`. Their exact B2 schemas remain open. (`C-PERSON-001`)
 
+The B3 resolver is a deterministic policy over one already frozen
+`NativeMindBundle`; it never calls a processor or provider. A non-null native
+`option_id` is the initial cross-modality identity of a conclusion for
+governance comparison. It is not an observed action: conscious commitment and
+`BehaviorResultant` remain downstream and are never resolver inputs. Three
+equal non-null conclusions produce `simulated_spoznanje` for every character
+profile, while any abstention makes the spoznanje assessment `unknown` rather
+than treating `None` as a vote. This comparison key and the conservative
+abstention policy are explicit implementation hypotheses pending a richer
+cross-modality conclusion-identity contract.
+
+Functional authority is derived only from an explicit, evidenced
+`FunctionalOverride`; availability scores do not imply a threshold. Explicit
+delegation preserves structural and effective tiers and may authorize an
+operational option without replacing an already resolved mandate or converting
+a joint-top disagreement into agreement.
+Pair negotiation is limited to two sequential rounds, each with new-information
+or new-rollout provenance. Confidence, intensity, mood, stress, keywords,
+Racio's consciousness, a subordinate mind, an LLM and fixture expectations are
+not tie-breakers.
+
+B3 verification has two non-overlapping layers. The complete ordinal truth
+table contains 13 profiles across the five possible equality partitions of
+three non-null conclusions (65 cells). Twelve synthetic, governance-only
+native-bundle fixtures are each replayed through all 13 profiles without
+rerunning processors (156 cells). These fixtures are architectural regression
+truth, not training data or claims about real people.
+
 ## 9. Acceptance, translation and behavior
 
 Sources support cooperation, tolerance and delegation as aspects of acceptance. The six directed relations and their visibility, translation-fidelity, tolerance, delegation and sabotage dimensions are the initial software model with `implementation_hypothesis` status; they are not asserted as a direct-source psychological schema. Controlled simulations receive this state explicitly, and the first implementation does not infer it from keywords.

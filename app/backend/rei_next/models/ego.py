@@ -18,15 +18,7 @@ from .common import (
 )
 from .communication import AcceptanceState, RacioInterpretation, TranslationGap
 from .conscious import BehaviorResultant, ConsciousDecision
-from .governance import GovernanceMandate
-
-
-SpoznanjeStatus = Literal[
-    "simulated_spoznanje",
-    "partial_agreement",
-    "no_spoznanje",
-    "unknown",
-]
+from .governance import GovernanceMandate, SpoznanjeStatus
 
 
 class OutcomeRecord(FrozenArtifactModel):

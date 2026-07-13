@@ -1,6 +1,6 @@
 schema_version: rei-native-character-profiles-v2
 status: architecture_canon
-runtime_effect: none_in_b1
+runtime_effect: implemented_in_rei_next_b3
 canon_language: sl
 
 authority_semantics:
@@ -142,6 +142,26 @@ pair_negotiation:
   no_new_information_result: unresolved
   source_claim_ids: [C-PAIR-001, C-GOV-002]
 
+conclusion_identity:
+  status: implementation_hypothesis
+  comparison_key: non_null_native_conclusion_option_id
+  observed_behavior_is_comparison_key: false
+  any_abstention_spoznanje_status: unknown
+  null_values_count_as_votes: false
+  source_claim_ids: [C-ROUTE-001, C-SPOZ-001]
+
+b3_verification_matrix:
+  status: synthetic_architecture_fixture
+  normative_scope: governance_only
+  base_truth_table:
+    profiles: 13
+    non_null_conclusion_partitions: [AAA, RE_I, RI_E, EI_R, ABC]
+    expected_cells: 65
+  canonical_native_bundle_fixtures: 12
+  profiles_per_fixture: 13
+  expected_counterfactual_cells: 156
+  rerun_native_processors: false
+
 pair_conflict_contract:
   contract_status: documented_for_b2
   status: implementation_hypothesis
@@ -192,3 +212,4 @@ open_question_ids:
   - OQ-AVAILABILITY-001
   - OQ-LEGACY-001
   - OQ-PERSON-001
+  - OQ-CONCLUSION-IDENTITY-001

@@ -1,0 +1,877 @@
+{
+  "description": "Sintetični primer javnega nastopa.",
+  "emocio_packet": {
+    "actor_positions": [],
+    "aesthetic_cues": [],
+    "allowed_option_ids": [
+      "public_speaking_option_a",
+      "public_speaking_option_b",
+      "public_speaking_option_c"
+    ],
+    "caveat": "Profilno slep sintetični paket; brez generiranja slik.",
+    "evidence_ids": [
+      "public_speaking_evidence"
+    ],
+    "explicit_identity_cues": [],
+    "grounded_visual_cues": [
+      "Strukturiran sintetični prizor brez renderirane slike."
+    ],
+    "movement_cues": [],
+    "observed_attention": [],
+    "packet_id": "public_speaking_emocio_packet",
+    "scene_id": "public_speaking_event",
+    "schema_version": "rei-native-emocio-input-packet-v1",
+    "social_layout": []
+  },
+  "emocio_visual_state": {
+    "broken_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "public_speaking_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "public_speaking_visual_broken",
+      "scene_kind": "broken",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "current_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "public_speaking_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "public_speaking_visual_current",
+      "scene_kind": "current",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "desired_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "public_speaking_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "public_speaking_visual_desired",
+      "scene_kind": "desired",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "option_rollouts": [
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "public_speaking_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "public_speaking_option_a",
+        "scene_id": "public_speaking_visual_rollout_a",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "public_speaking_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "public_speaking_option_b",
+        "scene_id": "public_speaking_visual_rollout_b",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "public_speaking_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "public_speaking_option_c",
+        "scene_id": "public_speaking_visual_rollout_c",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      }
+    ],
+    "option_valuations": [
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.8
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.8
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.8
+          },
+          {
+            "name": "belonging",
+            "score": 0.8
+          },
+          {
+            "name": "attention",
+            "score": 0.8
+          },
+          {
+            "name": "attraction",
+            "score": 0.8
+          },
+          {
+            "name": "novelty",
+            "score": 0.8
+          },
+          {
+            "name": "movement",
+            "score": 0.8
+          },
+          {
+            "name": "status",
+            "score": 0.8
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.8
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.8
+          }
+        ],
+        "option_id": "public_speaking_option_a",
+        "rollout_scene_id": "public_speaking_visual_rollout_a"
+      },
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "belonging",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attention",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attraction",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "novelty",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "movement",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "status",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.30000000000000004
+          }
+        ],
+        "option_id": "public_speaking_option_b",
+        "rollout_scene_id": "public_speaking_visual_rollout_b"
+      },
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.2
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.2
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.2
+          },
+          {
+            "name": "belonging",
+            "score": 0.2
+          },
+          {
+            "name": "attention",
+            "score": 0.2
+          },
+          {
+            "name": "attraction",
+            "score": 0.2
+          },
+          {
+            "name": "novelty",
+            "score": 0.2
+          },
+          {
+            "name": "movement",
+            "score": 0.2
+          },
+          {
+            "name": "status",
+            "score": 0.2
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.2
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.2
+          }
+        ],
+        "option_id": "public_speaking_option_c",
+        "rollout_scene_id": "public_speaking_visual_rollout_c"
+      }
+    ],
+    "schema_version": "rei-native-emocio-visual-state-v1",
+    "source_packet_id": "public_speaking_emocio_packet",
+    "source_scene_id": "public_speaking_event",
+    "visual_state_id": "public_speaking_emocio_visual_state"
+  },
+  "expected_native_reasons": [
+    {
+      "mind": "R",
+      "reason": "Izvedi pripravljeno predstavitev in pridobi neposredne podatke o rezultatu.",
+      "source_field": "explicit_goal"
+    },
+    {
+      "mind": "E",
+      "reason": "Ustvari prizor uspešne prisotnosti in odziva občinstva.",
+      "source_field": "desired_transformation"
+    },
+    {
+      "mind": "I",
+      "reason": "Ohrani jasen izhod iz preobremenjujoče izpostavljenosti.",
+      "source_field": "minimum_safety_condition"
+    }
+  ],
+  "expected_profile_outcomes": [
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "R>(E=I)",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "E>(R=I)",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_b",
+      "pair_status": null,
+      "profile_id": "I>(R=E)",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": "resolved",
+      "profile_id": "(R=E)>I",
+      "source_minds": [
+        "R",
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": null,
+      "pair_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "source_minds": [
+        "R",
+        "I"
+      ],
+      "status": "unresolved"
+    },
+    {
+      "option_id": null,
+      "pair_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "source_minds": [
+        "E",
+        "I"
+      ],
+      "status": "unresolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "R>E>I",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "R>I>E",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "E>R>I",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "E>I>R",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_b",
+      "pair_status": null,
+      "profile_id": "I>R>E",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_b",
+      "pair_status": null,
+      "profile_id": "I>E>R",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "public_speaking_option_a",
+      "pair_status": null,
+      "profile_id": "R=E=I",
+      "source_minds": [
+        "R",
+        "E"
+      ],
+      "status": "resolved"
+    }
+  ],
+  "expected_spoznanje": false,
+  "expected_spoznanje_status": "partial_agreement",
+  "fixture_id": "fixture_public_speaking",
+  "fixture_status": "synthetic_architecture_fixture",
+  "instinkt_body_state": {
+    "arousal": 0.4,
+    "attachment_security": 0.6,
+    "body_state_id": "public_speaking_body_state",
+    "boundary_integrity": 0.8,
+    "energy": 0.7,
+    "escape_availability": 0.9,
+    "fatigue": 0.3,
+    "pain": 0.0,
+    "physical_integrity": 1.0,
+    "predictability": 0.5,
+    "resource_security": 0.7,
+    "schema_version": "rei-native-body-state-v1",
+    "tension": 0.3,
+    "trust": 0.6,
+    "uncertainty": 0.4
+  },
+  "instinkt_packet": {
+    "attachment_cues": [],
+    "boundary_cues": [],
+    "caveat": "Konceptualni virtual-body sintetični paket.",
+    "escape_cues": [],
+    "evidence_ids": [
+      "public_speaking_evidence"
+    ],
+    "explicit_body_cues": [],
+    "option_ids": [
+      "public_speaking_option_a",
+      "public_speaking_option_b",
+      "public_speaking_option_c"
+    ],
+    "packet_id": "public_speaking_instinkt_packet",
+    "physical_cues": [],
+    "scarcity_cues": [],
+    "scene_id": "public_speaking_event",
+    "schema_version": "rei-native-instinkt-input-packet-v1",
+    "source_body_state_id": "public_speaking_body_state",
+    "trust_cues": [],
+    "uncertainty_cues": []
+  },
+  "instinkt_rollouts": [
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "višji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "public_speaking_option_a",
+      "predicted_loss": 0.6,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.5,
+      "rollout_id": "public_speaking_instinkt_rollout_a",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "public_speaking_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    },
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "najnižji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "public_speaking_option_b",
+      "predicted_loss": 0.1,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.9,
+      "rollout_id": "public_speaking_instinkt_rollout_b",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "public_speaking_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    },
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "višji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "public_speaking_option_c",
+      "predicted_loss": 0.6,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.5,
+      "rollout_id": "public_speaking_instinkt_rollout_c",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "public_speaking_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    }
+  ],
+  "logic_pattern": "RE_I",
+  "native_bundle": {
+    "allowed_option_ids": [
+      "public_speaking_option_a",
+      "public_speaking_option_b",
+      "public_speaking_option_c"
+    ],
+    "bundle_id": "bundle_05dc016df6aa5c6a23e11104654545da",
+    "created_at": "2026-07-13T12:00:00Z",
+    "emocio": {
+      "abstains": false,
+      "action_tendency": "approach",
+      "conclusion_id": "public_speaking_emocio_conclusion",
+      "current_scene_id": "public_speaking_visual_current",
+      "decisive_rollout_scene_id": "public_speaking_visual_rollout_a",
+      "desired_scene_id": "public_speaking_visual_desired",
+      "desired_transformation": "Ustvari prizor uspešne prisotnosti in odziva občinstva.",
+      "intensity": 0.7,
+      "main_obstacle": "Sintetična primerjalna ovira.",
+      "mind": "E",
+      "option_id": "public_speaking_option_a",
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "public_speaking_emocio_packet",
+      "source_scene_id": "public_speaking_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja.",
+      "valuation_dimensions": [
+        {
+          "name": "desired_scene_match",
+          "score": 0.8
+        },
+        {
+          "name": "distance_from_broken_scene",
+          "score": 0.8
+        },
+        {
+          "name": "self_visibility",
+          "score": 0.8
+        },
+        {
+          "name": "belonging",
+          "score": 0.8
+        },
+        {
+          "name": "attention",
+          "score": 0.8
+        },
+        {
+          "name": "attraction",
+          "score": 0.8
+        },
+        {
+          "name": "novelty",
+          "score": 0.8
+        },
+        {
+          "name": "movement",
+          "score": 0.8
+        },
+        {
+          "name": "status",
+          "score": 0.8
+        },
+        {
+          "name": "competitive_success",
+          "score": 0.8
+        },
+        {
+          "name": "attack_or_breakthrough_affordance",
+          "score": 0.8
+        }
+      ]
+    },
+    "emocio_packet_hash": "0db902ffdbedf9dd7f1c4ba293fc97f8b5d7895a2c2453717d98fdf23b17f1c6",
+    "emocio_visual_state_hash": "3d1319b0ae27fee4b551b6c9ff34992c1a9a02f78587d2e5ab881dd910b3691d",
+    "emocio_visual_state_id": "public_speaking_emocio_visual_state",
+    "immutable_hash": "4d1579f525289aaf6149e92bed6753f98bd9e4c7f1ec7ba099f65d4ce212a8f5",
+    "instinkt": {
+      "abstains": false,
+      "action_tendency": "protect",
+      "conclusion_id": "public_speaking_instinkt_conclusion",
+      "danger_claims": [],
+      "decisive_rollout_id": "public_speaking_instinkt_rollout_b",
+      "decisive_rollout_option_id": "public_speaking_option_b",
+      "dominant_alarm": "Sintetični zaščitni alarm.",
+      "intensity": 0.6,
+      "mind": "I",
+      "minimum_safety_condition": "Ohrani jasen izhod iz preobremenjujoče izpostavljenosti.",
+      "option_id": "public_speaking_option_b",
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "public_speaking_body_state",
+      "source_packet_id": "public_speaking_instinkt_packet",
+      "source_scene_id": "public_speaking_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja."
+    },
+    "instinkt_body_state_hash": "ba146ac3efa93bec49db3915f9a042c6ffdb1457ba190e6c4df6b4e15e9fdc90",
+    "instinkt_body_state_id": "public_speaking_body_state",
+    "instinkt_packet_hash": "490f9e988f88530a73ee1d680c9ea385dfb98142e751ea5ea6640bd0b4b0622a",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "public_speaking_instinkt_rollout_a",
+        "sha256": "1243f8c0dade8092897480058c970c179708935266b812fabdd1a15896dbcb47"
+      },
+      {
+        "artifact_id": "public_speaking_instinkt_rollout_b",
+        "sha256": "74f3fc72f14c2aebce2358c6d72c9b5ab80af5c3d38489eccf2df075d6fedafa"
+      },
+      {
+        "artifact_id": "public_speaking_instinkt_rollout_c",
+        "sha256": "53a869d8fcd0cea9ee9b7395960099734c6a12ba063973136f466b659e473d4c"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "grounded event -> native Racio option"
+      ],
+      "conclusion_id": "public_speaking_racio_conclusion",
+      "confidence": 0.8,
+      "explicit_goal": "Izvedi pripravljeno predstavitev in pridobi neposredne podatke o rezultatu.",
+      "facts_used": [
+        "Oseba izbira med javnim nastopom, zavrnitvijo in preložitvijo nastopa."
+      ],
+      "main_objection": "Primerjalni ugovor proti možnosti a ni odločilen.",
+      "mind": "R",
+      "option_id": "public_speaking_option_a",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_id": "public_speaking_racio_packet",
+      "source_scene_id": "public_speaking_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja.",
+      "unknowns": [
+        "Dejanski izid ni del B3 fixtureja."
+      ],
+      "utility_structure": [
+        "fixture-specific explicit goal"
+      ]
+    },
+    "racio_packet_hash": "0a5ba1820df5b36ef914fd365b4b788d45563f9e6f522cb550e7ef3210cc7d5d",
+    "scene_hash": "7a9cc55e18164567c28a555ee8910b81004e0aedd1210dcf5099e3342f5dc457",
+    "scene_id": "public_speaking_event",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "normative_scope": "governance_only",
+  "open_question_ids": [
+    "OQ-PAIR-001",
+    "OQ-DELEGATION-001",
+    "OQ-AVAILABILITY-001"
+  ],
+  "racio_packet": {
+    "allowed_option_ids": [
+      "public_speaking_option_a",
+      "public_speaking_option_b",
+      "public_speaking_option_c"
+    ],
+    "caveat": "Profilno slep sintetični paket.",
+    "constraints": [
+      "Fixture preverja samo deterministično governance."
+    ],
+    "evidence_ids": [
+      "public_speaking_evidence"
+    ],
+    "explicit_consequences": [],
+    "explicit_facts": [
+      "Oseba izbira med javnim nastopom, zavrnitvijo in preložitvijo nastopa."
+    ],
+    "explicit_options": [
+      {
+        "description": "",
+        "label": "izvedi javni nastop",
+        "option_id": "public_speaking_option_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "zavrni nastop",
+        "option_id": "public_speaking_option_b",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "preloži nastop",
+        "option_id": "public_speaking_option_c",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "explicit_unknowns": [
+      "Dejanski izid ni del B3 fixtureja."
+    ],
+    "numeric_cues": [],
+    "packet_id": "public_speaking_racio_packet",
+    "previous_racio_projection_ids": [],
+    "rules": [],
+    "scene_id": "public_speaking_event",
+    "schema_version": "rei-native-racio-input-packet-v1",
+    "symbolic_and_language_cues": [
+      "Oseba izbira med javnim nastopom, zavrnitvijo in preložitvijo nastopa."
+    ],
+    "time": [],
+    "world": {
+      "commitments": [],
+      "explicit_beliefs": [],
+      "facts": [
+        "Oseba izbira med javnim nastopom, zavrnitvijo in preložitvijo nastopa."
+      ],
+      "rules": [],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [],
+      "world_id": "public_speaking_racio_world"
+    }
+  },
+  "scene": {
+    "actors": [
+      "simulirana oseba"
+    ],
+    "constraints": [
+      "Fixture preverja samo deterministično governance."
+    ],
+    "event_id": "public_speaking_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Oseba izbira med javnim nastopom, zavrnitvijo in preložitvijo nastopa.",
+        "evidence_id": "public_speaking_evidence",
+        "grounded": true,
+        "inferred_by": null,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "synthetic_fixture:public_speaking"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "",
+        "label": "izvedi javni nastop",
+        "option_id": "public_speaking_option_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "zavrni nastop",
+        "option_id": "public_speaking_option_b",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "preloži nastop",
+        "option_id": "public_speaking_option_c",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Oseba izbira med javnim nastopom, zavrnitvijo in preložitvijo nastopa.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Dejanski izid ni del B3 fixtureja."
+    ]
+  },
+  "schema_version": "rei-native-governance-fixture-v1"
+}

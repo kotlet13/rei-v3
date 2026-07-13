@@ -201,12 +201,32 @@ Začetna runtime politika `unresolved` in omejeni informacijski pogajalski krog
 sta izvedbeni hipotezi; podrejeni razum, Racio, confidence ali LLM niso
 samodejni tie-breakerji.
 
+### B3 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, delno razrešeno. Osnovni resolver zapiše
+nesoglasje vodilnega para kot `unresolved`; podrejeni razum ne razreši spora.
+Pogajalski krog je omejen na največ dve zaporedni dodatni iteraciji. Vsaka mora
+imeti nov information ID ali rollout ID, ponovna uporaba iste provenance pa ni
+nova informacija. Konvergenca obeh vodilnih razumov po takem krogu je dovoljena;
+univerzalno pravilo, ki bi ju prisililo v konvergenco, še vedno ne obstaja.
+
 ## OQ-DELEGATION-001 — delegacija, nadomeščanje in odsotnost stališča
 
 Kateri minimalni podatki ločijo prostovoljno delegacijo, začasno operativno
 nadomeščanje, funkcionalno omejitev, `abstain_no_view`, `unknown`,
 `unavailable` in močan signal podrejenega razuma? Nobena kategorija sama po
 sebi ne spremeni strukturnega karakterja.
+
+### B3 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, delno razrešeno. Delegacija je veljavna
+samo kot ekspliciten `TaskDelegation` vseh trenutno vodilnih razumov k drugemu,
+funkcionalno prisotnemu razumu. Delegirana možnost mora biti njegov nenull
+nativni sklep in ostati v scopeu zamrznjenega bundlea. Strukturni ter učinkoviti
+tieri se ne spremenijo, že razrešene možnosti pa delegacija ne zamenja.
+Nerešen `PairConflict` ostane zabeležen. B3 zavrne
+hkratno delegacijo in funkcionalni override, ker en sam status mandata ne more
+pošteno predstavljati obeh mehanizmov.
 
 ## OQ-AVAILABILITY-001 — prag funkcionalnega overridea
 
@@ -221,6 +241,25 @@ Status: `implementation_hypothesis`, delno razrešeno. Sprememba
 `explicit_functional_unavailability`, natančnim seznamom odstranjenih razumov,
 snapshotom availability in evidence ID-ji. Kdo razglasi nedostopnost in pri
 katerem pragu, ostaja odprto; model je ne sklepa sam iz scorea.
+
+### B3 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, delno razrešeno. `EffectiveAuthority` se
+izračuna iz eksplicitnega seznama `unavailable_minds`; numerične availability
+vrednosti nimajo implicitnega praga in ne vplivajo na razvrstitev. Če override
+odstrani vse tri razume, resolver vhod zavrne namesto izmišljanja prazne ali
+četrte avtoritete.
+
+## OQ-CONCLUSION-IDENTITY-001 — primerljivost nativnih sklepov
+
+Kako dolgoročno dokazati, da modalno različni native procesorji niso izbrali le
+istega opaznega dejanja, temveč isti sklep? B3 kot začetni primerjalni ključ
+uporablja nenull `NativeConclusion.option_id`, ker predstavlja izbiro sklepa
+pred `ConsciousDecision` in `BehaviorResultant`. Sam `BehaviorResultant` ni
+vhod v governance ali spoznanje. To je izvedbena hipoteza; prihodnji bogatejši
+proposition oziroma conclusion-identity zapis jo lahko nadomesti brez
+spreminjanja ordinalnih pravil. Vsaka abstinenca povzroči `unknown` oceno
+spoznanja; `None` ni glas in `None = None` ni konvergenca.
 
 ## OQ-ACCEPTANCE-001 — merjenje sprejemanja
 
