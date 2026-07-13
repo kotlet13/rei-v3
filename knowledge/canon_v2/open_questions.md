@@ -299,11 +299,36 @@ Kako se iz append-only sledi reproducibilno izračunajo motivi, konflikti,
 prevodne napake, razrešene in nerazrešene napetosti, commitmenti in trenutni
 »odsek skladbe«? Vsaka izpeljava mora navesti `evidence_measure_ids`.
 
+### B4 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za deterministični
+composition skeleton. Agregacija uporablja samo natančno ujemanje eksplicitnih
+strukturiranih nizov, brez embeddingov, LLM reflektorja ali skritih uteži.
+Ponavljajoči konflikt, prevodna napaka ali odnosni vzorec zahteva pojav v vsaj
+dveh različnih measureih; strukturna identiteta, eksplicitna napetost,
+`simulated_spoznanje` in zavestni commitment se lahko zapišejo že iz enega
+measurea. `current_section` je število appendanih measureov, čas snapshota pa
+čas zadnjega measurea. Vsako objavljeno polje ima ustrezen content-addressed
+`SourcedEgoClaim` z natančnimi `evidence_measure_ids`. Popravek spremeni hash
+sledi in zato identiteto nove izpeljave, nikoli pa ne prepiše ciljnega measurea.
+Semantična podobnost in politika razrešenih napetosti ostajata odprti.
+
 ## OQ-PROJECTION-001 — projekcije zgodovine trem razumom
 
 Kakšne so dokončne sheme in pravila posodobitve za RacioProjection,
 EmocioProjection in InstinktProjection? Projekcija sme vplivati na naslednji
 svet/spomin, ne pa izreči četrtega mnenja ali retroaktivno spreminjati tracea.
+
+### B4 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za začetne projekcije.
+Vse tri projekcije so deterministično in content-addressed izpeljane iz istega
+`EgoTrace`, zahtevajo njegov hash ter za vsako objavljeno trditev navedejo
+measure ID-je. Racio prejme kronologijo, opažena dejstva, izjave, commitmente in
+vzročne povezave; Emocio strukturirane scene, vedenjske statusne vzorce in
+želene transformacije; Instinkt body-state/rollout posledice ter alarmne
+trditve. Prazna še neizpeljana polja ne vsebujejo nadomestnih domnev. Končne
+sheme, semantično združevanje in update politika svetov ostajajo odprti.
 
 ## OQ-PERSON-001 — dokončne komponente PersonState
 

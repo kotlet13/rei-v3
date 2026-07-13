@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract
+Scope: B1 documentation contract; B4 deterministic implementation
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -38,7 +38,22 @@ Every snapshot cites the measure IDs that support it. Previous measures are immu
 - Provenance, history and correction events become first-class artifacts.
 - R/E/I can receive different projections of the same trace without a fourth opinion.
 - Reflection remains auditable hypothesis generation, not governance.
-- Exact projection and snapshot algorithms remain B2+ implementation hypotheses.
+- B4 supplies a first deterministic projection and snapshot policy; its exact
+  string aggregation rules remain replaceable implementation hypotheses.
+
+## B4 implementation note
+
+The active B4 skeleton derives content-addressed snapshots and three
+modality-specific projections from an immutable `EgoTrace`. Every published
+assertion is represented by a `SourcedEgoClaim` carrying exact measure IDs.
+The initial recurrence policy uses exact structured-string equality only; it
+does not use an LLM, embeddings, semantic similarity, or hidden weights.
+
+`InMemoryEgoTraceStore` and `FileEgoTraceStore` implement optimistic append
+conflict checks. The file store uses a locked read-modify-write, atomic replace,
+file and directory synchronization where supported, canonical JSON, and
+content-hash validation after restart. Corrections remain new trace events and
+never rewrite their target measures.
 
 ## Invariants
 

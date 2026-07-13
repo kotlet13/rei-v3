@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import Literal, Self
 
 from pydantic import Field, model_validator
@@ -13,12 +14,91 @@ from .common import (
     FrozenModel,
     HashDigest,
     NonEmptyId,
+    NonEmptyText,
     Score01,
     UtcTimestamp,
 )
 from .communication import AcceptanceState, RacioInterpretation, TranslationGap
 from .conscious import BehaviorResultant, ConsciousDecision
 from .governance import GovernanceMandate, SpoznanjeStatus
+
+
+EgoClaimKind = Literal[
+    "identity_motif",
+    "recurring_conflict",
+    "recurring_translation_error",
+    "unresolved_tension",
+    "resolved_tension",
+    "spoznanje",
+    "commitment",
+    "relationship_pattern",
+    "current_section",
+    "racio_chronology",
+    "racio_fact",
+    "racio_statement",
+    "racio_commitment",
+    "racio_causal_link",
+    "emocio_recurring_scene",
+    "emocio_image_artifact",
+    "emocio_status_pattern",
+    "emocio_belonging_motif",
+    "emocio_success_motif",
+    "emocio_rupture_motif",
+    "emocio_desire_motif",
+    "instinkt_body_consequence",
+    "instinkt_danger",
+    "instinkt_loss",
+    "instinkt_trust_pattern",
+    "instinkt_attachment_pattern",
+    "instinkt_boundary_pattern",
+    "instinkt_scarcity_pattern",
+    "instinkt_recovery_pattern",
+]
+DerivationStatus = Literal["derived_from_trace"]
+
+
+class SourcedEgoClaim(FrozenArtifactModel):
+    """One composition/projection assertion with measure-level provenance."""
+
+    schema_version: Literal["rei-native-sourced-ego-claim-v1"] = (
+        "rei-native-sourced-ego-claim-v1"
+    )
+    claim_id: NonEmptyId
+    kind: EgoClaimKind
+    text: NonEmptyText
+    evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        kind: EgoClaimKind,
+        text: NonEmptyText,
+        evidence_measure_ids: tuple[NonEmptyId, ...],
+    ) -> SourcedEgoClaim:
+        canonical_measure_ids = tuple(sorted(set(evidence_measure_ids)))
+        base = {
+            "schema_version": "rei-native-sourced-ego-claim-v1",
+            "kind": kind,
+            "text": text,
+            "evidence_measure_ids": canonical_measure_ids,
+        }
+        return cls(claim_id=content_id("ego_claim", base), **base)
+
+    @model_validator(mode="after")
+    def validate_claim(self) -> Self:
+        if self.evidence_measure_ids != tuple(sorted(set(self.evidence_measure_ids))):
+            raise ValueError(
+                "Sourced Ego claim evidence_measure_ids must be sorted and unique"
+            )
+        base = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"claim_id"},
+        )
+        if self.claim_id != content_id("ego_claim", base):
+            raise ValueError("claim_id does not match the sourced claim content")
+        return self
 
 
 class OutcomeRecord(FrozenArtifactModel):
@@ -42,12 +122,15 @@ class OutcomeRecord(FrozenArtifactModel):
 class EgoMeasure(FrozenArtifactModel):
     """One complete REI cycle; this record has no proposal or vote."""
 
-    schema_version: Literal["rei-native-ego-measure-v1"] = (
-        "rei-native-ego-measure-v1"
+    schema_version: Literal["rei-native-ego-measure-v2"] = (
+        "rei-native-ego-measure-v2"
     )
     measure_id: NonEmptyId
     event_id: NonEmptyId
     native_bundle_id: NonEmptyId
+    native_bundle_hash: HashDigest
+    governance_resolution_id: NonEmptyId
+    governance_resolution_hash: HashDigest
     structural_character: CharacterAuthority
     effective_authority: EffectiveAuthority
     acceptance_state: AcceptanceState
@@ -68,6 +151,9 @@ class EgoMeasure(FrozenArtifactModel):
         *,
         event_id: NonEmptyId,
         native_bundle_id: NonEmptyId,
+        native_bundle_hash: HashDigest,
+        governance_resolution_id: NonEmptyId,
+        governance_resolution_hash: HashDigest,
         structural_character: CharacterAuthority,
         effective_authority: EffectiveAuthority,
         acceptance_state: AcceptanceState,
@@ -83,9 +169,12 @@ class EgoMeasure(FrozenArtifactModel):
     ) -> EgoMeasure:
         timestamp = created_at or utc_now()
         base = {
-            "schema_version": "rei-native-ego-measure-v1",
+            "schema_version": "rei-native-ego-measure-v2",
             "event_id": event_id,
             "native_bundle_id": native_bundle_id,
+            "native_bundle_hash": native_bundle_hash,
+            "governance_resolution_id": governance_resolution_id,
+            "governance_resolution_hash": governance_resolution_hash,
             "structural_character": structural_character,
             "effective_authority": effective_authority,
             "acceptance_state": acceptance_state,
@@ -336,9 +425,58 @@ def _validate_projection_evidence(
         raise ValueError("evidence_measure_ids must be unique")
 
 
+def _validate_claim_coverage(
+    *,
+    claims: tuple[SourcedEgoClaim, ...],
+    field_values: Mapping[EgoClaimKind, tuple[str, ...]],
+    evidence_measure_ids: tuple[NonEmptyId, ...],
+) -> None:
+    claim_ids = tuple(claim.claim_id for claim in claims)
+    if len(set(claim_ids)) != len(claim_ids):
+        raise ValueError("Sourced Ego claim IDs must be unique")
+    expected = tuple(
+        (kind, text)
+        for kind, values in field_values.items()
+        for text in values
+    )
+    actual = tuple((claim.kind, claim.text) for claim in claims)
+    if actual != expected:
+        raise ValueError(
+            "Sourced Ego claims must exactly cover derived fields in canonical order"
+        )
+    allowed_evidence = set(evidence_measure_ids)
+    cited_evidence: set[str] = set()
+    for claim in claims:
+        if not set(claim.evidence_measure_ids).issubset(allowed_evidence):
+            raise ValueError("Sourced Ego claim cites a measure outside its artifact")
+        cited_evidence.update(claim.evidence_measure_ids)
+    if cited_evidence != allowed_evidence:
+        raise ValueError("Every artifact evidence measure must support a sourced claim")
+
+
+def _validate_derived_identity(
+    artifact: FrozenArtifactModel,
+    *,
+    id_field: str,
+    id_prefix: str,
+    hash_field: str,
+) -> None:
+    id_payload = artifact.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={id_field, hash_field},
+    )
+    artifact_id = getattr(artifact, id_field)
+    if artifact_id != content_id(id_prefix, id_payload):
+        raise ValueError(f"{id_field} does not match the derived artifact content")
+    expected_hash = artifact.content_hash(exclude_fields=frozenset({hash_field}))
+    if getattr(artifact, hash_field) != expected_hash:
+        raise ValueError(f"{hash_field} does not match the derived artifact payload")
+
+
 class EgoCompositionSnapshot(FrozenArtifactModel):
-    schema_version: Literal["rei-native-ego-composition-v1"] = (
-        "rei-native-ego-composition-v1"
+    schema_version: Literal["rei-native-ego-composition-v2"] = (
+        "rei-native-ego-composition-v2"
     )
     snapshot_id: NonEmptyId
     ego_id: NonEmptyId
@@ -354,16 +492,84 @@ class EgoCompositionSnapshot(FrozenArtifactModel):
     current_section: str
     evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
     created_at: UtcTimestamp
+    derivation_status: DerivationStatus = "derived_from_trace"
+    source_trace_hash: HashDigest
+    sourced_claims: tuple[SourcedEgoClaim, ...]
+    composition_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        ego_id: NonEmptyId,
+        through_measure_id: NonEmptyId,
+        current_section: str,
+        evidence_measure_ids: tuple[NonEmptyId, ...],
+        created_at: UtcTimestamp,
+        source_trace_hash: HashDigest,
+        sourced_claims: tuple[SourcedEgoClaim, ...],
+        identity_motifs: tuple[str, ...] = (),
+        recurring_conflicts: tuple[str, ...] = (),
+        recurring_translation_errors: tuple[str, ...] = (),
+        unresolved_tensions: tuple[str, ...] = (),
+        resolved_tensions: tuple[str, ...] = (),
+        spoznanja: tuple[str, ...] = (),
+        commitments: tuple[str, ...] = (),
+        relationship_patterns: tuple[str, ...] = (),
+    ) -> EgoCompositionSnapshot:
+        base = {
+            "schema_version": "rei-native-ego-composition-v2",
+            "ego_id": ego_id,
+            "through_measure_id": through_measure_id,
+            "identity_motifs": identity_motifs,
+            "recurring_conflicts": recurring_conflicts,
+            "recurring_translation_errors": recurring_translation_errors,
+            "unresolved_tensions": unresolved_tensions,
+            "resolved_tensions": resolved_tensions,
+            "spoznanja": spoznanja,
+            "commitments": commitments,
+            "relationship_patterns": relationship_patterns,
+            "current_section": current_section,
+            "evidence_measure_ids": evidence_measure_ids,
+            "created_at": created_at,
+            "derivation_status": "derived_from_trace",
+            "source_trace_hash": source_trace_hash,
+            "sourced_claims": sourced_claims,
+        }
+        snapshot_id = content_id("ego_snapshot", base)
+        payload = {"snapshot_id": snapshot_id, **base}
+        return cls(**payload, composition_hash=sha256_hex(payload))
 
     @model_validator(mode="after")
     def validate_evidence_boundary(self) -> Self:
         _validate_projection_evidence(self.through_measure_id, self.evidence_measure_ids)
+        _validate_claim_coverage(
+            claims=self.sourced_claims,
+            field_values={
+                "identity_motif": self.identity_motifs,
+                "recurring_conflict": self.recurring_conflicts,
+                "recurring_translation_error": self.recurring_translation_errors,
+                "unresolved_tension": self.unresolved_tensions,
+                "resolved_tension": self.resolved_tensions,
+                "spoznanje": self.spoznanja,
+                "commitment": self.commitments,
+                "relationship_pattern": self.relationship_patterns,
+                "current_section": (self.current_section,),
+            },
+            evidence_measure_ids=self.evidence_measure_ids,
+        )
+        _validate_derived_identity(
+            self,
+            id_field="snapshot_id",
+            id_prefix="ego_snapshot",
+            hash_field="composition_hash",
+        )
         return self
 
 
 class RacioProjection(FrozenArtifactModel):
-    schema_version: Literal["rei-native-racio-projection-v1"] = (
-        "rei-native-racio-projection-v1"
+    schema_version: Literal["rei-native-racio-projection-v2"] = (
+        "rei-native-racio-projection-v2"
     )
     projection_id: NonEmptyId
     ego_id: NonEmptyId
@@ -374,16 +580,73 @@ class RacioProjection(FrozenArtifactModel):
     commitments: tuple[str, ...] = ()
     causal_links: tuple[str, ...] = ()
     evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
+    derivation_status: DerivationStatus = "derived_from_trace"
+    source_trace_hash: HashDigest
+    sourced_claims: tuple[SourcedEgoClaim, ...]
+    projection_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        ego_id: NonEmptyId,
+        through_measure_id: NonEmptyId,
+        evidence_measure_ids: tuple[NonEmptyId, ...],
+        source_trace_hash: HashDigest,
+        sourced_claims: tuple[SourcedEgoClaim, ...],
+        chronology: tuple[str, ...] = (),
+        facts: tuple[str, ...] = (),
+        statements: tuple[str, ...] = (),
+        commitments: tuple[str, ...] = (),
+        causal_links: tuple[str, ...] = (),
+    ) -> RacioProjection:
+        base = {
+            "schema_version": "rei-native-racio-projection-v2",
+            "ego_id": ego_id,
+            "through_measure_id": through_measure_id,
+            "chronology": chronology,
+            "facts": facts,
+            "statements": statements,
+            "commitments": commitments,
+            "causal_links": causal_links,
+            "evidence_measure_ids": evidence_measure_ids,
+            "derivation_status": "derived_from_trace",
+            "source_trace_hash": source_trace_hash,
+            "sourced_claims": sourced_claims,
+        }
+        projection_id = content_id("racio_projection", base)
+        payload = {"projection_id": projection_id, **base}
+        return cls(**payload, projection_hash=sha256_hex(payload))
 
     @model_validator(mode="after")
     def validate_evidence_boundary(self) -> Self:
         _validate_projection_evidence(self.through_measure_id, self.evidence_measure_ids)
+        self._validate_derivation()
         return self
+
+    def _validate_derivation(self) -> None:
+        _validate_claim_coverage(
+            claims=self.sourced_claims,
+            field_values={
+                "racio_chronology": self.chronology,
+                "racio_fact": self.facts,
+                "racio_statement": self.statements,
+                "racio_commitment": self.commitments,
+                "racio_causal_link": self.causal_links,
+            },
+            evidence_measure_ids=self.evidence_measure_ids,
+        )
+        _validate_derived_identity(
+            self,
+            id_field="projection_id",
+            id_prefix="racio_projection",
+            hash_field="projection_hash",
+        )
 
 
 class EmocioProjection(FrozenArtifactModel):
-    schema_version: Literal["rei-native-emocio-projection-v1"] = (
-        "rei-native-emocio-projection-v1"
+    schema_version: Literal["rei-native-emocio-projection-v2"] = (
+        "rei-native-emocio-projection-v2"
     )
     projection_id: NonEmptyId
     ego_id: NonEmptyId
@@ -396,16 +659,76 @@ class EmocioProjection(FrozenArtifactModel):
     rupture_motifs: tuple[str, ...] = ()
     desire_motifs: tuple[str, ...] = ()
     evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
+    derivation_status: DerivationStatus = "derived_from_trace"
+    source_trace_hash: HashDigest
+    sourced_claims: tuple[SourcedEgoClaim, ...]
+    projection_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        ego_id: NonEmptyId,
+        through_measure_id: NonEmptyId,
+        evidence_measure_ids: tuple[NonEmptyId, ...],
+        source_trace_hash: HashDigest,
+        sourced_claims: tuple[SourcedEgoClaim, ...],
+        recurring_scenes: tuple[str, ...] = (),
+        image_artifact_ids: tuple[NonEmptyId, ...] = (),
+        status_patterns: tuple[str, ...] = (),
+        belonging_motifs: tuple[str, ...] = (),
+        success_motifs: tuple[str, ...] = (),
+        rupture_motifs: tuple[str, ...] = (),
+        desire_motifs: tuple[str, ...] = (),
+    ) -> EmocioProjection:
+        base = {
+            "schema_version": "rei-native-emocio-projection-v2",
+            "ego_id": ego_id,
+            "through_measure_id": through_measure_id,
+            "recurring_scenes": recurring_scenes,
+            "image_artifact_ids": image_artifact_ids,
+            "status_patterns": status_patterns,
+            "belonging_motifs": belonging_motifs,
+            "success_motifs": success_motifs,
+            "rupture_motifs": rupture_motifs,
+            "desire_motifs": desire_motifs,
+            "evidence_measure_ids": evidence_measure_ids,
+            "derivation_status": "derived_from_trace",
+            "source_trace_hash": source_trace_hash,
+            "sourced_claims": sourced_claims,
+        }
+        projection_id = content_id("emocio_projection", base)
+        payload = {"projection_id": projection_id, **base}
+        return cls(**payload, projection_hash=sha256_hex(payload))
 
     @model_validator(mode="after")
     def validate_evidence_boundary(self) -> Self:
         _validate_projection_evidence(self.through_measure_id, self.evidence_measure_ids)
+        _validate_claim_coverage(
+            claims=self.sourced_claims,
+            field_values={
+                "emocio_recurring_scene": self.recurring_scenes,
+                "emocio_image_artifact": self.image_artifact_ids,
+                "emocio_status_pattern": self.status_patterns,
+                "emocio_belonging_motif": self.belonging_motifs,
+                "emocio_success_motif": self.success_motifs,
+                "emocio_rupture_motif": self.rupture_motifs,
+                "emocio_desire_motif": self.desire_motifs,
+            },
+            evidence_measure_ids=self.evidence_measure_ids,
+        )
+        _validate_derived_identity(
+            self,
+            id_field="projection_id",
+            id_prefix="emocio_projection",
+            hash_field="projection_hash",
+        )
         return self
 
 
 class InstinktProjection(FrozenArtifactModel):
-    schema_version: Literal["rei-native-instinkt-projection-v1"] = (
-        "rei-native-instinkt-projection-v1"
+    schema_version: Literal["rei-native-instinkt-projection-v2"] = (
+        "rei-native-instinkt-projection-v2"
     )
     projection_id: NonEmptyId
     ego_id: NonEmptyId
@@ -419,10 +742,73 @@ class InstinktProjection(FrozenArtifactModel):
     scarcity_patterns: tuple[str, ...] = ()
     recovery_patterns: tuple[str, ...] = ()
     evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
+    derivation_status: DerivationStatus = "derived_from_trace"
+    source_trace_hash: HashDigest
+    sourced_claims: tuple[SourcedEgoClaim, ...]
+    projection_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        ego_id: NonEmptyId,
+        through_measure_id: NonEmptyId,
+        evidence_measure_ids: tuple[NonEmptyId, ...],
+        source_trace_hash: HashDigest,
+        sourced_claims: tuple[SourcedEgoClaim, ...],
+        body_consequences: tuple[str, ...] = (),
+        dangers: tuple[str, ...] = (),
+        losses: tuple[str, ...] = (),
+        trust_patterns: tuple[str, ...] = (),
+        attachment_patterns: tuple[str, ...] = (),
+        boundary_patterns: tuple[str, ...] = (),
+        scarcity_patterns: tuple[str, ...] = (),
+        recovery_patterns: tuple[str, ...] = (),
+    ) -> InstinktProjection:
+        base = {
+            "schema_version": "rei-native-instinkt-projection-v2",
+            "ego_id": ego_id,
+            "through_measure_id": through_measure_id,
+            "body_consequences": body_consequences,
+            "dangers": dangers,
+            "losses": losses,
+            "trust_patterns": trust_patterns,
+            "attachment_patterns": attachment_patterns,
+            "boundary_patterns": boundary_patterns,
+            "scarcity_patterns": scarcity_patterns,
+            "recovery_patterns": recovery_patterns,
+            "evidence_measure_ids": evidence_measure_ids,
+            "derivation_status": "derived_from_trace",
+            "source_trace_hash": source_trace_hash,
+            "sourced_claims": sourced_claims,
+        }
+        projection_id = content_id("instinkt_projection", base)
+        payload = {"projection_id": projection_id, **base}
+        return cls(**payload, projection_hash=sha256_hex(payload))
 
     @model_validator(mode="after")
     def validate_evidence_boundary(self) -> Self:
         _validate_projection_evidence(self.through_measure_id, self.evidence_measure_ids)
+        _validate_claim_coverage(
+            claims=self.sourced_claims,
+            field_values={
+                "instinkt_body_consequence": self.body_consequences,
+                "instinkt_danger": self.dangers,
+                "instinkt_loss": self.losses,
+                "instinkt_trust_pattern": self.trust_patterns,
+                "instinkt_attachment_pattern": self.attachment_patterns,
+                "instinkt_boundary_pattern": self.boundary_patterns,
+                "instinkt_scarcity_pattern": self.scarcity_patterns,
+                "instinkt_recovery_pattern": self.recovery_patterns,
+            },
+            evidence_measure_ids=self.evidence_measure_ids,
+        )
+        _validate_derived_identity(
+            self,
+            id_field="projection_id",
+            id_prefix="instinkt_projection",
+            hash_field="projection_hash",
+        )
         return self
 
 
@@ -449,6 +835,8 @@ class ReflectionHypothesis(FrozenArtifactModel):
 
 
 __all__ = [
+    "DerivationStatus",
+    "EgoClaimKind",
     "EgoCompositionSnapshot",
     "EgoCorrectionEvent",
     "EgoMeasure",
@@ -459,5 +847,6 @@ __all__ = [
     "OutcomeRecord",
     "RacioProjection",
     "ReflectionHypothesis",
+    "SourcedEgoClaim",
     "SpoznanjeStatus",
 ]

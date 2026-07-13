@@ -5,6 +5,10 @@ from datetime import datetime, timezone
 import pytest
 from pydantic import ValidationError
 
+from app.backend.rei_next.ego import (
+    derive_composition_snapshot,
+    derive_modality_projections,
+)
 from app.backend.rei_next.ids import sha256_hex
 from app.backend.rei_next.models.character import (
     CharacterAuthority,
@@ -372,6 +376,9 @@ def _ego_measure(bundle: NativeMindBundle) -> EgoMeasure:
     return EgoMeasure.create(
         event_id="event_1",
         native_bundle_id=bundle.bundle_id,
+        native_bundle_hash=bundle.immutable_hash,
+        governance_resolution_id="governance_resolution_fixture",
+        governance_resolution_hash=mandate.content_hash(),
         structural_character=character,
         effective_authority=effective,
         acceptance_state=_acceptance(),
@@ -831,6 +838,9 @@ def test_translation_gap_is_internally_consistent_and_linked_to_measure() -> Non
         EgoMeasure.create(
             event_id=base.event_id,
             native_bundle_id=base.native_bundle_id,
+            native_bundle_hash=base.native_bundle_hash,
+            governance_resolution_id=base.governance_resolution_id,
+            governance_resolution_hash=base.governance_resolution_hash,
             structural_character=base.structural_character,
             effective_authority=base.effective_authority,
             acceptance_state=base.acceptance_state,
@@ -1066,33 +1076,10 @@ def test_core_artifacts_serialize_and_round_trip() -> None:
     trace = EgoTrace.create(ego_id="ego_1").append_measure(measure).append_correction(
         correction
     )
-    snapshot = EgoCompositionSnapshot(
-        snapshot_id="snapshot_1",
-        ego_id="ego_1",
-        through_measure_id=measure.measure_id,
-        current_section="začetek",
-        evidence_measure_ids=(measure.measure_id,),
-        created_at=NOW,
-    )
-    projections = (
-        RacioProjection(
-            projection_id="racio_projection_1",
-            ego_id="ego_1",
-            through_measure_id=measure.measure_id,
-            evidence_measure_ids=(measure.measure_id,),
-        ),
-        EmocioProjection(
-            projection_id="emocio_projection_1",
-            ego_id="ego_1",
-            through_measure_id=measure.measure_id,
-            evidence_measure_ids=(measure.measure_id,),
-        ),
-        InstinktProjection(
-            projection_id="instinkt_projection_1",
-            ego_id="ego_1",
-            through_measure_id=measure.measure_id,
-            evidence_measure_ids=(measure.measure_id,),
-        ),
+    snapshot = derive_composition_snapshot(trace)
+    projections = derive_modality_projections(
+        trace,
+        {bundle.bundle_id: bundle},
     )
     hypothesis = ReflectionHypothesis(
         hypothesis_id="hypothesis_1",

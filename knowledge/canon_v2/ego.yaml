@@ -1,6 +1,6 @@
 schema_version: rei-native-ego-v2
 status: architecture_canon
-runtime_effect: none_in_b1
+runtime_effect: active_from_b4
 canon_language: sl
 safety_boundary_claim_ids: [C-SAFETY-001, C-LIFE-001]
 
@@ -34,14 +34,18 @@ allowed_concepts:
   - RacioSelfNarrative
 
 measure_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b4
   name: EgoMeasure
+  schema_version: rei-native-ego-measure-v2
   status: implementation_hypothesis
   semantic_unit: one_cycle
   fields:
     - measure_id
     - event_id
     - native_bundle_id
+    - native_bundle_hash
+    - governance_resolution_id
+    - governance_resolution_hash
     - structural_character
     - effective_authority
     - acceptance_state
@@ -63,19 +67,23 @@ measure_contract:
   source_claim_ids: [C-RESULT-001, C-EGO-002, C-GOV-001, C-BEHAV-001]
 
 trace_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b4
   name: EgoTrace
   status: implementation_hypothesis
-  fields: [ego_id, measures]
+  fields: [ego_id, measures, corrections, event_order, trace_hash]
   append_only: true
   previous_measure_mutation: forbidden
   correction_method: append_correction_event
   each_measure_has_hash: true
   reproducible: true
+  stores: [InMemoryEgoTraceStore, FileEgoTraceStore]
+  optimistic_conflict_check: expected_trace_hash
+  file_write: locked_atomic_replace_with_fsync
+  tamper_detection: pydantic_contract_and_content_hashes
   source_claim_ids: [C-EGO-002, C-EGO-003, C-PROV-001]
 
 composition_snapshot_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b4
   name: EgoCompositionSnapshot
   status: implementation_hypothesis
   fields:
@@ -91,13 +99,33 @@ composition_snapshot_contract:
     - relationship_patterns
     - current_section
     - evidence_measure_ids
+    - source_trace_hash
+    - sourced_claims
+    - composition_hash
   derived_from_trace: true
+  unverified_snapshot_allowed: false
+  each_published_assertion_has_measure_ids: true
+  deterministic_policy:
+    status: implementation_hypothesis
+    exact_token_matching_only: true
+    recurring_conflict_minimum_distinct_measures: 2
+    recurring_translation_error_minimum_distinct_measures: 2
+    relationship_pattern_minimum_distinct_measures: 2
+    current_section: append_order_measure_count
+    created_at: latest_measure_timestamp
+    corrections_rewrite_measures: false
   source_of_truth: false
   agent: false
   source_claim_ids: [C-EGO-002, C-EGO-003]
 
 projections:
+  contract_status: implemented_in_b4
   status: implementation_hypothesis
+  derived_from_trace: true
+  unverified_projection_allowed: false
+  each_published_assertion_has_measure_ids: true
+  source_trace_hash_required: true
+  content_addressed: true
   RacioProjection:
     carries: [chronology, facts, statements, commitments, causal_links]
   EmocioProjection:
@@ -125,6 +153,7 @@ projections:
 reflector_boundary:
   status: implementation_hypothesis
   optional: true
+  implemented_in_b4: false
   output_type: ReflectionHypothesis
   must_cite_measure_ids: true
   may_change_current_native_conclusion: false

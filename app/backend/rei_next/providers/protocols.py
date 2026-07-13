@@ -387,12 +387,20 @@ class EgoTraceStore(Protocol):
     @property
     def identity(self) -> ProviderIdentity: ...
 
-    def append_measure(self, ego_id: NonEmptyId, measure: EgoMeasure) -> None: ...
+    def append_measure(
+        self,
+        ego_id: NonEmptyId,
+        measure: EgoMeasure,
+        *,
+        expected_trace_hash: HashDigest | None = None,
+    ) -> None: ...
 
     def append_correction(
         self,
         ego_id: NonEmptyId,
         correction: EgoCorrectionEvent,
+        *,
+        expected_trace_hash: HashDigest | None = None,
     ) -> None: ...
 
     def load_trace(self, ego_id: NonEmptyId) -> EgoTrace: ...
