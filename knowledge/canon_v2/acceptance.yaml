@@ -1,6 +1,6 @@
 schema_version: rei-native-acceptance-v2
 status: architecture_canon
-runtime_effect: none_in_b1
+runtime_effect: active_from_b9
 canon_language: sl
 
 definition:
@@ -62,17 +62,22 @@ state_contract:
   source_claim_ids: [C-ACCEPT-003]
 
 translation_gap_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b9
+  schema_origin: documented_for_b2
   status: implementation_hypothesis
+  consolidated_contract: knowledge/canon_v2/communication.yaml
   name: TranslationGap
   fields:
     - source_mind
     - native_option_id
     - interpreted_option_id
+    - native_action_tendency
+    - interpreted_action_tendency
     - native_motive_summary
     - interpreted_motive
     - option_match
     - motive_fidelity
+    - fidelity_components
     - distortion_type
   source_minds: [E, I]
   distortion_types:
@@ -85,7 +90,47 @@ translation_gap_contract:
     - unknown
   visible_to_racio_as_ground_truth: false
   stored_in_diagnostic_trace: true
+  b9_exact_metric_policy: b9-exact-action-tendency-fidelity-v1
+  b9_metric_components:
+    count: 1
+    facet: action_tendency
+    weight: 1.0
+  motive_fidelity_field_semantics: exact_action_tendency_component_score_only
+  native_and_interpreted_motive_strings: diagnostic_only
+  b9_distortion_policy: b9-exact-distortion-classifier-v1
+  semantic_or_partial_motive_fidelity_is_not_measured_in_b9: true
+  b9_content_lineage:
+    - source_native_conclusion_id_and_hash
+    - interpretation_id_and_hash
+    - metric_policy_id
+    - distortion_policy_id
   source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003]
+
+b9_acceptance_fidelity_audit:
+  status: implementation_hypothesis
+  policy_id: b9-acceptance-fidelity-record-only-v1
+  consolidated_contract: knowledge/canon_v2/communication.yaml
+  observer: Racio
+  relation_for_source_E: R_to_E
+  relation_for_source_I: R_to_I
+  reverse_source_to_R_relation_used: false
+  recorded_relation_dimension: interpretation_fidelity
+  composite_score: null
+  thresholds: null
+  changes_observations_interpretation_gap_governance_or_behavior: false
+  monotonic_or_causal_claim: false
+  general_mapping_remains_open: true
+  source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-ACCEPT-003, C-STATE-001]
+
+b9_high_fidelity_plan_test_boundary:
+  status: implementation_hypothesis
+  plan_test_name: test_high_fidelity_reduces_translation_gap
+  record_only_audit_proves_monotonicity: false
+  permitted_scope: explicitly_scripted_controlled_fixture_pair
+  fixture_result_is_universal_psychological_claim: false
+  exact_scripts_acceptance_states_and_expected_gaps_must_be_visible: true
+  open_question_ids: [OQ-TRANSLATION-001, OQ-ACCEPTANCE-001, OQ-ACCEPTANCE-002]
+  source_claim_ids: [C-ACCEPT-003, C-RACIO-003]
 
 coordination_examples:
   accepting_disagreement:

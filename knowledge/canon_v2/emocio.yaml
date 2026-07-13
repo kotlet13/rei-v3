@@ -143,8 +143,10 @@ native_conclusion_contract:
   source_claim_ids: [C-EMOCIO-003, C-BUNDLE-001]
 
 manifestation_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b9
+  schema_origin: documented_for_b2
   status: implementation_hypothesis
+  consolidated_contract: knowledge/canon_v2/communication.yaml
   fields:
     - visible_image_artifact_ids
     - attraction_intensity
@@ -153,6 +155,11 @@ manifestation_contract:
     - motor_urge
     - social_pull
   is_complete_native_conclusion: false
+  b9_projection_policy: b9_fixture_emocio_projection_v1
+  b9_structured_observation_policy: b9-structured-observation-v1
+  projection_formulas_are_empirically_calibrated: false
+  renderer_failure_or_no_image_still_allows_manifestation: true
+  native_conclusion_may_be_mutated: false
   source_claim_ids: [C-CONSC-001, C-EMOCIO-003]
 
 renderer_boundary:

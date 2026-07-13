@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract
+Scope: B1 documentation contract; B9 record-only communication audit
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -45,6 +45,20 @@ Controlled simulations receive `AcceptanceState` explicitly. The first implement
 5. Sabotage affects coordination/behavior, not authority.
 6. Controlled tests do not infer acceptance from prose keywords.
 7. Translation diagnostic ground truth is hidden from RacioInterpreter.
+
+## B9 record-only audit note
+
+B9 uses only the frozen `R_to_E` or `R_to_I` relation, with Racio as observer,
+for the corresponding source-mind assessment. This is a record-only link with
+`implementation_hypothesis` status. It computes no composite score or threshold
+and cannot filter observations, alter an interpreter prompt or output, change a
+`TranslationGap`, or affect governance or behavior.
+
+The plan's `test_high_fidelity_reduces_translation_gap` is permitted only as a
+fully disclosed controlled pair of scripted fixtures. It cannot prove a general
+monotonic or causal relationship. Semantic mapping remains open under
+`OQ-TRANSLATION-001` and `OQ-ACCEPTANCE-001`/`002`; model-backed interpretation
+and behavior mapping remain outside B9.
 
 ## Claim trace
 

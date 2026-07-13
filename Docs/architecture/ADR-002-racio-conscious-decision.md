@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract; B5 native Racio implementation
+Scope: B1 documentation contract; B5 native Racio implementation; B9 interpreter contract
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -54,6 +54,20 @@ facts. The deterministic provider is an explicitly positional infrastructure
 fixture, not a semantic decision model. The optional `TextReasoner` adapter
 accepts strict JSON and records the provider result ID and hash. No concrete LLM
 is selected in B5, and interpreter, committer and narrator remain downstream.
+
+## B9 interpreter-contract note
+
+B9 specifies only `RacioInterpreter` and its separate `TranslationGap`
+evaluator. The consolidated contract is
+`knowledge/canon_v2/communication.yaml`. The interpreter receives bounded E/I
+manifestations and public observations, never the conclusion bundle, native
+conclusions, gap or hidden motive. A wrong, partial or absent translation stays
+observable. The no-provider scripted fixture and exact typed action-tendency
+comparison are replaceable `implementation_hypothesis` policies; motive strings
+remain diagnostic. No local LLM, GPU-backed interpreter or model is selected
+or called. The no-model fake VLM is only a lineage fixture for visible Emocio
+images and cannot supply native truth. Committer, narrator, conscious decision
+and behavior remain outside B9.
 
 ## Claim trace
 

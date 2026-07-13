@@ -1,0 +1,511 @@
+schema_version: rei-native-communication-v2
+status: architecture_canon
+runtime_effect: active_from_b9
+canon_language: sl
+phase: B9
+
+claim_boundary:
+  canonical_sl: >-
+    B9 loči omejeno manifestacijo Emocia ali Instinkta, Racijevo zmotljivo
+    interpretacijo in naknadno diagnostično vrzel prevoda. Vse konkretne
+    projekcijske formule, fixture politike in metrične oznake v
+    tem dokumentu so implementation_hypothesis, ne univerzalna psihološka ali
+    vzročna trditev.
+  direct_source_boundary:
+    - E_and_I_are_not_directly_conscious
+    - conscious_access_to_E_and_I_is_mediated_by_Racio
+    - acceptance_supports_cooperation_tolerance_and_delegation
+  software_operationalizations:
+    - manifestation_schemas
+    - observation_serialization
+    - interpreter_protocols
+    - translation_gap_metric
+    - distortion_classifier
+    - acceptance_fidelity_audit
+  empirical_psychology_claim: false
+  medical_or_diagnostic_claim: false
+  source_claim_ids: [C-CONSC-001, C-ACCEPT-001, C-SAFETY-001]
+
+canonical_sequence:
+  status: architecture_invariant
+  ordered_steps:
+    - freeze_EmocioNativeConclusion_and_artifacts
+    - freeze_InstinktNativeConclusion_and_artifacts
+    - freeze_NativeMindBundle
+    - build_limited_E_and_I_manifestations
+    - Racio_interprets_manifestations
+    - evaluator_builds_TranslationGap
+  interpretation_creates_or_mutates_native_conclusion: false
+  translation_gap_is_interpreter_input: false
+  source_claim_ids: [C-BUNDLE-001, C-EMOCIO-003, C-INSTINKT-003, C-CONSC-001]
+
+responsibility_boundary:
+  status: architecture_invariant
+  implemented_or_specified_in_b9:
+    - EmocioManifestation_projection
+    - InstinktManifestation_consumption
+    - ManifestationObservation_projection
+    - ManifestationInterpreter_protocol
+    - scripted_no_provider_interpreter_fixture
+    - deterministic_no_model_FakeVisionLanguageInterpreter
+    - RacioInterpretation
+    - AcceptanceFidelityAudit
+    - TranslationGap_diagnostic_evaluator
+  excluded_until_b10:
+    - RacioCommitter
+    - RacioNarrator
+    - ConsciousDecision
+    - BehaviorResultant
+    - behavior_resolution_table
+    - governance_to_conscious_commit_mapping
+  source_claim_ids: [C-RACIO-003, C-CONSC-003, C-BEHAV-001]
+
+interpreter_input_boundary:
+  status: architecture_invariant
+  allowed_semantic_inputs:
+    - EmocioManifestation
+    - InstinktManifestation
+    - ManifestationObservation
+    - public_language_code
+    - explicitly_declared_public_option_scope_if_configured
+  prohibited_types_and_ground_truth:
+    - NativeMindBundle
+    - EmocioNativeConclusion
+    - InstinktNativeConclusion
+    - TranslationGap
+    - native_motive_summary
+    - hidden_native_motive
+    - internal_association
+    - CharacterAuthority
+    - character_profile
+    - authority_tiers
+    - GovernanceMandate_as_interpretation_hint
+    - diagnostic_distortion_label
+  chain_of_thought_required_or_exposed: false
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-BUNDLE-001]
+
+manifestation_contract:
+  contract_status: implemented_in_b9
+  status: implementation_hypothesis
+  meaning: limited_observable_projection_not_complete_native_conclusion
+  output_scores_range: [0.0, 1.0]
+  missing_required_score_silently_defaults_to_neutral: false
+  source_claim_ids: [C-CONSC-001, C-EMOCIO-003, C-INSTINKT-003, C-STATE-001]
+
+emocio_projection_policy:
+  policy_id: b9_fixture_emocio_projection_v1
+  status: implementation_hypothesis
+  claim_boundary: >-
+    To je deterministična fixture projekcija obstoječih strukturiranih B6
+    vrednosti. Poimenovanja attraction, aversion, anger in social pull niso
+    empirično kalibrirana čustvena merila.
+  selected_conclusion:
+    attraction_intensity: >-
+      conclusion.intensity when action_tendency is one of approach, perform,
+      compete, connect, or improvise; otherwise 0.0
+    aversion_intensity: >-
+      conclusion.intensity when action_tendency is attack or withdraw_contact;
+      otherwise 0.0
+    anger_intensity: >-
+      conclusion.intensity when action_tendency is attack; otherwise 0.0
+    motor_urge: structured_tendency:{action_tendency}
+    social_pull: >-
+      structured_social_pull:toward_connection for connect;
+      structured_social_pull:away_from_contact for withdraw_contact;
+      structured_social_pull:unspecified otherwise
+  abstaining_conclusion:
+    attraction_intensity: 0.0
+    aversion_intensity: 0.0
+    anger_intensity: 0.0
+    motor_urge: structured_tendency:unknown
+    social_pull: structured_social_pull:unspecified
+    zero_semantics: no_projected_signal_not_neutral_psychology
+  visible_image_selection:
+    eligible_source_specs:
+      - current_scene_id
+      - desired_scene_id
+      - decisive_rollout_scene_id_when_present
+    select_all_valid_supplied_images: true
+    canonical_order: image_id_ascending
+    duplicate_image_ids_rejected: true
+    no_image_or_renderer_failure_yields: []
+    generated_images_are_grounded: false
+    image_is_required_for_manifestation: false
+  lineage:
+    source_conclusion_id_and_hash_required: true
+    visible_image_ids_and_hashes_required_when_present: true
+    manifestation_content_id_and_hash_required: true
+    native_conclusion_may_be_mutated: false
+  source_claim_ids: [C-CONSC-001, C-EMOCIO-003, C-EMOCIO-004, C-PROV-001]
+
+instinkt_projection_policy:
+  policy_id: b8-instinkt-manifestation-v1
+  status: implementation_hypothesis
+  behavior_in_b9: consume_and_validate_without_recomputing_native_conclusion
+  formula_source: knowledge/canon_v2/instinkt.yaml#b8_manifestation
+  source_conclusion_body_state_and_decisive_rollout_lineage_required: true
+  source_claim_ids: [C-CONSC-001, C-INSTINKT-003, C-PROV-001]
+
+structured_observation_policy:
+  contract_status: implemented_in_b9
+  policy_id: b9-structured-observation-v1
+  status: implementation_hypothesis
+  manifestation_order: [E, I]
+  within_mind_manifestation_order: manifestation_id_ascending
+  content_encoding: field_name=canonical_json_scalar
+  score_rounding_added_by_b9: false
+  emocio_field_order:
+    - attraction_intensity
+    - aversion_intensity
+    - anger_intensity
+    - motor_urge
+    - social_pull
+  emocio_visible_image_order: image_id_ascending_after_structured_fields
+  emocio_visible_image_observation:
+    content_encoding: visible_image_artifact_id={image_id}
+    provenance: renderer_added_ungrounded
+    source_image_artifact_id_required: true
+    semantic_caption_implied: false
+  optional_emocio_renderer_interpretation_observation:
+    canonical_order: after_visible_image_identity_observations
+    value_fields: [interpretation, inferred_claims]
+    provenance: renderer_added_ungrounded
+    same_visible_image_id_and_hash_required: true
+    provider_result_id_and_hash_required: true
+    generated_detail_becomes_grounded: false
+  instinkt_field_order:
+    - felt_tension
+    - fear_intensity
+    - attachment_pull
+    - withdrawal_urge
+    - freeze_intensity
+    - boundary_alarm
+    - raw_urge
+  manifested_field_provenance: manifested
+  instinkt_may_cite_image_artifact: false
+  source_claim_ids: [C-CONSC-001, C-PROV-001]
+
+manifestation_observation_invariants:
+  status: architecture_invariant
+  manifestation_ids_nonempty_unique_and_exact_scope: true
+  manifested_observation_may_cite_image: false
+  renderer_added_ungrounded_must_cite_image: true
+  cited_image_must_be_visible_in_same_EmocioManifestation: true
+  renderer_added_observation_allowed_for_Instinkt: false
+  generated_observation_may_become_grounded_evidence: false
+  source_claim_ids: [C-CONSC-001, C-EMOCIO-004, C-PROV-001]
+
+racio_interpretation_contract:
+  contract_status: implemented_in_b9
+  status: implementation_hypothesis
+  source_minds: [E, I]
+  required_fields:
+    - interpretation_id
+    - interpretation_hash
+    - source_mind
+    - observed_manifestation_ids_and_hashes
+    - observed_manifestations
+    - inferred_option_id
+    - inferred_action_tendency
+    - inferred_motive
+    - confidence
+    - alternative_hypotheses
+    - interpreter_policy_or_provider_lineage
+  confidence_range: [0.0, 1.0]
+  confidence_empirically_calibrated: false
+  confidence_changes_authority: false
+  may_be_correct_partial_or_wrong: true
+  validation_may_correct_output_using_native_ground_truth: false
+  all_observed_manifestations_must_match_source_mind_type: true
+  content_addressed: true
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-PROV-001]
+
+public_option_scope_policy:
+  policy_id: b9-public-option-scope-v1
+  status: implementation_hypothesis
+  default: no_option_vocabulary_is_added_beyond_observable_input
+  optional_scope_must_be_explicit_and_content_addressed: true
+  optional_scope_source_may_be_public_scene_options: true
+  optional_scope_may_reveal_which_option_native_selected_or_why: false
+  inferred_option_outside_configured_public_scope_rejected: true
+  source_claim_ids: [C-NATIVE-002, C-CONSC-001, C-PROV-001]
+
+scripted_interpreter_fixture:
+  contract_status: implemented_in_b9
+  policy_id: b9-scripted-observable-interpretation-v1
+  status: implementation_hypothesis
+  purpose: deterministic_no_provider_infrastructure_and_wrong_translation_tests
+  production_reasoner: false
+  semantic_model: false
+  input:
+    - exact_manifestation_ids_and_hashes
+    - exact_structured_observations
+    - explicit_scripted_inferred_option_id
+    - explicit_scripted_inferred_action_tendency
+    - explicit_scripted_inferred_motive
+    - explicit_scripted_confidence
+    - explicit_scripted_alternative_hypotheses
+  behavior:
+    - validate_observable_scope_and_provenance
+    - copy_explicit_scripted_interpretation_without_ground_truth_correction
+    - hash_script_configuration_in_interpreter_policy_and_content_address_result
+  keyword_or_sentiment_scoring: false
+  hidden_native_access: false
+  local_llm_called: false
+  gpu_used: false
+  model_selected: false
+  source_claim_ids: [C-RACIO-003, C-CONSC-001, C-PROV-001]
+
+model_backed_interpreter_boundary:
+  status: implementation_hypothesis
+  runtime_in_b9: typed_RacioInterpreter_plus_no_model_FakeVisionLanguageInterpreter
+  protocol_decision: typed_RacioInterpreter_not_free_text_ground_truth_bridge
+  existing_provider_primitives_may_be_reused_for_call_lineage: true
+  strict_structured_output: true
+  extra_fields_rejected: true
+  required_call_lineage:
+    - provider_implementation_and_revision
+    - model_and_immutable_revision_when_model_backed
+    - seed_when_model_backed
+    - explicit_parameters
+    - positive_timeout
+    - explicit_fallback_policy
+    - request_spec_record_result_ids_and_hashes
+    - exact_input_artifact_ids
+  failed_or_timed_out_call_publishes_interpretation: false
+  concrete_provider_selected: false
+  concrete_model_selected: false
+  fake_vlm:
+    contract_status: implemented_in_b9
+    provider_kind: vision_language
+    uses_model: false
+    input_scope: visible_Emocio_image_artifact_ids_only
+    output_provenance: renderer_added_ungrounded
+    exact_request_call_record_result_lineage: true
+    safe_processor_accepts_validated_enrichment: true
+    actual_provider_or_model_invocation: false
+  local_llm_called_in_b9: false
+  gpu_used_in_b9: false
+  source_claim_ids: [C-PROV-001, C-RACIO-003]
+
+acceptance_fidelity_audit:
+  contract_status: implemented_in_b9
+  policy_id: b9-acceptance-fidelity-record-only-v1
+  status: implementation_hypothesis
+  input_is_explicit_AcceptanceState: true
+  observer: Racio
+  for_source_E_uses_relation: R_to_E
+  for_source_I_uses_relation: R_to_I
+  reverse_source_to_R_relation_used_by_assessment: false
+  recorded_relation_dimension: interpretation_fidelity
+  composite_score: null
+  thresholds: null
+  selects_or_filters_observations: false
+  changes_script_or_provider_prompt: false
+  changes_inferred_option_motive_confidence_or_gap: false
+  changes_character_governance_or_behavior: false
+  causal_or_monotonic_fidelity_claim: false
+  content_addressed_audit_links_acceptance_state_and_translation_gap: true
+  source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-ACCEPT-003, C-STATE-001]
+
+plan_high_fidelity_test_boundary:
+  plan_test_name: test_high_fidelity_reduces_translation_gap
+  status: implementation_hypothesis
+  record_only_audit_proves_monotonicity: false
+  universal_psychological_or_causal_claim: false
+  permitted_controlled_fixture_interpretation: >-
+    Test lahko uporabi vnaprej deklariran par scripted interpretacij, pri
+    katerem se high-fidelity fixture namenoma ujema v tipizirani action tendency,
+    low-fidelity fixture pa se namenoma ne ujema. Tak test preveri pipeline,
+    provenance in pričakovano razliko tega para, ne dokazuje, da AcceptanceState
+    numerično povzroča manjšo vrzel v splošnem.
+  required_fixture_disclosure:
+    - exact_acceptance_states
+    - exact_scripts
+    - exact_expected_gaps
+    - no_hidden_threshold_or_keyword_rule
+  recommended_precise_test_name: test_scripted_high_fidelity_fixture_has_smaller_exact_gap
+  general_mapping_remains_open_under:
+    - OQ-TRANSLATION-001
+    - OQ-ACCEPTANCE-001
+    - OQ-ACCEPTANCE-002
+  source_claim_ids: [C-ACCEPT-003, C-RACIO-003]
+
+exact_action_tendency_fidelity_metric:
+  policy_id: b9-exact-action-tendency-fidelity-v1
+  status: implementation_hypothesis
+  components:
+    count: 1
+    facet: action_tendency
+    weight: 1.0
+    native_value: native_conclusion.action_tendency
+    interpreted_value: RacioInterpretation.inferred_action_tendency
+  exact_metric_formula: >-
+    component score = 1.0 iff the typed native and interpreted action tendencies
+    are exactly equal; otherwise 0.0
+  interpreted_null_score: 0.0
+  text_normalization_or_fuzzy_matching: false
+  schema_field_motive_fidelity: mirrors_the_single_action_tendency_component_score
+  schema_field_name_is_semantic_motive_claim: false
+  empirical_or_semantic_motive_fidelity_claim: false
+  source_claim_ids: [C-RACIO-003, C-ACCEPT-003]
+
+native_motive_summary_policy:
+  policy_id: b9-native-motive-summary-v1
+  status: implementation_hypothesis
+  diagnostic_evaluator_only: true
+  Emocio: conclusion.desired_transformation
+  Instinkt: conclusion.minimum_safety_condition
+  empty_summary_replacement: unknown
+  interpreter_may_receive_summary: false
+  llm_summarization: false
+  native_and_interpreted_motive_strings_are_diagnostic_only: true
+  motive_strings_contribute_to_b9_fidelity_score: false
+  semantic_motive_fidelity_claim: false
+  source_claim_ids: [C-CONSC-001, C-RACIO-003]
+
+option_and_abstention_semantics:
+  policy_id: b9-option-comparison-v1
+  status: implementation_hypothesis
+  inferred_option_id_null_means: interpreter_made_no_option_inference
+  inferred_option_id_null_does_not_mean:
+    - provider_failure
+    - proof_that_native_mind_abstained
+    - high_fidelity
+  provider_failure: separate_attempt_outcome_without_RacioInterpretation
+  native_null_and_interpreted_null:
+    B2_option_match_boolean: true
+    option_comparison_applicable: false
+    distortion_type_for_evaluated_comparison: unknown
+    automatic_motive_fidelity_or_translation_success: false
+  native_nonnull_and_interpreted_null: >-
+    omission when interpretation status is omitted_b9 or unavailable_b9;
+    otherwise misclassification
+  native_null_and_interpreted_nonnull: misclassification
+  different_nonnull_options: misclassification
+  source_claim_ids: [C-CONSC-001, C-RACIO-003]
+
+distortion_classification_policy:
+  policy_id: b9-exact-distortion-classifier-v1
+  status: implementation_hypothesis
+  ordered_rules:
+    - when: interpretation_status_is_omitted_b9_or_unavailable_b9
+      distortion_type: omission
+    - when: native_option_and_interpreted_option_are_both_null
+      distortion_type: unknown
+    - when: option_match_and_exact_action_tendency_fidelity_is_1
+      distortion_type: none
+    - when: option_mismatch_or_exact_action_tendency_fidelity_is_0
+      distortion_type: misclassification
+    - when: otherwise
+      distortion_type: unknown
+  never_auto_inferred_by_v1:
+    - rationalization
+    - minimization
+    - projection
+  richer_type_requires_explicit_evaluator_evidence: true
+  keyword_classification: false
+  psychological_diagnosis: false
+  source_claim_ids: [C-RACIO-003, C-ACCEPT-003, C-SAFETY-001]
+
+translation_gap_contract:
+  contract_status: implemented_in_b9
+  status: implementation_hypothesis
+  diagnostic_only: true
+  visible_to_interpreter_as_ground_truth: false
+  required_lineage:
+    - source_mind
+    - source_native_conclusion_id_and_hash
+    - interpretation_id_and_hash
+    - metric_policy_id
+    - distortion_policy_id
+  option_match_must_equal_recorded_id_equality: true
+  exact_typed_fidelity_component:
+    count: 1
+    facet: action_tendency
+    weight: 1.0
+  motive_fidelity_range: [0.0, 1.0]
+  motive_fidelity_field_semantics: exact_action_tendency_component_score_only
+  native_and_interpreted_motive_strings: diagnostic_only
+  content_addressed: true
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003, C-PROV-001]
+
+content_lineage_policy:
+  policy_id: b9-communication-lineage-v1
+  status: implementation_hypothesis
+  canonical_serialization: B2_canonical_UTF8_JSON
+  digest: SHA-256
+  required_artifact_ids_and_hashes:
+    - source_native_conclusion_for_manifestation_only
+    - manifestation
+    - visible_image_when_present
+    - structured_observation_set
+    - scripted_interpreter_configuration_hash_or_provider_result
+    - RacioInterpretation
+    - AcceptanceFidelityAudit
+    - TranslationGap
+  canonical_orders:
+    - source_mind_E_then_I
+    - manifestation_id_ascending_within_mind
+    - fixed_structured_field_order
+    - image_id_ascending
+    - alternative_hypotheses_preserve_declared_script_or_provider_order
+  same_artifact_id_with_different_content_rejected: true
+  source_claim_ids: [C-PROV-001, C-BUNDLE-001]
+
+open_semantic_calibration:
+  status: open_question
+  preserved_questions:
+    - empirical_meaning_and_calibration_of_interpretation_confidence
+    - semantic_or_partial_motive_fidelity_not_measured_by_B9
+    - causal_mapping_from_acceptance_relations_to_interpretation_quality
+    - causal_meaning_of_the_selected_R_to_source_relation
+    - visibility_thresholds_or_filtering
+    - aggregation_across_multiple_manifestations_or_cycles
+    - weighting_of_structured_signals_against_ungrounded_generated_images
+    - reliable_evidence_for_rationalization_minimization_or_projection
+    - derivation_of_AcceptanceState_overall_mode
+    - conflict_carryover_schema
+    - production_interpreter_model_provider_prompt_and_language_policy
+  no_B9_fixture_rule_resolves_these_questions: true
+  open_question_ids:
+    - OQ-RANGE-001
+    - OQ-TRANSLATION-001
+    - OQ-ACCEPTANCE-001
+    - OQ-ACCEPTANCE-002
+
+b9_exit_gates:
+  - communication_canon_exists_and_marks_every_fixture_rule_as_implementation_hypothesis
+  - E_and_I_native_conclusions_precede_manifestations_and_interpretation
+  - interpreter_type_graph_excludes_bundle_native_conclusions_gap_hidden_motive_and_character
+  - deliberately_wrong_scripted_interpretation_is_representable_and_not_ground_truth_corrected
+  - separate_gap_evaluator_can_measure_the_wrong_interpretation
+  - renderer_added_observation_is_ungrounded_and_bound_to_same_visible_Emocio_image
+  - fake_VLM_result_is_bound_to_exact_call_and_enters_only_the_safe_Emocio_processor_path
+  - Instinkt_interpretation_cannot_cite_image
+  - acceptance_fidelity_is_record_only_and_never_changes_character_governance_or_interpretation
+  - fidelity_uses_one_exact_typed_action_tendency_component_and_not_motive_text
+  - record_only_audit_is_not_reported_as_proof_of_high_fidelity_monotonicity
+  - native_bundle_hash_is_identical_before_and_after_communication
+  - failed_provider_attempt_publishes_no_interpretation_result
+  - no_local_LLM_GPU_or_model_call_occurs_in_B9
+  - B10_committer_narrator_conscious_decision_and_behavior_are_absent
+
+global_invariants:
+  - canonical_sl: Manifestacija ni celotni skriti nativni sklep.
+    source_claim_ids: [C-CONSC-001, C-EMOCIO-003, C-INSTINKT-003]
+  - canonical_sl: Racijeva interpretacija je zmotljiv nov artefakt in ne mutira native bundlea.
+    source_claim_ids: [C-RACIO-003, C-BUNDLE-001]
+  - canonical_sl: TranslationGap je diagnostičen in nikoli ground truth vhod interpreterja.
+    source_claim_ids: [C-CONSC-001, C-ACCEPT-003]
+  - canonical_sl: Acceptance fidelity v B9 je samo record-only audit brez vzročne formule.
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-003]
+  - canonical_sl: Nobena B9 metrika ne spremeni structural_character ali authority_tiers.
+    source_claim_ids: [C-ACCEPT-002, C-STATE-001]
+
+open_question_ids:
+  - OQ-RANGE-001
+  - OQ-TRANSLATION-001
+  - OQ-ACCEPTANCE-001
+  - OQ-ACCEPTANCE-002
+  - OQ-PROVIDER-001

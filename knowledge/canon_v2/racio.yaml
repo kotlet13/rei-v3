@@ -115,15 +115,26 @@ native_conclusion_contract:
   source_claim_ids: [C-RACIO-002, C-NATIVE-002, C-BUNDLE-001]
 
 interpretation_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b9
+  schema_origin: documented_for_b2
   status: implementation_hypothesis
+  consolidated_contract: knowledge/canon_v2/communication.yaml
   fields:
     - source_mind
+    - observed_manifestation_ids
     - observed_manifestations
     - inferred_option_id
+    - inferred_action_tendency
     - inferred_motive
     - confidence
     - alternative_hypotheses
+  b9_lineage_extensions:
+    - source_request_id_and_hash
+    - interpretation_hash
+    - observed_manifestation_hashes
+    - structured_observation_ids_and_hashes
+    - interpreter_id_revision_and_policy_with_script_configuration_hash
+    - optional_ungrounded_VLM_result_id_and_hash
   source_minds: [E, I]
   observes:
     - manifestation_artifact_ids
@@ -137,9 +148,31 @@ interpretation_contract:
     - misclassification
     - unknown
   forbidden_ground_truth:
+    - NativeMindBundle
+    - EmocioNativeConclusion
+    - InstinktNativeConclusion
     - hidden_native_motives
     - diagnostic_translation_gap
+    - native_motive_summary
+    - character_profile
+    - authority_tiers
+  concrete_model_selected_or_called_in_b9: false
+  local_llm_or_gpu_called_in_b9: false
   source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003]
+
+b9_interpreter_policy:
+  status: implementation_hypothesis
+  canonical_contract: knowledge/canon_v2/communication.yaml
+  deterministic_reference: b9-scripted-observable-interpretation-v1
+  reference_is_production_reasoner: false
+  wrong_interpretation_must_remain_representable: true
+  validation_may_correct_from_native_ground_truth: false
+  acceptance_fidelity_behavior: record_only_audit
+  acceptance_relation_by_source: {E: R_to_E, I: R_to_I}
+  exact_fidelity_policy: b9-exact-action-tendency-fidelity-v1
+  motive_strings_are_diagnostic_only: true
+  commit_narration_and_behavior_included: false
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-BUNDLE-001]
 
 conscious_decision_contract:
   contract_status: documented_for_b2

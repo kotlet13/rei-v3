@@ -459,6 +459,8 @@ b8_protective_policy:
 b8_manifestation:
   phase: B8
   status: implementation_hypothesis
+  b9_communication_contract: knowledge/canon_v2/communication.yaml
+  b9_behavior: consume_and_validate_without_recomputing_native_conclusion
   source_body_state:
     selected_policy: decisive_rollout_final_state
     abstention: original_source_body_state

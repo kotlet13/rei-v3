@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract; B5–B8 native processor and renderer implementations
+Scope: B1 documentation contract; B5–B8 native processor and renderer implementations; B9 communication contract
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -201,6 +201,25 @@ records, conclusion and—when selected—decisive rollout. Manifestation expose
 only a structured tendency label rather than an inner monologue. All artifacts
 are frozen, and neither body dynamics nor memory can modify structural
 character or authority tiers.
+
+## B9 communication-contract note
+
+B9 consolidates manifestation, interpretation and diagnostic comparison in
+`knowledge/canon_v2/communication.yaml`. Emocio and Instinkt expose only bounded
+manifestations after their native conclusions are frozen. Emocio projection,
+structured observation, content lineage, scripted interpretation, exact typed
+action-tendency fidelity and distortion classification are replaceable
+`implementation_hypothesis` policies. Images remain ungrounded, while B8's
+Instinkt manifestation is consumed without recomputing its conclusion.
+
+The same contract excludes native conclusions, the bundle, gap and hidden
+motive from `RacioInterpreter`; preserves wrong or absent translation; and uses
+only `R_to_E` or `R_to_I` for a record-only acceptance audit. It selects or
+calls no local LLM, GPU-backed interpreter or model. A deterministic no-model
+`FakeVisionLanguageInterpreter` only proves exact provider lineage for visible
+Emocio image IDs; its text remains explicitly renderer-added and ungrounded.
+Semantic calibration stays open, and committer, narrator, conscious decision
+and behavior remain outside B9.
 
 ## Claim trace
 

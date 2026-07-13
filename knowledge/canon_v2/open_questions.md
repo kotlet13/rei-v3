@@ -166,6 +166,50 @@ preveri še ujemanje source-mind tipa, manifestation ID-ja in to, da je citirana
 renderer-added slika res vidna v isti Emocio manifestaciji. Merilo kakovosti
 prevoda ostaja odprto.
 
+### B9 dokumentacijska odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, pogodba in omejeni B9 runtime sta
+implementirana. Konsolidirani contract je `knowledge/canon_v2/communication.yaml`.
+
+RacioInterpreter sme prejeti samo zamrznjene E/I manifestacije, strukturirane
+opazke in izrecno javni option scope. Ne sme prejeti `NativeMindBundle`, E/I
+native sklepa, `TranslationGap`, native motive summaryja, hidden motive,
+karakterja, authority tierov ali diagnostičnega distortion labela. Gap izdela
+ločen evaluator šele po interpretaciji. Interpreter validation napačne
+interpretacije ne sme popraviti z native ground truthom.
+
+Za reproducibilne B9 fixture teste je sprejeta binarna, ne-semantična metrika
+`b9-exact-action-tendency-fidelity-v1`. Ima natanko eno tipizirano komponento
+`action_tendency` z utežjo `1.0`: rezultat je `1.0` samo ob natančni enakosti
+native in interpretirane action tendency, sicer `0.0`. Ne normalizira ali
+semantično primerja prostega besedila. Obstoječe polje `motive_fidelity` samo
+zrcali rezultat te komponente; native motive summary in interpretirani motive
+sta diagnostična zapisa in ne trditev o semantični zvestobi motiva.
+
+Začetni `b9-exact-distortion-classifier-v1` označi status `omitted_b9` ali
+`unavailable_b9` kot `omission`; dva `None` option ID-ja kot `unknown`; exact
+nenull option in exact action tendency kot `none`; option mismatch ali
+action-tendency rezultat `0.0` kot
+`misclassification`; vse drugo kot `unknown`. `rationalization`,
+`minimization` in `projection` se brez dodatnega eksplicitnega evaluator
+evidencea ne sklepajo. Keyword classifier je prepovedan.
+
+Interpretirani `None` pomeni samo, da Racio ni sklepal optiona; ni provider
+failure, dokaz native abstinence ali visoke fidelity. Če sta oba option ID-ja
+`None`, B2 `option_match` zaradi tehnične enakosti ostane `true`, semantična
+primerjava optiona pa je `not_applicable` in sama ne dokazuje uspešnega prevoda.
+Za obstoječ evaluated comparison zato pomeni distortion `unknown`; status
+`omitted_b9` ali `unavailable_b9` ostane `omission`. Provider failure je ločen
+attempt outcome brez `RacioInterpretation` result artefakta.
+
+Emocio projection, strukturirani vrstni red observations, scripted no-provider
+fixture, content ID/hash lineage, action-tendency metrika, native motive summary
+in zgornji classifier
+so javno poimenovane izvedbene hipoteze v communication kanonu. Noben konkreten
+interpreter model/provider ni izbran; B9 dokumentacija ne kliče lokalnega LLM,
+GPU-ja ali modela. Empirična kalibracija confidence, delne/semantične motive
+fidelity in dokazovanje racionalizacije zato izrecno ostajajo odprti v tem OQ.
+
 ## OQ-EMOCIO-001 — vizualna valuation in renderer
 
 Katere valuation dimenzije so dovolj stabilne za prvi Emocio PoC in kako se
@@ -459,6 +503,32 @@ keyword classifier.
 Kateri dokaz loči vsebinsko nestrinjanje ob dobrem sodelovanju od preslišanja,
 popačenja ali sabotaže? Enaka zunanja izbira prav tako ni zadosten dokaz
 sprejemanja.
+
+### B9 dokumentacijska odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, omejeno na record-only audit. Za
+interpretacijo E se uporabi samo relacija `R_to_E`, za I pa samo `R_to_I`, ker
+je Racio opazovalec vira. Assessment zapiše njen deklarirani
+`interpretation_fidelity` ter ID/hash eksplicitnega `AcceptanceState` in
+`TranslationGap`; obratni relaciji nista vhod te ocene. B9 ne računa composite
+scorea ali thresholda ter z acceptance
+vrednostmi ne filtrira observations, ne spreminja script/provider prompta,
+optiona, motiva, confidence, translation gapa, governance ali behaviorja.
+
+To ne dokazuje monotonične ali vzročne zveze med `interpretation_fidelity` in
+manjšo vrzeljo. Planov `test_high_fidelity_reduces_translation_gap` sme v prvi
+fazi pomeniti samo popolnoma razkrit kontrolirani par scripted fixtureov z
+vnaprej podanima acceptance states, scriptoma, tipiziranima action tendency in
+pričakovanima gapoma. Tak test preveri pipeline in provenance tega para, ne
+univerzalne psihološke zakonitosti.
+Primernejše natančno ime je
+`test_scripted_high_fidelity_fixture_has_smaller_exact_gap`.
+
+Vzročni pomen izbrane relacije `R_to_source`, visibility pragovi, formula med
+acceptance in kakovostjo prevoda, semantična kalibracija ter zanesljivo merjenje
+sprejemanja ostajajo odprti pod OQ-ACCEPTANCE-001,
+OQ-ACCEPTANCE-002 in OQ-TRANSLATION-001. `overall_mode` ostane ekspliciten
+input; B9 ga ne izpeljuje iz šestih relacij.
 
 ## OQ-BEHAVIOR-001 — začetna vedenjska tabela
 
