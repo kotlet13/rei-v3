@@ -1,0 +1,179 @@
+schema_version: rei-native-emocio-v2
+status: architecture_canon
+runtime_effect: none_in_b1
+canon_language: sl
+mind_id: E
+canonical_name: Emocio
+
+identity:
+  status: implementation_hypothesis
+  canonical_sl: >-
+    Emocio je vizualno-prizorni, mozaični, primerjalni, izkustveni in
+    motorno usmerjeni REI procesor. Ni sinonim za čustvo in ni generator slik.
+  en_gloss: visual-scenic, comparative, experiential and motor-oriented REI processor
+  source_claim_ids: [C-EMOCIO-001, C-EMOCIO-002, C-NATIVE-001]
+
+native_flow:
+  status: implementation_hypothesis
+  ordered_steps:
+    - VisualSceneCompiler
+    - VisualSceneMemory
+    - EmocioVisualState
+    - CounterfactualSceneRollouts
+    - VisualValuation
+    - EmocioNativeConclusion
+    - freeze_conclusion_and_artifacts
+    - EmocioManifestation
+    - RacioInterpretation
+  source_claim_ids: [C-EMOCIO-003, C-BUNDLE-001]
+
+input_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  canonical_name: EmocioInputPacket
+  fields:
+    - scene_id
+    - grounded_visual_cues
+    - social_layout
+    - actor_positions
+    - observed_attention
+    - movement_cues
+    - aesthetic_cues
+    - explicit_identity_cues
+    - allowed_option_ids
+    - evidence_ids
+    - caveat
+  router_must_not_prewrite:
+    - Emocieva želja
+    - Emociev strah
+    - Emocieva izbira
+  source_claim_ids: [C-PROV-001, C-NATIVE-002, C-EMOCIO-002]
+
+scene_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  canonical_name: VisualSceneSpec
+  scene_kinds: [current, desired, broken, option_rollout]
+  fields:
+    - scene_id
+    - scene_kind
+    - option_id
+    - entities
+    - self_position
+    - attention_structure
+    - group_belonging
+    - status_relations
+    - movement
+    - composition
+    - attraction_markers
+    - obstacle_markers
+    - grounded_evidence_ids
+    - inferred_elements
+  source_claim_ids: [C-EMOCIO-002, C-PROV-001]
+
+visual_state_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields: [current_scene, desired_scene, broken_scene, option_rollouts]
+  source_claim_ids: [C-EMOCIO-002, C-EMOCIO-003]
+
+valuation:
+  status: implementation_hypothesis
+  dimensions:
+    - desired_scene_match
+    - distance_from_broken_scene
+    - self_visibility
+    - belonging
+    - attention
+    - attraction
+    - novelty
+    - movement
+    - status
+    - competitive_success
+    - attack_or_breakthrough_affordance
+  source_claim_ids: [C-EMOCIO-002]
+
+native_conclusion_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - mind
+    - option_id
+    - desired_transformation
+    - current_scene_id
+    - desired_scene_id
+    - decisive_rollout_scene_id
+    - main_obstacle
+    - action_tendency
+    - valuation_dimensions
+    - intensity
+    - abstains
+    - uncertainty
+  action_tendencies:
+    - approach
+    - perform
+    - compete
+    - connect
+    - attack
+    - improvise
+    - withdraw_contact
+    - unknown
+  invariants:
+    mind_is_E: true
+    precedes_manifestation: true
+    precedes_racio_interpretation: true
+  source_claim_ids: [C-EMOCIO-003, C-BUNDLE-001]
+
+manifestation_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - visible_image_artifact_ids
+    - attraction_intensity
+    - aversion_intensity
+    - anger_intensity
+    - motor_urge
+    - social_pull
+  is_complete_native_conclusion: false
+  source_claim_ids: [C-CONSC-001, C-EMOCIO-003]
+
+renderer_boundary:
+  status: implementation_hypothesis
+  required_for_first_poc: false
+  protocol_signature: "render(spec: VisualSceneSpec, seed: int) -> ImageArtifact"
+  semantic_precedence:
+    - SceneEvent_grounded_evidence
+    - VisualSceneSpec
+    - generated_image
+  image_artifact_metadata:
+    - provider
+    - model
+    - revision
+    - seed
+    - input_spec_hash
+    - prompt
+    - negative_prompt
+    - path
+    - width
+    - height
+    - generated_only_elements
+    - grounded_mask_if_any
+  generated_details_are_grounded: false
+  renderer_failure_changes_native_conclusion: false
+  first_adapter: NullImageRenderer
+  source_claim_ids: [C-EMOCIO-004, C-PROV-001]
+
+global_invariants:
+  - canonical_sl: Emociev sklep je zamrznjen pred Racijevo interpretacijo.
+    source_claim_ids: [C-EMOCIO-003]
+  - canonical_sl: Generirana slika ne ustvarja novih dejstev o dogodku.
+    source_claim_ids: [C-EMOCIO-004, C-PROV-001]
+  - canonical_sl: Besedni opis Emocia je Racijeva interpretacija manifestacije.
+    source_claim_ids: [C-CONSC-001]
+
+open_question_ids:
+  - OQ-NATIVE-001
+  - OQ-EMOCIO-001
+  - OQ-RANGE-001
+  - OQ-SCHEMA-001
+  - OQ-NAMING-001

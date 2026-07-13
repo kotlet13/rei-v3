@@ -1,0 +1,162 @@
+schema_version: rei-native-acceptance-v2
+status: architecture_canon
+runtime_effect: none_in_b1
+canon_language: sl
+
+definition:
+  status: implementation_hypothesis
+  canonical_sl: >-
+    Sprejemanje je usmerjena kakovost sodelovanja in medsebojnega prevajanja
+    med razumi. Je ortogonalno strukturnemu karakterju, soglasju, pravilnosti
+    cilja in izbiri majhnega, varnega ali reverzibilnega vedenja.
+  en_gloss: directed cooperation and translation quality orthogonal to authority and agreement
+  source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-DELEG-001]
+
+may_affect:
+  - signal_visibility
+  - interpretation_fidelity
+  - tolerance_of_different_conclusion
+  - delegation_willingness
+  - sabotage_risk
+  - conflict_carryover
+  - conscious_behavior_coordination
+
+must_not_determine:
+  - structural_character
+  - authority_tiers
+  - correct_goal
+  - objective_truth
+  - agreement
+  - small_action
+  - safe_action
+  - reversible_action
+  - unanimous_choice
+  - automatic_pair_tiebreak
+
+directed_relation_contract:
+  contract_status: documented_for_b2
+  name: DirectedMindRelation
+  status: implementation_hypothesis
+  fields:
+    - visibility
+    - interpretation_fidelity
+    - tolerance
+    - delegation_willingness
+    - sabotage_risk
+  source_claim_ids: [C-ACCEPT-003]
+
+state_contract:
+  contract_status: documented_for_b2
+  name: AcceptanceState
+  status: implementation_hypothesis
+  directed_relations:
+    - R_to_E
+    - R_to_I
+    - E_to_R
+    - E_to_I
+    - I_to_R
+    - I_to_E
+  overall_modes: [accepting, mixed, conflicted, unknown]
+  controlled_simulation_input: explicit
+  inferred_from_keywords_in_v1: false
+  source_claim_ids: [C-ACCEPT-003]
+
+translation_gap_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  name: TranslationGap
+  fields:
+    - source_mind
+    - native_option_id
+    - interpreted_option_id
+    - native_motive_summary
+    - interpreted_motive
+    - option_match
+    - motive_fidelity
+    - distortion_type
+  source_minds: [E, I]
+  distortion_types:
+    - none
+    - omission
+    - rationalization
+    - minimization
+    - projection
+    - misclassification
+    - unknown
+  visible_to_racio_as_ground_truth: false
+  stored_in_diagnostic_trace: true
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003]
+
+coordination_examples:
+  accepting_disagreement:
+    canonical_sl: >-
+      Razumi lahko odkrito ohranijo različne sklepe, priznajo ugovore in
+      kljub temu izvedejo značajski mandat brez spremembe hierarhije.
+    status: implementation_hypothesis
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-GOV-001]
+  nonaccepting_agreement:
+    canonical_sl: >-
+      Enaka zunanja izbira lahko prikriva preslišanje, popačen prevod ali
+      sabotažo in zato sama ne dokazuje sprejemanja.
+    status: implementation_hypothesis
+    source_claim_ids: [C-ROUTE-001, C-ACCEPT-002, C-BEHAV-001]
+
+behavior_policy_boundary:
+  status: implementation_hypothesis
+  implementation: transparent_deterministic_table
+  llm_hidden_resolution: false
+  must_surface:
+    - governance_alignment
+    - conscious_alignment
+    - residual_tensions
+    - delayed_or_oscillating_behavior
+    - sabotage_or_blocking
+  source_claim_ids: [C-BEHAV-001, C-BEHAV-002]
+
+behavior_resultant_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  name: BehaviorResultant
+  fields:
+    - option_id
+    - status
+    - governance_alignment
+    - conscious_alignment
+    - operational_controller
+    - residual_tensions
+    - predicted_action
+  statuses: [executed, delayed, oscillating, sabotaged, blocked, unresolved]
+  source_claim_ids: [C-BEHAV-001, C-BEHAV-002]
+
+initial_behavior_mapping:
+  status: implementation_hypothesis
+  accepting:
+    - resolved_mandate_is_consciously_accepted
+    - motive_may_be_mistranslated_while_action_remains_coordinated
+    - subordinate_objections_are_acknowledged
+    - delegation_is_allowed
+  mixed:
+    - E_or_I_mandate_is_followed_only_if_racio_recognizes_its_direction
+    - failed_recognition_may_produce_delay_or_oscillation
+    - divergence_must_be_explicit
+  conflicted:
+    - racio_may_commit_to_its_own_conclusion
+    - governance_mandate_may_remain_different
+    - behavior_may_be_sabotaged_blocked_or_cyclic
+    - integrated_decision_must_not_hide_divergence
+  source_claim_ids: [C-BEHAV-001, C-BEHAV-002, C-ACCEPT-001, C-ACCEPT-002]
+
+global_invariants:
+  - canonical_sl: Sprejemanje nikoli ne spremeni authority_tiers.
+    source_claim_ids: [C-ACCEPT-002, C-STATE-001]
+  - canonical_sl: Nestrinjanje je lahko sprejemajoče, soglasje pa nesprejemajoče.
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-ROUTE-001]
+  - canonical_sl: Delegacija ohrani strukturni karakter.
+    source_claim_ids: [C-DELEG-001]
+
+open_question_ids:
+  - OQ-ACCEPTANCE-001
+  - OQ-ACCEPTANCE-002
+  - OQ-TRANSLATION-001
+  - OQ-RANGE-001
+  - OQ-BEHAVIOR-001

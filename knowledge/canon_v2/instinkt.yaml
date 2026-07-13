@@ -1,0 +1,243 @@
+schema_version: rei-native-instinkt-v2
+status: architecture_canon
+runtime_effect: none_in_b1
+canon_language: sl
+mind_id: I
+canonical_name: Instinkt
+safety_boundary_claim_ids: [C-SAFETY-001]
+
+identity:
+  status: implementation_hypothesis
+  canonical_sl: >-
+    Instinkt je telesno, interoceptivno, asociativno, zaščitno in
+    homeostatsko usmerjeni REI procesor. Njegov računalniški model ni
+    medicinska ali fiziološka trditev.
+  en_gloss: embodied, interoceptive, associative and protective REI processor
+  source_claim_ids: [C-INSTINKT-001, C-INSTINKT-002, C-NATIVE-001]
+
+native_flow:
+  status: implementation_hypothesis
+  ordered_steps:
+    - VirtualBody
+    - InteroceptiveState
+    - AssociativeMemory
+    - ThreatLossAttachmentModel
+    - OptionBodyRollouts
+    - ProtectivePolicy
+    - InstinktNativeConclusion
+    - freeze_conclusion_and_artifacts
+    - InstinktManifestation
+    - RacioInterpretation
+  source_claim_ids: [C-INSTINKT-003, C-INSTINKT-004, C-BUNDLE-001]
+
+input_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  canonical_name: InstinktInputPacket
+  fields:
+    - scene_id
+    - physical_cues
+    - uncertainty_cues
+    - trust_cues
+    - boundary_cues
+    - attachment_cues
+    - scarcity_cues
+    - escape_cues
+    - explicit_body_cues
+    - option_ids
+    - evidence_ids
+    - caveat
+  text_model_may_parse_grounded_cues: true
+  text_model_may_decide_for_instinkt: false
+  source_claim_ids: [C-PROV-001, C-NATIVE-002, C-INSTINKT-002]
+
+body_state_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  normalized_range: [0.0, 1.0]
+  fields:
+    - energy
+    - fatigue
+    - pain
+    - arousal
+    - tension
+    - physical_integrity
+    - uncertainty
+    - trust
+    - attachment_security
+    - resource_security
+    - boundary_integrity
+    - escape_availability
+    - predictability
+  values_are_character_weights: false
+  source_claim_ids: [C-INSTINKT-002, C-INSTINKT-004, C-STATE-001]
+
+association_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  canonical_runtime_name: InstinktAssociation
+  fields:
+    - association_id
+    - cue_signature
+    - body_state_before
+    - felt_intensity
+    - protected_target
+    - experienced_loss
+    - action_taken
+    - outcome
+    - trust_delta
+    - attachment_delta
+    - boundary_delta
+    - decay
+  not_a_perfect_chronological_rag: true
+  memory_may_be_limited: true
+  memory_may_be_unreliable: true
+  memory_is_associative: true
+  source_claim_ids: [C-INSTINKT-002]
+
+body_transition_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  name: BodyTransition
+  fields:
+    - from_state
+    - to_state
+    - deltas
+    - triggering_evidence_ids
+  deterministic_and_configurable_in_v1: true
+  source_claim_ids: [C-INSTINKT-004, C-PROV-001]
+
+body_dynamics_rules:
+  - rule_id: I-DYN-001
+    status: implementation_hypothesis
+    canonical_sl: Vse dimenzije BodyState so normalizirane v intervalu od 0 do 1.
+    en_gloss: All BodyState dimensions are normalized to the interval zero through one.
+    source_claim_ids: [C-INSTINKT-004]
+  - rule_id: I-DYN-002
+    status: implementation_hypothesis
+    canonical_sl: Prehod telesnega stanja je determinističen in konfigurabilen v prvi različici.
+    en_gloss: Body-state transition is deterministic and configurable in the first version.
+    source_claim_ids: [C-INSTINKT-004]
+  - rule_id: I-DYN-003
+    status: implementation_hypothesis
+    canonical_sl: Vsak BodyTransition hrani prejšnje in novo stanje, delte ter sprožilne evidence ID-je.
+    en_gloss: Each BodyTransition stores prior and next state, deltas, and triggering evidence IDs.
+    source_claim_ids: [C-INSTINKT-004, C-PROV-001]
+  - rule_id: I-DYN-004
+    status: implementation_hypothesis
+    canonical_sl: >-
+      Začetni cikel je enosmeren: stanje pri t vpliva na procesiranje, izid pa
+      na stanje pri t+1.
+    en_gloss: >-
+      The initial cycle is one-way: state at t conditions processing and
+      outcome updates state at t+1.
+    source_claim_ids: [C-INSTINKT-004]
+  - rule_id: I-DYN-005
+    status: implementation_hypothesis
+    canonical_sl: >-
+      V tej operacionalizaciji trenutno virtualno telesno stanje ne spremeni
+      strukturnega karakterja.
+    en_gloss: >-
+      In this operationalization, current virtual body state does not change
+      structural character.
+    source_claim_ids: [C-STATE-001, C-INSTINKT-004]
+  - rule_id: I-DYN-006
+    status: implementation_hypothesis
+    canonical_sl: Telesno stanje lahko vpliva na pogoje naslednjega procesiranja, ne na authority_tiers.
+    en_gloss: Body state may condition the next processing cycle but not authority tiers.
+    may_condition_next_cycle:
+      - focus_width
+      - perceived_urgency
+      - protective_memory_accessibility
+      - racio_time_horizon
+      - emocio_expected_scene
+      - body_readiness_for_movement
+    source_claim_ids: [C-INSTINKT-004, C-CHAR-006]
+  - rule_id: I-DYN-007
+    status: implementation_hypothesis
+    canonical_sl: Body dynamics ne uporablja neskončnega agentnega loopa.
+    en_gloss: Body dynamics does not use an unbounded agent loop.
+    source_claim_ids: [C-INSTINKT-004]
+  - rule_id: I-DYN-008
+    status: implementation_hypothesis
+    canonical_sl: VirtualBody je programska operacionalizacija REI signalov in ne medicinski model.
+    en_gloss: VirtualBody is a software operationalization of REI signals, not a medical model.
+    source_claim_ids: [C-INSTINKT-002, C-SAFETY-001]
+
+option_rollout_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - option_id
+    - trajectory
+    - dominant_alarm
+    - predicted_loss
+    - recoverability
+    - protected_targets
+    - boundary_outcome
+    - trust_outcome
+    - attachment_outcome
+    - escape_outcome
+  source_claim_ids: [C-INSTINKT-002, C-INSTINKT-004]
+
+native_conclusion_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - mind
+    - option_id
+    - dominant_alarm
+    - danger_claims
+    - protected_targets
+    - action_tendency
+    - minimum_safety_condition
+    - decisive_rollout_option_id
+    - intensity
+    - abstains
+    - uncertainty
+  action_tendencies:
+    - protect
+    - withdraw
+    - maintain
+    - set_boundary
+    - seek_safety
+    - seek_attachment
+    - conserve
+    - freeze
+    - unknown
+  invariants:
+    mind_is_I: true
+    precedes_verbalization: true
+    structured_claims_not_inner_monologue: true
+  source_claim_ids: [C-INSTINKT-003, C-BUNDLE-001]
+
+manifestation_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - body_locations
+    - felt_tension
+    - fear_intensity
+    - attachment_pull
+    - withdrawal_urge
+    - freeze_intensity
+    - boundary_alarm
+    - raw_urge
+  is_complete_native_conclusion: false
+  source_claim_ids: [C-CONSC-001, C-INSTINKT-003]
+
+global_invariants:
+  - canonical_sl: Instinkt ni tekstovni svetovalec in LLM ni njegov skriti odločevalni center.
+    source_claim_ids: [C-INSTINKT-003, C-BEHAV-002]
+  - canonical_sl: Besedna razlaga Instinktovega stanja je Racijeva interpretacija.
+    source_claim_ids: [C-CONSC-001, C-INSTINKT-003]
+  - canonical_sl: Telesna intenzivnost ne spreminja strukturnega karakterja.
+    source_claim_ids: [C-STATE-001, C-CHAR-006]
+
+open_question_ids:
+  - OQ-NATIVE-001
+  - OQ-INSTINKT-001
+  - OQ-AVAILABILITY-001
+  - OQ-RANGE-001
+  - OQ-SCHEMA-001
+  - OQ-NAMING-001

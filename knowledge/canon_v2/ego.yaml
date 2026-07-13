@@ -1,0 +1,163 @@
+schema_version: rei-native-ego-v2
+status: architecture_canon
+runtime_effect: none_in_b1
+canon_language: sl
+safety_boundary_claim_ids: [C-SAFETY-001, C-LIFE-001]
+
+definition:
+  status: implementation_hypothesis
+  source_supported_boundary_sl: >-
+    Ego izhaja iz skupnega delovanja treh razumov in ni četrti razum ali
+    samostojen vir odločitev.
+  canonical_sl: >-
+    Ego je časovna kompozicija skupnega delovanja Racia, Emocia in Instinkta.
+    Je izpeljani model doživetega jaza, sveta in ponavljajočih se vzorcev, ne
+    četrti razum, glas, agent ali vir odločitev.
+  en_gloss: temporal composition derived from the three REI minds
+  source_claim_ids: [C-EGO-001, C-EGO-002, C-WORLD-001]
+
+prohibited_apis:
+  - EgoAgent.decide
+  - EgoVote
+  - EgoPreferredOption
+  - EgoLeadingMind
+  - EgoDecisionMaker
+  - ego_vote
+  - ego_preferred_option
+
+allowed_concepts:
+  - EgoMeasure
+  - EgoTrace
+  - EgoCompositionSnapshot
+  - EgoProjection
+  - EgoReflector
+  - RacioSelfNarrative
+
+measure_contract:
+  contract_status: documented_for_b2
+  name: EgoMeasure
+  status: implementation_hypothesis
+  semantic_unit: one_cycle
+  fields:
+    - measure_id
+    - event_id
+    - native_bundle_id
+    - structural_character
+    - effective_authority
+    - acceptance_state
+    - governance_mandate
+    - racio_interpretations
+    - conscious_decision
+    - behavior_resultant
+    - outcome
+    - translation_gaps
+    - unresolved_tensions
+    - spoznanje_status
+  optional_fields: [outcome]
+  spoznanje_statuses:
+    - simulated_spoznanje
+    - partial_agreement
+    - no_spoznanje
+    - unknown
+  has_ego_vote: false
+  source_claim_ids: [C-RESULT-001, C-EGO-002, C-GOV-001, C-BEHAV-001]
+
+trace_contract:
+  contract_status: documented_for_b2
+  name: EgoTrace
+  status: implementation_hypothesis
+  fields: [ego_id, measures]
+  append_only: true
+  previous_measure_mutation: forbidden
+  correction_method: append_correction_event
+  each_measure_has_hash: true
+  reproducible: true
+  source_claim_ids: [C-EGO-002, C-EGO-003, C-PROV-001]
+
+composition_snapshot_contract:
+  contract_status: documented_for_b2
+  name: EgoCompositionSnapshot
+  status: implementation_hypothesis
+  fields:
+    - ego_id
+    - through_measure_id
+    - identity_motifs
+    - recurring_conflicts
+    - recurring_translation_errors
+    - unresolved_tensions
+    - resolved_tensions
+    - spoznanja
+    - commitments
+    - relationship_patterns
+    - current_section
+    - evidence_measure_ids
+  derived_from_trace: true
+  source_of_truth: false
+  agent: false
+  source_claim_ids: [C-EGO-002, C-EGO-003]
+
+projections:
+  status: implementation_hypothesis
+  RacioProjection:
+    carries: [chronology, facts, statements, commitments, causal_links]
+  EmocioProjection:
+    carries:
+      - recurring_scenes
+      - images
+      - status_patterns
+      - belonging
+      - success
+      - rupture
+      - desire
+  InstinktProjection:
+    carries:
+      - body_consequences
+      - dangers
+      - losses
+      - trust
+      - attachment
+      - boundaries
+      - scarcity
+      - recovery
+  adds_fourth_opinion: false
+  source_claim_ids: [C-EGO-003]
+
+reflector_boundary:
+  status: implementation_hypothesis
+  optional: true
+  output_type: ReflectionHypothesis
+  must_cite_measure_ids: true
+  may_change_current_native_conclusion: false
+  may_change_current_governance_mandate: false
+  may_change_current_conscious_decision: false
+  may_change_current_behavior: false
+  may_write_world_without_provenance: false
+  source_claim_ids: [C-EGO-003, C-PROV-001]
+
+life_boundary:
+  status: open_question
+  runtime_agent: false
+  prohibited_concepts: [LifeAgent, LifeDecision, LifePrompt]
+  canonical_sl: >-
+    Metafizični pojem Življenja ostaja ločeno raziskovalno področje in nima
+    operativno definirane izvršilne avtoritete.
+  source_claim_ids: [C-LIFE-001]
+
+global_invariants:
+  - canonical_sl: Ego ne poda nativnega sklepa, značajskega mandata ali glasu.
+    source_claim_ids: [C-EGO-001, C-EGO-002]
+  - canonical_sl: Pretekli measure se ne spreminja; popravek je nov dogodek.
+    source_claim_ids: [C-EGO-003]
+  - canonical_sl: Snapshot je izpeljan in mora navesti evidence_measure_ids.
+    source_claim_ids: [C-EGO-003, C-PROV-001]
+  - canonical_sl: Simulacija ne diagnosticira ali karakterizira resnične osebe.
+    source_claim_ids: [C-SAFETY-001]
+
+open_question_ids:
+  - OQ-EGO-001
+  - OQ-EGO-002
+  - OQ-PROJECTION-001
+  - OQ-LIFE-001
+  - OQ-SAFETY-001
+  - OQ-SCHEMA-001
+  - OQ-PERSON-001

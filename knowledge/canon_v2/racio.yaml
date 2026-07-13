@@ -1,0 +1,154 @@
+schema_version: rei-native-racio-v2
+status: architecture_canon
+runtime_effect: none_in_b1
+canon_language: sl
+mind_id: R
+canonical_name: Racio
+
+identity:
+  canonical_sl: >-
+    Racio je simbolno-jezikovni, številski, zaporedni in neposredno zavestni
+    REI procesor. Neposredna zavest mu ne daje značajske prednosti ali
+    zagotovila resnice.
+  en_gloss: directly conscious symbolic-linguistic and sequential REI processor
+  source_claim_ids: [C-RACIO-001, C-PERCEPT-001, C-CONSC-002, C-MINDS-001]
+
+native_domains:
+  status: implementation_hypothesis
+  values:
+    - facts_and_unknowns
+    - words_and_numbers
+    - time_and_sequence
+    - causality
+    - analysis_and_planning
+    - utility_and_explicit_consequences
+    - rationalization_risk
+  source_claim_ids: [C-RACIO-002]
+
+roles:
+  status: implementation_hypothesis
+  source_claim_ids: [C-RACIO-003, C-CONSC-003]
+  items:
+    - role: RacioNativeProcessor
+      effect: Doseže Racijev lasten nativni sklep brez podatka o karakterju.
+    - role: RacioInterpreter
+      effect: Iz E/I manifestacij sklepa o njunih možnostih in motivih.
+    - role: RacioCommitter
+      effect: Ustvari ConsciousDecision z made_by = R.
+    - role: RacioNarrator
+      effect: Razloži odločitev in self-model, ne da bi mutiral odločitev ali vedenje.
+
+input_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  required_semantics:
+    - symbolic_and_language_cues
+    - numeric_cues
+    - explicit_facts
+    - explicit_unknowns
+    - time
+    - rules
+    - explicit_options
+    - explicit_consequences
+    - constraints
+    - allowed_option_ids
+    - evidence_ids
+    - RacioWorld
+    - previous_RacioProjection_records
+    - caveat
+  prohibited_inputs_in_controlled_mode:
+    - character_profile
+    - authority_rank
+    - hidden_emocio_motive
+    - hidden_instinkt_motive
+  source_claim_ids: [C-NATIVE-002, C-PROV-001, C-RACIO-002]
+
+native_conclusion_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - mind
+    - option_id
+    - facts_used
+    - unknowns
+    - causal_sequence
+    - utility_structure
+    - explicit_goal
+    - main_objection
+    - confidence
+    - abstains
+    - uncertainty
+  invariants:
+    mind_is_R: true
+    precedes_governance: true
+    profile_blind_in_controlled_mode: true
+  source_claim_ids: [C-RACIO-002, C-NATIVE-002, C-BUNDLE-001]
+
+interpretation_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - source_mind
+    - observed_manifestations
+    - inferred_option_id
+    - inferred_motive
+    - confidence
+    - alternative_hypotheses
+  source_minds: [E, I]
+  observes:
+    - manifestation_artifact_ids
+    - body_or_motor_signals
+    - surfaced_attraction_or_aversion
+  may_distort_as:
+    - omission
+    - rationalization
+    - minimization
+    - projection
+    - misclassification
+    - unknown
+  forbidden_ground_truth:
+    - hidden_native_motives
+    - diagnostic_translation_gap
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003]
+
+conscious_decision_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - made_by
+    - option_id
+    - declared_reason
+    - conscious_confidence
+    - aligned_with_governance_mandate
+    - decision_status
+  decision_statuses: [committed, deferred, oscillating, blocked, unknown]
+  fixed_values:
+    made_by: R
+  source_claim_ids: [C-CONSC-002, C-CONSC-003, C-GOV-001]
+
+narration_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields: [explanation, claimed_motive, acknowledged_minds, omitted_minds, uncertainty]
+  may_mutate: []
+  read_only_targets:
+    - NativeMindBundle
+    - GovernanceMandate
+    - ConsciousDecision
+    - BehaviorResultant
+  source_claim_ids: [C-RACIO-003, C-BEHAV-001]
+
+global_invariants:
+  - canonical_sl: Racio je zavestni kanal, ne samodejno nativni izvor sklepa.
+    source_claim_ids: [C-CONSC-002, C-CONSC-003]
+  - canonical_sl: Racio nima dodatnega značajskega glasu zaradi zavesti.
+    source_claim_ids: [C-MINDS-001, C-ARB-002, C-CONSC-003]
+  - canonical_sl: Racijeva interpretacija ne mutira E/I nativnega sklepa.
+    source_claim_ids: [C-BUNDLE-001, C-EMOCIO-003, C-INSTINKT-003]
+
+open_question_ids:
+  - OQ-RACIO-001
+  - OQ-TRANSLATION-001
+  - OQ-RANGE-001
+  - OQ-SCHEMA-001
+  - OQ-NAMING-001
