@@ -1,3 +1,6 @@
+> **SUPERSEDED:** This plan belongs to the archived textual/QLoRA direction.
+> See `plans/REI_native_composition_architecture_upgrade_2026-07-13.md`.
+
 # Prva izvedbena naloga za Codex - REI canonical v2
 
 Preglej dokument `REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md` in izvedi samo **Fazo 0** ter **Fazo 1**.

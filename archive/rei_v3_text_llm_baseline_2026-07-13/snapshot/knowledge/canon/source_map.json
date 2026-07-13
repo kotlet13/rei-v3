@@ -1,0 +1,89 @@
+{
+  "PSI-I": {
+    "file": "Instinkt.pdf",
+    "pages": [
+      1,
+      2,
+      3
+    ],
+    "kind": "primary_scan",
+    "summary": "Instinkt describes itself as the oldest mind, fear/feeling-based, protective, distrustful, attached to safety and close people, with flight as primary defense and attack only when cornered."
+  },
+  "PSI-E": {
+    "file": "Emocio.pdf",
+    "pages": [
+      1,
+      2,
+      3
+    ],
+    "kind": "primary_scan",
+    "summary": "Emocio describes itself as image-based, optimistic, social, competitive, pleasure/beauty/body oriented, with attack as defense and difficulty releasing desired images."
+  },
+  "PSI-R": {
+    "file": "Racio.pdf",
+    "pages": [
+      1,
+      2
+    ],
+    "kind": "primary_scan",
+    "summary": "Racio describes itself as the youngest mind, analytical, verbal, numerical, structured, planning-oriented, conscious, and capable of translating Emocio and Instinkt."
+  },
+  "PSI-EGO-DEL1": {
+    "file": "del1odsekN.pdf",
+    "pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "primary_scan",
+    "summary": "Opening Eros-Life dialogue: the world a person experiences is created by three minds; Ego lives in that world and mistakes it for reality."
+  },
+  "PSI-EGO-DEL2": {
+    "file": "del2odsekN.pdf",
+    "pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "kind": "primary_scan",
+    "summary": "Continuation: all three minds are equivalent, Ego can trust one/two/three differently, twelve plus one character structures emerge, and no single mind owns the truth."
+  },
+  "EROS-KDO-POSLUSA-BESEDE": {
+    "file": "Eros - pogovori.pdf",
+    "kind": "commentary",
+    "summary": "Eros states that only Racio listens to words; Emocio and Instinkt observe/perceive other signals."
+  },
+  "EROS-ZAZNAVANJA-E-I": {
+    "file": "Eros - pogovori.pdf",
+    "kind": "commentary",
+    "summary": "Emocio and Instinkt perceive more than Racio in different channels; Instinkt is linked to smell/taste, Emocio to visual patterning."
+  },
+  "EROS-FOBIJE": {
+    "file": "Eros - pogovori.pdf",
+    "kind": "commentary",
+    "summary": "Fear/fobias are linked to Instinkt; Racio talking does not directly reach Instinkt's non-verbal fear language."
+  },
+  "EROS-KAKO-POSTANEMO-JEZNI": {
+    "file": "Eros - pogovori.pdf",
+    "kind": "commentary",
+    "summary": "Anger often arises when Emocio's desired image cannot become current reality; Racio may later invent an explanation."
+  },
+  "EROS-NAPAKE-PRI-DOLOCANJU": {
+    "file": "Eros - pogovori.pdf",
+    "kind": "commentary",
+    "summary": "The key is not merely what a person does but how a thought or action was produced; the same behavior can have different processor origins."
+  },
+  "EROS-VSAK-CLOVEK-ZIVI-V-SVOJEM-SVETU": {
+    "file": "Eros - pogovori.pdf",
+    "kind": "commentary",
+    "summary": "Each person lives in an individual world largely created by their leading processor; the same reality is processed differently."
+  }
+}
