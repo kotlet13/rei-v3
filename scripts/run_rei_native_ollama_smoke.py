@@ -69,7 +69,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--allow-remote", action="store_true")
     parser.add_argument("--model", default=environment.model)
-    parser.add_argument("--expected-model-digest")
+    parser.add_argument(
+        "--expected-model-digest",
+        required=True,
+        help="Full operator-approved local model digest.",
+    )
     parser.add_argument("--seed", type=int, default=environment.seed)
     parser.add_argument("--temperature", type=float, default=environment.temperature)
     parser.add_argument("--num-ctx", type=int, default=environment.num_ctx)
@@ -206,7 +210,9 @@ def main(argv: list[str] | None = None) -> int:
         "size_bytes": evidence.active_size_bytes,
         "size_vram_bytes": evidence.active_size_vram_bytes,
         "gpu_percent_rounded": evidence.active_gpu_percent_rounded,
-        "full_gpu_by_api_sizes": evidence.active_gpu_percent_rounded == 100,
+        "full_gpu_by_api_sizes": (
+            evidence.active_size_vram_bytes == evidence.active_size_bytes
+        ),
     }
     summary = {
         "schema_version": "rei-native-ollama-smoke-summary-v1",
@@ -215,6 +221,8 @@ def main(argv: list[str] | None = None) -> int:
         "source_commit": cycle_request.source_commit,
         "runtime_sources_committed": True,
         "ollama_server_version": provider.runtime.server_version,
+        "allow_remote": args.allow_remote,
+        "operator_expected_model_digest": args.expected_model_digest,
         "model": provider.runtime.model,
         "model_digest": provider.runtime.digest,
         "quantization_level": provider.runtime.quantization_level,

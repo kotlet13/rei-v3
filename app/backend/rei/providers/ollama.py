@@ -376,7 +376,9 @@ class OllamaActiveModel:
 
     @property
     def full_gpu(self) -> bool:
-        return self.gpu_percent_rounded == 100
+        """True only when Ollama reports every active model byte in VRAM."""
+
+        return self.size_vram_bytes == self.size_bytes
 
 
 def inspect_ollama_runtime(
@@ -494,8 +496,10 @@ def inspect_ollama_active_model(
 
     size = positive_integer("size")
     size_vram = positive_integer("size_vram")
+    if size_vram > size:
+        raise OllamaResponseError("Active Ollama size_vram exceeds total size")
     context_length = positive_integer("context_length")
-    gpu_percent = min(100, round((size_vram / size) * 100))
+    gpu_percent = round((size_vram / size) * 100)
     return OllamaActiveModel(
         model=model,
         digest=digest.lower(),
@@ -710,12 +714,18 @@ class OllamaRacioNativeProvider:
     client: OllamaApiClient
     runtime: OllamaRuntimeModel
     settings: OllamaRacioSettings
+    expected_digest: HashDigest | None = None
 
     def __post_init__(self) -> None:
         if self.runtime.model != self.settings.model:
             raise ValueError("Ollama runtime and provider settings select different models")
         if self.settings.num_ctx > self.runtime.context_length:
             raise ValueError("Requested context exceeds the local model context length")
+        if (
+            self.expected_digest is not None
+            and self.expected_digest != self.runtime.digest
+        ):
+            raise ValueError("Operator-approved digest differs from Ollama runtime")
 
     @classmethod
     def discover(
@@ -725,14 +735,18 @@ class OllamaRacioNativeProvider:
         settings: OllamaRacioSettings,
         expected_digest: str | None = None,
     ) -> "OllamaRacioNativeProvider":
+        approved_digest = (
+            expected_digest.lower() if expected_digest is not None else None
+        )
         return cls(
             client=client,
             runtime=inspect_ollama_runtime(
                 client,
                 settings.model,
-                expected_digest=expected_digest,
+                expected_digest=approved_digest,
             ),
             settings=settings,
+            expected_digest=approved_digest,
         )
 
     @property
@@ -755,6 +769,7 @@ class OllamaRacioNativeProvider:
     @property
     def parameters(self) -> tuple[ProviderParameter, ...]:
         values = {
+            "allow_remote": self.client.allow_remote,
             "endpoint": f"{self.client.base_url}/api/generate",
             "format_schema_sha256": sha256_hex(
                 RacioStructuredOutput.model_json_schema()
@@ -765,6 +780,7 @@ class OllamaRacioNativeProvider:
             "num_gpu": self.settings.num_gpu,
             "num_predict": self.settings.num_predict,
             "ollama_server_version": self.runtime.server_version,
+            "operator_expected_model_digest": self.expected_digest,
             "require_full_gpu": self.settings.require_full_gpu,
             "raw": False,
             "logprobs": False,

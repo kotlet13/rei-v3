@@ -77,6 +77,8 @@ class FakeOllamaTransport:
         self.digest = DIGEST
         self.done_reason = "stop"
         self.thinking: str | None = None
+        self.active_size = 17_490_259_354
+        self.active_size_vram = self.active_size
 
     def request_json(
         self,
@@ -164,8 +166,8 @@ class FakeOllamaTransport:
                         "name": "granite4.1:30b",
                         "model": "granite4.1:30b",
                         "digest": self.digest,
-                        "size": 17_490_259_354,
-                        "size_vram": 17_490_259_354,
+                        "size": self.active_size,
+                        "size_vram": self.active_size_vram,
                         "context_length": 65536,
                     }
                 ]
@@ -296,6 +298,8 @@ def test_ollama_native_racio_closes_model_and_response_provenance() -> None:
     }
     assert recorded["num_ctx"] == 65536
     assert recorded["num_gpu"] == 999
+    assert recorded["allow_remote"] is False
+    assert recorded["operator_expected_model_digest"] == DIGEST
     assert recorded["require_full_gpu"] is True
     assert recorded["raw"] is False
     assert recorded["logprobs"] is False
@@ -315,6 +319,29 @@ def test_ollama_native_racio_closes_model_and_response_provenance() -> None:
     assert execution.reasoning_artifact.model_revision == DIGEST
     assert execution.reasoning_artifact.active_context_length == 65536
     assert execution.reasoning_artifact.active_gpu_percent_rounded == 100
+
+
+@pytest.mark.parametrize(
+    ("size_delta", "message"),
+    (
+        (-1, "not fully GPU-resident"),
+        (1, "size_vram exceeds"),
+    ),
+)
+def test_ollama_native_racio_requires_exact_sane_full_gpu_residency(
+    size_delta: int,
+    message: str,
+) -> None:
+    packet = _packet()
+    provider, transport = _provider(packet)
+    transport.active_size_vram = transport.active_size + size_delta
+
+    with pytest.raises(OllamaResponseError, match=message):
+        provider.execute(
+            packet,
+            call=provider.build_call_spec(packet),
+            clock=DeterministicExecutionClock(_cycle_request().started_at),
+        )
 
 
 @pytest.mark.parametrize(
