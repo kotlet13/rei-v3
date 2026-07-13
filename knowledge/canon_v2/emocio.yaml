@@ -157,8 +157,14 @@ manifestation_contract:
 
 renderer_boundary:
   status: implementation_hypothesis
+  contract_status: implemented_in_b7
   required_for_first_poc: false
-  protocol_signature: "render(spec: VisualSceneSpec, seed: int) -> ImageArtifact"
+  batch_protocol_signature: >-
+    render(scenes: tuple[VisualSceneSpec, ...], seed: int)
+    -> ImageRenderBatchOutcome
+  provider_protocol_signature: >-
+    render(request: ImageRenderRequest, call: ProviderCallSpec)
+    -> ImageRenderItemOutcome
   semantic_precedence:
     - SceneEvent_grounded_evidence
     - VisualSceneSpec
@@ -181,7 +187,68 @@ renderer_boundary:
   first_adapter: NullRenderer
   null_renderer_implemented_in: B6
   concrete_local_renderer_implemented_in: B7
+  concrete_local_renderer: DiffusersImageRenderer
+  local_batch_coordinator: LocalEmocioRenderer
+  supported_modes: [text_to_image, image_to_image]
+  request_contract:
+    content_addressed: true
+    exact_source_spec_hash_required: true
+    explicit_fields:
+      - provider_identity
+      - model
+      - immutable_model_revision
+      - pipeline_implementation_and_revision
+      - runtime_and_load_parameters
+      - seed
+      - prompt
+      - negative_prompt
+      - width
+      - height
+      - num_inference_steps
+      - guidance_scale
+      - source_image_id_hash_path_if_img2img
+      - strength_if_img2img
+    text_to_image_forbids_source_and_strength: true
+    image_to_image_requires_source_and_strength: true
+    image_to_image_preserves_source_dimensions: true
+    hidden_numeric_defaults: false
+  seed_policy:
+    explicit_root_seed_required: true
+    deterministic_per_scene_seed: true
+    derivation: >-
+      low 63 bits of the first 16 hex digits of SHA-256 over
+      algorithm=rei-emocio-scene-seed-v1, root_seed and source_spec_id
+    fallback_actual_seed_is_attempt_specific: true
+  artifact_integrity:
+    initial_media_type: image/png
+    atomic_write: true
+    content_sha256_verified_against_bytes: true
+    complete_png_chunks_crc_idat_iend_and_dimensions_verified: true
+    image_id_binds_request_id_and_content_sha256: true
+    img2img_source_hash_reverified_before_call: true
+    portable_relative_paths_only: true
+  failure_contract:
+    batch_statuses: [disabled, succeeded, partial, failed]
+    structured_call_record_retained: true
+    pre_call_preparation_failure_retained: true
+    every_non_disabled_batch_covers_every_source_scene: true
+    invalid_outputs_quarantined: true
+    implicit_provider_retry: false
+    fallback_is_frozen_native_conclusion: true
+  local_stack_verified_2026_07_13:
+    torch: 2.13.0
+    diffusers: 0.39.0
+    transformers: 5.13.0
+    accelerate: 1.14.0
+    safetensors: 0.8.0
+    Pillow: 12.3.0
+  final_model_selected: false
+  runtime_requires_explicit_model_repository: true
+  runtime_requires_immutable_40_hex_hub_commit: true
+  runtime_loads_local_files_only: true
   actual_image_generated_in_b6: false
+  actual_model_image_generated_in_b7_tests: false
+  deterministic_png_fixture_generated_in_b7_tests: true
   source_claim_ids: [C-EMOCIO-004, C-PROV-001]
 
 global_invariants:

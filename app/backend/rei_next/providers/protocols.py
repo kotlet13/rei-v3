@@ -6,6 +6,7 @@ from typing import Literal, Protocol, runtime_checkable
 
 from pydantic import Field, model_validator
 
+from ..ids import content_id
 from ..models.common import (
     ArtifactModel,
     ArtifactRelativePath,
@@ -33,6 +34,12 @@ from ..models.provider import (
     ProviderParameter,
     ensure_call_contract,
     ensure_call_record_contract,
+)
+from ..models.rendering import (
+    ImagePipelineSpec,
+    ImageRenderItemOutcome,
+    ImageRenderMode,
+    ImageRenderRequest,
 )
 
 
@@ -225,6 +232,7 @@ def validate_rendered_image(
     call_spec: ProviderCallSpec,
     call_record: ProviderCallRecord,
     seed: int,
+    request: ImageRenderRequest | None = None,
 ) -> None:
     """Bind renderer output to its source, approved call, execution, and model."""
 
@@ -272,6 +280,66 @@ def validate_rendered_image(
         raise ValueError("Non-model renderer artifacts cannot claim model provenance")
     if artifact.image_id not in call_record.output_artifact_ids:
         raise ValueError("Renderer record must list the image artifact ID")
+    if request is not None:
+        request.validate_source_spec(source_spec)
+        if request.request_id != artifact.request_id:
+            raise ValueError("Image artifact belongs to another render request")
+        if request.provider != call_spec.provider:
+            raise ValueError("Image request provider differs from its call spec")
+        if request.seed != call_spec.seed:
+            raise ValueError("Image request seed differs from approved primary call")
+        if request.input_artifact_ids != call_spec.input_artifact_ids:
+            raise ValueError("Image request inputs differ from its approved call")
+        if request.provider_parameters != call_spec.parameters:
+            raise ValueError("Image request parameters differ from its approved call")
+        if (
+            artifact.prompt != request.prompt
+            or artifact.negative_prompt != request.negative_prompt
+            or artifact.width != request.width
+            or artifact.height != request.height
+        ):
+            raise ValueError("Image artifact differs from approved prompt or dimensions")
+        expected_image_id = content_id(
+            "image",
+            {
+                "request_id": request.request_id,
+                "content_sha256": artifact.content_sha256,
+            },
+        )
+        if artifact.image_id != expected_image_id:
+            raise ValueError("Image artifact ID does not match request and byte digest")
+
+
+def validate_image_render_outcome(
+    outcome: ImageRenderItemOutcome,
+    *,
+    source_spec: VisualSceneSpec,
+) -> None:
+    """Validate a complete B7 attempt, including structured failure records."""
+
+    request = outcome.request.validate_source_spec(source_spec)
+    ensure_call_contract(
+        request.provider,
+        outcome.call_spec,
+        request_id=request.request_id,
+        seed=request.seed,
+        expected_kind="image_renderer",
+        required_input_artifact_ids=request.input_artifact_ids,
+    )
+    ensure_call_record_contract(outcome.call_spec, outcome.call_record)
+    if outcome.artifact is None:
+        if outcome.call_record.status in {"succeeded", "fell_back"}:
+            raise ValueError("Successful renderer outcome is missing its artifact")
+        return
+    validate_rendered_image(
+        outcome.artifact,
+        source_spec=source_spec,
+        identity=request.provider,
+        call_spec=outcome.call_spec,
+        call_record=outcome.call_record,
+        seed=outcome.artifact.seed,
+        request=request,
+    )
 
 
 @runtime_checkable
@@ -307,13 +375,14 @@ class ImageRenderer(Protocol):
     @property
     def identity(self) -> ProviderIdentity: ...
 
+    def pipeline_spec(self, mode: ImageRenderMode) -> ImagePipelineSpec: ...
+
     def render(
         self,
-        spec: VisualSceneSpec,
+        request: ImageRenderRequest,
         *,
-        seed: int,
         call: ProviderCallSpec,
-    ) -> ImageArtifact: ...
+    ) -> ImageRenderItemOutcome: ...
 
 
 @runtime_checkable
@@ -438,4 +507,5 @@ __all__ = [
     "ensure_call_contract",
     "ensure_call_record_contract",
     "validate_rendered_image",
+    "validate_image_render_outcome",
 ]

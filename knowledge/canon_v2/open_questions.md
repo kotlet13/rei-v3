@@ -210,6 +210,39 @@ trditev. `NullRenderer` je implementiran, native conclusion pa nastane pred
 vsakim opcijskim renderjem. B6 ni generiral nobene slike; konkreten lokalni
 renderer, img2img in model ostajajo B7.
 
+### B7 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za opcijsko lokalno
+renderiranje brez izbire končnega modela. `LocalEmocioRenderer` iz vsakega
+zamrznjenega `VisualSceneSpec` izdela content-addressed `ImageRenderRequest` in
+ga prek obstoječe provider meje preda `DiffusersImageRenderer`. Zahtevek,
+`ProviderCallSpec`, `ProviderCallRecord`, dejanski PNG in `ImageArtifact` so
+vezani z ID-ji ter hashi; ID slike je funkcija request ID-ja in SHA-256
+dejanskih bajtov. Store pred objavo preveri PNG podpis, dimenzije, portable pot,
+atomarni zapis in ponovno prebrani hash. Pri img2img pred klicem ponovno preveri
+še source path/hash/dimenzije. T2I prepove source/strength, img2img ju zahteva in
+v začetni pogodbi ohrani source dimenzije.
+
+Vsi numerični render parametri so eksplicitni vhodi; B7 ne uvede privzetih
+dimenzij, korakov, guidance ali strength. Eksplicitni root seed se za vsako
+sceno deterministično izpelje v 63-bitni seed iz SHA-256 oznake algoritma,
+root seeda in source-spec ID-ja; dejanski fallback seed ostane vezan na svoj
+provider attempt. Request in call dodatno zapišeta pipeline implementacijo,
+njeno revizijo ter dtype/device/load/runtime parametre. Lokalni adapter ne izvede
+nenačrtovanega provider retryja; `disabled`, `succeeded`, `partial` in `failed`
+so strukturirani batch statusi, neuspeh pa kot varen rezultat ohrani že
+zamrznjeni Emociev sklep. Vsak ne-disabled batch mora imeti outcome ali
+ekspliciten preparation-failure za vsako source sceno. Prompt compiler samo deterministično izpiše polja
+scene in ne ocenjuje ali izbira možnosti.
+
+Adapter zahteva eksplicitni model repository in nespremenljiv 40-mestni hex
+Hub commit; runtime sprejme le že lokalno prenesene datoteke, zato download ni
+del render klica. Končni slikovni model ostaja odprt. Opcijski stack je
+bil 2026-07-13 preverjen proti uradnim stabilnim izdajam: PyTorch 2.13.0,
+Diffusers 0.39.0, Transformers 5.13.0, Accelerate 1.14.0, safetensors 0.8.0 in
+Pillow 12.3.0. Testi uporabljajo samo deterministični fake backend; B7 med
+verifikacijo ne kliče modela in ne generira slike na GPU.
+
 ## OQ-INSTINKT-001 — virtual-body dinamika
 
 Katera minimalna deterministična dinamika zadostuje za nevarnost, izgubo,

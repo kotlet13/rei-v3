@@ -13,9 +13,14 @@ from ..models.emocio import (
     ImageArtifact,
 )
 from ..models.scene import SceneEvent
+from ..models.rendering import ImageRenderBatchOutcome
 from .packets import build_emocio_packet
 from .policy import EmocioPolicyDecision, choose_native_option
-from .renderer import EmocioRenderer, validate_renderer_outputs
+from .renderer import (
+    EmocioRenderer,
+    validate_render_batch,
+    validate_renderer_outputs,
+)
 from .scene_graph import compile_emocio_scenes
 from .valuation import build_emocio_visual_state
 
@@ -30,6 +35,7 @@ class EmocioProcessingResult:
     native_conclusion: EmocioNativeConclusion
     policy: EmocioPolicyDecision
     rendered_images: tuple[ImageArtifact, ...]
+    render_batch: ImageRenderBatchOutcome | None
     render_seed: int | None
     renderer_warning: str | None
     stage_order: tuple[str, ...]
@@ -64,16 +70,26 @@ class EmocioProcessingResult:
         )
         if self.native_conclusion != expected_conclusion:
             raise ValueError("Emocio native conclusion differs from deterministic replay")
-        validate_renderer_outputs(
-            self.rendered_images,
-            (
-                self.visual_state.current_scene,
-                self.visual_state.desired_scene,
-                self.visual_state.broken_scene,
-                *self.visual_state.option_rollouts,
-            ),
-            expected_seed=self.render_seed,
+        scenes = (
+            self.visual_state.current_scene,
+            self.visual_state.desired_scene,
+            self.visual_state.broken_scene,
+            *self.visual_state.option_rollouts,
         )
+        if self.render_batch is not None:
+            validate_render_batch(
+                self.render_batch,
+                scenes,
+                expected_seed=self.render_seed,
+            )
+            if self.rendered_images != self.render_batch.artifacts:
+                raise ValueError("Rendered images differ from the B7 batch provenance")
+        else:
+            validate_renderer_outputs(
+                self.rendered_images,
+                scenes,
+                expected_seed=self.render_seed,
+            )
 
 
 def _native_conclusion(
@@ -176,17 +192,34 @@ def process_emocio(
     stages.append("native_conclusion")
 
     images: tuple[ImageArtifact, ...] = ()
+    render_batch: ImageRenderBatchOutcome | None = None
     warning: str | None = None
     if renderer is not None:
         try:
-            images = tuple(renderer.render(compiled.all_scenes, seed=render_seed))
-            validate_renderer_outputs(
-                images,
-                compiled.all_scenes,
-                expected_seed=render_seed,
-            )
+            rendered = renderer.render(compiled.all_scenes, seed=render_seed)
+            if isinstance(rendered, ImageRenderBatchOutcome):
+                render_batch = rendered
+                validate_render_batch(
+                    render_batch,
+                    compiled.all_scenes,
+                    expected_seed=render_seed,
+                )
+                images = render_batch.artifacts
+                if render_batch.warnings:
+                    warning = (
+                        "Renderer completed after native conclusion with warnings: "
+                        + " | ".join(render_batch.warnings)
+                    )
+            else:
+                images = tuple(rendered)
+                validate_renderer_outputs(
+                    images,
+                    compiled.all_scenes,
+                    expected_seed=render_seed,
+                )
         except Exception as exc:  # optional presentation must not destroy native state
             images = ()
+            render_batch = None
             warning = f"Renderer ignored after native conclusion: {type(exc).__name__}: {exc}"
         stages.append("render")
     result = EmocioProcessingResult(
@@ -198,6 +231,7 @@ def process_emocio(
         native_conclusion=native_conclusion,
         policy=policy,
         rendered_images=images,
+        render_batch=render_batch,
         render_seed=render_seed if renderer is not None else None,
         renderer_warning=warning,
         stage_order=tuple(stages),

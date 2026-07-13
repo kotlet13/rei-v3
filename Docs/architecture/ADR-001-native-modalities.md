@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract; B5–B6 native processor implementations
+Scope: B1 documentation contract; B5–B7 native processor and renderer implementations
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -67,6 +67,33 @@ The native conclusion is frozen before the optional renderer boundary.
 `NullRenderer` is the B6 adapter; no image model is selected or invoked. Any
 renderer output is ungrounded presentation data and cannot revise packet,
 visual state, valuation or native option.
+
+## B7 implementation note
+
+B7 connects the optional boundary to a provider-neutral, per-scene render
+request and a lazy local Diffusers adapter. A render request closes the frozen
+scene hash, exact provider/model and pipeline revision, runtime/load settings,
+prompt, dimensions, deterministically derived per-scene seed and optional
+img2img source provenance before execution. The
+batch outcome retains successful, partial, failed and disabled attempts with
+their call records; no renderer result is fed back into scene compilation or
+valuation.
+
+The local PNG store writes without replacing an existing path and verifies the
+actual byte SHA-256, complete chunk CRC/IDAT/IEND structure and dimensions.
+Img2img source bytes are reverified before the call.
+The image ID binds the request ID and content digest, while every generated
+image remains `grounded=false`. Provider failure or invalid output is recorded
+after the native conclusion and leaves its ID/hash and selected option intact.
+
+No final image model is selected. Runtime configuration must supply a model
+repository and immutable 40-hex Hub commit. The optional pinned stack verified
+from official releases on 2026-07-13 is PyTorch 2.13.0, Diffusers 0.39.0,
+Transformers 5.13.0, Accelerate 1.14.0, safetensors 0.8.0 and Pillow 12.3.0.
+All B7 tests use an injected byte-only fake backend, so no model-backed image
+generation or GPU execution is part of the phase verification.
+Model files must be acquired separately; the runtime adapter uses
+`local_files_only=true` and never downloads weights during a render call.
 
 ## Claim trace
 

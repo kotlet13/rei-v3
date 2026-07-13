@@ -1,0 +1,11 @@
+# Optional B7 local Diffusers rendering stack.
+# Stable releases verified against official project/PyPI sources on 2026-07-13.
+# The runtime still requires an explicit model repository and immutable revision.
+-r requirements.txt
+
+torch==2.13.0
+diffusers==0.39.0
+transformers==5.13.0
+accelerate==1.14.0
+safetensors==0.8.0
+Pillow==12.3.0
