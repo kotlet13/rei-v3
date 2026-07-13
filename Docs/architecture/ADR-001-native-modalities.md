@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract
+Scope: B1 documentation contract; B5–B6 native processor implementations
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -53,6 +53,20 @@ Evidence boundary: source review supports Racio's verbal/numeric route, Emocio's
 5. RacioInterpreter does not receive hidden native motives as ground truth.
 6. Generated imagery cannot add grounded facts or modify a conclusion.
 7. Renderer failure leaves structured Emocio state and conclusion unchanged.
+
+## B6 implementation note
+
+B6 implements Emocio as a deterministic structured-scene processor. A
+profile-blind packet is compiled into current, desired, broken and per-option
+rollout scenes before an equal-weight 11-dimension fixture valuation selects a
+unique maximum or explicitly abstains on a tie. The rule uses exact structured
+atoms and no text keyword classifier. It is an uncalibrated
+`implementation_hypothesis`, not a claim about human affect.
+
+The native conclusion is frozen before the optional renderer boundary.
+`NullRenderer` is the B6 adapter; no image model is selected or invoked. Any
+renderer output is ungrounded presentation data and cannot revise packet,
+visual state, valuation or native option.
 
 ## Claim trace
 

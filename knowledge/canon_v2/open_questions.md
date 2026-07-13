@@ -191,6 +191,25 @@ valuation vrstice pa so kanonično urejeni po option ID-ju.
 Renderer, končni model in dovoljenje za dejansko generiranje slik prav tako
 ostajajo odprti.
 
+### B6 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za structured core.
+Deterministični router sprejme samo grounded `image`, `video` in `body`
+modalitete, ne uporablja tekstovnega keyword/sentiment klasifikatorja ter packet
+content-addressed veže na hash dogodka. Compiler ohrani isto identiteto in isti
+grounded evidence scope v current, desired, broken in vseh option-rollout
+scenah; svetovni spomini, želeni/broken elementi in option opisi so izrecno
+`inferred_elements`.
+
+Začetni valuator uporablja natančno ujemanje strukturiranih atomov. Manjkajoča
+referenca dobi nevtralno vrednost `0.5`, vseh 11 dimenzij se zaokroži na šest
+decimalk in enakovredno aritmetično povpreči. Izbrana je samo enolična najvišja
+vrednost; pri natančnem tieju Emocio abstinira. Začetna action tendency izbrane
+možnosti je `approach`. To je nekalibrirana fixture politika, ne empirična
+trditev. `NullRenderer` je implementiran, native conclusion pa nastane pred
+vsakim opcijskim renderjem. B6 ni generiral nobene slike; konkreten lokalni
+renderer, img2img in model ostajajo B7.
+
 ## OQ-INSTINKT-001 — virtual-body dinamika
 
 Katera minimalna deterministična dinamika zadostuje za nevarnost, izgubo,

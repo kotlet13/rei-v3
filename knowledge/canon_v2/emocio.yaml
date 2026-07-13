@@ -1,6 +1,6 @@
 schema_version: rei-native-emocio-v2
 status: architecture_canon
-runtime_effect: none_in_b1
+runtime_effect: active_from_b6
 canon_language: sl
 mind_id: E
 canonical_name: Emocio
@@ -28,11 +28,12 @@ native_flow:
   source_claim_ids: [C-EMOCIO-003, C-BUNDLE-001]
 
 input_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b6
   status: implementation_hypothesis
   canonical_name: EmocioInputPacket
   fields:
     - scene_id
+    - source_scene_hash
     - grounded_visual_cues
     - social_layout
     - actor_positions
@@ -50,7 +51,7 @@ input_contract:
   source_claim_ids: [C-PROV-001, C-NATIVE-002, C-EMOCIO-002]
 
 scene_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b6
   status: implementation_hypothesis
   canonical_name: VisualSceneSpec
   scene_kinds: [current, desired, broken, option_rollout]
@@ -72,7 +73,7 @@ scene_contract:
   source_claim_ids: [C-EMOCIO-002, C-PROV-001]
 
 visual_state_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b6
   status: implementation_hypothesis
   fields:
     - source_scene_id
@@ -86,6 +87,7 @@ visual_state_contract:
 
 valuation:
   status: implementation_hypothesis
+  implemented_in: B6
   dimensions:
     - desired_scene_match
     - distance_from_broken_scene
@@ -98,10 +100,19 @@ valuation:
     - status
     - competitive_success
     - attack_or_breakthrough_affordance
+  exact_structured_atom_matching: true
+  semantic_keyword_classifier: false
+  absent_reference_score: 0.5
+  arithmetic_precision_decimals: 6
+  aggregate: equal_arithmetic_mean_of_11_dimensions
+  unique_maximum_selects_option: true
+  exact_maximum_tie_abstains: true
+  initial_selected_action_tendency: approach
+  calibration_status: uncalibrated_fixture_policy
   source_claim_ids: [C-EMOCIO-002]
 
 native_conclusion_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b6
   status: implementation_hypothesis
   fields:
     - mind
@@ -167,7 +178,10 @@ renderer_boundary:
     - grounded_mask_if_any
   generated_details_are_grounded: false
   renderer_failure_changes_native_conclusion: false
-  first_adapter: NullImageRenderer
+  first_adapter: NullRenderer
+  null_renderer_implemented_in: B6
+  concrete_local_renderer_implemented_in: B7
+  actual_image_generated_in_b6: false
   source_claim_ids: [C-EMOCIO-004, C-PROV-001]
 
 global_invariants:

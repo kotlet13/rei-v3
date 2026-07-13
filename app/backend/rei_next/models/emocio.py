@@ -10,6 +10,7 @@ from typing import Annotated, Literal, Self
 
 from pydantic import Field, StringConstraints, model_validator
 
+from ..ids import content_id
 from .common import (
     ArtifactRelativePath,
     FrozenArtifactModel,
@@ -118,6 +119,10 @@ class EmocioInputPacket(FrozenArtifactModel):
     )
     packet_id: NonEmptyId
     scene_id: NonEmptyId
+    source_scene_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
     grounded_visual_cues: tuple[str, ...]
     social_layout: tuple[str, ...]
     actor_positions: tuple[str, ...]
@@ -142,12 +147,74 @@ class EmocioInputPacket(FrozenArtifactModel):
 
         if self.scene_id != scene.event_id:
             raise ValueError("Emocio packet belongs to another SceneEvent")
+        if (
+            self.source_scene_hash is not None
+            and self.source_scene_hash != scene.scene_hash()
+        ):
+            raise ValueError("Emocio packet source hash differs from the SceneEvent")
         scene_option_ids = {option.option_id for option in scene.options}
         if set(self.allowed_option_ids) != scene_option_ids:
             raise ValueError("Emocio packet must preserve every SceneEvent option")
         scene_evidence_ids = {item.evidence_id for item in scene.evidence}
         if not set(self.evidence_ids).issubset(scene_evidence_ids):
             raise ValueError("Emocio packet evidence must belong to the SceneEvent")
+        if self.source_scene_hash is not None:
+            grounded = tuple(item for item in scene.evidence if item.grounded)
+            routed = tuple(
+                item
+                for item in grounded
+                if item.modality in {"image", "video", "body"}
+            )
+            expected_visual = tuple(
+                sorted(
+                    {
+                        item.content
+                        for item in grounded
+                        if item.modality in {"image", "video"}
+                    }
+                )
+            )
+            expected_movement = tuple(
+                sorted(
+                    {
+                        item.content
+                        for item in grounded
+                        if item.modality in {"video", "body"}
+                    }
+                )
+            )
+            actors = tuple(sorted(set(scene.actors)))
+            expected = {
+                "grounded_visual_cues": expected_visual,
+                "social_layout": actors,
+                "actor_positions": (),
+                "observed_attention": (),
+                "movement_cues": expected_movement,
+                "aesthetic_cues": expected_visual,
+                "explicit_identity_cues": actors,
+                "allowed_option_ids": tuple(
+                    sorted(option.option_id for option in scene.options)
+                ),
+                "evidence_ids": tuple(
+                    sorted(item.evidence_id for item in routed)
+                ),
+            }
+            for field_name, expected_value in expected.items():
+                if getattr(self, field_name) != expected_value:
+                    raise ValueError(
+                        f"Content-addressed Emocio packet {field_name} differs "
+                        "from the deterministic router"
+                    )
+            expected_packet_id = content_id(
+                "emocio_packet",
+                self.model_dump(
+                    mode="python",
+                    round_trip=True,
+                    exclude={"packet_id"},
+                ),
+            )
+            if self.packet_id != expected_packet_id:
+                raise ValueError("Emocio packet ID does not match its canonical content")
         return self
 
 
