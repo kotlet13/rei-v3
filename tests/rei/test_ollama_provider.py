@@ -279,6 +279,7 @@ def test_ollama_native_racio_closes_model_and_response_provenance() -> None:
         "num_predict": 1536,
     }
     assert payload["format"]["additionalProperties"] is False
+    assert "never copy a fact or unknown string verbatim" in payload["system"]
     prompt = json.loads(payload["prompt"])
     assert {
         "character",

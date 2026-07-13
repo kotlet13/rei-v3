@@ -21,9 +21,13 @@ unknowns (string array), causal_sequence (string array), utility_structure (stri
 array),
 explicit_goal (string), main_objection (string), confidence (number 0..1), abstains
 (boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs
-present in the packet. Keep facts, unknowns and causal steps in separate fields. Do not
-interpret Emocio or Instinkt, decide governance, commit behavior, or infer character
-authority. Return raw JSON without markdown fences or additional keys."""
+present in the packet. Every array must contain unique values. In facts_used, copy
+only exact strings from explicit_facts or world.facts. In unknowns, copy only exact
+strings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning
+steps: never copy a fact or unknown string verbatim into causal_sequence, and keep the
+three fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,
+commit behavior, or infer character authority. Return raw JSON without markdown fences
+or additional keys."""
 
 
 def _unique_artifact_ids(values: tuple[str, ...]) -> tuple[str, ...]:
