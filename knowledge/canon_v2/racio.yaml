@@ -1,6 +1,6 @@
 schema_version: rei-native-racio-v2
 status: architecture_canon
-runtime_effect: none_in_b1
+runtime_effect: active_from_b5
 canon_language: sl
 mind_id: R
 canonical_name: Racio
@@ -39,7 +39,7 @@ roles:
       effect: Razloži odločitev in self-model, ne da bi mutiral odločitev ali vedenje.
 
 input_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b5
   status: implementation_hypothesis
   required_semantics:
     - symbolic_and_language_cues
@@ -56,6 +56,8 @@ input_contract:
     - RacioWorld
     - previous_RacioProjection_records
     - caveat
+    - language
+    - source_scene_hash
   prohibited_inputs_in_controlled_mode:
     - character_profile
     - authority_rank
@@ -63,12 +65,37 @@ input_contract:
     - hidden_instinkt_motive
   source_claim_ids: [C-NATIVE-002, C-PROV-001, C-RACIO-002]
 
+native_processor_implementation:
+  status: implementation_hypothesis
+  implemented_in: B5
+  processor_protocol: RacioNativeProcessor
+  deterministic_fixture_provider:
+    name: DeterministicRacioProvider
+    policy_id: first-allowed-option-v1
+    semantic_scoring: false
+    keyword_scoring: false
+    production_reasoner: false
+    tie_or_no_option_behavior: abstain_when_no_option
+  model_adapter:
+    name: TextReasonerRacioAdapter
+    provider_protocol: TextReasoner
+    strict_json: true
+    rejects_extra_fields: true
+    requires_call_lineage: true
+    requires_provider_result_id_and_hash: true
+    concrete_model_selected: false
+  excluded_from_b5: [RacioInterpreter, RacioCommitter, RacioNarrator]
+
 native_conclusion_contract:
-  contract_status: documented_for_b2
+  contract_status: implemented_in_b5
   status: implementation_hypothesis
   fields:
     - mind
     - option_id
+    - source_packet_hash
+    - evidence_ids_used
+    - reasoning_provider_result_id
+    - reasoning_provider_result_hash
     - facts_used
     - unknowns
     - causal_sequence
@@ -82,6 +109,9 @@ native_conclusion_contract:
     mind_is_R: true
     precedes_governance: true
     profile_blind_in_controlled_mode: true
+    facts_unknowns_and_sequence_are_disjoint: true
+    explicit_fact_citations_are_exact: true
+    content_addressed_for_b5_outputs: true
   source_claim_ids: [C-RACIO-002, C-NATIVE-002, C-BUNDLE-001]
 
 interpretation_contract:

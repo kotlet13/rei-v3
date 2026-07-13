@@ -132,6 +132,23 @@ eksplicitne možnosti in posledice, omejitve, dovoljene option ID-je, evidence
 ID-je, `RacioWorld`, reference na prejšnje `RacioProjection` zapise ter caveat.
 Profil, authority tier in skriti E/I motivi niso polja paketa.
 
+### B5 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za native Racio.
+Aktivni builder izdela content-addressed, profile-blind packet, ga veže na hash
+točnega `SceneEvent` ter ohrani vrstni red eksplicitnih dejstev, neznank,
+možnosti, omejitev in evidence ID-jev. Dejstva lahko izvirajo samo iz supplied,
+grounded evidence ali iz eksplicitnega `RacioWorld`; vsako uporabljeno supplied
+dejstvo mora citirati pripadajoči evidence ID. Dejstva, neznanke in kavzalni
+koraki so ločena, neprekrivajoča se polja.
+
+`DeterministicRacioProvider` je infrastrukturni fixture z javno politiko
+`first-allowed-option-v1`; ne uporablja semantičnega ali keyword vrednotenja in
+ni nadomestek za produkcijski reasoner. `TextReasonerRacioAdapter` sprejme samo
+strogi JSON, zapre provider call/result ID in hash ter zavrne neznana dejstva,
+možnosti, evidence ali dodatna polja. Konkreten LLM ni izbran. Interpretation,
+commit in narration niso del B5 ter ostajajo ločene poznejše faze.
+
 ## OQ-TRANSLATION-001 — zvestoba Racijevega prevoda
 
 Kako evaluator loči uporaben prevod od opustitve, racionalizacije,

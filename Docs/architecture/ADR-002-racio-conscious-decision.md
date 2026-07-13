@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract
+Scope: B1 documentation contract; B5 native Racio implementation
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -44,6 +44,16 @@ Every `ConsciousDecision` has `made_by="R"`. This identifies the conscious chann
 4. E/I native conclusions remain unchanged by interpretation.
 5. Narration is downstream and read-only with respect to decision and behavior.
 6. Ego is neither Racio nor a fifth Racio function.
+
+## B5 implementation note
+
+B5 implements only `RacioNativeProcessor`. Its packet and conclusion are
+content-addressed and profile-blind, and facts, unknowns and causal steps remain
+separate structured fields. Exact evidence citations are required for supplied
+facts. The deterministic provider is an explicitly positional infrastructure
+fixture, not a semantic decision model. The optional `TextReasoner` adapter
+accepts strict JSON and records the provider result ID and hash. No concrete LLM
+is selected in B5, and interpreter, committer and narrator remain downstream.
 
 ## Claim trace
 
