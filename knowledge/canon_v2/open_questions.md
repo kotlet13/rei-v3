@@ -263,6 +263,123 @@ zaupanja vrednem source BodyState. Triggering evidence BodyTransitiona mora
 ostati znotraj evidence scope pripadajočega Instinkt input packeta. Konkretna
 deterministična dinamika in pragovi ostajajo za B8.
 
+### B8 izvedbena odločitev — 2026-07-13
+
+Status: `implementation_hypothesis`, operativno razrešeno za prvi omejeni
+Instinkt simulator. Spodnja pravila so zamenljiva programska
+operacionalizacija; niso empirična psihološka, medicinska ali fiziološka
+trditev. Vprašanje njihove empirične ustreznosti zato ostaja odprto.
+
+- `BodyState` ima 13 fiksnih dimenzij iz `instinkt.yaml`; vse so finite v
+  `[0, 1]`, tipizirana vhodna `BodyDelta` pa je v `[-1, 1]`.
+- Privzeti rollout izvede natanko tri korake; konfiguracija dovoljuje od 1 do
+  8. `max_options` je privzeto 16 in omejen na 1–32, packet pa sme imeti tudi
+  nič možnosti. Privzeta absolutna per-step meja delte je `0.25` in mora biti
+  v `(0, 1]`.
+- Za vsako dimenzijo velja
+  `step_delta = clamp(effect_delta / rollout_steps, -max_delta, +max_delta)` in
+  `next = clamp(previous + step_delta, 0, 1)`. Ni convergence ali
+  neskončnega agentnega loopa; replay numeričnih artefaktov uporablja absolutno
+  toleranco `1e-12`.
+- Vsak packet option potrebuje natanko en vsebinsko naslovljen
+  `OptionBodyEffect`. Besedilo dogodka ali cuejev ni keyword/sentiment
+  klasifikator in samo po sebi ne ocenjuje možnosti.
+
+Začetni nekalibrirani loss in recovery funkciji sta:
+
+```text
+predicted_loss = clamp01(
+  0.50*base_predicted_loss
+  + 0.15*(1-physical_integrity)
+  + 0.10*pain
+  + 0.10*tension
+  + 0.05*(1-boundary_integrity)
+  + 0.05*(1-resource_security)
+  + 0.05*(1-attachment_security)
+  + 0.20*loss_memory_strength
+)
+
+recoverability = clamp01(
+  0.50*base_recoverability
+  + 0.15*energy
+  + 0.10*escape_availability
+  + 0.10*predictability
+  + 0.05*trust
+  + 0.05*attachment_security
+  + 0.05*resource_security
+  - 0.20*loss_memory_strength
+)
+```
+
+Jedrne loss, recovery in intensity uteži morajo vsaka zase dati vsoto `1.0`
+z absolutno toleranco `1e-12`. `loss_memory_strength` je največji
+`retrieval_score` med dejansko vrnjenimi asociacijami z zapisano izgubo, sicer
+`0.0`; gola `felt_intensity` ali `effective_strength` torej ne obide kakovosti
+exact-token ujemanja.
+
+Asociacijski spomin ima privzeto kapaciteto 32 (dovoljeno 1–256), retrieval
+limit 4 (1–32 in največ kapaciteta), minimalno učinkovito moč `0.05` v
+`[0, 1]` ter največji advance na klic 10.000 ciklov (konfigurabilen
+1–1.000.000; posamezni integer advance je od 0 do te konfigurirane meje,
+`bool` pa ni integer vhod).
+Tokeni se samo `strip()`/`casefold()` normalizirajo, deduplicirajo in uredijo;
+ni tokenizacije, stemminga ali semantičnega classifierja. Velja:
+
+```text
+age_cycles = current_cycle - insertion_cycle
+effective_strength = clamp01(felt_intensity - decay*age_cycles)
+overlap_ratio = exact_overlap_count / unique_signature_token_count
+retrieval_score = effective_strength * overlap_ratio
+```
+
+Zadetki so urejeni po `retrieval_score` padajoče, nato po
+`effective_strength` padajoče in `association_id` naraščajoče. Po preseženi
+kapaciteti se odstrani zapis z najmanjšo trenutno učinkovito močjo, nato
+najstarejšim insertion indexom in nato `association_id`; podvojen ID je
+prepovedan. Vsak match hrani association hash, cikel, starost, overlap, moč in
+score, rollout pa njegove kanonične ID-je in celotne zapise.
+
+Zaščitna politika minimizira:
+
+```text
+protective_cost = predicted_loss
+  + 0.25*(1-recoverability)
+  + 0.15*final_tension
+  + 0.10*final_uncertainty
+```
+
+Privzeti penaltyji dajo vsoto `0.50`, konfiguracija pa prepove vsoto nad
+`0.50`; zato je cost v `[0, 1.5]`. Vsi costi z
+`abs(cost-minimum) <= tie_epsilon` so izenačeni; privzeti epsilon je `1e-12`
+in dovoljen v `[0, 1]`. Dve ali več izenačenih možnosti pomenita
+`abstained_tie` brez skritega sekundarnega tie-breakerja. Prazen option set
+pomeni `abstained_no_options`, brez scoreov ali decisive rolloutu in z
+intenzivnostjo `0.0`.
+
+Za izbrani rollout je native intenzivnost
+`clamp01(0.60*predicted_loss + 0.25*final_tension + 0.15*final_arousal)`;
+pri tie abstinenci je največja intenzivnost izenačenih rolloutov. Manifestacija
+uporabi finalni `BodyState` decisive roll-outa, pri abstinenci pa začetnega, in
+izračuna:
+
+```text
+felt_tension = tension
+fear_intensity = clamp01(0.50*intensity + 0.30*tension + 0.20*arousal)
+attachment_pull = clamp01((1-attachment_security)*intensity)
+withdrawal_urge = intensity samo za withdraw ali seek_safety, sicer 0
+freeze_intensity = intensity samo za freeze, sicer 0
+boundary_alarm = clamp01(1-boundary_integrity)
+```
+
+Manifestacija je vsebinsko naslovljena in hrani ID/hash sklepa ter BodyStatea;
+ob izbiri tudi ID/hash decisive roll-outa, pri abstinenci pa ga ne sme citirati.
+Config, typed effect, vsak transition, association match, rollout, policy in
+manifestation imajo preverljivo ID/hash lineage. Transition se mora ponovno
+izvesti iz effecta in configa, rollout pa mora ponovno dokazati verigo,
+asociacije, `predicted_loss` in `recoverability`. Vhod procesorja ne vsebuje
+profila ali karakterja, vsi artefakti so frozen, body state in spomin pa ne
+smeta spremeniti `structural_character` ali `authority_tiers`.
+
 ## OQ-PAIR-001 — spor dveh enakovrednih vodilnih razumov
 
 Pregledani viri ne dajejo univerzalnega pravila za vsak spor vodilnega para.

@@ -226,6 +226,275 @@ manifestation_contract:
   is_complete_native_conclusion: false
   source_claim_ids: [C-CONSC-001, C-INSTINKT-003]
 
+b8_deterministic_runtime:
+  phase: B8
+  status: implementation_hypothesis
+  runtime_status: implemented
+  claim_boundary:
+    empirical_psychology_claim: false
+    medical_or_physiological_claim: false
+    canonical_sl: >-
+      Vsa spodnja števila in enačbe so zamenljiva programska
+      operacionalizacija B8, ne empirično potrjen opis človeške psihologije,
+      telesa ali fiziologije.
+  body_state:
+    dimension_count: 13
+    dimensions:
+      - energy
+      - fatigue
+      - pain
+      - arousal
+      - tension
+      - physical_integrity
+      - uncertainty
+      - trust
+      - attachment_security
+      - resource_security
+      - boundary_integrity
+      - escape_availability
+      - predictability
+    normalized_range: [0.0, 1.0]
+    finite_only: true
+    body_delta_range: [-1.0, 1.0]
+    values_are_character_weights: false
+  simulation_config:
+    normalized_weight_and_score_bounds: [0.0, 1.0]
+    weight_group_sum_abs_tolerance: 1.0e-12
+    rollout_steps:
+      default: 3
+      bounds: [1, 8]
+      execution: exactly_configured_count
+    max_options:
+      default: 16
+      bounds: [1, 32]
+      zero_packet_options_are_valid: true
+    max_abs_delta_per_step:
+      default: 0.25
+      lower_bound_exclusive: 0.0
+      upper_bound_inclusive: 1.0
+    replay_abs_tolerance: 1.0e-12
+    step_index_bounds: [1, 8]
+    simulated_transition_count_bounds: [1, 8]
+    no_convergence_or_unbounded_agent_loop: true
+  transition_formula:
+    step_delta: >-
+      clamp(effect_total_delta / rollout_steps,
+      -max_abs_delta_per_step, +max_abs_delta_per_step)
+    next_dimension_value: clamp(previous_dimension_value + step_delta, 0.0, 1.0)
+    trajectory_length: rollout_steps + 1
+    canonical_dimension_order: true
+    canonical_sl: >-
+      Vsak rollout izvede natanko konfigurirano število korakov. Vsak korak
+      deterministično razdeli tipizirano skupno delto, jo omeji s per-step
+      mejo in nato vsako dimenzijo omeji v [0, 1].
+  typed_effect_boundary:
+    canonical_runtime_name: OptionBodyEffect
+    exactly_one_effect_per_packet_option: true
+    raw_scene_or_packet_text_may_score_options: false
+    packet_id_and_hash_required: true
+    triggering_evidence_must_be_in_packet_scope: true
+    body_delta_dimensions_are_unique_and_canonical: true
+    base_loss_and_recoverability_bounds: [0.0, 1.0]
+  replay_and_lineage:
+    config_is_content_addressed: true
+    typed_effect_is_content_addressed: true
+    transition_records:
+      - source_packet_id_and_hash
+      - source_effect_id_and_hash
+      - source_config_id_and_hash
+      - step_index
+      - triggering_evidence_ids
+      - from_state
+      - to_state
+      - exact_deltas
+      - transition_hash
+    rollout_records:
+      - source_packet_id_and_hash
+      - source_body_state_id_and_hash
+      - source_effect_id_and_hash
+      - source_config_id_and_hash
+      - ordered_transitions
+      - association_match_ids_and_records
+      - predicted_loss
+      - recoverability
+      - rollout_hash
+    transition_must_replay_from_effect_and_config: true
+    rollout_chain_and_scores_must_replay: true
+    legacy_unverified_contract_hashes_remain_compatible: true
+  loss_model:
+    output_range: [0.0, 1.0]
+    weights:
+      base_predicted_loss: 0.50
+      physical_integrity_deficit: 0.15
+      pain: 0.10
+      tension: 0.10
+      boundary_integrity_deficit: 0.05
+      resource_security_deficit: 0.05
+      attachment_security_deficit: 0.05
+    core_weights_sum: 1.0
+    association_loss_weight: 0.20
+    formula: >-
+      predicted_loss = clamp01(0.50*base_predicted_loss +
+      0.15*(1-physical_integrity) + 0.10*pain + 0.10*tension +
+      0.05*(1-boundary_integrity) + 0.05*(1-resource_security) +
+      0.05*(1-attachment_security) + 0.20*loss_memory_strength)
+  recovery_model:
+    output_range: [0.0, 1.0]
+    weights:
+      base_recoverability: 0.50
+      energy: 0.15
+      escape_availability: 0.10
+      predictability: 0.10
+      trust: 0.05
+      attachment_security: 0.05
+      resource_security: 0.05
+    core_weights_sum: 1.0
+    association_recovery_penalty: 0.20
+    formula: >-
+      recoverability = clamp01(0.50*base_recoverability + 0.15*energy +
+      0.10*escape_availability + 0.10*predictability + 0.05*trust +
+      0.05*attachment_security + 0.05*resource_security -
+      0.20*loss_memory_strength)
+  source_claim_ids: [C-INSTINKT-002, C-INSTINKT-004, C-PROV-001, C-STATE-001]
+
+b8_associative_memory:
+  phase: B8
+  status: implementation_hypothesis
+  capacity:
+    default: 32
+    bounds: [1, 256]
+  retrieval_limit:
+    default: 4
+    bounds: [1, 32]
+    must_not_exceed_capacity: true
+  minimum_effective_strength:
+    default: 0.05
+    bounds: [0.0, 1.0]
+  max_advance_cycles_per_call:
+    default: 10000
+    config_bounds: [1, 1000000]
+    accepted_advance_bounds: [0, configured_max_advance_cycles]
+    integer_only_and_bool_rejected: true
+  token_policy:
+    normalization: strip_then_casefold_then_unique_sort
+    matching: exact_token_overlap_only
+    tokenization_stemming_or_semantic_classifier: false
+  decay:
+    age_cycles: current_cycle - insertion_cycle
+    formula: effective_strength = clamp01(felt_intensity - decay*age_cycles)
+  retrieval:
+    requires_nonempty_overlap: true
+    overlap_ratio: exact_overlap_count / unique_signature_token_count
+    score_formula: retrieval_score = effective_strength * overlap_ratio
+    ordering:
+      - retrieval_score_desc
+      - effective_strength_desc
+      - association_id_asc
+    result_count: min(number_of_eligible_matches, retrieval_limit)
+    memory_cycle_and_age_lower_bound: 0
+    age_must_not_exceed_memory_cycle: true
+    effective_strength_and_retrieval_score_bounds: [0.0, 1.0]
+    retrieval_score_must_not_exceed_effective_strength: true
+  loss_memory_strength:
+    formula: >-
+      max(retrieval_score for retrieved matches where
+      carries_experienced_loss is true), default 0.0
+    note: >-
+      Vpliv spomina uporablja retrieval_score, ne gole felt_intensity ali
+      effective_strength, zato delni exact-token overlap sorazmerno oslabi vpliv.
+  eviction:
+    trigger: entry_count_exceeds_capacity
+    victim_order:
+      - lowest_current_effective_strength
+      - oldest_insertion_index
+      - association_id_asc
+    duplicate_association_id_rejected: true
+  audit:
+    match_is_content_addressed: true
+    match_records_association_hash_cycle_age_overlap_strength_and_score: true
+    rollout_embeds_canonical_match_records_and_ids: true
+  source_claim_ids: [C-INSTINKT-002, C-PROV-001]
+
+b8_protective_policy:
+  phase: B8
+  status: implementation_hypothesis
+  option_order: lexical_option_id
+  lower_cost_wins: true
+  penalties:
+    each_penalty_bounds: [0.0, 1.0]
+    recoverability_deficit: 0.25
+    final_tension: 0.15
+    final_uncertainty: 0.10
+    default_sum: 0.50
+    configured_sum_must_be_at_most: 0.50
+  cost_formula: >-
+    protective_cost = predicted_loss + 0.25*(1-recoverability) +
+    0.15*final_tension + 0.10*final_uncertainty
+  cost_range_under_config_contract: [0.0, 1.5]
+  tie_policy:
+    epsilon_default: 1.0e-12
+    epsilon_bounds: [0.0, 1.0]
+    tied_when: abs(cost - minimum_cost) <= tie_epsilon
+    two_or_more_tied_options: abstained_tie
+    hidden_or_secondary_tiebreak: false
+  no_options_policy:
+    status: abstained_no_options
+    option_scores: []
+    selected_option: null
+    decisive_rollout: null
+    conclusion_intensity: 0.0
+  selected_conclusion_intensity:
+    weights:
+      predicted_loss: 0.60
+      final_tension: 0.25
+      final_arousal: 0.15
+    weights_sum: 1.0
+    formula: >-
+      intensity = clamp01(0.60*predicted_loss + 0.25*final_tension +
+      0.15*final_arousal)
+    tie_abstention: maximum_intensity_of_tied_rollouts
+  policy_is_content_addressed_and_replay_validated: true
+  source_claim_ids: [C-INSTINKT-003, C-INSTINKT-004, C-PROV-001]
+
+b8_manifestation:
+  phase: B8
+  status: implementation_hypothesis
+  source_body_state:
+    selected_policy: decisive_rollout_final_state
+    abstention: original_source_body_state
+  formulas:
+    output_score_range: [0.0, 1.0]
+    felt_tension: body_state.tension
+    fear_intensity: >-
+      clamp01(0.50*conclusion.intensity + 0.30*body_state.tension +
+      0.20*body_state.arousal)
+    attachment_pull: >-
+      clamp01((1-body_state.attachment_security)*conclusion.intensity)
+    withdrawal_urge: >-
+      conclusion.intensity for withdraw or seek_safety; otherwise 0.0
+    freeze_intensity: conclusion.intensity for freeze; otherwise 0.0
+    boundary_alarm: clamp01(1-body_state.boundary_integrity)
+    raw_urge: structured_tendency:{action_tendency}
+  body_locations_are_unique_in_first_occurrence_order: true
+  provenance:
+    content_addressed_manifestation_id_and_hash: true
+    source_conclusion_id_and_hash: true
+    source_body_state_id_and_hash: true
+    selected_conclusion_requires_decisive_rollout_id_and_hash: true
+    abstaining_conclusion_must_not_cite_decisive_rollout: true
+    all_formulas_replay_with_abs_tolerance: 1.0e-12
+  is_structured_projection_not_inner_monologue: true
+  source_claim_ids: [C-CONSC-001, C-INSTINKT-003, C-PROV-001]
+
+b8_character_isolation:
+  phase: B8
+  status: implementation_hypothesis
+  processor_accepts_character_or_profile_input: false
+  body_state_or_memory_may_mutate_structural_character: false
+  body_state_or_memory_may_mutate_authority_tiers: false
+  models_and_artifacts_are_frozen: true
+  source_claim_ids: [C-STATE-001, C-CHAR-006, C-INSTINKT-004]
+
 global_invariants:
   - canonical_sl: Instinkt ni tekstovni svetovalec in LLM ni njegov skriti odločevalni center.
     source_claim_ids: [C-INSTINKT-003, C-BEHAV-002]

@@ -7,19 +7,26 @@ it is not input ground truth for Racio's interpreter.
 
 from __future__ import annotations
 
+import math
 from typing import Literal, Self
 
 from pydantic import Field, model_validator
 
+from ..ids import content_id
 from .common import (
     FrozenArtifactModel,
     FrozenModel,
+    HashDigest,
     NonEmptyId,
     NonEmptyText,
     Score01,
 )
 from .emocio import EmocioNativeConclusion, ImageArtifact
-from .instinkt import InstinktNativeConclusion
+from .instinkt import (
+    BodyState,
+    InstinktNativeConclusion,
+    InstinktOptionRollout,
+)
 
 
 AcceptanceMode = Literal["accepting", "mixed", "conflicted", "unknown"]
@@ -118,6 +125,25 @@ class InstinktManifestation(FrozenArtifactModel):
     )
     manifestation_id: NonEmptyId
     source_conclusion_id: NonEmptyId
+    source_conclusion_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    manifestation_status: Literal["unverified_contract", "simulated_v1"] = Field(
+        default="unverified_contract",
+        exclude_if=lambda value: value == "unverified_contract",
+    )
+    source_body_state_id: NonEmptyId | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    source_body_state_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    source_decisive_rollout_id: NonEmptyId | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    source_decisive_rollout_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
     body_locations: tuple[str, ...] = ()
     felt_tension: Score01
     fear_intensity: Score01
@@ -126,10 +152,121 @@ class InstinktManifestation(FrozenArtifactModel):
     freeze_intensity: Score01
     boundary_alarm: Score01
     raw_urge: str
+    manifestation_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
 
-    def validate_against(self, conclusion: InstinktNativeConclusion) -> Self:
+    @model_validator(mode="after")
+    def validate_manifestation_record(self) -> Self:
+        if len(set(self.body_locations)) != len(self.body_locations):
+            raise ValueError("Instinkt manifestation body locations must be unique")
+        lineage = (
+            self.source_conclusion_hash,
+            self.source_body_state_id,
+            self.source_body_state_hash,
+            self.source_decisive_rollout_id,
+            self.source_decisive_rollout_hash,
+            self.manifestation_hash,
+        )
+        if self.manifestation_status == "unverified_contract":
+            if any(value is not None for value in lineage):
+                raise ValueError("Unverified manifestation cannot claim B8 lineage")
+            return self
+        if (
+            self.source_conclusion_hash is None
+            or self.source_body_state_id is None
+            or self.source_body_state_hash is None
+            or self.manifestation_hash is None
+        ):
+            raise ValueError("Simulated manifestation requires BodyState lineage")
+        if (self.source_decisive_rollout_id is None) != (
+            self.source_decisive_rollout_hash is None
+        ):
+            raise ValueError("Manifestation rollout ID and hash must appear together")
+        id_payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"manifestation_id", "manifestation_hash"},
+        )
+        if self.manifestation_id != content_id("instinkt_manifestation", id_payload):
+            raise ValueError("manifestation_id does not match manifestation content")
+        expected_hash = self.content_hash(
+            exclude_fields=frozenset({"manifestation_hash"})
+        )
+        if self.manifestation_hash != expected_hash:
+            raise ValueError("manifestation_hash does not match manifestation content")
+        return self
+
+    def validate_against(
+        self,
+        conclusion: InstinktNativeConclusion,
+        body_state: BodyState | None = None,
+        decisive_rollout: InstinktOptionRollout | None = None,
+    ) -> Self:
         if self.source_conclusion_id != conclusion.conclusion_id:
             raise ValueError("Instinkt manifestation belongs to another conclusion")
+        if self.manifestation_status == "unverified_contract":
+            return self
+        if body_state is None:
+            raise ValueError("Simulated manifestation requires its source BodyState")
+        if self.source_conclusion_hash != conclusion.content_hash():
+            raise ValueError("Instinkt manifestation conclusion hash differs")
+        if (
+            self.source_body_state_id != body_state.body_state_id
+            or self.source_body_state_hash != body_state.content_hash()
+        ):
+            raise ValueError("Instinkt manifestation BodyState lineage differs")
+        if conclusion.decisive_rollout_id is None:
+            if decisive_rollout is not None or self.source_decisive_rollout_id is not None:
+                raise ValueError("Abstaining manifestation cannot cite a rollout")
+            if conclusion.source_body_state_id != body_state.body_state_id:
+                raise ValueError("Abstaining manifestation must use the source BodyState")
+        else:
+            if decisive_rollout is None or decisive_rollout.rollout_hash is None:
+                raise ValueError("Selected manifestation requires its decisive rollout")
+            if (
+                decisive_rollout.rollout_id != conclusion.decisive_rollout_id
+                or decisive_rollout.option_id != conclusion.option_id
+                or decisive_rollout.trajectory[-1] != body_state
+                or self.source_decisive_rollout_id != decisive_rollout.rollout_id
+                or self.source_decisive_rollout_hash != decisive_rollout.rollout_hash
+            ):
+                raise ValueError("Instinkt manifestation decisive rollout lineage differs")
+        expected_values = {
+            "felt_tension": body_state.tension,
+            "fear_intensity": (
+                0.50 * conclusion.intensity
+                + 0.30 * body_state.tension
+                + 0.20 * body_state.arousal
+            ),
+            "attachment_pull": (
+                (1.0 - body_state.attachment_security) * conclusion.intensity
+            ),
+            "withdrawal_urge": (
+                conclusion.intensity
+                if conclusion.action_tendency in {"withdraw", "seek_safety"}
+                else 0.0
+            ),
+            "freeze_intensity": (
+                conclusion.intensity
+                if conclusion.action_tendency == "freeze"
+                else 0.0
+            ),
+            "boundary_alarm": 1.0 - body_state.boundary_integrity,
+        }
+        for field_name, expected in expected_values.items():
+            if not math.isclose(
+                getattr(self, field_name),
+                expected,
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            ):
+                raise ValueError(
+                    f"Instinkt manifestation {field_name} does not replay"
+                )
+        expected_urge = f"structured_tendency:{conclusion.action_tendency}"
+        if self.raw_urge != expected_urge:
+            raise ValueError("Instinkt manifestation raw urge does not replay")
         return self
 
 

@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-07-13
-Scope: B1 documentation contract; B5–B7 native processor and renderer implementations
+Scope: B1 documentation contract; B5–B8 native processor and renderer implementations
 
 Acceptance of this ADR does not change the claim statuses recorded in `knowledge/canon_v2/claims.jsonl`.
 
@@ -53,6 +53,8 @@ Evidence boundary: source review supports Racio's verbal/numeric route, Emocio's
 5. RacioInterpreter does not receive hidden native motives as ground truth.
 6. Generated imagery cannot add grounded facts or modify a conclusion.
 7. Renderer failure leaves structured Emocio state and conclusion unchanged.
+8. Instinkt body state and associative memory cannot read or mutate structural
+   character or authority tiers.
 
 ## B6 implementation note
 
@@ -94,6 +96,111 @@ All B7 tests use an injected byte-only fake backend, so no model-backed image
 generation or GPU execution is part of the phase verification.
 Model files must be acquired separately; the runtime adapter uses
 `local_files_only=true` and never downloads weights during a render call.
+
+## B8 implementation note
+
+B8 implements Instinkt as a bounded deterministic virtual-body simulator, not
+as a textual adviser. Its entrypoint accepts a scene, a profile-blind packet,
+one explicit typed `OptionBodyEffect` per packet option, a source `BodyState`
+and optional bounded associative memory. It does not accept character/profile
+authority and does not classify raw scene or cue text. Every numeric rule in
+this section is an uncalibrated `implementation_hypothesis`, not an empirical
+psychological, medical or physiological claim.
+
+The body has 13 fixed finite dimensions in `[0, 1]`; input deltas are in
+`[-1, 1]`. A rollout defaults to exactly 3 steps (configurable 1–8),
+`max_options` defaults to 16 (1–32), and the absolute per-step delta defaults
+to `0.25` (greater than zero and at most one). For every dimension and step:
+
+```text
+step_delta = clamp(effect_total_delta / rollout_steps,
+                   -max_abs_delta_per_step,
+                   +max_abs_delta_per_step)
+next = clamp(previous + step_delta, 0, 1)
+```
+
+There is no convergence or unbounded agent loop. Transitions replay from their
+typed effect and content-addressed configuration. A rollout must contain the
+configured number of contiguous transitions and must replay its trajectory,
+memory inputs, loss and recoverability within absolute tolerance `1e-12`.
+
+The initial loss and recovery functions are:
+
+```text
+predicted_loss = clamp01(
+  0.50*base_predicted_loss
+  + 0.15*(1-physical_integrity) + 0.10*pain + 0.10*tension
+  + 0.05*(1-boundary_integrity) + 0.05*(1-resource_security)
+  + 0.05*(1-attachment_security) + 0.20*loss_memory_strength)
+
+recoverability = clamp01(
+  0.50*base_recoverability
+  + 0.15*energy + 0.10*escape_availability + 0.10*predictability
+  + 0.05*trust + 0.05*attachment_security + 0.05*resource_security
+  - 0.20*loss_memory_strength)
+```
+
+The core loss, recovery and conclusion-intensity weight groups must each sum
+to `1.0`. `loss_memory_strength` is the maximum `retrieval_score` among the
+retrieved matches that carry an experienced loss, or `0.0`; raw memory
+intensity cannot bypass retrieval quality.
+
+Associative memory defaults to capacity 32 (1–256), retrieval limit 4 (1–32
+and no greater than capacity), minimum effective strength `0.05` in `[0, 1]`,
+and a per-call cycle-advance ceiling of 10,000 (configurable 1–1,000,000;
+each advance accepts an integer from zero through that ceiling). Matching is
+exact after only `strip`/`casefold` normalization, deduplication and sorting.
+It uses:
+
+```text
+effective_strength = clamp01(felt_intensity - decay*age_cycles)
+overlap_ratio = exact_overlap_count / unique_signature_token_count
+retrieval_score = effective_strength * overlap_ratio
+```
+
+Matches sort by score descending, strength descending and association ID
+ascending, then truncate to the retrieval limit. Capacity eviction removes the
+lowest current effective strength, then the oldest insertion, then the lowest
+association ID; duplicate association IDs are rejected.
+
+Protective policy minimizes:
+
+```text
+protective_cost = predicted_loss
+  + 0.25*(1-recoverability)
+  + 0.15*final_tension
+  + 0.10*final_uncertainty
+```
+
+The default penalties sum to `0.50`, and configuration rejects a penalty sum
+above `0.50`; the resulting cost contract is `[0, 1.5]`. Every option within
+`tie_epsilon` of the minimum is tied. The default epsilon is `1e-12` (allowed
+`[0, 1]`); two or more tied options produce explicit `abstained_tie` with no
+secondary tie-break. An empty option set produces `abstained_no_options`, no
+scores or decisive rollout, and conclusion intensity `0.0`.
+
+For a selected rollout, conclusion intensity is
+`clamp01(0.60*predicted_loss + 0.25*final_tension + 0.15*final_arousal)`;
+a tie uses the maximum tied-rollout intensity. Manifestation uses the decisive
+rollout's final body state when selected and the original source state when
+abstaining, with:
+
+```text
+felt_tension = tension
+fear_intensity = clamp01(0.50*intensity + 0.30*tension + 0.20*arousal)
+attachment_pull = clamp01((1-attachment_security)*intensity)
+withdrawal_urge = intensity for withdraw or seek_safety, otherwise 0
+freeze_intensity = intensity for freeze, otherwise 0
+boundary_alarm = clamp01(1-boundary_integrity)
+```
+
+The configuration, typed effect, each transition, association match, rollout,
+policy and manifestation are content-addressed and hash-validated. Lineage
+closes the exact packet, source body, effect, configuration, association
+records, conclusion and—when selected—decisive rollout. Manifestation exposes
+only a structured tendency label rather than an inner monologue. All artifacts
+are frozen, and neither body dynamics nor memory can modify structural
+character or authority tiers.
 
 ## Claim trace
 
