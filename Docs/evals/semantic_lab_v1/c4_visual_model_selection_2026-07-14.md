@@ -30,6 +30,27 @@ The pinned DINOv2 file `model.safetensors` has Hugging Face LFS SHA-256
 `d73036b56966966d07975d696bde331762f37297e2f095de8cea0040c3aa0841`
 at the selected revision.
 
+## Materialized local snapshot evidence
+
+The create-only local snapshot inventories used on 2026-07-14 are:
+
+| Candidate | Canonical manifest SHA-256 | Files | Total inventoried bytes |
+|---|---:|---:|---:|
+| FLUX.2 Klein 4B Diffusers components | `fb1ecb3a4d7fe439949b83f0e183438ab35a6df2bc01d66c5d3cd9966a4c7183` | 24 | 15,988,901,735 |
+| DINOv2 Base Transformers snapshot | `786481f81ca90d17eada5cd387835e457f1e531e93ec38a7671368dbb8249ba1` | 4 | 346,349,943 |
+
+The FLUX transformer component actually loaded by Diffusers has SHA-256
+`9f29f9edcfdae452a653ffb51a534ca4decd389952c225724ff3b94042612a6e`
+and size 7,751,109,744 bytes. This is deliberately distinguished from the
+consolidated checkpoint digest above. The DINOv2 `model.safetensors` digest is
+the pinned `d73036…` value above. Absolute machine cache paths are runtime
+configuration and are excluded from portable request identity; the manifests,
+repository IDs, exact revisions and every loaded file digest are not.
+
+The verifier rejects a missing, added, changed, linked or Windows reparse-point
+entry before importing Diffusers. The real FLUX smoke revalidated this complete
+inventory offline before model load.
+
 ## Why this renderer/editor
 
 The official FLUX.2 Klein material describes one distilled architecture for
@@ -90,6 +111,13 @@ contamination, explicit visual valuation influence, semantic-lab human review,
 seed/style/language/option-order stability and an unchanged structured-only
 baseline. Failure of any model-backed gate must preserve the architecture and
 must not promote another candidate silently.
+
+The C4.2 real-renderer smoke passed its technical renderer, lineage and
+provenance scope. Human review did **not** accept FLUX.2 Klein 4B for semantic
+rollout quality: the reviewed spatial-action fixture exposed action collapse
+or source-subject loss across prompt iterations. The candidate therefore
+remains an implementation hypothesis and cannot be made the default by this
+record. See `c4_renderer_smoke_2026-07-14.md` for exact evidence.
 
 ## Primary official sources
 

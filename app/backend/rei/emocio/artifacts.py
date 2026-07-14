@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import re
 import struct
 import tempfile
 import zlib
@@ -12,6 +13,7 @@ from pathlib import Path
 
 from pydantic import TypeAdapter
 
+from ..ids import canonical_json_bytes
 from ..models.common import ArtifactRelativePath
 from ..models.emocio import ImageArtifact
 from ..models.rendering import ImageSourceReference
@@ -19,6 +21,7 @@ from ..models.rendering import ImageSourceReference
 
 _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 _PATH_ADAPTER = TypeAdapter(ArtifactRelativePath)
+_IMAGE_REQUEST_ID = re.compile(r"^image_request_[0-9a-f]{32}$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -138,6 +141,45 @@ class LocalPngArtifactStore:
             raise ValueError("Image artifact path escapes its configured root")
         return target
 
+    def _cache_metadata_path(self, request_id: str) -> Path:
+        if _IMAGE_REQUEST_ID.fullmatch(request_id) is None:
+            raise ValueError("Renderer cache requires a canonical image request ID")
+        return self._resolve(f"emocio/cache/{request_id}.json")
+
+    @staticmethod
+    def _persist_immutable_bytes(target: Path, data: bytes) -> None:
+        """Create one immutable file atomically, rejecting conflicting content."""
+
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.exists():
+            temporary_path: Path | None = None
+            try:
+                with tempfile.NamedTemporaryFile(
+                    mode="wb",
+                    dir=target.parent,
+                    prefix=f".{target.name}.",
+                    suffix=".tmp",
+                    delete=False,
+                ) as handle:
+                    temporary_path = Path(handle.name)
+                    handle.write(data)
+                    handle.flush()
+                    os.fsync(handle.fileno())
+                try:
+                    os.link(temporary_path, target)
+                except FileExistsError:
+                    pass
+            finally:
+                if temporary_path is not None and temporary_path.exists():
+                    temporary_path.unlink()
+
+        try:
+            existing = target.read_bytes()
+        except OSError as exc:
+            raise ValueError("Immutable artifact metadata is unreadable") from exc
+        if existing != data:
+            raise ValueError("Immutable artifact path already contains other bytes")
+
     def persist_png(
         self,
         relative_path: str,
@@ -209,6 +251,39 @@ class LocalPngArtifactStore:
         """Re-read a published artifact and verify its byte-level provenance."""
 
         return self.read_verified_source(ImageSourceReference.from_artifact(artifact))
+
+    def persist_cached_artifact(self, artifact: ImageArtifact) -> None:
+        """Publish canonical cache metadata only after re-verifying its PNG bytes."""
+
+        self.verify_artifact(artifact)
+        metadata = canonical_json_bytes(artifact)
+        self._persist_immutable_bytes(
+            self._cache_metadata_path(artifact.request_id),
+            metadata,
+        )
+
+    def read_cached_artifact(self, request_id: str) -> ImageArtifact | None:
+        """Return a byte-verified cached artifact, or ``None`` for a true miss.
+
+        Once cache metadata exists, every parse, canonicalization, and PNG error is
+        surfaced to the caller.  A corrupt entry is never treated as a cache miss.
+        """
+
+        metadata_path = self._cache_metadata_path(request_id)
+        try:
+            metadata = metadata_path.read_bytes()
+        except FileNotFoundError:
+            return None
+        except OSError as exc:
+            raise ValueError("Renderer cache metadata is unreadable") from exc
+        try:
+            artifact = ImageArtifact.model_validate_json(metadata)
+        except Exception as exc:
+            raise ValueError("Renderer cache metadata is invalid") from exc
+        if metadata != canonical_json_bytes(artifact):
+            raise ValueError("Renderer cache metadata is not canonical JSON")
+        self.verify_artifact(artifact)
+        return artifact
 
 
 __all__ = ["LocalPngArtifactStore", "StoredPng", "inspect_png"]

@@ -20,6 +20,14 @@ from .diffusers_renderer import (
     DiffusionBackend,
     LazyDiffusersBackend,
 )
+from .current_first_renderer import (
+    CurrentFirstEmocioRenderer,
+    CurrentFirstRolloutConfig,
+)
+from .prompting import (
+    BilingualStructuredScenePromptCompiler,
+    VisualPromptProfile,
+)
 from .renderer import (
     EmocioRenderer,
     LocalEmocioRenderer,
@@ -38,6 +46,9 @@ from .valuation import (
 
 __all__ = [
     "CompiledEmocioScenes",
+    "BilingualStructuredScenePromptCompiler",
+    "CurrentFirstEmocioRenderer",
+    "CurrentFirstRolloutConfig",
     "DeterministicEmocioProcessor",
     "DiffusersImageRenderer",
     "DiffusersRuntimeConfig",
@@ -54,6 +65,7 @@ __all__ = [
     "ScenePromptCompiler",
     "StoredPng",
     "StructuredScenePromptCompiler",
+    "VisualPromptProfile",
     "aggregate_option_valuation",
     "build_emocio_packet",
     "build_emocio_visual_state",

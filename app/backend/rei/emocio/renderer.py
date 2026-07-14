@@ -17,6 +17,7 @@ from ..models.provider import (
     ProviderFallbackPolicy,
 )
 from ..models.rendering import (
+    ImageConditioningMethod,
     ImageRenderBatchOutcome,
     ImageRenderItemOutcome,
     ImageRenderPreparationFailure,
@@ -24,6 +25,7 @@ from ..models.rendering import (
     ImageSourceReference,
 )
 from ..providers.protocols import ImageRenderer, validate_image_render_outcome
+from .prompting import VisualPromptProfile
 
 
 class RenderSettings(FrozenModel):
@@ -188,16 +190,48 @@ class LocalEmocioRenderer:
         prompt_compiler: ScenePromptCompiler | None = None,
         image_to_image_sources: Mapping[str, ImageSourceReference] | None = None,
         image_to_image_strengths: Mapping[str, float] | None = None,
+        image_to_image_conditioning: (
+            Mapping[str, ImageConditioningMethod] | None
+        ) = None,
     ) -> None:
         self._provider = provider
         self._settings = settings
         self._prompt_compiler = prompt_compiler or StructuredScenePromptCompiler()
+        prompt_profile = getattr(self._prompt_compiler, "prompt_profile", None)
+        if prompt_profile is not None and not isinstance(
+            prompt_profile, VisualPromptProfile
+        ):
+            raise TypeError(
+                "A provenanced scene prompt compiler must expose VisualPromptProfile"
+            )
+        self._prompt_profile = prompt_profile
         self._sources = dict(image_to_image_sources or {})
         self._strengths = dict(image_to_image_strengths or {})
-        if set(self._sources) != set(self._strengths):
+        requested_conditioning = dict(image_to_image_conditioning or {})
+        if not set(self._strengths).issubset(self._sources):
+            raise ValueError("Image-to-image strength mapping cites no source image")
+        if not set(requested_conditioning).issubset(self._sources):
             raise ValueError(
-                "Every image-to-image source requires exactly one explicit strength"
+                "Image-to-image conditioning mapping cites no source image"
             )
+        self._conditioning: dict[str, ImageConditioningMethod] = {}
+        for scene_id in self._sources:
+            method = requested_conditioning.get(scene_id)
+            if method is None:
+                if scene_id not in self._strengths:
+                    raise ValueError(
+                        "Every image-to-image source requires explicit conditioning"
+                    )
+                method = "classic_strength"
+            if method == "none":
+                raise ValueError("Image-to-image sources cannot use none conditioning")
+            if method == "classic_strength" and scene_id not in self._strengths:
+                raise ValueError("classic_strength conditioning requires strength")
+            if method == "reference_image" and scene_id in self._strengths:
+                raise ValueError(
+                    "reference_image conditioning cannot carry classic strength"
+                )
+            self._conditioning[scene_id] = method
 
     def render(
         self,
@@ -236,6 +270,26 @@ class LocalEmocioRenderer:
                     strength=(
                         self._strengths.get(scene.scene_id)
                         if source is not None
+                        else None
+                    ),
+                    conditioning_method=(
+                        self._conditioning.get(scene.scene_id)
+                        if source is not None
+                        else "none"
+                    ),
+                    prompt_language=(
+                        self._prompt_profile.language
+                        if self._prompt_profile is not None
+                        else None
+                    ),
+                    style_id=(
+                        self._prompt_profile.style_id
+                        if self._prompt_profile is not None
+                        else None
+                    ),
+                    profile_hash=(
+                        self._prompt_profile.content_hash()
+                        if self._prompt_profile is not None
                         else None
                     ),
                 )

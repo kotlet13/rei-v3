@@ -16,6 +16,7 @@ from .common import (
     FrozenArtifactModel,
     FrozenModel,
     HashDigest,
+    LanguageCode,
     NonEmptyId,
     NonEmptyText,
     Score01,
@@ -31,6 +32,11 @@ from .provider import (
 
 
 ImageRenderMode = Literal["text_to_image", "image_to_image"]
+ImageConditioningMethod = Literal[
+    "none",
+    "classic_strength",
+    "reference_image",
+]
 ImageRenderBatchStatus = Literal["disabled", "succeeded", "partial", "failed"]
 NonNegativeFinite = Annotated[float, Field(ge=0.0, allow_inf_nan=False)]
 
@@ -48,9 +54,29 @@ class ImageSourceReference(FrozenArtifactModel):
     width: int = Field(gt=0)
     height: int = Field(gt=0)
     grounded: bool
+    originating_scene_spec_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    originating_scene_spec_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+
+    @model_validator(mode="after")
+    def validate_scene_lineage_pair(self) -> Self:
+        if (self.originating_scene_spec_id is None) != (
+            self.originating_scene_spec_hash is None
+        ):
+            raise ValueError(
+                "Image source scene ID and hash must be recorded together"
+            )
+        return self
 
     @classmethod
     def from_artifact(cls, artifact: ImageArtifact) -> ImageSourceReference:
+        """Preserve the historical v1 factory payload and request identity."""
+
         return cls(
             image_id=artifact.image_id,
             content_sha256=artifact.content_sha256,
@@ -59,6 +85,25 @@ class ImageSourceReference(FrozenArtifactModel):
             width=artifact.width,
             height=artifact.height,
             grounded=artifact.grounded,
+        )
+
+    @classmethod
+    def from_artifact_with_scene_lineage(
+        cls,
+        artifact: ImageArtifact,
+    ) -> ImageSourceReference:
+        """Create the C4 current-first source with explicit scene lineage."""
+
+        return cls(
+            image_id=artifact.image_id,
+            content_sha256=artifact.content_sha256,
+            media_type=artifact.media_type,
+            path=artifact.path,
+            width=artifact.width,
+            height=artifact.height,
+            grounded=artifact.grounded,
+            originating_scene_spec_id=artifact.source_spec_id,
+            originating_scene_spec_hash=artifact.input_spec_hash,
         )
 
 
@@ -100,6 +145,37 @@ class ImageRenderRequest(FrozenArtifactModel):
     guidance_scale: NonNegativeFinite
     source_image: ImageSourceReference | None = None
     strength: Score01 | None = None
+    conditioning_method: ImageConditioningMethod = Field(
+        default="none",
+        exclude_if=lambda value: value in {"none", "classic_strength"},
+    )
+    prompt_language: LanguageCode | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    style_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    profile_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def preserve_v1_conditioning_default(cls, value: object) -> object:
+        """Load pre-C4 v1 img2img JSON as the historical strength workflow."""
+
+        if isinstance(value, dict) and "conditioning_method" not in value:
+            updated = dict(value)
+            updated["conditioning_method"] = (
+                "classic_strength"
+                if updated.get("mode") == "image_to_image"
+                else "none"
+            )
+            return updated
+        return value
 
     @classmethod
     def create(
@@ -118,7 +194,16 @@ class ImageRenderRequest(FrozenArtifactModel):
         guidance_scale: float,
         source_image: ImageSourceReference | None = None,
         strength: float | None = None,
+        conditioning_method: ImageConditioningMethod | None = None,
+        prompt_language: LanguageCode | None = None,
+        style_id: str | None = None,
+        profile_hash: str | None = None,
     ) -> ImageRenderRequest:
+        resolved_conditioning_method: ImageConditioningMethod = (
+            conditioning_method
+            if conditioning_method is not None
+            else ("classic_strength" if mode == "image_to_image" else "none")
+        )
         payload = {
             "schema_version": "rei-native-image-render-request-v1",
             "mode": mode,
@@ -136,9 +221,26 @@ class ImageRenderRequest(FrozenArtifactModel):
             "source_image": source_image,
             "strength": strength,
         }
+        if resolved_conditioning_method == "reference_image":
+            payload["conditioning_method"] = resolved_conditioning_method
+        prompt_provenance = (prompt_language, style_id, profile_hash)
+        if any(value is not None for value in prompt_provenance):
+            if not all(value is not None for value in prompt_provenance):
+                raise ValueError(
+                    "Prompt language, style ID, and profile hash must be recorded together"
+                )
+            payload.update(
+                {
+                    "prompt_language": prompt_language,
+                    "style_id": style_id,
+                    "profile_hash": profile_hash,
+                }
+            )
+        constructor_payload = dict(payload)
+        constructor_payload["conditioning_method"] = resolved_conditioning_method
         return cls(
             request_id=content_id("image_request", payload),
-            **payload,
+            **constructor_payload,
         )
 
     @property
@@ -167,6 +269,16 @@ class ImageRenderRequest(FrozenArtifactModel):
             "strength": self.strength,
             "width": self.width,
         }
+        if self.conditioning_method == "reference_image":
+            values["conditioning_method"] = self.conditioning_method
+        if self.prompt_language is not None:
+            values.update(
+                {
+                    "prompt_language": self.prompt_language,
+                    "profile_hash": self.profile_hash,
+                    "style_id": self.style_id,
+                }
+            )
         parameters = [
             ProviderParameter(
                 name=name,
@@ -187,14 +299,43 @@ class ImageRenderRequest(FrozenArtifactModel):
     def validate_request(self) -> Self:
         if self.provider.kind != "image_renderer":
             raise ValueError("Image render requests require an image_renderer provider")
+        prompt_provenance = (
+            self.prompt_language,
+            self.style_id,
+            self.profile_hash,
+        )
+        if any(value is not None for value in prompt_provenance) and not all(
+            value is not None for value in prompt_provenance
+        ):
+            raise ValueError(
+                "Prompt language, style ID, and profile hash must be recorded together"
+            )
         if self.mode == "text_to_image":
-            if self.source_image is not None or self.strength is not None:
+            if (
+                self.source_image is not None
+                or self.strength is not None
+                or self.conditioning_method != "none"
+            ):
                 raise ValueError(
-                    "text_to_image requests cannot carry source image or strength"
+                    "text_to_image requests cannot carry image conditioning"
                 )
-        elif self.source_image is None or self.strength is None:
-            raise ValueError("image_to_image requests require source image and strength")
-        elif (self.width, self.height) != (
+        elif self.source_image is None:
+            raise ValueError("image_to_image requests require source image")
+        elif self.conditioning_method == "classic_strength":
+            if self.strength is None:
+                raise ValueError(
+                    "classic_strength image_to_image requests require strength"
+                )
+        elif self.conditioning_method == "reference_image":
+            if self.strength is not None:
+                raise ValueError(
+                    "reference_image conditioning cannot carry classic strength"
+                )
+        else:
+            raise ValueError(
+                "image_to_image requests require an explicit image conditioning method"
+            )
+        if self.source_image is not None and (self.width, self.height) != (
             self.source_image.width,
             self.source_image.height,
         ):
@@ -441,6 +582,7 @@ class ImageRenderBatchOutcome(FrozenArtifactModel):
 
 
 __all__ = [
+    "ImageConditioningMethod",
     "ImageRenderBatchOutcome",
     "ImageRenderBatchStatus",
     "ImageRenderItemOutcome",
