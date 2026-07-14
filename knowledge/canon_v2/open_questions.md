@@ -568,9 +568,10 @@ Statični modelni adapter uporablja tudi omejene operativne opise motive enumov,
 da enaka vidna semantika v slovenščini in angleščini ne dobi različnega ID-ja.
 `attachment`, `body_alarm`, `boundary_alarm`, `broken_scene` in `motor_pattern`
 so v tem adapterju razredi hipotez nad vidnim paketom, ne trditve o resnični
-osebi ali empirično potrjena taksonomija. Eksplicitno protislovje v javnem
-`uncertainty` polju pomeni protisloven odločilni signal tudi takrat, ko sta
-posamezni opazki vsaka zase označeni kot `clear`.
+osebi ali empirično potrjena taksonomija. Jezikovno neodvisno strukturirano
+pravilo obravnava `channel_quality <= 0.35` kot nezadostno za smerni sklep tudi
+takrat, ko sta posamezni opazki vsaka zase označeni kot `clear`; tudi ta prag je
+zamenljiva izvedbena hipoteza, ne izmerjena psihološka meja.
 
 Ta formula ne razreši vprašanja, kako AcceptanceState zanesljivo izmeriti, niti
 ne dokazuje, da večja deklarirana vidnost ali fidelity pri resničnih osebah

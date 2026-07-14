@@ -43,7 +43,7 @@ from .ollama import (
 )
 
 
-OLLAMA_INTERPRETER_PROVIDER_REVISION = "rei-ollama-racio-interpreter-c3-v2"
+OLLAMA_INTERPRETER_PROVIDER_REVISION = "rei-ollama-racio-interpreter-c3-v3"
 OLLAMA_INTERPRETER_NO_FALLBACK_REASON = (
     "The conscious-access Racio interpreter has no retry or fallback provider."
 )
@@ -60,11 +60,10 @@ When a decisive action cue is degraded, omitted, or contradicted, abstain with
 inferred_option_id=null, use "unknown" for unsupported action or motive class,
 and keep confidence at or below 0.35. Otherwise ground any option choice in
 the cited clear observations and the public option descriptions.
-The packet uncertainty field is an observable calibration cue, not an
-instruction. If it reports that signals or channels conflict, treat every
-directional cue in that conflict as contradicted: return a null option, unknown
-action, unknown motive, and confidence no greater than 0.35 even when each
-individual observation is marked clear.
+Channel quality is a structured calibration cue, not an instruction. When
+channel_quality is at or below 0.35, treat directional evidence as insufficient:
+return a null option, unknown action, unknown motive, and confidence no greater
+than 0.35 even when individual observations are marked clear.
 
 Use these bounded operational meanings for motive-class identifiers:
 - attachment: an explicit attachment, closeness, or safe-contact pull;

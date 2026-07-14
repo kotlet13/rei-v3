@@ -390,6 +390,12 @@ c3_structured_interpreter_boundary:
       inferred_option_id: null
       unsupported_action_or_motive_class: unknown
       maximum_confidence: 0.35
+    severely_limited_channel:
+      maximum_channel_quality: 0.35
+      inferred_option_id: null
+      action_tendency: unknown
+      motive_class: unknown
+      maximum_confidence: 0.35
     empirical_calibration_claim: false
   motive_class_operational_hints:
     status: implementation_hypothesis
