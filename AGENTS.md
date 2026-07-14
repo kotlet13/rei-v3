@@ -1,5 +1,16 @@
 # Agent Notes
 
+## Main-Only Development
+
+All current and future work in this repository must be performed directly on
+the `main` branch. Do not create, switch to, or publish feature branches unless
+the user explicitly replaces this instruction.
+
+Before starting a phase, verify that the working branch is `main` and reconcile
+it with `origin/main`. Keep unrelated user-owned working-tree changes unstaged.
+After an approved implementation phase, commit and push the scoped changes
+directly to `main`.
+
 ## Ollama GPU Offload
 
 For local Ollama REI test runs with large models, explicitly set GPU offload instead of relying on Ollama's automatic layer estimate.

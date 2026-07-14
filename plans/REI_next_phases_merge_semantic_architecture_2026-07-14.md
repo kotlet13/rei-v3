@@ -1,0 +1,2120 @@
+# REI-v3 — načrt integracije veje in naslednjih razvojnih faz
+
+**Namen:** neposredno izvedbeno navodilo za Codex
+**Repozitorij:** `kotlet13/rei-v3`
+**Izvedbena veja:** `main`
+**Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (zgodovinsko; že mergeana)
+**Pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`
+**Datum načrta:** 2026-07-14
+**Status:** naslednja aktivna razvojna smer po sprejemu arhitekture B14
+**Izven obsega:** QLoRA, SFT, LoRA trening, generiranje učnih datasetov in dokončna izbira produkcijskega modela
+
+---
+
+# 0. Namen naslednjega cikla
+
+Prejšnja nadgradnja je uspešno zamenjala tekstovno arhitekturo treh LLM-procesorjev in `EgoResultant` z novo nativno kompozicijsko arhitekturo:
+
+```text
+Racio native
+Emocio native
+Instinkt native
+        ↓
+zamrznjeni NativeMindBundle
+        ↓
+ordinalna CharacterAuthority
+        ↓
+GovernanceMandate
+        ↓
+Racijeva interpretacija manifestacij
+        ↓
+ConsciousDecision
+        ↓
+BehaviorResultant
+        ↓
+EgoMeasure
+        ↓
+EgoTrace / EgoCompositionSnapshot
+```
+
+Naslednji razvojni cikel nima več naloge postavljati osnovne arhitekture. Njegov cilj je:
+
+1. varno združiti sprejeto vejo v `main`;
+2. vzpostaviti semantični laboratorij, ki preverja, ali posamezni procesorji res sledijo REI-poti;
+3. izdelati pravi Racijev interpretacijski sloj;
+4. Emocia postopno premakniti iz strukturiranega simbolnega modela v pravo vizualno kognicijo;
+5. Instinktu dodati samodejno, sledljivo preslikavo dogodka v telesne posledice;
+6. Ego preizkusiti longitudinalno kot skladbo, ne samo kot enkratni zapis;
+7. ohraniti deterministični, preverljiv baseline ob vsaki modelni nadgradnji.
+
+To ni en sam velik commit. Codex mora vsako fazo izvajati ločeno in se po vsakem quality gateu ustaviti za pregled.
+
+---
+
+# 1. Trenutno stanje repozitorija
+
+Naslednji blok je zgodovinski posnetek pred zaključenim mergem in ni navodilo
+za izbiro aktivne veje. Aktivna veja je `main`.
+
+```text
+base: main
+head (historical): codex/architecture/rei-native-composition
+status: diverged
+ahead_by: 20
+behind_by: 1
+merge_base: 995b572c893058c82d265d978a0391e317f1ea67
+main head: 07a26401e0b2707a79018efc2fdd7194d3062566
+```
+
+Veji manjka en dokumentacijski commit z `main`, ki je dodal star canonical-v2/QLoRA prompt. Ta prompt je po novi arhitekturi presežen in ga je treba ohraniti samo kot zgodovinski dokument z jasno oznako `SUPERSEDED`.
+
+Na arhitekturni veji je B14 sprejemna dokumentacija, ki navaja:
+
+- arhiv stare tekstovne arhitekture;
+- 632 uspešnih kontroliranih testov;
+- 643 uspešnih vseh takrat odkritih testov;
+- 156-vrstično 12 × 13 matriko nad zamrznjenimi nativnimi bundle-i;
+- delujoč deterministični end-to-end cikel;
+- delujoč GUI;
+- en kontroliran lokalni Ollama Racio smoke run;
+- eksplicitno navedene manjkajoče integracije.
+
+Ta dokument je treba ob integraciji ohraniti nespremenjen kot zgodovinski B14 zapis. Morebitni novi rezultati gredo v nov dodatek, ne v retroaktivno prepisovanje B14 poročila.
+
+---
+
+# 2. Nespremenljivi arhitekturni invarianti
+
+Naslednje faze ne smejo podreti že sprejetega jedra.
+
+## 2.1 Nativni procesorji
+
+- Racio, Emocio in Instinkt zaključijo svoj nativni proces pred governance.
+- Nativni procesor ne dobi `character_profile`, authority tiera ali profile weighta.
+- Isti `NativeMindBundle` je mogoče uporabiti za vseh 13 karakterjev.
+- Native bundle je immutable in content-addressed.
+- Noben poznejši LLM ali VLM ne sme popraviti oziroma mutirati nativnega sklepa za nazaj.
+
+## 2.2 Racio
+
+- Racio je edini neposredno zavestni procesor.
+- `ConsciousDecision.made_by` je vedno `R`.
+- Racio kot nativni razum, Racio kot interpreter in Racio kot narrator so ločene funkcije.
+- Interpreter ne sme prejeti skritega Emocievega ali Instinktovega ground trutha.
+- Narrator ne sme spremeniti zavestne odločitve ali vedenjskega rezultata.
+
+## 2.3 Emocio
+
+- Emociev sklep nastane pred Racijevo interpretacijo.
+- Generated image ni objektivno dejstvo zunanjega dogodka.
+- Grounded evidence, strukturirana notranja predstava in renderirana slika so tri različne plasti.
+- Emocieva notranja domišljija sme vplivati na Emociev sklep samo v izrecnem `visual_cognition` načinu.
+- Renderer ne sme postati prikrit odločevalec.
+
+## 2.4 Instinkt
+
+- Instinktov nativni sklep nastane pred verbalizacijo.
+- Telesno stanje, signal intensity ali strah ne spreminjajo strukturnega karakterja.
+- Vsak avtomatsko napovedan body effect mora imeti provenance in negotovost.
+- Instinkt ni medicinski diagnostični model.
+
+## 2.5 Karakter
+
+- Karakter je ordinalen, ne numerično utežen.
+- Confidence, intensity, situational keywords in stres ne spreminjajo authority tierov.
+- Pri parnih značajih podrejeni razum ni samodejni tie-breaker.
+- Pri `R=E=I` velja dva od treh.
+- `simulated_spoznanje` zahteva enak sklep vseh treh.
+
+## 2.6 Sprejemanje
+
+- Sprejemanje ne pomeni nujno soglasja.
+- Sprejemanje ne pomeni nujno majhnega, varnega ali reverzibilnega koraka.
+- Sprejemanje vpliva na vidnost, prevod, sodelovanje, delegacijo in sabotiranje.
+- Sprejemanje ne spreminja hierarhije karakterja.
+
+## 2.7 Ego
+
+- Ego nima glasu, vote API-ja ali `preferred_option`.
+- `EgoMeasure` je en takt.
+- `EgoTrace` je append-only izvedena zgodovina.
+- `EgoCompositionSnapshot` je izpeljan model skladbe.
+- `EgoReflector`, če bo pozneje dodan, je analitik in ne odločevalec.
+- Racijeva samopodoba ni enaka Egu.
+
+---
+
+# 3. Pravila izvajanja za Codex
+
+## 3.1 Ena faza, en pregled
+
+Po vsaki fazi:
+
+1. zaženi predpisane teste;
+2. pripravi poročilo;
+3. naredi majhen commit oziroma omejeno serijo commitov;
+4. ustavi se;
+5. počakaj na pregled pred naslednjo fazo.
+
+## 3.2 Brez prepisovanja zgodovine
+
+- Ne uporabljaj `git rebase` na sprejeti arhitekturni veji.
+- Ne uporabljaj squash mergea.
+- Ne force-pushaj.
+- Ne briši ali premikaj baseline taga.
+- Ne spreminjaj SHA-ledgerja v B14 poročilu.
+- Za združitev uporabi merge commit.
+
+Razlog: B14, arhiv in rollback dokumentacija se sklicujejo na konkretne commite.
+
+## 3.3 Vse nadaljnje faze neposredno na `main`
+
+Od uporabnikovega navodila 2026-07-14 naprej se vse faze izvajajo striktno na
+veji `main`:
+
+- ne ustvarjaj ali uporabljaj faznih oziroma feature vej;
+- pred začetkom faze preveri `main` in `origin/main`;
+- nepovezane uporabnikove lokalne spremembe ohrani nestageane;
+- po pregledu faze commitaj in pushaj samo njen dogovorjeni obseg neposredno na
+  `main`;
+- pravilo »ena faza, en pregled« ostane v veljavi tudi brez ločenih vej.
+
+## 3.4 Deterministični baseline ostane
+
+Vsaka model-backed komponenta mora imeti:
+
+- protocol;
+- deterministic ali fake implementacijo;
+- eksplicitni model-backed adapter;
+- feature flag oziroma runtime mode;
+- primerjalni eval;
+- fail-closed vedenje;
+- popoln provenance record.
+
+Modelni neuspeh ne sme pokvariti arhitekturnega baselinea.
+
+---
+
+# 4. Faza M0 — pre-merge pregled in uskladitev veje
+
+**Cilj:** ugotoviti dejansko stanje lokalne in oddaljene veje brez sprememb.
+
+## 4.1 Ukazi
+
+```powershell
+git fetch origin --prune --tags
+git status --short
+git branch -avv
+git log --graph --decorate --oneline --all -40
+git rev-parse origin/main
+git rev-parse origin/codex/architecture/rei-native-composition
+git merge-base origin/main origin/codex/architecture/rei-native-composition
+git diff --stat origin/main...origin/codex/architecture/rei-native-composition
+```
+
+## 4.2 Preveri
+
+- da je `origin/main` pričakovano na ali po `07a2640...`;
+- da arhitekturna veja vsebuje B14 poročilo;
+- da se archive tag razreši;
+- da ni nepričakovanih dodatnih commitov;
+- da ni lokalnih necommitiranih uporabnikovih sprememb;
+- ali obstaja odprt PR;
+- ali GitHub Actions že obstaja;
+- katere datoteke je dodal manjkajoči main commit.
+
+## 4.3 Izhod
+
+Pripravi samo poročilo:
+
+```text
+Docs/evals/merge_preflight_native_composition_2026-07-14.md
+```
+
+Poročilo naj vsebuje:
+
+- source refs;
+- branch graph;
+- ahead/behind;
+- potencialne konflikte;
+- seznam dokumentacijskih podvajanj;
+- testna navodila;
+- priporočeno merge strategijo.
+
+Če je delovno drevo dirty, ne nadaljuj brez pojasnila.
+
+**Commit:** samo če je poročilo dodano:
+
+```text
+docs(integration): record native-composition merge preflight
+```
+
+Po tej fazi se Codex ustavi.
+
+---
+
+# 5. Faza M1 — zaključena zgodovinska integracija
+
+Ta faza je zaključena in integrirana v `main`. Spodnji postopek preklopa na
+arhitekturno vejo ni več aktiven in se ne ponavlja. Vse nadaljnje delo ostane
+na `main`.
+
+## 5.1 Trenutno preverjanje
+
+```powershell
+git switch main
+git status -sb
+git rev-parse main
+git rev-parse origin/main
+```
+
+## 5.2 Pričakovani dokumentacijski konflikt oziroma podvajanje
+
+`main` vsebuje:
+
+```text
+Docs/plans/REI_v3_Codex_first_execution_prompt.md
+```
+
+Arhitekturna veja vsebuje nove načrte in arhivirane kopije stare QLoRA smeri pod `plans/`.
+
+Rešitev:
+
+1. zgodovinskega dokumenta ne briši;
+2. na vrh `Docs/plans/REI_v3_Codex_first_execution_prompt.md` dodaj:
+
+```text
+SUPERSEDED
+
+Ta dokument pripada opuščeni canonical-v2/QLoRA smeri.
+Aktivna arhitektura je REI Native Composition.
+Glej:
+- Docs/architecture/REI_NATIVE_COMPOSITION_ARCHITECTURE.md
+- plans/REI_native_composition_architecture_upgrade_2026-07-13.md
+- Docs/evals/rei_native_architecture_acceptance_2026-07-13.md
+```
+
+3. dokument ne sme več izgledati kot aktivno navodilo;
+4. ne spreminjaj vsebine arhivske kopije;
+5. posodobi `README.md`, `CURRENT.md` in `AGENTS.md`, če bi merge vrnil star opis baselinea.
+
+## 5.3 Dodaj integracijski dodatek, ne spreminjaj B14
+
+Ustvari:
+
+```text
+Docs/evals/rei_native_architecture_integration_addendum_2026-07-14.md
+```
+
+V njem zapiši:
+
+- pre-merge source SHA;
+- merge commit SHA;
+- kaj je prišlo iz `main`;
+- kako je bil star prompt označen;
+- da runtime ni bil namenoma spremenjen;
+- testne rezultate;
+- morebitne razlike v številu testov;
+- GitHub Actions status.
+
+## 5.4 Testi
+
+Najprej:
+
+```powershell
+python -m pytest -q --basetemp output/pytest-merge-full
+```
+
+Nato kontrolirani suite:
+
+```powershell
+python -m pytest `
+  tests/rei `
+  tests/test_archive_boundary.py `
+  tests/test_archive_integrity.py `
+  tests/test_native_cutover.py `
+  -q `
+  --basetemp output/pytest-merge-controlled
+```
+
+Nato:
+
+```powershell
+python scripts/run_rei_native_cycle.py
+python scripts/run_rei_native_profile_matrix.py
+```
+
+GUI smoke, če okolje dovoljuje:
+
+```powershell
+python -m uvicorn app.gui.server:app --host 127.0.0.1 --port 8765
+```
+
+Preveri:
+
+- Native;
+- Communication;
+- Character;
+- Ego;
+- mobile width;
+- browser console.
+
+## 5.5 Prepovedi
+
+V tej fazi ne:
+
+- spreminjaj procesorske logike;
+- dodajaj modelov;
+- spreminjaj fixture oracle;
+- popravljaš B14 številk za nazaj;
+- spreminjaš archive tag;
+- uvajaš semantic lab.
+
+## 5.6 Commit
+
+Merge commit:
+
+```text
+merge(main): reconcile documentation before native-composition integration
+```
+
+Po testih dodatni dokumentacijski commit samo, če je potreben:
+
+```text
+docs(integration): mark canonical-v2 prompt superseded and record merge verification
+```
+
+Po fazi se ustavi.
+
+---
+
+# 6. Faza M2 — CI hardening in PR v `main`
+
+**Cilj:** zagotoviti, da merge ni odvisen samo od enega lokalnega okolja.
+
+## 6.1 GitHub Actions
+
+Če `.github/workflows/` še nima primernega workflowa, dodaj:
+
+```text
+.github/workflows/rei-native-tests.yml
+```
+
+Minimalni jobi:
+
+### `unit-and-domain`
+
+- Python 3.11;
+- install minimal requirements;
+- `python -m pytest tests/rei tests/test_archive_boundary.py tests/test_archive_integrity.py tests/test_native_cutover.py -q`;
+- brez Ollama;
+- brez GPU;
+- brez rendererja;
+- brez browserja.
+
+### `full-discovery`
+
+- `python -m pytest -q`;
+- poroča število collected testov;
+- ne sme prikrito ignorirati `tests/rei`.
+
+### `artifact-smoke`
+
+- deterministični `run_rei_native_cycle.py`;
+- deterministični `run_rei_native_profile_matrix.py`;
+- shrani povzetek kot workflow artifact.
+
+CI ne sme:
+
+- zahtevati lokalnega modela;
+- poskušati prenesti velikega image modela;
+- zaganjati QLoRA;
+- spreminjati committed artefaktov.
+
+## 6.2 PR
+
+Predlagani naslov:
+
+```text
+Merge native-modality REI architecture into main
+```
+
+PR body naj vsebuje:
+
+- arhitekturni povzetek;
+- branch graph;
+- B14 acceptance link;
+- arhivski tag;
+- testne rezultate;
+- known limitations;
+- rollback navodilo;
+- breaking change;
+- eksplicitno pojasnilo, da QLoRA ni del PR-ja.
+
+## 6.3 Merge način
+
+Uporabi:
+
+```text
+Create a merge commit
+```
+
+Ne uporabljaj:
+
+```text
+Squash and merge
+Rebase and merge
+```
+
+## 6.4 Pred mergeom
+
+Obvezno:
+
+- vsi CI jobi zeleni;
+- branch ni več behind;
+- GitHub kaže mergeable;
+- ni nepojasnjenih binary sprememb;
+- ni model weights;
+- ni skrivnosti ali lokalnih poti;
+- B14 rollback ostaja veljaven.
+
+---
+
+# 7. Faza M3 — post-merge sprejem na `main`
+
+**Cilj:** zamrzniti novo aktivno razvojno osnovo.
+
+## 7.1 Po mergeu
+
+```powershell
+git switch main
+git pull --ff-only origin main
+git rev-parse HEAD
+python -m pytest -q --basetemp output/pytest-post-merge-main
+python scripts/run_rei_native_cycle.py
+python scripts/run_rei_native_profile_matrix.py
+```
+
+## 7.2 Release tag
+
+Če vse uspe:
+
+```powershell
+git tag -a rei-v3-native-composition-v1 -m "Accepted REI native-modality and Ego-composition architecture"
+git push origin rei-v3-native-composition-v1
+```
+
+Obstoječega taga stare arhitekture ne spreminjaj.
+
+## 7.3 Release zapis
+
+Ustvari:
+
+```text
+Docs/releases/rei-v3-native-composition-v1.md
+```
+
+Vključuje:
+
+- main merge SHA;
+- tag;
+- arhivski rollback tag;
+- povzetek arhitekture;
+- test evidence;
+- znane omejitve;
+- naslednje faze C1–C6;
+- opozorilo, da gre za raziskovalni simulator.
+
+Commit:
+
+```text
+docs(release): mark native-composition v1 integration baseline
+```
+
+---
+
+# 8. Faza C1 — kanonični semantični laboratorij
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** preiti iz testiranja arhitekturne pravilnosti v testiranje kakovosti notranjih REI-poti.
+
+Trenutni fixtureji predvsem povedo:
+
+```text
+R izbere A
+E izbere B
+I izbere C
+```
+
+Naslednja raven mora povedati:
+
+```text
+zakaj je R prišel do A po Racijevi poti;
+kakšno sliko je E zgradil in zakaj iz nje sledi B;
+kaj I varuje in kakšna telesna trajektorija vodi do C;
+kaj od tega Racio vidi;
+kaj napačno interpretira;
+kaj se spremeni pri sprejemanju;
+kako karakter spremeni mandat, ne nativnih sklepov.
+```
+
+## 8.1 Lokacija
+
+Ustvari:
+
+```text
+knowledge/semantic_lab_v1/
+├── README.md
+├── manifest.yaml
+├── schemas/
+│   ├── scenario_family.schema.json
+│   ├── native_route.schema.json
+│   ├── interpretation_variant.schema.json
+│   └── longitudinal_sequence.schema.json
+├── scenario_families/
+├── review/
+│   └── review_log.jsonl
+└── source_index.jsonl
+```
+
+Generated test fixtureji:
+
+```text
+tests/fixtures/semantic_lab_v1/
+```
+
+Poročila:
+
+```text
+Docs/evals/semantic_lab_v1/
+```
+
+To ni training dataset. Ne dodajaj SFT exporta.
+
+## 8.2 Podatkovni model
+
+```python
+class SourceLocator(BaseModel):
+    source_file: str
+    page: int | None
+    section: str
+    claim_ids: list[str]
+    excerpt_summary_sl: str
+
+class SemanticScenarioFamily(BaseModel):
+    family_id: str
+    title_sl: str
+    purpose: str
+    source_locators: list[SourceLocator]
+    grounded_scene: SceneEvent
+    person_world_variants: list[str]
+    current_state_variants: list[str]
+    acceptance_variants: list[str]
+    language_variants: list[str]
+    perturbation_variants: list[str]
+    expected_route_ids: list[str]
+    forbidden_shortcuts: list[str]
+    review_status: str
+```
+
+```python
+class CanonicalNativeRoute(BaseModel):
+    route_id: str
+    family_id: str
+    mind: MindId
+    evidence_ids: list[str]
+    world_context_ids: list[str]
+    route_tags: list[str]
+    option_id: str | None
+    decisive_representation: str
+    short_decision_bridge_sl: str
+    allowed_variants: list[str]
+    forbidden_reasons: list[str]
+    source_locators: list[SourceLocator]
+```
+
+```python
+class CanonicalInterpretationVariant(BaseModel):
+    interpretation_id: str
+    family_id: str
+    source_mind: Literal["E", "I"]
+    visible_manifestation_ids: list[str]
+    acceptance_mode: str
+    expected_interpretation_class: Literal[
+        "accurate",
+        "partial",
+        "omission",
+        "rationalization",
+        "minimization",
+        "projection",
+        "misclassification",
+        "unknown",
+    ]
+    expected_option_id: str | None
+    expected_motive_class: str
+    notes_sl: str
+```
+
+## 8.3 Začetni nabor scenarijev
+
+Pripravi najmanj 24 source-grounded familyjev.
+
+Obvezne družine:
+
+1. novoletna zaobljuba — Racijeva zavestna odločitev, ki je E/I ne sprejmeta;
+2. Emocieva porušena želena slika in jeza;
+3. Racijeva napačna razlaga Emocieve jeze;
+4. klavstrofobija — Instinktov problem, ki ga besedni argument ne doseže;
+5. poslušanje Instinktovega občutka namesto preusmerjanja pozornosti;
+6. Malek — Instinkt delegira motorično nalogo Emociu;
+7. Emocio poskuša delegacijo zamenjati za prevzem oblasti;
+8. značaj kot pot, ne vedenje;
+9. enako vedenje iz treh različnih poti;
+10. enak procesorski motiv z različnimi zunanjimi vedenji;
+11. parni karakter in konflikt dveh vodilnih razumov;
+12. trinajsti značaj in 2-of-3;
+13. spoznanje proti enostranski Racijevi odločitvi;
+14. besede posluša Racio, E/I zaznavata druge kanale;
+15. Racio interpretira sanjsko sliko po prebujenju;
+16. Emocieva trenutna, želena in porušena slika;
+17. Instinktova navezanost in strah pred izgubo;
+18. Instinktova meja in možnost umika;
+19. Instinktovo pomanjkanje in varčevanje;
+20. sprejemanje ob izgubi — sodelovanje treh razumov;
+21. nesprejemanje ob izgubi — obtoževanje in razpad sodelovanja;
+22. razlika med Racijevim načrtom, Emocievo sliko poti in Instinktovim izločanjem nevarnosti;
+23. motorični Emocio proti vizualnemu Emociu;
+24. longitudinalni ponavljajoči se motiv za Ego skladbo.
+
+Dodatni kandidati:
+
+- čas pri R, E in I;
+- humor pri E in I, ozaveščen prek R;
+- privlačnost kot Emocieva slika;
+- Racijev materialni interes proti Emocievemu statusnemu interesu;
+- Instinktov asociativni strah, ki se zavestno napačno pripiše objektu;
+- zaljubljenost kot začasna konvergenca;
+- odpuščanje kot spoznanje vseh treh;
+- ista zunanja previdnost, različni notranji izvori.
+
+## 8.4 Variacije vsakega familyja
+
+Najmanj:
+
+```text
+sl_canonical
+sl_paraphrase
+en_operational_gloss
+keyword_trap
+same_behavior_different_route
+same_route_different_behavior
+missing_information
+contradictory_surface_cue
+```
+
+Vse variante enega familyja ostanejo skupaj. Ne mešaj jih med train/validation, ker treninga sploh ni.
+
+## 8.5 Review workflow
+
+Statusi:
+
+```text
+draft
+source_checked
+racio_reviewed
+emocio_reviewed
+instinkt_reviewed
+communication_reviewed
+canon_approved
+fixture_generated
+rejected
+```
+
+Primer postane `canon_approved` samo, če:
+
+- ima vir;
+- ne sklepa značaja iz vedenja;
+- loči način procesiranja od rezultata;
+- ne vnaša medicinske ali metafizične trditve kot runtime fakt;
+- ima jasno negotovost;
+- ne daje modelu expected answera v prompt.
+
+## 8.6 Generator fixturejev
+
+Dodaj:
+
+```text
+scripts/build_semantic_lab_fixtures.py
+```
+
+Generator:
+
+- bere samo `canon_approved`;
+- ustvarja immutable JSON fixtureje;
+- vključi source hash;
+- preveri option ID-je;
+- ustvari manifest;
+- ne kliče modelov.
+
+## 8.7 Testi
+
+```text
+tests/semantic_lab/test_source_traceability.py
+tests/semantic_lab/test_family_variant_grouping.py
+tests/semantic_lab/test_no_behavior_to_character_shortcut.py
+tests/semantic_lab/test_no_training_export.py
+tests/semantic_lab/test_fixture_generation.py
+tests/semantic_lab/test_slovenian_canonical_text_required.py
+```
+
+## 8.8 Quality gate
+
+- najmanj 24 familyjev;
+- najmanj 8 variant na family;
+- 100 % source traceability;
+- 0 neodobrenih fixturejev;
+- 0 model-generated gold primerov;
+- 0 training entrypointov;
+- vsi testi uspejo.
+
+Commit:
+
+```text
+feat(eval): add source-grounded REI semantic laboratory
+```
+
+---
+
+# 9. Faza C2 — semantični evaluator
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** ocenjevati notranjo pot, ne samo pravilnost JSON-a ali prisotnost ključnih besed.
+
+## 9.1 Nova komponenta
+
+```text
+app/backend/rei/evaluation/
+├── models.py
+├── native_routes.py
+├── racio_eval.py
+├── emocio_eval.py
+├── instinkt_eval.py
+├── communication_eval.py
+├── ego_eval.py
+├── bilingual_eval.py
+├── human_review.py
+└── report.py
+```
+
+## 9.2 Skupne metrike
+
+- schema validity;
+- provenance completeness;
+- allowed option validity;
+- source evidence coverage;
+- unsupported claim count;
+- profile leakage;
+- hidden-ground-truth leakage;
+- confidence/uncertainty calibration;
+- abstention correctness;
+- Slovenian terminology consistency;
+- cross-language semantic consistency.
+
+## 9.3 Racio
+
+Ocenjuj:
+
+- dejstvo proti neznanki;
+- kronološko in vzročno urejanje;
+- uporabo eksplicitnih pravil;
+- ločevanje koristi od moralne ali statusne razlage;
+- prepoved izmišljanja E/I motivov;
+- možnost racionalizacije;
+- option ID;
+- kratke route tags.
+
+Ne uporabljaj kriterija:
+
+```text
+Racio je previden
+Racio vedno izbere varno
+Racio vedno izbere najcenejše
+```
+
+## 9.4 Emocio
+
+Ocenjuj:
+
+- ali obstajajo current/desired/broken scene;
+- ali je jaz pravilno umeščen v prizor;
+- ali je zaznana vidnost, pripadnost, privlačnost, tekmovanje oziroma ovira, kadar to podpira primer;
+- ali se želena transformacija ujema z virom;
+- ali renderer-added element ni zamenjan za grounded fact;
+- option rollout;
+- native option;
+- razliko med vizualnim in motoričnim Emociem.
+
+## 9.5 Instinkt
+
+Ocenjuj:
+
+- nevarnost;
+- izgubo;
+- mejo;
+- zaupanje;
+- navezanost;
+- pomanjkanje;
+- možnost umika;
+- telesno trajektorijo;
+- protected target;
+- recoverability;
+- abstention ob premalo podatkih.
+
+Ne ocenjuj ga samo po tem, ali je izbral umik.
+
+## 9.6 Komunikacija
+
+Ocenjuj:
+
+- koliko manifestacije je bilo vidne;
+- ali Racio sklepa znotraj vidnega;
+- option inference;
+- motive class;
+- distortion type;
+- pretirano samozavest;
+- alternativne hipoteze;
+- razhajanje med native signalom in conscious narrative.
+
+Evaluator sme videti ground truth. Interpreter ga ne sme.
+
+## 9.7 Ego
+
+Ocenjuj:
+
+- ali motif res temelji na več measure-ih;
+- false motif rate;
+- missed motif rate;
+- ponavljajoče se translation gaps;
+- unresolved tension continuity;
+- ločitev Racio self-narrative od composition;
+- pravilnost modality projections.
+
+## 9.8 Human review
+
+Dodaj blind review način:
+
+- reviewer ne vidi target labela, kadar ocenjuje identiteto procesorja;
+- reviewer vidi vir in grounded scene šele po prvem slepem izboru;
+- oceni:
+  - kateri razum;
+  - katera pot;
+  - kakovost sklepa;
+  - kakovost prevoda;
+  - stopnjo negotovosti.
+
+Shranjuj reviewer agreement.
+
+## 9.9 Poročila
+
+```text
+Docs/evals/semantic_lab_v1/{run_id}/
+├── summary.md
+├── metrics.json
+├── failures.jsonl
+├── confusion_matrices.json
+├── bilingual_consistency.json
+└── human_review_summary.md
+```
+
+## 9.10 Quality gate
+
+Pred modelnimi integracijami mora evaluator:
+
+- pravilno oceniti vse ročno pripravljene pozitivne in negativne fixtureje;
+- zaznati profile leakage;
+- zaznati hidden-ground-truth leakage;
+- razlikovati accurate interpretation od rationalization fixtureja;
+- ne uporabljati produkcijskih keywordov kot edini kriterij.
+
+Commit:
+
+```text
+feat(eval): add semantic route and translation evaluation
+```
+
+---
+
+# 10. Faza C3 — pravi RacioInterpreter
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** Racio naj prvič res interpretira Emocieve manifestacije in Instinktovo telesno stanje, ne da bi videl nativni ground truth.
+
+## 10.1 Najprej uvedi ConsciousAccessFilter
+
+Sprejemanje naj ne deluje tako, da prompt modelu naroči:
+
+```text
+zdaj napačno interpretiraj Emocia
+```
+
+Namesto tega naj vpliva na signal, ki pride v zavest.
+
+```python
+class ConsciousAccessPacket(BaseModel):
+    source_mind: Literal["E", "I"]
+    visible_observations: list[ManifestationObservation]
+    omitted_observation_ids: list[str]
+    degraded_observation_ids: list[str]
+    visible_artifact_ids: list[str]
+    public_option_scope: list[str]
+    channel_quality: float
+    uncertainty: str
+```
+
+`AcceptanceState` določa:
+
+- visibility;
+- fidelity;
+- suppression;
+- signal noise;
+- delegation openness.
+
+Racio vidi samo rezultat filtra.
+
+Ground truth ostane v evaluatorju.
+
+## 10.2 Interpreter protocol
+
+```python
+class RacioInterpreterProvider(Protocol):
+    def interpret(
+        self,
+        packet: ConsciousAccessPacket,
+        call_spec: ProviderCallSpec,
+    ) -> RacioInterpretation:
+        ...
+```
+
+Implementacije:
+
+```text
+DeterministicRacioInterpreter
+StructuredLLMRacioInterpreter
+VisionLanguageRacioInterpreter
+```
+
+## 10.3 Izhod
+
+```python
+class RacioInterpretation(BaseModel):
+    source_mind: Literal["E", "I"]
+    cited_observation_ids: list[str]
+    inferred_option_id: str | None
+    inferred_action_tendency: str
+    inferred_motive_class: str
+    confidence: float
+    alternative_hypotheses: list[str]
+    unresolved_ambiguity: str
+```
+
+Ne zahtevaj dolgega chain-of-thoughta.
+
+## 10.4 Prva modelna stopnja
+
+Najprej strukturirani tekstovni vhod:
+
+- Emocio manifestation fields;
+- Instinkt manifestation fields;
+- brez slik;
+- brez native optiona;
+- brez hidden motive.
+
+Primerjaj:
+
+```text
+deterministic baseline
+vs.
+local LLM interpreter
+```
+
+## 10.5 Druga stopnja
+
+Dodaj:
+
+- Emocieve visible image artifacts;
+- Instinktov body trajectory kot graf oziroma strukturiran vizualni artefakt;
+- VLM adapter;
+- isti strogi JSON contract.
+
+## 10.6 Model registry
+
+```text
+config/racio_interpreter_models.yaml
+```
+
+Vsak kandidat:
+
+- model ID;
+- revision/digest;
+- runtime;
+- modality support;
+- Slovenian baseline;
+- max context;
+- hardware requirements;
+- license;
+- benchmark status.
+
+Ne izberi produkcijskega modela v kodi.
+
+## 10.7 Ablacije
+
+Za isti primer:
+
+```text
+structured_only
+image_only
+structured_plus_image
+body_structured_only
+body_graph_plus_structured
+```
+
+Ocenjuj, kateri kanal Raciju dejansko pomaga.
+
+## 10.8 Slovenščina
+
+Vsak canonical primer ima:
+
+- slovenski izvirnik;
+- angleški operational gloss.
+
+Model mora ohraniti:
+
+- option inference;
+- motive class;
+- uncertainty;
+- REI terminologijo.
+
+Ne ocenjuj kakovosti samo po angleščini.
+
+## 10.9 Varnost
+
+Interpreter:
+
+- ne določa značaja resnične osebe;
+- ne predstavlja hipoteze kot gotovost;
+- ne uporablja modela za manipulacijo;
+- ne dobi metafizičnih claimov;
+- ne dobi diagnostic labela.
+
+## 10.10 Quality gate
+
+Obvezno:
+
+- 0 hidden native payload leakage;
+- 0 character/profile leakage;
+- 100 % valid JSON;
+- option accuracy na nedvoumnih semantic-lab primerih boljša od deterministic baselinea;
+- nizka samozavest oziroma abstention na dvoumnih primerih;
+- vsaka interpretacija citira dejansko vidno observation;
+- nobena interpretacija ne mutira native bundlea;
+- slovenski in angleški rezultat sta semantično skladna v dogovorjeni toleranci.
+
+Commit:
+
+```text
+feat(communication): add model-backed Racio interpretation behind conscious-access boundary
+```
+
+---
+
+# 11. Faza C4 — Emocio kot prava vizualna kognicija
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** image generator naj ne bo samo ilustrator že dokončanega sklepa, ampak nadzorovan del Emocieve notranje predstavne poti.
+
+Sedanji `structured_only` Emocio ostane referenčni baseline.
+
+## 11.1 Tri runtime načini
+
+```python
+EmocioCognitionMode = Literal[
+    "structured_only",
+    "render_observe",
+    "visual_cognition",
+]
+```
+
+### `structured_only`
+
+Sedanji model:
+
+```text
+scene specs -> structured valuation -> native conclusion
+```
+
+### `render_observe`
+
+```text
+scene specs -> renderer -> images
+native conclusion še vedno iz structured valuation
+```
+
+Uporablja se za testiranje rendererja in Racijevega gledanja slik.
+
+### `visual_cognition`
+
+```text
+grounded current scene spec
+desired scene spec
+broken scene spec
+option rollout specs
+        ↓
+render / image-to-image
+        ↓
+image encoder / visual representation
+        ↓
+visual comparison
+        ↓
+fused Emocio valuation
+        ↓
+EmocioNativeConclusion
+```
+
+Samo ta način dopušča, da notranje slike vplivajo na Emociev sklep.
+
+## 11.2 Loči tri vrste vizualnega artefakta
+
+```python
+class GroundedVisualRepresentation(BaseModel):
+    source_evidence_ids: list[str]
+    scene_spec_id: str
+    external_fact_boundary: str
+
+class ImaginedVisualArtifact(BaseModel):
+    artifact_id: str
+    originating_scene_spec_id: str
+    option_id: str | None
+    seed: int
+    model_identity: ProviderIdentity
+    internal_only: Literal[True] = True
+    ungrounded_elements: list[str]
+
+class VisualEmbeddingArtifact(BaseModel):
+    source_artifact_id: str
+    encoder_identity: ProviderIdentity
+    vector_hash: str
+    dimensions: int
+```
+
+## 11.3 Ključno epistemološko pravilo
+
+Generated slika:
+
+- ni dokaz o zunanjem svetu;
+- ne sme dodati `SceneEvent.evidence`;
+- ne sme popravljati grounded scene speca;
+- je lahko legitimna Emocieva notranja predstava;
+- lahko vpliva na Emocievo vrednotenje samo znotraj nativnega procesa.
+
+To loči:
+
+```text
+halucinacija o realnosti
+od
+notranje domišljije
+```
+
+## 11.4 Renderer
+
+Uporabi obstoječi provider protocol.
+
+Dodaj realni local smoke:
+
+- ena majhna serija;
+- fiksni model revision;
+- fiksni seed;
+- brez avtomatskega prenosa velikih modelov v CI;
+- cache po `scene_spec_hash + seed + model_revision`;
+- timeout;
+- fail-closed;
+- no silent fallback.
+
+## 11.5 Image-to-image rollout
+
+Za option rollout naj bo osnovna current scene ista.
+
+```text
+current scene image
+        ↓
+option-specific transformation
+        ↓
+future scene image
+```
+
+To bolje ohrani identiteto, položaj sebe in osnovno kompozicijo kot neodvisni text-to-image prompti.
+
+## 11.6 Image encoder
+
+Dodaj protocol:
+
+```python
+class ImageEncoder(Protocol):
+    def encode(self, artifact: ImageArtifact) -> VisualEmbeddingArtifact:
+        ...
+```
+
+Prva uporaba embeddingov naj bo ozka:
+
+- similarity current ↔ desired;
+- similarity option rollout ↔ desired;
+- similarity option rollout ↔ broken;
+- consistency med seeds;
+- ne poskušaj takoj iz embeddinga razbrati vseh socialnih lastnosti.
+
+## 11.7 Visual valuation
+
+```python
+class VisualValuationPolicy(BaseModel):
+    structured_weight: float
+    desired_similarity_weight: float
+    broken_avoidance_weight: float
+    seed_consistency_penalty: float
+    uncertainty_penalty: float
+```
+
+To so Emocieve interne implementacijske uteži, ne karakterne uteži.
+
+Vse morajo biti v configu in označene kot `implementation_hypothesis`.
+
+## 11.8 Visual world memory
+
+Emociev svet naj shranjuje:
+
+- scene spec;
+- image artifact reference;
+- embedding;
+- desired/broken relation;
+- outcome;
+- social meaning;
+- motor pattern.
+
+Ne shranjuj samo Racijevega captiona.
+
+## 11.9 Robustnost
+
+Za vsak semantic-lab Emocio primer testiraj:
+
+- 3 seeds;
+- najmanj 2 vizualna sloga;
+- slovenski in angleški prompt gloss;
+- zamenjan vrstni red možnosti;
+- enak scene spec z drugačnim rendererjem.
+
+Cilj ni bit-identična slika. Cilj je stabilna Emocieva semantična smer.
+
+## 11.10 Testi
+
+```text
+test_generated_image_never_becomes_external_evidence
+test_imagined_visual_can_influence_emocio_only_in_visual_mode
+test_renderer_failure_falls_back_to_structured_mode_explicitly
+test_scene_identity_preserved_in_img2img_rollout
+test_seed_and_model_recorded
+test_option_order_does_not_change_scene_identity
+test_racio_caption_cannot_mutate_emocio_native_conclusion
+test_same_scene_different_emocio_world_can_change_desired_scene
+test_visual_ablation_report_is_reproducible
+```
+
+## 11.11 Quality gate
+
+- real local renderer smoke uspe;
+- vsaka slika ima provenance;
+- 0 grounded-evidence contamination;
+- visual mode lahko spremeni Emociev sklep samo skozi dokumentiran visual valuation;
+- semantic-lab review potrdi, da so current/desired/broken scene smiselne;
+- seed/style variacije ne povzročajo naključnega action collapsea;
+- structured baseline ostane delujoč.
+
+Commit:
+
+```text
+feat(emocio): make visual imagination an optional native cognition path
+```
+
+---
+
+# 12. Faza C5 — Instinktov samodejni body-effect mapper
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** odstraniti potrebo, da uporabnik ročno poda učinek vsake možnosti na telo.
+
+## 12.1 Nova meja
+
+```python
+class EmbodiedCueInterpreter(Protocol):
+    def infer_effects(
+        self,
+        scene: SceneEvent,
+        packet: InstinktInputPacket,
+        world: InstinktWorld,
+        body: BodyState,
+        option: DecisionOption,
+    ) -> OptionBodyEffectPrediction:
+        ...
+```
+
+## 12.2 Cue taxonomy
+
+Začetne kategorije:
+
+```text
+physical_threat
+pain_or_injury
+uncertainty
+predictability
+trust
+betrayal
+boundary
+attachment
+abandonment
+resource_security
+scarcity
+escape_availability
+social_safety
+protected_other
+fatigue
+temperature_or_environment
+```
+
+Vsaka kategorija:
+
+- canonical source status;
+- implementation mapping;
+- supported evidence modalities;
+- allowed body dimensions;
+- uncertainty rule.
+
+Lokacija:
+
+```text
+knowledge/canon_v2/instinkt_effect_rules.yaml
+```
+
+## 12.3 Izhod
+
+```python
+class BodyEffectEvidence(BaseModel):
+    evidence_id: str
+    cue_class: str
+    association_ids: list[str]
+    predicted_deltas: list[BodyDelta]
+    confidence: float
+    uncertainty: str
+
+class OptionBodyEffectPrediction(BaseModel):
+    option_id: str
+    evidence: list[BodyEffectEvidence]
+    combined_deltas: list[BodyDelta]
+    unsupported_dimensions: list[str]
+    conflict_flags: list[str]
+    abstains: bool
+```
+
+## 12.4 Prva implementacija
+
+`RuleBasedEmbodiedCueInterpreter`:
+
+- transparentna;
+- konfigurabilna;
+- brez LLM;
+- brez character profila;
+- brez keyword-only odločitve;
+- uporablja grounded evidence in Instinkt associations;
+- ob premalo podatkih abstinira.
+
+Keyword match je lahko samo prvi cue candidate. Končna delta mora imeti:
+
+- evidence ref;
+- cue class;
+- association ref ali jasno default pravilo;
+- uncertainty.
+
+## 12.5 Manual override ostane
+
+Za canonical fixtureje ohrani:
+
+```text
+manual_effect_specs
+```
+
+Način:
+
+```python
+effect_source = Literal[
+    "manual_fixture",
+    "rule_based",
+    "model_backed",
+]
+```
+
+S tem lahko primerjaš avtomatski mapper z ročnim goldom.
+
+## 12.6 Asociativni spomin
+
+Mapper naj poišče podobne pretekle dogodke po:
+
+- cue signature;
+- protected target;
+- body-state similarity;
+- loss class;
+- trust/boundary context.
+
+Rezultat association retrievala ne sme biti avtomatsko dejstvo. Je Instinktova asociativna podlaga.
+
+## 12.7 Konfliktni cue-i
+
+Primer:
+
+```text
+večja plača poveča resource security
+selitev zmanjša attachment security
+pogodba poveča predictability
+neznano okolje poveča uncertainty
+```
+
+Mapper mora ohraniti večdimenzionalnost. Ne sme vsega zrušiti v en `risk_score`.
+
+## 12.8 Outcome learning
+
+Po dejanskem `OutcomeRecord`:
+
+- primerjaj napovedano in doživeto;
+- dodaj novo association event;
+- ne spreminjaj prejšnjega zapisa;
+- body/world update je nov content-addressed artefakt.
+
+## 12.9 Model-backed naslednik
+
+Dodaj protocol in stub, ne produkcijskega LLM odločanja.
+
+Morebitni model-backed mapper pozneje:
+
+- predlaga cue classes;
+- ne piše končnega body statea brez validatorja;
+- mora citirati evidence;
+- mora prestati manual-gold eval;
+- ne sme videti karakterja.
+
+## 12.10 Testi
+
+```text
+test_rule_based_effects_have_provenance
+test_unsupported_event_abstains
+test_character_never_enters_body_mapper
+test_same_event_different_body_state_can_change_rollout
+test_same_event_different_instinkt_world_can_change_association
+test_conflicting_cues_remain_multidimensional
+test_manual_fixture_and_auto_mapper_can_be_compared
+test_outcome_update_is_append_only
+test_no_medical_diagnosis_fields
+```
+
+## 12.11 Quality gate
+
+- avtomatski mapper pokrije vse semantic-lab Instinkt primere;
+- 100 % deltas imajo provenance;
+- 0 character leakage;
+- 0 silent defaults;
+- manual-vs-auto report obstaja;
+- abstention je dovoljen in pravilno prikazan;
+- obstoječi body simulator ostane nespremenjeno testiran.
+
+Commit:
+
+```text
+feat(instinkt): infer grounded option body effects before protective rollouts
+```
+
+---
+
+# 13. Faza C6 — longitudinalni Ego kot skladba
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** preveriti, ali Ego skozi zaporedje ciklov res predstavlja nastajajočo skladbo, ki povratno oblikuje svetove treh razumov.
+
+## 13.1 Longitudinalni scenario model
+
+```python
+class LongitudinalEventStep(BaseModel):
+    step_id: str
+    scene: SceneEvent
+    expected_outcome_mode: str
+    external_outcome: OutcomeRecord | None
+
+class LongitudinalScenario(BaseModel):
+    sequence_id: str
+    initial_person_state: PersonState
+    steps: list[LongitudinalEventStep]
+    expected_motifs: list[str]
+    expected_translation_patterns: list[str]
+    expected_world_changes: list[str]
+```
+
+## 13.2 Začetne sekvence
+
+Najmanj 10 sekvenc po 10–30 ciklov:
+
+1. Emocio išče priznanje, Racio to pripoveduje kot karierno rast;
+2. Instinkt opozarja na izgubo družine, Racio signal minimizira;
+3. ponavljajoče se novoletne zaobljube brez sprejemanja;
+4. parni karakter z večkratnim zastojem;
+5. sprejemajoča delegacija kompetentnemu podrejenemu razumu;
+6. nesprejemajoče sabotiranje;
+7. isti zunanji neuspeh, trije različni svetovni update-i;
+8. začetno napačen Racijev prevod, ki se skozi posledice izboljša;
+9. dolgoročno kopičenje Instinktovega alarma;
+10. postopna konvergenca vseh treh do `simulated_spoznanje`.
+
+## 13.3 MindWorldUpdater
+
+Ločeni updaterji:
+
+```text
+RacioWorldUpdater
+EmocioWorldUpdater
+InstinktWorldUpdater
+```
+
+### Racio
+
+Shrani:
+
+- dejstva;
+- vzročne povezave;
+- čas;
+- obljube;
+- eksplicitne sklepe;
+- lastno pripoved.
+
+### Emocio
+
+Shrani:
+
+- scene;
+- desired/broken motifs;
+- social position;
+- attraction/aversion;
+- motor outcome;
+- image embeddings.
+
+### Instinkt
+
+Shrani:
+
+- body before/after;
+- protected target;
+- trust;
+- boundary;
+- attachment;
+- loss;
+- recoverability;
+- association.
+
+Updater ne sme vsem trem zapisati iste tekstovne summary vsebine.
+
+## 13.4 Ego projections
+
+Pred naslednjim ciklom:
+
+```text
+EgoTrace
+    ↓
+RacioProjection
+EmocioProjection
+InstinktProjection
+```
+
+Vsaka projekcija mora:
+
+- citirati measure IDs;
+- vsebovati samo modalno relevantne podatke;
+- ohraniti negotovost;
+- ne spreminjati karakterja;
+- ne postati četrto navodilo.
+
+## 13.5 Motif engine v treh stopnjah
+
+### Stopnja 1 — structured tags
+
+Obstoječi exact token baseline.
+
+### Stopnja 2 — canonical motif normalization
+
+Slovar semantično sorodnih oznak:
+
+```text
+career_growth
+professional_advancement
+being_seen_as_successful
+```
+
+lahko pripadajo širšemu motivu, vendar samo ob source-grounded pravilih.
+
+### Stopnja 3 — embedding-assisted hypothesis
+
+Opcijski:
+
+- clustering;
+- predlog motiva;
+- evidence measure IDs;
+- človek ali validator potrdi;
+- nikoli samodejno ne postane kanonična resnica.
+
+## 13.6 RacioSelfNarrative proti kompoziciji
+
+Za vsak snapshot izračunaj:
+
+```text
+claimed motive
+observed recurring motive
+acknowledged minds
+omitted minds
+recurrent translation gaps
+narrative-composition divergence
+```
+
+To je diagnostični model simulatorja, ne diagnoza človeka.
+
+## 13.7 EgoReflector
+
+V tej fazi samo opcijski eksperiment.
+
+Omejitve:
+
+- read-only;
+- ne sodeluje v trenutnem ciklu;
+- ne piše v `GovernanceMandate`;
+- ne piše neposredno v MindWorld;
+- vsaka trditev citira measure IDs;
+- output je `ReflectionHypothesis`;
+- brez glasu »jaz, Ego«.
+
+## 13.8 Testi
+
+```text
+test_longitudinal_trace_is_append_only
+test_world_updates_are_modality_specific
+test_projection_cites_measure_ids
+test_same_character_different_history_changes_native_conclusions
+test_character_stays_constant_across_sequence
+test_racio_narrative_can_diverge_from_composition
+test_structured_motif_precision
+test_false_motif_is_rejected
+test_embedding_hypothesis_needs_validation
+test_ego_reflector_cannot_mutate_runtime
+test_spoznanje_closes_previous_tension_without_rewriting_history
+```
+
+## 13.9 Quality gate
+
+- 10 longitudinalnih sekvenc;
+- vsaka najmanj 10 ciklov;
+- append-only verifikacija;
+- world updates so različni po modalnosti;
+- naslednji native bundle dejansko uporablja preteklo projekcijo;
+- motif precision na gold sekvencah doseže dogovorjeni prag;
+- Racio narrative divergence je vidna;
+- Ego nima decision API-ja.
+
+Commit:
+
+```text
+feat(ego): validate longitudinal composition and modality-specific world learning
+```
+
+---
+
+# 14. Faza C7 — integrirani semantični benchmark
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** preveriti celoten sistem po tem, ko so RacioInterpreter, Emocio visual cognition, Instinkt mapper in longitudinalni Ego na voljo.
+
+## 14.1 Dva benchmark načina
+
+### Controlled profile benchmark
+
+- en `SceneEvent`;
+- en frozen native bundle;
+- vseh 13 karakterjev;
+- brez ponovnega izvajanja procesorjev;
+- meri samo governance in downstream razhajanja.
+
+### Person longitudinal benchmark
+
+- isti začetni svet;
+- različni karakterji;
+- skozi več ciklov nastanejo različne odločitve;
+- svetovi se začnejo razlikovati;
+- poznejši native sklepi so lahko različni.
+
+To razliko mora report jasno prikazati.
+
+## 14.2 Ablacije
+
+Obvezno:
+
+```text
+Racio deterministic vs model-backed
+Emocio structured_only vs render_observe vs visual_cognition
+Instinkt manual effects vs auto mapper
+Interpreter structured-only vs VLM
+Ego structured motif vs semantic motif hypothesis
+Acceptance accepting vs mixed vs conflicted
+```
+
+## 14.3 Meritve
+
+- processor route identity;
+- source grounding;
+- option choice;
+- abstention;
+- translation fidelity;
+- character causality;
+- conscious/behavior divergence;
+- spoznanje;
+- cross-language consistency;
+- visual robustness;
+- body mapper agreement;
+- longitudinal motif precision;
+- latency;
+- VRAM/RAM;
+- artifact size;
+- failure mode.
+
+## 14.4 Brez enega agregatnega »REI scorea«
+
+Poročilo mora ohraniti dimenzije ločeno.
+
+Prepovedano:
+
+```text
+Model A ima REI score 87, zato je boljši.
+```
+
+Dovoljeno:
+
+```text
+Model A bolje ohranja Racijevo fact/unknown mejo.
+Model B bolje interpretira Emocieve slike.
+Model C ima slabšo slovensko terminologijo.
+```
+
+## 14.5 Quality gate
+
+Sistem je pripravljen za naslednjo raziskovalno fazo, ko:
+
+- ni arhitekturnih invariant failures;
+- model-backed komponente presegajo deterministic baseline na svoji ciljni semantični nalogi;
+- nobena izboljšava ne povzroči hidden-ground-truth leakage;
+- slovenski rezultati niso izrazito slabši od angleških;
+- visual mode ne kontaminira external evidence;
+- body mapper ne skriva unsupported sklepov;
+- longitudinalni Ego pokaže vsaj nekaj source-grounded ponavljajočih se motivov;
+- failures so reproducibilni in shranjeni.
+
+Commit:
+
+```text
+feat(eval): add integrated semantic and longitudinal REI benchmark
+```
+
+---
+
+# 15. Faza C8 — GUI semantičnega laboratorija
+
+**Veja:**
+
+```text
+main
+```
+
+**Cilj:** omogočiti človeku, da pregleda razliko med nativnim sklepom, manifestacijo, Racijevim prevodom in časovno Ego kompozicijo.
+
+## 15.1 Semantic Lab panel
+
+- source;
+- grounded scene;
+- variant;
+- expected route;
+- dejanski route;
+- reviewer status;
+- failure tags;
+- slovenski/angleški side-by-side.
+
+## 15.2 Racio Interpretation panel
+
+Levo:
+
+- kar je Racio dejansko videl.
+
+Desno v debug načinu:
+
+- nativni ground truth;
+- TranslationGap;
+- evaluatorjeva oznaka.
+
+Jasno opozorilo:
+
+```text
+Racio ground trutha ni prejel.
+```
+
+## 15.3 Emocio panel
+
+- scene specs;
+- current/desired/broken;
+- option rollouts;
+- generated images;
+- embeddings/similarity;
+- structured vs visual valuation;
+- native option;
+- renderer-added ungrounded elements.
+
+## 15.4 Instinkt panel
+
+- body before;
+- cue evidence;
+- predicted body effects;
+- association matches;
+- option trajectories;
+- body after;
+- dominant alarm;
+- abstention/uncertainty.
+
+## 15.5 Ego timeline
+
+- measures;
+- decisions;
+- outcomes;
+- recurring motifs;
+- translation errors;
+- unresolved tensions;
+- spoznanja;
+- Racio self-narrative;
+- R/E/I projections.
+
+## 15.6 Varnost
+
+- loopback only privzeto;
+- brez Character diagnosis gumba;
+- brez avtomatskega training exporta;
+- brez skritih model callov;
+- debug ground truth samo z izrecnim lokalnim stikalom.
+
+Commit:
+
+```text
+feat(gui): add semantic native-process and longitudinal Ego workbench
+```
+
+---
+
+# 16. Faza C9 — naslednji release
+
+Ko so C1–C8 sprejeti:
+
+```text
+rei-v3-semantic-native-v1
+```
+
+Pripravi:
+
+```text
+Docs/releases/rei-v3-semantic-native-v1.md
+Docs/evals/rei_semantic_native_acceptance_{date}.md
+```
+
+V poročilu loči:
+
+- arhitekturno sprejemljivost;
+- semantično kakovost;
+- model-backed rezultate;
+- slovenski jezik;
+- znane omejitve;
+- odprta vprašanja;
+- kaj še ni empirično potrjeno.
+
+Šele po tem releaseu se znova odpre razprava o QLoRA oziroma učenju.
+
+---
+
+# 17. Kaj Codex izrecno ne sme narediti
+
+1. Ne squashaj arhitekturnih commitov.
+2. Ne prepisuj B14 zgodovine.
+3. Ne spreminjaj baseline taga.
+4. Ne pošiljaj karakterja nativnim procesorjem.
+5. Ne vrni decimalnih karakternih uteži v governance.
+6. Ne pusti LLM-ju razreševati parnega konflikta.
+7. Ne pusti Raciju videti hidden native ground trutha.
+8. Ne dovoli rendererju dodajati external evidence.
+9. Ne enači slike z Emociem; slika je njegov artefakt.
+10. Ne enači body statea z Instinktom; telo je del njegovega procesa.
+11. Ne enači agreementa s sprejemanjem.
+12. Ne enači conscious decisiona z governance mandateom.
+13. Ne enači behavior resultanta z zavestno odločitvijo.
+14. Ne naredi Ega za agenta.
+15. Ne uvajaj `EgoVote`, `EgoPreferredOption` ali `EgoDecision`.
+16. Ne generiraj trening datasetov.
+17. Ne uvajaj QLoRA ali LoRA.
+18. Ne izbiraj končnega modela brez semantičnega benchmarka.
+19. Ne uporabljaj modelnega judgea kot edinega vira resnice.
+20. Ne ocenjuj karakterja resničnih ljudi.
+21. Ne izvajaj medicinskih ali terapevtskih sklepov.
+22. Ne uvajaj metafizičnega `LifeAgent`.
+23. Ne skrivaj odprte hipoteze v fallbacku.
+24. Ne prilagajaj gold primerov zato, da trenutni model zmaga.
+25. Ne spremeni semantic lab v prompt-specific benchmark.
+
+---
+
+# 18. Predlagani commit in `main` pregled
+
+| Faza | Veja | Predlagani commit |
+|---|---|---|
+| M0 | main (integrirano) | `docs(integration): record native-composition merge preflight` |
+| M1 | main (integrirano) | `merge(main): reconcile documentation before native-composition integration` |
+| M1 docs | main (integrirano) | `docs(integration): mark canonical-v2 prompt superseded and record merge verification` |
+| M2 | main (integrirano) | `ci: verify native REI architecture without model dependencies` |
+| M3 | main | `docs(release): mark native-composition v1 integration baseline` |
+| C1 | main | `feat(eval): add source-grounded REI semantic laboratory` |
+| C2 | main | `feat(eval): add semantic route and translation evaluation` |
+| C3 | main | `feat(communication): add model-backed Racio interpretation behind conscious-access boundary` |
+| C4 | main | `feat(emocio): make visual imagination an optional native cognition path` |
+| C5 | main | `feat(instinkt): infer grounded option body effects before protective rollouts` |
+| C6 | main | `feat(ego): validate longitudinal composition and modality-specific world learning` |
+| C7 | main | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
+| C8 | main | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
+| C9 | main | `docs(release): record semantic-native v1 acceptance` |
+
+---
+
+# 19. Obvezni format poročila po fazi
+
+```text
+Phase:
+Branch: main
+Base main SHA:
+Head SHA:
+Changed files:
+New files:
+Deleted files:
+Architecture changes:
+Runtime changes:
+Canon claims added:
+Implementation hypotheses added:
+Open questions added:
+Tests run:
+Tests passed:
+Tests failed:
+Model-backed runs:
+Artifacts created:
+Known limitations:
+Regression risk:
+Rollback path:
+Proposed commit:
+Recommended next phase:
+```
+
+Če se uvede nova operacionalizacija, jo zapiši v:
+
+```text
+knowledge/canon_v2/open_questions.md
+```
+
+z oznako:
+
+```text
+implementation_hypothesis
+```
+
+---
+
+# 20. Trenutno neposredno navodilo Codexu
+
+Faze M0–M3 in C1 so zaključene ter integrirane v `main`. Naslednja razvojna
+faza je C2, vendar se začne šele po uporabnikovem navodilu oziroma pregledu.
+
+Za vsako nadaljnjo fazo velja:
+
+```text
+Preberi ta načrt in repozitorijski AGENTS.md.
+Delaj neposredno na main; ne ustvarjaj ali uporabljaj druge veje.
+Pred spremembami preveri, da sta main in origin/main usklajena.
+Ohrani nepovezane uporabnikove lokalne spremembe nestageane.
+Izvedi samo trenutno odobreno fazo.
+Zaženi predpisane teste in pripravi fazno poročilo.
+Commitaj in pushaj dogovorjeni obseg neposredno na main.
+Po fazi se ustavi za pregled.
+Ne rebasaj, ne force-pushaj in ne premikaj baseline tagov.
+```
+
+---
+
+# 21. Končni cilj tega načrta
+
+Po tej seriji faz mora projekt znati pokazati ne samo:
+
+```text
+arhitektura je pravilno razdeljena
+```
+
+temveč tudi:
+
+```text
+Racio je do sklepa prišel po jezikovno-analitični poti.
+Emocio je zgradil in ovrednotil notranje prizore.
+Instinkt je dogodek preslikal v telesne, zaščitne posledice.
+Racio je manifestaciji pravilno ali napačno interpretiral.
+Karakter je določil oblast, ne pa vsebine procesorjev.
+Zavestna odločitev, mandat in vedenje so ostali ločeni.
+Ego je skozi več ciklov razvil prepoznavno skladbo.
+```
+
+To je naslednja prava stopnja projekta.
