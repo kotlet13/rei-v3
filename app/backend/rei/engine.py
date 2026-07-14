@@ -27,6 +27,10 @@ from .ego.composition import derive_composition_snapshot
 from .ego.measure import build_ego_measure
 from .ego.projections import EgoModalityProjections, derive_modality_projections
 from .ego.trace_store import FileEgoTraceStore
+from .ego.world_updates import (
+    EmocioLongitudinalVisualSignal,
+    InstinktLongitudinalBodySignal,
+)
 from .emocio.packets import build_emocio_packet
 from .emocio.processor import DeterministicEmocioProcessor
 from .emocio.runtime import (
@@ -186,7 +190,15 @@ class ReiNativeCycleRequest(FrozenModel):
     delegation: TaskDelegation | None = None
     negotiation_rounds: tuple[PairNegotiationRound, ...] = ()
     outcome: OutcomeRecord | None = None
-    historical_bundles: tuple[NativeMindBundle, ...] = ()
+    historical_bundles: tuple[NativeMindBundle, ...] = Field(
+        default=(), max_length=30
+    )
+    historical_emocio_signals: tuple[EmocioLongitudinalVisualSignal, ...] = Field(
+        default=(), max_length=30
+    )
+    historical_instinkt_signals: tuple[InstinktLongitudinalBodySignal, ...] = Field(
+        default=(), max_length=30
+    )
     started_at: UtcTimestamp = Field(default_factory=utc_now)
 
     @model_validator(mode="after")
@@ -270,6 +282,44 @@ class ReiNativeCycleRequest(FrozenModel):
         bundle_ids = tuple(item.bundle_id for item in self.historical_bundles)
         if len(set(bundle_ids)) != len(bundle_ids):
             raise ValueError("Historical native bundle IDs must be unique")
+        emocio_signal_ids = tuple(
+            item.signal_id for item in self.historical_emocio_signals
+        )
+        emocio_measure_ids = tuple(
+            item.source_measure_id for item in self.historical_emocio_signals
+        )
+        if (
+            len(set(emocio_signal_ids)) != len(emocio_signal_ids)
+            or len(set(emocio_measure_ids)) != len(emocio_measure_ids)
+        ):
+            raise ValueError(
+                "Historical Emocio signals must be unique by signal and measure"
+            )
+        instinkt_signal_ids = tuple(
+            item.signal_id for item in self.historical_instinkt_signals
+        )
+        instinkt_measure_ids = tuple(
+            item.source_measure_id for item in self.historical_instinkt_signals
+        )
+        if (
+            len(set(instinkt_signal_ids)) != len(instinkt_signal_ids)
+            or len(set(instinkt_measure_ids)) != len(instinkt_measure_ids)
+        ):
+            raise ValueError(
+                "Historical Instinkt signals must be unique by signal and measure"
+            )
+        total_image_bytes = sum(
+            item.image_storage.size_bytes
+            for item in self.historical_emocio_signals
+        )
+        total_vector_bytes = sum(
+            item.embedding_storage.size_bytes
+            for item in self.historical_emocio_signals
+        )
+        if total_image_bytes > 67_108_864 or total_vector_bytes > 16_777_216:
+            raise ValueError(
+                "Historical Emocio byte payloads exceed the bounded request limit"
+            )
         return self
 
 
@@ -320,6 +370,11 @@ def _historical_context(
     *,
     trace: EgoTrace,
     bundles: tuple[NativeMindBundle, ...],
+    emocio_signals: tuple[EmocioLongitudinalVisualSignal, ...],
+    instinkt_signals: tuple[InstinktLongitudinalBodySignal, ...],
+    artifact_store: ArtifactStore,
+    current_body_state: BodyState,
+    current_instinkt_world: InstinktWorld,
     structural_character: CharacterAuthority,
 ) -> tuple[
     dict[str, NativeMindBundle],
@@ -351,12 +406,45 @@ def _historical_context(
             raise ValueError(
                 "Historical bundle identity, hash and event must exactly match EgoTrace"
             )
+    for signal in emocio_signals:
+        signal.validate_stored_bytes(artifact_store)
+    measured_signals = tuple(
+        signal
+        for signal in instinkt_signals
+        if signal.measured_outcome_update is not None
+    )
+    if measured_signals:
+        measure_order = {
+            measure.measure_id: index for index, measure in enumerate(trace.measures)
+        }
+        latest = max(
+            measured_signals,
+            key=lambda item: measure_order.get(item.source_measure_id, -1),
+        )
+        measured = latest.measured_outcome_update
+        if measured is None:  # pragma: no cover - narrowed above
+            raise AssertionError("Measured signal lost its outcome update")
+        if (
+            current_body_state != measured.body_after
+            or current_instinkt_world != measured.world_after
+        ):
+            raise ValueError(
+                "The next native cycle must continue from the latest measured "
+                "Instinkt body/world update"
+            )
     if not trace.measures:
+        if emocio_signals or instinkt_signals:
+            raise ValueError("Historical modality signals require a prior EgoTrace")
         return by_id, None, None
     return (
         by_id,
         derive_composition_snapshot(trace),
-        derive_modality_projections(trace, by_id),
+        derive_modality_projections(
+            trace,
+            by_id,
+            emocio_history=emocio_signals,
+            instinkt_history=instinkt_signals,
+        ),
     )
 
 
@@ -399,6 +487,7 @@ def _emocio_world_with_projection(
                 world.visual_memories,
                 projection.recurring_scenes,
                 projection.image_artifact_ids,
+                projection.embedding_feature_refs,
             ),
             "desired_scenes": _stable_union(
                 world.desired_scenes,
@@ -469,6 +558,14 @@ def _instinkt_history_inputs(
         claim.text: tuple(sorted(claim.evidence_measure_ids))
         for claim in projection.sourced_claims
     }
+    recovery_by_text = {
+        (
+            "predicted_recoverability:"
+            f"{reference.source_signal_id}:"
+            f"{reference.predicted_recoverability:.12g}"
+        ): reference.predicted_recoverability
+        for reference in projection.body_history
+    }
     observations: list[InstinktProjectionObservation] = []
     projection_memory_token = instinkt_projection_memory_token(
         projection.projection_id,
@@ -479,7 +576,18 @@ def _instinkt_history_inputs(
             signal,
             tuple(sorted(projection.evidence_measure_ids)),
         )
-        strength = min(1.0, max(0.05, len(evidence_ids) / 4.0))
+        predicted_recoverability = recovery_by_text.get(signal)
+        strength = min(
+            1.0,
+            max(
+                0.05,
+                (
+                    predicted_recoverability
+                    if predicted_recoverability is not None
+                    else len(evidence_ids) / 4.0
+                ),
+            ),
+        )
         base = {
             "schema_version": "rei-native-instinkt-projection-observation-v1",
             "source_projection_id": projection.projection_id,
@@ -492,6 +600,8 @@ def _instinkt_history_inputs(
             "protected_target": f"ego_history_{kind}",
             "decay": 0.0,
         }
+        if predicted_recoverability is not None:
+            base["predicted_recoverability"] = predicted_recoverability
         observations.append(
             InstinktProjectionObservation(
                 observation_id=content_id(
@@ -851,7 +961,6 @@ class ReiNativeEngine:
                     "match EgoTrace"
                 ) from exc
             raise
-        run_started_at = self.clock.timestamp("run_started")
         prior_trace = self.ego_trace_store.load_trace(request.ego_id)
         recover_prepared = getattr(
             self.artifact_store,
@@ -870,15 +979,21 @@ class ReiNativeEngine:
                     "Run already completed; an interrupted final manifest was recovered "
                     "when necessary"
                 )
+        history, prior_snapshot, prior_projections = _historical_context(
+            trace=prior_trace,
+            bundles=request.historical_bundles,
+            emocio_signals=request.historical_emocio_signals,
+            instinkt_signals=request.historical_instinkt_signals,
+            artifact_store=self.artifact_store,
+            current_body_state=request.body_state,
+            current_instinkt_world=request.instinkt_world,
+            structural_character=request.character,
+        )
+        run_started_at = self.clock.timestamp("run_started")
         ensure_tree = getattr(self.artifact_store, "ensure_run_tree", None)
         if ensure_tree is not None:
             ensure_tree(request.run_id)
 
-        history, prior_snapshot, prior_projections = _historical_context(
-            trace=prior_trace,
-            bundles=request.historical_bundles,
-            structural_character=request.character,
-        )
         reservation = self.artifact_store.write_bytes(
             request.run_id,
             "diagnostics/run_reservation.json",
@@ -1558,7 +1673,12 @@ class ReiNativeEngine:
 
         complete_history = {**history, bundle.bundle_id: bundle}
         composition_snapshot = derive_composition_snapshot(ego_trace)
-        projections = derive_modality_projections(ego_trace, complete_history)
+        projections = derive_modality_projections(
+            ego_trace,
+            complete_history,
+            emocio_history=request.historical_emocio_signals,
+            instinkt_history=request.historical_instinkt_signals,
+        )
 
         run_finished_at = self.clock.timestamp("run_finished")
         call_specs: tuple[ProviderCallSpec, ...] = (

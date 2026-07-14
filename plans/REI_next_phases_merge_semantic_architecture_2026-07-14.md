@@ -6,7 +6,7 @@
 **Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (zgodovinsko; že mergeana)
 **Temeljno pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`; drugih vej se ne ustvarja, uporablja ali objavlja
 **Datum načrta:** 2026-07-14
-**Status:** C4 tehnični runtime integriran in semantic-model quality gate odprt; C5 integriran z internim bounded-software gateom; C6 čaka na pregled
+**Status:** C4 tehnični runtime integriran in semantic-model quality gate odprt; C5 integriran z internim bounded-software gateom; C6 integriran kot reproducibilen bounded-software tehnični rez brez podeljene semantične avtoritete
 **Izven obsega:** QLoRA, SFT, LoRA trening, generiranje učnih datasetov in dokončna izbira produkcijskega modela
 
 ---
@@ -1833,6 +1833,64 @@ Commit:
 feat(ego): validate longitudinal composition and modality-specific world learning
 ```
 
+## 13.10 Implementacijski izid (2026-07-15)
+
+C6 je implementiran neposredno na `main` in njegov deterministični tehnični
+gate je uspešen:
+
+- 10 poimenovanih sekvenc in 100 ciklov;
+- append-only EgoTrace, konstanten Character ter measure-sourced projekcije;
+- 90/90 naslednjih ciklov porabi zgodovinske bundle in popolne Emocio/Instinkt
+  sidecar projekcije;
+- byte-backed PNG + float32 Emocio signali so preverjeni prek kanoničnih
+  create-only storage receiptov;
+- Emocio socialni položaj se shrani samo kot exact `social_position:*` zapis
+  iz strukturiranih `current_scene` polj `self_position`, `group_belonging` in
+  `status_relations`, nikoli kot sklep iz embeddinga;
+- predicted Instinkt recoverability ostane epistemološko označen signal in se
+  ne promovira v `trusted_patterns`;
+- Instinkt `body_before`/`predicted_body_after`, `predicted_loss`,
+  `trust_outcome`, recoverability in association-match lineage so shranjeni
+  samo kot exact prediction sidecar; mutacije `associations`,
+  `trusted_patterns` in `unresolved_losses` ostajajo odprte do verificiranega
+  C5 outcome replaya;
+- measured Instinkt/C5 replay closure ostaja fail-closed in ima coverage `0`;
+- motif gate je samo stage-1 structured-tag gate; natural-language in širša
+  semantična avtoriteta nista podeljeni;
+- RacioSelfNarrative divergence je ločena od Ego kompozicije;
+- isti trenutni prizor z zgodovino in brez nje spremeni omejene nativne
+  semantične izhode, paired Character kontrola pa ohrani pred-governance native
+  packet/execution/bundle invarianco;
+- checked-in report je dvakrat neodvisno reproduciran in nato potrjen z
+  `scripts/run_rei_longitudinal_eval.py --check`.
+
+Avtoritetna meja reporta je strojno berljiva:
+
+```text
+gate_kind=bounded_software_contract
+review_status=internal_non_blind
+gold_status=implementation_hypothesis
+semantic_authority_granted=false
+visual_signal_scope=post_cycle_internal_evaluation_not_source_cycle_processing
+measured_body_outcome_status=open_no_verified_c5_replay
+instinkt_learning_scope=prediction_sidecar_only_world_mutation_open_until_verified_c5_replay
+```
+
+Artefakta sta v:
+
+```text
+Docs/evals/semantic_lab_v1/c6-longitudinal-2026-07-14/
+```
+
+Avtoritativen report ID je
+`longitudinal_evaluation_28c866c199bad1e7790a57fbe4f27d9f`. Dve ločeni
+reprodukciji in checked-in artefakta imajo enake SHA-256:
+
+```text
+longitudinal_evaluation.json  b6ff3c5abee578661a638621ddb6b6299d5159e5dc1668ac844b784ddc7b2fdf
+dimensions.md                 a26342a87f4a86fff00bf59ed4da8afe382e91e5490a498b59641313e36d89ff
+```
+
 ---
 
 # 14. Faza C7 — integrirani semantični benchmark
@@ -2098,7 +2156,7 @@ V poročilu loči:
 | C3 | main (runtime integriran; model gate blokiran) | `feat(communication): add model-backed Racio interpretation behind conscious-access boundary` |
 | C4 | main (tehnični runtime integriran; semantic gate odprt) | `d671796` … `c304404` — provenance-closed visual cognition, replay in composite editor |
 | C5 | main (integrirano; bounded software gate sprejet) | `feat(instinkt): infer grounded option body effects before protective rollouts` |
-| C6 | main | `feat(ego): validate longitudinal composition and modality-specific world learning` |
+| C6 | main (integrirano; bounded gate uspešen; semantic authority ni podeljena) | `feat(ego): validate longitudinal composition and modality-specific world learning` |
 | C7 | main | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
 | C8 | main | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
 | C9 | main | `docs(release): record semantic-native v1 acceptance` |
@@ -2151,8 +2209,9 @@ implementation_hypothesis
 Faze M0–M3, C1, C2 in C5 so zaključene ter integrirane v `main`. C3 runtime je
 integriran, njegov produkcijski model gate pa ostaja blokiran. C4 tehnični
 runtime in composite editor sta integrirana, semantic-model quality gate pa
-ostaja odprt. Naslednja implementacijska faza je C6 in se začne šele po
-pregledu sprejetega C5 obsega.
+ostaja odprt. C6 je integriran neposredno na `main`; njegov reproducibilni
+bounded-software gate je uspešen, semantična avtoriteta pa izrecno ni podeljena.
+Naslednja implementacijska faza je C7.
 
 Za vsako nadaljnjo fazo velja:
 

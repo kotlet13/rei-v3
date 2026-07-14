@@ -40,6 +40,7 @@ EgoClaimKind = Literal[
     "racio_causal_link",
     "emocio_recurring_scene",
     "emocio_image_artifact",
+    "emocio_embedding_feature",
     "emocio_status_pattern",
     "emocio_belonging_motif",
     "emocio_success_motif",
@@ -55,6 +56,7 @@ EgoClaimKind = Literal[
     "instinkt_recovery_pattern",
 ]
 DerivationStatus = Literal["derived_from_trace"]
+HistoryCoverageStatus = Literal["unobserved", "partial", "complete"]
 
 
 class SourcedEgoClaim(FrozenArtifactModel):
@@ -644,20 +646,247 @@ class RacioProjection(FrozenArtifactModel):
         )
 
 
+class EmocioVisualHistoryRef(FrozenArtifactModel):
+    """Compact, measure-bound reference to byte-verified internal imagery."""
+
+    schema_version: Literal["rei-native-emocio-visual-history-ref-v1"] = (
+        "rei-native-emocio-visual-history-ref-v1"
+    )
+    reference_id: NonEmptyId
+    source_run_id: NonEmptyId
+    source_measure_id: NonEmptyId
+    source_measure_hash: HashDigest
+    source_bundle_id: NonEmptyId
+    source_bundle_hash: HashDigest
+    source_signal_id: NonEmptyId
+    source_signal_hash: HashDigest
+    observation_id: NonEmptyId
+    observation_hash: HashDigest
+    image_id: NonEmptyId
+    image_content_sha256: HashDigest
+    embedding_source_artifact_id: NonEmptyId
+    vector_hash: HashDigest
+    dimensions: int = Field(gt=0)
+    role: Literal["current", "desired", "broken", "option_rollout"]
+    internal_only: Literal[True] = True
+    external_evidence: Literal[False] = False
+    epistemic_status: Literal["internal_visual_hypothesis"] = (
+        "internal_visual_hypothesis"
+    )
+    reference_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        source_run_id: str,
+        source_measure_id: str,
+        source_measure_hash: str,
+        source_bundle_id: str,
+        source_bundle_hash: str,
+        source_signal_id: str,
+        source_signal_hash: str,
+        observation_id: str,
+        observation_hash: str,
+        image_id: str,
+        image_content_sha256: str,
+        embedding_source_artifact_id: str,
+        vector_hash: str,
+        dimensions: int,
+        role: Literal["current", "desired", "broken", "option_rollout"],
+    ) -> "EmocioVisualHistoryRef":
+        base = {
+            "schema_version": "rei-native-emocio-visual-history-ref-v1",
+            "source_run_id": source_run_id,
+            "source_measure_id": source_measure_id,
+            "source_measure_hash": source_measure_hash,
+            "source_bundle_id": source_bundle_id,
+            "source_bundle_hash": source_bundle_hash,
+            "source_signal_id": source_signal_id,
+            "source_signal_hash": source_signal_hash,
+            "observation_id": observation_id,
+            "observation_hash": observation_hash,
+            "image_id": image_id,
+            "image_content_sha256": image_content_sha256,
+            "embedding_source_artifact_id": embedding_source_artifact_id,
+            "vector_hash": vector_hash,
+            "dimensions": dimensions,
+            "role": role,
+            "internal_only": True,
+            "external_evidence": False,
+            "epistemic_status": "internal_visual_hypothesis",
+        }
+        reference_id = content_id("emocio_visual_history_ref", base)
+        payload = {"reference_id": reference_id, **base}
+        return cls(**payload, reference_hash=sha256_hex(payload))
+
+    @model_validator(mode="after")
+    def validate_reference(self) -> Self:
+        _validate_derived_identity(
+            self,
+            id_field="reference_id",
+            id_prefix="emocio_visual_history_ref",
+            hash_field="reference_hash",
+        )
+        return self
+
+
+class InstinktBodyHistoryRef(FrozenArtifactModel):
+    """Compact distinction between predicted and measured body history."""
+
+    schema_version: Literal["rei-native-instinkt-body-history-ref-v1"] = (
+        "rei-native-instinkt-body-history-ref-v1"
+    )
+    reference_id: NonEmptyId
+    source_measure_id: NonEmptyId
+    source_measure_hash: HashDigest
+    source_bundle_id: NonEmptyId
+    source_bundle_hash: HashDigest
+    source_signal_id: NonEmptyId
+    source_signal_hash: HashDigest
+    rollout_id: NonEmptyId
+    rollout_hash: HashDigest
+    body_before_id: NonEmptyId
+    body_before_hash: HashDigest
+    predicted_body_after_id: NonEmptyId
+    predicted_body_after_hash: HashDigest
+    predicted_recoverability: Score01
+    measured_outcome_update_id: NonEmptyId | None = None
+    measured_outcome_update_hash: HashDigest | None = None
+    measured_body_after_id: NonEmptyId | None = None
+    measured_body_after_hash: HashDigest | None = None
+    learned_association_id: NonEmptyId | None = None
+    epistemic_status: Literal["predicted_rollout", "measured_outcome"]
+    reference_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        source_measure_id: str,
+        source_measure_hash: str,
+        source_bundle_id: str,
+        source_bundle_hash: str,
+        source_signal_id: str,
+        source_signal_hash: str,
+        rollout_id: str,
+        rollout_hash: str,
+        body_before_id: str,
+        body_before_hash: str,
+        predicted_body_after_id: str,
+        predicted_body_after_hash: str,
+        predicted_recoverability: float,
+        measured_outcome_update_id: str | None = None,
+        measured_outcome_update_hash: str | None = None,
+        measured_body_after_id: str | None = None,
+        measured_body_after_hash: str | None = None,
+        learned_association_id: str | None = None,
+    ) -> "InstinktBodyHistoryRef":
+        measured = measured_outcome_update_id is not None
+        base = {
+            "schema_version": "rei-native-instinkt-body-history-ref-v1",
+            "source_measure_id": source_measure_id,
+            "source_measure_hash": source_measure_hash,
+            "source_bundle_id": source_bundle_id,
+            "source_bundle_hash": source_bundle_hash,
+            "source_signal_id": source_signal_id,
+            "source_signal_hash": source_signal_hash,
+            "rollout_id": rollout_id,
+            "rollout_hash": rollout_hash,
+            "body_before_id": body_before_id,
+            "body_before_hash": body_before_hash,
+            "predicted_body_after_id": predicted_body_after_id,
+            "predicted_body_after_hash": predicted_body_after_hash,
+            "predicted_recoverability": predicted_recoverability,
+            "measured_outcome_update_id": measured_outcome_update_id,
+            "measured_outcome_update_hash": measured_outcome_update_hash,
+            "measured_body_after_id": measured_body_after_id,
+            "measured_body_after_hash": measured_body_after_hash,
+            "learned_association_id": learned_association_id,
+            "epistemic_status": (
+                "measured_outcome" if measured else "predicted_rollout"
+            ),
+        }
+        reference_id = content_id("instinkt_body_history_ref", base)
+        payload = {"reference_id": reference_id, **base}
+        return cls(**payload, reference_hash=sha256_hex(payload))
+
+    @model_validator(mode="after")
+    def validate_reference(self) -> Self:
+        measured_values = (
+            self.measured_outcome_update_id,
+            self.measured_outcome_update_hash,
+            self.measured_body_after_id,
+            self.measured_body_after_hash,
+            self.learned_association_id,
+        )
+        if self.epistemic_status == "predicted_rollout":
+            if any(value is not None for value in measured_values):
+                raise ValueError(
+                    "Predicted Instinkt history cannot contain measured outcome fields"
+                )
+        elif any(value is None for value in measured_values):
+            raise ValueError(
+                "Measured Instinkt history requires complete outcome lineage"
+            )
+        _validate_derived_identity(
+            self,
+            id_field="reference_id",
+            id_prefix="instinkt_body_history_ref",
+            hash_field="reference_hash",
+        )
+        return self
+
+
+def _validate_history_reference_order(
+    *,
+    evidence_measure_ids: tuple[str, ...],
+    reference_measure_ids: tuple[str, ...],
+) -> None:
+    if len(set(reference_measure_ids)) != len(reference_measure_ids):
+        raise ValueError("Projection history may contain at most one ref per measure")
+    reference_set = set(reference_measure_ids)
+    expected = tuple(
+        measure_id
+        for measure_id in evidence_measure_ids
+        if measure_id in reference_set
+    )
+    if reference_measure_ids != expected:
+        raise ValueError(
+            "Projection history refs must follow the exact EgoTrace measure order"
+        )
+
+
+def _history_coverage_status(
+    evidence_measure_ids: tuple[str, ...],
+    reference_measure_ids: tuple[str, ...],
+) -> HistoryCoverageStatus:
+    if not reference_measure_ids:
+        return "unobserved"
+    if reference_measure_ids == evidence_measure_ids:
+        return "complete"
+    return "partial"
+
+
 class EmocioProjection(FrozenArtifactModel):
-    schema_version: Literal["rei-native-emocio-projection-v2"] = (
-        "rei-native-emocio-projection-v2"
+    schema_version: Literal["rei-native-emocio-projection-v3"] = (
+        "rei-native-emocio-projection-v3"
     )
     projection_id: NonEmptyId
     ego_id: NonEmptyId
     through_measure_id: NonEmptyId
     recurring_scenes: tuple[str, ...] = ()
     image_artifact_ids: tuple[NonEmptyId, ...] = ()
+    embedding_feature_refs: tuple[NonEmptyText, ...] = ()
     status_patterns: tuple[str, ...] = ()
     belonging_motifs: tuple[str, ...] = ()
     success_motifs: tuple[str, ...] = ()
     rupture_motifs: tuple[str, ...] = ()
     desire_motifs: tuple[str, ...] = ()
+    visual_history: tuple[EmocioVisualHistoryRef, ...] = Field(
+        default=(), max_length=30
+    )
+    visual_history_status: HistoryCoverageStatus = "unobserved"
     evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
     derivation_status: DerivationStatus = "derived_from_trace"
     source_trace_hash: HashDigest
@@ -675,23 +904,31 @@ class EmocioProjection(FrozenArtifactModel):
         sourced_claims: tuple[SourcedEgoClaim, ...],
         recurring_scenes: tuple[str, ...] = (),
         image_artifact_ids: tuple[NonEmptyId, ...] = (),
+        embedding_feature_refs: tuple[NonEmptyText, ...] = (),
         status_patterns: tuple[str, ...] = (),
         belonging_motifs: tuple[str, ...] = (),
         success_motifs: tuple[str, ...] = (),
         rupture_motifs: tuple[str, ...] = (),
         desire_motifs: tuple[str, ...] = (),
+        visual_history: tuple[EmocioVisualHistoryRef, ...] = (),
     ) -> EmocioProjection:
         base = {
-            "schema_version": "rei-native-emocio-projection-v2",
+            "schema_version": "rei-native-emocio-projection-v3",
             "ego_id": ego_id,
             "through_measure_id": through_measure_id,
             "recurring_scenes": recurring_scenes,
             "image_artifact_ids": image_artifact_ids,
+            "embedding_feature_refs": embedding_feature_refs,
             "status_patterns": status_patterns,
             "belonging_motifs": belonging_motifs,
             "success_motifs": success_motifs,
             "rupture_motifs": rupture_motifs,
             "desire_motifs": desire_motifs,
+            "visual_history": visual_history,
+            "visual_history_status": _history_coverage_status(
+                evidence_measure_ids,
+                tuple(item.source_measure_id for item in visual_history),
+            ),
             "evidence_measure_ids": evidence_measure_ids,
             "derivation_status": "derived_from_trace",
             "source_trace_hash": source_trace_hash,
@@ -704,11 +941,23 @@ class EmocioProjection(FrozenArtifactModel):
     @model_validator(mode="after")
     def validate_evidence_boundary(self) -> Self:
         _validate_projection_evidence(self.through_measure_id, self.evidence_measure_ids)
+        _validate_history_reference_order(
+            evidence_measure_ids=self.evidence_measure_ids,
+            reference_measure_ids=tuple(
+                item.source_measure_id for item in self.visual_history
+            ),
+        )
+        if self.visual_history_status != _history_coverage_status(
+            self.evidence_measure_ids,
+            tuple(item.source_measure_id for item in self.visual_history),
+        ):
+            raise ValueError("Emocio visual-history coverage status differs from refs")
         _validate_claim_coverage(
             claims=self.sourced_claims,
             field_values={
                 "emocio_recurring_scene": self.recurring_scenes,
                 "emocio_image_artifact": self.image_artifact_ids,
+                "emocio_embedding_feature": self.embedding_feature_refs,
                 "emocio_status_pattern": self.status_patterns,
                 "emocio_belonging_motif": self.belonging_motifs,
                 "emocio_success_motif": self.success_motifs,
@@ -727,8 +976,8 @@ class EmocioProjection(FrozenArtifactModel):
 
 
 class InstinktProjection(FrozenArtifactModel):
-    schema_version: Literal["rei-native-instinkt-projection-v2"] = (
-        "rei-native-instinkt-projection-v2"
+    schema_version: Literal["rei-native-instinkt-projection-v3"] = (
+        "rei-native-instinkt-projection-v3"
     )
     projection_id: NonEmptyId
     ego_id: NonEmptyId
@@ -741,6 +990,10 @@ class InstinktProjection(FrozenArtifactModel):
     boundary_patterns: tuple[str, ...] = ()
     scarcity_patterns: tuple[str, ...] = ()
     recovery_patterns: tuple[str, ...] = ()
+    body_history: tuple[InstinktBodyHistoryRef, ...] = Field(
+        default=(), max_length=30
+    )
+    body_history_status: HistoryCoverageStatus = "unobserved"
     evidence_measure_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
     derivation_status: DerivationStatus = "derived_from_trace"
     source_trace_hash: HashDigest
@@ -764,9 +1017,10 @@ class InstinktProjection(FrozenArtifactModel):
         boundary_patterns: tuple[str, ...] = (),
         scarcity_patterns: tuple[str, ...] = (),
         recovery_patterns: tuple[str, ...] = (),
+        body_history: tuple[InstinktBodyHistoryRef, ...] = (),
     ) -> InstinktProjection:
         base = {
-            "schema_version": "rei-native-instinkt-projection-v2",
+            "schema_version": "rei-native-instinkt-projection-v3",
             "ego_id": ego_id,
             "through_measure_id": through_measure_id,
             "body_consequences": body_consequences,
@@ -777,6 +1031,11 @@ class InstinktProjection(FrozenArtifactModel):
             "boundary_patterns": boundary_patterns,
             "scarcity_patterns": scarcity_patterns,
             "recovery_patterns": recovery_patterns,
+            "body_history": body_history,
+            "body_history_status": _history_coverage_status(
+                evidence_measure_ids,
+                tuple(item.source_measure_id for item in body_history),
+            ),
             "evidence_measure_ids": evidence_measure_ids,
             "derivation_status": "derived_from_trace",
             "source_trace_hash": source_trace_hash,
@@ -789,6 +1048,17 @@ class InstinktProjection(FrozenArtifactModel):
     @model_validator(mode="after")
     def validate_evidence_boundary(self) -> Self:
         _validate_projection_evidence(self.through_measure_id, self.evidence_measure_ids)
+        _validate_history_reference_order(
+            evidence_measure_ids=self.evidence_measure_ids,
+            reference_measure_ids=tuple(
+                item.source_measure_id for item in self.body_history
+            ),
+        )
+        if self.body_history_status != _history_coverage_status(
+            self.evidence_measure_ids,
+            tuple(item.source_measure_id for item in self.body_history),
+        ):
+            raise ValueError("Instinkt body-history coverage status differs from refs")
         _validate_claim_coverage(
             claims=self.sourced_claims,
             field_values={
@@ -843,7 +1113,10 @@ __all__ = [
     "EgoTrace",
     "EgoTraceEventRef",
     "EmocioProjection",
+    "EmocioVisualHistoryRef",
+    "InstinktBodyHistoryRef",
     "InstinktProjection",
+    "HistoryCoverageStatus",
     "OutcomeRecord",
     "RacioProjection",
     "ReflectionHypothesis",

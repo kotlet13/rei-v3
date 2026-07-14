@@ -21,6 +21,7 @@ from ..models.instinkt import (
     InstinktOptionRollout,
     InstinktSimulationConfig,
     OptionBodyEffect,
+    instinkt_projection_memory_token,
 )
 from ..models.scene import SceneEvent
 
@@ -63,11 +64,28 @@ def process_instinkt(
 
     option_matches: list[OptionAssociationMatches] = []
     rollouts: list[InstinktOptionRollout] = []
+    projection_query_tokens = tuple(
+        instinkt_projection_memory_token(projection_id, projection_hash)
+        for projection_id, projection_hash in zip(
+            packet.previous_instinkt_projection_ids,
+            packet.previous_instinkt_projection_hashes,
+            strict=True,
+        )
+    )
     for option_id in sorted(effect_by_option):
         effect = effect_by_option[option_id]
         effect.validate_against(packet)
         matches = (
-            memory.retrieve(effect.association_cue_tokens)
+            memory.retrieve(
+                tuple(
+                    sorted(
+                        {
+                            *effect.association_cue_tokens,
+                            *projection_query_tokens,
+                        }
+                    )
+                )
+            )
             if memory is not None
             else ()
         )

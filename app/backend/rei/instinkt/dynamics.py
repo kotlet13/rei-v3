@@ -44,6 +44,7 @@ def recoverability(
     effect: OptionBodyEffect,
     config: InstinktSimulationConfig,
     loss_memory_strength: float,
+    projection_recovery_prior: float | None = None,
 ) -> float:
     value = (
         config.recovery_base_weight * effect.base_recoverability
@@ -55,7 +56,32 @@ def recoverability(
         + config.recovery_resource_weight * final_state.resource_security
         - config.association_recovery_penalty * loss_memory_strength
     )
+    if projection_recovery_prior is not None:
+        memory_weight = config.association_recovery_penalty
+        value = (
+            (1.0 - memory_weight) * value
+            + memory_weight * projection_recovery_prior
+        )
     return clamp01(value)
+
+
+def projection_recoverability_prior(
+    association_matches: tuple[AssociationMatch, ...],
+) -> float | None:
+    """Weighted prediction-only prior; never an observed body outcome."""
+
+    candidates = tuple(
+        (match.predicted_recoverability, match.retrieval_score)
+        for match in association_matches
+        if match.predicted_recoverability is not None
+        and match.source_record_kind == "projection_observation"
+    )
+    total_weight = sum(weight for _, weight in candidates)
+    if not candidates or total_weight <= 0.0:
+        return None
+    return clamp01(
+        sum(value * weight for value, weight in candidates) / total_weight
+    )
 
 
 def simulate_option_rollout(
@@ -132,6 +158,7 @@ def simulate_option_rollout(
         ),
         default=0.0,
     )
+    recovery_prior = projection_recoverability_prior(association_matches)
     rollout = InstinktOptionRollout.create_simulated(
         packet=packet,
         source_body_state=source_body_state,
@@ -150,6 +177,7 @@ def simulate_option_rollout(
             effect=effect,
             config=config,
             loss_memory_strength=loss_memory_strength,
+            projection_recovery_prior=recovery_prior,
         ),
     )
     rollout.validate_simulation_lineage(
@@ -162,4 +190,9 @@ def simulate_option_rollout(
     return rollout
 
 
-__all__ = ["predicted_loss", "recoverability", "simulate_option_rollout"]
+__all__ = [
+    "predicted_loss",
+    "projection_recoverability_prior",
+    "recoverability",
+    "simulate_option_rollout",
+]

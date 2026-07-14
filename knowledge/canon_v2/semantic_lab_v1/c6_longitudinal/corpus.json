@@ -1,0 +1,334 @@
+{
+  "schema_version": "rei-c6-longitudinal-corpus-v1",
+  "human_authored": true,
+  "model_generated_gold": false,
+  "training_export": false,
+  "template_fixture": "tests/fixtures/native_cycles/deterministic_e2e.json",
+  "sequences": [
+    {
+      "sequence_id": "recognition_reframed_as_career_growth",
+      "title": "Emocio seeks recognition while Racio narrates career growth",
+      "profile_id": "R>E>I",
+      "acceptance_mode": "accepting",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:r>e>i"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "A colleague praises the visible result but not the contribution behind it.",
+        "A review meeting emphasizes promotion metrics over recognition.",
+        "A peer receives public credit for shared work.",
+        "A manager frames visibility as a career-development objective.",
+        "A successful repair is noticed only after another person presents it.",
+        "A request for acknowledgment is translated into a productivity goal.",
+        "The team celebrates output while the contributor remains unnamed.",
+        "A new assignment promises advancement but repeats the recognition gap.",
+        "The same longing for being seen returns during a status review.",
+        "Racio again describes recognition pressure as professional growth."
+      ]
+    },
+    {
+      "sequence_id": "family_loss_alarm_minimized",
+      "title": "Instinkt warns about family loss while Racio minimizes the signal",
+      "profile_id": "R>I>E",
+      "acceptance_mode": "mixed",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:r>i>e"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "A schedule change removes another evening from family contact.",
+        "A body alarm appears before accepting a distant assignment.",
+        "The cost to attachment is described as temporary inconvenience.",
+        "A missed gathering repeats the earlier loss pattern.",
+        "Instinkt signals boundary strain before another commitment.",
+        "Racio labels the alarm as ordinary resistance to change.",
+        "A family promise becomes harder to keep after a new deadline.",
+        "The same protective alarm returns with higher salience.",
+        "A reversible alternative is available but initially discounted.",
+        "The sequence ends with the family-loss signal still visible."
+      ]
+    },
+    {
+      "sequence_id": "new_year_resolutions_without_acceptance",
+      "title": "Repeated New Year resolutions without acceptance",
+      "profile_id": "R>(E=I)",
+      "acceptance_mode": "conflicted",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_motifs": [
+        "acceptance_mode:conflicted",
+        "structural_character:r>(e=i)"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "A fresh resolution is announced without checking emotional consent.",
+        "The plan is repeated after the first lapse.",
+        "A stricter schedule replaces inquiry into resistance.",
+        "The body signal is treated as a discipline problem.",
+        "The desired image remains vivid but unsupported by acceptance.",
+        "Another restart preserves the same internal conflict.",
+        "A public promise increases pressure without changing consent.",
+        "The resolution is reframed yet the same rupture returns.",
+        "A smaller reversible step is visible but not integrated.",
+        "The year closes with repetition recorded rather than rewritten."
+      ]
+    },
+    {
+      "sequence_id": "paired_character_repeated_stall",
+      "title": "Paired character with repeated stalemate",
+      "profile_id": "(R=E)>I",
+      "acceptance_mode": "mixed",
+      "reverse_option_order_until_step": 10,
+      "expected_simulated_spoznanje_cycle_count": 0,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:(r=e)>i"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "Racio and Emocio jointly support action while a safety objection remains.",
+        "The pair revisits the same decision after a delay.",
+        "A visual attraction and explicit plan align but execution stalls.",
+        "The unresolved protective condition returns unchanged.",
+        "A partial repair does not close the recurring tension.",
+        "The paired authority repeats its preferred direction.",
+        "Instinkt's minimum-safety condition remains visible.",
+        "A reversible trial creates movement without full closure.",
+        "The same pair configuration encounters another stall.",
+        "The final measure preserves both movement and unresolved history."
+      ]
+    },
+    {
+      "sequence_id": "accepting_delegation_to_competent_subordinate",
+      "title": "Accepting delegation to a competent subordinate mind",
+      "profile_id": "E>R>I",
+      "acceptance_mode": "accepting",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:e>r>i"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "Emocio supplies the leading scene while Racio structures a safe trial.",
+        "The subordinate reasoning route is explicitly trusted with sequencing.",
+        "A visible desired state is translated into reversible steps.",
+        "The delegation is repeated with provenance preserved.",
+        "A constraint is surfaced before execution rather than hidden.",
+        "The delegated route records an outcome without claiming authority change.",
+        "The structural profile remains constant through another task.",
+        "A new scene reuses history without becoming a fourth instruction.",
+        "Competence is recognized while accountability remains explicit.",
+        "The sequence closes with acceptance and delegation still distinct."
+      ]
+    },
+    {
+      "sequence_id": "nonaccepting_sabotage",
+      "title": "Non-accepting sabotage",
+      "profile_id": "R>(E=I)",
+      "acceptance_mode": "conflicted",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_motifs": [
+        "acceptance_mode:conflicted",
+        "structural_character:r>(e=i)"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "A consciously announced plan is followed by an opposing motor pattern.",
+        "The contradiction is narrated as a scheduling accident.",
+        "A repeated avoidance response keeps the scene unresolved.",
+        "The visible body alarm is downplayed during commitment.",
+        "A second plan reproduces the same governance-behavior split.",
+        "The sabotage risk remains explicit instead of being moralized.",
+        "A smaller action is offered but conscious acceptance stays low.",
+        "Another reversal creates a source-grounded recurrence.",
+        "The narrative preserves its reason while composition records divergence.",
+        "The final trace retains every contradictory measure append-only."
+      ]
+    },
+    {
+      "sequence_id": "same_failure_three_world_updates",
+      "title": "The same external failure produces three modality-specific world updates",
+      "profile_id": "R=E=I",
+      "acceptance_mode": "mixed",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "outcome_effect": "the shared repair attempt failed",
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:r=e=i"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "The shared repair fails under the first observable condition.",
+        "The same failure is encountered with a new event identity.",
+        "Racio records the outcome as an explicit fact and causal link.",
+        "Emocio retains the failed scene and motor consequence.",
+        "Instinkt retains protective alarm and association provenance.",
+        "A repeated failure tests that the worlds do not share one summary field.",
+        "The next cycle consumes all three distinct updated worlds.",
+        "Another attempt preserves the same external outcome label.",
+        "The modality-owned histories continue to diverge structurally.",
+        "The final failure remains one outcome with three learning projections."
+      ]
+    },
+    {
+      "sequence_id": "racio_translation_improves_through_outcomes",
+      "title": "An initially wrong Racio translation improves through consequences",
+      "profile_id": "E>R>I",
+      "acceptance_mode": "accepting",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "outcome_effect": "the reversible action exposed additional public evidence",
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:e>r>i"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "Racio initially lacks an option-level interpretation of the visible signal.",
+        "The selected reversible action produces a public consequence.",
+        "The consequence is added to Racio's fact projection.",
+        "A later interpretation receives a longer sourced history.",
+        "The original translation gap remains immutable in the trace.",
+        "New evidence is accumulated without rewriting the first error.",
+        "The same signal is compared against recorded consequences.",
+        "Racio's world gains explicit chronology and causal links.",
+        "Composition distinguishes narrative from observed recurrence.",
+        "The final measure exposes improvement evidence and remaining gaps separately."
+      ]
+    },
+    {
+      "sequence_id": "instinkt_alarm_accumulation",
+      "title": "Long-term accumulation of Instinkt alarm",
+      "profile_id": "I>R>E",
+      "acceptance_mode": "mixed",
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:i>r>e"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "A low-level protective alarm is recorded before action.",
+        "The same protected target appears in a second scene.",
+        "Boundary strain is retained as a modality-specific pattern.",
+        "A third alarm receives another event-scoped association.",
+        "The body simulator remains bounded while history grows.",
+        "An apparently small cue matches the earlier protective route.",
+        "The alarm history is projected without deciding the next action.",
+        "A repeated cue adds evidence rather than hidden intensity.",
+        "The accumulated associations remain content-addressed.",
+        "The final cycle exposes long-term alarm history to Instinkt only."
+      ]
+    },
+    {
+      "sequence_id": "gradual_three_mind_convergence",
+      "title": "Gradual convergence of all three minds to simulated_spoznanje",
+      "profile_id": "R=E=I",
+      "acceptance_mode": "accepting",
+      "reverse_option_order_until_step": 5,
+      "expected_simulated_spoznanje_cycle_count": 5,
+      "outcome_effect": "the jointly supported reversible action remained workable",
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:r=e=i"
+      ],
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_changes": [
+        "emocio:visual_memory",
+        "instinkt:recovery",
+        "racio:timeline"
+      ],
+      "steps": [
+        "All three native routes expose their first bounded conclusion.",
+        "A reversible action produces a jointly observable consequence.",
+        "The next cycle consumes modality-specific projections of that history.",
+        "A repeated option remains supported without changing character authority.",
+        "The trace records a middle-section simulated_spoznanje measure.",
+        "A new event tests whether convergence survives updated worlds.",
+        "The same acceptance mode remains explicit across the sequence.",
+        "Another workable outcome closes part of the earlier tension.",
+        "Composition retains prior gaps while recording new convergence.",
+        "The final cycle reaches simulated_spoznanje without rewriting history."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,971 @@
+{
+  "append_only_sequence_count": 10,
+  "character_constant_sequence_count": 10,
+  "character_identifier_absence_sequence_count": 10,
+  "corpus_hash": "dc621664dffe1ce96c877e0f6251d7d84e80a7d5b2e521e63cc8ddff13e9e0de",
+  "corpus_sha256": "0013c4f16aab4737c9ecc0530145e486602c0e21fe3770bedb12397232453c7f",
+  "ego_decision_api_absent": true,
+  "evaluator_revision": "c6-v2",
+  "expected_simulated_spoznanje_cycle_count": 85,
+  "full_corpus": true,
+  "gate_kind": "bounded_software_contract",
+  "gate_passed": true,
+  "gold_status": "implementation_hypothesis",
+  "history_consumption_cycle_count": 90,
+  "history_counterfactual_influence_sequence_count": 10,
+  "instinkt_learning_scope": "prediction_sidecar_only_world_mutation_open_until_verified_c5_replay",
+  "legacy_outcome_scope": "evaluation_only_no_c5_outcome_learning_closure",
+  "measured_body_outcome_status": "open_no_verified_c5_replay",
+  "measured_body_signal_cycle_count": 0,
+  "minimum_cycle_count": 10,
+  "modality_specific_world_sequence_count": 10,
+  "motif_false_negative_count": 0,
+  "motif_false_positive_count": 0,
+  "motif_gate_kind": "structured_tag_motif_stage_1",
+  "motif_precision": 1.0,
+  "motif_precision_threshold": 1.0,
+  "motif_recall": 1.0,
+  "motif_true_positive_count": 40,
+  "narrative_divergence_cycle_count": 94,
+  "passing_sequence_count": 10,
+  "pre_governance_character_invariance": true,
+  "predicted_body_signal_cycle_count": 100,
+  "projection_citation_sequence_count": 10,
+  "projection_signal_integration_complete": true,
+  "report_hash": "92db7dee0516477114ddc2a1c0e9050b444ca99595e64f0e93e5aea794a03ecf",
+  "report_id": "longitudinal_evaluation_28c866c199bad1e7790a57fbe4f27d9f",
+  "review_status": "internal_non_blind",
+  "schema_version": "rei-c6-longitudinal-evaluation-v2",
+  "self_narrative_divergence_cycle_count": 35,
+  "semantic_authority_granted": false,
+  "sequence_count": 10,
+  "sequences": [
+    {
+      "acceptance_mode": "accepting",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_accepting_delegation_to_competent_subordinate",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:e>r>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_322773ec7927cc1e4e8e7ef4dd9833d0",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_6c068c23325a25a7f6d5ea426e74b609",
+      "final_snapshot_hash": "a31af8a27e615fb185d6be0ffcbd5df26e8215634eba119959f051502cf807d1",
+      "final_snapshot_id": "ego_snapshot_08ebefde40be529b8256942e9cdce397",
+      "final_trace_hash": "477a0213617be92729492ffa42795532c90aef869c8153da44a4a168737ecba3",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_4df92716089eaefc4400c2577bd98c8b",
+        "measure_9600bd9138b937c61ba5dd6f92f5feec",
+        "measure_58503cc20c66b883ad76ed023fe727df",
+        "measure_e8d6c6cc1e4b12f2f651ea6e44f95128",
+        "measure_b4174ccbcd59191397302bb5065bb4f0",
+        "measure_30832b42f62665cfe533a7bc53c34c80",
+        "measure_e52365479ac9aa5d1f4d57d306d13e21",
+        "measure_4d1e4b70bb33a0a0f48450db5ddcc29f",
+        "measure_186018acccc43262e134dbafc0b84143",
+        "measure_18e80e76c18d187bb6fc1c056f606780"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 10,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:e>r>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "E>R>I",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "34b3df73835e664c259db0b3748d4f8942eea99e7224b0627105700a6a2b3b30",
+      "scenario_hash": "20025c67aefb524a0fbddd0b0b51f796ef5d690d61fdf3a6ac5a1eb131773104",
+      "scenario_id": "longitudinal_scenario_0fd7f8b4b13c4b4d6a00673fc069bb51",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 10,
+      "sequence_id": "accepting_delegation_to_competent_subordinate",
+      "sequence_result_id": "longitudinal_sequence_result_28da908c7ff58eb53fa28902e80dbeda",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "Accepting delegation to a competent subordinate mind",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "mixed",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_family_loss_alarm_minimized",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:r>i>e",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_d7fdefb2958c765f711f8c1d8eb1d7ba",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_b7925ed9f0b2e23982bb26f0d9e7e728",
+      "final_snapshot_hash": "751774e16664d4c89bdc83aa3a38bc79444dd76ce85a08104acfcdd591e25263",
+      "final_snapshot_id": "ego_snapshot_824c16b08c821291e25d18e2bf17cb33",
+      "final_trace_hash": "c2f80000cacb5540eb278de24e5688fa78d266efdad2760aa5f397bf0328f2e9",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_fc5028423803520735efa958aed3cffc",
+        "measure_c901074558015fcbad880da50a82a654",
+        "measure_cb21efd6adc520fe3f5d59919e5b5dbc",
+        "measure_fde68fe726cd1c8f5d544adbf431f8d1",
+        "measure_23c040b5ccb0a626c67475bffc7bfea5",
+        "measure_83d1ae6b4e01b7c9f06ce4de5b4406b3",
+        "measure_9a14c9c1ffb259cd7bd645b180a79715",
+        "measure_8bab0c6c90d91d7a1761f058cdbf48b4",
+        "measure_1d42902e267826eb6a476ddf91432dbf",
+        "measure_af22361ad49fa9efb73b02b9cb552202"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 9,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:r>i>e",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "R>I>E",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "4fdcd5a740e389cc0b25ab99c7c3937c932521a0c64191b73951b7b56fe61121",
+      "scenario_hash": "63a1983e6085102c51e2c72c53c514ca6b989fe7f1cbd3c2fe184eb8f30a9f21",
+      "scenario_id": "longitudinal_scenario_b981f1be781cafea787a4443357f5a02",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 0,
+      "sequence_id": "family_loss_alarm_minimized",
+      "sequence_result_id": "longitudinal_sequence_result_b96a31f680d4298991fe924a99067a40",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "Instinkt warns about family loss while Racio minimizes the signal",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "accepting",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_gradual_three_mind_convergence",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:r=e=i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 5,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_e66b62eea399c3f18843ef8c9d260214",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_fc2861562e1b53018c36458df4637f63",
+      "final_snapshot_hash": "1195f0687f3fea9951d51f712ddad7c194af3b1e1ed3299a8eb62939f61743e5",
+      "final_snapshot_id": "ego_snapshot_a05ca15dea9b3360f1afd5efdae9d3fa",
+      "final_trace_hash": "b9dfe80ab0f9f3b599f913b06565b108a3502889f6c463a139a161f3de67ab32",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_9159a02c0f73d484cea034bdd5e1182a",
+        "measure_82ed358808073330932087818182e5aa",
+        "measure_101ab77aee4969615eacf6b337203bc8",
+        "measure_d1d4b2e7573832951fd5c7878f2170fd",
+        "measure_c628e7ec71ca15ceaae6600bed0e532c",
+        "measure_81b6691e4faec9fea27911bbbfbd0e74",
+        "measure_1549f53e99ab075d12af882696c92ab0",
+        "measure_ed227c20dd43c17acc0fecd577221c42",
+        "measure_708a5815b8391b98a6396a06c82d2aba",
+        "measure_04a2dae77c1303e6b15389abb87a590c"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 10,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:r=e=i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "R=E=I",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "f07f8d006e90cf2425e89005b76f222e60c5be58f01438b8abfc6291f682652f",
+      "scenario_hash": "4c06b1f9293818b24c12bd525945f3ec79a4a00c12b70fb5230c16cc6cf65c04",
+      "scenario_id": "longitudinal_scenario_6748eea0b12875c6901894462ffa90b6",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 5,
+      "sequence_id": "gradual_three_mind_convergence",
+      "sequence_result_id": "longitudinal_sequence_result_5e34a09685fb2d6be79d6e904471147e",
+      "simulated_spoznanje_cycle_count": 5,
+      "title": "Gradual convergence of all three minds to simulated_spoznanje",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          20
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "mixed",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_instinkt_alarm_accumulation",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:i>r>e",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_62fe126f8b0dd38020003aa7fc9f2025",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_a87a48e06301652d2b36a75a2df0e6b1",
+      "final_snapshot_hash": "b8cc4abdae50b94fedfa518f492ece72bf6b46ddb36d5b6522b8452d5ba46ff7",
+      "final_snapshot_id": "ego_snapshot_c0ccc83fa6a1d3582fddf52b91985e1a",
+      "final_trace_hash": "6f97a85d1be45b8756bdc524061dbfc3c95d8f65a0bc4e1a53c6a109e66c0657",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_08cb2c0e7719cdf0f7b892917f05e629",
+        "measure_871ed5c4884ae7ccf92eecb341601ce4",
+        "measure_2159cc35bfba6ae8bd42e308039cffe4",
+        "measure_281b6a716add5e590ca2c93b5bd0763a",
+        "measure_84724d06c46486ca4e283eb1c74dc2c9",
+        "measure_59ac213a228f3305e0bbaf8920e1ff52",
+        "measure_b7caee43cb1dd4789582340f6f71c1c5",
+        "measure_1370f635e74d269c5fcef6a5173c1ec5",
+        "measure_63ffb504624c41be24a87277447b2aad",
+        "measure_b3148e315ede0341a6b09fd25f5f4ca5"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 9,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:i>r>e",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "I>R>E",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "159727aa4ea86d99c62497000689306b58bd202b61a14a1f3e1812b56ace23c1",
+      "scenario_hash": "7adefe4593b5660b58e39878c977101f3042addc99db392bc91eeb799a2f8d8f",
+      "scenario_id": "longitudinal_scenario_f534970f206124544177ffaf37dc7cd8",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 0,
+      "sequence_id": "instinkt_alarm_accumulation",
+      "sequence_result_id": "longitudinal_sequence_result_e884cc61e5e474281c70c55aaea2e4df",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "Long-term accumulation of Instinkt alarm",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "conflicted",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_new_year_resolutions_without_acceptance",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:conflicted",
+        "structural_character:r>(e=i)",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_f2c3105bc8f165efae71d8377cd52a13",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_36cef81a09091f8d50ec5be597d5f0a3",
+      "final_snapshot_hash": "0aee899492001503a0d85d8f4c64a09a664bed226581b4f193ab1cdd59423e1f",
+      "final_snapshot_id": "ego_snapshot_38a5a7e79c6608b73444b640f9a6cf2f",
+      "final_trace_hash": "78646f31bcccf5aa4b3fc329772703a7a19271e39ba16ef5ad8601fdb118705d",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_b16337eaf5b5b81f24e5162da54ed6fa",
+        "measure_86ff5b838f85b7200b51acaca622febd",
+        "measure_07d8973393013687f3db8e39bf8b7557",
+        "measure_c3fee7cd3c39b0bd1dceefa8d56205a8",
+        "measure_f9fdbc4fe66aab7e56f981850e4eb91c",
+        "measure_86f0cfb4ba7fa347969d5f96ee360f5f",
+        "measure_33f469cb6ea58091d15e9b290f083e24",
+        "measure_f38d287d074b808cf0b0c572c5b249c1",
+        "measure_b2d21437b7be93f75b7beb957963e7cb",
+        "measure_508f801c777eadeedf6b178c18b8615f"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 9,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:conflicted",
+        "structural_character:r>(e=i)",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "R>(E=I)",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "d2e63d6976f48fa025a26691fbe68ea77e700ec57340bd588e8b2311ce8ccd43",
+      "scenario_hash": "be56db1595d84887349fe943e32a44244588bda3e6ce9d233dfa18b246906b91",
+      "scenario_id": "longitudinal_scenario_bd92a90036617d893662b9d0c6bbaa10",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 0,
+      "sequence_id": "new_year_resolutions_without_acceptance",
+      "sequence_result_id": "longitudinal_sequence_result_62fa5970a0a2ccbbdce315daf485da84",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "Repeated New Year resolutions without acceptance",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "conflicted",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_nonaccepting_sabotage",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:conflicted",
+        "structural_character:r>(e=i)",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_33707b6e7958942141cf96efd71da550",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_e5125ee82843016e23ec9d567a4bf376",
+      "final_snapshot_hash": "c108975b8a61c0f834b2d3d9266317dfb06267bd2eb039945fd8182b79b75f1f",
+      "final_snapshot_id": "ego_snapshot_f4f57c735667f854075a25e8507711ef",
+      "final_trace_hash": "ea7c20eba01a71e4b9376f0ba04fcbc562eb9a6a917330241e70e760958cef54",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_f88a96cdbd089e1d11be183f5392d8bb",
+        "measure_5bf791d313cc83e1fa7a25f050eeffcf",
+        "measure_39a5bc5f0442bca9d2c6c73173d97b10",
+        "measure_dcb8685e8d176d714627dbadc454c75f",
+        "measure_2662257dd5cddcd14b238e268e47cbac",
+        "measure_413c5994a379c4616ffddb79f116bc5b",
+        "measure_02e19d69fa170ecde7e29adcc0e647c8",
+        "measure_a0b5cda0df13a13c1a7a5c8cf26ea487",
+        "measure_259fa92abbea8f03862bcdfff2cc4792",
+        "measure_866e201d336f25c7787413e87c554fee"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 9,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:conflicted",
+        "structural_character:r>(e=i)",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "R>(E=I)",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "38bd2b68751841d3bf684d7515927f9a4a8881209d88454d078c5ef1e703ad87",
+      "scenario_hash": "1d1d095d84e9a0b11b7b55e17499ba1b406d35c60a0984d3f89502c9cf18160b",
+      "scenario_id": "longitudinal_scenario_08087d0346ff539b4c13c3de709991a5",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 0,
+      "sequence_id": "nonaccepting_sabotage",
+      "sequence_result_id": "longitudinal_sequence_result_ecfadbaa344d13ae087c2cf9e526d491",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "Non-accepting sabotage",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "mixed",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_paired_character_repeated_stall",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:(r=e)>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 0,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_3887fc604a5f7fb0dca8238992b3b8fd",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_56641bd5f2c5c192090a00dc5c1d8f6d",
+      "final_snapshot_hash": "c96e17c649ecf56c7e15c07fe22c76fd5f75638bad56221f4644cc153a6ba972",
+      "final_snapshot_id": "ego_snapshot_6be144bbe38ce819ecadb57194d845b9",
+      "final_trace_hash": "1d7502f678755bcd1c0f6606494fbf32889fcd0e4267b6dfba0d98f25fd2f8cc",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_fbec46f788e9d2972e0d3b3e8659857e",
+        "measure_9224070fab0069bfa4c4bd44ac49e19a",
+        "measure_bc80f74bbfd99ced39d726249352d539",
+        "measure_0b186868216368fdf45599e1a8e6e6ab",
+        "measure_d5ac9100c9346960f84915aff1804a6a",
+        "measure_26e05a11d70e5da1a3df6ff9bd1f8bd3",
+        "measure_4b04145997f2369dca47387d62ca2182",
+        "measure_326d3ea422473cd2528c115f5bbe6060",
+        "measure_5a86346d4d0316946fb957166482db79",
+        "measure_c3f2b5f407ba322e937494a3b14d5e32"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 10,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:(r=e)>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "(R=E)>I",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "bab9c28f62c7ae473b5d9f474cbd27294be3e35dd46d9af9e908d9176a36ac74",
+      "scenario_hash": "b2153c7d840fea06c0e1deecfe1084c79d69b95357d9943c731dea394a570ecb",
+      "scenario_id": "longitudinal_scenario_aa43c9e14629c88985a5a1d4da0b16f2",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 10,
+      "sequence_id": "paired_character_repeated_stall",
+      "sequence_result_id": "longitudinal_sequence_result_e09481ed1a964f4f7d89f52cc18ed95d",
+      "simulated_spoznanje_cycle_count": 0,
+      "title": "Paired character with repeated stalemate",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "accepting",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_racio_translation_improves_through_outcomes",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:e>r>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_4cff61e88d21c22f734a29abf97c7cbf",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_8d17a2db69fcce1e3dfb334d5261b16e",
+      "final_snapshot_hash": "9c93f0b78c0a113acf10a2250f45ebe476a4f88ce8040136c22b995494e34dd2",
+      "final_snapshot_id": "ego_snapshot_f84eee9cd621f83ee96d052a83b70451",
+      "final_trace_hash": "2693cd51d29a7772fd7502e0be42174d50245bcef48b09fd0dc5444429c46420",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_a322cf209592f7159e2895eabb96d880",
+        "measure_167d15c39e73d71d8a32007152b582dd",
+        "measure_3d70747451a083398bdc95b167a24408",
+        "measure_3b9eb420c79226ded3fda1f4046bba96",
+        "measure_aca6a5382977ab1f395b0304dc92f4bb",
+        "measure_3cb50cf5c418a2ea3668451a1fd4b24d",
+        "measure_453af4eb38220c7fa278f369fd1cfbae",
+        "measure_486b442e2e9c26a29e9506c816f887dc",
+        "measure_6088575f0324fdbbae7183fb4d312fa6",
+        "measure_b6f859f0da259300de24a674119b4921"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 10,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:e>r>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "E>R>I",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "18aedef03085b12008a667d478e86030cbce5206e9a31bd7e87450bab63e6559",
+      "scenario_hash": "e936f3398f1add9b303e356e37b8394ee10a4f2c83b56f4c00c921e38f1673f4",
+      "scenario_id": "longitudinal_scenario_2a44ce1560103b124be21600ce5f0753",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 10,
+      "sequence_id": "racio_translation_improves_through_outcomes",
+      "sequence_result_id": "longitudinal_sequence_result_79f9c0adb7e7eca420e09b950491d591",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "An initially wrong Racio translation improves through consequences",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          20
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "accepting",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_recognition_reframed_as_career_growth",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:r>e>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_d1700fa164ba5c59dd4dd479bb486e5c",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_5c4c2543e9d4080c4a0feefe8c67bf31",
+      "final_snapshot_hash": "5821851273c7ba508536272a6ce52678a176ce1a1734069bf4ebc6b6d558cf82",
+      "final_snapshot_id": "ego_snapshot_3c28556853e76100770ef304375c8576",
+      "final_trace_hash": "4b711d9911f7d4a2521edb12e88282946b807734c590009fca86e4ea96a76d47",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_814866838a474d28fb24bb9f7b72eed3",
+        "measure_e055e019513ca37b701fec1f40bb36d7",
+        "measure_9e0ed20bd1e60fa0558f981a8b0a2611",
+        "measure_8ebd0b96e2b5c885478fb3c4c2feea5a",
+        "measure_f54ae6e1437164f9b0631e9c9c8d729c",
+        "measure_a62783c041358e5cfdd710d89daa5217",
+        "measure_2b1a8204e76c91805aaddc1483fa2385",
+        "measure_d828a7e8a8c59eaddd9799e146423694",
+        "measure_e3624167410c1f9251a0a32ff6fc224e",
+        "measure_d2092d7206b7b98a0bc392283cf9ac0e"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 9,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:accepting",
+        "structural_character:r>e>i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "R>E>I",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "946648a7e5ad9a77ed349063e618bf4b8d0bdae8f42bfee703f925149def9d9e",
+      "scenario_hash": "eabea0c8babcc016fd9c405844265f2d30b2f256fa22ac2aef1ec2507836a080",
+      "scenario_id": "longitudinal_scenario_69dc9f92ee1b230c37fdadae75f0185e",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 0,
+      "sequence_id": "recognition_reframed_as_career_growth",
+      "sequence_result_id": "longitudinal_sequence_result_cad13a899bd810b48b81a51a6177d4f8",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "Emocio seeks recognition while Racio narrates career growth",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          10
+        ]
+      ]
+    },
+    {
+      "acceptance_mode": "mixed",
+      "append_only_verified": true,
+      "character_constant": true,
+      "character_id": "c6_character_same_failure_three_world_updates",
+      "character_identifiers_absent_from_world_updates": true,
+      "cycle_count": 10,
+      "expected_history_consumption_cycles": 9,
+      "expected_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:r=e=i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "expected_simulated_spoznanje_cycle_count": 10,
+      "expected_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "expected_world_transfer_cycles": 9,
+      "final_emocio_world_id": "emocio_world_7033178b507d457d40831c37a23c354a",
+      "final_instinkt_world_id": "instinkt_world_ba806f5055f0671df9438dbb07cb5cad",
+      "final_racio_world_id": "racio_world_fad0733513fdc7a63a9e85e2f10b0678",
+      "final_snapshot_hash": "d1d27b576880c92b6dd6684d4b1b8db0f555c38e9c05966ef843b29a17d801f7",
+      "final_snapshot_id": "ego_snapshot_2789f35c486bf606848c1829a408d939",
+      "final_trace_hash": "ca4203ed026a8b7eb4f8e5f1bd84d5e05decaaa04b7ce05c4e494bd8a1685df9",
+      "history_counterfactual_influence": true,
+      "measure_ids": [
+        "measure_24cc9e05e24c7f50f029f7c09e00a61b",
+        "measure_27f726153410b615e2144b5b3bfb8a91",
+        "measure_ae881dee52c8c4d91819af942aaab290",
+        "measure_ccf288f5338425afdc41cee687e5e173",
+        "measure_8d1d53934a79029d05cb69f781388f62",
+        "measure_93b4627a06645a172bdaf0a3b1433c5a",
+        "measure_03f2aaf90d0994152445b4901ff667df",
+        "measure_ebaeb76e0cf032b52c0e9e6a77b26835",
+        "measure_dfc7288074610307b23df95eedcb59ad",
+        "measure_0c26f903e12bad8da84c479f26f187e2"
+      ],
+      "measured_body_signal_cycle_count": 0,
+      "modality_specific_world_updates": true,
+      "motif_false_negative_count": 0,
+      "motif_false_positive_count": 0,
+      "motif_precision": 1.0,
+      "motif_recall": 1.0,
+      "motif_true_positive_count": 4,
+      "narrative_divergence_cycle_count": 9,
+      "natural_language_motif_authority_granted": false,
+      "observed_history_consumption_cycles": 9,
+      "observed_motifs": [
+        "acceptance_mode:mixed",
+        "structural_character:r=e=i",
+        "translation_gap:e:misclassification:option_restore_>none",
+        "translation_gap:i:misclassification:option_restore_>none"
+      ],
+      "observed_translation_patterns": [
+        "translation_gap:E:misclassification:option_restore->None",
+        "translation_gap:I:misclassification:option_restore->None"
+      ],
+      "observed_world_transfer_cycles": 9,
+      "passes": true,
+      "persisted_cycle_count": 10,
+      "predicted_body_signal_cycle_count": 10,
+      "profile_id": "R=E=I",
+      "projection_citations_valid": true,
+      "projection_signal_integration_complete": true,
+      "result_hash": "ca6fd5dde4790f3cd94e12e500b5b800cedef5de15c384a660f2116f310622e3",
+      "scenario_hash": "523505902298cb28c1575e3e9f4116e5906bb75eb9f0dad9f89281343be2171a",
+      "scenario_id": "longitudinal_scenario_a133c503cc750069d229f26a43c6deb8",
+      "schema_version": "rei-c6-longitudinal-sequence-result-v2",
+      "self_narrative_divergence_cycle_count": 0,
+      "sequence_id": "same_failure_three_world_updates",
+      "sequence_result_id": "longitudinal_sequence_result_082693738b08550a8a5f5001449eae31",
+      "simulated_spoznanje_cycle_count": 10,
+      "title": "The same external failure produces three modality-specific world updates",
+      "translation_patterns_match": true,
+      "verified_visual_signal_cycle_count": 10,
+      "world_change_counts": [
+        [
+          "emocio:visual_memory",
+          10
+        ],
+        [
+          "instinkt:recovery",
+          10
+        ],
+        [
+          "racio:timeline",
+          20
+        ]
+      ]
+    }
+  ],
+  "simulated_spoznanje_cycle_count": 85,
+  "technical_gate_passed": true,
+  "template_request_hash": "6b0aba367a3b895f724b24d2b0ca1005d9530b8729c5766c12ec2f8f0529f88d",
+  "total_cycle_count": 100,
+  "verified_visual_signal_cycle_count": 100,
+  "visual_signal_scope": "post_cycle_internal_evaluation_not_source_cycle_processing",
+  "world_transfer_cycle_count": 90
+}

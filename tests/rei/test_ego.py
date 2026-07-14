@@ -187,7 +187,9 @@ def test_modality_projections_are_deterministic_content_addressed_and_separate()
     assert first == replay
     assert first.racio.chronology
     assert first.emocio.recurring_scenes
-    assert first.instinkt.body_consequences
+    assert first.emocio.visual_history_status == "unobserved"
+    assert first.instinkt.body_history_status == "unobserved"
+    assert first.instinkt.body_consequences == ()
     assert all(claim.kind.startswith("racio_") for claim in first.racio.sourced_claims)
     assert all(claim.kind.startswith("emocio_") for claim in first.emocio.sourced_claims)
     assert all(claim.kind.startswith("instinkt_") for claim in first.instinkt.sourced_claims)

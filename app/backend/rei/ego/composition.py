@@ -7,6 +7,83 @@ from collections import OrderedDict
 from ..models.ego import EgoClaimKind, EgoCompositionSnapshot, EgoTrace, SourcedEgoClaim
 
 
+def _cold_trace(trace: EgoTrace) -> EgoTrace:
+    cold = EgoTrace.model_validate(trace.model_dump(mode="python", round_trip=True))
+    if cold != trace:
+        raise ValueError("EgoTrace changed during composition boundary validation")
+    return cold
+
+
+def _tension_state(
+    trace: EgoTrace,
+) -> tuple[
+    tuple[str, ...],
+    tuple[SourcedEgoClaim, ...],
+    tuple[str, ...],
+    tuple[SourcedEgoClaim, ...],
+]:
+    """Close a tension only when a later spoznanje follows its last occurrence.
+
+    The rule is deliberately lexical and append-only.  A spoznanje in the same
+    measure as a tension does not resolve it.  If the exact token occurs again
+    after a closing spoznanje, that later occurrence is unresolved again.
+    """
+
+    by_tension: OrderedDict[str, list[tuple[int, str]]] = OrderedDict()
+    spoznanje_by_index = {
+        index: measure.measure_id
+        for index, measure in enumerate(trace.measures)
+        if measure.spoznanje_status == "simulated_spoznanje"
+    }
+    for index, measure in enumerate(trace.measures):
+        for value in measure.unresolved_tensions:
+            tension = value.strip()
+            if tension:
+                by_tension.setdefault(tension, []).append((index, measure.measure_id))
+
+    unresolved_values: list[str] = []
+    unresolved_claims: list[SourcedEgoClaim] = []
+    resolved_values: list[str] = []
+    resolved_claims: list[SourcedEgoClaim] = []
+    for tension, observations in by_tension.items():
+        last_index = observations[-1][0]
+        closing = next(
+            (
+                (index, measure_id)
+                for index, measure_id in sorted(spoznanje_by_index.items())
+                if index > last_index
+            ),
+            None,
+        )
+        if closing is None:
+            unresolved_values.append(tension)
+            unresolved_claims.append(
+                SourcedEgoClaim.create(
+                    kind="unresolved_tension",
+                    text=tension,
+                    evidence_measure_ids=tuple(item[1] for item in observations),
+                )
+            )
+            continue
+        resolved_values.append(tension)
+        resolved_claims.append(
+            SourcedEgoClaim.create(
+                kind="resolved_tension",
+                text=tension,
+                evidence_measure_ids=(
+                    *(item[1] for item in observations),
+                    closing[1],
+                ),
+            )
+        )
+    return (
+        tuple(unresolved_values),
+        tuple(unresolved_claims),
+        tuple(resolved_values),
+        tuple(resolved_claims),
+    )
+
+
 def _claims_from_observations(
     kind: EgoClaimKind,
     observations: list[tuple[str, str]],
@@ -44,13 +121,13 @@ def derive_composition_snapshot(trace: EgoTrace) -> EgoCompositionSnapshot:
     measure they target.
     """
 
+    trace = _cold_trace(trace)
     if not trace.measures:
         raise ValueError("A composition snapshot requires at least one EgoMeasure")
 
     identity_observations: list[tuple[str, str]] = []
     conflict_observations: list[tuple[str, str]] = []
     translation_observations: list[tuple[str, str]] = []
-    tension_observations: list[tuple[str, str]] = []
     spoznanje_observations: list[tuple[str, str]] = []
     commitment_observations: list[tuple[str, str]] = []
     relationship_observations: list[tuple[str, str]] = []
@@ -74,9 +151,6 @@ def derive_composition_snapshot(trace: EgoTrace) -> EgoCompositionSnapshot:
                     measure_id,
                 )
             )
-        tension_observations.extend(
-            (tension, measure_id) for tension in measure.unresolved_tensions
-        )
         if measure.spoznanje_status == "simulated_spoznanje":
             spoznanje_observations.append(
                 (f"simulated_spoznanje:{measure.native_bundle_id}", measure_id)
@@ -108,9 +182,12 @@ def derive_composition_snapshot(trace: EgoTrace) -> EgoCompositionSnapshot:
         translation_observations,
         minimum_occurrences=2,
     )
-    unresolved_tensions, tension_claims = _claims_from_observations(
-        "unresolved_tension", tension_observations
-    )
+    (
+        unresolved_tensions,
+        tension_claims,
+        resolved_tensions,
+        resolved_tension_claims,
+    ) = _tension_state(trace)
     spoznanja, spoznanje_claims = _claims_from_observations(
         "spoznanje", spoznanje_observations
     )
@@ -133,6 +210,7 @@ def derive_composition_snapshot(trace: EgoTrace) -> EgoCompositionSnapshot:
         *conflict_claims,
         *translation_claims,
         *tension_claims,
+        *resolved_tension_claims,
         *spoznanje_claims,
         *commitment_claims,
         *relationship_claims,
@@ -146,7 +224,7 @@ def derive_composition_snapshot(trace: EgoTrace) -> EgoCompositionSnapshot:
         recurring_conflicts=recurring_conflicts,
         recurring_translation_errors=recurring_translation_errors,
         unresolved_tensions=unresolved_tensions,
-        resolved_tensions=(),
+        resolved_tensions=resolved_tensions,
         spoznanja=spoznanja,
         commitments=commitments,
         relationship_patterns=relationship_patterns,

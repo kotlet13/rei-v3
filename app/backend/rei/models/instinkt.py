@@ -607,6 +607,10 @@ class InstinktProjectionObservation(FrozenArtifactModel):
     cue_signature: tuple[NonEmptyText, ...] = Field(min_length=1)
     felt_intensity: Score01
     protected_target: NonEmptyText
+    predicted_recoverability: Score01 | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
     decay: Score01 = 0.0
 
     @model_validator(mode="after")
@@ -620,6 +624,12 @@ class InstinktProjectionObservation(FrozenArtifactModel):
         if self.cue_signature != tuple(sorted(set(self.cue_signature))):
             raise ValueError(
                 "Projection observation cue signature must be sorted and unique"
+            )
+        if (self.observation_kind == "recovery") != (
+            self.predicted_recoverability is not None
+        ):
+            raise ValueError(
+                "Only recovery projection observations carry predicted recoverability"
             )
         payload = self.model_dump(
             mode="python",
@@ -684,6 +694,10 @@ class AssociationMatch(FrozenArtifactModel):
     retrieval_score: Score01
     carries_experienced_loss: bool
     protected_target: str
+    predicted_recoverability: Score01 | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
     source_record_kind: Literal[
         "experienced_association", "projection_observation"
     ] = Field(
@@ -706,6 +720,13 @@ class AssociationMatch(FrozenArtifactModel):
         ):
             raise ValueError(
                 "Projection observations cannot claim an experienced loss"
+            )
+        if (
+            self.predicted_recoverability is not None
+            and self.source_record_kind != "projection_observation"
+        ):
+            raise ValueError(
+                "Only projection observations can carry predicted recoverability"
             )
         id_payload = self.model_dump(
             mode="python",
@@ -744,6 +765,10 @@ class AssociationMatch(FrozenArtifactModel):
         }
         if not is_experienced:
             base["source_record_kind"] = "projection_observation"
+            if association.predicted_recoverability is not None:
+                base["predicted_recoverability"] = (
+                    association.predicted_recoverability
+                )
         return cls(match_id=content_id("association_match", base), **base)
 
 
@@ -1442,7 +1467,11 @@ class InstinktOptionRollout(FrozenArtifactModel):
         config: InstinktSimulationConfig,
         association_matches: tuple[AssociationMatch, ...],
     ) -> Self:
-        from ..instinkt.dynamics import predicted_loss, recoverability
+        from ..instinkt.dynamics import (
+            predicted_loss,
+            projection_recoverability_prior,
+            recoverability,
+        )
 
         if self.simulation_status != "simulated_v1":
             raise ValueError("Rollout is not a verified B8 simulation artifact")
@@ -1505,6 +1534,9 @@ class InstinktOptionRollout(FrozenArtifactModel):
             effect=effect,
             config=config,
             loss_memory_strength=loss_memory_strength,
+            projection_recovery_prior=projection_recoverability_prior(
+                canonical_matches
+            ),
         )
         if not math.isclose(
             self.predicted_loss,

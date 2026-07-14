@@ -18,6 +18,12 @@ from .conscious import (
     ConsciousMandateView,
     RacioSelfNarrative,
 )
+from .longitudinal import (
+    LongitudinalEventStep,
+    LongitudinalOutcomeMode,
+    LongitudinalPersonState,
+    LongitudinalScenario,
+)
 
 
 __all__ = [
@@ -29,6 +35,10 @@ __all__ = [
     "ConsciousMandateView",
     "EmocioManifestation",
     "LanguageCode",
+    "LongitudinalEventStep",
+    "LongitudinalOutcomeMode",
+    "LongitudinalPersonState",
+    "LongitudinalScenario",
     "ManifestationObservation",
     "MindId",
     "ObservableManifestationView",
