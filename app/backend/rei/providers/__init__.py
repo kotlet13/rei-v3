@@ -38,6 +38,11 @@ if TYPE_CHECKING:
         inspect_ollama_runtime,
         inspect_ollama_active_model,
     )
+    from .ollama_interpreter import (
+        OllamaStructuredRacioInterpreterExecution,
+        OllamaStructuredRacioInterpreterProvider,
+        OllamaStructuredRacioInterpreterResponseEvidence,
+    )
 
 __all__ = [
     "DeterministicEmocioNativeProvider",
@@ -56,6 +61,9 @@ __all__ = [
     "OllamaRacioResponseEvidence",
     "OllamaRacioSettings",
     "OllamaRuntimeModel",
+    "OllamaStructuredRacioInterpreterExecution",
+    "OllamaStructuredRacioInterpreterProvider",
+    "OllamaStructuredRacioInterpreterResponseEvidence",
     "build_deterministic_native_providers",
     "build_native_call_spec",
     "build_ollama_racio_native_providers",
@@ -72,6 +80,10 @@ def __getattr__(name: str) -> Any:
         return build_provider_call_spec
     if name not in __all__:
         raise AttributeError(name)
+    if name.startswith("OllamaStructuredRacioInterpreter"):
+        from . import ollama_interpreter
+
+        return getattr(ollama_interpreter, name)
     if name.startswith("Ollama") or name in {
         "build_ollama_racio_native_providers",
         "inspect_ollama_active_model",

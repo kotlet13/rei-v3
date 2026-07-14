@@ -1,0 +1,39 @@
+{
+  "schema_version": "rei-racio-interpreter-model-registry-v1",
+  "registry_version": "c3-v1",
+  "candidates": [
+    {
+      "model_id": "granite4.1:30b",
+      "model_digest": "3f3e5df8a021439fd6f867a0e526bdc303cac79c811201cb6bac193298cb9fcd",
+      "runtime": "ollama",
+      "modality_support": [
+        "structured_text"
+      ],
+      "slovenian_baseline": "not_benchmarked",
+      "max_context": 131072,
+      "hardware_requirements": {
+        "minimum_vram_gib": 24,
+        "gpu_offload_policy": "full_gpu_preferred"
+      },
+      "license": "Apache-2.0",
+      "benchmark_status": "c3_candidate"
+    },
+    {
+      "model_id": "qwen2.5vl:32b",
+      "model_digest": "2f09e811cc16c59001b2cacae2974b3b62c7f17a2dcb43a7bfad4e924bf2f268",
+      "runtime": "ollama",
+      "modality_support": [
+        "structured_text",
+        "vision"
+      ],
+      "slovenian_baseline": "not_benchmarked",
+      "max_context": 128000,
+      "hardware_requirements": {
+        "minimum_vram_gib": 24,
+        "gpu_offload_policy": "full_gpu_preferred"
+      },
+      "license": "Apache-2.0",
+      "benchmark_status": "vlm_adapter_candidate"
+    }
+  ]
+}

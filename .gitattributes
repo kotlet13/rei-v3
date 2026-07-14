@@ -7,3 +7,8 @@ knowledge/canon_v2/evaluation.json text eol=lf
 knowledge/semantic_lab_v1/schemas/evaluation_case.schema.json text eol=lf
 tests/fixtures/semantic_evaluation_v1/** text eol=lf
 Docs/evals/semantic_lab_v1/c2-deterministic-2026-07-14/** text eol=lf
+
+# C3 freezes registry/corpus/evidence bytes into benchmark provenance.
+config/racio_interpreter_models.yaml text eol=lf
+knowledge/canon_v2/semantic_lab_v1/c3_racio_interpreter/** text eol=lf
+Docs/evals/semantic_lab_v1/c3-racio-interpreter-*/** text eol=lf

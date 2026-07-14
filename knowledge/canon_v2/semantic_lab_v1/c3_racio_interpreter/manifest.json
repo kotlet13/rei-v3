@@ -1,0 +1,46 @@
+{
+  "schema_version": "rei-c3-racio-interpreter-benchmark-manifest-v1",
+  "benchmark_id": "rei-c3-racio-interpreter-benchmark-v1",
+  "corpus_version": "2026-07-14",
+  "gold_origin": "manually_authored",
+  "model_generated_gold": false,
+  "training_export": false,
+  "counts": {
+    "cases": 32,
+    "roots": 8,
+    "emocio": 16,
+    "instinkt": 16,
+    "slovenian": 16,
+    "english": 16,
+    "unambiguous": 16,
+    "ambiguous": 16,
+    "accepting": 16,
+    "mixed": 8,
+    "conflicted": 8,
+    "bilingual_pairs": 16
+  },
+  "ambiguity_confidence_threshold": 0.35,
+  "bilingual_confidence_tolerance": 0.15,
+  "files": [
+    {
+      "path": "public_cases.jsonl",
+      "sha256": "cc7f0c7dc5530af06372090b966b29e57f391196935e24a8d9ac7055cdb4f0ec",
+      "case_count": 32
+    },
+    {
+      "path": "gold.jsonl",
+      "sha256": "32fcede3cd445a7ba3160ee1592ba4eb1822c9efa9d16735d334c213e7b973f1",
+      "case_count": 32
+    }
+  ],
+  "root_ids": [
+    "c3_root_attachment_loss",
+    "c3_root_boundary_escape",
+    "c3_root_broken_scene_anger",
+    "c3_root_claustrophobia",
+    "c3_root_delegation_boundary",
+    "c3_root_listen_instinct",
+    "c3_root_motor_visual",
+    "c3_root_words_channels"
+  ]
+}

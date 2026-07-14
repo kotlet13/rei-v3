@@ -1,10 +1,11 @@
-"""Safe B9 vertical from trusted manifestations to replayed Racio interpretation."""
+"""Safe manifestation-to-Racio vertical with optional C3 provider evidence."""
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 
-from ..models.common import NonEmptyId
+from ..models.common import LanguageCode, NonEmptyId
 from ..models.communication import (
     AcceptanceFidelityAssessment,
     AcceptanceState,
@@ -25,6 +26,10 @@ from .interpreter import (
     validate_interpretation_replay,
 )
 from .translation_gap import NativeConclusion, evaluate_translation_gap
+from .structured_interpreter import (
+    StructuredLLMRacioInterpreter,
+    StructuredRacioInterpretationResult,
+)
 
 
 TrustedManifestation = EmocioManifestation | InstinktManifestation
@@ -32,10 +37,11 @@ TrustedManifestation = EmocioManifestation | InstinktManifestation
 
 @dataclass(frozen=True, slots=True)
 class CommunicationInterpretationResult:
-    """The exact sanitized request and its deterministic replayed interpretation."""
+    """The exact trusted request, interpretation, and optional C3 evidence."""
 
     request: RacioInterpreterRequest
     interpretation: RacioInterpretation
+    c3_result: StructuredRacioInterpretationResult | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -46,6 +52,7 @@ class CommunicationProcessResult:
     interpretation: RacioInterpretation
     translation_gap: TranslationGap
     acceptance_fidelity: AcceptanceFidelityAssessment
+    c3_result: StructuredRacioInterpretationResult | None = None
 
 
 def _build_trusted_views(
@@ -100,6 +107,8 @@ def interpret_manifestations(
     acceptance_state: AcceptanceState,
     interpreter: RacioInterpreter,
     vlm_enrichments: tuple[EmocioVlmEnrichment, ...] = (),
+    language: LanguageCode | None = None,
+    option_descriptions: Mapping[str, str] | None = None,
 ) -> CommunicationInterpretationResult:
     """Build views internally so callers cannot inject a handcrafted observable view."""
 
@@ -122,7 +131,16 @@ def interpret_manifestations(
         acceptance_state=acceptance_state,
         renderer_observations_by_manifestation=renderer_by_manifestation,
     )
-    interpretation = interpreter.interpret(request)
+    c3_result: StructuredRacioInterpretationResult | None = None
+    if isinstance(interpreter, StructuredLLMRacioInterpreter):
+        c3_result = interpreter.interpret_with_evidence(
+            request,
+            language=language,
+            option_descriptions=option_descriptions,
+        )
+        interpretation = c3_result.interpretation
+    else:
+        interpretation = interpreter.interpret(request)
     validate_interpretation_attribution(
         interpreter=interpreter,
         request=request,
@@ -137,6 +155,7 @@ def interpret_manifestations(
     return CommunicationInterpretationResult(
         request=request,
         interpretation=interpretation,
+        c3_result=c3_result,
     )
 
 
@@ -148,6 +167,8 @@ def process_communication(
     acceptance_state: AcceptanceState,
     interpreter: RacioInterpreter,
     vlm_enrichments: tuple[EmocioVlmEnrichment, ...] = (),
+    language: LanguageCode | None = None,
+    option_descriptions: Mapping[str, str] | None = None,
 ) -> CommunicationProcessResult:
     """Run the complete B9 vertical while keeping native truth evaluator-only."""
 
@@ -157,6 +178,8 @@ def process_communication(
         acceptance_state=acceptance_state,
         interpreter=interpreter,
         vlm_enrichments=vlm_enrichments,
+        language=language,
+        option_descriptions=option_descriptions,
     )
     gap = evaluate_translation_gap(
         conclusion=conclusion,
@@ -172,6 +195,7 @@ def process_communication(
         interpretation=interpreted.interpretation,
         translation_gap=gap,
         acceptance_fidelity=assessment,
+        c3_result=interpreted.c3_result,
     )
 
 

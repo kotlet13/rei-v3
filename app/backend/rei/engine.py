@@ -18,6 +18,7 @@ from pydantic import Field, model_validator
 from .communication.interpreter import DeterministicRacioInterpreter, RacioInterpreter
 from .communication.manifestations import build_emocio_manifestation
 from .communication.processor import CommunicationProcessResult, process_communication
+from .communication.structured_interpreter import StructuredRacioInterpretationResult
 from .conscious.committer import DeterministicRacioCommitter, RacioCommitter
 from .conscious.narrator import DeterministicRacioNarrator, RacioNarrator
 from .diagnostics import InvariantReport, build_cycle_invariant_report, render_diagnostic_report
@@ -29,7 +30,7 @@ from .emocio.packets import build_emocio_packet
 from .governance.behavior import BehaviorResolver, DeterministicBehaviorResolver
 from .governance.profiles import derive_effective_authority
 from .governance.resolver import resolve_governance
-from .ids import canonical_json_bytes, content_id, utc_now
+from .ids import canonical_json_bytes, content_id, sha256_hex, utc_now
 from .instinkt.packets import InstinktEffectSpec, bind_instinkt_effects, build_instinkt_packet
 from .models.character import CharacterAuthority, EffectiveAuthority, FunctionalOverride
 from .models.common import (
@@ -65,7 +66,12 @@ from .models.instinkt import (
     InstinktSimulationConfig,
     instinkt_memory_record_id,
 )
-from .models.provider import ProviderCallRecord, ProviderCallSpec, ProviderIdentity
+from .models.provider import (
+    ProviderCallRecord,
+    ProviderCallSpec,
+    ProviderIdentity,
+    ensure_call_record_contract,
+)
 from .models.racio import NumericCue, RacioConsequence, RacioInputPacket, RacioWorld
 from .models.run import (
     ArtifactHashRecord,
@@ -499,6 +505,124 @@ def _validated_racio_reasoning_artifact(
     return artifact
 
 
+def _c3_response_evidence(
+    result: StructuredRacioInterpretationResult,
+) -> FrozenArtifactModel:
+    evidence = getattr(result.execution, "response_evidence", None)
+    if evidence is None:
+        evidence = getattr(result.execution, "reasoning_artifact", None)
+    if not isinstance(evidence, FrozenArtifactModel):
+        raise ValueError("C3 interpreter execution is missing hashed response evidence")
+    return evidence
+
+
+def _validated_c3_results(
+    communications: tuple[CommunicationProcessResult, CommunicationProcessResult],
+) -> tuple[StructuredRacioInterpretationResult, ...]:
+    """Close both optional C3 executions without invoking either provider again."""
+
+    raw_results = tuple(item.c3_result for item in communications)
+    if all(result is None for result in raw_results):
+        return ()
+    if any(result is None for result in raw_results):
+        raise ValueError("C3 communication evidence must be present for both E and I")
+
+    results: list[StructuredRacioInterpretationResult] = []
+    for expected_mind, communication, candidate in zip(
+        ("E", "I"),
+        communications,
+        raw_results,
+        strict=True,
+    ):
+        assert candidate is not None
+        packet = candidate.access.packet
+        audit = candidate.access.audit
+        execution = candidate.execution
+        call_spec = execution.call_spec
+        call_record = execution.call_record
+        interpretation = candidate.interpretation
+        evidence = _c3_response_evidence(candidate)
+        evidence_result_id = getattr(evidence, "result_id", None)
+
+        if candidate.interpretation != communication.interpretation:
+            raise ValueError("C3 evidence differs from the published interpretation")
+        if (
+            packet.source_mind != expected_mind
+            or communication.request.source_mind != expected_mind
+            or interpretation.source_mind != expected_mind
+        ):
+            raise ValueError("C3 communication results must preserve E then I ordering")
+        if (
+            audit.source_request_id != communication.request.request_id
+            or audit.source_request_hash != communication.request.content_hash()
+            or audit.packet_id != packet.packet_id
+            or audit.packet_hash != packet.content_hash()
+        ):
+            raise ValueError("C3 access audit differs from its request or packet")
+        if (
+            call_spec.request_id != packet.packet_id
+            or call_spec.input_artifact_ids != (packet.packet_id,)
+        ):
+            raise ValueError("C3 call spec must consume only its access packet")
+        if call_spec.fallback_policy.mode != "none":
+            raise ValueError("C3 call spec must use an explicit no-fallback policy")
+        ensure_call_record_contract(call_spec, call_record)
+        if (
+            call_record.status != "succeeded"
+            or call_record.primary_status != "succeeded"
+            or call_record.fallback is not None
+            or not isinstance(evidence_result_id, str)
+            or call_record.output_artifact_ids != (evidence_result_id,)
+        ):
+            raise ValueError("C3 call record must close one direct response artifact")
+        if (
+            getattr(evidence, "packet_id", None) != packet.packet_id
+            or getattr(evidence, "packet_hash", None) != packet.content_hash()
+            or getattr(evidence, "call_id", None) != call_spec.call_id
+            or getattr(evidence, "call_spec_hash", None) != call_spec.content_hash()
+            or getattr(evidence, "provider_id", None)
+            != call_spec.provider.provider_id
+        ):
+            raise ValueError("C3 response evidence has inconsistent packet/call lineage")
+        evidence_output = getattr(evidence, "output", None)
+        evidence_output_hash = getattr(evidence, "structured_output_hash", None)
+        if evidence_output is not None:
+            if evidence_output != execution.output:
+                raise ValueError("C3 response evidence differs from structured output")
+        elif evidence_output_hash != sha256_hex(execution.output):
+            raise ValueError("C3 response evidence does not bind the structured output")
+        if (
+            interpretation.language != packet.language
+            or interpretation.conscious_access_packet_id != packet.packet_id
+            or interpretation.conscious_access_packet_hash != packet.content_hash()
+            or interpretation.interpreter_id != call_spec.provider.provider_id
+            or interpretation.interpreter_revision
+            != call_spec.provider.implementation_revision
+            or interpretation.interpreter_result_id != evidence_result_id
+            or interpretation.interpreter_result_hash != evidence.content_hash()
+        ):
+            raise ValueError("C3 interpretation has incomplete provider evidence lineage")
+        results.append(candidate)
+    return tuple(results)
+
+
+def _unique_provider_identities(
+    identities: tuple[ProviderIdentity, ...],
+) -> tuple[ProviderIdentity, ...]:
+    """Preserve declaration order while rejecting identity-ID collisions."""
+
+    by_id: dict[str, ProviderIdentity] = {}
+    ordered: list[ProviderIdentity] = []
+    for identity in identities:
+        previous = by_id.get(identity.provider_id)
+        if previous is None:
+            by_id[identity.provider_id] = identity
+            ordered.append(identity)
+        elif previous != identity:
+            raise ValueError("Provider ID maps to conflicting identities")
+    return tuple(ordered)
+
+
 def _decisive_body_after(execution: InstinktNativeExecution) -> BodyState | None:
     decisive_id = execution.conclusion.decisive_rollout_id
     if decisive_id is None:
@@ -855,6 +979,9 @@ class ReiNativeEngine:
         )
         instinkt_manifestation = instinkt_execution.manifestation
         manifestations = (emocio_manifestation, instinkt_manifestation)
+        scene_option_descriptions = {
+            option.option_id: option.description for option in request.scene.options
+        }
 
         emocio_communication = process_communication(
             conclusion=bundle.emocio,
@@ -862,6 +989,8 @@ class ReiNativeEngine:
             allowed_option_ids=bundle.allowed_option_ids,
             acceptance_state=request.acceptance_state,
             interpreter=self.interpreter,
+            language=request.scene.language,
+            option_descriptions=scene_option_descriptions,
         )
         instinkt_communication = process_communication(
             conclusion=bundle.instinkt,
@@ -869,7 +998,11 @@ class ReiNativeEngine:
             allowed_option_ids=bundle.allowed_option_ids,
             acceptance_state=request.acceptance_state,
             interpreter=self.interpreter,
+            language=request.scene.language,
+            option_descriptions=scene_option_descriptions,
         )
+        communications = (emocio_communication, instinkt_communication)
+        c3_results = _validated_c3_results(communications)
         mandate_view = ConsciousMandateView.create_b10(
             governance=governance,
             bundle=bundle,
@@ -882,7 +1015,7 @@ class ReiNativeEngine:
                 interpretation=result.interpretation,
                 acceptance_state=request.acceptance_state,
             )
-            for result in (emocio_communication, instinkt_communication)
+            for result in communications
         )
         conscious_decision = self.committer.commit(
             mandate_view=mandate_view,
@@ -935,11 +1068,28 @@ class ReiNativeEngine:
             racio_execution.call_spec,
             emocio_execution.call_spec,
             instinkt_execution.call_spec,
+            *(result.execution.call_spec for result in c3_results),
         )
         call_records: tuple[ProviderCallRecord, ...] = (
             racio_execution.call_record,
             emocio_execution.call_record,
             instinkt_execution.call_record,
+            *(result.execution.call_record for result in c3_results),
+        )
+        base_provider_identities = (
+            *self.providers.identities,
+            self.artifact_store.identity,
+            self.ego_trace_store.identity,
+        )
+        manifest_provider_identities = (
+            _unique_provider_identities(
+                (
+                    *base_provider_identities,
+                    *(result.execution.call_spec.provider for result in c3_results),
+                )
+            )
+            if c3_results
+            else base_provider_identities
         )
         warnings = tuple(
             item
@@ -961,11 +1111,7 @@ class ReiNativeEngine:
             profile_id=request.character.profile_id,
             acceptance_state_id=request.acceptance_state.acceptance_state_id,
             acceptance_config_hash=request.acceptance_state.content_hash(),
-            providers=(
-                *self.providers.identities,
-                self.artifact_store.identity,
-                self.ego_trace_store.identity,
-            ),
+            providers=manifest_provider_identities,
             provider_call_specs=call_specs,
             provider_calls=call_records,
             seeds=_seed_records(call_records),
@@ -1007,7 +1153,8 @@ class ReiNativeEngine:
             effective_authority=effective_authority,
             governance=governance,
             manifestations=manifestations,
-            communications=(emocio_communication, instinkt_communication),
+            communications=communications,
+            c3_results=c3_results,
             mandate_view=mandate_view,
             conscious_decision=conscious_decision,
             behavior_resultant=behavior_resultant,
@@ -1118,6 +1265,7 @@ class ReiNativeEngine:
         governance: GovernanceResolution,
         manifestations: tuple[EmocioManifestation, InstinktManifestation],
         communications: tuple[CommunicationProcessResult, CommunicationProcessResult],
+        c3_results: tuple[StructuredRacioInterpretationResult, ...],
         mandate_view: ConsciousMandateView,
         conscious_decision: ConsciousDecision,
         behavior_resultant: BehaviorResultant,
@@ -1196,6 +1344,26 @@ class ReiNativeEngine:
             "communication/translation_gaps.json",
             tuple(item.translation_gap for item in communications),
         )
+        c3_labels = {"E": "emocio", "I": "instinkt"}
+        communication_by_mind = {
+            item.request.source_mind: item for item in communications
+        }
+        for result in c3_results:
+            label = c3_labels[result.access.packet.source_mind]
+            prefix = f"communication/c3_{label}"
+            write_json(
+                f"{prefix}_interpreter_request.json",
+                communication_by_mind[result.access.packet.source_mind].request,
+            )
+            write_json(f"{prefix}_access_packet.json", result.access.packet)
+            write_json(f"{prefix}_access_audit.json", result.access.audit)
+            write_json(f"{prefix}_call_spec.json", result.execution.call_spec)
+            write_json(f"{prefix}_call_record.json", result.execution.call_record)
+            write_json(f"{prefix}_structured_output.json", result.execution.output)
+            write_json(
+                f"{prefix}_response_evidence.json",
+                _c3_response_evidence(result),
+            )
         write_json("governance/character.json", request.character)
         write_json("governance/effective_authority.json", effective_authority)
         write_json("governance/mandate.json", governance)

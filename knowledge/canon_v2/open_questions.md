@@ -524,6 +524,52 @@ univerzalne psihološke zakonitosti.
 Primernejše natančno ime je
 `test_scripted_high_fidelity_fixture_has_smaller_exact_gap`.
 
+### C3 izvedbena odločitev — 2026-07-14
+
+Status: `implementation_hypothesis`, omejeno na zamenljivi
+`c3-conscious-access-filter-v1`. C3 prvič uporabi izrecni `AcceptanceState` za
+izdelavo modelu vidnega signala, vendar formule ne predstavlja kot empirično
+psihološko zakonitost. Za vir E uporabi samo `R_to_E`, za vir I pa samo
+`R_to_I`:
+
+```text
+suppression = (1 - tolerance) * sabotage_risk
+effective_visibility = visibility * (1 - suppression)
+signal_fidelity = interpretation_fidelity * (1 - 0.5*sabotage_risk)
+signal_noise = 1 - signal_fidelity
+delegation_openness = delegation_willingness
+channel_quality = effective_visibility *
+  (0.70*signal_fidelity + 0.15*tolerance + 0.15*delegation_openness)
+```
+
+Vrednosti se omejijo na `[0, 1]`. Filter s content-stabilnim hash rangom in
+eksplicitnim seedom izbere `ceil(N*effective_visibility)` opazk; kadar je
+vidnost pozitivna, ohrani najmanj eno. Nato je
+`ceil(V*signal_fidelity)` izbranih opazk jasnih, ostale pa so označene kot
+`degraded` in njihova natančna vrednost je redigirana. Degradacija nikoli ne
+obrne signala in ne izmisli konkurenčnega motiva. Pri ničelni efektivni
+vidnosti ni vidnih opazk ali vizualnih artefaktov.
+
+Model prejme samo `ConsciousAccessPacket` z lokalnimi opaque aliasi,
+deklariranim javnim opisom možnosti, kakovostjo kanala in negotovostjo. Ne
+prejme acceptance dimenzij, dejanskih observation/option ID-jev, native
+lineage, karakterja ali evaluatorjevega ground trutha. Ločen trusted audit
+ohrani popolno preslikavo in uporabljeno formulo. Enaka javna površina ob
+različnem skritem native stanju mora dati bajtno enak provider payload; razlikuje
+se sme samo trusted audit.
+
+Za C3 benchmark velja dodatna, vnaprej deklarirana kalibracijska hipoteza:
+če je odločilni action cue degradiran, izpuščen ali protisloven, interpreter
+abstinira pri optionu, za nepodprt action oziroma motive class uporabi
+`unknown` in omeji confidence na `0.35`. To je benchmark/runtime varovalo in ne
+empirično potrjen prag sprejemanja.
+
+Ta formula ne razreši vprašanja, kako AcceptanceState zanesljivo izmeriti, niti
+ne dokazuje, da večja deklarirana vidnost ali fidelity pri resničnih osebah
+povzroča boljšo interpretacijo. Pragovi, uteži in hash-selection politika
+ostajajo zamenljivi pod OQ-ACCEPTANCE-001, OQ-ACCEPTANCE-002 in
+OQ-TRANSLATION-001.
+
 Vzročni pomen izbrane relacije `R_to_source`, visibility pragovi, formula med
 acceptance in kakovostjo prevoda, semantična kalibracija ter zanesljivo merjenje
 sprejemanja ostajajo odprti pod OQ-ACCEPTANCE-001,

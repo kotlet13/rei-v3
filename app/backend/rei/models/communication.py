@@ -19,6 +19,7 @@ from .common import (
     FrozenArtifactModel,
     FrozenModel,
     HashDigest,
+    LanguageCode,
     NonEmptyId,
     NonEmptyText,
     Score01,
@@ -1104,6 +1105,21 @@ class RacioInterpretation(FrozenArtifactModel):
     policy_basis: Literal["implementation_hypothesis"] | None = Field(
         default=None, exclude_if=lambda value: value is None
     )
+    language: LanguageCode | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    conscious_access_packet_id: NonEmptyId | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    conscious_access_packet_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    interpreter_result_id: NonEmptyId | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+    interpreter_result_hash: HashDigest | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
     source_mind: InterpretedMindId
     observed_manifestation_ids: tuple[NonEmptyId, ...] = Field(min_length=1)
     observed_manifestations: tuple[ManifestationObservation, ...] = ()
@@ -1115,8 +1131,14 @@ class RacioInterpretation(FrozenArtifactModel):
         default=None, exclude_if=lambda value: value is None
     )
     inferred_motive: str
+    inferred_motive_class: NonEmptyId | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
     confidence: Score01
     alternative_hypotheses: tuple[str, ...] = ()
+    unresolved_ambiguity: NonEmptyText | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
     interpretation_hash: HashDigest | None = Field(
         default=None, exclude_if=lambda value: value is None
     )
@@ -1175,6 +1197,83 @@ class RacioInterpretation(FrozenArtifactModel):
         interpretation.validate_against_request(request)
         return interpretation
 
+    @classmethod
+    def create_c3(
+        cls,
+        *,
+        request: RacioInterpreterRequest,
+        observations: tuple[ManifestationObservation, ...],
+        inferred_option_id: NonEmptyId | None,
+        inferred_action_tendency: str | None,
+        inferred_motive_class: NonEmptyId | None,
+        confidence: Score01,
+        alternative_hypotheses: tuple[str, ...],
+        unresolved_ambiguity: NonEmptyText | None,
+        interpreter_id: NonEmptyId,
+        interpreter_revision: NonEmptyText,
+        interpreter_policy: NonEmptyText,
+        language: LanguageCode,
+        conscious_access_packet_id: NonEmptyId,
+        conscious_access_packet_hash: HashDigest,
+        interpreter_result_id: NonEmptyId,
+        interpreter_result_hash: HashDigest,
+    ) -> RacioInterpretation:
+        """Create the trusted runtime projection of one alias-only C3 result."""
+
+        status: Literal["interpreted_b9", "omitted_b9"] = (
+            "interpreted_b9" if observations else "omitted_b9"
+        )
+        supporting_ids = tuple(
+            observation.observation_id
+            for observation in observations
+            if observation.observation_id is not None
+        )
+        base: dict[str, object] = {
+            "schema_version": "rei-native-racio-interpretation-v1",
+            "interpretation_status": status,
+            "source_request_id": request.request_id,
+            "source_request_hash": request.content_hash(),
+            "source_manifestation_hashes": request.source_manifestation_hashes,
+            "interpreter_id": interpreter_id,
+            "interpreter_revision": interpreter_revision,
+            "interpreter_policy": interpreter_policy,
+            "policy_basis": "implementation_hypothesis",
+            "language": language,
+            "conscious_access_packet_id": conscious_access_packet_id,
+            "conscious_access_packet_hash": conscious_access_packet_hash,
+            "interpreter_result_id": interpreter_result_id,
+            "interpreter_result_hash": interpreter_result_hash,
+            "source_mind": request.source_mind,
+            "observed_manifestation_ids": tuple(
+                item.artifact_id for item in request.source_manifestation_hashes
+            ),
+            "observed_manifestations": observations,
+            "inferred_option_id": inferred_option_id,
+            "inferred_motive": (
+                f"structured_motive_class:{inferred_motive_class}"
+                if inferred_motive_class is not None
+                else "no_grounded_motive_class"
+            ),
+            "confidence": confidence,
+            "alternative_hypotheses": alternative_hypotheses,
+        }
+        if supporting_ids:
+            base["supporting_observation_ids"] = supporting_ids
+        if inferred_action_tendency is not None:
+            base["inferred_action_tendency"] = inferred_action_tendency
+        if inferred_motive_class is not None:
+            base["inferred_motive_class"] = inferred_motive_class
+        if unresolved_ambiguity is not None:
+            base["unresolved_ambiguity"] = unresolved_ambiguity
+        interpretation_id = content_id("racio_interpretation", base)
+        payload = {"interpretation_id": interpretation_id, **base}
+        interpretation = cls(
+            **payload,
+            interpretation_hash=sha256_hex(payload),
+        )
+        interpretation.validate_against_request(request)
+        return interpretation
+
     @model_validator(mode="after")
     def validate_observation_scope(self) -> Self:
         if len(set(self.observed_manifestation_ids)) != len(
@@ -1202,6 +1301,13 @@ class RacioInterpretation(FrozenArtifactModel):
                 self.source_manifestation_hashes
                 or self.supporting_observation_ids
                 or self.inferred_action_tendency is not None
+                or self.language is not None
+                or self.conscious_access_packet_id is not None
+                or self.conscious_access_packet_hash is not None
+                or self.interpreter_result_id is not None
+                or self.interpreter_result_hash is not None
+                or self.inferred_motive_class is not None
+                or self.unresolved_ambiguity is not None
             ):
                 raise ValueError("Legacy interpretation cannot publish B9 audit fields")
             return self
@@ -1209,6 +1315,29 @@ class RacioInterpretation(FrozenArtifactModel):
             raise ValueError("B9 interpretation requires complete request and policy lineage")
         if not self.source_manifestation_hashes:
             raise ValueError("B9 interpretation requires manifestation hash lineage")
+        c3_lineage = (
+            self.language,
+            self.conscious_access_packet_id,
+            self.conscious_access_packet_hash,
+            self.interpreter_result_id,
+            self.interpreter_result_hash,
+        )
+        if any(value is not None for value in c3_lineage) and any(
+            value is None for value in c3_lineage
+        ):
+            raise ValueError("C3 interpretation requires complete packet/result lineage")
+        has_c3_lineage = all(value is not None for value in c3_lineage)
+        if (
+            self.inferred_motive_class is not None
+            or self.unresolved_ambiguity is not None
+        ) and not has_c3_lineage:
+            raise ValueError("C3 structured fields require packet/result lineage")
+        if (
+            has_c3_lineage
+            and self.inferred_option_id is None
+            and self.unresolved_ambiguity is None
+        ):
+            raise ValueError("C3 option abstention requires unresolved ambiguity")
         if any(
             item.observation_status != "derived_b9"
             for item in self.observed_manifestations
@@ -1234,6 +1363,7 @@ class RacioInterpretation(FrozenArtifactModel):
                 or self.inferred_action_tendency is not None
                 or self.confidence != 0.0
                 or self.alternative_hypotheses
+                or self.inferred_motive_class is not None
             ):
                 raise ValueError("Omitted/unavailable interpretation cannot claim an inference")
         id_payload = self.model_dump(

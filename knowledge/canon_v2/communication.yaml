@@ -218,6 +218,13 @@ racio_interpretation_contract:
   validation_may_correct_output_using_native_ground_truth: false
   all_observed_manifestations_must_match_source_mind_type: true
   content_addressed: true
+  c3_extension_fields:
+    - language
+    - conscious_access_packet_id_and_hash
+    - interpreter_result_id_and_hash
+    - inferred_motive_class
+    - unresolved_ambiguity
+  c3_alias_output_is_resolved_only_after_provider_return: true
   source_claim_ids: [C-CONSC-001, C-RACIO-003, C-PROV-001]
 
 public_option_scope_policy:
@@ -287,6 +294,109 @@ model_backed_interpreter_boundary:
   local_llm_called_in_b9: false
   gpu_used_in_b9: false
   source_claim_ids: [C-PROV-001, C-RACIO-003]
+
+c3_conscious_access_boundary:
+  contract_status: implemented_in_c3
+  policy_id: c3-conscious-access-filter-v1
+  status: implementation_hypothesis
+  selected_relation:
+    source_E: R_to_E
+    source_I: R_to_I
+  formulas:
+    suppression: (1-tolerance)*sabotage_risk
+    effective_visibility: visibility*(1-suppression)
+    signal_fidelity: interpretation_fidelity*(1-0.5*sabotage_risk)
+    signal_noise: 1-signal_fidelity
+    delegation_openness: delegation_willingness
+    channel_quality: >-
+      effective_visibility*(0.70*signal_fidelity + 0.15*tolerance +
+      0.15*delegation_openness)
+  deterministic_selection:
+    rank_material: [policy_id, public_packet_alias, explicit_seed, stage]
+    visible_count: ceil(admitted_observation_count*effective_visibility)
+    minimum_when_positive: 1
+    clear_count: ceil(visible_observation_count*signal_fidelity)
+    degraded_value_policy: redact_exact_value_without_inversion_or_invention
+  zero_effective_visibility:
+    visible_observations: []
+    visible_artifacts: []
+    channel_quality: 0.0
+  provider_visible:
+    - source_mind
+    - language
+    - ablation_mode
+    - opaque_observation_aliases_and_perceived_values
+    - omitted_and_degraded_opaque_aliases
+    - opaque_artifact_aliases_and_public_media_metadata
+    - opaque_option_aliases_and_public_descriptions
+    - channel_quality
+    - uncertainty
+  trusted_audit_only:
+    - request_and_acceptance_ids_and_hashes
+    - actual_observation_option_and_artifact_ids_and_hashes
+    - manifestation_and_native_lineage
+    - exact_acceptance_dimensions_and_derived_filter_values
+  provider_payload_contains_packet_or_audit_hashes: false
+  hidden_native_non_interference_required: true
+  degraded_signal_may_invent_or_reverse_value: false
+  empirical_psychology_claim: false
+  source_claim_ids: [C-ACCEPT-001, C-CONSC-001, C-PROV-001]
+
+c3_structured_interpreter_boundary:
+  contract_status: implemented_in_c3
+  implementations:
+    - DeterministicStructuredRacioInterpreterProvider
+    - StructuredLLMRacioInterpreter
+    - VisionLanguageRacioInterpreter
+  model_input_type: ConsciousAccessPacket_provider_allowlist_only
+  strict_output_fields:
+    - source_mind
+    - cited_observation_ids
+    - inferred_option_id
+    - inferred_action_tendency
+    - inferred_motive_class
+    - confidence
+    - alternative_hypotheses
+    - unresolved_ambiguity
+  motive_class_vocabulary:
+    - attachment
+    - body_alarm
+    - boundary_alarm
+    - broken_scene
+    - motor_pattern
+    - unknown
+  action_tendency_vocabulary:
+    - approach
+    - attack
+    - compete
+    - connect
+    - conserve
+    - freeze
+    - improvise
+    - maintain
+    - perform
+    - protect
+    - seek_attachment
+    - seek_safety
+    - set_boundary
+    - unknown
+    - withdraw
+    - withdraw_contact
+  extra_fields_and_chain_of_thought_rejected: true
+  citations_must_be_visible_public_aliases: true
+  inferred_option_must_be_public_alias_or_null: true
+  ambiguity_calibration_hypothesis:
+    decisive_cue_degraded_omitted_or_contradicted:
+      inferred_option_id: null
+      unsupported_action_or_motive_class: unknown
+      maximum_confidence: 0.35
+    empirical_calibration_claim: false
+  trusted_alias_resolution_occurs_after_provider_return: true
+  model_failure_publishes_interpretation: false
+  retry_or_hidden_fallback: false
+  native_bundle_or_governance_mutation: false
+  concrete_production_model_selected: false
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-PROV-001]
 
 acceptance_fidelity_audit:
   contract_status: implemented_in_b9
