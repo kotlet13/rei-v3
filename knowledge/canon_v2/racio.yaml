@@ -1,0 +1,315 @@
+schema_version: rei-native-racio-v2
+status: architecture_canon
+runtime_effect: active_from_b5
+canon_language: sl
+mind_id: R
+canonical_name: Racio
+
+identity:
+  canonical_sl: >-
+    Racio je simbolno-jezikovni, številski, zaporedni in neposredno zavestni
+    REI procesor. Neposredna zavest mu ne daje značajske prednosti ali
+    zagotovila resnice.
+  en_gloss: directly conscious symbolic-linguistic and sequential REI processor
+  source_claim_ids: [C-RACIO-001, C-PERCEPT-001, C-CONSC-002, C-MINDS-001]
+
+native_domains:
+  status: implementation_hypothesis
+  values:
+    - facts_and_unknowns
+    - words_and_numbers
+    - time_and_sequence
+    - causality
+    - analysis_and_planning
+    - utility_and_explicit_consequences
+    - rationalization_risk
+  source_claim_ids: [C-RACIO-002]
+
+roles:
+  status: implementation_hypothesis
+  source_claim_ids: [C-RACIO-003, C-CONSC-003]
+  items:
+    - role: RacioNativeProcessor
+      effect: Doseže Racijev lasten nativni sklep brez podatka o karakterju.
+    - role: RacioInterpreter
+      effect: Iz E/I manifestacij sklepa o njunih možnostih in motivih.
+    - role: RacioCommitter
+      effect: Ustvari ConsciousDecision z made_by = R.
+    - role: RacioNarrator
+      effect: Razloži odločitev in self-model, ne da bi mutiral odločitev ali vedenje.
+
+input_contract:
+  contract_status: implemented_in_b5
+  status: implementation_hypothesis
+  required_semantics:
+    - symbolic_and_language_cues
+    - numeric_cues
+    - explicit_facts
+    - explicit_unknowns
+    - time
+    - rules
+    - explicit_options
+    - explicit_consequences
+    - constraints
+    - allowed_option_ids
+    - evidence_ids
+    - RacioWorld
+    - previous_RacioProjection_records
+    - caveat
+    - language
+    - source_scene_hash
+  prohibited_inputs_in_controlled_mode:
+    - character_profile
+    - authority_rank
+    - hidden_emocio_motive
+    - hidden_instinkt_motive
+  source_claim_ids: [C-NATIVE-002, C-PROV-001, C-RACIO-002]
+
+native_processor_implementation:
+  status: implementation_hypothesis
+  implemented_in: B5
+  processor_protocol: RacioNativeProcessor
+  deterministic_fixture_provider:
+    name: DeterministicRacioProvider
+    policy_id: first-allowed-option-v1
+    semantic_scoring: false
+    keyword_scoring: false
+    production_reasoner: false
+    tie_or_no_option_behavior: abstain_when_no_option
+  model_adapter:
+    name: TextReasonerRacioAdapter
+    provider_protocol: TextReasoner
+    strict_json: true
+    rejects_extra_fields: true
+    requires_call_lineage: true
+    requires_provider_result_id_and_hash: true
+    concrete_model_selected: false
+  excluded_from_b5: [RacioInterpreter, RacioCommitter, RacioNarrator]
+
+native_conclusion_contract:
+  contract_status: implemented_in_b5
+  status: implementation_hypothesis
+  fields:
+    - mind
+    - option_id
+    - source_packet_hash
+    - evidence_ids_used
+    - reasoning_provider_result_id
+    - reasoning_provider_result_hash
+    - facts_used
+    - unknowns
+    - causal_sequence
+    - utility_structure
+    - explicit_goal
+    - main_objection
+    - confidence
+    - abstains
+    - uncertainty
+  invariants:
+    mind_is_R: true
+    precedes_governance: true
+    profile_blind_in_controlled_mode: true
+    facts_unknowns_and_sequence_are_disjoint: true
+    explicit_fact_citations_are_exact: true
+    content_addressed_for_b5_outputs: true
+  source_claim_ids: [C-RACIO-002, C-NATIVE-002, C-BUNDLE-001]
+
+interpretation_contract:
+  contract_status: implemented_in_b9
+  schema_origin: documented_for_b2
+  status: implementation_hypothesis
+  consolidated_contract: knowledge/canon_v2/communication.yaml
+  fields:
+    - source_mind
+    - observed_manifestation_ids
+    - observed_manifestations
+    - inferred_option_id
+    - inferred_action_tendency
+    - inferred_motive
+    - confidence
+    - alternative_hypotheses
+  b9_lineage_extensions:
+    - source_request_id_and_hash
+    - interpretation_hash
+    - observed_manifestation_hashes
+    - structured_observation_ids_and_hashes
+    - interpreter_id_revision_and_policy_with_script_configuration_hash
+    - optional_ungrounded_VLM_result_id_and_hash
+  source_minds: [E, I]
+  observes:
+    - manifestation_artifact_ids
+    - body_or_motor_signals
+    - surfaced_attraction_or_aversion
+  may_distort_as:
+    - omission
+    - rationalization
+    - minimization
+    - projection
+    - misclassification
+    - unknown
+  forbidden_ground_truth:
+    - NativeMindBundle
+    - EmocioNativeConclusion
+    - InstinktNativeConclusion
+    - hidden_native_motives
+    - diagnostic_translation_gap
+    - native_motive_summary
+    - character_profile
+    - authority_tiers
+  concrete_model_selected_or_called_in_b9: false
+  local_llm_or_gpu_called_in_b9: false
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003]
+
+b9_interpreter_policy:
+  status: implementation_hypothesis
+  canonical_contract: knowledge/canon_v2/communication.yaml
+  deterministic_reference: b9-scripted-observable-interpretation-v1
+  reference_is_production_reasoner: false
+  wrong_interpretation_must_remain_representable: true
+  validation_may_correct_from_native_ground_truth: false
+  acceptance_fidelity_behavior: record_only_audit
+  acceptance_relation_by_source: {E: R_to_E, I: R_to_I}
+  exact_fidelity_policy: b9-exact-action-tendency-fidelity-v1
+  motive_strings_are_diagnostic_only: true
+  commit_narration_and_behavior_included: false
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-BUNDLE-001]
+
+conscious_decision_contract:
+  contract_status: implemented_in_b10
+  status: implementation_hypothesis
+  policy_id: b10-conscious-commit-table-v1
+  policy_revision: "1"
+  policy_basis: implementation_hypothesis
+  fields:
+    - made_by
+    - option_id
+    - declared_reason
+    - conscious_confidence
+    - aligned_with_governance_mandate
+    - decision_status
+  decision_statuses: [committed, deferred, oscillating, blocked, unknown]
+  fixed_values:
+    made_by: R
+  b10_lineage:
+    - source_RacioNativeConclusion_id_and_hash
+    - source_ConsciousMandateView_id_and_hash
+    - source_scene_id
+    - scene_and_acceptance_bound_ConsciousInterpretationInput_ids_and_hashes
+    - source_AcceptanceState_id_and_hash
+    - commit_policy_id_and_revision
+    - commit_policy_hash_and_applied_rule_id
+  hidden_motive_noninterference:
+    conscious_mandate_view_contains_source_mandate_id_or_hash: false
+    conscious_mandate_view_contains_governance_resolution_id_or_hash: false
+    reason: >-
+      Ti identifikatorji in hashi vključujejo diagnostične hidden_native_motives
+      in bi zato ustvarili neprozoren fingerprint v zavestnem vhodu.
+    diagnostic_trace_keeps_full_governance_artifacts_separately: true
+    changing_only_hidden_native_motives_changes_public_view: false
+  interpretation_binding:
+    exact_B9_request_and_interpretation_are_frozen_together: true
+    source_scene_id_must_match_conscious_mandate_view: true
+    source_mandate_view_id_and_hash_must_match_current_cycle: true
+    request_manifestation_ids_and_hashes_must_match_current_bundle_public_manifestations: true
+    acceptance_state_id_and_hash_must_match_current_cycle: true
+    cross_scene_cross_run_or_cross_acceptance_reuse_is_rejected: true
+    E_or_I_led_mandate_requires_typed_interpretation_for_each_structural_source: true
+    omitted_or_unavailable_B9_records_are_valid_but_empty_input_is_not: true
+  allowed_semantic_inputs:
+    - RacioNativeConclusion
+    - public_governance_mandate_projection_without_hidden_native_motives
+    - scene_and_acceptance_bound_typed_RacioInterpretation_records
+    - explicit_AcceptanceState
+  prohibited_inputs:
+    - NativeMindBundle
+    - EmocioNativeConclusion
+    - InstinktNativeConclusion
+    - GovernanceMandate.hidden_native_motives
+    - TranslationGap
+    - AcceptanceFidelityAssessment
+    - CharacterAuthority
+    - authority_tiers
+    - prose_keyword_classifier
+    - provider_or_llm_completion
+  branch_inputs_only:
+    - explicit_acceptance_overall_mode
+    - actionable_governance_status_and_option
+    - governance_structural_source_minds
+    - exact_interpreted_option_match_for_structural_E_or_I_source
+    - RacioNativeConclusion_option_and_abstention
+  never_branch_on:
+    - confidence
+    - directed_relation_thresholds
+    - translation_gap
+    - hidden_motives
+    - character_weights
+  exact_branch_table: knowledge/canon_v2/acceptance.yaml#initial_behavior_mapping
+  source_claim_ids: [C-CONSC-002, C-CONSC-003, C-GOV-001]
+
+narration_contract:
+  contract_status: implemented_in_b10
+  status: implementation_hypothesis
+  policy_id: b10-racio-self-narrative-v1
+  policy_revision: "1"
+  policy_basis: implementation_hypothesis
+  fields: [explanation, claimed_motive, acknowledged_minds, omitted_minds, uncertainty]
+  may_mutate: []
+  read_only_targets:
+    - NativeMindBundle
+    - GovernanceMandate
+    - ConsciousDecision
+    - BehaviorResultant
+  b10_runtime_boundary:
+    runs_after_behavior_resultant: true
+    receives_frozen_decision_and_behavior: true
+    returns_new_frozen_RacioSelfNarrative: true
+    decision_or_behavior_fields_in_output: false
+    provider_or_llm_called: false
+    exact_source_decision_and_resultant_lineage_required: true
+    same_inputs_replay_to_same_narrative_id_and_hash: true
+    explanation_may_diverge_from_governance_or_native_motive: true
+    divergence_may_not_rewrite_any_upstream_artifact: true
+  source_claim_ids: [C-RACIO-003, C-BEHAV-001]
+
+b10_conscious_runtime:
+  status: implementation_hypothesis
+  implemented_in: B10
+  commit_policy_id: b10-conscious-commit-table-v1
+  commit_policy_revision: "1"
+  behavior_policy_id: b10-behavior-resolution-table-v1
+  behavior_policy_revision: "1"
+  narration_policy_id: b10-racio-self-narrative-v1
+  narration_policy_revision: "1"
+  ordered_flow:
+    - consume_frozen_Racio_native_conclusion
+    - consume_public_governance_mandate_projection
+    - consume_typed_E_and_I_interpretations
+    - consume_explicit_acceptance_state
+    - create_ConsciousDecision_made_by_R
+    - resolve_BehaviorResultant_from_explicit_table
+    - create_downstream_RacioSelfNarrative
+  invariants:
+    - committer_does_not_recompute_or_mutate_governance
+    - committer_does_not_receive_hidden_E_or_I_native_truth
+    - public_view_ids_and_hashes_do_not_depend_on_hidden_native_motives
+    - resolver_replays_the_rule_from_bound_inputs_instead_of_trusting_an_output_label
+    - narrator_does_not_mutate_decision_or_behavior
+    - option_agreement_does_not_prove_acceptance
+    - non_acceptance_is_a_visible_status_or_tension_not_an_integrated_compromise
+    - no_local_LLM_provider_or_GPU_call_is_needed_for_B10
+  source_claim_ids: [C-RACIO-003, C-CONSC-003, C-GOV-001, C-BEHAV-001, C-BEHAV-002]
+
+global_invariants:
+  - canonical_sl: Racio je zavestni kanal, ne samodejno nativni izvor sklepa.
+    source_claim_ids: [C-CONSC-002, C-CONSC-003]
+  - canonical_sl: Racio nima dodatnega značajskega glasu zaradi zavesti.
+    source_claim_ids: [C-MINDS-001, C-ARB-002, C-CONSC-003]
+  - canonical_sl: Racijeva interpretacija ne mutira E/I nativnega sklepa.
+    source_claim_ids: [C-BUNDLE-001, C-EMOCIO-003, C-INSTINKT-003]
+
+open_question_ids:
+  - OQ-RACIO-001
+  - OQ-TRANSLATION-001
+  - OQ-RANGE-001
+  - OQ-SCHEMA-001
+  - OQ-NAMING-001

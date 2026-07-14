@@ -1,71 +1,70 @@
-# REI Workbench GUI
+# REI Native Composition Workbench
 
-This is the active prompt-testing GUI for the current REI baseline.
+`app/gui/` is the active inspection surface for the native REI architecture.
+The legacy textual prompt/dataset GUI is preserved only in the immutable A1
+archive snapshot.
 
-It is intentionally separate from the archived legacy GUI. The workbench reads
-the current baseline prompts from `app/backend/rei/contract_loader.py`, allows
-local prompt overrides, streams direct Ollama responses, and records local test
-history.
+The workbench exposes four layers:
 
-Each output panel has a `View` selector. `RAW JSON` shows the complete raw model
-response. Other options are discovered dynamically from the top-level keys in
-the actual JSON output, including partial or truncated raw output where possible.
-The selected view is remembered locally per processor.
+- **Native** — Racio facts and utility, Emocio visual scenes/image slots, and
+  Instinkt body trajectories.
+- **Communication** — Emocio/Instinkt manifestations and Racio's
+  interpretations. Native comparison truth appears only behind the explicitly
+  labelled evaluator-debug switch.
+- **Character** — structural and effective authority, processor availability,
+  governance, conscious decision, and behavior resultant.
+- **Ego** — measure, trace timeline, composition snapshot, Racio
+  self-narrative, spoznanja, and three modality-specific projections.
 
-Run:
+## Run locally
 
-```powershell
-python -m uvicorn app.gui.server:app --host 127.0.0.1 --port 8765
-```
-
-Open:
-
-```text
-http://127.0.0.1:8765
-```
-
-Runtime files are ignored by git:
-
-- `app/gui/data/prompt_overrides.json`
-- `app/gui/data/test_history.jsonl`
-
-The baseline runner remains `scripts/run_rei_profile_matrix.py`.
-
-## Dataset Review
-
-The workbench also exposes a local dataset editor for REI fine-tune datasets
-under `datasets/{dataset_id}`. It can list examples, validate required REI
-keys plus `process_trace`, edit assistant JSON, approve/reject examples, and
-export approved valid examples to SFT chat JSONL.
-
-Pilot generation is explicit and does not run from the GUI:
+From the repository root:
 
 ```powershell
-python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_profile_pilot_v1 --model gemma4:26b --scenario-count 10 --dry-run
-python scripts\generate_rei_ft_dataset.py --dataset-id rei_ft_profile_pilot_v1 --model gemma4:26b --scenario-count 10 --confirm-run
+app\backend\.venv\Scripts\python.exe -m uvicorn app.gui.server:app --host 127.0.0.1 --port 8765
 ```
 
-The default pilot shape is 10 matched situations. Each situation gets one
-Racio, Emocio, and Instinkt example, then 13 EgoResultant examples over the
-same processor signals, one per character profile.
+Then open `http://127.0.0.1:8765`.
 
-Validation and export:
+The default action runs the checked-in deterministic fixture. It does not
+contact Ollama, load a model, render an image, use the GPU, or create training
+data. Every run uses create-only artifact storage.
+
+Override the local stores when needed:
 
 ```powershell
-python scripts\validate_rei_ft_dataset.py rei_ft_profile_pilot_v1
-python scripts\export_rei_ft_dataset.py rei_ft_profile_pilot_v1
+$env:REI_GUI_RUNS_ROOT = "tmp/gui/runs"
+$env:REI_GUI_EGO_TRACES_ROOT = "tmp/gui/ego-traces"
 ```
 
-## Profile Matrix Review
+## Image behavior
 
-Profile-matrix run outputs can be imported into the same dataset editor as
-review-only datasets:
+Every `VisualSceneSpec` gets a visible image well. If rendering was disabled,
+the well says so and keeps the structured scene authoritative. A raster image
+is served only when its exact PNG path is present in a cold-verified V2 run
+manifest and its bytes match the recorded SHA-256 metadata. The GUI never
+invents a placeholder image or loads a remote image.
 
-```powershell
-python scripts\import_rei_profile_matrix_review_dataset.py output\reports\rei_profile_matrix\prompt_isolation_20260627_121704\cases.jsonl --dataset-id rei_profile_matrix_review_20260627_121704 --overwrite
-```
+## HTTP surface
 
-The committed review dataset `rei_profile_matrix_review_20260627_121704`
-contains 624 examples: 12 scenarios x 13 profiles x 4 targets. Use the GUI
-Target and Profile filters to inspect one processor/profile combination at a
-time. Review-only examples are skipped by SFT export.
+- `GET /api/bootstrap` returns the frozen fixture, the 13 canonical character
+  contracts, and runtime capability flags without executing the engine.
+- `POST /api/cycles?debug=false` accepts an exact
+  `ReiNativeCycleRequest` up to 1 MiB and runs only the deterministic provider
+  set.
+- `GET /api/runs/{run_id}/images/{image_id}` serves only a manifest-verified
+  PNG artifact.
+
+No dataset, training, prompt-override, Ollama, or free-form filesystem route is
+part of this application.
+
+Evaluator ground truth requested with `debug=true` is loopback-only. A remote
+deployment must set `REI_GUI_ALLOW_REMOTE_DEBUG=true` explicitly before that
+view can be exposed; normal `debug=false` requests are unaffected.
+
+## Verified dependency baseline
+
+The workbench was checked on 2026-07-13 against the then-current
+stable releases: FastAPI 0.139.0, Uvicorn 0.51.0, Pydantic 2.13.4, and
+Playwright CLI 0.1.17. The UI itself is dependency-free static
+HTML, CSS, and JavaScript.

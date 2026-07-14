@@ -1,0 +1,877 @@
+{
+  "description": "Sintetični primer odločitve o delu v tujini.",
+  "emocio_packet": {
+    "actor_positions": [],
+    "aesthetic_cues": [],
+    "allowed_option_ids": [
+      "job_abroad_option_a",
+      "job_abroad_option_b",
+      "job_abroad_option_c"
+    ],
+    "caveat": "Profilno slep sintetični paket; brez generiranja slik.",
+    "evidence_ids": [
+      "job_abroad_evidence"
+    ],
+    "explicit_identity_cues": [],
+    "grounded_visual_cues": [
+      "Strukturiran sintetični prizor brez renderirane slike."
+    ],
+    "movement_cues": [],
+    "observed_attention": [],
+    "packet_id": "job_abroad_emocio_packet",
+    "scene_id": "job_abroad_event",
+    "schema_version": "rei-native-emocio-input-packet-v1",
+    "social_layout": []
+  },
+  "emocio_visual_state": {
+    "broken_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "job_abroad_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "job_abroad_visual_broken",
+      "scene_kind": "broken",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "current_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "job_abroad_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "job_abroad_visual_current",
+      "scene_kind": "current",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "desired_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "strukturiran sintetični prizor"
+      ],
+      "entities": [
+        "simulirana_oseba"
+      ],
+      "grounded_evidence_ids": [
+        "job_abroad_evidence"
+      ],
+      "group_belonging": "ni določeno",
+      "inferred_elements": [],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "job_abroad_visual_desired",
+      "scene_kind": "desired",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "opazovalna točka sintetičnega fixtureja",
+      "status_relations": []
+    },
+    "option_rollouts": [
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "job_abroad_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "job_abroad_option_a",
+        "scene_id": "job_abroad_visual_rollout_a",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "job_abroad_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "job_abroad_option_b",
+        "scene_id": "job_abroad_visual_rollout_b",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "strukturiran sintetični prizor"
+        ],
+        "entities": [
+          "simulirana_oseba"
+        ],
+        "grounded_evidence_ids": [
+          "job_abroad_evidence"
+        ],
+        "group_belonging": "ni določeno",
+        "inferred_elements": [],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": "job_abroad_option_c",
+        "scene_id": "job_abroad_visual_rollout_c",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "opazovalna točka sintetičnega fixtureja",
+        "status_relations": []
+      }
+    ],
+    "option_valuations": [
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.8
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.8
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.8
+          },
+          {
+            "name": "belonging",
+            "score": 0.8
+          },
+          {
+            "name": "attention",
+            "score": 0.8
+          },
+          {
+            "name": "attraction",
+            "score": 0.8
+          },
+          {
+            "name": "novelty",
+            "score": 0.8
+          },
+          {
+            "name": "movement",
+            "score": 0.8
+          },
+          {
+            "name": "status",
+            "score": 0.8
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.8
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.8
+          }
+        ],
+        "option_id": "job_abroad_option_a",
+        "rollout_scene_id": "job_abroad_visual_rollout_a"
+      },
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "belonging",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attention",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attraction",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "novelty",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "movement",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "status",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.30000000000000004
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.30000000000000004
+          }
+        ],
+        "option_id": "job_abroad_option_b",
+        "rollout_scene_id": "job_abroad_visual_rollout_b"
+      },
+      {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.2
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 0.2
+          },
+          {
+            "name": "self_visibility",
+            "score": 0.2
+          },
+          {
+            "name": "belonging",
+            "score": 0.2
+          },
+          {
+            "name": "attention",
+            "score": 0.2
+          },
+          {
+            "name": "attraction",
+            "score": 0.2
+          },
+          {
+            "name": "novelty",
+            "score": 0.2
+          },
+          {
+            "name": "movement",
+            "score": 0.2
+          },
+          {
+            "name": "status",
+            "score": 0.2
+          },
+          {
+            "name": "competitive_success",
+            "score": 0.2
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.2
+          }
+        ],
+        "option_id": "job_abroad_option_c",
+        "rollout_scene_id": "job_abroad_visual_rollout_c"
+      }
+    ],
+    "schema_version": "rei-native-emocio-visual-state-v1",
+    "source_packet_id": "job_abroad_emocio_packet",
+    "source_scene_id": "job_abroad_event",
+    "visual_state_id": "job_abroad_emocio_visual_state"
+  },
+  "expected_native_reasons": [
+    {
+      "mind": "R",
+      "reason": "Primerjaj dolgoročne posledice in izberi preverljivo karierno smer.",
+      "source_field": "explicit_goal"
+    },
+    {
+      "mind": "E",
+      "reason": "Vzpostavi prizor novega okolja, rasti in vidne življenjske spremembe.",
+      "source_field": "desired_transformation"
+    },
+    {
+      "mind": "I",
+      "reason": "Ohrani izvedljivo možnost varnega umika in vrnitve.",
+      "source_field": "minimum_safety_condition"
+    }
+  ],
+  "expected_profile_outcomes": [
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "R>(E=I)",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "E>(R=I)",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_b",
+      "pair_status": null,
+      "profile_id": "I>(R=E)",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": "resolved",
+      "profile_id": "(R=E)>I",
+      "source_minds": [
+        "R",
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": null,
+      "pair_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "source_minds": [
+        "R",
+        "I"
+      ],
+      "status": "unresolved"
+    },
+    {
+      "option_id": null,
+      "pair_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "source_minds": [
+        "E",
+        "I"
+      ],
+      "status": "unresolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "R>E>I",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "R>I>E",
+      "source_minds": [
+        "R"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "E>R>I",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "E>I>R",
+      "source_minds": [
+        "E"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_b",
+      "pair_status": null,
+      "profile_id": "I>R>E",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_b",
+      "pair_status": null,
+      "profile_id": "I>E>R",
+      "source_minds": [
+        "I"
+      ],
+      "status": "resolved"
+    },
+    {
+      "option_id": "job_abroad_option_a",
+      "pair_status": null,
+      "profile_id": "R=E=I",
+      "source_minds": [
+        "R",
+        "E"
+      ],
+      "status": "resolved"
+    }
+  ],
+  "expected_spoznanje": false,
+  "expected_spoznanje_status": "partial_agreement",
+  "fixture_id": "fixture_job_abroad",
+  "fixture_status": "synthetic_architecture_fixture",
+  "instinkt_body_state": {
+    "arousal": 0.4,
+    "attachment_security": 0.6,
+    "body_state_id": "job_abroad_body_state",
+    "boundary_integrity": 0.8,
+    "energy": 0.7,
+    "escape_availability": 0.9,
+    "fatigue": 0.3,
+    "pain": 0.0,
+    "physical_integrity": 1.0,
+    "predictability": 0.5,
+    "resource_security": 0.7,
+    "schema_version": "rei-native-body-state-v1",
+    "tension": 0.3,
+    "trust": 0.6,
+    "uncertainty": 0.4
+  },
+  "instinkt_packet": {
+    "attachment_cues": [],
+    "boundary_cues": [],
+    "caveat": "Konceptualni virtual-body sintetični paket.",
+    "escape_cues": [],
+    "evidence_ids": [
+      "job_abroad_evidence"
+    ],
+    "explicit_body_cues": [],
+    "option_ids": [
+      "job_abroad_option_a",
+      "job_abroad_option_b",
+      "job_abroad_option_c"
+    ],
+    "packet_id": "job_abroad_instinkt_packet",
+    "physical_cues": [],
+    "scarcity_cues": [],
+    "scene_id": "job_abroad_event",
+    "schema_version": "rei-native-instinkt-input-packet-v1",
+    "source_body_state_id": "job_abroad_body_state",
+    "trust_cues": [],
+    "uncertainty_cues": []
+  },
+  "instinkt_rollouts": [
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "višji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "job_abroad_option_a",
+      "predicted_loss": 0.6,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.5,
+      "rollout_id": "job_abroad_instinkt_rollout_a",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "job_abroad_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    },
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "najnižji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "job_abroad_option_b",
+      "predicted_loss": 0.1,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.9,
+      "rollout_id": "job_abroad_instinkt_rollout_b",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "job_abroad_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    },
+    {
+      "attachment_outcome": "zabeležen sintetični izid navezanosti",
+      "boundary_outcome": "zabeležen sintetični izid meje",
+      "dominant_alarm": "višji primerjalni alarm",
+      "escape_outcome": "zabeležena možnost umika",
+      "option_id": "job_abroad_option_c",
+      "predicted_loss": 0.6,
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "recoverability": 0.5,
+      "rollout_id": "job_abroad_instinkt_rollout_c",
+      "schema_version": "rei-native-instinkt-option-rollout-v1",
+      "trajectory": [
+        {
+          "arousal": 0.4,
+          "attachment_security": 0.6,
+          "body_state_id": "job_abroad_body_state",
+          "boundary_integrity": 0.8,
+          "energy": 0.7,
+          "escape_availability": 0.9,
+          "fatigue": 0.3,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.7,
+          "schema_version": "rei-native-body-state-v1",
+          "tension": 0.3,
+          "trust": 0.6,
+          "uncertainty": 0.4
+        }
+      ],
+      "trust_outcome": "zabeležen sintetični izid zaupanja"
+    }
+  ],
+  "logic_pattern": "RE_I",
+  "native_bundle": {
+    "allowed_option_ids": [
+      "job_abroad_option_a",
+      "job_abroad_option_b",
+      "job_abroad_option_c"
+    ],
+    "bundle_id": "bundle_cf6181d486530ee08c0f495c71748304",
+    "created_at": "2026-07-13T12:00:00Z",
+    "emocio": {
+      "abstains": false,
+      "action_tendency": "approach",
+      "conclusion_id": "job_abroad_emocio_conclusion",
+      "current_scene_id": "job_abroad_visual_current",
+      "decisive_rollout_scene_id": "job_abroad_visual_rollout_a",
+      "desired_scene_id": "job_abroad_visual_desired",
+      "desired_transformation": "Vzpostavi prizor novega okolja, rasti in vidne življenjske spremembe.",
+      "intensity": 0.7,
+      "main_obstacle": "Sintetična primerjalna ovira.",
+      "mind": "E",
+      "option_id": "job_abroad_option_a",
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "job_abroad_emocio_packet",
+      "source_scene_id": "job_abroad_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja.",
+      "valuation_dimensions": [
+        {
+          "name": "desired_scene_match",
+          "score": 0.8
+        },
+        {
+          "name": "distance_from_broken_scene",
+          "score": 0.8
+        },
+        {
+          "name": "self_visibility",
+          "score": 0.8
+        },
+        {
+          "name": "belonging",
+          "score": 0.8
+        },
+        {
+          "name": "attention",
+          "score": 0.8
+        },
+        {
+          "name": "attraction",
+          "score": 0.8
+        },
+        {
+          "name": "novelty",
+          "score": 0.8
+        },
+        {
+          "name": "movement",
+          "score": 0.8
+        },
+        {
+          "name": "status",
+          "score": 0.8
+        },
+        {
+          "name": "competitive_success",
+          "score": 0.8
+        },
+        {
+          "name": "attack_or_breakthrough_affordance",
+          "score": 0.8
+        }
+      ]
+    },
+    "emocio_packet_hash": "e778f339a6676d308e032383818c7d25dfb87e641f46b9207daab66cda162f43",
+    "emocio_visual_state_hash": "f9020ec5adb7d9add7234f39504e0ec5e44db1cd9ba5f4d916e6af53ed8bf644",
+    "emocio_visual_state_id": "job_abroad_emocio_visual_state",
+    "immutable_hash": "510074dc0b7df121ea601fad21a01cc79c06cee30c81dccbbeb1c6edce88e842",
+    "instinkt": {
+      "abstains": false,
+      "action_tendency": "protect",
+      "conclusion_id": "job_abroad_instinkt_conclusion",
+      "danger_claims": [],
+      "decisive_rollout_id": "job_abroad_instinkt_rollout_b",
+      "decisive_rollout_option_id": "job_abroad_option_b",
+      "dominant_alarm": "Sintetični zaščitni alarm.",
+      "intensity": 0.6,
+      "mind": "I",
+      "minimum_safety_condition": "Ohrani izvedljivo možnost varnega umika in vrnitve.",
+      "option_id": "job_abroad_option_b",
+      "protected_targets": [
+        "meja",
+        "obnovljivost"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "job_abroad_body_state",
+      "source_packet_id": "job_abroad_instinkt_packet",
+      "source_scene_id": "job_abroad_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja."
+    },
+    "instinkt_body_state_hash": "e81850a62c9012ef3774afe7861dbe5dc4fe87f0a3d5f5a31f25fa7193078b9e",
+    "instinkt_body_state_id": "job_abroad_body_state",
+    "instinkt_packet_hash": "9b2f7f7ae4c1efbb102af215e8736f3c25b1cf32f72c7a2f8885e244c8f7b406",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "job_abroad_instinkt_rollout_a",
+        "sha256": "68e3d5622201cc0b84114a0593cde5f12c8aeb1a56a6b34e89b4802e51f448b7"
+      },
+      {
+        "artifact_id": "job_abroad_instinkt_rollout_b",
+        "sha256": "601e0add63772e6034ff788d85a51ba20360b04d51cc88240109ab011b2b3456"
+      },
+      {
+        "artifact_id": "job_abroad_instinkt_rollout_c",
+        "sha256": "6bb19fbf62f43bf0b450681875bf7bbe51689fbca150a2438c4db7c57d93587b"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "grounded event -> native Racio option"
+      ],
+      "conclusion_id": "job_abroad_racio_conclusion",
+      "confidence": 0.8,
+      "explicit_goal": "Primerjaj dolgoročne posledice in izberi preverljivo karierno smer.",
+      "facts_used": [
+        "Oseba izbira med sprejetjem dela v tujini, ostankom doma in odlogom odločitve."
+      ],
+      "main_objection": "Primerjalni ugovor proti možnosti a ni odločilen.",
+      "mind": "R",
+      "option_id": "job_abroad_option_a",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_id": "job_abroad_racio_packet",
+      "source_scene_id": "job_abroad_event",
+      "uncertainty": "Sintetični fixture ne napoveduje dejanskega vedenja.",
+      "unknowns": [
+        "Dejanski izid ni del B3 fixtureja."
+      ],
+      "utility_structure": [
+        "fixture-specific explicit goal"
+      ]
+    },
+    "racio_packet_hash": "840d7610c22f8b11952d04180f94d8c8216ae5fbda7e96239471dafb77c0c066",
+    "scene_hash": "08fd80a5dae87f32edd828b13a38ff171079ad28e85cf0880044b5550740a402",
+    "scene_id": "job_abroad_event",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "normative_scope": "governance_only",
+  "open_question_ids": [
+    "OQ-PAIR-001",
+    "OQ-DELEGATION-001",
+    "OQ-AVAILABILITY-001"
+  ],
+  "racio_packet": {
+    "allowed_option_ids": [
+      "job_abroad_option_a",
+      "job_abroad_option_b",
+      "job_abroad_option_c"
+    ],
+    "caveat": "Profilno slep sintetični paket.",
+    "constraints": [
+      "Fixture preverja samo deterministično governance."
+    ],
+    "evidence_ids": [
+      "job_abroad_evidence"
+    ],
+    "explicit_consequences": [],
+    "explicit_facts": [
+      "Oseba izbira med sprejetjem dela v tujini, ostankom doma in odlogom odločitve."
+    ],
+    "explicit_options": [
+      {
+        "description": "",
+        "label": "sprejmi delo v tujini",
+        "option_id": "job_abroad_option_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "ostani doma",
+        "option_id": "job_abroad_option_b",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "odloži odločitev",
+        "option_id": "job_abroad_option_c",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "explicit_unknowns": [
+      "Dejanski izid ni del B3 fixtureja."
+    ],
+    "numeric_cues": [],
+    "packet_id": "job_abroad_racio_packet",
+    "previous_racio_projection_ids": [],
+    "rules": [],
+    "scene_id": "job_abroad_event",
+    "schema_version": "rei-native-racio-input-packet-v1",
+    "symbolic_and_language_cues": [
+      "Oseba izbira med sprejetjem dela v tujini, ostankom doma in odlogom odločitve."
+    ],
+    "time": [],
+    "world": {
+      "commitments": [],
+      "explicit_beliefs": [],
+      "facts": [
+        "Oseba izbira med sprejetjem dela v tujini, ostankom doma in odlogom odločitve."
+      ],
+      "rules": [],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [],
+      "world_id": "job_abroad_racio_world"
+    }
+  },
+  "scene": {
+    "actors": [
+      "simulirana oseba"
+    ],
+    "constraints": [
+      "Fixture preverja samo deterministično governance."
+    ],
+    "event_id": "job_abroad_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Oseba izbira med sprejetjem dela v tujini, ostankom doma in odlogom odločitve.",
+        "evidence_id": "job_abroad_evidence",
+        "grounded": true,
+        "inferred_by": null,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "synthetic_fixture:job_abroad"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "",
+        "label": "sprejmi delo v tujini",
+        "option_id": "job_abroad_option_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "ostani doma",
+        "option_id": "job_abroad_option_b",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "",
+        "label": "odloži odločitev",
+        "option_id": "job_abroad_option_c",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Oseba izbira med sprejetjem dela v tujini, ostankom doma in odlogom odločitve.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Dejanski izid ni del B3 fixtureja."
+    ]
+  },
+  "schema_version": "rei-native-governance-fixture-v1"
+}

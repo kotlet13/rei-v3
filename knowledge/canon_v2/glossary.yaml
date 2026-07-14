@@ -1,0 +1,184 @@
+schema_version: rei-native-glossary-v2
+status: architecture_canon
+runtime_effect: none_in_b1
+canon_language: sl
+operational_gloss_language: en
+translation_policy_claim_ids: [C-LANG-001, C-CANON-001]
+
+terms:
+  - term_id: REI_RACIO
+    canonical_sl: Racio
+    definition_sl: >-
+      Najmlajši REI razum; njegov nativni način je simbolno-jezikoven,
+      številski, analitičen, zaporeden in neposredno zavesten.
+    en_gloss: directly conscious symbolic-linguistic REI mind
+    do_not_translate_as: [ordinary reason, objective rationality, whole self]
+    source_claim_ids: [C-RACIO-001, C-PERCEPT-001, C-CONSC-002]
+
+  - term_id: REI_EMOCIO
+    canonical_sl: Emocio
+    definition_sl: >-
+      REI razum, ki nativno procesira strukturirane slike, prizore, primerjave,
+      želene in porušene podobe, izkušnjo ter motorne težnje.
+    en_gloss: visual-scenic and experiential REI mind
+    do_not_translate_as: [emotion, mood, generic empathy, image generator]
+    source_claim_ids: [C-EMOCIO-001, C-EMOCIO-002, C-EMOCIO-003]
+
+  - term_id: REI_INSTINKT
+    canonical_sl: Instinkt
+    definition_sl: >-
+      Najstarejši REI razum; nativno procesira telesno stanje, asociacije,
+      nevarnost, izgubo, meje, zaupanje, navezanost in zaščitne težnje.
+    en_gloss: embodied associative protective REI mind
+    do_not_translate_as: [reflex, impulse, automatic panic, textual safety adviser]
+    source_claim_ids: [C-INSTINKT-001, C-INSTINKT-002, C-INSTINKT-003]
+
+  - term_id: REI_RAZUM
+    canonical_sl: razum
+    definition_sl: >-
+      Eden od treh avtonomnih REI procesorjev: Racio, Emocio ali Instinkt.
+    en_gloss: REI mind or native processor
+    do_not_translate_as: [ordinary reason, rational faculty, intelligence score]
+    source_claim_ids: [C-MINDS-001, C-NATIVE-002]
+
+  - term_id: REI_KARAKTER
+    canonical_sl: karakter
+    aliases_sl: [značaj]
+    definition_sl: >-
+      Stabilna ordinalna razporeditev značajske avtoritete med Raciom,
+      Emociem in Instinktom.
+    en_gloss: stable ordinal character-authority hierarchy
+    do_not_translate_as: [current mood, behavior stereotype, decimal weight vector]
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-CHAR-004, C-CHAR-005]
+
+  - term_id: REI_STRUKTURNI_KARAKTER
+    canonical_sl: strukturni karakter
+    definition_sl: >-
+      Shranjena ordinalna hierarhija, ki je stanje, intenzivnost, delegacija
+      ali začasna funkcionalna nedostopnost ne prepišejo.
+    en_gloss: persistent structural character authority
+    do_not_translate_as: [effective availability, current controller]
+    source_claim_ids: [C-STATE-001, C-CHAR-006]
+
+  - term_id: REI_SPREJEMANJE
+    canonical_sl: sprejemanje
+    definition_sl: >-
+      Usmerjena kakovost vidnosti, prevajanja, tolerance, sodelovanja in
+      omejene delegacije med razumi, ločena od njihovega ranga in soglasja.
+    en_gloss: directed cooperation and translation quality among REI minds
+    do_not_translate_as: [agreement, resignation, happiness, safe small action]
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-ACCEPT-003]
+
+  - term_id: REI_NESPREJEMANJE
+    canonical_sl: nesprejemanje
+    definition_sl: >-
+      Konfliktna relacija, v kateri se signali lahko prezrejo, popačijo,
+      zatirajo ali prenesejo v sabotažo, ne da bi se spremenil karakter.
+    en_gloss: conflictual non-cooperation among REI minds
+    do_not_translate_as: [ordinary disagreement, sadness, simple refusal]
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-BEHAV-001]
+
+  - term_id: REI_SPOZNANJE
+    canonical_sl: spoznanje
+    runtime_term: simulated_spoznanje
+    definition_sl: >-
+      Konvergenca vseh treh razumov na istem sklepu po njihovih lastnih
+      poteh; simulator s tem ne dokazuje objektivne resnice.
+    en_gloss: all-three internal conclusion convergence
+    do_not_translate_as: [objective truth, revelation, strong Racio insight]
+    source_claim_ids: [C-SPOZ-001]
+
+  - term_id: REI_SVET
+    canonical_sl: svet
+    definition_sl: >-
+      Notranji model, ki nastaja iz zaznav, spominov in procesiranja ter ga
+      človek doživlja kot resničnost.
+    en_gloss: processor-built internal world model
+    do_not_translate_as: [objective reality, physical world alone, fantasy]
+    source_claim_ids: [C-WORLD-001]
+
+  - term_id: REI_NATIVE_SKLEP
+    canonical_sl: nativni sklep
+    definition_sl: >-
+      Sklep, do katerega posamezni razum pride v lastni modalnosti pred
+      governance, manifestacijo ali Racijevo interpretacijo.
+    en_gloss: modality-native mind conclusion
+    do_not_translate_as: [verbalized opinion, conscious decision, behavior]
+    source_claim_ids: [C-NATIVE-001, C-NATIVE-002, C-BUNDLE-001]
+
+  - term_id: REI_MANIFESTACIJA
+    canonical_sl: manifestacija
+    definition_sl: >-
+      Omejen opazen izhod Emocia ali Instinkta, dostopen Racijevi
+      interpretaciji; ni celotni skriti nativni sklep.
+    en_gloss: observable E/I manifestation available to Racio
+    do_not_translate_as: [complete native motive, direct conscious speech]
+    source_claim_ids: [C-CONSC-001, C-EMOCIO-003, C-INSTINKT-003]
+
+  - term_id: REI_GOVERNANCE_MANDATE
+    canonical_sl: značajski mandat
+    runtime_term: GovernanceMandate
+    definition_sl: >-
+      Strukturiran zapis, kateri nativni sklep ima glede na karakter
+      avtoriteto ali pritisk; ni zavestna ali četrta odločitev.
+    en_gloss: structural character-governance mandate
+    do_not_translate_as: [conscious decision, behavior, Ego vote]
+    source_claim_ids: [C-ARB-001, C-GOV-001]
+
+  - term_id: REI_CONSCIOUS_DECISION
+    canonical_sl: zavestna odločitev
+    runtime_term: ConsciousDecision
+    definition_sl: >-
+      Racijeva zavestna zaveza po interpretaciji nativnih manifestacij in
+      značajskega mandata; vedno ima made_by = R.
+    en_gloss: Racio-mediated conscious commitment
+    do_not_translate_as: [native conclusion, governance mandate, actual behavior]
+    source_claim_ids: [C-CONSC-002, C-CONSC-003]
+
+  - term_id: REI_BEHAVIOR_RESULTANT
+    canonical_sl: vedenjska resultanta
+    runtime_term: BehaviorResultant
+    definition_sl: >-
+      Izvedeni oziroma napovedani vedenjski rezultat enega cikla, ki se lahko
+      razlikuje od mandata in zavestne odločitve.
+    en_gloss: one-cycle behavior resultant
+    do_not_translate_as: [Ego, governance mandate, narrated reason]
+    source_claim_ids: [C-RESULT-001, C-BEHAV-001]
+
+  - term_id: REI_RESULTANTA
+    canonical_sl: resultanta
+    definition_sl: >-
+      Rezultat enega cikla; ni celotna časovna kompozicija Ega.
+    en_gloss: one-cycle resultant
+    do_not_translate_as: [Ego as a whole, stable character]
+    source_claim_ids: [C-RESULT-001]
+
+  - term_id: REI_EGO
+    canonical_sl: Ego
+    definition_sl: >-
+      Časovna kompozicija skupnega delovanja Racia, Emocia in Instinkta,
+      modelirana z merami, sledjo in izpeljanimi posnetki; ni četrti razum.
+    en_gloss: temporal composition of the three REI minds
+    do_not_translate_as: [EgoAgent, fourth mind, Racio, decision-maker]
+    source_claim_ids: [C-EGO-001, C-EGO-002, C-EGO-003]
+
+  - term_id: REI_TRANSLATION_GAP
+    canonical_sl: vrzel prevoda
+    runtime_term: TranslationGap
+    definition_sl: >-
+      Diagnostična razlika med zamrznjenim E/I sklepom in Racijevo
+      interpretacijo, ki Raciju ni dana kot ground truth.
+    en_gloss: diagnostic gap between native E/I meaning and Racio interpretation
+    do_not_translate_as: [Racio input, proof of deception]
+    source_claim_ids: [C-CONSC-001, C-ACCEPT-003, C-RACIO-003]
+
+  - term_id: REI_KULISA
+    canonical_sl: kulisa
+    definition_sl: >-
+      Konservativno: priučena predstava ali vedenjski vzorec, ki lahko
+      navzven prikrije notranje neskladje.
+    en_gloss: learned façade pattern masking unresolved internal misalignment
+    do_not_translate_as: [every habit, deliberate lie, visual scenery only]
+    source_claim_ids: [C-KULISA-001]
+
+open_question_ids: [OQ-KULISA-001]

@@ -1,0 +1,5214 @@
+{
+  "dataset_dir": "C:\\Users\\Kotlet\\Codex\\github\\rei-v3\\datasets\\rei_ft_pilot_v1",
+  "scenario_count": 50,
+  "example_count": 196,
+  "target_counts": {
+    "racio": 49,
+    "emocio": 49,
+    "instinkt": 49,
+    "ego_resultant": 49
+  },
+  "status_counts": {
+    "draft": 196
+  },
+  "review_only_count": 0,
+  "valid_example_count": 146,
+  "invalid_example_count": 50,
+  "approved_invalid_count": 0,
+  "orphaned_example_ids": [],
+  "examples": [
+    {
+      "example_id": "quit_job_creative_business__racio",
+      "scenario_id": "quit_job_creative_business",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "quit_job_creative_business__emocio",
+      "scenario_id": "quit_job_creative_business",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "quit_job_creative_business__instinkt",
+      "scenario_id": "quit_job_creative_business",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "quit_job_creative_business__ego_resultant",
+      "scenario_id": "quit_job_creative_business",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "public_talk_freeze__racio",
+      "scenario_id": "public_talk_freeze",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "public_talk_freeze__emocio",
+      "scenario_id": "public_talk_freeze",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "public_talk_freeze__instinkt",
+      "scenario_id": "public_talk_freeze",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "public_talk_freeze__ego_resultant",
+      "scenario_id": "public_talk_freeze",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "romantic_return_loop__racio",
+      "scenario_id": "romantic_return_loop",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "racio_body_signal_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.872,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "racio_body_signal_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "romantic_return_loop__emocio",
+      "scenario_id": "romantic_return_loop",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "romantic_return_loop__instinkt",
+      "scenario_id": "romantic_return_loop",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "romantic_return_loop__ego_resultant",
+      "scenario_id": "romantic_return_loop",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "coworker_credit_boundary__racio",
+      "scenario_id": "coworker_credit_boundary",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "coworker_credit_boundary__emocio",
+      "scenario_id": "coworker_credit_boundary",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "coworker_credit_boundary__instinkt",
+      "scenario_id": "coworker_credit_boundary",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "coworker_credit_boundary__ego_resultant",
+      "scenario_id": "coworker_credit_boundary",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "expensive_purchase_pressure__racio",
+      "scenario_id": "expensive_purchase_pressure",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "expensive_purchase_pressure__emocio",
+      "scenario_id": "expensive_purchase_pressure",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "emocio_planning_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "emocio_planning_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "expensive_purchase_pressure__instinkt",
+      "scenario_id": "expensive_purchase_pressure",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_planning_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.926,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_planning_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "expensive_purchase_pressure__ego_resultant",
+      "scenario_id": "expensive_purchase_pressure",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "grief_family_work_pressure__racio",
+      "scenario_id": "grief_family_work_pressure",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "grief_family_work_pressure__emocio",
+      "scenario_id": "grief_family_work_pressure",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "grief_family_work_pressure__instinkt",
+      "scenario_id": "grief_family_work_pressure",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "grief_family_work_pressure__ego_resultant",
+      "scenario_id": "grief_family_work_pressure",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "creative_project_obsession__racio",
+      "scenario_id": "creative_project_obsession",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "creative_project_obsession__emocio",
+      "scenario_id": "creative_project_obsession",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "creative_project_obsession__instinkt",
+      "scenario_id": "creative_project_obsession",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "creative_project_obsession__ego_resultant",
+      "scenario_id": "creative_project_obsession",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "clear_boundary_ignored__racio",
+      "scenario_id": "clear_boundary_ignored",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "clear_boundary_ignored__emocio",
+      "scenario_id": "clear_boundary_ignored",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "clear_boundary_ignored__instinkt",
+      "scenario_id": "clear_boundary_ignored",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "clear_boundary_ignored__ego_resultant",
+      "scenario_id": "clear_boundary_ignored",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "client_mistake_disclosure__racio",
+      "scenario_id": "client_mistake_disclosure",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "client_mistake_disclosure__emocio",
+      "scenario_id": "client_mistake_disclosure",
+      "target": "emocio",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [
+        "uncertainty"
+      ],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 0.9474,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.9816,
+        "missing_required_keys": [
+          "uncertainty"
+        ],
+        "full_missing_required_keys": [
+          "uncertainty"
+        ],
+        "extra_keys": [
+          "process_trace",
+          "uncertain_ty"
+        ],
+        "schema_violations": [
+          "missing:uncertainty",
+          "full_missing:uncertainty",
+          "extra:process_trace",
+          "extra:uncertain_ty"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "client_mistake_disclosure__instinkt",
+      "scenario_id": "client_mistake_disclosure",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "client_mistake_disclosure__ego_resultant",
+      "scenario_id": "client_mistake_disclosure",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "family_obligation_move__racio",
+      "scenario_id": "family_obligation_move",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "family_obligation_move__emocio",
+      "scenario_id": "family_obligation_move",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "family_obligation_move__instinkt",
+      "scenario_id": "family_obligation_move",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "family_obligation_move__ego_resultant",
+      "scenario_id": "family_obligation_move",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "friend_group_status_scene__racio",
+      "scenario_id": "friend_group_status_scene",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friend_group_status_scene__emocio",
+      "scenario_id": "friend_group_status_scene",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friend_group_status_scene__instinkt",
+      "scenario_id": "friend_group_status_scene",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_image_status_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_image_status_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friend_group_status_scene__ego_resultant",
+      "scenario_id": "friend_group_status_scene",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "medical_symptom_uncertainty__racio",
+      "scenario_id": "medical_symptom_uncertainty",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "racio_body_signal_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.908,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "racio_body_signal_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "medical_symptom_uncertainty__emocio",
+      "scenario_id": "medical_symptom_uncertainty",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "medical_symptom_uncertainty__instinkt",
+      "scenario_id": "medical_symptom_uncertainty",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_diagnosis_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_diagnosis_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "medical_symptom_uncertainty__ego_resultant",
+      "scenario_id": "medical_symptom_uncertainty",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "startup_cofounder_trust__racio",
+      "scenario_id": "startup_cofounder_trust",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "startup_cofounder_trust__emocio",
+      "scenario_id": "startup_cofounder_trust",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "startup_cofounder_trust__instinkt",
+      "scenario_id": "startup_cofounder_trust",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "startup_cofounder_trust__ego_resultant",
+      "scenario_id": "startup_cofounder_trust",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "dating_profile_visibility__racio",
+      "scenario_id": "dating_profile_visibility",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "dating_profile_visibility__emocio",
+      "scenario_id": "dating_profile_visibility",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "dating_profile_visibility__instinkt",
+      "scenario_id": "dating_profile_visibility",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "dating_profile_visibility__ego_resultant",
+      "scenario_id": "dating_profile_visibility",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "training_competition_injury__racio",
+      "scenario_id": "training_competition_injury",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "training_competition_injury__emocio",
+      "scenario_id": "training_competition_injury",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "training_competition_injury__instinkt",
+      "scenario_id": "training_competition_injury",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_image_status_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_image_status_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "training_competition_injury__ego_resultant",
+      "scenario_id": "training_competition_injury",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "manager_private_feedback__racio",
+      "scenario_id": "manager_private_feedback",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "manager_private_feedback__emocio",
+      "scenario_id": "manager_private_feedback",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "manager_private_feedback__instinkt",
+      "scenario_id": "manager_private_feedback",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "manager_private_feedback__ego_resultant",
+      "scenario_id": "manager_private_feedback",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "move_to_new_city__racio",
+      "scenario_id": "move_to_new_city",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "move_to_new_city__emocio",
+      "scenario_id": "move_to_new_city",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "move_to_new_city__instinkt",
+      "scenario_id": "move_to_new_city",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "move_to_new_city__ego_resultant",
+      "scenario_id": "move_to_new_city",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "debt_confession_partner__racio",
+      "scenario_id": "debt_confession_partner",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "racio_image_signal_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.908,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "racio_image_signal_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "debt_confession_partner__emocio",
+      "scenario_id": "debt_confession_partner",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "debt_confession_partner__instinkt",
+      "scenario_id": "debt_confession_partner",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "debt_confession_partner__ego_resultant",
+      "scenario_id": "debt_confession_partner",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "art_show_submission__racio",
+      "scenario_id": "art_show_submission",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "art_show_submission__emocio",
+      "scenario_id": "art_show_submission",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "art_show_submission__instinkt",
+      "scenario_id": "art_show_submission",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "art_show_submission__ego_resultant",
+      "scenario_id": "art_show_submission",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "elderly_parent_care__racio",
+      "scenario_id": "elderly_parent_care",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "elderly_parent_care__emocio",
+      "scenario_id": "elderly_parent_care",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "elderly_parent_care__instinkt",
+      "scenario_id": "elderly_parent_care",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "elderly_parent_care__ego_resultant",
+      "scenario_id": "elderly_parent_care",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "group_project_unfair_work__racio",
+      "scenario_id": "group_project_unfair_work",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "group_project_unfair_work__emocio",
+      "scenario_id": "group_project_unfair_work",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "group_project_unfair_work__instinkt",
+      "scenario_id": "group_project_unfair_work",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "group_project_unfair_work__ego_resultant",
+      "scenario_id": "group_project_unfair_work",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "business_pivot_after_failure__racio",
+      "scenario_id": "business_pivot_after_failure",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "business_pivot_after_failure__emocio",
+      "scenario_id": "business_pivot_after_failure",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "business_pivot_after_failure__instinkt",
+      "scenario_id": "business_pivot_after_failure",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "business_pivot_after_failure__ego_resultant",
+      "scenario_id": "business_pivot_after_failure",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "private_secret_friend__racio",
+      "scenario_id": "private_secret_friend",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "private_secret_friend__emocio",
+      "scenario_id": "private_secret_friend",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "private_secret_friend__instinkt",
+      "scenario_id": "private_secret_friend",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "private_secret_friend__ego_resultant",
+      "scenario_id": "private_secret_friend",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "salary_negotiation__racio",
+      "scenario_id": "salary_negotiation",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "salary_negotiation__emocio",
+      "scenario_id": "salary_negotiation",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "emocio_planning_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "emocio_planning_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "salary_negotiation__instinkt",
+      "scenario_id": "salary_negotiation",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_image_status_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.926,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_image_status_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "salary_negotiation__ego_resultant",
+      "scenario_id": "salary_negotiation",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "online_argument_response__racio",
+      "scenario_id": "online_argument_response",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "online_argument_response__emocio",
+      "scenario_id": "online_argument_response",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "online_argument_response__instinkt",
+      "scenario_id": "online_argument_response",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "online_argument_response__ego_resultant",
+      "scenario_id": "online_argument_response",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "return_to_school__racio",
+      "scenario_id": "return_to_school",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "return_to_school__emocio",
+      "scenario_id": "return_to_school",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "return_to_school__instinkt",
+      "scenario_id": "return_to_school",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "return_to_school__ego_resultant",
+      "scenario_id": "return_to_school",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "friend_needs_money__racio",
+      "scenario_id": "friend_needs_money",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friend_needs_money__emocio",
+      "scenario_id": "friend_needs_money",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friend_needs_money__instinkt",
+      "scenario_id": "friend_needs_money",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friend_needs_money__ego_resultant",
+      "scenario_id": "friend_needs_money",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "choosing_dnd_character__racio",
+      "scenario_id": "choosing_dnd_character",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "choosing_dnd_character__emocio",
+      "scenario_id": "choosing_dnd_character",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "choosing_dnd_character__instinkt",
+      "scenario_id": "choosing_dnd_character",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_image_status_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.926,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_image_status_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "choosing_dnd_character__ego_resultant",
+      "scenario_id": "choosing_dnd_character",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "house_purchase__racio",
+      "scenario_id": "house_purchase",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "racio_body_signal_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.872,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "racio_body_signal_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "house_purchase__emocio",
+      "scenario_id": "house_purchase",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "house_purchase__instinkt",
+      "scenario_id": "house_purchase",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "house_purchase__ego_resultant",
+      "scenario_id": "house_purchase",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "apology_after_outburst__racio",
+      "scenario_id": "apology_after_outburst",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "apology_after_outburst__emocio",
+      "scenario_id": "apology_after_outburst",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "apology_after_outburst__instinkt",
+      "scenario_id": "apology_after_outburst",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "apology_after_outburst__ego_resultant",
+      "scenario_id": "apology_after_outburst",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "new_romance_fast_commitment__racio",
+      "scenario_id": "new_romance_fast_commitment",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "new_romance_fast_commitment__emocio",
+      "scenario_id": "new_romance_fast_commitment",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "emocio_planning_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "emocio_planning_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "new_romance_fast_commitment__instinkt",
+      "scenario_id": "new_romance_fast_commitment",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "new_romance_fast_commitment__ego_resultant",
+      "scenario_id": "new_romance_fast_commitment",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "whistleblow_team_problem__racio",
+      "scenario_id": "whistleblow_team_problem",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "whistleblow_team_problem__emocio",
+      "scenario_id": "whistleblow_team_problem",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "whistleblow_team_problem__instinkt",
+      "scenario_id": "whistleblow_team_problem",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "whistleblow_team_problem__ego_resultant",
+      "scenario_id": "whistleblow_team_problem",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "business_partner_showmanship__racio",
+      "scenario_id": "business_partner_showmanship",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "business_partner_showmanship__emocio",
+      "scenario_id": "business_partner_showmanship",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "business_partner_showmanship__instinkt",
+      "scenario_id": "business_partner_showmanship",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "business_partner_showmanship__ego_resultant",
+      "scenario_id": "business_partner_showmanship",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [
+        "profile_leader",
+        "profile_leader_minds",
+        "situational_driver",
+        "resultant_leader_under_pressure",
+        "perceived_world",
+        "conscious_story",
+        "hidden_signal_sources",
+        "trusted_mind_or_coalition",
+        "suppressed_mind",
+        "leading_mind",
+        "resisting_mind",
+        "ignored_or_misrepresented_mind",
+        "final_pressure",
+        "action_tendency",
+        "racio_after_story",
+        "acceptance_assessment",
+        "main_conflict",
+        "hidden_cost",
+        "integrated_decision",
+        "smallest_acceptable_next_step",
+        "task_delegation",
+        "prediction_if_racio_rules_alone",
+        "prediction_if_emocio_rules_alone",
+        "prediction_if_instinkt_rules_alone",
+        "uncertainty",
+        "safety_flags"
+      ],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "health_boundary_party__racio",
+      "scenario_id": "health_boundary_party",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "racio_body_signal_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.908,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "racio_body_signal_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "health_boundary_party__emocio",
+      "scenario_id": "health_boundary_party",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "health_boundary_party__instinkt",
+      "scenario_id": "health_boundary_party",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_image_status_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_image_status_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "health_boundary_party__ego_resultant",
+      "scenario_id": "health_boundary_party",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [
+        "profile_leader",
+        "profile_leader_minds",
+        "situational_driver",
+        "resultant_leader_under_pressure",
+        "perceived_world",
+        "conscious_story",
+        "hidden_signal_sources",
+        "trusted_mind_or_coalition",
+        "suppressed_mind",
+        "leading_mind",
+        "resisting_mind",
+        "ignored_or_misrepresented_mind",
+        "final_pressure",
+        "action_tendency",
+        "racio_after_story",
+        "acceptance_assessment",
+        "main_conflict",
+        "hidden_cost",
+        "integrated_decision",
+        "smallest_acceptable_next_step",
+        "task_delegation",
+        "prediction_if_racio_rules_alone",
+        "prediction_if_emocio_rules_alone",
+        "prediction_if_instinkt_rules_alone",
+        "uncertainty",
+        "safety_flags"
+      ],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "selling_family_home__racio",
+      "scenario_id": "selling_family_home",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "selling_family_home__emocio",
+      "scenario_id": "selling_family_home",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "selling_family_home__instinkt",
+      "scenario_id": "selling_family_home",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "selling_family_home__ego_resultant",
+      "scenario_id": "selling_family_home",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "hiring_impressive_candidate__racio",
+      "scenario_id": "hiring_impressive_candidate",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "produces_synthesis"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 0.65,
+        "overall_score": 0.9645,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": [
+          "produces_synthesis"
+        ]
+      }
+    },
+    {
+      "example_id": "hiring_impressive_candidate__emocio",
+      "scenario_id": "hiring_impressive_candidate",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "emocio_planning_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "emocio_planning_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "hiring_impressive_candidate__instinkt",
+      "scenario_id": "hiring_impressive_candidate",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "hiring_impressive_candidate__ego_resultant",
+      "scenario_id": "hiring_impressive_candidate",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "artist_collaboration_conflict__racio",
+      "scenario_id": "artist_collaboration_conflict",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.7,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.91,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "artist_collaboration_conflict__emocio",
+      "scenario_id": "artist_collaboration_conflict",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "emocio_planning_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.944,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "emocio_planning_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "artist_collaboration_conflict__instinkt",
+      "scenario_id": "artist_collaboration_conflict",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "artist_collaboration_conflict__ego_resultant",
+      "scenario_id": "artist_collaboration_conflict",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "urgent_travel_invitation__racio",
+      "scenario_id": "urgent_travel_invitation",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "produces_synthesis"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 0.65,
+        "overall_score": 0.9105,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": [
+          "produces_synthesis"
+        ]
+      }
+    },
+    {
+      "example_id": "urgent_travel_invitation__emocio",
+      "scenario_id": "urgent_travel_invitation",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "urgent_travel_invitation__instinkt",
+      "scenario_id": "urgent_travel_invitation",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "urgent_travel_invitation__ego_resultant",
+      "scenario_id": "urgent_travel_invitation",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "therapy_or_private_solution__racio",
+      "scenario_id": "therapy_or_private_solution",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "therapy_or_private_solution__emocio",
+      "scenario_id": "therapy_or_private_solution",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "therapy_or_private_solution__instinkt",
+      "scenario_id": "therapy_or_private_solution",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.88,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.964,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "therapy_or_private_solution__ego_resultant",
+      "scenario_id": "therapy_or_private_solution",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "team_lead_visibility__racio",
+      "scenario_id": "team_lead_visibility",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "team_lead_visibility__emocio",
+      "scenario_id": "team_lead_visibility",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "team_lead_visibility__instinkt",
+      "scenario_id": "team_lead_visibility",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "team_lead_visibility__ego_resultant",
+      "scenario_id": "team_lead_visibility",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [
+        "prediction_if_instinkt_rules_alone"
+      ],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "sibling_inheritance_dispute__racio",
+      "scenario_id": "sibling_inheritance_dispute",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "sibling_inheritance_dispute__emocio",
+      "scenario_id": "sibling_inheritance_dispute",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "sibling_inheritance_dispute__instinkt",
+      "scenario_id": "sibling_inheritance_dispute",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "sibling_inheritance_dispute__ego_resultant",
+      "scenario_id": "sibling_inheritance_dispute",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "closing_small_business__racio",
+      "scenario_id": "closing_small_business",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "closing_small_business__emocio",
+      "scenario_id": "closing_small_business",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "closing_small_business__instinkt",
+      "scenario_id": "closing_small_business",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "closing_small_business__ego_resultant",
+      "scenario_id": "closing_small_business",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "friendship_envy__racio",
+      "scenario_id": "friendship_envy",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friendship_envy__emocio",
+      "scenario_id": "friendship_envy",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friendship_envy__instinkt",
+      "scenario_id": "friendship_envy",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "friendship_envy__ego_resultant",
+      "scenario_id": "friendship_envy",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "risky_public_opinion__racio",
+      "scenario_id": "risky_public_opinion",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "risky_public_opinion__emocio",
+      "scenario_id": "risky_public_opinion",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "risky_public_opinion__instinkt",
+      "scenario_id": "risky_public_opinion",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "risky_public_opinion__ego_resultant",
+      "scenario_id": "risky_public_opinion",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "dating_someone_unavailable__racio",
+      "scenario_id": "dating_someone_unavailable",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "dating_someone_unavailable__emocio",
+      "scenario_id": "dating_someone_unavailable",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "dating_someone_unavailable__instinkt",
+      "scenario_id": "dating_someone_unavailable",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "dating_someone_unavailable__ego_resultant",
+      "scenario_id": "dating_someone_unavailable",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "mentorship_credit__racio",
+      "scenario_id": "mentorship_credit",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "mentorship_credit__emocio",
+      "scenario_id": "mentorship_credit",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "mentorship_credit__instinkt",
+      "scenario_id": "mentorship_credit",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [
+        "instinkt_image_status_leak"
+      ],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 0.82,
+        "style_score": 0.8,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.926,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [
+          "instinkt_image_status_leak"
+        ],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "mentorship_credit__ego_resultant",
+      "scenario_id": "mentorship_credit",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "medical_cost_decision__racio",
+      "scenario_id": "medical_cost_decision",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.82,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.946,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "medical_cost_decision__emocio",
+      "scenario_id": "medical_cost_decision",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "medical_cost_decision__instinkt",
+      "scenario_id": "medical_cost_decision",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.94,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.982,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "medical_cost_decision__ego_resultant",
+      "scenario_id": "medical_cost_decision",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "leaving_safe_relationship__racio",
+      "scenario_id": "leaving_safe_relationship",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.7,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.91,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "leaving_safe_relationship__emocio",
+      "scenario_id": "leaving_safe_relationship",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "leaving_safe_relationship__instinkt",
+      "scenario_id": "leaving_safe_relationship",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "leaving_safe_relationship__ego_resultant",
+      "scenario_id": "leaving_safe_relationship",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    },
+    {
+      "example_id": "launch_before_ready__racio",
+      "scenario_id": "launch_before_ready",
+      "target": "racio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 0.76,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 0.928,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "launch_before_ready__emocio",
+      "scenario_id": "launch_before_ready",
+      "target": "emocio",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "launch_before_ready__instinkt",
+      "scenario_id": "launch_before_ready",
+      "target": "instinkt",
+      "status": "draft",
+      "valid": true,
+      "missing_required_keys": [],
+      "process_trace_errors": [],
+      "invalid_constants": [],
+      "warnings": [],
+      "score": {
+        "schema_score": 1.0,
+        "role_score": 1.0,
+        "distinctness_score": 1.0,
+        "style_score": 1.0,
+        "rei_violation_score": 1.0,
+        "overall_score": 1.0,
+        "missing_required_keys": [],
+        "full_missing_required_keys": [],
+        "extra_keys": [
+          "process_trace"
+        ],
+        "schema_violations": [
+          "extra:process_trace"
+        ],
+        "style_violations": [],
+        "rei_violations": []
+      }
+    },
+    {
+      "example_id": "launch_before_ready__ego_resultant",
+      "scenario_id": "launch_before_ready",
+      "target": "ego_resultant",
+      "status": "draft",
+      "valid": false,
+      "missing_required_keys": [],
+      "process_trace_errors": [
+        "process_trace:situational_override_check:missing"
+      ],
+      "invalid_constants": [
+        "ego example character_profile is required"
+      ],
+      "warnings": [],
+      "score": {}
+    }
+  ]
+}

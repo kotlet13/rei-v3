@@ -1,0 +1,389 @@
+schema_version: rei-native-acceptance-v2
+status: architecture_canon
+runtime_effect: active_from_b9
+canon_language: sl
+
+definition:
+  status: implementation_hypothesis
+  canonical_sl: >-
+    Sprejemanje je usmerjena kakovost sodelovanja in medsebojnega prevajanja
+    med razumi. Je ortogonalno strukturnemu karakterju, soglasju, pravilnosti
+    cilja in izbiri majhnega, varnega ali reverzibilnega vedenja.
+  en_gloss: directed cooperation and translation quality orthogonal to authority and agreement
+  source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-DELEG-001]
+
+may_affect:
+  - signal_visibility
+  - interpretation_fidelity
+  - tolerance_of_different_conclusion
+  - delegation_willingness
+  - sabotage_risk
+  - conflict_carryover
+  - conscious_behavior_coordination
+
+must_not_determine:
+  - structural_character
+  - authority_tiers
+  - correct_goal
+  - objective_truth
+  - agreement
+  - small_action
+  - safe_action
+  - reversible_action
+  - unanimous_choice
+  - automatic_pair_tiebreak
+
+directed_relation_contract:
+  contract_status: documented_for_b2
+  name: DirectedMindRelation
+  status: implementation_hypothesis
+  fields:
+    - visibility
+    - interpretation_fidelity
+    - tolerance
+    - delegation_willingness
+    - sabotage_risk
+  source_claim_ids: [C-ACCEPT-003]
+
+state_contract:
+  contract_status: documented_for_b2
+  name: AcceptanceState
+  status: implementation_hypothesis
+  directed_relations:
+    - R_to_E
+    - R_to_I
+    - E_to_R
+    - E_to_I
+    - I_to_R
+    - I_to_E
+  overall_modes: [accepting, mixed, conflicted, unknown]
+  controlled_simulation_input: explicit
+  inferred_from_keywords_in_v1: false
+  source_claim_ids: [C-ACCEPT-003]
+
+translation_gap_contract:
+  contract_status: implemented_in_b9
+  schema_origin: documented_for_b2
+  status: implementation_hypothesis
+  consolidated_contract: knowledge/canon_v2/communication.yaml
+  name: TranslationGap
+  fields:
+    - source_mind
+    - native_option_id
+    - interpreted_option_id
+    - native_action_tendency
+    - interpreted_action_tendency
+    - native_motive_summary
+    - interpreted_motive
+    - option_match
+    - motive_fidelity
+    - fidelity_components
+    - distortion_type
+  source_minds: [E, I]
+  distortion_types:
+    - none
+    - omission
+    - rationalization
+    - minimization
+    - projection
+    - misclassification
+    - unknown
+  visible_to_racio_as_ground_truth: false
+  stored_in_diagnostic_trace: true
+  b9_exact_metric_policy: b9-exact-action-tendency-fidelity-v1
+  b9_metric_components:
+    count: 1
+    facet: action_tendency
+    weight: 1.0
+  motive_fidelity_field_semantics: exact_action_tendency_component_score_only
+  native_and_interpreted_motive_strings: diagnostic_only
+  b9_distortion_policy: b9-exact-distortion-classifier-v1
+  semantic_or_partial_motive_fidelity_is_not_measured_in_b9: true
+  b9_content_lineage:
+    - source_native_conclusion_id_and_hash
+    - interpretation_id_and_hash
+    - metric_policy_id
+    - distortion_policy_id
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-ACCEPT-003]
+
+b9_acceptance_fidelity_audit:
+  status: implementation_hypothesis
+  policy_id: b9-acceptance-fidelity-record-only-v1
+  consolidated_contract: knowledge/canon_v2/communication.yaml
+  observer: Racio
+  relation_for_source_E: R_to_E
+  relation_for_source_I: R_to_I
+  reverse_source_to_R_relation_used: false
+  recorded_relation_dimension: interpretation_fidelity
+  composite_score: null
+  thresholds: null
+  changes_observations_interpretation_gap_governance_or_behavior: false
+  monotonic_or_causal_claim: false
+  general_mapping_remains_open: true
+  source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-ACCEPT-003, C-STATE-001]
+
+b9_high_fidelity_plan_test_boundary:
+  status: implementation_hypothesis
+  plan_test_name: test_high_fidelity_reduces_translation_gap
+  record_only_audit_proves_monotonicity: false
+  permitted_scope: explicitly_scripted_controlled_fixture_pair
+  fixture_result_is_universal_psychological_claim: false
+  exact_scripts_acceptance_states_and_expected_gaps_must_be_visible: true
+  open_question_ids: [OQ-TRANSLATION-001, OQ-ACCEPTANCE-001, OQ-ACCEPTANCE-002]
+  source_claim_ids: [C-ACCEPT-003, C-RACIO-003]
+
+coordination_examples:
+  accepting_disagreement:
+    canonical_sl: >-
+      Razumi lahko odkrito ohranijo različne sklepe, priznajo ugovore in
+      kljub temu izvedejo značajski mandat brez spremembe hierarhije.
+    status: implementation_hypothesis
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-GOV-001]
+  nonaccepting_agreement:
+    canonical_sl: >-
+      Enaka zunanja izbira lahko prikriva preslišanje, popačen prevod ali
+      sabotažo in zato sama ne dokazuje sprejemanja.
+    status: implementation_hypothesis
+    source_claim_ids: [C-ROUTE-001, C-ACCEPT-002, C-BEHAV-001]
+
+behavior_policy_boundary:
+  contract_status: implemented_in_b10
+  status: implementation_hypothesis
+  implementation: transparent_deterministic_table
+  llm_hidden_resolution: false
+  commit_policy_id: b10-conscious-commit-table-v1
+  commit_policy_revision: "1"
+  behavior_policy_id: b10-behavior-resolution-table-v1
+  behavior_policy_revision: "1"
+  policy_basis: implementation_hypothesis
+  acceptance_mode_is_explicit_input: true
+  governance_authority_is_read_only: true
+  ordered_precedence:
+    - unknown_acceptance_or_non_actionable_mandate
+    - accepting_actionable_mandate
+    - mixed_recognized_or_r_led_mandate
+    - mixed_unrecognized_with_racio_option
+    - mixed_unrecognized_without_racio_option
+    - conflicted_with_racio_option
+    - conflicted_without_racio_option
+  prohibited_branch_inputs:
+    - directed_relation_thresholds
+    - prose_keywords
+    - native_or_interpretation_confidence
+    - character_weights
+    - acceptance_fidelity_audit
+    - translation_gap
+    - hidden_native_motives
+    - hidden_motive_dependent_mandate_or_governance_fingerprints
+    - provider_or_llm_output_not_already_frozen_as_a_typed_input
+  must_surface:
+    - governance_alignment
+    - conscious_alignment
+    - residual_tensions
+    - delayed_or_oscillating_behavior
+    - sabotage_or_blocking
+  source_claim_ids: [C-BEHAV-001, C-BEHAV-002]
+
+behavior_resultant_contract:
+  contract_status: implemented_in_b10
+  status: implementation_hypothesis
+  name: BehaviorResultant
+  fields:
+    - option_id
+    - status
+    - governance_alignment
+    - conscious_alignment
+    - operational_controller
+    - residual_tensions
+    - predicted_action
+  statuses: [executed, delayed, oscillating, sabotaged, blocked, unresolved]
+  alignment_rule:
+    conscious_decision_alignment: exact_non_null_option_id_equality_or_null
+    behavior_governance_alignment: exact_non_null_option_id_equality_or_not_applicable
+    behavior_conscious_alignment: exact_non_null_option_id_equality_or_not_applicable
+    same_option_does_not_imply_acceptance: true
+    same_option_does_not_erase_non_execution_status: true
+  operational_controller_rule:
+    delegated_executed_behavior: delegation.delegate_mind
+    nondelegated_executed_single_source: the_single_structural_source_mind
+    joint_source_or_nonexecuted_behavior: null
+  source_claim_ids: [C-BEHAV-001, C-BEHAV-002]
+
+initial_behavior_mapping:
+  status: implementation_hypothesis
+  implemented_in: B10
+  commit_policy_id: b10-conscious-commit-table-v1
+  commit_policy_revision: "1"
+  behavior_policy_id: b10-behavior-resolution-table-v1
+  behavior_policy_revision: "1"
+  definitions:
+    actionable_mandate: >-
+      GovernanceMandate.status je resolved, delegated ali
+      functionally_overridden in option_id ni null.
+    racio_option_available: >-
+      Zamrznjeni RacioNativeConclusion ni abstinenca in ima nenull option_id.
+    r_led: R je med GovernanceMandate.structural_source_minds.
+    recognized_e_or_i_mandate: >-
+      Obstaja preverjena RacioInterpretation za strukturni vir E ali I, katere
+      inferred_option_id je enak nenull GovernanceMandate.option_id.
+    recognized_or_r_led: r_led ali recognized_e_or_i_mandate
+  ordered_rules:
+    - rule_id: unknown_or_non_actionable
+      priority: 1
+      when: >-
+        AcceptanceState.overall_mode je unknown ali mandat ni actionable.
+      conscious_decision:
+        option_source: none
+        decision_status: deferred
+        aligned_with_governance_mandate: null
+      behavior_resultant:
+        option_source: none
+        status: unresolved
+        governance_alignment: not_applicable
+        conscious_alignment: not_applicable
+      required_visible_tension: acceptance_unknown_or_mandate_not_actionable
+    - rule_id: accepting_actionable
+      priority: 2
+      when: >-
+        AcceptanceState.overall_mode je accepting in mandat je actionable.
+      conscious_decision:
+        option_source: governance_mandate
+        decision_status: committed
+        aligned_with_governance_mandate: true
+      behavior_resultant:
+        option_source: governance_mandate
+        status: executed
+        governance_alignment: aligned
+        conscious_alignment: aligned
+      requirements:
+        - motive_translation_may_be_wrong_without_changing_the_option
+        - governance_objections_remain_visible
+        - explicit_delegation_is_preserved
+    - rule_id: mixed_recognized_or_r_led
+      priority: 3
+      when: >-
+        AcceptanceState.overall_mode je mixed, mandat je actionable in je
+        recognized_or_r_led.
+      conscious_decision:
+        option_source: governance_mandate
+        decision_status: committed
+        aligned_with_governance_mandate: true
+      behavior_resultant:
+        option_source: governance_mandate
+        status: executed
+        governance_alignment: aligned
+        conscious_alignment: aligned
+    - rule_id: mixed_unrecognized_with_racio_option
+      priority: 4
+      when: >-
+        AcceptanceState.overall_mode je mixed, mandat je actionable, ni
+        recognized_or_r_led in racio_option_available je true.
+      conscious_decision:
+        option_source: racio_native_conclusion
+        decision_status: committed
+        aligned_with_governance_mandate: exact_option_equality
+      behavior_resultant:
+        option_source: racio_native_conclusion
+        status: oscillating
+        governance_alignment: exact_option_equality
+        conscious_alignment: aligned
+      required_visible_tension: mandate_not_consciously_recognized
+    - rule_id: mixed_unrecognized_without_racio_option
+      priority: 5
+      when: >-
+        AcceptanceState.overall_mode je mixed, mandat je actionable, ni
+        recognized_or_r_led in racio_option_available je false.
+      conscious_decision:
+        option_source: none
+        decision_status: deferred
+        aligned_with_governance_mandate: null
+      behavior_resultant:
+        option_source: none
+        status: delayed
+        governance_alignment: not_applicable
+        conscious_alignment: not_applicable
+      required_visible_tension: mandate_not_recognized_and_no_racio_option
+    - rule_id: conflicted_with_racio_option
+      priority: 6
+      when: >-
+        AcceptanceState.overall_mode je conflicted, mandat je actionable in
+        racio_option_available je true.
+      conscious_decision:
+        option_source: racio_native_conclusion
+        decision_status: committed
+        aligned_with_governance_mandate: exact_option_equality
+      behavior_resultant:
+        option_source: racio_native_conclusion
+        status: sabotaged
+        governance_alignment: exact_option_equality
+        conscious_alignment: aligned
+      required_visible_tension: conflicted_coordination_sabotage
+      option_agreement_may_still_be_non_accepting: true
+    - rule_id: conflicted_without_racio_option
+      priority: 7
+      when: >-
+        AcceptanceState.overall_mode je conflicted, mandat je actionable in
+        racio_option_available je false.
+      conscious_decision:
+        option_source: none
+        decision_status: blocked
+        aligned_with_governance_mandate: null
+      behavior_resultant:
+        option_source: none
+        status: blocked
+        governance_alignment: not_applicable
+        conscious_alignment: not_applicable
+      required_visible_tension: conflicted_coordination_without_racio_option
+  interpretation_presence_rule:
+    description: >-
+      E/I zavestni tok uporablja že izdelane tipizirane B9 interpretacije.
+      Odsotna zaznava je predstavljena z omitted_b9 oziroma unavailable_b9
+      artefaktom, ne z dostopom do skritega nativnega sklepa.
+    E_or_I_led_mandate_requires_each_structural_E_or_I_interpretation: true
+    typed_omitted_or_unavailable_interpretation_is_valid_provenance: true
+    empty_E_or_I_led_interpretation_input_is_invalid: true
+    R_structural_source_may_use_its_own_native_conclusion_without_E_or_I_interpretation: true
+  b10_input_binding:
+    conscious_mandate_view_contains_public_manifestation_ids_and_hashes: true
+    conscious_mandate_view_excludes_native_E_or_I_conclusion_ids_and_hashes: true
+    conscious_interpretation_input_contains: [source_scene_id, source_mandate_view_id_and_hash, exact_request, exact_interpretation, acceptance_state_id_and_hash]
+    request_manifestation_refs_must_equal_current_bundle_public_manifestation_refs: true
+    cross_scene_reuse_rejected: true
+    same_scene_cross_run_reuse_rejected_when_public_manifestations_differ: true
+    cross_acceptance_reuse_rejected: true
+    behavior_resolver_recomputes_rule_from_bound_inputs: true
+    behavior_resolver_trusts_decision_applied_rule_label_without_replay: false
+  policy_identity_rule:
+    revision_1_semantics_are_immutable: true
+    changed_semantics_require_new_policy_id_or_revision: true
+    every_output_records_policy_hash: true
+  no_rule_changes_governance_mandate: true
+  no_rule_changes_structural_or_effective_authority: true
+  source_claim_ids: [C-BEHAV-001, C-BEHAV-002, C-ACCEPT-001, C-ACCEPT-002]
+
+b10_behavior_exit_gates:
+  - every_conscious_decision_is_made_by_R
+  - commit_and_behavior_outputs_replay_from_the_explicit_ordered_table
+  - narration_is_downstream_and_cannot_mutate_decision_or_behavior
+  - non_acceptance_remains_visible_even_when_option_ids_agree
+  - acceptance_mode_is_not_inferred_from_relation_scores_or_text
+  - governance_authority_and_hidden_native_motives_are_never_behavior_policy_inputs
+  - changing_only_hidden_native_motives_does_not_change_the_public_conscious_view
+  - cross_scene_and_cross_acceptance_interpretation_reuse_is_rejected
+  - same_scene_foreign_public_manifestation_lineage_is_rejected
+  - E_or_I_led_commitment_requires_typed_B9_interpretation_provenance
+
+global_invariants:
+  - canonical_sl: Sprejemanje nikoli ne spremeni authority_tiers.
+    source_claim_ids: [C-ACCEPT-002, C-STATE-001]
+  - canonical_sl: Nestrinjanje je lahko sprejemajoče, soglasje pa nesprejemajoče.
+    source_claim_ids: [C-ACCEPT-001, C-ACCEPT-002, C-ROUTE-001]
+  - canonical_sl: Delegacija ohrani strukturni karakter.
+    source_claim_ids: [C-DELEG-001]
+
+open_question_ids:
+  - OQ-ACCEPTANCE-001
+  - OQ-ACCEPTANCE-002
+  - OQ-TRANSLATION-001
+  - OQ-RANGE-001
+  - OQ-BEHAVIOR-001

@@ -1,0 +1,22 @@
+{
+  "dataset_id": "rei_profile_matrix_review_20260627_121704",
+  "version": "rei-ft-dataset-v1",
+  "language": "en",
+  "description": "Review-only dataset imported from a REI profile matrix run. It is intended for GUI inspection and is skipped by SFT export.",
+  "source_policy": "curated_canon",
+  "scenario_count": 12,
+  "example_count": 624,
+  "target_counts": {
+    "racio": 156,
+    "emocio": 156,
+    "instinkt": 156,
+    "ego_resultant": 156
+  },
+  "status_counts": {
+    "draft": 624
+  },
+  "teacher_model": "gemma4:26b",
+  "thinking_policy": "review_only_profile_matrix_import",
+  "created_at": "",
+  "updated_at": "2026-06-27T13:22:55+00:00"
+}

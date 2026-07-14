@@ -3,178 +3,166 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>REI Workbench</title>
-    <link rel="icon" href="data:," />
+    <meta
+      name="description"
+      content="REI native modalities and Ego composition workbench"
+    />
+    <title>REI Native Composition Workbench</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/static/styles.css" />
+    <script type="module" src="/static/app.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#panel-native">Skip to workbench</a>
     <div class="app-shell">
       <header class="topbar">
-        <div>
-          <h1>REI Workbench</h1>
-          <p id="ollamaStatus">Ollama: checking</p>
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <span>R</span><span>E</span><span>I</span>
+          </div>
+          <div>
+            <p class="eyebrow">Native modalities · Ego composition</p>
+            <h1>REI Workbench</h1>
+          </div>
         </div>
-        <div class="top-actions">
-          <button id="refreshModelsBtn" type="button">Refresh models</button>
-          <button id="clearHistoryBtn" type="button">Clear history</button>
+        <div class="runtime-state" aria-live="polite">
+          <span id="statusDot" class="status-dot" data-state="idle"></span>
+          <div>
+            <span id="runtimeStatus">Loading deterministic fixture…</span>
+            <small id="runtimeMeta">No model or renderer will be called</small>
+          </div>
         </div>
       </header>
 
-      <main class="workspace">
-        <section class="prompt-pane" aria-label="Prompt editor">
-          <div class="section-head">
-            <h2>Navodila</h2>
-            <span id="promptMeta" class="meta-pill">baseline</span>
-          </div>
-          <nav id="promptTabs" class="tabs" aria-label="Prompt tabs"></nav>
-          <textarea id="promptEditor" spellcheck="false"></textarea>
-          <div class="prompt-actions">
-            <button id="savePromptBtn" type="button">Save prompt</button>
-            <button id="resetPromptBtn" type="button">Reset baseline</button>
-          </div>
-          <div id="requiredKeys" class="keys"></div>
-        </section>
-
-        <section class="run-pane" aria-label="Run controls">
-          <div class="section-head">
-            <h2>Test</h2>
-            <span id="activeRun" class="meta-pill">idle</span>
-          </div>
-
-          <div class="input-grid">
-            <label class="field span-2">
-              <span>Input</span>
-              <textarea id="testInput" rows="5" placeholder="Vnesi minimum inputa..."></textarea>
-            </label>
-            <label class="field">
-              <span>Profile</span>
-              <select id="profileSelect"></select>
-            </label>
-            <label class="field toggle-row">
-              <span>Kanon kontekst</span>
-              <input
-                id="referenceToggle"
-                type="checkbox"
-                checked
-                title="Doda REI reference context iz knowledge/ v Ollama klic."
-              />
-            </label>
-          </div>
-
-          <div id="settingsGrid" class="settings-grid"></div>
-
-          <div class="run-actions">
-            <button type="button" data-run="mind" data-target="racio">Run Racio</button>
-            <button type="button" data-run="mind" data-target="emocio">Run Emocio</button>
-            <button type="button" data-run="mind" data-target="instinkt">Run Instinkt</button>
-            <button type="button" data-run="ego">Run Ego</button>
-            <button id="runFullBtn" type="button">Run all</button>
-            <button id="stopBtn" type="button" disabled>Stop</button>
-          </div>
-
-          <div id="outputGrid" class="output-grid"></div>
-        </section>
-
-        <section class="dataset-pane" aria-label="Dataset editor">
-          <div class="section-head">
-            <h2>Dataset</h2>
-            <span id="datasetSummary" class="meta-pill">none</span>
-          </div>
-
-          <div class="dataset-controls">
-            <label class="field">
-              <span>Dataset</span>
-              <select id="datasetSelect"></select>
-            </label>
-            <label class="field">
-              <span>Target</span>
-              <select id="datasetTargetFilter">
-                <option value="">All</option>
-                <option value="racio">Racio</option>
-                <option value="emocio">Emocio</option>
-                <option value="instinkt">Instinkt</option>
-                <option value="ego_resultant">EgoResultant</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>Status</span>
-              <select id="datasetStatusFilter">
-                <option value="">All</option>
-                <option value="draft">draft</option>
-                <option value="needs_edit">needs_edit</option>
-                <option value="approved">approved</option>
-                <option value="rejected">rejected</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>Profile</span>
-              <select id="datasetProfileFilter">
-                <option value="">All</option>
-              </select>
-            </label>
-            <div class="dataset-actions">
-              <button id="refreshDatasetsBtn" type="button">Refresh</button>
-              <button id="validateDatasetBtn" type="button">Validate</button>
-              <button id="exportDatasetBtn" type="button">Export</button>
+      <main>
+        <section class="control-deck" aria-labelledby="cycle-heading">
+          <div class="cycle-context">
+            <p class="eyebrow">Cycle input</p>
+            <h2 id="cycle-heading">Deterministic architecture probe</h2>
+            <p id="sceneSummary" class="scene-summary">Loading scene…</p>
+            <div class="context-meta">
+              <span id="sceneId" class="meta-chip">scene —</span>
+              <span id="runId" class="meta-chip">run —</span>
+              <span id="invariantState" class="meta-chip">not evaluated</span>
             </div>
           </div>
 
-          <div class="dataset-workspace">
-            <div id="datasetList" class="dataset-list"></div>
-            <div class="dataset-editor">
-              <div id="datasetScenario" class="dataset-scenario">No dataset example selected.</div>
-              <div id="datasetValidation" class="dataset-validation"></div>
-              <div class="dataset-form">
-                <label class="field">
-                  <span>Status</span>
-                  <select id="datasetStatusSelect">
-                    <option value="draft">draft</option>
-                    <option value="needs_edit">needs_edit</option>
-                    <option value="approved">approved</option>
-                    <option value="rejected">rejected</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>Split</span>
-                  <select id="datasetSplitSelect">
-                    <option value="">auto</option>
-                    <option value="train">train</option>
-                    <option value="validation">validation</option>
-                    <option value="test">test</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>Reviewer</span>
-                  <input id="datasetReviewer" type="text" />
-                </label>
-              </div>
-              <label class="field dataset-notes">
-                <span>Review notes</span>
-                <textarea id="datasetNotes" rows="2"></textarea>
-              </label>
-              <label class="field dataset-json">
-                <span>Assistant payload JSON</span>
-                <textarea id="datasetJsonEditor" spellcheck="false"></textarea>
-              </label>
-              <div class="dataset-save-row">
-                <button id="saveDatasetExampleBtn" type="button">Save example</button>
-                <button type="button" data-dataset-status="approved">Approve</button>
-                <button type="button" data-dataset-status="needs_edit">Needs edit</button>
-                <button type="button" data-dataset-status="rejected">Reject</button>
-              </div>
-            </div>
+          <div class="cycle-controls">
+            <label class="field" for="profileSelect">
+              <span>Structural character</span>
+              <select id="profileSelect" disabled>
+                <option>Loading profiles…</option>
+              </select>
+            </label>
+            <label class="debug-toggle" for="debugToggle">
+              <input id="debugToggle" type="checkbox" />
+              <span>
+                <strong>Evaluator debug</strong>
+                <small>Reveal native truth beside Racio’s interpretation</small>
+              </span>
+            </label>
+            <button id="runCycleBtn" class="primary-action" type="button" disabled>
+              Run deterministic cycle
+            </button>
           </div>
         </section>
 
-        <section class="history-pane" aria-label="History">
-          <div class="section-head">
-            <h2>Zgodovina</h2>
-            <span id="historyCount" class="meta-pill">0</span>
+        <nav class="panel-tabs" role="tablist" aria-label="Workbench layers">
+          <button
+            id="tab-native"
+            class="panel-tab active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-native"
+            data-panel="native"
+          >
+            <span class="tab-index">01</span>
+            <span>Native</span>
+            <small>Untranslated signals</small>
+          </button>
+          <button
+            id="tab-communication"
+            class="panel-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-communication"
+            data-panel="communication"
+            tabindex="-1"
+          >
+            <span class="tab-index">02</span>
+            <span>Communication</span>
+            <small>Manifestation → interpretation</small>
+          </button>
+          <button
+            id="tab-character"
+            class="panel-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-character"
+            data-panel="character"
+            tabindex="-1"
+          >
+            <span class="tab-index">03</span>
+            <span>Character</span>
+            <small>Authority → behavior</small>
+          </button>
+          <button
+            id="tab-ego"
+            class="panel-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-ego"
+            data-panel="ego"
+            tabindex="-1"
+          >
+            <span class="tab-index">04</span>
+            <span>Ego</span>
+            <small>History → composition</small>
+          </button>
+        </nav>
+
+        <section
+          id="panel-native"
+          class="workbench-panel active"
+          role="tabpanel"
+          aria-labelledby="tab-native"
+          tabindex="0"
+        >
+          <div class="empty-state">
+            <span class="empty-orbit" aria-hidden="true"></span>
+            <h2>Native signal space</h2>
+            <p>Run the deterministic fixture to inspect Racio, Emocio, and Instinkt before communication.</p>
           </div>
-          <div id="historyList" class="history-list"></div>
         </section>
+        <section
+          id="panel-communication"
+          class="workbench-panel"
+          role="tabpanel"
+          aria-labelledby="tab-communication"
+          tabindex="0"
+          hidden
+        ></section>
+        <section
+          id="panel-character"
+          class="workbench-panel"
+          role="tabpanel"
+          aria-labelledby="tab-character"
+          tabindex="0"
+          hidden
+        ></section>
+        <section
+          id="panel-ego"
+          class="workbench-panel"
+          role="tabpanel"
+          aria-labelledby="tab-ego"
+          tabindex="0"
+          hidden
+        ></section>
       </main>
     </div>
-    <script src="/static/app.js" type="module"></script>
   </body>
 </html>

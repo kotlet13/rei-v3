@@ -1,0 +1,111 @@
+name: REI native architecture
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  unit-and-domain:
+    name: unit-and-domain
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: app/backend/requirements.txt
+
+      - name: Install minimal test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r app/backend/requirements.txt pytest==9.1.1
+
+      - name: Run native domain and archive guards
+        run: >-
+          python -m pytest
+          tests/rei
+          tests/test_archive_boundary.py
+          tests/test_archive_integrity.py
+          tests/test_native_cutover.py
+          -q
+
+  full-discovery:
+    name: full-discovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: app/backend/requirements.txt
+
+      - name: Install minimal test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r app/backend/requirements.txt pytest==9.1.1
+
+      - name: Report collection and require native tests
+        run: |
+          mkdir -p output/ci-artifacts
+          python -m pytest --collect-only -q | tee output/ci-artifacts/collection.txt
+          grep -q '^tests/rei/' output/ci-artifacts/collection.txt
+
+      - name: Run complete discovered suite
+        run: python -m pytest -q
+
+  artifact-smoke:
+    name: artifact-smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: app/backend/requirements.txt
+
+      - name: Install minimal runtime dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r app/backend/requirements.txt
+
+      - name: Run deterministic native artifacts
+        run: |
+          mkdir -p output/ci-artifacts
+          python scripts/run_rei_native_cycle.py \
+            > output/ci-artifacts/native-cycle-summary.json
+          python scripts/run_rei_native_profile_matrix.py \
+            --output output/ci-artifacts/native-profile-matrix.json \
+            > output/ci-artifacts/native-profile-matrix-summary.json
+
+      - name: Upload deterministic summaries
+        uses: actions/upload-artifact@v7
+        with:
+          name: rei-native-deterministic-summaries
+          path: output/ci-artifacts/
+          if-no-files-found: error
+          retention-days: 14

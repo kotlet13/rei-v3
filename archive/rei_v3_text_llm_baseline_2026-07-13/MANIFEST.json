@@ -1,0 +1,3138 @@
+{
+  "archive_id": "rei_v3_text_llm_baseline_2026-07-13",
+  "archive_schema_version": 1,
+  "baseline": {
+    "architecture": "textual-three-processor-plus-ego-llm",
+    "entrypoint": "ReiEngine.run_rei_cycle",
+    "matrix": "13 x 12 = 156",
+    "runner": "scripts/run_rei_profile_matrix.py"
+  },
+  "checksum_manifest": {
+    "algorithm": "sha256",
+    "path": "FILES.sha256",
+    "self_excluded": true
+  },
+  "content_source": "raw Git blobs from source_commit; no working-tree file copies",
+  "created_at": "2026-07-11T10:36:56+02:00",
+  "created_at_basis": "source_commit_committer_timestamp",
+  "dirty_tree_before_archive": true,
+  "dirty_tree_entries": [
+    {
+      "path": ".gitattributes",
+      "status": "A "
+    },
+    {
+      "path": "CURRENT.md",
+      "status": " M"
+    },
+    {
+      "path": "Docs/REI_weighted_synthesis_working_note.md",
+      "status": " M"
+    },
+    {
+      "path": "README.md",
+      "status": " M"
+    },
+    {
+      "path": "app/backend/requirements.txt",
+      "status": " M"
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/ARCHITECTURE.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/BASELINE_VERIFICATION.md",
+      "status": "AM"
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/FILES.sha256",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/MANIFEST.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/SOURCE_COMMIT",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/artifacts/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/.gitignore",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/CURRENT.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/Docs/evals/rei_profile_matrix_summary_2026-05-17.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/Docs/evals/rei_profile_matrix_summary_2026-05-18.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/Docs/evals/rei_profile_matrix_summary_2026-05-19.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/__init__.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/acceptance.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/contract_loader.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/engine.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/ft_dataset.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/json_utils.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/knowledge.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/models.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/normalization.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/processor_contracts.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/processor_eval.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/profiles.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/prompts.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/rei/providers.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/backend/requirements.txt",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/__init__.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/data/.gitkeep",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/server.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/static/app.js",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/static/index.html",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/app/gui/static/styles.css",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/archive/rei_ft_profile_pilot_v1_incomplete_20260627_120516/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_ft_pilot_v1/examples.jsonl",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_ft_pilot_v1/reports/thinking_smoke.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_ft_pilot_v1/reports/validation_summary.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_ft_pilot_v1/scenarios.jsonl",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_profile_matrix_review_20260627_121704/README.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_profile_matrix_review_20260627_121704/examples.jsonl",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_profile_matrix_review_20260627_121704/manifest.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_profile_matrix_review_20260627_121704/reports/validation_summary.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/datasets/rei_profile_matrix_review_20260627_121704/scenarios.jsonl",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/eros_comments_rei_dynamics.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/processor_contracts.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/psi_ego_world_life.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/psi_emocio.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/psi_instinkt.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/psi_racio.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/canon/source_map.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/knowledge/rei_knowledge_index.json",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/plans/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/plans/REI_v3_Codex_first_execution_prompt.md",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/pytest.ini",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_acceptance.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_ego_fields.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_ft_dataset.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_normalization.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_processor_distinctness.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_processor_eval.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_profiles.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_rei_canonical_contracts.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_rei_cycle.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_rei_cycle_regression_contract.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/reference_tests/test_rei_profile_matrix.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/export_rei_ft_dataset.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/filter_rei_cases.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/generate_rei_ft_dataset.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/import_rei_profile_matrix_review_dataset.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/run_rei_profile_matrix.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/stop_rei_run.ps1",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/validate_rei_ft_dataset.py",
+      "status": "A "
+    },
+    {
+      "path": "archive/rei_v3_text_llm_baseline_2026-07-13/snapshot/scripts/verify_rei_contract_pack.py",
+      "status": "A "
+    },
+    {
+      "path": "plans/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md",
+      "status": " D"
+    },
+    {
+      "path": "plans/REI_v3_Codex_first_execution_prompt.md",
+      "status": "M "
+    },
+    {
+      "path": "pytest.ini",
+      "status": "M "
+    },
+    {
+      "path": "scripts/archive_rei_architecture.py",
+      "status": "A "
+    },
+    {
+      "path": "tests/test_archive_boundary.py",
+      "status": "A "
+    },
+    {
+      "path": "Docs/REI_ego_canon_review_baseline_2026-07-11.md",
+      "status": "??"
+    },
+    {
+      "path": "Docs/evals/rei_legacy_baseline_freeze_2026-07-11.md",
+      "status": "??"
+    },
+    {
+      "path": "knowledge/canon/character_rules_v2.yaml",
+      "status": "??"
+    },
+    {
+      "path": "knowledge/canon/claims_v2.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "knowledge/canon/open_questions_v2.md",
+      "status": "??"
+    },
+    {
+      "path": "knowledge/canon/processors_v2.yaml",
+      "status": "??"
+    },
+    {
+      "path": "knowledge/glossary/rei_terms_v2.yaml",
+      "status": "??"
+    },
+    {
+      "path": "plans/CODEX_kickoff_archive_REI_v3_2026-07-13.md",
+      "status": "??"
+    },
+    {
+      "path": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md",
+      "status": "??"
+    },
+    {
+      "path": "plans/archive/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md",
+      "status": "??"
+    },
+    {
+      "path": "plans/archive/REI_v3_Codex_first_execution_prompt.md",
+      "status": "??"
+    },
+    {
+      "path": "scripts/validate_rei_canon_v2.py",
+      "status": "??"
+    },
+    {
+      "path": "tests/v2/test_canon_claim_registry.py",
+      "status": "??"
+    },
+    {
+      "path": "tests/v2/test_no_scenario_rules_in_canon.py",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnova Emocio/REI osnova Emocio.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnova Emocio/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnova Instinkt/REI osnova Instinkt.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnova Instinkt/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnova Racio/REI osnova Racio.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnova Racio/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnove/REI osnove.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnove/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/REI osnove/page-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/erosov značaj/erosov značaj.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/docx_review/erosov značaj/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del1/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del1/page-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del1/page-3.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del1/page-4.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del1/page-5.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-3.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-4.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-5.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-6.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-7.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-8.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/del2/page-9.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/erosov_znacaj/erosov značaj.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/erosov_znacaj/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/erosov_znacaj/page-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/rei_osnove/REI osnove.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/rei_osnove/page-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/ego_analysis/rei_osnove/page-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/docs/rei_profile_matrix_summary_2026-07-11.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/run/cases.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/run/cases.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/run/progress.log",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/run/run.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/run/summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-20260711_110921/run/summary.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/docs/rei_profile_matrix_summary_2026-07-11.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/run/cases.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/run/cases.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/run/progress.log",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/run/run.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/run/summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/legacy-ollama-smoke-final/run/summary.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Emocio/001.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Emocio/002.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Emocio/003.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Instinkt/001.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Instinkt/002.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Instinkt/003.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Racio/001.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/Racio/002.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del1odsekN/001.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del1odsekN/002.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del1odsekN/003.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del1odsekN/004.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del1odsekN/005.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/001.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/002.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/003.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/004.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/005.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/006.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/007.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/008.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdf-review/del2odsekN/009.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del1-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del1-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del1-3.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del1-4.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del1-5.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-1.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-2.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-3.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-4.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-5.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-6.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-7.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-8.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/del2-9.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/eros124-124.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/ego_redteam/eros166-166.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_all.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p001.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p002.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p003.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p004.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p005.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p006.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p007.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p008.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p009.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p010.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p011.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p012.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p013.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p014.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p015.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p016.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p017.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p018.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p019.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p020.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p021.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p022.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p023.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p024.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p025.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p026.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p027.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p028.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p029.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p030.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p031.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p032.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p033.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p034.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p035.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p036.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p037.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p038.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p039.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p040.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p041.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p042.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p043.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p044.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p045.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p046.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p047.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p048.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p049.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p050.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p051.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p052.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p053.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p054.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p055.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p056.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p057.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p058.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p059.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p060.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p061.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p062.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p063.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p064.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p065.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p066.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p067.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p068.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p069.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p070.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p071.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p072.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p073.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p074.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p075.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p076.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p077.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p078.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p079.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p080.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p081.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p082.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p083.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p084.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p085.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p086.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p087.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p088.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p089.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p090.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p091.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p092.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p093.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p094.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p095.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p096.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p097.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p098.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p099.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p100.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p101.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p102.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p103.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p104.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p105.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p106.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p107.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p108.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p109.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p110.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p111.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p112.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p113.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p114.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p115.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p116.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p117.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p118.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p119.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p120.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p121.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p122.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p123.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p124.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p125.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p126.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p127.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p128.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p129.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p130.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p131.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p132.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p133.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p134.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p135.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p136.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p137.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p138.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p139.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p140.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p141.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p142.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p143.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p144.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p145.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p146.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p147.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p148.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p149.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p150.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p151.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p152.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p153.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p154.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p155.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p156.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p157.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p158.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p159.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p160.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p161.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p162.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p163.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p164.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p165.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p166.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p167.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p168.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p169.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p170.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p171.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p172.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p173.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p174.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p175.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p176.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p177.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p178.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p179.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p180.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p181.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p182.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p183.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p184.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p185.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p186.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p187.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p188.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p189.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p190.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p191.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p192.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p193.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p194.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p195.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p196.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p197.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p198.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p199.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p200.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p201.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p202.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p203.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p204.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p205.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p206.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p207.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p208.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p209.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p210.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p211.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/extracted/eros_pogovori_p212.txt",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Emocio_p01.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Emocio_p02.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Emocio_p03.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Instinkt_p01.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Instinkt_p02.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Instinkt_p03.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Racio_p01.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/Racio_p02.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del1odsekN_p01.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del1odsekN_p02.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del1odsekN_p03.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del1odsekN_p04.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del1odsekN_p05.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p01.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p02.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p03.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p04.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p05.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p06.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p07.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p08.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/rendered/del2odsekN_p09.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-043.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-051.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-052.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-063.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-064.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-076.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-077.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-088.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-099.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-104.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-145.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-164.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pdfs/review_eros/eros-page-165.png",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_gui_dataset_endpoints_use0/rei_ft_api/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_gui_dataset_endpoints_use0/rei_ft_api/manifest.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_gui_dataset_endpoints_use0/rei_ft_api/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_gui_dataset_endpoints_usecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_e0/rei_ft_rejected/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_e0/rei_ft_rejected/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_e0/rei_ft_rejected/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_e0/rei_ft_rejected/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_e0/rei_ft_rejected/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_e0/rei_ft_rejected/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_rejected_examples_never_ecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skip0/rei_matrix_review/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skip0/rei_matrix_review/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skip0/rei_matrix_review/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skip0/rei_matrix_review/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skip0/rei_matrix_review/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skip0/rei_matrix_review/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_review_only_examples_skipcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-baseline-5f09da3f4a634d99aa45a4e4c2b2757d/test_ten_scenarios_map_to_profcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-0d0512aa2356406ebdf045398a64b42a/test_validator_cli_returns_noncurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_ek_pdf_source_requires_po0/source.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_ek_pdf_source_requires_pocurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_supporting_document_needs0/source.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_supporting_document_needscurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_supporting_source_must_ex0/Docs/source.docx",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_supporting_source_must_ex0/knowledge/canon/claims_v2.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_supporting_source_must_excurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-canon-review-210df8c63bc94f93b6fe1d487e4c906e/test_validator_cli_returns_noncurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_gui_dataset_endpoints_use0/rei_ft_api/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_gui_dataset_endpoints_use0/rei_ft_api/manifest.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_gui_dataset_endpoints_use0/rei_ft_api/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_gui_dataset_endpoints_usecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_e0/rei_ft_rejected/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_e0/rei_ft_rejected/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_e0/rei_ft_rejected/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_e0/rei_ft_rejected/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_e0/rei_ft_rejected/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_e0/rei_ft_rejected/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_rejected_examples_never_ecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skip0/rei_matrix_review/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skip0/rei_matrix_review/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skip0/rei_matrix_review/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skip0/rei_matrix_review/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skip0/rei_matrix_review/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skip0/rei_matrix_review/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_review_only_examples_skipcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_ten_scenarios_map_to_profcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-audit-3a24ec3b5ce9412fb7277fcf827449f7/test_validator_cli_returns_noncurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ek_pdf_source_requires_po0/source.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ek_pdf_source_requires_pocurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_gui_dataset_endpoints_use0/rei_ft_api/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_gui_dataset_endpoints_use0/rei_ft_api/manifest.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_gui_dataset_endpoints_use0/rei_ft_api/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_gui_dataset_endpoints_usecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_e0/rei_ft_rejected/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_e0/rei_ft_rejected/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_e0/rei_ft_rejected/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_e0/rei_ft_rejected/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_e0/rei_ft_rejected/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_e0/rei_ft_rejected/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_rejected_examples_never_ecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skip0/rei_matrix_review/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skip0/rei_matrix_review/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skip0/rei_matrix_review/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skip0/rei_matrix_review/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skip0/rei_matrix_review/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skip0/rei_matrix_review/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_review_only_examples_skipcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_supporting_document_needs0/source.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_supporting_document_needscurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_supporting_source_must_ex0/Docs/source.docx",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_supporting_source_must_ex0/knowledge/canon/claims_v2.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_supporting_source_must_excurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_ten_scenarios_map_to_profcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-delivery-5e51fb927e624aa1ae792a073d1e0581/test_validator_cli_returns_noncurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_gui_dataset_endpoints_use0/rei_ft_api/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_gui_dataset_endpoints_use0/rei_ft_api/manifest.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_gui_dataset_endpoints_use0/rei_ft_api/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_gui_dataset_endpoints_usecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_e0/rei_ft_rejected/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_e0/rei_ft_rejected/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_e0/rei_ft_rejected/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_e0/rei_ft_rejected/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_e0/rei_ft_rejected/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_e0/rei_ft_rejected/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_rejected_examples_never_ecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skip0/rei_matrix_review/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skip0/rei_matrix_review/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skip0/rei_matrix_review/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skip0/rei_matrix_review/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skip0/rei_matrix_review/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skip0/rei_matrix_review/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_review_only_examples_skipcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_ten_scenarios_map_to_profcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-fcfe4974daae4839b62acb6123fe52d9/test_validator_cli_returns_noncurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ek_pdf_source_requires_po0/source.pdf",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ek_pdf_source_requires_pocurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_gui_dataset_endpoints_use0/rei_ft_api/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_gui_dataset_endpoints_use0/rei_ft_api/manifest.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_gui_dataset_endpoints_use0/rei_ft_api/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_gui_dataset_endpoints_usecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_e0/rei_ft_rejected/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_e0/rei_ft_rejected/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_e0/rei_ft_rejected/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_e0/rei_ft_rejected/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_e0/rei_ft_rejected/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_e0/rei_ft_rejected/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_rejected_examples_never_ecurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skip0/rei_matrix_review/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skip0/rei_matrix_review/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skip0/rei_matrix_review/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skip0/rei_matrix_review/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skip0/rei_matrix_review/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skip0/rei_matrix_review/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_review_only_examples_skipcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_supporting_document_needs0/source.md",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_supporting_document_needscurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_supporting_source_must_ex0/Docs/source.docx",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_supporting_source_must_ex0/knowledge/canon/claims_v2.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_supporting_source_must_excurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/examples.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/export_summary.json",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/test.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/train.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/exports/validation.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_prof0/rei_ft_profile_pilot_v1/scenarios.jsonl",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_ten_scenarios_map_to_profcurrent",
+      "status": "??"
+    },
+    {
+      "path": "tmp/pytest-final-reviewed-3f87f84782a047b2ac6ded68a14785f5/test_validator_cli_returns_noncurrent",
+      "status": "??"
+    }
+  ],
+  "documentation_source": "existing archive target",
+  "excluded_files": [],
+  "excluded_paths": [
+    ".git/**",
+    "archive/** (the repository-level pre-existing archive tree)",
+    "**/output/**",
+    "**/{cache,caches,*_cache,__pycache__}/**",
+    "**/{log,logs}/** and *.log",
+    "**/{model,models,weights,checkpoint,checkpoints}/** and model weight files",
+    "**/{.venv,venv}/**",
+    "**/{tmp,temp,temporary}/** and temporary files",
+    "local prompt override files"
+  ],
+  "files": [
+    {
+      "archive_path": "README.md",
+      "record_kind": "archive_documentation",
+      "sha256": "10596822d0242489570a630be2a0fdc0882581afaf8ddf7b324c427e3cef28e2",
+      "size_bytes": 5467,
+      "source_path": null
+    },
+    {
+      "archive_path": "ARCHITECTURE.md",
+      "record_kind": "archive_documentation",
+      "sha256": "9b3e89487e990ddbc8239b52e8633d8a19f41f6ed96a449209667ac79d194eff",
+      "size_bytes": 9861,
+      "source_path": null
+    },
+    {
+      "archive_path": "BASELINE_VERIFICATION.md",
+      "record_kind": "archive_documentation",
+      "sha256": "2876e99958fbbbbd646bec1d577c1bba71ae9db53b0bfe7872c568b85d1089f2",
+      "size_bytes": 11938,
+      "source_path": null
+    },
+    {
+      "archive_path": "artifacts/README.md",
+      "record_kind": "archive_documentation",
+      "sha256": "f79978d1c0d49608ddf94a2518e31f4f0ab7d2415f5eb77b10d36fc1d3c0515f",
+      "size_bytes": 1343,
+      "source_path": null
+    },
+    {
+      "archive_path": "snapshot/.gitignore",
+      "git_mode": "100644",
+      "git_object_id": "af511996df41251439f950584fc2bffd88fcebe9",
+      "record_kind": "source_snapshot",
+      "sha256": "7e2280fd18a20c30b61d72451fad8b32ce0b65403476337a863ddccfbbcf464f",
+      "size_bytes": 514,
+      "source_path": ".gitignore"
+    },
+    {
+      "archive_path": "snapshot/CURRENT.md",
+      "git_mode": "100644",
+      "git_object_id": "c52756fc542497deae7fd0c454d57538176c0249",
+      "record_kind": "source_snapshot",
+      "sha256": "c60d750aca2b93a0675628e00712f0a093282253956c74f84800a1ce4cad0135",
+      "size_bytes": 2481,
+      "source_path": "CURRENT.md"
+    },
+    {
+      "archive_path": "snapshot/Docs/evals/rei_profile_matrix_summary_2026-05-17.md",
+      "git_mode": "100644",
+      "git_object_id": "b4d2c085c5979d3c9800283ebabf3ae280dbddd1",
+      "record_kind": "source_snapshot",
+      "sha256": "97c1c94151ac2ec51e2f2096132675f46e5649ea53baf3e05eca657ae36e9514",
+      "size_bytes": 4433,
+      "source_path": "Docs/evals/rei_profile_matrix_summary_2026-05-17.md"
+    },
+    {
+      "archive_path": "snapshot/Docs/evals/rei_profile_matrix_summary_2026-05-18.md",
+      "git_mode": "100644",
+      "git_object_id": "7bc694103867a4f5d305fa88cbbfbf9b3ac6899d",
+      "record_kind": "source_snapshot",
+      "sha256": "19ced8d0100ce4cf8c04f6fbbaa6917e4fa816b0fc999f49875952094e204c77",
+      "size_bytes": 34291,
+      "source_path": "Docs/evals/rei_profile_matrix_summary_2026-05-18.md"
+    },
+    {
+      "archive_path": "snapshot/Docs/evals/rei_profile_matrix_summary_2026-05-19.md",
+      "git_mode": "100644",
+      "git_object_id": "096bdad6e2462067de562864b466f5d946bb9e3f",
+      "record_kind": "source_snapshot",
+      "sha256": "db1dfcd68c09ec49aa60e9564268385a5efb43b29566f220ebb5e49e9ca11c33",
+      "size_bytes": 9025,
+      "source_path": "Docs/evals/rei_profile_matrix_summary_2026-05-19.md"
+    },
+    {
+      "archive_path": "snapshot/README.md",
+      "git_mode": "100644",
+      "git_object_id": "1426d06f0b47fb7f3e88399f4345ca1a43e2eb93",
+      "record_kind": "source_snapshot",
+      "sha256": "7377f150c89173d8205fe20da36870f135d8a7ef8dab07d4cd6fe6d38ea3d6ba",
+      "size_bytes": 1232,
+      "source_path": "README.md"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/__init__.py",
+      "git_mode": "100644",
+      "git_object_id": "b99365fd9050ac9fd02f00312134efa649ec8656",
+      "record_kind": "source_snapshot",
+      "sha256": "efc5d8fb9422d795e81b34eabed826d33966eed57187921fdc0ca3938c84363a",
+      "size_bytes": 31,
+      "source_path": "app/backend/rei/__init__.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/acceptance.py",
+      "git_mode": "100644",
+      "git_object_id": "0f9d173113869ab25b24fa9f2058d48a726e2788",
+      "record_kind": "source_snapshot",
+      "sha256": "49cc9f7e5a88418418339a33b465a32b74e4215067e75554ec2783dcbf11ec56",
+      "size_bytes": 13011,
+      "source_path": "app/backend/rei/acceptance.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/contract_loader.py",
+      "git_mode": "100644",
+      "git_object_id": "dc65b1bd83ce6e6e3d5f8efd67ee861922fb6f6f",
+      "record_kind": "source_snapshot",
+      "sha256": "6d5df3a61eff635e08942cb8aeb12e8af422ec5ea6d9b359d96be3e881ecce7e",
+      "size_bytes": 12708,
+      "source_path": "app/backend/rei/contract_loader.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/engine.py",
+      "git_mode": "100644",
+      "git_object_id": "3fa1b052f5ccec91d8e70c903ade5d164c53a4ca",
+      "record_kind": "source_snapshot",
+      "sha256": "6ac7d44a53d4acc51ef902e19f41cf969e2b2977765b22d6d87d80c532776e36",
+      "size_bytes": 148639,
+      "source_path": "app/backend/rei/engine.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/ft_dataset.py",
+      "git_mode": "100644",
+      "git_object_id": "fec737877f258bc2e60ba05017670db6d45ae599",
+      "record_kind": "source_snapshot",
+      "sha256": "696092019877a26d59d957f7ea67b2d638e8493ffeea9f6f1d75b5cfce2d097e",
+      "size_bytes": 15818,
+      "source_path": "app/backend/rei/ft_dataset.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/json_utils.py",
+      "git_mode": "100644",
+      "git_object_id": "2e462be7dcb5ac6c462cd852e6494222a97665ee",
+      "record_kind": "source_snapshot",
+      "sha256": "9e998613fd031fe3f49f5f97a2bc9acaf0adebcbe952d386c33fc9eb1a6ae8e4",
+      "size_bytes": 2125,
+      "source_path": "app/backend/rei/json_utils.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/knowledge.py",
+      "git_mode": "100644",
+      "git_object_id": "05bab0174b13caefc5d235da314d430b838ccf06",
+      "record_kind": "source_snapshot",
+      "sha256": "32893178713a94690a04fd930572801c8785e996a19c12c7025ec0bace859c44",
+      "size_bytes": 1747,
+      "source_path": "app/backend/rei/knowledge.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/models.py",
+      "git_mode": "100644",
+      "git_object_id": "0dbe8410d8eb92bc47cb15e0fa34ffcbb8ad8c2a",
+      "record_kind": "source_snapshot",
+      "sha256": "f5de23a440dc9813b0192052cf8f9842674410a66cb7446305af29274cb6ea0c",
+      "size_bytes": 13689,
+      "source_path": "app/backend/rei/models.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/normalization.py",
+      "git_mode": "100644",
+      "git_object_id": "6bcca77ee6ebe79188767a70e46c492611f3b2f9",
+      "record_kind": "source_snapshot",
+      "sha256": "f906a3cdf70cf901c4b90080d3d6c84e280c12a1382ca14fb9ac119119171c62",
+      "size_bytes": 1690,
+      "source_path": "app/backend/rei/normalization.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/processor_contracts.py",
+      "git_mode": "100644",
+      "git_object_id": "0e9a212c30146bafcc70f6e4e93603f4c015a1bc",
+      "record_kind": "source_snapshot",
+      "sha256": "6830c8261e08f48607e0c3f3790d11d73303b52cb05f96ebf9d3ac3a54d63daa",
+      "size_bytes": 1333,
+      "source_path": "app/backend/rei/processor_contracts.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/processor_eval.py",
+      "git_mode": "100644",
+      "git_object_id": "7c739e2c5bebfb4da78372178f63aad7a30ffc28",
+      "record_kind": "source_snapshot",
+      "sha256": "268774583e9de46bd779a7b1b2685f2a92fb9bdb143cd2054530d24a44babc02",
+      "size_bytes": 24972,
+      "source_path": "app/backend/rei/processor_eval.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/profiles.py",
+      "git_mode": "100644",
+      "git_object_id": "bebc07b938b9e3bcebebe3df37a5fe64f86a429a",
+      "record_kind": "source_snapshot",
+      "sha256": "67d05023399e6963d49a2f5b47b3e148293519ac28a8056bda473c64f82c9e79",
+      "size_bytes": 2721,
+      "source_path": "app/backend/rei/profiles.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/prompts.py",
+      "git_mode": "100644",
+      "git_object_id": "b2648a96c212c87ac69348def6b7a9fead7d000f",
+      "record_kind": "source_snapshot",
+      "sha256": "0d8172d4c85ebd52bf703bbbcc941647bd1aca529c1d720dbedebdf99fdd4aac",
+      "size_bytes": 2038,
+      "source_path": "app/backend/rei/prompts.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/rei/providers.py",
+      "git_mode": "100644",
+      "git_object_id": "c9bd63960c134cfd5f7fd3ac32016f7ddeea01a9",
+      "record_kind": "source_snapshot",
+      "sha256": "ddb475fa9d931d4f2c061d30418956594928a08dad3cd1fd1b0bde8216df6795",
+      "size_bytes": 14943,
+      "source_path": "app/backend/rei/providers.py"
+    },
+    {
+      "archive_path": "snapshot/app/backend/requirements.txt",
+      "git_mode": "100644",
+      "git_object_id": "dc85a9f110d7b4ffa9ded964e913c48b34357547",
+      "record_kind": "source_snapshot",
+      "sha256": "ffa302ddc8e8ec8d7bfbaa4948836ae5d806b46209e4b7155e0229ed10844615",
+      "size_bytes": 61,
+      "source_path": "app/backend/requirements.txt"
+    },
+    {
+      "archive_path": "snapshot/app/gui/README.md",
+      "git_mode": "100644",
+      "git_object_id": "cd45d8afeb29753caa857fe1a4a13309be10e410",
+      "record_kind": "source_snapshot",
+      "sha256": "1749b1aef3a2700da10b0860132a158cb8227571e915184313c02e5d9374cdd8",
+      "size_bytes": 2586,
+      "source_path": "app/gui/README.md"
+    },
+    {
+      "archive_path": "snapshot/app/gui/__init__.py",
+      "git_mode": "100644",
+      "git_object_id": "05c54d9b35efaf8308bcd4d0b511e20a65bb1029",
+      "record_kind": "source_snapshot",
+      "sha256": "f2956bf8ee490a0be88558eb1968f445b2525356a3a9f5135fee8e5ccb390aa3",
+      "size_bytes": 32,
+      "source_path": "app/gui/__init__.py"
+    },
+    {
+      "archive_path": "snapshot/app/gui/data/.gitkeep",
+      "git_mode": "100644",
+      "git_object_id": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "record_kind": "source_snapshot",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_bytes": 1,
+      "source_path": "app/gui/data/.gitkeep"
+    },
+    {
+      "archive_path": "snapshot/app/gui/server.py",
+      "git_mode": "100644",
+      "git_object_id": "8bdaf9e4b17e12a909276970bec7d8f4c828fa0c",
+      "record_kind": "source_snapshot",
+      "sha256": "952df136f1f0443d0b6b14da6508d14e8483d0ba5a22a2541514d8b84da4beef",
+      "size_bytes": 37203,
+      "source_path": "app/gui/server.py"
+    },
+    {
+      "archive_path": "snapshot/app/gui/static/app.js",
+      "git_mode": "100644",
+      "git_object_id": "7cabd50b4c5d4cd70bddc5c06e942df3bc1f553b",
+      "record_kind": "source_snapshot",
+      "sha256": "f647275f947600056cb87566c95cd821c9f0c378faf4722184e63485eccc7b38",
+      "size_bytes": 34895,
+      "source_path": "app/gui/static/app.js"
+    },
+    {
+      "archive_path": "snapshot/app/gui/static/index.html",
+      "git_mode": "100644",
+      "git_object_id": "ec73889b34a3f72ea4d13b3d9ba8d5a26fb0b7b1",
+      "record_kind": "source_snapshot",
+      "sha256": "c349051356e5b6988bd10c510ab0d20e69cbf606cd88510255d14293ae8cb306",
+      "size_bytes": 7372,
+      "source_path": "app/gui/static/index.html"
+    },
+    {
+      "archive_path": "snapshot/app/gui/static/styles.css",
+      "git_mode": "100644",
+      "git_object_id": "3a3f577c1d3b28e33c7d2073ea26b06fcbd115a6",
+      "record_kind": "source_snapshot",
+      "sha256": "1ab75107f6a7b09ab08705e0c2887f5b6d56a4a8242160b5925b9db897748ace",
+      "size_bytes": 10714,
+      "source_path": "app/gui/static/styles.css"
+    },
+    {
+      "archive_path": "snapshot/datasets/README.md",
+      "git_mode": "100644",
+      "git_object_id": "caec0d28773037fa79631bd8e795bbfbdf21e557",
+      "record_kind": "source_snapshot",
+      "sha256": "7227f94575af3dad25d94f488188847c59c533e4f80b369bd26af1f65c37351b",
+      "size_bytes": 819,
+      "source_path": "datasets/README.md"
+    },
+    {
+      "archive_path": "snapshot/datasets/archive/rei_ft_profile_pilot_v1_incomplete_20260627_120516/README.md",
+      "git_mode": "100644",
+      "git_object_id": "a77fa5f3430e7f63b9d56fa221ab2e50bf93ab8b",
+      "record_kind": "source_snapshot",
+      "sha256": "69b7d3fddea2f6bd8a3b6c8ebb32684bf020632f3275ba6cffebb0b8447b9dfe",
+      "size_bytes": 857,
+      "source_path": "datasets/archive/rei_ft_profile_pilot_v1_incomplete_20260627_120516/README.md"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_ft_pilot_v1/examples.jsonl",
+      "git_mode": "100644",
+      "git_object_id": "7c6a74778f871b660a724739552d898d637ad4f6",
+      "record_kind": "source_snapshot",
+      "sha256": "314db2a4540488f79e1973465763d0ce85a5f2e0f82b927460d9ad2f6af7528b",
+      "size_bytes": 1993438,
+      "source_path": "datasets/rei_ft_pilot_v1/examples.jsonl"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_ft_pilot_v1/reports/thinking_smoke.json",
+      "git_mode": "100644",
+      "git_object_id": "58b5fa964530d0d1046a5171c51eacf8d96b835e",
+      "record_kind": "source_snapshot",
+      "sha256": "248b8631335b16f7c93c84bcc34a440691234fd74046cc41188708a05c2fdd7b",
+      "size_bytes": 214,
+      "source_path": "datasets/rei_ft_pilot_v1/reports/thinking_smoke.json"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_ft_pilot_v1/reports/validation_summary.json",
+      "git_mode": "100644",
+      "git_object_id": "659b7f2de12d4acd2a0d93128793ea7fdfd6dae0",
+      "record_kind": "source_snapshot",
+      "sha256": "468b459f09d824573cad40c8cfc45172dfacfc6e65c96d551856e1e915c415b2",
+      "size_bytes": 144086,
+      "source_path": "datasets/rei_ft_pilot_v1/reports/validation_summary.json"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_ft_pilot_v1/scenarios.jsonl",
+      "git_mode": "100644",
+      "git_object_id": "0453503fefb2d9840abca0acccc7cbfd0eac467c",
+      "record_kind": "source_snapshot",
+      "sha256": "e71cb376e98e5b2515a5b8dfc45a60cec4d89555dc6496370362169bc9bad47d",
+      "size_bytes": 22933,
+      "source_path": "datasets/rei_ft_pilot_v1/scenarios.jsonl"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_profile_matrix_review_20260627_121704/README.md",
+      "git_mode": "100644",
+      "git_object_id": "55a018a7dec253bb807de0fb423fe0d57df4029e",
+      "record_kind": "source_snapshot",
+      "sha256": "3ddb0cf04771608873be0cef84d6cf7857b3cf23cda424b80ac7fc5868d24c1f",
+      "size_bytes": 874,
+      "source_path": "datasets/rei_profile_matrix_review_20260627_121704/README.md"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_profile_matrix_review_20260627_121704/examples.jsonl",
+      "git_mode": "100644",
+      "git_object_id": "bb84fa25f7c8ad0da7390ad3877f35289171e794",
+      "record_kind": "source_snapshot",
+      "sha256": "8a2e36a292bdcbb3f1dbb8516029eb1d269fb6708e7d938e6552cefc02743f36",
+      "size_bytes": 4469119,
+      "source_path": "datasets/rei_profile_matrix_review_20260627_121704/examples.jsonl"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_profile_matrix_review_20260627_121704/manifest.json",
+      "git_mode": "100644",
+      "git_object_id": "651ab2ab071b6944c92bb01bce81d0252044ed27",
+      "record_kind": "source_snapshot",
+      "sha256": "a902efd0e91052a492c29962812f6652cbf5d2a78683889d38fa6a6465fe8276",
+      "size_bytes": 654,
+      "source_path": "datasets/rei_profile_matrix_review_20260627_121704/manifest.json"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_profile_matrix_review_20260627_121704/reports/validation_summary.json",
+      "git_mode": "100644",
+      "git_object_id": "c4f380994fc263c01c1de7165d43fb13ed661243",
+      "record_kind": "source_snapshot",
+      "sha256": "65925553ac21a12ca2b4c6ca9ad8f94981ade0c9f08c60e94c312cc0f7cc8e0f",
+      "size_bytes": 993514,
+      "source_path": "datasets/rei_profile_matrix_review_20260627_121704/reports/validation_summary.json"
+    },
+    {
+      "archive_path": "snapshot/datasets/rei_profile_matrix_review_20260627_121704/scenarios.jsonl",
+      "git_mode": "100644",
+      "git_object_id": "13d2846f1381d68aaee58d622b6aa5ec1812c0fc",
+      "record_kind": "source_snapshot",
+      "sha256": "a846d17d50deccf209904dafa6289bc73d49341c496d38f7febe070c1d9d3f01",
+      "size_bytes": 5484,
+      "source_path": "datasets/rei_profile_matrix_review_20260627_121704/scenarios.jsonl"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/eros_comments_rei_dynamics.md",
+      "git_mode": "100644",
+      "git_object_id": "996db87dd19725d43cbcd72952934d433576b249",
+      "record_kind": "source_snapshot",
+      "sha256": "29bae63e3515e3cf6e9f54e84df8e626b49fade032b3d06193f92f6928284f06",
+      "size_bytes": 1888,
+      "source_path": "knowledge/canon/eros_comments_rei_dynamics.md"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/processor_contracts.json",
+      "git_mode": "100644",
+      "git_object_id": "4e3cbacc6adc83b6ceccea14381f3f1fb0f13b12",
+      "record_kind": "source_snapshot",
+      "sha256": "ae0052b6733cbd8d66fdb64d9ced0431f325fa01bd54c026ec76a1f8c3dff4a6",
+      "size_bytes": 21564,
+      "source_path": "knowledge/canon/processor_contracts.json"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/psi_ego_world_life.md",
+      "git_mode": "100644",
+      "git_object_id": "b22191c1f73b3bc08a35a6913dc5ef659a30ec0e",
+      "record_kind": "source_snapshot",
+      "sha256": "e8783146e371569fba7b1c049f9ec96653e792cede14f16cc9175de62d7b9777",
+      "size_bytes": 1611,
+      "source_path": "knowledge/canon/psi_ego_world_life.md"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/psi_emocio.md",
+      "git_mode": "100644",
+      "git_object_id": "64f5bb7006bd1a3ee2eca7dd004e6d625e5192df",
+      "record_kind": "source_snapshot",
+      "sha256": "b78c84ea75fda47ed2478db6b268763a21d33493a62baa3790937aedfdc14418",
+      "size_bytes": 1401,
+      "source_path": "knowledge/canon/psi_emocio.md"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/psi_instinkt.md",
+      "git_mode": "100644",
+      "git_object_id": "e20d8d52c6d279308bdf25c4e9cd2b3f9e20d4ca",
+      "record_kind": "source_snapshot",
+      "sha256": "329a1afebbaa8ce265cf6ca74fe478d5420fe49cb263f3585f28c86fea137590",
+      "size_bytes": 1401,
+      "source_path": "knowledge/canon/psi_instinkt.md"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/psi_racio.md",
+      "git_mode": "100644",
+      "git_object_id": "2caabcd1ba506d0bb49b8f39fe0e3169412e7f61",
+      "record_kind": "source_snapshot",
+      "sha256": "c7af127ebc07e0aab19d36aafe77d4a590c3f16368a7c91aaa453dde778ba738",
+      "size_bytes": 1437,
+      "source_path": "knowledge/canon/psi_racio.md"
+    },
+    {
+      "archive_path": "snapshot/knowledge/canon/source_map.json",
+      "git_mode": "100644",
+      "git_object_id": "d9a3f62ec174b99f9e785fede7a7d4947e828ae0",
+      "record_kind": "source_snapshot",
+      "sha256": "3a74926c1fd7bc437a8d36f45fd1e7bd6af66899ef3b8c8c16446289640c6333",
+      "size_bytes": 3013,
+      "source_path": "knowledge/canon/source_map.json"
+    },
+    {
+      "archive_path": "snapshot/knowledge/rei_knowledge_index.json",
+      "git_mode": "100644",
+      "git_object_id": "d7e4c9538632f8a11a2ee868f8c5bce6401ec7c0",
+      "record_kind": "source_snapshot",
+      "sha256": "292c848c1f461ca9f42c63585ac1e8769f6325ef2111ea036c39defc0a92a38c",
+      "size_bytes": 12462,
+      "source_path": "knowledge/rei_knowledge_index.json"
+    },
+    {
+      "archive_path": "snapshot/plans/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md",
+      "git_mode": "100644",
+      "git_object_id": "4d2eefd6fc3069c2f9ba415251b4d1b0803ba9e9",
+      "record_kind": "source_snapshot",
+      "sha256": "96cc6c81fb1b802e36d047911776f5affd2f6c06067f276cdb071653ede118df",
+      "size_bytes": 59115,
+      "source_path": "plans/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md"
+    },
+    {
+      "archive_path": "snapshot/plans/REI_v3_Codex_first_execution_prompt.md",
+      "git_mode": "100644",
+      "git_object_id": "0f3dccba1749e2d77591a5cb91ce00864ee10ab1",
+      "record_kind": "source_snapshot",
+      "sha256": "f24157d4603d9a4acf01b8730552ea172df41cf69f098d60dc0e6c66d1140d05",
+      "size_bytes": 1951,
+      "source_path": "plans/REI_v3_Codex_first_execution_prompt.md"
+    },
+    {
+      "archive_path": "snapshot/pytest.ini",
+      "git_mode": "100644",
+      "git_object_id": "5ee6477165727539aa0701c22b47da2ceaedeff5",
+      "record_kind": "source_snapshot",
+      "sha256": "c809c969ec7e11b9ff37784e9c6fcc0b7c5148d168e18b05aed797e03fbd6ead",
+      "size_bytes": 27,
+      "source_path": "pytest.ini"
+    },
+    {
+      "archive_path": "snapshot/scripts/export_rei_ft_dataset.py",
+      "git_mode": "100644",
+      "git_object_id": "8aa2dbcb3054c520732af914e6195d95e124b4d3",
+      "record_kind": "source_snapshot",
+      "sha256": "4322bf47cb5c1c4b4c364b7654bbc95fbb8e121c4d000a733c750b1deb69d752",
+      "size_bytes": 1266,
+      "source_path": "scripts/export_rei_ft_dataset.py"
+    },
+    {
+      "archive_path": "snapshot/scripts/filter_rei_cases.py",
+      "git_mode": "100644",
+      "git_object_id": "9c5fe76a548de256a0bed8d0864edc085fa01f2e",
+      "record_kind": "source_snapshot",
+      "sha256": "305d983da791d54560c6a1de9486d06e34db0a61cf7946d475b6407bc1de67ca",
+      "size_bytes": 3861,
+      "source_path": "scripts/filter_rei_cases.py"
+    },
+    {
+      "archive_path": "snapshot/scripts/generate_rei_ft_dataset.py",
+      "git_mode": "100644",
+      "git_object_id": "db1045f57fd372f16e4e8fbdd31ff2a12bfdd457",
+      "record_kind": "source_snapshot",
+      "sha256": "6a11d4fdf10bc53e1f5101d882505601e420ab4538d1d6e0d00a5bb6208c8164",
+      "size_bytes": 30687,
+      "source_path": "scripts/generate_rei_ft_dataset.py"
+    },
+    {
+      "archive_path": "snapshot/scripts/import_rei_profile_matrix_review_dataset.py",
+      "git_mode": "100644",
+      "git_object_id": "dcdb64acd49b1d1c8e3e33f8dde50884dd2776a8",
+      "record_kind": "source_snapshot",
+      "sha256": "5ee07ee14e963b9517dc8c426e20ac1b497e0691d3f0d00212ed2411404328c2",
+      "size_bytes": 6910,
+      "source_path": "scripts/import_rei_profile_matrix_review_dataset.py"
+    },
+    {
+      "archive_path": "snapshot/scripts/run_rei_profile_matrix.py",
+      "git_mode": "100644",
+      "git_object_id": "647e653b3e70c9b39e8743cb3c180a1b51ca43c6",
+      "record_kind": "source_snapshot",
+      "sha256": "4d8efb0939588a12fa0549a41cedc16c0983755300a9bac9c0eec770e48e7f5f",
+      "size_bytes": 52309,
+      "source_path": "scripts/run_rei_profile_matrix.py"
+    },
+    {
+      "archive_path": "snapshot/scripts/stop_rei_run.ps1",
+      "git_mode": "100644",
+      "git_object_id": "b89c78d29fd4b95f4afc3df6244b905b62ee5c71",
+      "record_kind": "source_snapshot",
+      "sha256": "92746f53f4fada0f7f02fd2fd585711b40e3930b2f75245749344a33c729c8aa",
+      "size_bytes": 1188,
+      "source_path": "scripts/stop_rei_run.ps1"
+    },
+    {
+      "archive_path": "snapshot/scripts/validate_rei_ft_dataset.py",
+      "git_mode": "100644",
+      "git_object_id": "882244cc8ad32a09e2083dcdc260e8808a222140",
+      "record_kind": "source_snapshot",
+      "sha256": "5fabe43b901e893d060825afebf966c56c6d5d2b4f77f2d1de1a736ae4fbe05f",
+      "size_bytes": 1393,
+      "source_path": "scripts/validate_rei_ft_dataset.py"
+    },
+    {
+      "archive_path": "snapshot/scripts/verify_rei_contract_pack.py",
+      "git_mode": "100644",
+      "git_object_id": "e40bae337aa71f961707ff39a34e8db1dea1ea18",
+      "record_kind": "source_snapshot",
+      "sha256": "48cf5328482de6466020138684e546d922120cdfd2a045affd278d4428da05f1",
+      "size_bytes": 1773,
+      "source_path": "scripts/verify_rei_contract_pack.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_acceptance.py",
+      "git_mode": "100644",
+      "git_object_id": "d9f4ba25dedc8cea82f83776195f793b2f72ae2e",
+      "record_kind": "source_snapshot",
+      "sha256": "8edece951c9b217c37e273890b853ad6ea45fedb8b68ca227101baea7dbd1298",
+      "size_bytes": 10116,
+      "source_path": "tests/test_acceptance.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_ego_fields.py",
+      "git_mode": "100644",
+      "git_object_id": "fa51bb2e29ebc192d894686861c337ee88a44529",
+      "record_kind": "source_snapshot",
+      "sha256": "2e8cf285904e9accbcced9b28b26760ddf0fbeffa25f97478cca938362ab5295",
+      "size_bytes": 2575,
+      "source_path": "tests/test_ego_fields.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_ft_dataset.py",
+      "git_mode": "100644",
+      "git_object_id": "703abf007a6ec0af46ef3b2f11392ca92646bc06",
+      "record_kind": "source_snapshot",
+      "sha256": "290847a6b7d073603fb321ea63408236bca8f872f4f399b224a95caa063a4868",
+      "size_bytes": 9292,
+      "source_path": "tests/test_ft_dataset.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_normalization.py",
+      "git_mode": "100644",
+      "git_object_id": "ac18d40980db526ff8b2e9b4e861d8fdad564a85",
+      "record_kind": "source_snapshot",
+      "sha256": "54ebd6b8ea4356c3351250611aa45704d888b75696f5c452cc0e094099ae4d4d",
+      "size_bytes": 1041,
+      "source_path": "tests/test_normalization.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_processor_distinctness.py",
+      "git_mode": "100644",
+      "git_object_id": "365577c44cc42332e8b9fe3b571165b8b2bdce42",
+      "record_kind": "source_snapshot",
+      "sha256": "2d499f4209a139f4d794270aae3c0c8cb0d551b1a9622470a4ccc3e340e9e362",
+      "size_bytes": 2947,
+      "source_path": "tests/test_processor_distinctness.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_processor_eval.py",
+      "git_mode": "100644",
+      "git_object_id": "d466467c3fcebe84f440150834549d7100cbebc3",
+      "record_kind": "source_snapshot",
+      "sha256": "340586ce0af1f4e6f89996b66110286bc683f18ed254305f167b1224eff69be9",
+      "size_bytes": 2064,
+      "source_path": "tests/test_processor_eval.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_profiles.py",
+      "git_mode": "100644",
+      "git_object_id": "a9c9dd8ec86075314f8ed528f13c0da8ae3589bc",
+      "record_kind": "source_snapshot",
+      "sha256": "ccae25aeb58aab4085d204c854aee3477d77ff82e03f351e4bc68d2496d328f2",
+      "size_bytes": 1017,
+      "source_path": "tests/test_profiles.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_rei_canonical_contracts.py",
+      "git_mode": "100644",
+      "git_object_id": "0cf7b727e1c004db08f935928186704dd5035ab6",
+      "record_kind": "source_snapshot",
+      "sha256": "968c79ac746e3650a61479c8474a6a8342bd6764d0e0fb8f06fdfc1c05cf46d2",
+      "size_bytes": 5016,
+      "source_path": "tests/test_rei_canonical_contracts.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_rei_cycle.py",
+      "git_mode": "100644",
+      "git_object_id": "bd2eae28fd5f40508f98b8f2ef22778a41b383e1",
+      "record_kind": "source_snapshot",
+      "sha256": "041a05b47cb2cdf07334575b435d7cbd1518cbe51a5e220d1b63c8fd0860ffa4",
+      "size_bytes": 9994,
+      "source_path": "tests/test_rei_cycle.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_rei_cycle_regression_contract.py",
+      "git_mode": "100644",
+      "git_object_id": "29a4638d09cddf3ccb10c97289f15b164605c62b",
+      "record_kind": "source_snapshot",
+      "sha256": "2087764eaa7c040dd1bf1e48aa51c4ee685a8505db3cc2541440dc99b6921d96",
+      "size_bytes": 1570,
+      "source_path": "tests/test_rei_cycle_regression_contract.py"
+    },
+    {
+      "archive_path": "snapshot/reference_tests/test_rei_profile_matrix.py",
+      "git_mode": "100644",
+      "git_object_id": "58afbd6692e96f6352e5efab44e1e68c9360a8c4",
+      "record_kind": "source_snapshot",
+      "sha256": "2eead7334e21a1a91533ee16a49da700fd17d862563d96dffda0b2a6083fecfd",
+      "size_bytes": 20460,
+      "source_path": "tests/test_rei_profile_matrix.py"
+    }
+  ],
+  "known_designs": {
+    "acceptance": "keyword heuristic",
+    "processor_input": "same text plus profile and influence weights",
+    "profiles": "continuous numeric weights",
+    "synthesis": "EgoResultant LLM plus deterministic fallback"
+  },
+  "source_branch": "codex/pre-canonical-v2-snapshot",
+  "source_commit": "05996b2b4a34cf6dd654e032d5dbc26bb5373ef0",
+  "source_documents": [
+    {
+      "git_mode": "100644",
+      "git_object_id": "ad81fddac8f08fb7f85acf92ad18c2eee8db3823",
+      "is_git_lfs_pointer": false,
+      "sha256": "19b0afd74f9818178c298beff119e0cb185dcd8442a690020bf47c5d82b9cb0b",
+      "size_bytes": 1523118,
+      "source_path": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "b08646ad7c0ae22df9d7629127acd3e61648834e",
+      "is_git_lfs_pointer": false,
+      "sha256": "344eccfe00cb8e4b6a416355bf25855312ac6c8a762964a11d0177854265a26c",
+      "size_bytes": 14096,
+      "source_path": "Docs/REI osnova Emocio.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "ac6660d4ca891c4c31879a8644b4ead9fd5a9d4f",
+      "is_git_lfs_pointer": false,
+      "sha256": "42e221e7fdc56d10a841c3c5a55b1fd905f86e66e070aeee80f2f9bec65614a3",
+      "size_bytes": 14026,
+      "source_path": "Docs/REI osnova Instinkt.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "08d1d46331220df77eb7ad712f2d58674806a459",
+      "is_git_lfs_pointer": false,
+      "sha256": "35e9b425ec2af0a45fcef31c3d8fe19813838dc59f40ca8004c9da73f6625a1e",
+      "size_bytes": 14408,
+      "source_path": "Docs/REI osnova Racio.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "ba3e047279228e29e94be1eeb0c52dcbbcf21f51",
+      "is_git_lfs_pointer": false,
+      "sha256": "2b0e895ac41ae5323bc5b4f1058ac5441fea7690825980efdce74c576b84102b",
+      "size_bytes": 28570,
+      "source_path": "Docs/REI osnove.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "487f95012f49d0c5de1bbb1867c09b8cb5180c21",
+      "is_git_lfs_pointer": false,
+      "sha256": "481f57111ce7327fdf04f8526d5e94aac80f1da665731991b318c5032c83aae9",
+      "size_bytes": 18876,
+      "source_path": "Docs/antropološki dokaz.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "410660a5bd7746453127be6b82804dd43a48ac07",
+      "is_git_lfs_pointer": false,
+      "sha256": "9ed384ba3286d17b39b05ad69111f403b6a6e36f47fe567a127c5d9783049dfd",
+      "size_bytes": 15279,
+      "source_path": "Docs/erosov značaj.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "da7ede8ebc33cee3c0ee6645f64cd644436b1485",
+      "is_git_lfs_pointer": false,
+      "sha256": "674d18b2ebf160fb15062d0c15769be90dd04de4183c18d9661c496a38e7a810",
+      "size_bytes": 15525,
+      "source_path": "Docs/geološki dokaz.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "c0190971b7bd7835e5ecc21852cee94185e1910e",
+      "is_git_lfs_pointer": false,
+      "sha256": "fee6e1a03cb123c1eff70163134ed01ec9274d323785c54cbe805eaaee604fbb",
+      "size_bytes": 15629,
+      "source_path": "Docs/glasbeni dokaz.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "5412c95a3bc5732777f1fc27bb39391e8db70e51",
+      "is_git_lfs_pointer": false,
+      "sha256": "2ffa1fd04cb4304f33463b49a4931ef2d2d2decf62f7b49a984cad4b4089c197",
+      "size_bytes": 14719,
+      "source_path": "Docs/matematični dokaz.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "7ccadadc2220872b5b367c7e8182454fe768e13f",
+      "is_git_lfs_pointer": false,
+      "sha256": "baa0f05a1966c66cd030b4cc60ea78afaff0007e391f26aed7273c3eae0a09cd",
+      "size_bytes": 15031,
+      "source_path": "Docs/psihološki dokaz.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "9521df2c61c815b9a9f236de498ec0c7b4fda74e",
+      "is_git_lfs_pointer": false,
+      "sha256": "e1408cf2508337efec8cae7ebb1eea3a7e193ab2141d4f735b6a9accf514fa5f",
+      "size_bytes": 14274,
+      "source_path": "Docs/sedmi dokaz.docx"
+    },
+    {
+      "git_mode": "100644",
+      "git_object_id": "a395a02bfeae4abb111f41a1c719d79450d0d447",
+      "is_git_lfs_pointer": false,
+      "sha256": "7fcf709d25c0434ed4be4c507b1607c7a9a1ee66b0a347348d74e6d6550f3193",
+      "size_bytes": 16502,
+      "source_path": "Docs/zgodovinski dokaz.docx"
+    }
+  ],
+  "source_ref_requested": "05996b2b4a34cf6dd654e032d5dbc26bb5373ef0",
+  "verification": {
+    "archive_hashes": "passed",
+    "deterministic_smoke": "not run by archive script",
+    "pytest_command": "python -m pytest -q",
+    "pytest_result": "not run by archive script"
+  }
+}

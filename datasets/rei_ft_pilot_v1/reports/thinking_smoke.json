@@ -1,0 +1,15 @@
+{
+  "results": [
+    {
+      "think": false,
+      "valid_count": 12,
+      "error_count": 0
+    },
+    {
+      "think": "low",
+      "valid_count": 8,
+      "error_count": 4
+    }
+  ],
+  "selected_think": false
+}

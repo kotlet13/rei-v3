@@ -1,0 +1,215 @@
+schema_version: rei-native-character-profiles-v2
+status: architecture_canon
+runtime_effect: implemented_in_rei_b3
+canon_language: sl
+
+authority_semantics:
+  status: source_synthesis
+  canonical_sl: >-
+    Karakter je stabilna ordinalna razporeditev avtoritete med Raciom,
+    Emociem in Instinktom. Intenzivnost, confidence, razpoloženje, stres,
+    keywordi in začasno opravljanje naloge ne spreminjajo strukturnega ranga.
+  en_gloss: stable ordinal authority among Racio, Emocio, and Instinkt
+  representation: "authority_tiers: list[list[MindId]]"
+  decimal_weights_allowed_for_governance: false
+  source_claim_ids:
+    - C-CHAR-001
+    - C-CHAR-003
+    - C-CHAR-004
+    - C-CHAR-005
+    - C-STATE-001
+
+rules:
+  single_top:
+    status: implementation_hypothesis
+    canonical_sl: Najvišji tier poda GovernanceMandate; druga razuma ostaneta prisotna.
+    lower_minds_may: [object, correct, assist_execution, be_delegated_to, be_ignored, sabotage_behavior]
+    source_claim_ids: [C-ARB-001, C-MINDS-001, C-GOV-001]
+  ordered_top:
+    status: implementation_hypothesis
+    canonical_sl: >-
+      Najvišji razum poda mandat, drugi je prvi kandidat za korekcijo,
+      delegacijo ali funkcionalno nadomestitev, tretji pa ostane kot ugovor,
+      cena, zaščita ali drugačen pogled.
+    decimal_compromise: false
+    source_claim_ids: [C-ARB-001, C-DELEG-001, C-GOV-001]
+  joint_top:
+    status: implementation_hypothesis
+    canonical_sl: >-
+      Dva enakovredna vodilna razuma podata mandat ob soglasju; ob nesoglasju
+      začetna deterministična politika zapiše unresolved, univerzalno pravilo
+      pa ostane odprto. Podrejeni razum ni avtomatski tie-breaker.
+    disagreement_status: unresolved
+    subordinate_is_tiebreaker: false
+    racio_is_tiebreaker: false
+    confidence_is_tiebreaker: false
+    llm_is_tiebreaker: false
+    source_claim_ids: [C-PAIR-001, C-GOV-002]
+  two_of_three:
+    status: source_synthesis
+    canonical_sl: >-
+      Pri treh enakovrednih razumih dva enaka sklepa preglasita tretjega;
+      vsi trije enaki pomenijo simulated_spoznanje, vsi trije različni pa unresolved.
+    racio_has_extra_vote: false
+    confidence_adds_votes: false
+    source_claim_ids: [C-ARB-002, C-SPOZ-001]
+
+profiles:
+  # Trinajst profilov je source synthesis; runtime imena in pravila so operacionalizacija.
+  "R>(E=I)":
+    authority_tiers: [[R], [E, I]]
+    rule: single_top
+  "E>(R=I)":
+    authority_tiers: [[E], [R, I]]
+    rule: single_top
+  "I>(R=E)":
+    authority_tiers: [[I], [R, E]]
+    rule: single_top
+  "(R=E)>I":
+    authority_tiers: [[R, E], [I]]
+    rule: joint_top
+  "(R=I)>E":
+    authority_tiers: [[R, I], [E]]
+    rule: joint_top
+  "(E=I)>R":
+    authority_tiers: [[E, I], [R]]
+    rule: joint_top
+  "R>E>I":
+    authority_tiers: [[R], [E], [I]]
+    rule: ordered_top
+  "R>I>E":
+    authority_tiers: [[R], [I], [E]]
+    rule: ordered_top
+  "E>R>I":
+    authority_tiers: [[E], [R], [I]]
+    rule: ordered_top
+  "E>I>R":
+    authority_tiers: [[E], [I], [R]]
+    rule: ordered_top
+  "I>R>E":
+    authority_tiers: [[I], [R], [E]]
+    rule: ordered_top
+  "I>E>R":
+    authority_tiers: [[I], [E], [R]]
+    rule: ordered_top
+  "R=E=I":
+    authority_tiers: [[R, E, I]]
+    rule: two_of_three
+
+profile_defaults:
+  source_claim_ids:
+    - C-CHAR-001
+    - C-CHAR-002
+    - C-CHAR-003
+    - C-CHAR-005
+    - C-NATIVE-002
+    - C-BUNDLE-001
+  native_processors_receive_profile: false
+  governance_runs_after_native_bundle_freeze: true
+
+structural_and_effective_authority:
+  structural_contract:
+    name: CharacterAuthority
+    status: implementation_hypothesis
+    fields: [profile_id, authority_tiers, rule]
+  availability_contract:
+    name: ProcessorAvailability
+    status: implementation_hypothesis
+    fields: [R, E, I]
+  effective_contract:
+    name: EffectiveAuthority
+    status: implementation_hypothesis
+    fields: [structural_profile, effective_tiers, override_reason]
+  effective_tiers_may_change_only_for:
+    - explicit_functional_unavailability
+  effective_tiers_must_not_change_for:
+    - fear
+    - excitement
+    - keywords
+    - confidence
+    - stress
+    - signal_loudness
+    - mood
+    - acceptance
+    - delegation
+  source_claim_ids: [C-STATE-001, C-DELEG-001, C-CHAR-006]
+
+pair_negotiation:
+  status: implementation_hypothesis
+  default_when_top_minds_disagree: unresolved
+  max_additional_rounds: 2
+  each_round_requires_one_of: [new_information, new_rollout]
+  no_new_information_result: unresolved
+  source_claim_ids: [C-PAIR-001, C-GOV-002]
+
+conclusion_identity:
+  status: implementation_hypothesis
+  comparison_key: non_null_native_conclusion_option_id
+  observed_behavior_is_comparison_key: false
+  any_abstention_spoznanje_status: unknown
+  null_values_count_as_votes: false
+  source_claim_ids: [C-ROUTE-001, C-SPOZ-001]
+
+b3_verification_matrix:
+  status: synthetic_architecture_fixture
+  normative_scope: governance_only
+  base_truth_table:
+    profiles: 13
+    non_null_conclusion_partitions: [AAA, RE_I, RI_E, EI_R, ABC]
+    expected_cells: 65
+  canonical_native_bundle_fixtures: 12
+  profiles_per_fixture: 13
+  expected_counterfactual_cells: 156
+  rerun_native_processors: false
+
+pair_conflict_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  name: PairConflict
+  fields: [top_minds, option_by_mind, status, negotiation_rounds]
+  statuses: [resolved, unresolved]
+  source_claim_ids: [C-PAIR-001, C-GOV-002]
+
+governance_mandate_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  fields:
+    - status
+    - structural_source_minds
+    - option_id
+    - objections
+    - delegation
+    - hidden_native_motives
+  statuses: [resolved, unresolved, delegated, functionally_overridden]
+  is_fourth_decision: false
+  hidden_native_motives_are_interpreter_input: false
+  source_claim_ids: [C-GOV-001, C-PROV-001]
+
+person_contract:
+  contract_status: documented_for_b2
+  status: implementation_hypothesis
+  canonical_sl: Značaj ni celotna oseba.
+  required_components:
+    - CharacterAuthority
+    - MindDevelopment
+    - MindWorlds
+    - AcceptanceState
+    - CurrentState
+    - EgoComposition
+  source_claim_ids: [C-PERSON-001]
+
+global_invariants:
+  - canonical_sl: Isti frozen bundle se lahko požene skozi vseh 13 profilov.
+    source_claim_ids: [C-NATIVE-002, C-BUNDLE-001, C-CHAR-005]
+  - canonical_sl: Delegacija ali funkcionalni override ne mutirata strukturnega karakterja.
+    source_claim_ids: [C-DELEG-001, C-STATE-001, C-CHAR-006]
+  - canonical_sl: Zavest Raciju ne doda glasu ali značajskega položaja.
+    source_claim_ids: [C-CONSC-003, C-ARB-002, C-MINDS-001]
+
+open_question_ids:
+  - OQ-PAIR-001
+  - OQ-DELEGATION-001
+  - OQ-AVAILABILITY-001
+  - OQ-LEGACY-001
+  - OQ-PERSON-001
+  - OQ-CONCLUSION-IDENTITY-001

@@ -1,11 +1,11 @@
 param(
-    [string[]]$Models = @("granite4.1:30b", "gemma4:31b", "qwen3.6:35b"),
+    [string[]]$Models = @(),
     [string]$Distro = "Ubuntu-24.04"
 )
 
 $ErrorActionPreference = "Continue"
 
-Write-Host "Stopping REI probe Python processes..." -ForegroundColor Yellow
+Write-Host "Stopping REI Python processes..." -ForegroundColor Yellow
 Get-CimInstance Win32_Process |
     Where-Object { $_.CommandLine -match "run_rei_" -and $_.Name -match "python|python3" } |
     ForEach-Object {
@@ -17,13 +17,22 @@ Get-CimInstance Win32_Process |
         }
     }
 
-Write-Host "Unloading Ollama models..." -ForegroundColor Yellow
-foreach ($model in $Models) {
-    try {
-        wsl.exe -d $Distro -- ollama stop $model | Out-Null
-        Write-Host "Requested ollama stop $model" -ForegroundColor Green
-    } catch {
-        Write-Host "Could not stop ${model}: $_" -ForegroundColor DarkYellow
+$requestedModels = @(
+    $Models |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        Select-Object -Unique
+)
+if ($requestedModels.Count -eq 0) {
+    Write-Host "No Ollama models requested for unloading; pass -Models explicitly to opt in." -ForegroundColor DarkGray
+} else {
+    Write-Host "Unloading explicitly requested Ollama models..." -ForegroundColor Yellow
+    foreach ($model in $requestedModels) {
+        try {
+            wsl.exe -d $Distro -- ollama stop $model | Out-Null
+            Write-Host "Requested ollama stop $model" -ForegroundColor Green
+        } catch {
+            Write-Host "Could not stop ${model}: $_" -ForegroundColor DarkYellow
+        }
     }
 }
 

@@ -11,11 +11,11 @@ $env:REI_OLLAMA_NUM_CTX = "65536"
 $env:REI_OLLAMA_NUM_GPU = "999"
 ```
 
-Or pass the equivalent script flags when available:
-
-```powershell
-python scripts\run_rei_profile_matrix.py --model granite4.1:30b --num-ctx 65536 --num-gpu 999
-```
+Pass the equivalent flags to the B14 native Ollama smoke runner once that
+runner is present. Do not use `scripts\run_rei_native_profile_matrix.py` for
+this purpose: the canonical 12 × 13 matrix is deliberately model-free and
+never contacts Ollama. The exact post-B14 command is recorded in
+`Docs/evals/rei_native_architecture_acceptance_2026-07-13.md`.
 
 Why: on this machine, Granite 4.1 30B at 64k context previously landed partly on CPU unless `num_gpu=999` was sent in Ollama options. With `num_gpu=999`, `wsl ollama ps` showed `granite4.1:30b` as `100% GPU` at context `65536`.
 
@@ -25,4 +25,6 @@ Check the active placement with:
 wsl ollama ps
 ```
 
-The backend provider reads `REI_OLLAMA_NUM_GPU` and maps it to Ollama's `num_gpu` option.
+Any active native Ollama provider must read `REI_OLLAMA_NUM_GPU` and map it to
+Ollama's `num_gpu` option; it must also record the effective value in provider
+provenance.

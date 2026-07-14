@@ -1,3 +1,15 @@
+# SUPERSEDED
+
+Ta dokument pripada opuščeni canonical-v2/QLoRA smeri.
+Aktivna arhitektura je REI Native Composition.
+Glej:
+
+- `Docs/architecture/REI_NATIVE_COMPOSITION_ARCHITECTURE.md`
+- `plans/REI_native_composition_architecture_upgrade_2026-07-13.md`
+- `Docs/evals/rei_native_architecture_acceptance_2026-07-13.md`
+
+---
+
 # Prva izvedbena naloga za Codex - REI canonical v2
 
 Preglej dokument `REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md` in izvedi samo **Fazo 0** ter **Fazo 1**.
