@@ -385,6 +385,7 @@ c3_structured_interpreter_boundary:
   extra_fields_and_chain_of_thought_rejected: true
   citations_must_be_visible_public_aliases: true
   inferred_option_must_be_public_alias_or_null: true
+  unsupported_action_and_motive_use_unknown_enum_not_null: true
   ambiguity_calibration_hypothesis:
     decisive_cue_degraded_omitted_or_contradicted:
       inferred_option_id: null

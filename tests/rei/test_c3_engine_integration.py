@@ -53,8 +53,8 @@ class _CycleOllamaTransport(FakeOllamaTransport):
                     "source_mind": packet_payload["source_mind"],
                     "cited_observation_ids": citations,
                     "inferred_option_id": None,
-                    "inferred_action_tendency": None,
-                    "inferred_motive_class": None,
+                    "inferred_action_tendency": "unknown",
+                    "inferred_motive_class": "unknown",
                     "confidence": 0.25 if citations else 0.0,
                     "alternative_hypotheses": (
                         ["The visible signal supports more than one option."]

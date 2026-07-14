@@ -324,8 +324,8 @@ def test_structured_output_rejects_foreign_aliases_and_chain_of_thought() -> Non
         "source_mind": packet.source_mind,
         "cited_observation_ids": (visible_id,),
         "inferred_option_id": None,
-        "inferred_action_tendency": None,
-        "inferred_motive_class": None,
+        "inferred_action_tendency": "unknown",
+        "inferred_motive_class": "unknown",
         "confidence": 0.2,
         "alternative_hypotheses": ("Insufficient evidence",),
         "unresolved_ambiguity": "No grounded option choice",
@@ -396,9 +396,19 @@ def test_high_level_adapter_omits_inference_when_filter_exposes_nothing() -> Non
 
     assert result.access.packet.visible_observations == ()
     assert result.execution.output.cited_observation_ids == ()
+    assert result.execution.output.inferred_action_tendency == "unknown"
+    assert result.execution.output.inferred_motive_class == "unknown"
     assert result.interpretation.interpretation_status == "omitted_b9"
     assert result.interpretation.observed_manifestations == ()
+    assert result.interpretation.inferred_action_tendency is None
+    assert result.interpretation.inferred_motive_class is None
     assert result.interpretation.confidence == 0.0
+
+    invalid = result.execution.output.model_copy(
+        update={"inferred_action_tendency": "approach"}
+    )
+    with pytest.raises(ValueError, match="explicit unknown enums"):
+        invalid.validate_against(result.access.packet)
 
 
 def test_safe_processor_retains_c3_evidence_and_executes_provider_once() -> None:

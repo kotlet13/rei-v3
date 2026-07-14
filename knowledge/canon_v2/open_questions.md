@@ -572,6 +572,9 @@ osebi ali empirično potrjena taksonomija. Jezikovno neodvisno strukturirano
 pravilo obravnava `channel_quality <= 0.35` kot nezadostno za smerni sklep tudi
 takrat, ko sta posamezni opazki vsaka zase označeni kot `clear`; tudi ta prag je
 zamenljiva izvedbena hipoteza, ne izmerjena psihološka meja.
+Ker strogi C3 izhod že vsebuje tipizirani `unknown`, nepodprta action tendency in
+motive class uporabljata ta enum in ne JSON `null`; `null` ostane rezerviran za
+abstinenco pri `inferred_option_id`.
 
 Ta formula ne razreši vprašanja, kako AcceptanceState zanesljivo izmeriti, niti
 ne dokazuje, da večja deklarirana vidnost ali fidelity pri resničnih osebah

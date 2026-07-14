@@ -86,8 +86,8 @@ class StructuredRacioInterpreterOutput(FrozenModel):
     source_mind: Literal["E", "I"]
     cited_observation_ids: tuple[NonEmptyId, ...]
     inferred_option_id: NonEmptyId | None
-    inferred_action_tendency: InterpreterActionTendency | None
-    inferred_motive_class: InterpreterMotiveClass | None
+    inferred_action_tendency: InterpreterActionTendency
+    inferred_motive_class: InterpreterMotiveClass
     confidence: Score01
     alternative_hypotheses: tuple[NonEmptyText, ...]
     unresolved_ambiguity: NonEmptyText | None
@@ -123,15 +123,14 @@ class StructuredRacioInterpreterOutput(FrozenModel):
         if not packet.visible_observations:
             if self.cited_observation_ids:
                 raise ValueError("An empty packet cannot have observation citations")
-            if any(
-                value is not None
-                for value in (
-                    self.inferred_option_id,
-                    self.inferred_action_tendency,
-                    self.inferred_motive_class,
-                )
+            if (
+                self.inferred_option_id is not None
+                or self.inferred_action_tendency != "unknown"
+                or self.inferred_motive_class != "unknown"
             ):
-                raise ValueError("An empty packet cannot support an inference")
+                raise ValueError(
+                    "An empty packet requires null option and explicit unknown enums"
+                )
             if self.confidence != 0.0:
                 raise ValueError("An empty packet requires zero confidence")
         option_ids = {option.option_id for option in packet.public_option_scope}
@@ -305,8 +304,8 @@ class DeterministicStructuredRacioInterpreterProvider:
         self,
         packet: ConsciousAccessPacket,
     ) -> StructuredRacioInterpreterOutput:
-        action: str | None = None
-        motive: str | None = None
+        action: str = "unknown"
+        motive: str = "unknown"
         action_citation: str | None = None
         for observation in packet.visible_observations:
             if (
@@ -486,8 +485,18 @@ def adapt_structured_racio_interpretation(
         request=request,
         observations=tuple(cited_observations),
         inferred_option_id=inferred_option_id,
-        inferred_action_tendency=execution.output.inferred_action_tendency,
-        inferred_motive_class=execution.output.inferred_motive_class,
+        inferred_action_tendency=(
+            None
+            if not cited_observations
+            and execution.output.inferred_action_tendency == "unknown"
+            else execution.output.inferred_action_tendency
+        ),
+        inferred_motive_class=(
+            None
+            if not cited_observations
+            and execution.output.inferred_motive_class == "unknown"
+            else execution.output.inferred_motive_class
+        ),
         confidence=execution.output.confidence,
         alternative_hypotheses=execution.output.alternative_hypotheses,
         unresolved_ambiguity=execution.output.unresolved_ambiguity,
