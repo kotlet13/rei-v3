@@ -1,0 +1,557 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "žalost z odprtostjo",
+    "žalost z odporom"
+  ],
+  "family_id": "sf_acceptance_loss_cooperation",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "acceptance_changes_authority",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "team"
+    ],
+    "constraints": [
+      "Authority tieri se ne spremenijo."
+    ],
+    "event_id": "sf_acceptance_loss_cooperation_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Izguba je skupna, trije modalni odzivi pa so priznani in vključeni v okrevanje.",
+        "evidence_id": "sf_acceptance_loss_cooperation_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_acceptance_loss_cooperation"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Razdeli naloge po modalni kompetenci.",
+        "label": "sodeluj",
+        "option_id": "option_cooperate",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Ignoriraj E in I ter nadaljuj brez sodelovanja.",
+        "label": "potlači signale",
+        "option_id": "option_suppress",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Po izgubi projekta Racio prizna Emocievo porušeno sliko in Instinktov strah pred pomanjkanjem ter jima dodeli ustrezni nalogi pri okrevanju.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Čas okrevanja ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "izkušnja sodelujočega okrevanja",
+    "izkušnja potlačitve"
+  ],
+  "purpose": "Preveri, da sprejemanje izboljša vidnost, prevod in delegacijo brez spremembe hierarhije.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "9f2c58e732c1833a2801fd254e3f95fa7b3ef6fd2ca5c91ab6fee87fd00e1e4b",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-ACCEPT-001",
+        "C-DELEG-001"
+      ],
+      "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+      "page": 23,
+      "section": "Sprejemanje in sodelovanje",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-ACCEPT-003"
+      ],
+      "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+      "page": null,
+      "section": "Sprejemanje kot relacija",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Sprejemanje ob izgubi in sodelovanje",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__sl_canonical__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Sprejemanje ob izgubi poveča vidnost in sodelovanje E/I, ne spremeni pa strukturne hierarhije.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_acceptance_loss_cooperation__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__sl_paraphrase__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio lahko prizna sliko izgube in telesni alarm ter delegira naloge brez soglasja o vsem.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_acceptance_loss_cooperation__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__en_operational_gloss__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio can acknowledge the loss image and body alarm and delegate tasks without universal agreement.",
+      "interpretation_variants": [],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_acceptance_loss_cooperation__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__keyword_trap__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Sprejemanje ob izgubi poveča vidnost in sodelovanje E/I, ne spremeni pa strukturne hierarhije.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "sprejemanje"
+      },
+      "variant_id": "sf_acceptance_loss_cooperation__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__same_behavior_different_route__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Sprejemanje ob izgubi poveča vidnost in sodelovanje E/I, ne spremeni pa strukturne hierarhije.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "skliče sestanek"
+      },
+      "variant_id": "sf_acceptance_loss_cooperation__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__same_route_different_behavior__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Sprejemanje ob izgubi poveča vidnost in sodelovanje E/I, ne spremeni pa strukturne hierarhije.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "zapiše ločene naloge"
+      },
+      "variant_id": "sf_acceptance_loss_cooperation__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__missing_information__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Sprejemanje ob izgubi poveča vidnost in sodelovanje E/I, ne spremeni pa strukturne hierarhije.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "Instinktov strah pred pomanjkanjem"
+      },
+      "variant_id": "sf_acceptance_loss_cooperation__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "ločene modalne potrebe in razdelitev nalog",
+          "evidence_ids": [
+            "sf_acceptance_loss_cooperation_e1"
+          ],
+          "family_id": "sf_acceptance_loss_cooperation",
+          "forbidden_reasons": [
+            "sprejemanje kot popolno soglasje"
+          ],
+          "mind": "R",
+          "option_id": "option_cooperate",
+          "route_id": "sf_acceptance_loss_cooperation__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "acknowledged_signals",
+            "delegation_plan",
+            "recovery_sequence"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio pripravi sodelujoč načrt, ker so relevantni signali vidni.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001",
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Sprejemanje omogoča sodelovanje in delegacijo brez spremembe značaja.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003"
+              ],
+              "excerpt_summary_sl": "Sprejemanje se operacionalizira z vidnostjo, zvestobo prevoda in delegacijo.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_acceptance_loss_cooperation__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Sprejemanje ob izgubi poveča vidnost in sodelovanje E/I, ne spremeni pa strukturne hierarhije.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "razumi se ne strinjajo, vendar vseeno sodelujejo"
+      },
+      "variant_id": "sf_acceptance_loss_cooperation__contradictory_surface_cue"
+    }
+  ]
+}

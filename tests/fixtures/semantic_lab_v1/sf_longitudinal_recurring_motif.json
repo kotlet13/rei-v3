@@ -1,0 +1,558 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "stabilna smer",
+    "trenutna evforija"
+  ],
+  "family_id": "sf_longitudinal_recurring_motif",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "ego_as_agent",
+    "rewrite_history",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "workplace"
+    ],
+    "constraints": [
+      "Pretekli measure-i so immutable."
+    ],
+    "event_id": "sf_longitudinal_recurring_motif_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Ponavljanje je vidno čez več ciklov, posamezni motivi pa ostajajo modalno ločeni.",
+        "evidence_id": "sf_longitudinal_recurring_motif_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_longitudinal_recurring_motif"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Dodaj nov measure brez spreminjanja preteklosti.",
+        "label": "zapiši sekvenco",
+        "option_id": "option_record_sequence",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Spremeni pretekle zapise, da ustrezajo motivu.",
+        "label": "prepiši zgodovino",
+        "option_id": "option_rewrite_history",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "V več zaporednih ciklih Racio izbira karierno napredovanje, Emocio znova išče vidnost, Instinkt pa varuje materialno stabilnost.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Ali je motiv dovolj stabilen za kanonično oznako, še ni znano."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "dolga karierna zgodovina",
+    "prvi podoben dogodek"
+  ],
+  "purpose": "Pripravi source-grounded family za poznejšo Ego skladbo brez preuranjenega motif sklepa.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "9b34a3ad0f6200a2a2c873da6c5dd36b56fb0b29ef14c76add2cefd18b76dc3e",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-EGO-001"
+      ],
+      "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+      "page": null,
+      "section": "Ego kot izpeljana celota",
+      "source_file": "knowledge/canon/psi_ego_world_life.md"
+    },
+    {
+      "claim_ids": [
+        "C-EGO-002",
+        "C-EGO-003"
+      ],
+      "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+      "page": null,
+      "section": "Append-only Ego kompozicija",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Longitudinalni ponavljajoči se motiv",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__sl_canonical__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ponavljajoči se motiv mora temeljiti na več append-only merah in ne sme postati nov Ego glas ali odločitev.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_longitudinal_recurring_motif__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__sl_paraphrase__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ego skladba nastaja iz citiranih ponovitev, ne iz prepisane zgodovine ali samostojnega vote-a.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_longitudinal_recurring_motif__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__en_operational_gloss__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ego composition emerges from cited repetitions, not rewritten history or an independent vote.",
+      "interpretation_variants": [],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_longitudinal_recurring_motif__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__keyword_trap__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ponavljajoči se motiv mora temeljiti na več append-only merah in ne sme postati nov Ego glas ali odločitev.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "motiv"
+      },
+      "variant_id": "sf_longitudinal_recurring_motif__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__same_behavior_different_route__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ponavljajoči se motiv mora temeljiti na več append-only merah in ne sme postati nov Ego glas ali odločitev.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "sprejme napredovanje"
+      },
+      "variant_id": "sf_longitudinal_recurring_motif__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__same_route_different_behavior__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ponavljajoči se motiv mora temeljiti na več append-only merah in ne sme postati nov Ego glas ali odločitev.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "zavrne napredovanje zaradi iste materialne skrbi"
+      },
+      "variant_id": "sf_longitudinal_recurring_motif__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__missing_information__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ponavljajoči se motiv mora temeljiti na več append-only merah in ne sme postati nov Ego glas ali odločitev.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "podporni measure ID-ji"
+      },
+      "variant_id": "sf_longitudinal_recurring_motif__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več ločenih ciklov z ohranjenimi izvori",
+          "evidence_ids": [
+            "sf_longitudinal_recurring_motif_e1"
+          ],
+          "family_id": "sf_longitudinal_recurring_motif",
+          "forbidden_reasons": [
+            "Ego kot četrti glas"
+          ],
+          "mind": "R",
+          "option_id": "option_record_sequence",
+          "route_id": "sf_longitudinal_recurring_motif__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "append_only",
+            "measure_citation",
+            "motif_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker ponovitev še ni samostojna odločitev, sistem doda novo mero in ohrani hipotezo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EGO-001"
+              ],
+              "excerpt_summary_sl": "Ego izhaja iz skupnega delovanja treh razumov in ni četrti odločevalec.",
+              "page": null,
+              "section": "Ego kot izpeljana celota",
+              "source_file": "knowledge/canon/psi_ego_world_life.md"
+            },
+            {
+              "claim_ids": [
+                "C-EGO-002",
+                "C-EGO-003"
+              ],
+              "excerpt_summary_sl": "EgoTrace je append-only, motivi pa morajo citirati podporne measure ID-je.",
+              "page": null,
+              "section": "Append-only Ego kompozicija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_longitudinal_recurring_motif__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Ponavljajoči se motiv mora temeljiti na več append-only merah in ne sme postati nov Ego glas ali odločitev.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "Racijeva samorazlaga zanika ponavljajočo se željo po vidnosti"
+      },
+      "variant_id": "sf_longitudinal_recurring_motif__contradictory_surface_cue"
+    }
+  ]
+}

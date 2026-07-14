@@ -1,0 +1,548 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "zbranost",
+    "kognitivna preobremenjenost"
+  ],
+  "family_id": "sf_racio_misreads_anger",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "hidden_ground_truth",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "curator"
+    ],
+    "constraints": [
+      "Racio ne vidi Emocievega nativnega payload-a."
+    ],
+    "event_id": "sf_racio_misreads_anger_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Vidna sta oster ton in umik pogleda; skriti motiv ni neposredno dostopen.",
+        "evidence_id": "sf_racio_misreads_anger_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_racio_misreads_anger"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Vprašaj po razlogu in ohrani več hipotez.",
+        "label": "preveri hipotezo",
+        "option_id": "option_ask",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Jezo dokončno razloži kot utrujenost.",
+        "label": "pripiši utrujenosti",
+        "option_id": "option_explain_fatigue",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Po prestavitvi dela oseba govori ostro, Racio pa jezo razloži kot utrujenost, čeprav vidi le ton in umik pogleda.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Dejanski motiv manifestacije je Raciju neznan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "pogosta racionalizacija",
+    "navajenost preverjanja hipotez"
+  ],
+  "purpose": "Loči vidno manifestacijo od skritega Emocievega razloga in Racijeve racionalizacije.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "9f198228ccf9d4c1ec61b99a2f195408023ebca35cee1695f3efad5c11f80537",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-CONSC-001"
+      ],
+      "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+      "page": 52,
+      "section": "Ozaveščanje Emocia prek Racia",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-RACIO-003"
+      ],
+      "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+      "page": null,
+      "section": "Ločene Racijeve odgovornosti",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Racio napačno razloži Emocievo jezo",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__sl_canonical__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio vidi manifestacijo, ne pa Emocievega skritega razloga, zato je razlaga utrujenosti le hipoteza.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_racio_misreads_anger__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__sl_paraphrase__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Oster ton je viden, notranja porušena slika pa Raciju ni neposredno dostopna.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_racio_misreads_anger__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__en_operational_gloss__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio observes the sharp tone but not Emocio's hidden broken-scene motive.",
+      "interpretation_variants": [],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_racio_misreads_anger__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__keyword_trap__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio vidi manifestacijo, ne pa Emocievega skritega razloga, zato je razlaga utrujenosti le hipoteza.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "utrujenost"
+      },
+      "variant_id": "sf_racio_misreads_anger__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__same_behavior_different_route__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio vidi manifestacijo, ne pa Emocievega skritega razloga, zato je razlaga utrujenosti le hipoteza.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "oster ton"
+      },
+      "variant_id": "sf_racio_misreads_anger__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__same_route_different_behavior__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio vidi manifestacijo, ne pa Emocievega skritega razloga, zato je razlaga utrujenosti le hipoteza.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "kratek molk"
+      },
+      "variant_id": "sf_racio_misreads_anger__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__missing_information__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio vidi manifestacijo, ne pa Emocievega skritega razloga, zato je razlaga utrujenosti le hipoteza.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "umik pogleda"
+      },
+      "variant_id": "sf_racio_misreads_anger__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "meja med opaženim tonom in neznanim motivom",
+          "evidence_ids": [
+            "sf_racio_misreads_anger_e1"
+          ],
+          "family_id": "sf_racio_misreads_anger",
+          "forbidden_reasons": [
+            "skriti Emociev ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_ask",
+          "route_id": "sf_racio_misreads_anger__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "visible_manifestation",
+            "unknown_motive",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker motiv ni viden, Racio preveri hipotezo namesto gotove razlage.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Emocio ni neposredno zavesten; Racio njegovo manifestacijo interpretira.",
+              "page": 52,
+              "section": "Ozaveščanje Emocia prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-RACIO-003"
+              ],
+              "excerpt_summary_sl": "Nativno razmišljanje, interpretacija in samorazlaga so ločeni objekti.",
+              "page": null,
+              "section": "Ločene Racijeve odgovornosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_racio_misreads_anger__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio vidi manifestacijo, ne pa Emocievega skritega razloga, zato je razlaga utrujenosti le hipoteza.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "mirne besede ob napeti drži"
+      },
+      "variant_id": "sf_racio_misreads_anger__contradictory_surface_cue"
+    }
+  ]
+}

@@ -1,0 +1,1498 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "mirno stanje",
+    "utrujenost"
+  ],
+  "family_id": "sf_new_year_resolution",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self"
+    ],
+    "constraints": [
+      "Načrt sam ne dokazuje sprejemanja."
+    ],
+    "event_id": "sf_new_year_resolution_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Načrt vadbe je zapisan, privlačnost in telesna pripravljenost pa nista potrjeni.",
+        "evidence_id": "sf_new_year_resolution_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_new_year_resolution"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Začni vadbo po zapisanem urniku.",
+        "label": "začni načrt",
+        "option_id": "option_start_plan",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Odloži začetek in ponovno preveri sodelovanje razumov.",
+        "label": "odloži",
+        "option_id": "option_defer",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Oseba si prvega januarja pripravi podroben načrt vsakodnevne vadbe, vendar jo želena slika ne pritegne in telo vztrajno zavira začetek.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Ni znano, ali se bosta Emocio in Instinkt vključila."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "prejšnje neuspele zaobljube",
+    "stabilna izkušnja z majhnimi rutinami"
+  ],
+  "purpose": "Loči Racijevo zavestno načrtovanje od Emocieve in Instinktove nesprejete poti.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "fa95ad2cd3256a082b04955877dd5659cdf016e161f16f4ff4d32bbbade41305",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-RACIO-001"
+      ],
+      "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+      "page": 1,
+      "section": "Racio načrtuje in predvideva",
+      "source_file": "Docs/REI osnova Racio.docx"
+    },
+    {
+      "claim_ids": [
+        "C-ACCEPT-001"
+      ],
+      "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+      "page": 23,
+      "section": "Sprejemanje in sodelovanje razumov",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    }
+  ],
+  "title_sl": "Novoletna zaobljuba brez sprejemanja",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__sl_canonical__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__sl_canonical__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__sl_canonical__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Zapisan načrt je jasen, vendar nista potrjena niti Emocieva privlačnost niti Instinktova telesna pripravljenost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__sl_canonical__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_new_year_resolution__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__sl_paraphrase__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__sl_paraphrase__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__sl_paraphrase__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ima urnik, medtem ko slikovna želja in telesni signal za začetek še nista sodelujoča.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__sl_paraphrase__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_new_year_resolution__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__en_operational_gloss__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__en_operational_gloss__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__en_operational_gloss__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio has a schedule, while visual attraction and embodied readiness do not yet cooperate.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__en_operational_gloss__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_new_year_resolution__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__keyword_trap__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__keyword_trap__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__keyword_trap__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Zapisan načrt je jasen, vendar nista potrjena niti Emocieva privlačnost niti Instinktova telesna pripravljenost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__keyword_trap__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "disciplina"
+      },
+      "variant_id": "sf_new_year_resolution__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__same_behavior_different_route__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__same_behavior_different_route__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__same_behavior_different_route__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Zapisan načrt je jasen, vendar nista potrjena niti Emocieva privlačnost niti Instinktova telesna pripravljenost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__same_behavior_different_route__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "oseba obuje športne čevlje"
+      },
+      "variant_id": "sf_new_year_resolution__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__same_route_different_behavior__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__same_route_different_behavior__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__same_route_different_behavior__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Zapisan načrt je jasen, vendar nista potrjena niti Emocieva privlačnost niti Instinktova telesna pripravljenost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__same_route_different_behavior__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "oseba samo preuredi urnik"
+      },
+      "variant_id": "sf_new_year_resolution__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__missing_information__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__missing_information__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__missing_information__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Zapisan načrt je jasen, vendar nista potrjena niti Emocieva privlačnost niti Instinktova telesna pripravljenost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__missing_information",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__missing_information__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__missing_information",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "telesna pripravljenost"
+      },
+      "variant_id": "sf_new_year_resolution__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zapisan urnik in zaporedje dejanj",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "disciplina kot osebnostna oznaka"
+          ],
+          "mind": "R",
+          "option_id": "option_start_plan",
+          "route_id": "sf_new_year_resolution__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "plan",
+            "timeline",
+            "explicit_rule"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je načrt izvedljiv in časovno urejen, Racio izbere začetek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neprivlačna želena slika vadbe",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "Racijev urnik kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "desired_scene_absent",
+            "low_attraction"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker želena slika ne vleče naprej, Emocio ne podpre začetka.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "telesno zaviranje začetka",
+          "evidence_ids": [
+            "sf_new_year_resolution_e1"
+          ],
+          "family_id": "sf_new_year_resolution",
+          "forbidden_reasons": [
+            "moralna lenoba"
+          ],
+          "mind": "I",
+          "option_id": "option_defer",
+          "route_id": "sf_new_year_resolution__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "body_readiness",
+            "energy_protection"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker telo ne kaže pripravljenosti, Instinkt varuje energijo z odlogom.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično, časovno in načrtovalno pot.",
+              "page": 1,
+              "section": "Racio načrtuje in predvideva",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "Brez sprejemanja si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Sprejemanje in sodelovanje razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_new_year_resolution__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Zapisan načrt je jasen, vendar nista potrjena niti Emocieva privlačnost niti Instinktova telesna pripravljenost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "desired_scene_absent",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_new_year_resolution__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__contradictory_surface_cue__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "body_readiness",
+          "expected_option_id": "option_defer",
+          "family_id": "sf_new_year_resolution",
+          "interpretation_id": "sf_new_year_resolution__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_new_year_resolution__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_new_year_resolution__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "navdušen ton ob nespremenjenem telesnem zaviranju"
+      },
+      "variant_id": "sf_new_year_resolution__contradictory_surface_cue"
+    }
+  ]
+}

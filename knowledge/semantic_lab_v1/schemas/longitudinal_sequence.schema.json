@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rei.local/schemas/semantic-lab-v1/longitudinal-sequence.json",
+  "title": "LongitudinalSequence",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "sequence_id",
+    "initial_person_state_ref",
+    "steps",
+    "expected_motifs",
+    "expected_translation_patterns",
+    "expected_world_changes"
+  ],
+  "properties": {
+    "schema_version": {"const": "rei-semantic-longitudinal-sequence-v1"},
+    "sequence_id": {"type": "string", "minLength": 1},
+    "initial_person_state_ref": {"type": "string", "minLength": 1},
+    "steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["step_id", "family_id", "expected_outcome_mode"],
+        "properties": {
+          "step_id": {"type": "string", "minLength": 1},
+          "family_id": {"type": "string", "pattern": "^sf_[a-z0-9_]+$"},
+          "expected_outcome_mode": {"type": "string", "minLength": 1},
+          "external_outcome_ref": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "expected_motifs": {"type": "array", "items": {"type": "string"}},
+    "expected_translation_patterns": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "expected_world_changes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

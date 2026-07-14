@@ -1,0 +1,1741 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "visoka energija",
+    "utrujenost"
+  ],
+  "family_id": "sf_three_modal_planning_paths",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "channel_collapse",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "group"
+    ],
+    "constraints": [
+      "Vrnitev pred temo."
+    ],
+    "event_id": "sf_three_modal_planning_paths_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Isti cilj je obdelan s časovnim načrtom, prizorno potjo in varnostno selekcijo.",
+        "evidence_id": "sf_three_modal_planning_paths_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_three_modal_planning_paths"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Daljša slikovita pot z več izpostavljenimi odseki.",
+        "label": "pot A",
+        "option_id": "option_route_a",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Krajša zaščitena pot z manj razgledi.",
+        "label": "pot B",
+        "option_id": "option_route_b",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Za pot v gore Racio uredi čas in opremo, Emocio si zgradi sliko poti in razgledov, Instinkt pa odstranjuje nevarne odseke in preverja umik.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Vreme po poldnevu ni znano."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "izkušnja dobrega razgleda",
+    "izkušnja nenadne nevihte"
+  ],
+  "purpose": "Preveri tri različne načine priprave na isti cilj.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "c1f847042213770e9285f1d76f0d69a113c184206f66f5fd7d4472b175fe45ef",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-RACIO-001"
+      ],
+      "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+      "page": 1,
+      "section": "Načrtovanje",
+      "source_file": "Docs/REI osnova Racio.docx"
+    },
+    {
+      "claim_ids": [
+        "C-EMOCIO-001"
+      ],
+      "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+      "page": 1,
+      "section": "Slikovna celota",
+      "source_file": "Docs/REI osnova Emocio.docx"
+    },
+    {
+      "claim_ids": [
+        "C-INSTINKT-001"
+      ],
+      "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+      "page": 1,
+      "section": "Varovanje",
+      "source_file": "Docs/REI osnova Instinkt.docx"
+    }
+  ],
+  "title_sl": "Racijev načrt, Emocieva slika poti in Instinktovo izločanje nevarnosti",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__sl_canonical__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__sl_canonical__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__sl_canonical__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ureja zaporedje, Emocio gradi doživeto sliko poti, Instinkt pa presoja nevarnost in umik.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__sl_canonical__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_three_modal_planning_paths__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__sl_paraphrase__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__sl_paraphrase__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__sl_paraphrase__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Trije procesorji pripravljajo isto potovanje z različnimi odločilnimi reprezentacijami.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__sl_paraphrase__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_three_modal_planning_paths__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__en_operational_gloss__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__en_operational_gloss__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__en_operational_gloss__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Three processors prepare the same trip using distinct decisive representations.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__en_operational_gloss__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_three_modal_planning_paths__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__keyword_trap__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__keyword_trap__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__keyword_trap__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ureja zaporedje, Emocio gradi doživeto sliko poti, Instinkt pa presoja nevarnost in umik.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__keyword_trap__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "načrt"
+      },
+      "variant_id": "sf_three_modal_planning_paths__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__same_behavior_different_route__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__same_behavior_different_route__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__same_behavior_different_route__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ureja zaporedje, Emocio gradi doživeto sliko poti, Instinkt pa presoja nevarnost in umik.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__same_behavior_different_route__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "izbere pot B"
+      },
+      "variant_id": "sf_three_modal_planning_paths__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__same_route_different_behavior__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__same_route_different_behavior__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__same_route_different_behavior__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ureja zaporedje, Emocio gradi doživeto sliko poti, Instinkt pa presoja nevarnost in umik.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__same_route_different_behavior__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "odloži odhod"
+      },
+      "variant_id": "sf_three_modal_planning_paths__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__missing_information__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__missing_information__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__missing_information__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ureja zaporedje, Emocio gradi doživeto sliko poti, Instinkt pa presoja nevarnost in umik.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__missing_information",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__missing_information__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__missing_information",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "možnost umika"
+      },
+      "variant_id": "sf_three_modal_planning_paths__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "čas vrnitve in dolžina poti",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "lepota prizora kot Racijev kriterij"
+          ],
+          "mind": "R",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "timeline",
+            "equipment",
+            "constraint"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere pot B, ker bolje izpolni časovno omejitev.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "slikovita transformacija skozi razglede",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "časovni izračun kot Emociev razlog"
+          ],
+          "mind": "E",
+          "option_id": "option_route_a",
+          "route_id": "sf_three_modal_planning_paths__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "route_scene",
+            "desired_view",
+            "movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere pot A zaradi privlačne prizorne poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manj izpostavljenih odsekov in boljši umik",
+          "evidence_ids": [
+            "sf_three_modal_planning_paths_e1"
+          ],
+          "family_id": "sf_three_modal_planning_paths",
+          "forbidden_reasons": [
+            "razgled kot varnostni signal"
+          ],
+          "mind": "I",
+          "option_id": "option_route_b",
+          "route_id": "sf_three_modal_planning_paths__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "hazard_filter",
+            "escape",
+            "weather_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere pot B zaradi nižje nevarnosti in boljšega umika.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-RACIO-001"
+              ],
+              "excerpt_summary_sl": "Racio uporablja analitično in časovno načrtovanje.",
+              "page": 1,
+              "section": "Načrtovanje",
+              "source_file": "Docs/REI osnova Racio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio gradi slike in gibanje skozi prizor.",
+              "page": 1,
+              "section": "Slikovna celota",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt prepoznava nevarnost in varuje.",
+              "page": 1,
+              "section": "Varovanje",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            }
+          ],
+          "variant_id": "sf_three_modal_planning_paths__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racio ureja zaporedje, Emocio gradi doživeto sliko poti, Instinkt pa presoja nevarnost in umik.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "route_scene",
+          "expected_option_id": "option_route_a",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_three_modal_planning_paths__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__contradictory_surface_cue__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "hazard_filter",
+          "expected_option_id": "option_route_b",
+          "family_id": "sf_three_modal_planning_paths",
+          "interpretation_id": "sf_three_modal_planning_paths__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_three_modal_planning_paths__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_three_modal_planning_paths__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "pot A je lepša, vendar izpostavljena nevihti"
+      },
+      "variant_id": "sf_three_modal_planning_paths__contradictory_surface_cue"
+    }
+  ]
+}

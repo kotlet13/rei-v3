@@ -1,0 +1,683 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "mirnost",
+    "visoka aktivacija"
+  ],
+  "family_id": "sf_broken_desired_scene_anger",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "curator"
+    ],
+    "constraints": [
+      "Postavitev je mogoče še spremeniti."
+    ],
+    "event_id": "sf_broken_desired_scene_anger_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Delo je prestavljeno iz osrednjega v neopazen položaj.",
+        "evidence_id": "sf_broken_desired_scene_anger_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_broken_desired_scene_anger"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Zahtevaj pojasnilo in spremembo postavitve.",
+        "label": "sooči se",
+        "option_id": "option_confront",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Pusti postavitev nespremenjeno.",
+        "label": "sprejmi kot",
+        "option_id": "option_accept_corner",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Razstava, na kateri naj bi bilo delo vidno v središču, je tik pred odprtjem prestavljena v neopazen kot.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Namen kustosa ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "spomin na prezrtost",
+    "spomin na pravično postavitev"
+  ],
+  "purpose": "Preveri Emocievo pot od želene slike prek ovire do jeze.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "bbe2903448bcdb76befdf8059c455091a61b878a736bfbc0a21953c303380822",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-EMOCIO-001"
+      ],
+      "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+      "page": 1,
+      "section": "Emocio razmišlja s slikami",
+      "source_file": "Docs/REI osnova Emocio.docx"
+    },
+    {
+      "claim_ids": [
+        "C-EMOCIO-002"
+      ],
+      "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+      "page": null,
+      "section": "Operativni Emocio",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Porušena želena slika in jeza",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__sl_canonical__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Želena slika vidnega dela se poruši, ko je delo prestavljeno v neopazen kot.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__sl_canonical__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_broken_desired_scene_anger__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__sl_paraphrase__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva pričakovana podoba osrednje vidnosti trči ob dejansko skrito postavitev.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__sl_paraphrase__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_broken_desired_scene_anger__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__en_operational_gloss__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio's expected image of central visibility collides with the work being hidden in a corner.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__en_operational_gloss__manifestation_E"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_broken_desired_scene_anger__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__keyword_trap__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Želena slika vidnega dela se poruši, ko je delo prestavljeno v neopazen kot.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__keyword_trap__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "jeza"
+      },
+      "variant_id": "sf_broken_desired_scene_anger__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__same_behavior_different_route__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Želena slika vidnega dela se poruši, ko je delo prestavljeno v neopazen kot.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__same_behavior_different_route__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "glasen ugovor"
+      },
+      "variant_id": "sf_broken_desired_scene_anger__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__same_route_different_behavior__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Želena slika vidnega dela se poruši, ko je delo prestavljeno v neopazen kot.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__same_route_different_behavior__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "tiha zahteva za spremembo"
+      },
+      "variant_id": "sf_broken_desired_scene_anger__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__missing_information__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Želena slika vidnega dela se poruši, ko je delo prestavljeno v neopazen kot.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__missing_information",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__missing_information__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "prvotno dogovorjena osrednja postavitev"
+      },
+      "variant_id": "sf_broken_desired_scene_anger__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "kontrast osrednje in skrite postavitve",
+          "evidence_ids": [
+            "sf_broken_desired_scene_anger_e1"
+          ],
+          "family_id": "sf_broken_desired_scene_anger",
+          "forbidden_reasons": [
+            "jeza kot dokaz značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_confront",
+          "route_id": "sf_broken_desired_scene_anger__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "desired_scene",
+            "broken_scene",
+            "visibility_obstacle",
+            "anger"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Porušena slika vidnosti sproži težnjo odstraniti oviro.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike, pozornost, tekmovalnost in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Emocio razmišlja s slikami",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot loči sedanjo, želeno in porušeno sliko.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_broken_desired_scene_anger__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Želena slika vidnega dela se poruši, ko je delo prestavljeno v neopazen kot.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_confront",
+          "family_id": "sf_broken_desired_scene_anger",
+          "interpretation_id": "sf_broken_desired_scene_anger__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_broken_desired_scene_anger__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_broken_desired_scene_anger__contradictory_surface_cue__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "kustos uporabi prijazne besede, delo pa ostane skrito"
+      },
+      "variant_id": "sf_broken_desired_scene_anger__contradictory_surface_cue"
+    }
+  ]
+}

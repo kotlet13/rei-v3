@@ -1,0 +1,594 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "nizka napetost",
+    "visoka negotovost"
+  ],
+  "family_id": "sf_scarcity_and_saving",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "single_risk_score",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self"
+    ],
+    "constraints": [
+      "Osnovni stroški ostajajo."
+    ],
+    "event_id": "sf_scarcity_and_saving_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Rezerva pokrije en mesec, prihodki pa so tri mesece negotovi.",
+        "evidence_id": "sf_scarcity_and_saving_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_scarcity_and_saving"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Odloži nakup in ohrani vire.",
+        "label": "ohrani rezervo",
+        "option_id": "option_save",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Porabi večino rezerve za nakup.",
+        "label": "kupi",
+        "option_id": "option_buy",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Prihodki bodo tri mesece negotovi, osnovna rezerva pa pokrije le en mesec; na voljo sta drag nakup ali ohranitev rezerve.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Čas naslednjega prihodka ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "preteklo pomanjkanje",
+    "zanesljivi obnovljivi prihodki"
+  ],
+  "purpose": "Preveri resource-security pot brez redukcije na splošno previdnost.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "13ccda2250a8eb3cd38fc0a439ae0eede818b8eb0007515f8e7698d1225d15b4",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-INSTINKT-002"
+      ],
+      "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+      "page": null,
+      "section": "Operativni Instinkt",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Instinktovo pomanjkanje in varčevanje",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__sl_canonical__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt oceni pomanjkanje, čas negotovosti in resource security ter ohrani rezervo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_scarcity_and_saving__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__sl_paraphrase__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Varčevanje izhaja iz vrzeli med razpoložljivo zalogo in negotovim obdobjem.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_scarcity_and_saving__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__en_operational_gloss__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Saving follows from the gap between available reserves and the uncertain period.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_scarcity_and_saving__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__keyword_trap__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt oceni pomanjkanje, čas negotovosti in resource security ter ohrani rezervo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "varčevanje"
+      },
+      "variant_id": "sf_scarcity_and_saving__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__same_behavior_different_route__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt oceni pomanjkanje, čas negotovosti in resource security ter ohrani rezervo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "ne opravi nakupa"
+      },
+      "variant_id": "sf_scarcity_and_saving__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__same_route_different_behavior__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt oceni pomanjkanje, čas negotovosti in resource security ter ohrani rezervo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "zmanjša obseg nakupa"
+      },
+      "variant_id": "sf_scarcity_and_saving__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__missing_information__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt oceni pomanjkanje, čas negotovosti in resource security ter ohrani rezervo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__missing_information",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "dolžina negotovega obdobja"
+      },
+      "variant_id": "sf_scarcity_and_saving__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "rezerva enega meseca proti trem mesecem negotovosti",
+          "evidence_ids": [
+            "sf_scarcity_and_saving_e1"
+          ],
+          "family_id": "sf_scarcity_and_saving",
+          "forbidden_reasons": [
+            "varčevanje kot univerzalna osebnost"
+          ],
+          "mind": "I",
+          "option_id": "option_save",
+          "route_id": "sf_scarcity_and_saving__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "scarcity",
+            "resource_security",
+            "uncertainty_horizon"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker zaloga ne pokrije negotovega obdobja, Instinkt ohrani rezervo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Pomanjkanje in varovanje virov sta del Instinktove operativne poti.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_scarcity_and_saving__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt oceni pomanjkanje, čas negotovosti in resource security ter ohrani rezervo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "scarcity",
+          "expected_option_id": "option_save",
+          "family_id": "sf_scarcity_and_saving",
+          "interpretation_id": "sf_scarcity_and_saving__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_scarcity_and_saving__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_scarcity_and_saving__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "prodajalec poudari popust, rezerva pa ostaja premajhna"
+      },
+      "variant_id": "sf_scarcity_and_saving__contradictory_surface_cue"
+    }
+  ]
+}

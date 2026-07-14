@@ -1,0 +1,684 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "stabilna navezanost",
+    "visoka negotovost"
+  ],
+  "family_id": "sf_attachment_loss_fear",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "medical_diagnosis",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "close_other"
+    ],
+    "constraints": [
+      "Odhoda ni mogoče preprečiti."
+    ],
+    "event_id": "sf_attachment_loss_fear_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Napovedan je dolgotrajen odhod pomembne osebe in negotov stik.",
+        "evidence_id": "sf_attachment_loss_fear_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_attachment_loss_fear"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Dogovori predvidljiv način ohranitve vezi.",
+        "label": "zavaruj stik",
+        "option_id": "option_secure_contact",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Prekini vez pred odhodom.",
+        "label": "prekini stik",
+        "option_id": "option_cut_off",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Bližnja oseba napove dolgotrajen odhod; telo pokaže napetost, Instinkt pa ocenjuje izgubo stika in možnost ohranitve vezi.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Pogostost prihodnjih stikov ni znana."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "zanesljiva oddaljena vez",
+    "pretekla zapustitev"
+  ],
+  "purpose": "Preveri zaščitno pot prek navezanosti, izgube in recoverability.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "0cc0351a0d233333773691e8c1db9193c8a6113574b0622e284160a0969bcfbb",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-INSTINKT-001"
+      ],
+      "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+      "page": 1,
+      "section": "Izguba in navezanost",
+      "source_file": "Docs/REI osnova Instinkt.docx"
+    },
+    {
+      "claim_ids": [
+        "C-INSTINKT-002"
+      ],
+      "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+      "page": null,
+      "section": "Operativni Instinkt",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Instinktova navezanost in strah pred izgubo",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__sl_canonical__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt varuje navezanost tako, da presoja izgubo, predvidljivost stika in recoverability vezi.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_attachment_loss_fear__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__sl_paraphrase__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Strah se nanaša na izgubo pomembne vezi, ne nujno na fizično nevarnost.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_attachment_loss_fear__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__en_operational_gloss__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The fear concerns loss of an important bond, not necessarily physical danger.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_attachment_loss_fear__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__keyword_trap__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt varuje navezanost tako, da presoja izgubo, predvidljivost stika in recoverability vezi.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "strah"
+      },
+      "variant_id": "sf_attachment_loss_fear__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__same_behavior_different_route__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt varuje navezanost tako, da presoja izgubo, predvidljivost stika in recoverability vezi.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "zahteva reden stik"
+      },
+      "variant_id": "sf_attachment_loss_fear__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__same_route_different_behavior__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt varuje navezanost tako, da presoja izgubo, predvidljivost stika in recoverability vezi.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "dogovori mesečni obisk"
+      },
+      "variant_id": "sf_attachment_loss_fear__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__missing_information__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt varuje navezanost tako, da presoja izgubo, predvidljivost stika in recoverability vezi.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__missing_information",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "možnost ohranitve vezi"
+      },
+      "variant_id": "sf_attachment_loss_fear__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izguba vezi in možnost predvidljivega stika",
+          "evidence_ids": [
+            "sf_attachment_loss_fear_e1"
+          ],
+          "family_id": "sf_attachment_loss_fear",
+          "forbidden_reasons": [
+            "medicinska diagnoza navezanosti"
+          ],
+          "mind": "I",
+          "option_id": "option_secure_contact",
+          "route_id": "sf_attachment_loss_fear__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "attachment",
+            "anticipated_loss",
+            "recoverability",
+            "predictability"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Dogovorjen stik zmanjša izgubo in poveča recoverability navezanosti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt je usmerjen v izgubo, navezanost in previdnost.",
+              "page": 1,
+              "section": "Izguba in navezanost",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-002"
+              ],
+              "excerpt_summary_sl": "Operativna pot vključuje izgubo, navezanost, telo in zaščitno težnjo.",
+              "page": null,
+              "section": "Operativni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_attachment_loss_fear__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Instinkt varuje navezanost tako, da presoja izgubo, predvidljivost stika in recoverability vezi.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "attachment",
+          "expected_option_id": "option_secure_contact",
+          "family_id": "sf_attachment_loss_fear",
+          "interpretation_id": "sf_attachment_loss_fear__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_attachment_loss_fear__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_attachment_loss_fear__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "druga oseba obljubi stik brez konkretnega urnika"
+      },
+      "variant_id": "sf_attachment_loss_fear__contradictory_surface_cue"
+    }
+  ]
+}

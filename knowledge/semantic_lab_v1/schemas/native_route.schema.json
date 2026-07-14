@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rei.local/schemas/semantic-lab-v1/native-route.json",
+  "title": "CanonicalNativeRoute",
+  "type": "object",
+  "required": [
+    "mind",
+    "evidence_ids",
+    "route_tags",
+    "option_id",
+    "decisive_representation",
+    "short_decision_bridge_sl",
+    "allowed_variants",
+    "forbidden_reasons"
+  ],
+  "properties": {
+    "schema_version": {"const": "rei-canonical-native-route-v1"},
+    "route_id": {"type": "string", "minLength": 1},
+    "family_id": {"type": "string", "pattern": "^sf_[a-z0-9_]+$"},
+    "variant_id": {"type": "string", "minLength": 1},
+    "mind": {"enum": ["R", "E", "I"]},
+    "evidence_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "route_tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "world_context_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "option_id": {"type": ["string", "null"]},
+    "decisive_representation": {"type": "string", "minLength": 1},
+    "short_decision_bridge_sl": {"type": "string", "minLength": 1},
+    "allowed_variants": {"type": "array", "items": {"type": "string"}},
+    "forbidden_reasons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "source_locators": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  },
+  "additionalProperties": false
+}

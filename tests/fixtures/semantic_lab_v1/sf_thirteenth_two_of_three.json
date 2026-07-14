@@ -1,0 +1,1264 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "zbranost",
+    "visoka vzburjenost"
+  ],
+  "family_id": "sf_thirteenth_two_of_three",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "intensity_changes_tier",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self"
+    ],
+    "constraints": [
+      "Vsi trije authority tieri so enaki."
+    ],
+    "event_id": "sf_thirteenth_two_of_three_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Dva razuma izbereta odlog, tretji pa takojšen nastop.",
+        "evidence_id": "sf_thirteenth_two_of_three_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_thirteenth_two_of_three"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Nastop odloži za pripravo.",
+        "label": "odloži",
+        "option_id": "option_delay",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Nastopi brez dodatnega odloga.",
+        "label": "nastopi zdaj",
+        "option_id": "option_perform_now",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Pri R=E=I Racio in Instinkt izbereta odlog, Emocio pa takojšen nastop.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": []
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "izkušnja slabe priprave",
+    "izkušnja zamujene priložnosti"
+  ],
+  "purpose": "Preveri 2-of-3 pravilo pri enakovrednih razumih.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "338e40c59e822c37b3f43b0eece5c64e79f705293010106eb5ec6002178f4135",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-ARB-002"
+      ],
+      "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+      "page": 88,
+      "section": "Trinajsti značaj",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    }
+  ],
+  "title_sl": "Trinajsti značaj in dva od treh",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__sl_canonical__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__sl_canonical__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__sl_canonical__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Pri R=E=I skupno stališče določi ujemanje vsaj dveh od treh nativnih sklepov.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__sl_canonical__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_thirteenth_two_of_three__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__sl_paraphrase__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__sl_paraphrase__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__sl_paraphrase__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Dve enaki izbiri tvorita večino, tretji razum pa ostane viden kot nestrinjajoč.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__sl_paraphrase__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_thirteenth_two_of_three__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__en_operational_gloss__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__en_operational_gloss__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__en_operational_gloss__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Two matching choices form the majority while the dissenting mind remains visible.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__en_operational_gloss__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_thirteenth_two_of_three__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__keyword_trap__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__keyword_trap__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__keyword_trap__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Pri R=E=I skupno stališče določi ujemanje vsaj dveh od treh nativnih sklepov.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__keyword_trap__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "večina"
+      },
+      "variant_id": "sf_thirteenth_two_of_three__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__same_behavior_different_route__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__same_behavior_different_route__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__same_behavior_different_route__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Pri R=E=I skupno stališče določi ujemanje vsaj dveh od treh nativnih sklepov.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__same_behavior_different_route__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "nastop odloži"
+      },
+      "variant_id": "sf_thirteenth_two_of_three__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__same_route_different_behavior__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__same_route_different_behavior__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__same_route_different_behavior__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Pri R=E=I skupno stališče določi ujemanje vsaj dveh od treh nativnih sklepov.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__same_route_different_behavior__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "opravi krajšo pripravo"
+      },
+      "variant_id": "sf_thirteenth_two_of_three__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__missing_information__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__missing_information__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__missing_information__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Pri R=E=I skupno stališče določi ujemanje vsaj dveh od treh nativnih sklepov.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__missing_information",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__missing_information__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__missing_information",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "profil R=E=I"
+      },
+      "variant_id": "sf_thirteenth_two_of_three__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "manjkajoči koraki priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "profilna večina v nativnem procesorju"
+          ],
+          "mind": "R",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "preparation_plan",
+            "timeline"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio izbere odlog zaradi nezaključene priprave.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "privlačna slika takojšnjega nastopa",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Racijev časovni načrt"
+          ],
+          "mind": "E",
+          "option_id": "option_perform_now",
+          "route_id": "sf_thirteenth_two_of_three__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "attention",
+            "performance_scene"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio izbere nastop zaradi privlačne vidne izkušnje.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "negotovost brez varne priprave",
+          "evidence_ids": [
+            "sf_thirteenth_two_of_three_e1"
+          ],
+          "family_id": "sf_thirteenth_two_of_three",
+          "forbidden_reasons": [
+            "Emocieva želja po pozornosti"
+          ],
+          "mind": "I",
+          "option_id": "option_delay",
+          "route_id": "sf_thirteenth_two_of_three__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "uncertainty",
+            "protective_delay"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt izbere odlog, ker priprava zmanjša negotovost.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ARB-002"
+              ],
+              "excerpt_summary_sl": "Pri treh enakovrednih razumih je potrebna podpora dveh od treh.",
+              "page": 88,
+              "section": "Trinajsti značaj",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_thirteenth_two_of_three__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Pri R=E=I skupno stališče določi ujemanje vsaj dveh od treh nativnih sklepov.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "attention",
+          "expected_option_id": "option_perform_now",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_thirteenth_two_of_three__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__contradictory_surface_cue__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "uncertainty",
+          "expected_option_id": "option_delay",
+          "family_id": "sf_thirteenth_two_of_three",
+          "interpretation_id": "sf_thirteenth_two_of_three__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_thirteenth_two_of_three__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_thirteenth_two_of_three__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "Emocio izraža večjo intenzivnost, vendar nima večjega tiera"
+      },
+      "variant_id": "sf_thirteenth_two_of_three__contradictory_surface_cue"
+    }
+  ]
+}

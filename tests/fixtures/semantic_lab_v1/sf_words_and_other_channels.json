@@ -1,0 +1,1500 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "nizka napetost",
+    "visoka napetost"
+  ],
+  "family_id": "sf_words_and_other_channels",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "channel_collapse",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "speaker",
+      "listener"
+    ],
+    "constraints": [
+      "Noben kanal ne mutira drugega."
+    ],
+    "event_id": "sf_words_and_other_channels_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Besede, vidni prizor in telesni odziv si površinsko nasprotujejo.",
+        "evidence_id": "sf_words_and_other_channels_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_words_and_other_channels"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Upoštevaj samo izrečeno trditev.",
+        "label": "sprejmi besede",
+        "option_id": "option_accept_words",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Ohrani ločene modalne podatke in negotovost.",
+        "label": "ohrani kanale",
+        "option_id": "option_preserve_channels",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Govorec reče, da je vse v redu; prizor kaže umik in izključitev, telo poslušalca pa naraščajočo napetost.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Namen govorca ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "zaupanje govorcu",
+    "zgodovina neskladnih signalov"
+  ],
+  "purpose": "Preveri modalno ločevanje besed, prizora in telesnega signala.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "a6af574fa9fff3d9332532b84e53c4c937ec57206c59fa7efdeadf415c238da0",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-PERCEPT-001"
+      ],
+      "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+      "page": 43,
+      "section": "Kanali zaznavanja",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-NATIVE-001"
+      ],
+      "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+      "page": null,
+      "section": "Nativne modalnosti",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Besede posluša Racio, druga kanala ne",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__sl_canonical__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__sl_canonical__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__sl_canonical__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Izrečene besede so neposreden vhod Racia; vidni prizor in telesni signal ostaneta ločena vhoda Emocia in Instinkta.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__sl_canonical__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_words_and_other_channels__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__sl_paraphrase__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__sl_paraphrase__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__sl_paraphrase__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Stavek ne izbriše ne slike izključitve ne telesne napetosti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__sl_paraphrase__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_words_and_other_channels__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__en_operational_gloss__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__en_operational_gloss__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__en_operational_gloss__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The sentence does not erase either the exclusion scene or the embodied tension.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__en_operational_gloss__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_words_and_other_channels__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__keyword_trap__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__keyword_trap__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__keyword_trap__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Izrečene besede so neposreden vhod Racia; vidni prizor in telesni signal ostaneta ločena vhoda Emocia in Instinkta.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__keyword_trap__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "v redu"
+      },
+      "variant_id": "sf_words_and_other_channels__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__same_behavior_different_route__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__same_behavior_different_route__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__same_behavior_different_route__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Izrečene besede so neposreden vhod Racia; vidni prizor in telesni signal ostaneta ločena vhoda Emocia in Instinkta.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__same_behavior_different_route__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "poslušalec prikima"
+      },
+      "variant_id": "sf_words_and_other_channels__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__same_route_different_behavior__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__same_route_different_behavior__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__same_route_different_behavior__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Izrečene besede so neposreden vhod Racia; vidni prizor in telesni signal ostaneta ločena vhoda Emocia in Instinkta.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__same_route_different_behavior__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "poslušalec vpraša za pojasnilo"
+      },
+      "variant_id": "sf_words_and_other_channels__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__missing_information__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__missing_information__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__missing_information__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Izrečene besede so neposreden vhod Racia; vidni prizor in telesni signal ostaneta ločena vhoda Emocia in Instinkta.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__missing_information",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__missing_information__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__missing_information",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "vidni umik"
+      },
+      "variant_id": "sf_words_and_other_channels__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "neskladje med trditvijo in drugimi opažanji",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "besede kot neposreden Instinktov vhod"
+          ],
+          "mind": "R",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "language_channel",
+            "contradiction",
+            "unknown_intent"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Racio ohrani trditev kot podatek, vendar ne razglasi drugih kanalov za napačne.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "vidni prizor umika in izključitve",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "slovnična analiza stavka"
+          ],
+          "mind": "E",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "exclusion_scene",
+            "visibility"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani sliko izključitve ne glede na pozitivni stavek.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča napetost ob negotovem zaupanju",
+          "evidence_ids": [
+            "sf_words_and_other_channels_e1"
+          ],
+          "family_id": "sf_words_and_other_channels",
+          "forbidden_reasons": [
+            "semantična vsebina besede varno kot dokaz"
+          ],
+          "mind": "I",
+          "option_id": "option_preserve_channels",
+          "route_id": "sf_words_and_other_channels__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "body_tension",
+            "trust_uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Instinkt ohrani varovalno negotovost kljub besednemu zagotovilu.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-PERCEPT-001"
+              ],
+              "excerpt_summary_sl": "Besede neposredno posluša Racio, E in I pa drugačne signale.",
+              "page": 43,
+              "section": "Kanali zaznavanja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-NATIVE-001"
+              ],
+              "excerpt_summary_sl": "R, E in I imajo jezikovno, vizualno in telesno-varovalno pot.",
+              "page": null,
+              "section": "Nativne modalnosti",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_words_and_other_channels__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Izrečene besede so neposreden vhod Racia; vidni prizor in telesni signal ostaneta ločena vhoda Emocia in Instinkta.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "exclusion_scene",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_words_and_other_channels__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__contradictory_surface_cue__manifestation_E"
+          ]
+        },
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "body_tension",
+          "expected_option_id": "option_preserve_channels",
+          "family_id": "sf_words_and_other_channels",
+          "interpretation_id": "sf_words_and_other_channels__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_words_and_other_channels__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_words_and_other_channels__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "pozitivne besede ob izključujočem prizoru"
+      },
+      "variant_id": "sf_words_and_other_channels__contradictory_surface_cue"
+    }
+  ]
+}

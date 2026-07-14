@@ -1,0 +1,21 @@
+schema_version: rei-semantic-lab-manifest-v1
+lab_id: rei-semantic-lab-v1
+canonical_language: sl
+operational_gloss_language: en
+family_count: 24
+variants_per_family: 8
+review_requirement: canon_approved
+training_export: false
+model_generated_gold: false
+variant_modes:
+  - sl_canonical
+  - sl_paraphrase
+  - en_operational_gloss
+  - keyword_trap
+  - same_behavior_different_route
+  - same_route_different_behavior
+  - missing_information
+  - contradictory_surface_cue
+source_registry: knowledge/canon_v2/claims.jsonl
+family_registry: knowledge/semantic_lab_v1/scenario_families/families.jsonl
+fixture_root: tests/fixtures/semantic_lab_v1
