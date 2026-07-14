@@ -39,6 +39,7 @@ from ..providers.native import (
     build_provider_call_spec,
 )
 from .conscious_access import (
+    CONSCIOUS_ACCESS_CALIBRATION_POLICY_ID,
     ConsciousAccessFilter,
     ConsciousAccessPacket,
     ConsciousAccessResult,
@@ -139,6 +140,18 @@ class StructuredRacioInterpreterOutput(FrozenModel):
             and self.inferred_option_id not in option_ids
         ):
             raise ValueError("Interpreter output selects an option outside packet scope")
+        constraints = packet.calibration_constraints()
+        if constraints.requires_option_abstention and (
+            self.inferred_option_id is not None
+            or self.inferred_action_tendency
+            != constraints.required_action_tendency
+            or self.inferred_motive_class != constraints.required_motive_class
+            or constraints.maximum_confidence is None
+            or self.confidence > constraints.maximum_confidence
+        ):
+            raise ValueError(
+                "Interpreter output violates trusted calibration constraints"
+            )
         return self
 
 
@@ -263,7 +276,7 @@ class DeterministicStructuredRacioInterpreterProvider:
                 "rei.communication.structured_interpreter."
                 "DeterministicStructuredRacioInterpreterProvider"
             ),
-            "implementation_revision": "1",
+            "implementation_revision": "2",
             "uses_model": False,
         }
         return ProviderIdentity(
@@ -288,11 +301,27 @@ class DeterministicStructuredRacioInterpreterProvider:
         return (packet.packet_id,)
 
     def build_call_spec(self, packet: ConsciousAccessPacket) -> ProviderCallSpec:
+        packet_parameters = (
+            _parameter(
+                "calibration_constraints_sha256",
+                sha256_hex(packet.calibration_constraints()),
+            ),
+            _parameter(
+                "calibration_policy_id",
+                CONSCIOUS_ACCESS_CALIBRATION_POLICY_ID,
+            ),
+            _parameter(
+                "provider_payload_sha256",
+                sha256_hex(packet.provider_payload()),
+            ),
+        )
         return build_provider_call_spec(
             identity=self.identity,
             request_id=packet.packet_id,
             input_artifact_ids=(packet.packet_id,),
-            parameters=self.parameters,
+            parameters=tuple(
+                sorted((*self.parameters, *packet_parameters), key=lambda item: item.name)
+            ),
             timeout_seconds=self.timeout_seconds,
             fallback_policy=ProviderFallbackPolicy(
                 mode="none",

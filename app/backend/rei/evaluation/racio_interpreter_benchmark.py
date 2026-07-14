@@ -90,6 +90,7 @@ _PROVIDER_PAYLOAD_KEYS = frozenset(
         "public_option_scope",
         "channel_quality",
         "uncertainty",
+        "calibration_constraints",
     }
 )
 _FORBIDDEN_PROVIDER_KEYS = frozenset(

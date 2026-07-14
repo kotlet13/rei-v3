@@ -575,6 +575,18 @@ zamenljiva izvedbena hipoteza, ne izmerjena psihološka meja.
 Ker strogi C3 izhod že vsebuje tipizirani `unknown`, nepodprta action tendency in
 motive class uporabljata ta enum in ne JSON `null`; `null` ostane rezerviran za
 abstinenco pri `inferred_option_id`.
+Adapter v provider payload doda tipizirani `calibration_constraints`, ki je
+deterministično izpeljan samo iz že javnih `omitted_observation_ids`,
+`degraded_observation_ids` in `channel_quality`. Ne uporablja golda, profila,
+native lineage ali prostega jezikovnega besedila; njegov namen je narediti isto
+zamenljivo kalibracijsko hipotezo eksplicitno tudi modelu.
+Policy ID ter hasha constraint objekta in celotnega provider payloada so vezani
+v `ProviderCallSpec`; provider po odgovoru fail-closed preveri, da option,
+action, motive in confidence izpolnijo constraints. Zato isti packet ID ne more
+tiho uporabiti druge derivacijske politike brez drugačnega call-spec hasha.
+Politika v1 konservativno obravnava katerokoli izpuščeno opazko kot omejitev;
+ne trdi, da je vsaka izpuščena opazka empirično odločilna. Natančnejše
+razlikovanje med odločilnim in postranskim cueom ostaja odprto.
 
 Ta formula ne razreši vprašanja, kako AcceptanceState zanesljivo izmeriti, niti
 ne dokazuje, da večja deklarirana vidnost ali fidelity pri resničnih osebah

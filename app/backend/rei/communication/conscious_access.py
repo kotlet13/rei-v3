@@ -33,6 +33,7 @@ from ..models.communication import (
 
 
 CONSCIOUS_ACCESS_POLICY_ID = "c3-conscious-access-filter-v1"
+CONSCIOUS_ACCESS_CALIBRATION_POLICY_ID = "c3-conscious-access-calibration-v1"
 
 InterpreterAblationMode = Literal[
     "structured_only",
@@ -108,6 +109,37 @@ class ConsciousAccessArtifact(FrozenModel):
     artifact_id: NonEmptyId
     kind: VisibleArtifactKind
     media_type: Literal["image/png", "image/jpeg", "image/webp", "image/svg+xml"]
+
+
+class ConsciousAccessCalibrationConstraints(FrozenModel):
+    """Trusted, public-surface-only constraints derived without hidden truth."""
+
+    schema_version: Literal["rei-conscious-access-calibration-constraints-v1"] = (
+        "rei-conscious-access-calibration-constraints-v1"
+    )
+    derivation_policy_id: Literal["c3-conscious-access-calibration-v1"] = (
+        CONSCIOUS_ACCESS_CALIBRATION_POLICY_ID
+    )
+    requires_option_abstention: bool
+    required_action_tendency: Literal["unknown"] | None
+    required_motive_class: Literal["unknown"] | None
+    maximum_confidence: Score01 | None
+
+    @model_validator(mode="after")
+    def validate_constraints(self) -> Self:
+        required_values = (
+            self.required_action_tendency,
+            self.required_motive_class,
+            self.maximum_confidence,
+        )
+        if self.requires_option_abstention:
+            if required_values != ("unknown", "unknown", 0.35):
+                raise ValueError(
+                    "Abstention constraints require unknown enums and confidence 0.35"
+                )
+        elif any(value is not None for value in required_values):
+            raise ValueError("Unconstrained access cannot impose output values")
+        return self
 
 
 class ConsciousAccessPacket(FrozenArtifactModel):
@@ -225,6 +257,21 @@ class ConsciousAccessPacket(FrozenArtifactModel):
             raise ValueError("packet_hash differs from conscious-access content")
         return self
 
+    def calibration_constraints(self) -> ConsciousAccessCalibrationConstraints:
+        """Derive model-visible policy only from fields already in this packet."""
+
+        requires_abstention = bool(
+            self.omitted_observation_ids
+            or self.degraded_observation_ids
+            or self.channel_quality <= 0.35
+        )
+        return ConsciousAccessCalibrationConstraints(
+            requires_option_abstention=requires_abstention,
+            required_action_tendency=("unknown" if requires_abstention else None),
+            required_motive_class=("unknown" if requires_abstention else None),
+            maximum_confidence=(0.35 if requires_abstention else None),
+        )
+
     def provider_payload(self) -> dict[str, object]:
         """Return the explicit transport allowlist; audit lineage is unreachable."""
 
@@ -247,6 +294,9 @@ class ConsciousAccessPacket(FrozenArtifactModel):
             ],
             "channel_quality": self.channel_quality,
             "uncertainty": self.uncertainty,
+            "calibration_constraints": self.calibration_constraints().model_dump(
+                mode="json"
+            ),
         }
 
     def provider_payload_bytes(self) -> bytes:
@@ -759,8 +809,10 @@ class ConsciousAccessFilter:
 
 __all__ = [
     "CONSCIOUS_ACCESS_POLICY_ID",
+    "CONSCIOUS_ACCESS_CALIBRATION_POLICY_ID",
     "ConsciousAccessArtifact",
     "ConsciousAccessAudit",
+    "ConsciousAccessCalibrationConstraints",
     "ConsciousAccessFilter",
     "ConsciousAccessObservation",
     "ConsciousAccessOption",

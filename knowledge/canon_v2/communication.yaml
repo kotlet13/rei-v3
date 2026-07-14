@@ -331,6 +331,7 @@ c3_conscious_access_boundary:
     - opaque_option_aliases_and_public_descriptions
     - channel_quality
     - uncertainty
+    - calibration_constraints_derived_only_from_public_packet_fields
   trusted_audit_only:
     - request_and_acceptance_ids_and_hashes
     - actual_observation_option_and_artifact_ids_and_hashes
@@ -386,6 +387,23 @@ c3_structured_interpreter_boundary:
   citations_must_be_visible_public_aliases: true
   inferred_option_must_be_public_alias_or_null: true
   unsupported_action_and_motive_use_unknown_enum_not_null: true
+  model_visible_calibration_constraints:
+    derivation_policy_id: c3-conscious-access-calibration-v1
+    trusted_static_policy: true
+    hidden_or_evaluator_input_used: false
+    derivation_inputs:
+      - omitted_observation_ids
+      - degraded_observation_ids
+      - channel_quality
+    omission_scope: any_omitted_is_conservatively_limited_in_v1
+    output_requirements_when_limited:
+      inferred_option_id: null
+      inferred_action_tendency: unknown
+      inferred_motive_class: unknown
+      maximum_confidence: 0.35
+    provider_payload_hash_bound_in_call_spec: true
+    constraint_hash_bound_in_call_spec: true
+    output_validated_fail_closed_against_constraints: true
   ambiguity_calibration_hypothesis:
     decisive_cue_degraded_omitted_or_contradicted:
       inferred_option_id: null

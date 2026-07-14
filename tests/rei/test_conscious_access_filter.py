@@ -8,6 +8,8 @@ from pydantic import ValidationError
 
 from app.backend.rei.communication.conscious_access import (
     ConsciousAccessFilter,
+    ConsciousAccessObservation,
+    ConsciousAccessOption,
     ConsciousAccessPacket,
     TrustedVisibleArtifact,
 )
@@ -22,6 +24,7 @@ from app.backend.rei.communication.structured_interpreter import (
     StructuredRacioInterpreterOutput,
 )
 from app.backend.rei.providers.native import DeterministicExecutionClock
+from app.backend.rei.ids import sha256_hex
 from tests.rei.test_communication import (
     _acceptance,
     _emocio_conclusion,
@@ -71,6 +74,14 @@ def test_zero_visibility_omits_every_signal_and_artifact() -> None:
     assert result.packet.visible_artifacts == ()
     assert result.packet.visible_artifact_ids == ()
     assert result.packet.channel_quality == 0.0
+    assert result.packet.calibration_constraints().model_dump(mode="python") == {
+        "schema_version": "rei-conscious-access-calibration-constraints-v1",
+        "derivation_policy_id": "c3-conscious-access-calibration-v1",
+        "requires_option_abstention": True,
+        "required_action_tendency": "unknown",
+        "required_motive_class": "unknown",
+        "maximum_confidence": 0.35,
+    }
     assert set(result.packet.omitted_observation_ids) == {
         item.public_observation_id for item in result.audit.observation_lineage
     }
@@ -93,6 +104,67 @@ def test_visible_and_omitted_aliases_form_complete_disjoint_partition() -> None:
     assert visible.isdisjoint(omitted)
     assert visible | omitted == source_scope
     assert set(result.packet.degraded_observation_ids).issubset(visible)
+    provider = DeterministicStructuredRacioInterpreterProvider()
+    execution = provider.execute(
+        result.packet,
+        call=provider.build_call_spec(result.packet),
+        clock=DeterministicExecutionClock(
+            base=datetime(2026, 7, 14, tzinfo=timezone.utc)
+        ),
+    )
+    invalid = execution.output.model_copy(
+        update={"inferred_motive_class": "body_alarm"}
+    )
+    with pytest.raises(ValueError, match="calibration constraints"):
+        invalid.validate_against(result.packet)
+
+
+def test_calibration_constraints_cover_public_threshold_and_signal_limits() -> None:
+    clear = ConsciousAccessObservation(
+        observation_id="observation_001",
+        signal_name="motor_urge",
+        perception_status="clear",
+        perceived_value_json='"structured_tendency:approach"',
+        provenance="manifested",
+    )
+    degraded = ConsciousAccessObservation(
+        observation_id="observation_001",
+        signal_name="motor_urge",
+        perception_status="degraded",
+        provenance="manifested",
+    )
+    option = ConsciousAccessOption(
+        option_id="option_001",
+        description="Use only the public signal.",
+    )
+
+    def packet(*, quality: float, observation, omitted=()):
+        return ConsciousAccessPacket.create(
+            source_mind="E",
+            language="en",
+            ablation_mode="structured_only",
+            visible_observations=(observation,),
+            omitted_observation_ids=omitted,
+            visible_artifacts=(),
+            public_option_scope=(option,),
+            channel_quality=quality,
+            uncertainty="Public calibration test.",
+        )
+
+    assert packet(
+        quality=0.350001, observation=clear
+    ).calibration_constraints().requires_option_abstention is False
+    assert packet(
+        quality=0.35, observation=clear
+    ).calibration_constraints().requires_option_abstention is True
+    assert packet(
+        quality=1.0,
+        observation=clear,
+        omitted=("observation_002",),
+    ).calibration_constraints().requires_option_abstention is True
+    assert packet(
+        quality=1.0, observation=degraded
+    ).calibration_constraints().requires_option_abstention is True
 
 
 def test_provider_payload_excludes_trusted_native_and_acceptance_lineage() -> None:
@@ -146,6 +218,7 @@ def test_provider_payload_excludes_trusted_native_and_acceptance_lineage() -> No
         "public_option_scope",
         "channel_quality",
         "uncertainty",
+        "calibration_constraints",
     }
 
 
@@ -301,8 +374,21 @@ def test_deterministic_structured_baseline_uses_only_packet_aliases() -> None:
     assert provider.required_input_artifact_ids(access.packet) == (
         access.packet.packet_id,
     )
+    assert access.packet.calibration_constraints().requires_option_abstention is False
     assert call.input_artifact_ids == (access.packet.packet_id,)
     assert call.fallback_policy.mode == "none"
+    recorded = {
+        item.name: json.loads(item.canonical_json_value) for item in call.parameters
+    }
+    assert recorded["calibration_policy_id"] == (
+        "c3-conscious-access-calibration-v1"
+    )
+    assert recorded["calibration_constraints_sha256"] == (
+        access.packet.calibration_constraints().content_hash()
+    )
+    assert recorded["provider_payload_sha256"] == sha256_hex(
+        access.packet.provider_payload()
+    )
     assert execution.output.inferred_option_id is None
     assert execution.output.inferred_action_tendency == "approach"
     assert set(execution.output.cited_observation_ids).issubset(
