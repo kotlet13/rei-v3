@@ -1,6 +1,19 @@
 """Source-grounded semantic evaluation for native REI routes and translations."""
 
 from .bilingual_eval import evaluate_bilingual_pair
+from .body_mapper_eval import (
+    BODY_MAPPER_REPORT_FILENAMES,
+    BodyMapperCaseResult,
+    BodyMapperEffectVectorAgreement,
+    BodyMapperEvaluationReport,
+    BodyMapperExpectedDeltaGold,
+    BodyMapperGoldCase,
+    BodyMapperOptionResult,
+    evaluate_body_mapper,
+    load_body_mapper_gold,
+    render_body_mapper_report,
+    write_body_mapper_report,
+)
 from .communication_eval import (
     classify_interpretation,
     evaluate_interpretation,
@@ -62,12 +75,19 @@ from .report import (
 )
 
 __all__ = [
+    "BODY_MAPPER_REPORT_FILENAMES",
     "BilingualCandidatePair",
     "BilingualEvaluationCase",
     "BilingualEvaluationSample",
     "BlindReviewLedger",
     "BlindReviewPacket",
     "BlindReviewSession",
+    "BodyMapperCaseResult",
+    "BodyMapperEffectVectorAgreement",
+    "BodyMapperEvaluationReport",
+    "BodyMapperExpectedDeltaGold",
+    "BodyMapperGoldCase",
+    "BodyMapperOptionResult",
     "CandidateClaim",
     "CandidateInterpretation",
     "CandidateNativeRoute",
@@ -100,6 +120,7 @@ __all__ = [
     "classify_interpretation",
     "commit_review_material",
     "evaluate_bilingual_pair",
+    "evaluate_body_mapper",
     "evaluate_ego_sequence",
     "evaluate_emocio_route",
     "evaluate_instinkt_route",
@@ -109,10 +130,13 @@ __all__ = [
     "evaluate_native_route_payload",
     "evaluate_racio_route",
     "prepare_blind_review",
+    "load_body_mapper_gold",
     "record_final_review",
     "record_first_pass",
     "render_evaluation_report",
+    "render_body_mapper_report",
     "reveal_review_context",
     "reviewer_agreement",
     "write_evaluation_report",
+    "write_body_mapper_report",
 ]

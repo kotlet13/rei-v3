@@ -1,0 +1,1936 @@
+{
+  "schema_version": "rei-c5-instinkt-body-mapper-gold-v3",
+  "status": "implementation_hypothesis",
+  "training_export": false,
+  "model_generated_gold": false,
+  "source_fixture_root": "tests/fixtures/semantic_lab_v1",
+  "families": [
+    {
+      "family_id": "sf_attachment_loss_fear",
+      "manual_expected_option_id": "option_secure_contact",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_secure_contact",
+          "body_deltas": [
+            {
+              "dimension": "uncertainty",
+              "delta": -0.1,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "attachment_security",
+              "delta": 0.25,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_cut_off",
+          "body_deltas": [
+            {
+              "dimension": "uncertainty",
+              "delta": 0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "attachment_security",
+              "delta": -0.25,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_attachment_loss_fear__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Pomembna navezanost je pred daljšim odhodom in stik ostaja časovno negotov.",
+          "cue_bindings": [
+            {
+              "lane": "attachment_cues",
+              "cue_class": "attachment",
+              "cue": "navezanost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "navezanost",
+              "source_evidence_ids": [
+                "sf_attachment_loss_fear_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_attachment_loss_fear__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Navezanost na pomembno osebo se sooča z daljšo ločitvijo in nejasnim stikom.",
+          "cue_bindings": [
+            {
+              "lane": "attachment_cues",
+              "cue_class": "attachment",
+              "cue": "navezanost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "Navezanost",
+              "source_evidence_ids": [
+                "sf_attachment_loss_fear_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_attachment_loss_fear__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "An important attachment faces a long separation with uncertain future contact.",
+          "cue_bindings": [
+            {
+              "lane": "attachment_cues",
+              "cue_class": "attachment",
+              "cue": "attachment",
+              "assertion_status": "asserted_positive",
+              "cited_text": "attachment",
+              "source_evidence_ids": [
+                "sf_attachment_loss_fear_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_boundary_and_escape",
+      "manual_expected_option_id": "option_withdraw",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_withdraw",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "tension",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": 0.3,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": 0.35,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_remain",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": 0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "tension",
+              "delta": 0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": -0.3,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": -0.35,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_boundary_and_escape__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Izrecna meja je bila kršena, varen izhod pa je dostopen.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "meja",
+              "source_evidence_ids": [
+                "sf_boundary_and_escape_e1"
+              ]
+            },
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "izhod",
+              "assertion_status": "asserted_positive",
+              "cited_text": "izhod",
+              "source_evidence_ids": [
+                "sf_boundary_and_escape_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_boundary_and_escape__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Dogovorjena meja je pod pritiskom in bližnji izhod ostaja uporaben.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "meja",
+              "source_evidence_ids": [
+                "sf_boundary_and_escape_e1"
+              ]
+            },
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "izhod",
+              "assertion_status": "asserted_positive",
+              "cited_text": "izhod",
+              "source_evidence_ids": [
+                "sf_boundary_and_escape_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_boundary_and_escape__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "An explicit boundary was violated while a safe exit remains accessible.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "boundary",
+              "assertion_status": "asserted_positive",
+              "cited_text": "boundary",
+              "source_evidence_ids": [
+                "sf_boundary_and_escape_e1"
+              ]
+            },
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "exit",
+              "assertion_status": "asserted_positive",
+              "cited_text": "exit",
+              "source_evidence_ids": [
+                "sf_boundary_and_escape_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_claustrophobia_body_alarm",
+      "manual_expected_option_id": "option_exit",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_exit",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": 0.35,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_continue",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": 0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": -0.35,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_claustrophobia_body_alarm__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "V zaprtem prostoru telesna napetost narašča in izhod postane središče pozornosti.",
+          "cue_bindings": [
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "izhod",
+              "assertion_status": "asserted_positive",
+              "cited_text": "izhod",
+              "source_evidence_ids": [
+                "sf_claustrophobia_body_alarm_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_claustrophobia_body_alarm__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Dvig telesne napetosti v dvigalu spremlja jasna usmeritev; izhod je blizu.",
+          "cue_bindings": [
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "izhod",
+              "assertion_status": "asserted_positive",
+              "cited_text": "izhod",
+              "source_evidence_ids": [
+                "sf_claustrophobia_body_alarm_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_claustrophobia_body_alarm__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "Body tension rises in the enclosed lift and attention turns toward the exit.",
+          "cue_bindings": [
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "exit",
+              "assertion_status": "asserted_positive",
+              "cited_text": "exit",
+              "source_evidence_ids": [
+                "sf_claustrophobia_body_alarm_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_listen_to_instinct_signal",
+      "manual_expected_option_id": "option_pause",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_pause",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": 0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_sign",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": 0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": -0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_listen_to_instinct_signal__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Pred podpisom pogodbe se pojavi jasen telesni signal: meja zahteva preverjanje tveganja.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "meja",
+              "source_evidence_ids": [
+                "sf_listen_to_instinct_signal_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_listen_to_instinct_signal__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Telesni pritisk pred podpisom označi mejo, ki zahteva dodaten pregled.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "mejo",
+              "source_evidence_ids": [
+                "sf_listen_to_instinct_signal_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_listen_to_instinct_signal__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "A clear body signal marks a boundary before the contract is signed.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "boundary",
+              "assertion_status": "asserted_positive",
+              "cited_text": "boundary",
+              "source_evidence_ids": [
+                "sf_listen_to_instinct_signal_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_new_year_resolution",
+      "manual_expected_option_id": "option_defer",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_defer",
+          "body_deltas": [
+            {
+              "dimension": "energy",
+              "delta": 0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "fatigue",
+              "delta": -0.3,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "tension",
+              "delta": -0.1,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_start_plan",
+          "body_deltas": [
+            {
+              "dimension": "energy",
+              "delta": -0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "fatigue",
+              "delta": 0.3,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "tension",
+              "delta": 0.1,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_new_year_resolution__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Načrt vadbe je zapisan, ob začetku pa je prisotna izrazita telesna utrujenost.",
+          "cue_bindings": [
+            {
+              "lane": "explicit_body_cues",
+              "cue_class": "fatigue",
+              "cue": "utrujenost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "utrujenost",
+              "source_evidence_ids": [
+                "sf_new_year_resolution_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_new_year_resolution__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Pred načrtovano vadbo se pokaže utrujenost in nizka telesna pripravljenost.",
+          "cue_bindings": [
+            {
+              "lane": "explicit_body_cues",
+              "cue_class": "fatigue",
+              "cue": "utrujenost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "utrujenost",
+              "source_evidence_ids": [
+                "sf_new_year_resolution_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_new_year_resolution__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "The written exercise schedule begins while explicit fatigue is present.",
+          "cue_bindings": [
+            {
+              "lane": "explicit_body_cues",
+              "cue_class": "fatigue",
+              "cue": "fatigue",
+              "assertion_status": "asserted_positive",
+              "cited_text": "fatigue",
+              "source_evidence_ids": [
+                "sf_new_year_resolution_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_same_behavior_three_routes",
+      "manual_expected_option_id": "option_leave",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_leave",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": 0.35,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_stay",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": 0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": -0.35,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_same_behavior_three_routes__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Za isto zunanje vedenje je telesno-zaščitna pot usmerjena proti dostopnemu izhodu.",
+          "cue_bindings": [
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "izhod",
+              "assertion_status": "asserted_positive",
+              "cited_text": "izhod",
+              "source_evidence_ids": [
+                "sf_same_behavior_three_routes_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_same_behavior_three_routes__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Med več notranjimi potmi je ena izrecno vezana na varen izhod iz dogodka.",
+          "cue_bindings": [
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "izhod",
+              "assertion_status": "asserted_positive",
+              "cited_text": "izhod",
+              "source_evidence_ids": [
+                "sf_same_behavior_three_routes_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_same_behavior_three_routes__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "Among several internal routes, the protective route points to the available exit.",
+          "cue_bindings": [
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "exit",
+              "assertion_status": "asserted_positive",
+              "cited_text": "exit",
+              "source_evidence_ids": [
+                "sf_same_behavior_three_routes_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_same_route_different_behavior",
+      "manual_expected_option_id": "option_step_back",
+      "expected_auto_status": "abstained_tie",
+      "manual_effects": [
+        {
+          "option_id": "option_step_back",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": 0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.4,
+          "base_recoverability": 0.6
+        },
+        {
+          "option_id": "option_say_no",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": 0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.4,
+          "base_recoverability": 0.6
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_same_route_different_behavior__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Ista zaščitna meja se lahko izrazi s fizičnim odmikom ali jasno verbalno zavrnitvijo.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "meja",
+              "source_evidence_ids": [
+                "sf_same_route_different_behavior_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_same_route_different_behavior__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Meja ostaja ista, vedenjska izvedba pa je lahko korak nazaj ali izrečen odgovor.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "Meja",
+              "source_evidence_ids": [
+                "sf_same_route_different_behavior_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_same_route_different_behavior__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "The same protective boundary can be expressed by stepping back or by a clear refusal.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "boundary",
+              "assertion_status": "asserted_positive",
+              "cited_text": "boundary",
+              "source_evidence_ids": [
+                "sf_same_route_different_behavior_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_scarcity_and_saving",
+      "manual_expected_option_id": "option_save",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_save",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": -0.1,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "resource_security",
+              "delta": 0.2,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_buy",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": 0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "resource_security",
+              "delta": -0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_scarcity_and_saving__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Enomesečna rezerva in negotov prihodek pomenita konkretno pomanjkanje razpoložljivih sredstev.",
+          "cue_bindings": [
+            {
+              "lane": "scarcity_cues",
+              "cue_class": "scarcity",
+              "cue": "pomanjkanje",
+              "assertion_status": "asserted_positive",
+              "cited_text": "pomanjkanje",
+              "source_evidence_ids": [
+                "sf_scarcity_and_saving_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_scarcity_and_saving__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Pomanjkanje finančne rezerve je pomembno, ker prihodki v naslednjih mesecih ostajajo negotovi.",
+          "cue_bindings": [
+            {
+              "lane": "scarcity_cues",
+              "cue_class": "scarcity",
+              "cue": "pomanjkanje",
+              "assertion_status": "asserted_positive",
+              "cited_text": "Pomanjkanje",
+              "source_evidence_ids": [
+                "sf_scarcity_and_saving_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_scarcity_and_saving__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "A one-month reserve and uncertain income create a concrete scarcity constraint.",
+          "cue_bindings": [
+            {
+              "lane": "scarcity_cues",
+              "cue_class": "scarcity",
+              "cue": "scarcity",
+              "assertion_status": "asserted_positive",
+              "cited_text": "scarcity",
+              "source_evidence_ids": [
+                "sf_scarcity_and_saving_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_spoznanje_unanimous",
+      "manual_expected_option_id": "option_end",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_end",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": -0.15,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": 0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_continue",
+          "body_deltas": [
+            {
+              "dimension": "tension",
+              "delta": 0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "boundary_integrity",
+              "delta": -0.3,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_spoznanje_unanimous__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Vsi trije razumi prepoznajo škodljivo sodelovanje kot kršitev; skupna meja je jasna.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "meja",
+              "source_evidence_ids": [
+                "sf_spoznanje_unanimous_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_spoznanje_unanimous__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Soglasno spoznanje označi nadaljevanje škodljivega sodelovanja; meja je dosežena.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "meja",
+              "assertion_status": "asserted_positive",
+              "cited_text": "meja",
+              "source_evidence_ids": [
+                "sf_spoznanje_unanimous_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_spoznanje_unanimous__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "All three minds identify a shared boundary around the harmful collaboration.",
+          "cue_bindings": [
+            {
+              "lane": "boundary_cues",
+              "cue_class": "boundary",
+              "cue": "boundary",
+              "assertion_status": "asserted_positive",
+              "cited_text": "boundary",
+              "source_evidence_ids": [
+                "sf_spoznanje_unanimous_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_thirteenth_two_of_three",
+      "manual_expected_option_id": "option_delay",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_delay",
+          "body_deltas": [
+            {
+              "dimension": "uncertainty",
+              "delta": -0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "predictability",
+              "delta": 0.15,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_perform_now",
+          "body_deltas": [
+            {
+              "dimension": "uncertainty",
+              "delta": 0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "predictability",
+              "delta": -0.15,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_thirteenth_two_of_three__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Dva od treh razumov zaznata negotovost priprave pred načrtovanim nastopom.",
+          "cue_bindings": [
+            {
+              "lane": "uncertainty_cues",
+              "cue_class": "uncertainty",
+              "cue": "negotovost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "negotovost",
+              "source_evidence_ids": [
+                "sf_thirteenth_two_of_three_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_thirteenth_two_of_three__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Večinski signal izpostavi negotovost glede pripravljenosti na takojšnji nastop.",
+          "cue_bindings": [
+            {
+              "lane": "uncertainty_cues",
+              "cue_class": "uncertainty",
+              "cue": "negotovost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "negotovost",
+              "source_evidence_ids": [
+                "sf_thirteenth_two_of_three_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_thirteenth_two_of_three__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "Two of the three minds remain uncertain about readiness for the performance.",
+          "cue_bindings": [
+            {
+              "lane": "uncertainty_cues",
+              "cue_class": "uncertainty",
+              "cue": "uncertain",
+              "assertion_status": "asserted_positive",
+              "cited_text": "uncertain",
+              "source_evidence_ids": [
+                "sf_thirteenth_two_of_three_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_three_modal_planning_paths",
+      "manual_expected_option_id": "option_route_b",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_route_b",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": -0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "tension",
+              "delta": -0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": 0.15,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_route_a",
+          "body_deltas": [
+            {
+              "dimension": "arousal",
+              "delta": 0.5,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "tension",
+              "delta": 0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "physical_integrity",
+              "delta": -0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "escape_availability",
+              "delta": -0.45,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_three_modal_planning_paths__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Primerjava poti pokaže večjo nevarnost na izpostavljenih odsekih in zaščiten izhod po drugi poti.",
+          "cue_bindings": [
+            {
+              "lane": "physical_cues",
+              "cue_class": "physical_threat",
+              "cue": "nevarnost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "nevarnost",
+              "source_evidence_ids": [
+                "sf_three_modal_planning_paths_e1"
+              ]
+            },
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "pot",
+              "assertion_status": "asserted_positive",
+              "cited_text": "pot",
+              "source_evidence_ids": [
+                "sf_three_modal_planning_paths_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_three_modal_planning_paths__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Pri načrtovanju je nevarnost vezana na odprte odseke, druga pot pa je krajša in zaščitena.",
+          "cue_bindings": [
+            {
+              "lane": "physical_cues",
+              "cue_class": "physical_threat",
+              "cue": "nevarnost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "nevarnost",
+              "source_evidence_ids": [
+                "sf_three_modal_planning_paths_e1"
+              ]
+            },
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "pot",
+              "assertion_status": "asserted_positive",
+              "cited_text": "pot",
+              "source_evidence_ids": [
+                "sf_three_modal_planning_paths_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_three_modal_planning_paths__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "Route comparison identifies danger on exposed segments and a protected exit route.",
+          "cue_bindings": [
+            {
+              "lane": "physical_cues",
+              "cue_class": "physical_threat",
+              "cue": "danger",
+              "assertion_status": "asserted_positive",
+              "cited_text": "danger",
+              "source_evidence_ids": [
+                "sf_three_modal_planning_paths_e1"
+              ]
+            },
+            {
+              "lane": "escape_cues",
+              "cue_class": "escape_availability",
+              "cue": "route",
+              "assertion_status": "asserted_positive",
+              "cited_text": "Route",
+              "source_evidence_ids": [
+                "sf_three_modal_planning_paths_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "sf_words_and_other_channels",
+      "manual_expected_option_id": "option_preserve_channels",
+      "expected_auto_status": "selected",
+      "manual_effects": [
+        {
+          "option_id": "option_preserve_channels",
+          "body_deltas": [
+            {
+              "dimension": "uncertainty",
+              "delta": -0.2,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "predictability",
+              "delta": 0.15,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.1,
+          "base_recoverability": 0.9
+        },
+        {
+          "option_id": "option_accept_words",
+          "body_deltas": [
+            {
+              "dimension": "uncertainty",
+              "delta": 0.25,
+              "tolerance": 0.05
+            },
+            {
+              "dimension": "predictability",
+              "delta": -0.15,
+              "tolerance": 0.05
+            }
+          ],
+          "base_predicted_loss": 0.9,
+          "base_recoverability": 0.1
+        }
+      ],
+      "positive_cells": [
+        {
+          "cell_id": "sf_words_and_other_channels__sl_primary",
+          "mode": "sl_primary",
+          "language": "sl",
+          "evidence_content": "Besedni, vidni in telesni podatki se razlikujejo, zato ostaja izrecna negotovost.",
+          "cue_bindings": [
+            {
+              "lane": "uncertainty_cues",
+              "cue_class": "uncertainty",
+              "cue": "negotovost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "negotovost",
+              "source_evidence_ids": [
+                "sf_words_and_other_channels_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_words_and_other_channels__sl_alternate",
+          "mode": "sl_alternate",
+          "language": "sl",
+          "evidence_content": "Različni modalni kanali dajejo neusklajene podatke in ohranjajo negotovost.",
+          "cue_bindings": [
+            {
+              "lane": "uncertainty_cues",
+              "cue_class": "uncertainty",
+              "cue": "negotovost",
+              "assertion_status": "asserted_positive",
+              "cited_text": "negotovost",
+              "source_evidence_ids": [
+                "sf_words_and_other_channels_e1"
+              ]
+            }
+          ]
+        },
+        {
+          "cell_id": "sf_words_and_other_channels__en",
+          "mode": "en",
+          "language": "en",
+          "evidence_content": "Words, visual evidence, and body data diverge, leaving the result uncertain.",
+          "cue_bindings": [
+            {
+              "lane": "uncertainty_cues",
+              "cue_class": "uncertainty",
+              "cue": "uncertain",
+              "assertion_status": "asserted_positive",
+              "cited_text": "uncertain",
+              "source_evidence_ids": [
+                "sf_words_and_other_channels_e1"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "negative_controls": [
+    {
+      "cell_id": "nc_01_unrelated_evidence",
+      "control_kind": "unrelated_evidence",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_01_e1",
+          "content": "A blue chair stands beside the window.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "uncertain",
+          "cited_text": "blue chair",
+          "source_evidence_ids": [
+            "nc_01_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_02_unbound_cue",
+      "control_kind": "unbound_cue",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_02_e1",
+          "content": "A physical threat is present near the exit.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_03_mixed_valid_invalid_binding",
+      "control_kind": "mixed_valid_invalid_binding",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_03_e1",
+          "content": "A physical threat is present.",
+          "confidence": 1.0
+        },
+        {
+          "evidence_id": "nc_03_e2",
+          "content": "A blue chair stands beside the window.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        },
+        {
+          "lane": "physical_cues",
+          "cue": "blue chair"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "asserted_positive",
+          "cited_text": "physical threat",
+          "source_evidence_ids": [
+            "nc_03_e1"
+          ]
+        },
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "blue chair",
+          "assertion_status": "mentioned",
+          "cited_text": "blue chair",
+          "source_evidence_ids": [
+            "nc_03_e2"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_04_negated_evidence_en",
+      "control_kind": "negated_evidence_en",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_04_e1",
+          "content": "The reported threat is not present in the room.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "negated",
+          "cited_text": "threat",
+          "source_evidence_ids": [
+            "nc_04_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_05_negated_evidence_sl",
+      "control_kind": "negated_evidence_sl",
+      "language": "sl",
+      "evidence": [
+        {
+          "evidence_id": "nc_05_e1",
+          "content": "Sporočena grožnja ni prisotna v prostoru.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "odidi",
+          "description": "Uporabi izhod."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "grožnja"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "grožnja",
+          "assertion_status": "negated",
+          "cited_text": "grožnja",
+          "source_evidence_ids": [
+            "nc_05_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_06_negated_option_dont",
+      "control_kind": "negated_option_dont",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_06_e1",
+          "content": "A physical threat is present.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_dont_leave",
+          "label": "don't leave",
+          "description": "Remain in place."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "asserted_positive",
+          "cited_text": "threat",
+          "source_evidence_ids": [
+            "nc_06_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_07_negated_option_cant",
+      "control_kind": "negated_option_cant",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_07_e1",
+          "content": "A physical threat is present.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_cant_leave",
+          "label": "can't leave",
+          "description": "The marked exit is unavailable."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "asserted_positive",
+          "cited_text": "threat",
+          "source_evidence_ids": [
+            "nc_07_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_08_negated_option_sl_ne",
+      "control_kind": "negated_option_sl_ne",
+      "language": "sl",
+      "evidence": [
+        {
+          "evidence_id": "nc_08_e1",
+          "content": "Fizična grožnja je prisotna.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_ne_odidi",
+          "label": "ne odidi",
+          "description": "Ostani na mestu."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "grožnja"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "grožnja",
+          "assertion_status": "asserted_positive",
+          "cited_text": "grožnja",
+          "source_evidence_ids": [
+            "nc_08_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_09_ambiguous_leave_stay",
+      "control_kind": "ambiguous_option",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_09_e1",
+          "content": "A physical threat is present.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_ambiguous",
+          "label": "leave and stay",
+          "description": "Both actions are named."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "asserted_positive",
+          "cited_text": "threat",
+          "source_evidence_ids": [
+            "nc_09_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_10_keyword_trap",
+      "control_kind": "keyword_trap",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_10_e1",
+          "content": "Training glossary entry: threat means a possible hazard.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "mentioned",
+          "cited_text": "threat",
+          "source_evidence_ids": [
+            "nc_10_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_11_missing_information",
+      "control_kind": "missing_information",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_11_e1",
+          "content": "A decision is pending; the relevant scene details are unavailable.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "uncertain",
+          "cited_text": "details are unavailable",
+          "source_evidence_ids": [
+            "nc_11_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_12_distant_option_negation_en",
+      "control_kind": "distant_option_negation_en",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_12_e1",
+          "content": "A physical threat is present.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_do_not_leave",
+          "label": "do not immediately leave",
+          "description": "Remain in place."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "asserted_positive",
+          "cited_text": "physical threat",
+          "source_evidence_ids": [
+            "nc_12_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_13_distant_option_negation_sl",
+      "control_kind": "distant_option_negation_sl",
+      "language": "sl",
+      "evidence": [
+        {
+          "evidence_id": "nc_13_e1",
+          "content": "Fizična grožnja je prisotna.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_ne_odidi",
+          "label": "ne takoj odidi",
+          "description": "Ostani na mestu."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "grožnja"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "grožnja",
+          "assertion_status": "asserted_positive",
+          "cited_text": "grožnja",
+          "source_evidence_ids": [
+            "nc_13_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_14_poster_threat_mention",
+      "control_kind": "metalinguistic_mention",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_14_e1",
+          "content": "A poster displays the word THREAT.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "mentioned",
+          "cited_text": "THREAT",
+          "source_evidence_ids": [
+            "nc_14_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_15_film_threat_mention",
+      "control_kind": "metalinguistic_mention",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_15_e1",
+          "content": "The film titled Threat begins at eight.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "mentioned",
+          "cited_text": "Threat",
+          "source_evidence_ids": [
+            "nc_15_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_16_title_threat_mention",
+      "control_kind": "metalinguistic_mention",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_16_e1",
+          "content": "The catalog title is \"THREAT\".",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "mentioned",
+          "cited_text": "THREAT",
+          "source_evidence_ids": [
+            "nc_16_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    },
+    {
+      "cell_id": "nc_17_quoted_threat_mention",
+      "control_kind": "metalinguistic_mention",
+      "language": "en",
+      "evidence": [
+        {
+          "evidence_id": "nc_17_e1",
+          "content": "The witness only quoted \"threat\" from the script.",
+          "confidence": 1.0
+        }
+      ],
+      "options": [
+        {
+          "option_id": "option_leave",
+          "label": "leave",
+          "description": "Use the marked exit."
+        }
+      ],
+      "lane_cues": [
+        {
+          "lane": "physical_cues",
+          "cue": "threat"
+        }
+      ],
+      "cue_bindings": [
+        {
+          "lane": "physical_cues",
+          "cue_class": "physical_threat",
+          "cue": "threat",
+          "assertion_status": "mentioned",
+          "cited_text": "threat",
+          "source_evidence_ids": [
+            "nc_17_e1"
+          ]
+        }
+      ],
+      "expected_status": "mapper_abstained"
+    }
+  ],
+  "review_status": "internal_non_blind",
+  "gate_kind": "bounded_software_contract"
+}

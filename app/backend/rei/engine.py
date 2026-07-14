@@ -14,7 +14,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Literal, Mapping
 
-from pydantic import Field, model_validator
+from pydantic import Field, ValidationError, model_validator
 
 from .communication.interpreter import DeterministicRacioInterpreter, RacioInterpreter
 from .communication.manifestations import build_emocio_manifestation
@@ -40,7 +40,16 @@ from .governance.behavior import BehaviorResolver, DeterministicBehaviorResolver
 from .governance.profiles import derive_effective_authority
 from .governance.resolver import resolve_governance
 from .ids import canonical_json_bytes, content_id, sha256_hex, utc_now
+from .instinkt.association_memory import BoundedAssociativeMemory
+from .instinkt.effect_compiler import compile_prediction_to_option_body_effect
+from .instinkt.effect_mapper import (
+    EmbodiedCueInterpreter,
+    ModelBackedEffectInferenceDisabledError,
+    ModelBackedEmbodiedCueInterpreterStub,
+    RuleBasedEmbodiedCueInterpreter,
+)
 from .instinkt.packets import InstinktEffectSpec, bind_instinkt_effects, build_instinkt_packet
+from .instinkt.processor import process_instinkt
 from .models.character import CharacterAuthority, EffectiveAuthority, FunctionalOverride
 from .models.common import (
     CommitDigest,
@@ -74,12 +83,30 @@ from .models.emocio import (
 )
 from .models.governance import GovernanceResolution, PairNegotiationRound, TaskDelegation
 from .models.instinkt import (
+    INSTINKT_CUE_LANES,
+    MAX_INSTINKT_ASSOCIATION_RECORDS,
+    MAX_INSTINKT_CUE_BINDINGS,
+    MAX_INSTINKT_CUES_PER_LANE,
+    MAX_INSTINKT_CUE_TEXT_CHARS,
+    MAX_INSTINKT_EVIDENCE_IDS,
+    MAX_INSTINKT_TOTAL_CUES,
     BodyState,
+    InstinktAssociation,
+    InstinktCueEvidenceBinding,
     InstinktInputPacket,
     InstinktMemoryRecord,
     InstinktProjectionObservation,
     InstinktSimulationConfig,
+    InstinktWorld,
+    instinkt_association_content_id,
     instinkt_memory_record_id,
+    instinkt_projection_memory_token,
+)
+from .models.instinkt_effects import (
+    EffectSource,
+    InstinktEffectRuleSet,
+    OptionBodyEffectCompilation,
+    OptionBodyEffectPrediction,
 )
 from .models.provider import (
     ProviderCallRecord,
@@ -133,7 +160,10 @@ class ReiNativeCycleRequest(FrozenModel):
     body_state: BodyState
     character: CharacterAuthority
     acceptance_state: AcceptanceState
-    instinkt_effect_specs: tuple[InstinktEffectSpec, ...] = Field(min_length=1)
+    instinkt_effect_source: EffectSource = "manual_fixture"
+    instinkt_effect_specs: tuple[InstinktEffectSpec, ...] = ()
+    instinkt_world: InstinktWorld = Field(default_factory=InstinktWorld.create)
+    instinkt_associations: tuple[InstinktAssociation, ...] = ()
     instinkt_config: InstinktSimulationConfig = Field(
         default_factory=InstinktSimulationConfig.create
     )
@@ -151,6 +181,7 @@ class ReiNativeCycleRequest(FrozenModel):
     instinkt_escape_cues: tuple[str, ...] = ()
     instinkt_explicit_body_cues: tuple[str, ...] = ()
     instinkt_evidence_ids: tuple[NonEmptyId, ...] = ()
+    instinkt_cue_evidence_bindings: tuple[InstinktCueEvidenceBinding, ...] = ()
     functional_override: FunctionalOverride | None = None
     delegation: TaskDelegation | None = None
     negotiation_rounds: tuple[PairNegotiationRound, ...] = ()
@@ -162,9 +193,80 @@ class ReiNativeCycleRequest(FrozenModel):
     def validate_explicit_scope(self) -> ReiNativeCycleRequest:
         if self.outcome is not None and self.outcome.event_id != self.scene.event_id:
             raise ValueError("Explicit outcome must refer to the current SceneEvent")
+        if len(self.scene.options) > self.instinkt_config.max_options:
+            raise ValueError(
+                "Scene options exceed the configured Instinkt simulation limit"
+            )
+        request_cue_lanes = {
+            "physical_cues": self.instinkt_physical_cues,
+            "uncertainty_cues": self.instinkt_uncertainty_cues,
+            "trust_cues": self.instinkt_trust_cues,
+            "boundary_cues": self.instinkt_boundary_cues,
+            "attachment_cues": self.instinkt_attachment_cues,
+            "scarcity_cues": self.instinkt_scarcity_cues,
+            "escape_cues": self.instinkt_escape_cues,
+            "explicit_body_cues": self.instinkt_explicit_body_cues,
+        }
+        if set(request_cue_lanes) != set(INSTINKT_CUE_LANES):
+            raise ValueError("Internal Instinkt cue-lane contract is incomplete")
+        lane_sizes = tuple(len(values) for values in request_cue_lanes.values())
+        if any(size > MAX_INSTINKT_CUES_PER_LANE for size in lane_sizes):
+            raise ValueError("Instinkt cue lane exceeds its bounded input limit")
+        if sum(lane_sizes) > MAX_INSTINKT_TOTAL_CUES:
+            raise ValueError("Instinkt request exceeds its total cue limit")
+        if any(
+            len(cue) > MAX_INSTINKT_CUE_TEXT_CHARS
+            for values in request_cue_lanes.values()
+            for cue in values
+        ):
+            raise ValueError("Instinkt cue text exceeds its bounded input limit")
+        if len(self.instinkt_evidence_ids) > MAX_INSTINKT_EVIDENCE_IDS:
+            raise ValueError("Instinkt request exceeds its evidence-reference limit")
+        if len(self.instinkt_cue_evidence_bindings) > MAX_INSTINKT_CUE_BINDINGS:
+            raise ValueError("Instinkt request exceeds its cue-binding limit")
         option_ids = {option.option_id for option in self.scene.options}
-        if {item.option_id for item in self.instinkt_effect_specs} != option_ids:
-            raise ValueError("Instinkt effect specs must cover the SceneEvent options")
+        if self.instinkt_effect_source == "manual_fixture":
+            if {item.option_id for item in self.instinkt_effect_specs} != option_ids:
+                raise ValueError("Manual Instinkt effect specs must cover the SceneEvent options")
+        elif self.instinkt_effect_specs:
+            raise ValueError(
+                "Automatic Instinkt effect modes cannot consume manual effect specs"
+            )
+        association_ids = tuple(item.association_id for item in self.instinkt_associations)
+        if len(association_ids) > MAX_INSTINKT_ASSOCIATION_RECORDS:
+            raise ValueError("Instinkt request exceeds its association-record limit")
+        if len(set(association_ids)) != len(association_ids):
+            raise ValueError("Instinkt association IDs must be unique")
+        world_association_ids = self.instinkt_world.associations
+        if self.instinkt_effect_source == "manual_fixture":
+            if not set(association_ids).issubset(world_association_ids):
+                raise ValueError(
+                    "Typed Instinkt associations must be indexed by InstinktWorld"
+                )
+        else:
+            if (
+                len(world_association_ids) > MAX_INSTINKT_ASSOCIATION_RECORDS
+                or len(set(world_association_ids)) != len(world_association_ids)
+            ):
+                raise ValueError(
+                    "Automatic Instinkt worlds exceed the bounded unique "
+                    "association index"
+                )
+            if set(association_ids) != set(world_association_ids):
+                raise ValueError(
+                    "Automatic Instinkt association index requires exact "
+                    "materialized record closure"
+                )
+            if any(
+                association.association_id.startswith("instinkt_association_")
+                and association.association_id
+                != instinkt_association_content_id(association)
+                for association in self.instinkt_associations
+            ):
+                raise ValueError(
+                    "Automatic content-addressed Instinkt association differs "
+                    "from its canonical payload"
+                )
         bundle_ids = tuple(item.bundle_id for item in self.historical_bundles)
         if len(set(bundle_ids)) != len(bundle_ids):
             raise ValueError("Historical native bundle IDs must be unique")
@@ -184,6 +286,11 @@ class ReiNativeCycleResult:
     racio_packet: RacioInputPacket
     emocio_packet: EmocioInputPacket
     instinkt_packet: InstinktInputPacket
+    instinkt_world_input: InstinktWorld
+    instinkt_effect_source: EffectSource
+    instinkt_effect_ruleset: InstinktEffectRuleSet | None
+    instinkt_effect_predictions: tuple[OptionBodyEffectPrediction, ...]
+    instinkt_effect_compilations: tuple[OptionBodyEffectCompilation, ...]
     racio_execution: RacioNativeExecution
     emocio_execution: EmocioNativeExecution
     instinkt_execution: InstinktNativeExecution
@@ -320,21 +427,27 @@ def _instinkt_history_inputs(
     *,
     projection: InstinktProjection | None,
     specs: tuple[InstinktEffectSpec, ...],
+    records: tuple[InstinktMemoryRecord, ...] = (),
 ) -> tuple[tuple[InstinktEffectSpec, ...], tuple[InstinktMemoryRecord, ...]]:
     """Map typed Ego history into exact-token B8 associative memory.
 
     The policy performs no prose classification. Every typed projection token
     becomes an observation-only memory record whose strength is derived
-    only from its cited measure count, and the same typed tokens are added to
-    every current option query. Projection observations never carry
+    only from its cited measure count. Each observation also carries the exact
+    projection ID/hash query token exposed by the Instinkt packet; manual
+    fixtures retain their typed-token queries while automatic effects use that
+    non-semantic lineage token. Projection observations never carry
     experienced-loss semantics: that remains exclusive to a real
     ``InstinktAssociation`` with a concrete body state and outcome. This makes
     history visible to B8 without privileging an option, fabricating an
     outcome, or importing character authority.
     """
 
+    record_ids = tuple(instinkt_memory_record_id(item) for item in records)
+    if len(set(record_ids)) != len(record_ids):
+        raise ValueError("Instinkt history record IDs must be unique")
     if projection is None:
-        return specs, ()
+        return specs, tuple(sorted(records, key=instinkt_memory_record_id))
     typed_groups = (
         ("body_consequence", projection.body_consequences),
         ("danger", projection.dangers),
@@ -351,12 +464,16 @@ def _instinkt_history_inputs(
         for signal in signals
     )
     if not typed_signals:
-        return specs, ()
+        return specs, tuple(sorted(records, key=instinkt_memory_record_id))
     evidence_by_text = {
         claim.text: tuple(sorted(claim.evidence_measure_ids))
         for claim in projection.sourced_claims
     }
     observations: list[InstinktProjectionObservation] = []
+    projection_memory_token = instinkt_projection_memory_token(
+        projection.projection_id,
+        projection.projection_hash,
+    )
     for kind, signal, cue_token in typed_signals:
         evidence_ids = evidence_by_text.get(
             signal,
@@ -370,7 +487,7 @@ def _instinkt_history_inputs(
             "observation_kind": kind,
             "observation": signal,
             "evidence_measure_ids": evidence_ids,
-            "cue_signature": (cue_token,),
+            "cue_signature": tuple(sorted((cue_token, projection_memory_token))),
             "felt_intensity": strength,
             "protected_target": f"ego_history_{kind}",
             "decay": 0.0,
@@ -394,7 +511,13 @@ def _instinkt_history_inputs(
         )
         for spec in specs
     )
-    return active_specs, tuple(observations)
+    combined_records = (*records, *observations)
+    combined_ids = tuple(instinkt_memory_record_id(item) for item in combined_records)
+    if len(set(combined_ids)) != len(combined_ids):
+        raise ValueError("Instinkt history records collide with projection observations")
+    return active_specs, tuple(
+        sorted(combined_records, key=instinkt_memory_record_id)
+    )
 
 
 def _native_assembly(
@@ -687,6 +810,7 @@ class ReiNativeEngine:
         default_factory=DeterministicBehaviorResolver
     )
     narrator: RacioNarrator = field(default_factory=DeterministicRacioNarrator)
+    embodied_cue_interpreter: EmbodiedCueInterpreter | None = None
 
     @classmethod
     def with_file_stores(
@@ -709,6 +833,24 @@ class ReiNativeEngine:
     def run_cycle(self, request: ReiNativeCycleRequest) -> ReiNativeCycleResult:
         """Execute one deterministic, profile-blind-then-governed native cycle."""
 
+        # ``model_copy(update=...)`` is intentionally not a Pydantic validation
+        # boundary. Reconstruct the typed request before clocks, stores, or
+        # providers can observe a caller-forged copy.
+        try:
+            request = ReiNativeCycleRequest.model_validate(
+                request.model_dump(mode="python", round_trip=True)
+            )
+        except ValidationError as exc:
+            if any(
+                error.get("loc")
+                and error["loc"][0] == "historical_bundles"
+                for error in exc.errors()
+            ):
+                raise ValueError(
+                    "Historical bundle identity, hash and event must exactly "
+                    "match EgoTrace"
+                ) from exc
+            raise
         run_started_at = self.clock.timestamp("run_started")
         prior_trace = self.ego_trace_store.load_trace(request.ego_id)
         recover_prepared = getattr(
@@ -810,51 +952,16 @@ class ReiNativeEngine:
         instinkt_packet = build_instinkt_packet(
             request.scene,
             request.body_state,
-            physical_cues=_stable_union(
-                request.instinkt_physical_cues,
-                () if instinkt_projection is None else instinkt_projection.dangers,
-            ),
-            uncertainty_cues=_stable_union(
-                request.instinkt_uncertainty_cues,
-                () if instinkt_projection is None else instinkt_projection.losses,
-            ),
-            trust_cues=_stable_union(
-                request.instinkt_trust_cues,
-                ()
-                if instinkt_projection is None
-                else instinkt_projection.trust_patterns,
-            ),
-            boundary_cues=_stable_union(
-                request.instinkt_boundary_cues,
-                ()
-                if instinkt_projection is None
-                else instinkt_projection.boundary_patterns,
-            ),
-            attachment_cues=_stable_union(
-                request.instinkt_attachment_cues,
-                ()
-                if instinkt_projection is None
-                else instinkt_projection.attachment_patterns,
-            ),
-            scarcity_cues=_stable_union(
-                request.instinkt_scarcity_cues,
-                ()
-                if instinkt_projection is None
-                else instinkt_projection.scarcity_patterns,
-            ),
-            escape_cues=_stable_union(
-                request.instinkt_escape_cues,
-                ()
-                if instinkt_projection is None
-                else instinkt_projection.recovery_patterns,
-            ),
-            explicit_body_cues=_stable_union(
-                request.instinkt_explicit_body_cues,
-                ()
-                if instinkt_projection is None
-                else instinkt_projection.body_consequences,
-            ),
+            physical_cues=request.instinkt_physical_cues,
+            uncertainty_cues=request.instinkt_uncertainty_cues,
+            trust_cues=request.instinkt_trust_cues,
+            boundary_cues=request.instinkt_boundary_cues,
+            attachment_cues=request.instinkt_attachment_cues,
+            scarcity_cues=request.instinkt_scarcity_cues,
+            escape_cues=request.instinkt_escape_cues,
+            explicit_body_cues=request.instinkt_explicit_body_cues,
             evidence_ids=request.instinkt_evidence_ids,
+            cue_evidence_bindings=request.instinkt_cue_evidence_bindings,
             previous_instinkt_projection_ids=previous_instinkt_projection_ids,
             previous_instinkt_projection_hashes=(
                 previous_instinkt_projection_hashes
@@ -863,11 +970,101 @@ class ReiNativeEngine:
         active_instinkt_specs, instinkt_associations = _instinkt_history_inputs(
             projection=instinkt_projection,
             specs=request.instinkt_effect_specs,
+            records=request.instinkt_associations,
         )
-        instinkt_effects = bind_instinkt_effects(
-            instinkt_packet,
-            active_instinkt_specs,
-        )
+        instinkt_effect_ruleset: InstinktEffectRuleSet | None = None
+        instinkt_effect_predictions: tuple[OptionBodyEffectPrediction, ...] = ()
+        instinkt_effect_compilations: tuple[OptionBodyEffectCompilation, ...] = ()
+        if request.instinkt_effect_source == "manual_fixture":
+            instinkt_effects = bind_instinkt_effects(
+                instinkt_packet,
+                active_instinkt_specs,
+            )
+        else:
+            mapper: EmbodiedCueInterpreter
+            if self.embodied_cue_interpreter is not None:
+                mapper = self.embodied_cue_interpreter
+            elif request.instinkt_effect_source == "rule_based":
+                mapper = RuleBasedEmbodiedCueInterpreter(
+                    association_records=request.instinkt_associations
+                )
+            else:
+                mapper = ModelBackedEmbodiedCueInterpreterStub()
+            raw_ruleset = getattr(mapper, "ruleset", None)
+            if not isinstance(raw_ruleset, InstinktEffectRuleSet):
+                if request.instinkt_effect_source == "model_backed":
+                    raise ModelBackedEffectInferenceDisabledError(
+                        "Model-backed body-effect inference is a disabled C5 "
+                        "stub; no validated provider implementation is configured."
+                    )
+                raise ValueError(
+                    "Automatic Instinkt mapper must expose its exact effect rule set"
+                )
+            instinkt_effect_ruleset = raw_ruleset
+            instinkt_effect_predictions = tuple(
+                mapper.infer_effects(
+                    request.scene,
+                    instinkt_packet,
+                    request.instinkt_world,
+                    request.body_state,
+                    option,
+                )
+                for option in sorted(
+                    request.scene.options, key=lambda item: item.option_id
+                )
+            )
+            if any(
+                item.effect_source != request.instinkt_effect_source
+                for item in instinkt_effect_predictions
+            ):
+                raise ValueError(
+                    "Instinkt mapper prediction source differs from requested mode"
+                )
+            association_by_id = {
+                item.association_id: item for item in request.instinkt_associations
+            }
+            for prediction in instinkt_effect_predictions:
+                for evidence in prediction.evidence:
+                    for match in evidence.association_matches:
+                        association = association_by_id.get(match.association_id)
+                        if (
+                            association is None
+                            or match.association_hash != association.content_hash()
+                        ):
+                            raise ValueError(
+                                "Instinkt mapper association lineage differs from "
+                                "the request-scoped typed record"
+                            )
+            abstaining_options = tuple(
+                item.option_id
+                for item in instinkt_effect_predictions
+                if item.abstains
+            )
+            if abstaining_options:
+                raise ValueError(
+                    "Rule-based Instinkt mapper abstained without emitting silent "
+                    f"defaults for options={abstaining_options}"
+                )
+            option_by_id = {
+                item.option_id: item for item in request.scene.options
+            }
+            instinkt_effect_compilations = tuple(
+                compile_prediction_to_option_body_effect(
+                    prediction=prediction,
+                    scene=request.scene,
+                    packet=instinkt_packet,
+                    world=request.instinkt_world,
+                    body=request.body_state,
+                    option=option_by_id[prediction.option_id],
+                    ruleset=instinkt_effect_ruleset,
+                    association_records=request.instinkt_associations,
+                )
+                for prediction in instinkt_effect_predictions
+            )
+            instinkt_effects = tuple(
+                item.option_body_effect
+                for item in instinkt_effect_compilations
+            )
 
         racio_spec = self.providers.racio.build_call_spec(racio_packet)
         emocio_spec = self.providers.emocio.build_call_spec(
@@ -1085,6 +1282,32 @@ class ReiNativeEngine:
             raise ValueError(
                 "Instinkt execution returned inputs other than its pre-approved body, "
                 "effects, memory or config"
+            )
+
+        replay_memory: BoundedAssociativeMemory | None = None
+        if instinkt_associations:
+            replay_memory = BoundedAssociativeMemory()
+            for record in sorted(
+                instinkt_associations,
+                key=instinkt_memory_record_id,
+            ):
+                replay_memory.add(record)
+        replayed_instinkt = process_instinkt(
+            scene=request.scene,
+            packet=instinkt_packet,
+            source_body_state=request.body_state,
+            option_effects=instinkt_effects,
+            config=request.instinkt_config,
+            memory=replay_memory,
+        )
+        if (
+            instinkt_execution.rollouts != replayed_instinkt.rollouts
+            or instinkt_execution.conclusion != replayed_instinkt.conclusion
+            or instinkt_execution.manifestation != replayed_instinkt.manifestation
+        ):
+            raise ValueError(
+                "Instinkt provider output differs from canonical B8 memory "
+                "retrieval and deterministic replay"
             )
 
         emocio_runtime_config = getattr(emocio_execution, "runtime_config", None)
@@ -1434,6 +1657,9 @@ class ReiNativeEngine:
             racio_packet=racio_packet,
             emocio_packet=emocio_packet,
             instinkt_packet=instinkt_packet,
+            instinkt_effect_ruleset=instinkt_effect_ruleset,
+            instinkt_effect_predictions=instinkt_effect_predictions,
+            instinkt_effect_compilations=instinkt_effect_compilations,
             racio_execution=racio_execution,
             racio_reasoning_artifact=racio_reasoning_artifact,
             emocio_execution=emocio_execution,
@@ -1527,6 +1753,11 @@ class ReiNativeEngine:
             racio_packet=racio_packet,
             emocio_packet=emocio_packet,
             instinkt_packet=instinkt_packet,
+            instinkt_world_input=request.instinkt_world,
+            instinkt_effect_source=request.instinkt_effect_source,
+            instinkt_effect_ruleset=instinkt_effect_ruleset,
+            instinkt_effect_predictions=instinkt_effect_predictions,
+            instinkt_effect_compilations=instinkt_effect_compilations,
             racio_execution=racio_execution,
             emocio_execution=emocio_execution,
             instinkt_execution=instinkt_execution,
@@ -1561,6 +1792,9 @@ class ReiNativeEngine:
         racio_packet: RacioInputPacket,
         emocio_packet: EmocioInputPacket,
         instinkt_packet: InstinktInputPacket,
+        instinkt_effect_ruleset: InstinktEffectRuleSet | None,
+        instinkt_effect_predictions: tuple[OptionBodyEffectPrediction, ...],
+        instinkt_effect_compilations: tuple[OptionBodyEffectCompilation, ...],
         racio_execution: RacioNativeExecution,
         racio_reasoning_artifact: FrozenArtifactModel | None,
         emocio_execution: EmocioNativeExecution,
@@ -1681,6 +1915,38 @@ class ReiNativeEngine:
 
         write_json("instinkt/body_before.json", request.body_state)
         write_json("instinkt/simulation_config.json", request.instinkt_config)
+        if request.instinkt_effect_source != "manual_fixture":
+            if instinkt_effect_ruleset is None:
+                raise ValueError("Automatic Instinkt persistence lacks a rule set")
+            if request.scene.options and (
+                not instinkt_effect_predictions or not instinkt_effect_compilations
+            ):
+                raise ValueError(
+                    "Automatic Instinkt persistence lacks predictions or compilations"
+                )
+            if not request.scene.options and (
+                instinkt_effect_predictions or instinkt_effect_compilations
+            ):
+                raise ValueError(
+                    "Optionless Instinkt persistence cannot contain option effects"
+                )
+            write_json("scene/instinkt_world.json", request.instinkt_world)
+            write_json(
+                "instinkt/effect_source.json",
+                {
+                    "schema_version": "rei-native-instinkt-effect-source-v1",
+                    "effect_source": request.instinkt_effect_source,
+                },
+            )
+            write_json("instinkt/effect_ruleset.json", instinkt_effect_ruleset)
+            write_json(
+                "instinkt/effect_predictions.json",
+                instinkt_effect_predictions,
+            )
+            write_json(
+                "instinkt/effect_compilations.json",
+                instinkt_effect_compilations,
+            )
         write_json("instinkt/option_effects.json", instinkt_execution.option_effects)
         write_json("instinkt/ego_memory.json", instinkt_execution.associations)
         write_json("instinkt/option_rollouts.json", instinkt_execution.rollouts)

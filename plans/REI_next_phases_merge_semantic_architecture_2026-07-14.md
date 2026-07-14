@@ -1,12 +1,12 @@
-# REI-v3 — načrt integracije veje in naslednjih razvojnih faz
+# REI-v3 — načrt integracije na `main` in naslednjih razvojnih faz
 
 **Namen:** neposredno izvedbeno navodilo za Codex
 **Repozitorij:** `kotlet13/rei-v3`
-**Izvedbena veja:** `main`
+**Aktivna in edina dovoljena izvedbena veja:** `main`
 **Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (zgodovinsko; že mergeana)
-**Pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`
+**Temeljno pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`; drugih vej se ne ustvarja, uporablja ali objavlja
 **Datum načrta:** 2026-07-14
-**Status:** C4 tehnični runtime integriran; C4 semantic-model quality gate odprt; C5 čaka na pregled
+**Status:** C4 tehnični runtime integriran in semantic-model quality gate odprt; C5 integriran z internim bounded-software gateom; C6 čaka na pregled
 **Izven obsega:** QLoRA, SFT, LoRA trening, generiranje učnih datasetov in dokončna izbira produkcijskega modela
 
 ---
@@ -1400,6 +1400,7 @@ b849008 feat(emocio): add provenance-closed visual renderer
 983c691 feat(emocio): add provenance-closed visual valuation
 a625200 feat(emocio): integrate provenance-closed visual cognition
 2d9948d feat(emocio): close configured visual runtime replay
+c304404 feat(emocio): add provenance-closed composite editor screen
 ```
 
 ---
@@ -1600,6 +1601,35 @@ Commit:
 ```text
 feat(instinkt): infer grounded option body effects before protective rollouts
 ```
+
+## 12.12 Status integracije 2026-07-15
+
+C5 runtime, provenance, outcome-learning in deterministic replay pogodbe so
+integrirane neposredno v `main`. Avtoritativen fazni izhod je:
+
+```text
+Docs/evals/semantic_lab_v1/c5-body-mapper-v3-2026-07-14/
+```
+
+Sprejeti v3 bounded-software gate beleži:
+
+- 12 semantičnih družin in 36/36 pozitivnih celic;
+- 72/72 popolnih option effect-vector ujemanj;
+- 17/17 negativnih kontrol;
+- provenance za 171/171 emitiranih delt;
+- 0 character leakage, 0 silent defaults in 0 contract violations;
+- report ID `body_mapper_evaluation_174f21e1f7c02ecbdbc08bcb428c3464`;
+- gold SHA-256 `998526da3efa25adcec247cabd1b4801cbe478a311ae0e9eac4e83e425a4b6a4`.
+
+Engine poleg tipiziranih evidence bindingov zahteva exactno materializacijo
+Instinktovega association indeksa, zgodovino vodi ločeno od trenutnih cue
+laneov in jo aktivira prek projection ID/hash B8 memory tokena. Post-cycle
+učenje uporablja caller-presented action receipt, normalizirane meritve,
+append-only body/world artefakte ter obvezni cold deterministic replay.
+
+Ta gate je izrecno `bounded_software_contract` z oznakama
+`internal_non_blind` in `implementation_hypothesis`. Ne predstavlja zunanje
+slepe semantične avtoritete in ne zapira odprtega C4 modelnega quality gatea.
 
 ---
 
@@ -2066,8 +2096,8 @@ V poročilu loči:
 | C1 | main (integrirano) | `feat(eval): add source-grounded REI semantic laboratory` |
 | C2 | main (integrirano) | `feat(eval): add semantic route and translation evaluation` |
 | C3 | main (runtime integriran; model gate blokiran) | `feat(communication): add model-backed Racio interpretation behind conscious-access boundary` |
-| C4 | main (tehnični runtime integriran; semantic gate odprt) | `d671796` … `2d9948d` — provenance-closed visual cognition in replay |
-| C5 | main | `feat(instinkt): infer grounded option body effects before protective rollouts` |
+| C4 | main (tehnični runtime integriran; semantic gate odprt) | `d671796` … `c304404` — provenance-closed visual cognition, replay in composite editor |
+| C5 | main (integrirano; bounded software gate sprejet) | `feat(instinkt): infer grounded option body effects before protective rollouts` |
 | C6 | main | `feat(ego): validate longitudinal composition and modality-specific world learning` |
 | C7 | main | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
 | C8 | main | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
@@ -2118,10 +2148,11 @@ implementation_hypothesis
 
 # 20. Trenutno neposredno navodilo Codexu
 
-Faze M0–M3, C1 in C2 so zaključene ter integrirane v `main`. C3 runtime je
+Faze M0–M3, C1, C2 in C5 so zaključene ter integrirane v `main`. C3 runtime je
 integriran, njegov produkcijski model gate pa ostaja blokiran. C4 tehnični
-runtime je integriran, semantic-model quality gate pa ostaja odprt. Naslednji
-korak je uporabniški pregled C4; C5 ni odobrena in se ne začne samodejno.
+runtime in composite editor sta integrirana, semantic-model quality gate pa
+ostaja odprt. Naslednja implementacijska faza je C6 in se začne šele po
+pregledu sprejetega C5 obsega.
 
 Za vsako nadaljnjo fazo velja:
 

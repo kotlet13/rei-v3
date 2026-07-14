@@ -10,6 +10,7 @@ from ..models.instinkt import (
     BodyDelta,
     BodyState,
     InstinktActionTendency,
+    InstinktCueEvidenceBinding,
     InstinktInputPacket,
     OptionBodyEffect,
 )
@@ -88,6 +89,7 @@ def build_instinkt_packet(
     escape_cues: tuple[str, ...] = (),
     explicit_body_cues: tuple[str, ...] = (),
     evidence_ids: tuple[NonEmptyId, ...] = (),
+    cue_evidence_bindings: tuple[InstinktCueEvidenceBinding, ...] = (),
     previous_instinkt_projection_ids: tuple[NonEmptyId, ...] = (),
     previous_instinkt_projection_hashes: tuple[str, ...] = (),
     caveat: str = INSTINKT_PACKET_CAVEAT,
@@ -98,6 +100,9 @@ def build_instinkt_packet(
         previous_instinkt_projection_hashes
     ):
         raise ValueError("Instinkt projection IDs and hashes must have equal length")
+    canonical_bindings = tuple(
+        sorted(cue_evidence_bindings, key=lambda item: item.binding_id)
+    )
     base = {
         "schema_version": "rei-native-instinkt-input-packet-v1",
         "scene_id": scene.event_id,
@@ -114,6 +119,8 @@ def build_instinkt_packet(
         "evidence_ids": _canonical(evidence_ids),
         "caveat": caveat,
     }
+    if canonical_bindings:
+        base["cue_evidence_bindings"] = canonical_bindings
     if previous_instinkt_projection_ids:
         base["previous_instinkt_projection_ids"] = (
             previous_instinkt_projection_ids

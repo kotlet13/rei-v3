@@ -20,7 +20,7 @@ from .common import (
     NonEmptyText,
     Score01,
 )
-from .scene import SceneEvent
+from .scene import EvidenceItem, SceneEvent
 
 
 InstinktActionTendency = Literal[
@@ -71,6 +71,77 @@ UnitDelta = Annotated[
 ]
 PositiveUnit = Annotated[float, Field(gt=0.0, le=1.0, allow_inf_nan=False)]
 SimulationArtifactStatus = Literal["unverified_contract", "simulated_v1"]
+InstinktCueLane = Literal[
+    "physical_cues",
+    "uncertainty_cues",
+    "trust_cues",
+    "boundary_cues",
+    "attachment_cues",
+    "scarcity_cues",
+    "escape_cues",
+    "explicit_body_cues",
+]
+EmbodiedCueClass = Literal[
+    "physical_threat",
+    "pain_or_injury",
+    "uncertainty",
+    "predictability",
+    "trust",
+    "betrayal",
+    "boundary",
+    "attachment",
+    "abandonment",
+    "resource_security",
+    "scarcity",
+    "escape_availability",
+    "social_safety",
+    "protected_other",
+    "fatigue",
+    "temperature_or_environment",
+]
+EMBODIED_CUE_CLASSES: tuple[EmbodiedCueClass, ...] = (
+    "physical_threat",
+    "pain_or_injury",
+    "uncertainty",
+    "predictability",
+    "trust",
+    "betrayal",
+    "boundary",
+    "attachment",
+    "abandonment",
+    "resource_security",
+    "scarcity",
+    "escape_availability",
+    "social_safety",
+    "protected_other",
+    "fatigue",
+    "temperature_or_environment",
+)
+InstinktCueAssertionStatus = Literal[
+    "asserted_positive",
+    "negated",
+    "mentioned",
+    "uncertain",
+]
+INSTINKT_CUE_LANES: tuple[InstinktCueLane, ...] = (
+    "physical_cues",
+    "uncertainty_cues",
+    "trust_cues",
+    "boundary_cues",
+    "attachment_cues",
+    "scarcity_cues",
+    "escape_cues",
+    "explicit_body_cues",
+)
+MAX_INSTINKT_CUES_PER_LANE = 64
+MAX_INSTINKT_TOTAL_CUES = 256
+MAX_INSTINKT_CUE_TEXT_CHARS = 1_000
+MAX_INSTINKT_EVIDENCE_IDS = 256
+MAX_INSTINKT_CUE_BINDINGS = 256
+MAX_INSTINKT_ASSOCIATION_RECORDS = 512
+MAX_INSTINKT_ASSOCIATION_CUES = 64
+MAX_INSTINKT_ASSOCIATION_TEXT_CHARS = 4_000
+MAX_INSTINKT_CITED_TEXT_CHARS = 4_000
 _BODY_TRANSITION_B8_FIELDS = frozenset(
     {
         "simulation_status",
@@ -117,6 +188,209 @@ class InstinktWorld(FrozenArtifactModel):
     unresolved_losses: tuple[str, ...]
     boundary_patterns: tuple[str, ...]
 
+    @classmethod
+    def create(
+        cls,
+        *,
+        associations: tuple[str, ...] = (),
+        trusted_patterns: tuple[str, ...] = (),
+        threat_patterns: tuple[str, ...] = (),
+        attachment_objects: tuple[str, ...] = (),
+        unresolved_losses: tuple[str, ...] = (),
+        boundary_patterns: tuple[str, ...] = (),
+    ) -> "InstinktWorld":
+        """Build a stable profile-blind world snapshot from canonical fields."""
+
+        base = {
+            "schema_version": "rei-native-instinkt-world-v1",
+            "associations": tuple(sorted(set(associations))),
+            "trusted_patterns": tuple(sorted(set(trusted_patterns))),
+            "threat_patterns": tuple(sorted(set(threat_patterns))),
+            "attachment_objects": tuple(sorted(set(attachment_objects))),
+            "unresolved_losses": tuple(sorted(set(unresolved_losses))),
+            "boundary_patterns": tuple(sorted(set(boundary_patterns))),
+        }
+        return cls(world_id=content_id("instinkt_world", base), **base)
+
+    @model_validator(mode="after")
+    def validate_content_addressed_world(self) -> "InstinktWorld":
+        """Validate C5 worlds while retaining pre-C5 opaque fixture IDs."""
+
+        if self.world_id.startswith("instinkt_world_"):
+            base = self.model_dump(
+                mode="python",
+                round_trip=True,
+                exclude={"world_id"},
+            )
+            if self.world_id != content_id("instinkt_world", base):
+                raise ValueError(
+                    "Content-addressed InstinktWorld ID differs from its content"
+                )
+        return self
+
+
+class InstinktCueEvidenceCitation(FrozenArtifactModel):
+    """Exact content-hashed span from one supplied grounded evidence item."""
+
+    schema_version: Literal["rei-native-instinkt-cue-evidence-citation-v1"] = (
+        "rei-native-instinkt-cue-evidence-citation-v1"
+    )
+    citation_id: NonEmptyId
+    evidence_id: NonEmptyId
+    start_char: int = Field(ge=0)
+    end_char: int = Field(gt=0)
+    cited_text: NonEmptyText
+    source_content_hash: HashDigest
+    cited_text_hash: HashDigest
+    citation_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        evidence: EvidenceItem,
+        start_char: int,
+        end_char: int,
+    ) -> "InstinktCueEvidenceCitation":
+        if start_char < 0 or end_char <= start_char or end_char > len(evidence.content):
+            raise ValueError("Instinkt cue citation span is outside its evidence content")
+        cited_text = evidence.content[start_char:end_char]
+        if cited_text != cited_text.strip():
+            raise ValueError("Instinkt cue citation must exclude surrounding whitespace")
+        base = {
+            "schema_version": "rei-native-instinkt-cue-evidence-citation-v1",
+            "evidence_id": evidence.evidence_id,
+            "start_char": start_char,
+            "end_char": end_char,
+            "cited_text": cited_text,
+            "source_content_hash": sha256_hex(evidence.content),
+            "cited_text_hash": sha256_hex(cited_text),
+        }
+        citation_id = content_id("instinkt_cue_citation", base)
+        payload = {"citation_id": citation_id, **base}
+        return cls(**payload, citation_hash=sha256_hex(payload))
+
+    @model_validator(mode="after")
+    def validate_citation(self) -> Self:
+        if self.end_char <= self.start_char:
+            raise ValueError("Instinkt cue citation end must follow its start")
+        if len(self.cited_text) > MAX_INSTINKT_CITED_TEXT_CHARS:
+            raise ValueError("Instinkt cue citation exceeds its bounded text limit")
+        if self.cited_text_hash != sha256_hex(self.cited_text):
+            raise ValueError("Instinkt cue citation text hash differs from its text")
+        base = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"citation_id", "citation_hash"},
+        )
+        if self.citation_id != content_id("instinkt_cue_citation", base):
+            raise ValueError("Instinkt cue citation ID differs from its content")
+        payload = {"citation_id": self.citation_id, **base}
+        if self.citation_hash != sha256_hex(payload):
+            raise ValueError("Instinkt cue citation hash differs from its content")
+        return self
+
+    def validate_against(self, evidence: EvidenceItem) -> Self:
+        if self.evidence_id != evidence.evidence_id:
+            raise ValueError("Instinkt cue citation belongs to another evidence item")
+        if not evidence.grounded or evidence.provenance_kind != "supplied":
+            raise ValueError(
+                "Instinkt cue citations require supplied grounded evidence"
+            )
+        if self.source_content_hash != sha256_hex(evidence.content):
+            raise ValueError("Instinkt cue citation source-content hash differs")
+        if self.end_char > len(evidence.content):
+            raise ValueError("Instinkt cue citation span exceeds its evidence content")
+        if evidence.content[self.start_char : self.end_char] != self.cited_text:
+            raise ValueError("Instinkt cue citation is not the exact cited evidence span")
+        return self
+
+
+class InstinktCueEvidenceBinding(FrozenArtifactModel):
+    """Typed assertion plus exact evidence spans for one caller-supplied cue."""
+
+    schema_version: Literal["rei-native-instinkt-cue-evidence-binding-v2"] = (
+        "rei-native-instinkt-cue-evidence-binding-v2"
+    )
+    binding_id: NonEmptyId
+    lane: InstinktCueLane
+    cue_class: EmbodiedCueClass
+    cue: NonEmptyText
+    assertion_status: InstinktCueAssertionStatus
+    citations: tuple[InstinktCueEvidenceCitation, ...] = Field(min_length=1)
+    binding_hash: HashDigest
+
+    @property
+    def evidence_ids(self) -> tuple[NonEmptyId, ...]:
+        return tuple(item.evidence_id for item in self.citations)
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        lane: InstinktCueLane,
+        cue_class: EmbodiedCueClass,
+        cue: NonEmptyText,
+        assertion_status: InstinktCueAssertionStatus,
+        citations: tuple[InstinktCueEvidenceCitation, ...],
+    ) -> "InstinktCueEvidenceBinding":
+        canonical_citations = tuple(
+            sorted(
+                citations,
+                key=lambda item: (
+                    item.evidence_id,
+                    item.start_char,
+                    item.end_char,
+                    item.citation_id,
+                ),
+            )
+        )
+        base = {
+            "schema_version": "rei-native-instinkt-cue-evidence-binding-v2",
+            "lane": lane,
+            "cue_class": cue_class,
+            "cue": cue.strip(),
+            "assertion_status": assertion_status,
+            "citations": canonical_citations,
+        }
+        binding_id = content_id("instinkt_cue_binding", base)
+        payload = {"binding_id": binding_id, **base}
+        return cls(**payload, binding_hash=sha256_hex(payload))
+
+    @model_validator(mode="after")
+    def validate_binding(self) -> Self:
+        if self.cue != self.cue.strip():
+            raise ValueError("Instinkt cue binding text must be stripped")
+        expected_citations = tuple(
+            sorted(
+                self.citations,
+                key=lambda item: (
+                    item.evidence_id,
+                    item.start_char,
+                    item.end_char,
+                    item.citation_id,
+                ),
+            )
+        )
+        if self.citations != expected_citations:
+            raise ValueError("Instinkt cue citations must use canonical span order")
+        citation_ids = tuple(item.citation_id for item in self.citations)
+        if len(set(citation_ids)) != len(citation_ids):
+            raise ValueError("Instinkt cue citation IDs must be unique")
+        if self.evidence_ids != tuple(sorted(set(self.evidence_ids))):
+            raise ValueError("Each cue binding may cite an evidence item once")
+        base = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"binding_id", "binding_hash"},
+        )
+        if self.binding_id != content_id("instinkt_cue_binding", base):
+            raise ValueError("Instinkt cue binding ID differs from its content")
+        payload = {"binding_id": self.binding_id, **base}
+        if self.binding_hash != sha256_hex(payload):
+            raise ValueError("Instinkt cue binding hash differs from its content")
+        return self
+
 
 class InstinktInputPacket(FrozenArtifactModel):
     """Profile-blind grounded cues routed to Instinkt without a chosen action."""
@@ -137,6 +411,9 @@ class InstinktInputPacket(FrozenArtifactModel):
     explicit_body_cues: tuple[str, ...]
     option_ids: tuple[NonEmptyId, ...]
     evidence_ids: tuple[NonEmptyId, ...]
+    cue_evidence_bindings: tuple[InstinktCueEvidenceBinding, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     previous_instinkt_projection_ids: tuple[NonEmptyId, ...] = Field(
         default=(), exclude_if=lambda value: not value
     )
@@ -147,10 +424,46 @@ class InstinktInputPacket(FrozenArtifactModel):
 
     @model_validator(mode="after")
     def validate_packet_references(self) -> "InstinktInputPacket":
+        lane_sizes = tuple(len(getattr(self, lane)) for lane in INSTINKT_CUE_LANES)
+        if any(size > MAX_INSTINKT_CUES_PER_LANE for size in lane_sizes):
+            raise ValueError("Instinkt cue lane exceeds its bounded input limit")
+        if sum(lane_sizes) > MAX_INSTINKT_TOTAL_CUES:
+            raise ValueError("Instinkt packet exceeds its total cue limit")
+        if any(
+            len(cue) > MAX_INSTINKT_CUE_TEXT_CHARS
+            for lane in INSTINKT_CUE_LANES
+            for cue in getattr(self, lane)
+        ):
+            raise ValueError("Instinkt cue text exceeds its bounded input limit")
+        if len(self.evidence_ids) > MAX_INSTINKT_EVIDENCE_IDS:
+            raise ValueError("Instinkt packet exceeds its evidence-reference limit")
+        if len(self.cue_evidence_bindings) > MAX_INSTINKT_CUE_BINDINGS:
+            raise ValueError("Instinkt packet exceeds its cue-binding limit")
         if len(set(self.option_ids)) != len(self.option_ids):
             raise ValueError("option_ids must be unique")
         if len(set(self.evidence_ids)) != len(self.evidence_ids):
             raise ValueError("evidence_ids must be unique")
+        expected_bindings = tuple(
+            sorted(self.cue_evidence_bindings, key=lambda item: item.binding_id)
+        )
+        if self.cue_evidence_bindings != expected_bindings:
+            raise ValueError("Instinkt cue bindings must use canonical ID order")
+        binding_ids = tuple(item.binding_id for item in self.cue_evidence_bindings)
+        if len(set(binding_ids)) != len(binding_ids):
+            raise ValueError("Instinkt cue binding IDs must be unique")
+        bound_cues: set[tuple[str, str, str]] = set()
+        packet_evidence = set(self.evidence_ids)
+        for binding in self.cue_evidence_bindings:
+            key = (binding.lane, binding.cue_class, binding.cue)
+            if key in bound_cues:
+                raise ValueError(
+                    "Each typed Instinkt cue class may have one lane/cue binding"
+                )
+            bound_cues.add(key)
+            if binding.cue not in getattr(self, binding.lane):
+                raise ValueError("Instinkt cue binding refers to an absent lane cue")
+            if not set(binding.evidence_ids).issubset(packet_evidence):
+                raise ValueError("Instinkt cue binding evidence escapes the packet")
         if len(self.previous_instinkt_projection_ids) != len(
             self.previous_instinkt_projection_hashes
         ):
@@ -180,6 +493,11 @@ class InstinktInputPacket(FrozenArtifactModel):
         scene_evidence_ids = {item.evidence_id for item in scene.evidence}
         if not set(self.evidence_ids).issubset(scene_evidence_ids):
             raise ValueError("Instinkt packet evidence must belong to the SceneEvent")
+        scene_evidence = {item.evidence_id: item for item in scene.evidence}
+        for binding in self.cue_evidence_bindings:
+            for citation in binding.citations:
+                source = scene_evidence[citation.evidence_id]
+                citation.validate_against(source)
         return self
 
 
@@ -213,6 +531,12 @@ class InstinktAssociation(FrozenArtifactModel):
     )
     association_id: NonEmptyId
     cue_signature: tuple[str, ...]
+    cue_classes: tuple[NonEmptyText, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
+    loss_classes: tuple[NonEmptyText, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     body_state_before: BodyState
     felt_intensity: Score01
     protected_target: str
@@ -223,6 +547,31 @@ class InstinktAssociation(FrozenArtifactModel):
     attachment_delta: UnitDelta
     boundary_delta: UnitDelta
     decay: Score01
+
+    @model_validator(mode="after")
+    def validate_typed_learning_context(self) -> "InstinktAssociation":
+        if len(self.cue_signature) > MAX_INSTINKT_ASSOCIATION_CUES:
+            raise ValueError("Association cue signature exceeds its bounded limit")
+        if len(set(self.cue_signature)) != len(self.cue_signature):
+            raise ValueError("Association cue signature must contain unique values")
+        bounded_text = (
+            *self.cue_signature,
+            *self.cue_classes,
+            *self.loss_classes,
+            self.protected_target,
+            *(value for value in (self.experienced_loss,) if value is not None),
+            self.action_taken,
+            self.outcome,
+        )
+        if any(len(value) > MAX_INSTINKT_ASSOCIATION_TEXT_CHARS for value in bounded_text):
+            raise ValueError("Association text exceeds its bounded input limit")
+        if self.cue_classes != tuple(sorted(set(self.cue_classes))):
+            raise ValueError("Association cue classes must be sorted and unique")
+        if self.loss_classes != tuple(sorted(set(self.loss_classes))):
+            raise ValueError("Association loss classes must be sorted and unique")
+        if not set(self.loss_classes).issubset(self.cue_classes):
+            raise ValueError("Association loss classes must be a subset of cue classes")
+        return self
 
 
 InstinktProjectionObservationKind = Literal[
@@ -293,6 +642,30 @@ def instinkt_memory_record_id(record: InstinktMemoryRecord) -> NonEmptyId:
     if isinstance(record, InstinktAssociation):
         return record.association_id
     return record.observation_id
+
+
+def instinkt_association_content_id(association: InstinktAssociation) -> NonEmptyId:
+    """Derive the canonical ID for a content-addressed learned association."""
+
+    base = association.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={"association_id"},
+    )
+    return content_id("instinkt_association", base)
+
+
+def instinkt_projection_memory_token(
+    projection_id: NonEmptyId,
+    projection_hash: HashDigest,
+) -> NonEmptyText:
+    """Build the exact, non-semantic B8 query token for one Ego projection.
+
+    The token carries only immutable projection lineage.  It deliberately does
+    not reinterpret projection prose as current-scene evidence.
+    """
+
+    return f"ego_projection_ref:{projection_id}:{projection_hash}"
 
 
 class AssociationMatch(FrozenArtifactModel):
@@ -1259,8 +1632,15 @@ __all__ = [
     "BodyState",
     "BodyTrajectory",
     "BodyTransition",
+    "EMBODIED_CUE_CLASSES",
+    "EmbodiedCueClass",
     "InstinktActionTendency",
     "InstinktAssociation",
+    "InstinktCueAssertionStatus",
+    "InstinktCueEvidenceBinding",
+    "InstinktCueEvidenceCitation",
+    "INSTINKT_CUE_LANES",
+    "InstinktCueLane",
     "InstinktMemoryRecord",
     "InstinktProjectionObservation",
     "InstinktProjectionObservationKind",
@@ -1269,9 +1649,20 @@ __all__ = [
     "InstinktOptionRollout",
     "InstinktSimulationConfig",
     "InstinktWorld",
+    "MAX_INSTINKT_ASSOCIATION_RECORDS",
+    "MAX_INSTINKT_ASSOCIATION_CUES",
+    "MAX_INSTINKT_ASSOCIATION_TEXT_CHARS",
+    "MAX_INSTINKT_CUES_PER_LANE",
+    "MAX_INSTINKT_CUE_BINDINGS",
+    "MAX_INSTINKT_CITED_TEXT_CHARS",
+    "MAX_INSTINKT_CUE_TEXT_CHARS",
+    "MAX_INSTINKT_EVIDENCE_IDS",
+    "MAX_INSTINKT_TOTAL_CUES",
     "OptionBodyEffect",
     "PositiveUnit",
     "SimulationArtifactStatus",
     "UnitDelta",
+    "instinkt_association_content_id",
     "instinkt_memory_record_id",
+    "instinkt_projection_memory_token",
 ]
