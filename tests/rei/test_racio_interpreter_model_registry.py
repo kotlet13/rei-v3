@@ -22,6 +22,9 @@ GRANITE_DIGEST = (
 QWEN_VL_DIGEST = (
     "2f09e811cc16c59001b2cacae2974b3b62c7f17a2dcb43a7bfad4e924bf2f268"
 )
+QWEN_35_DIGEST = (
+    "7653528ba5cba4dd8e19da24aaddc7f4d0b5ecd93571c0825dfd4137958ec06e"
+)
 
 
 def _registry_payload() -> dict[str, object]:
@@ -36,15 +39,16 @@ def _validate(payload: dict[str, object]) -> RacioInterpreterModelRegistry:
     )
 
 
-def test_json_compatible_yaml_registry_loads_two_unselected_candidates() -> None:
+def test_json_compatible_yaml_registry_loads_three_unselected_candidates() -> None:
     payload = _registry_payload()
     registry = load_racio_interpreter_model_registry()
 
     assert payload["schema_version"] == "rei-racio-interpreter-model-registry-v1"
-    assert registry.registry_version == "c3-v1"
+    assert registry.registry_version == "c3-v2"
     assert tuple(candidate.model_id for candidate in registry.candidates) == (
         "granite4.1:30b",
         "qwen2.5vl:32b",
+        "qwen3.5:27b",
     )
     assert {
         "default_model_id",
@@ -66,7 +70,7 @@ def test_registry_api_is_public_without_selecting_or_loading_a_model() -> None:
 
 def test_registry_records_required_candidate_metadata() -> None:
     registry = load_racio_interpreter_model_registry()
-    granite, qwen = registry.candidates
+    granite, qwen_vl, qwen_35 = registry.candidates
 
     assert granite.model_digest == GRANITE_DIGEST
     assert granite.runtime == "ollama"
@@ -77,14 +81,23 @@ def test_registry_records_required_candidate_metadata() -> None:
     assert granite.license == "Apache-2.0"
     assert granite.benchmark_status == "c3_candidate"
 
-    assert qwen.model_digest == QWEN_VL_DIGEST
-    assert qwen.runtime == "ollama"
-    assert qwen.modality_support == ("structured_text", "vision")
-    assert qwen.slovenian_baseline == "not_benchmarked"
-    assert qwen.max_context == 128000
-    assert qwen.hardware_requirements.minimum_vram_gib == 24
-    assert qwen.license == "Apache-2.0"
-    assert qwen.benchmark_status == "vlm_adapter_candidate"
+    assert qwen_vl.model_digest == QWEN_VL_DIGEST
+    assert qwen_vl.runtime == "ollama"
+    assert qwen_vl.modality_support == ("structured_text", "vision")
+    assert qwen_vl.slovenian_baseline == "not_benchmarked"
+    assert qwen_vl.max_context == 128000
+    assert qwen_vl.hardware_requirements.minimum_vram_gib == 24
+    assert qwen_vl.license == "Apache-2.0"
+    assert qwen_vl.benchmark_status == "vlm_adapter_candidate"
+
+    assert qwen_35.model_digest == QWEN_35_DIGEST
+    assert qwen_35.runtime == "ollama"
+    assert qwen_35.modality_support == ("structured_text", "vision")
+    assert qwen_35.slovenian_baseline == "not_benchmarked"
+    assert qwen_35.max_context == 262144
+    assert qwen_35.hardware_requirements.minimum_vram_gib == 24
+    assert qwen_35.license == "Apache-2.0"
+    assert qwen_35.benchmark_status == "c3_candidate"
 
 
 def test_lookup_requires_exact_explicit_model_id_and_digest() -> None:
