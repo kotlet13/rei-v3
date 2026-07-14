@@ -7,7 +7,7 @@ from pathlib import Path
 
 from scripts.build_semantic_lab_fixtures import build
 
-from conftest import FIXTURE_ROOT, REPO_ROOT, SOURCE_ROOT
+from .conftest import FIXTURE_ROOT, REPO_ROOT, SOURCE_ROOT
 
 
 def test_fixture_generation_is_deterministic_and_matches_committed_files():

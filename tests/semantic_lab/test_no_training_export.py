@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import ast
 
-from conftest import REPO_ROOT
+from .conftest import REPO_ROOT
 
 
 def test_semantic_lab_has_no_training_or_model_export(family_fixtures, fixture_manifest):

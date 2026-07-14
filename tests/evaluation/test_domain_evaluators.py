@@ -4,7 +4,7 @@ import json
 
 from app.backend.rei.evaluation.models import CandidateNativeRoute
 
-from conftest import TERMINOLOGY_POLICY
+from .conftest import TERMINOLOGY_POLICY
 
 
 def _with_payload(candidate, mutation):

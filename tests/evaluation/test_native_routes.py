@@ -5,7 +5,7 @@ import json
 from app.backend.rei.evaluation.models import CandidateNativeRoute, InputExposureRecord
 from app.backend.rei.evaluation.native_routes import evaluate_native_route_payload
 
-from conftest import TERMINOLOGY_POLICY
+from .conftest import TERMINOLOGY_POLICY
 
 
 def _rebuild(candidate, mutate):

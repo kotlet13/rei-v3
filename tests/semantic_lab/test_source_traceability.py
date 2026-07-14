@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from scripts.build_semantic_lab_fixtures import expected_outputs
 
-from conftest import REPO_ROOT, SOURCE_ROOT, read_jsonl
+from .conftest import REPO_ROOT, SOURCE_ROOT, read_jsonl
 
 
 def test_every_family_locator_resolves_to_the_canonical_claim_registry(families):
