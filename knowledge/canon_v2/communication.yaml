@@ -391,6 +391,16 @@ c3_structured_interpreter_boundary:
       unsupported_action_or_motive_class: unknown
       maximum_confidence: 0.35
     empirical_calibration_claim: false
+  motive_class_operational_hints:
+    status: implementation_hypothesis
+    attachment: explicit_attachment_closeness_or_safe_contact_pull
+    body_alarm: somatic_tension_or_seek_safety_or_protect_signal
+    boundary_alarm: aversion_or_set_boundary_or_withdraw_signal
+    broken_scene: mismatch_or_collapse_of_expected_or_desired_scene
+    motor_pattern: perform_or_connect_execution_pattern_without_stronger_cue
+    unknown: visible_packet_supports_no_more_specific_class
+    labels_are_person_level_facts: false
+    language_changes_enum_assignment: false
   trusted_alias_resolution_occurs_after_provider_return: true
   model_failure_publishes_interpretation: false
   retry_or_hidden_fallback: false
