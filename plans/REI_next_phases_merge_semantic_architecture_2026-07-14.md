@@ -195,7 +195,11 @@ Modelni neuspeh ne sme pokvariti arhitekturnega baselinea.
 
 ---
 
-# 4. Faza M0 — pre-merge pregled in uskladitev veje
+# 4. Faza M0 — zaključen zgodovinski pre-merge pregled
+
+Faze M0–M2 so zaključeni zgodovinski integracijski zapis. Ukazi in PR koraki v
+njih niso navodilo za ustvarjanje, preklop ali uporabo druge veje. Aktivno in
+vse prihodnje delo poteka izključno neposredno na `main` po pravilu 3.3.
 
 **Cilj:** ugotoviti dejansko stanje lokalne in oddaljene veje brez sprememb.
 
@@ -388,7 +392,11 @@ Po fazi se ustavi.
 
 ---
 
-# 6. Faza M2 — CI hardening in PR v `main`
+# 6. Faza M2 — zaključen zgodovinski CI hardening
+
+Ta faza je že integrirana v `main`. Spodnji opis PR-ja in merge načina ohranja
+zgodovinski kontekst; ni aktiven workflow. Za naslednje faze se spremembe po
+pregledu commitajo in pushajo neposredno na `main`, brez fazne ali feature veje.
 
 **Cilj:** zagotoviti, da merge ni odvisen samo od enega lokalnega okolja.
 
@@ -431,7 +439,7 @@ CI ne sme:
 - zaganjati QLoRA;
 - spreminjati committed artefaktov.
 
-## 6.2 PR
+## 6.2 Zgodovinski PR zapis
 
 Predlagani naslov:
 
@@ -451,7 +459,7 @@ PR body naj vsebuje:
 - breaking change;
 - eksplicitno pojasnilo, da QLoRA ni del PR-ja.
 
-## 6.3 Merge način
+## 6.3 Zgodovinski merge način
 
 Uporabi:
 
@@ -466,7 +474,7 @@ Squash and merge
 Rebase and merge
 ```
 
-## 6.4 Pred mergeom
+## 6.4 Zgodovinski pogoji pred mergem
 
 Obvezno:
 
