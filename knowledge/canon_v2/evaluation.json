@@ -1,0 +1,245 @@
+{
+  "schema_version": "rei-semantic-evaluation-policy-v1",
+  "policy_id": "rei-semantic-evaluation-c2-v1",
+  "status": "implementation_hypothesis",
+  "canonical_language": "sl",
+  "operational_gloss_language": "en",
+  "source_refs": [
+    {
+      "path": "plans/REI_next_phases_merge_semantic_architecture_2026-07-14.md",
+      "section": "9. Faza C2 — semantični evaluator",
+      "claim_ids": [
+        "C-ROUTE-001",
+        "C-LANG-001",
+        "C-PROV-001",
+        "C-CONSC-001",
+        "C-RACIO-003",
+        "C-EGO-002",
+        "C-EGO-003"
+      ]
+    },
+    {
+      "path": "knowledge/canon_v2/communication.yaml",
+      "section": "B9 translation boundary and exact fixture metric",
+      "claim_ids": [
+        "C-CONSC-001",
+        "C-EMOCIO-003",
+        "C-INSTINKT-003",
+        "C-PROV-001"
+      ]
+    },
+    {
+      "path": "knowledge/canon_v2/glossary.yaml",
+      "section": "Canonical Slovenian terminology",
+      "claim_ids": [
+        "C-LANG-001",
+        "C-CANON-001"
+      ]
+    },
+    {
+      "path": "knowledge/semantic_lab_v1/manifest.yaml",
+      "section": "Source-grounded semantic laboratory v1",
+      "claim_ids": [
+        "C-ROUTE-001",
+        "C-LANG-001"
+      ]
+    }
+  ],
+  "claim_refs": [
+    "C-ROUTE-001",
+    "C-LANG-001",
+    "C-CANON-001",
+    "C-PROV-001",
+    "C-CONSC-001",
+    "C-RACIO-003",
+    "C-EMOCIO-003",
+    "C-EMOCIO-004",
+    "C-INSTINKT-003",
+    "C-CHAR-002",
+    "C-EGO-001",
+    "C-EGO-002",
+    "C-EGO-003"
+  ],
+  "policy_refs": [
+    "b9-exact-action-tendency-fidelity-v1",
+    "b9-exact-distortion-classifier-v1",
+    "c1-source-grounded-semantic-lab-v1",
+    "b4-deterministic-composition-skeleton-v1"
+  ],
+  "boundaries": {
+    "model_judge_calls": 0,
+    "subject_provider_calls_may_be_evaluated": true,
+    "evaluator_truth_available_only_after_subject_output_is_frozen": true,
+    "interpreter_may_receive_evaluator_truth": false,
+    "profile_may_enter_native_candidate_input": false,
+    "generated_visual_may_be_grounded_external_evidence": false,
+    "behavior_alone_may_identify_native_route": false,
+    "production_keywords_may_be_sole_route_criterion": false,
+    "chain_of_thought_required": false,
+    "training_export": false
+  },
+  "dimensions": [
+    "schema_validity",
+    "provenance_completeness",
+    "allowed_option_validity",
+    "source_evidence_coverage",
+    "unsupported_claims",
+    "profile_leakage",
+    "hidden_ground_truth_leakage",
+    "confidence_calibration",
+    "abstention_correctness",
+    "slovenian_terminology",
+    "native_route_semantics",
+    "communication_fidelity",
+    "bilingual_consistency",
+    "ego_longitudinal"
+  ],
+  "input_exposure_policy": {
+    "policy_id": "c2-input-exposure-v1",
+    "required_scopes": [
+      "actual_artifact_ids",
+      "visible_observation_ids",
+      "grounded_evidence_ids",
+      "allowed_option_ids",
+      "forbidden_native_truth_ids",
+      "forbidden_profile_ids"
+    ],
+    "profile_leakage": "actual input intersects forbidden_profile_ids",
+    "hidden_ground_truth_leakage": "actual input or candidate claim support intersects forbidden_native_truth_ids",
+    "text_canary_is_supporting_evidence_only": true,
+    "candidate_self_report_is_sufficient": false
+  },
+  "claim_support_policy": {
+    "policy_id": "c2-structured-claim-support-v1",
+    "candidate_claim_fields": [
+      "claim_id",
+      "facet",
+      "value_id",
+      "source_claim_ids",
+      "evidence_ids",
+      "observation_ids",
+      "provenance_kind"
+    ],
+    "supported_claim": "every cited evidence or observation ID is visible and allowed for the candidate",
+    "unsupported_claim_count": "number of candidate claims with no allowed supporting ID or with forbidden support",
+    "source_evidence_coverage": "covered expected evidence IDs divided by expected evidence IDs",
+    "free_text_keyword_match_is_not_claim_support": true
+  },
+  "calibration_policy": {
+    "policy_id": "c2-per-case-brier-calibration-v1",
+    "unit": "one manually reviewed evaluation case",
+    "correctness_target": "1 when all non-calibration semantic expectations for the candidate pass, otherwise 0",
+    "formula": "(candidate_confidence - correctness_target) ** 2",
+    "pass_condition": "brier_error <= max_brier_error",
+    "default_max_brier_error": 0.25,
+    "abstention_is_scored_against_expected_abstention": true,
+    "aggregate_empirical_calibration_claim_allowed": false
+  },
+  "distortion_policy": {
+    "policy_id": "c2-explicit-distortion-evidence-v1",
+    "labels": {
+      "accurate": "expected option and motive facets are supported by visible evidence with no forbidden native-truth support",
+      "partial": "at least one expected supported facet is preserved and at least one is explicitly omitted",
+      "omission": "no substantive interpretation is emitted or justification_kind is omitted",
+      "rationalization": "an explicit self-justification claim replaces a contradicted or unsupported visible-source explanation",
+      "minimization": "a visible signal is explicitly downscaled despite trusted visible evidence for the stronger signal",
+      "projection": "a self-state or self-motive is attributed to the source mind without trusted visible support",
+      "misclassification": "a structured option, action tendency, or motive class conflicts with the trusted expected value",
+      "unknown": "the explicit evaluator evidence does not satisfy exactly one more specific label"
+    },
+    "required_evidence_fields": [
+      "evidence_kind",
+      "visible_support_ids",
+      "candidate_claim_ids",
+      "contradicted_claim_ids",
+      "expected_label"
+    ],
+    "keyword_classifier_allowed": false,
+    "native_truth_may_be_sent_back_to_interpreter": false
+  },
+  "ego_motif_policy": {
+    "policy_id": "c2-recurring-motif-two-measure-v1",
+    "minimum_distinct_supporting_measure_ids": 2,
+    "scope": "evaluated recurring motifs only",
+    "does_not_change_single_measure_runtime_fields": true,
+    "true_positive": "candidate motif ID is expected and has support from at least two distinct in-scope measures",
+    "false_positive": "candidate motif ID is not expected or lacks the minimum support",
+    "false_negative": "expected motif ID is absent from valid candidate motifs",
+    "false_motif_rate": "false_positive_count / candidate_motif_count; not_applicable when candidate_motif_count is zero",
+    "missed_motif_rate": "false_negative_count / expected_motif_count; not_applicable when expected_motif_count is zero"
+  },
+  "bilingual_policy": {
+    "policy_id": "c2-bilingual-structured-signature-v1",
+    "signature_fields": [
+      "mind",
+      "option_id",
+      "abstains",
+      "route_tags",
+      "evidence_ids",
+      "interpretation_class"
+    ],
+    "comparison": "exact equality after canonical ordering of set-valued fields",
+    "slovenian_text_is_authoritative": true,
+    "english_text_is_operational_gloss": true,
+    "text_embedding_required": false,
+    "model_judge_required": false,
+    "natural_language_translation_quality_requires_human_review": true
+  },
+  "terminology_policy": {
+    "policy_id": "c2-slovenian-terminology-v1",
+    "source": "knowledge/canon_v2/glossary.yaml",
+    "required_canonical_terms": {
+      "REI_RACIO": "Racio",
+      "REI_EMOCIO": "Emocio",
+      "REI_INSTINKT": "Instinkt",
+      "REI_EGO": "Ego",
+      "REI_TRANSLATION_GAP": "vrzel prevoda"
+    },
+    "canonical_term_pairs": {
+      "REI_RACIO": {
+        "sl_surface": "Racio",
+        "en_surface": "Racio"
+      },
+      "REI_EMOCIO": {
+        "sl_surface": "Emocio",
+        "en_surface": "Emocio"
+      },
+      "REI_INSTINKT": {
+        "sl_surface": "Instinkt",
+        "en_surface": "Instinkt"
+      },
+      "REI_EGO": {
+        "sl_surface": "Ego",
+        "en_surface": "Ego"
+      },
+      "REI_TRANSLATION_GAP": {
+        "sl_surface": "vrzel prevoda",
+        "en_surface": "translation gap"
+      }
+    },
+    "terminology_check_may_decide_native_route": false
+  },
+  "reporting_policy": {
+    "policy_id": "c2-dimension-preserving-report-v1",
+    "global_rei_score": false,
+    "single_cross_dimension_rank": false,
+    "quality_gate_pass_is_not_a_semantic_score": true,
+    "required_artifacts": [
+      "summary.md",
+      "metrics.json",
+      "failures.jsonl",
+      "confusion_matrices.json",
+      "bilingual_consistency.json",
+      "human_review_summary.md"
+    ]
+  },
+  "fixture_policy": {
+    "fixture_set": "tests/fixtures/semantic_evaluation_v1",
+    "case_schema": "knowledge/semantic_lab_v1/schemas/evaluation_case.schema.json",
+    "gold_origin": "manually_authored",
+    "model_generated_gold": false,
+    "positive_and_negative_cases_required": true,
+    "each_case_requires_exact_expected_issue_codes": true,
+    "schema_invalid_candidate_payloads_are_valid_case_envelopes": true
+  }
+}

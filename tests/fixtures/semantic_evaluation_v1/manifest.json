@@ -1,0 +1,132 @@
+{
+  "schema_version": "rei-semantic-evaluation-fixture-manifest-v1",
+  "fixture_set_id": "rei-semantic-evaluation-v1",
+  "policy": {
+    "path": "knowledge/canon_v2/evaluation.json",
+    "policy_id": "rei-semantic-evaluation-c2-v1",
+    "sha256": "a212d46cc61cb043eb60ed443c830c528d86bb5b88e64be937494beddd9e89ed"
+  },
+  "case_schema": {
+    "path": "knowledge/semantic_lab_v1/schemas/evaluation_case.schema.json",
+    "schema_id": "https://rei.local/schemas/semantic-lab-v1/evaluation-case.json",
+    "sha256": "747efca145d0697872b60f347fe224892acc19669e0c320a23645d8e7c02ff74"
+  },
+  "gold_origin": "manually_authored",
+  "model_generated_gold": false,
+  "model_judge_calls": 0,
+  "training_export": false,
+  "review_status": "c2_manual_reviewed",
+  "case_count": 32,
+  "positive_case_count": 8,
+  "negative_case_count": 24,
+  "subject_counts": {
+    "native_route": 16,
+    "interpretation": 8,
+    "bilingual_pair": 3,
+    "ego_sequence": 5
+  },
+  "files": [
+    {
+      "path": "native_routes.jsonl",
+      "case_count": 16,
+      "sha256": "f3cd0b519f2518bc1d62b25c970efcd8e76a4724f34a8e1a1b2dabae0884fb26"
+    },
+    {
+      "path": "communication.jsonl",
+      "case_count": 8,
+      "sha256": "35144342b770df194ed04bd50cd47c778ecd3cd6c83087f2d9a04055e2f699c7"
+    },
+    {
+      "path": "bilingual.jsonl",
+      "case_count": 3,
+      "sha256": "d7adaea31b275bdcf713debbc0b31ac34bb1af0649fb60c22a617458e4bbf070"
+    },
+    {
+      "path": "ego.jsonl",
+      "case_count": 5,
+      "sha256": "cdfc3df773758b915eed735d6ff044cef9f7c5245e8e08f84db83af63a4fc0e5"
+    }
+  ],
+  "required_coverage": {
+    "schema_invalid": [
+      "eval_schema_invalid_candidate"
+    ],
+    "provenance": [
+      "eval_racio_route_complete",
+      "eval_provenance_incomplete",
+      "eval_renderer_added_as_grounded_fact"
+    ],
+    "allowed_option": [
+      "eval_racio_route_complete",
+      "eval_option_outside_allowed_scope"
+    ],
+    "source_evidence": [
+      "eval_racio_route_complete",
+      "eval_source_evidence_incomplete"
+    ],
+    "unsupported_claim": [
+      "eval_unsupported_claim",
+      "eval_renderer_added_as_grounded_fact"
+    ],
+    "profile_leakage": [
+      "eval_profile_leakage"
+    ],
+    "hidden_ground_truth_leakage": [
+      "eval_hidden_ground_truth_leakage"
+    ],
+    "confidence_calibration": [
+      "eval_calibration_correct_high_confidence",
+      "eval_calibration_correct_low_confidence",
+      "eval_interpretation_rationalization"
+    ],
+    "abstention": [
+      "eval_abstention_correct",
+      "eval_abstention_incorrect"
+    ],
+    "slovenian_terminology": [
+      "eval_slovenian_terminology_valid",
+      "eval_slovenian_terminology_invalid",
+      "eval_bilingual_terminology_drift"
+    ],
+    "accurate_vs_rationalization": [
+      "eval_interpretation_accurate",
+      "eval_interpretation_rationalization"
+    ],
+    "all_interpretation_labels": [
+      "eval_interpretation_accurate",
+      "eval_interpretation_partial",
+      "eval_interpretation_omission",
+      "eval_interpretation_rationalization",
+      "eval_interpretation_minimization",
+      "eval_interpretation_projection",
+      "eval_interpretation_misclassification",
+      "eval_interpretation_unknown"
+    ],
+    "bilingual": [
+      "eval_bilingual_signature_consistent",
+      "eval_bilingual_semantic_drift",
+      "eval_bilingual_terminology_drift"
+    ],
+    "ego": [
+      "eval_ego_grounded_recurring_motif",
+      "eval_ego_false_motif",
+      "eval_ego_missed_motif",
+      "eval_ego_translation_and_tension_discontinuity",
+      "eval_ego_projection_and_narrative_boundary"
+    ]
+  },
+  "interpretation_labels": [
+    "accurate",
+    "partial",
+    "omission",
+    "rationalization",
+    "minimization",
+    "projection",
+    "misclassification",
+    "unknown"
+  ],
+  "reporting": {
+    "global_rei_score": false,
+    "dimensions_remain_separate": true
+  }
+}

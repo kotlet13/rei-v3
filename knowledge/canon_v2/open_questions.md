@@ -680,6 +680,51 @@ Kako arhivske decimalne uteži prikazati v primerjalnih poročilih brez
 preslikave nazaj v aktivno governance? Migracija poročil ne sme uteži,
 situacijskih bonusov ali benchmark pravil vrniti v odločanje.
 
+## OQ-EVAL-001 — semantične metrike C2
+
+Kako naj evaluator meri semantično pot, prevodno popačenje, kalibracijo,
+ponavljajoče motive in dvojezično skladnost, ne da bi keyworde, modelnega
+judgea ali skriti ground truth spremenil v bližnjico do rezultata?
+
+### C2 izvedbena odločitev — 2026-07-14
+
+Status: `implementation_hypothesis`, operativno razrešeno za deterministični
+predmodelni evaluator C2. Konsolidirana politika je
+`knowledge/canon_v2/evaluation.json`; njene dimenzije ostanejo ločene in se ne
+združijo v en globalni »REI score«.
+
+Kalibracija je v C2 merjena na ravni posameznega ročno pregledanega primera.
+Gold cilj je `1`, kadar kandidat prestane vse semantične zahteve primera razen
+same kalibracije, sicer `0`; Brierjeva napaka je
+`(confidence - cilj) ** 2`. Začetni fixture prag je `0.25`. To je test
+notranje skladnosti confidencea, ne empirični dokaz kalibriranosti modela ali
+populacije. Pri abstinenci se pravilnost najprej določi glede na pričakovano
+abstinenco primera.
+
+Oznake `rationalization`, `minimization` in `projection` se nikoli ne sklepajo
+iz keyworda ali samo iz neskladnega option ID-ja. Vsaka taka oznaka zahteva
+ekspliciten evaluatorjev evidence zapis: vrsto dokaza, vidne podporne ID-je,
+kandidatove strukturirane claim ID-je, morebitne kontradiktorne claim ID-je in
+pričakovano oznako. `Rationalization` pomeni, da self-justification nadomesti
+vidno nepodprto ali kontradiktorno razlago; `minimization` eksplicitno
+zmanjšanje vidnega signala brez podpore; `projection` pa pripis lastnega stanja
+ali motiva izvornemu razumu brez vidne podpore. Če tak dokaz ni dovolj popoln,
+je oznaka `unknown`. Ground truth ostane samo v evaluatorju.
+
+Za C2 recurring-motif metriko mora vsak ovrednoteni motiv citirati vsaj dva
+različna measure ID-ja iz iste sekvence. Kandidatov motiv brez tega praga je
+false positive; pričakovani motiv brez veljavnega kandidata je false negative.
+To pravilo velja za evaluatorjeve recurring motif zapise in ne spreminja
+obstoječe B4 možnosti, da se nekatera posamezna runtime polja zapišejo že iz
+enega measurea.
+
+Dvojezična avtomatska metrika primerja strukturiran semantični podpis:
+`mind`, `option_id`, `abstains`, urejene `route_tags`, `evidence_ids` in
+`interpretation_class`. Slovenščina ostane avtoritativna, angleščina pa
+operativni gloss. Natančno ujemanje podpisa ne dokazuje kakovosti naravnega
+prevoda; to ostane predmet slepega človeškega pregleda. C2 zato ne uporablja
+embeddingov ali modelnega judgea za avtomatsko dvojezično gold odločitev.
+
 ## Izrecno zaprte smeri, ki niso odprta vprašanja B1
 
 - QLoRA, LoRA, SFT, training dataset in izbor končnega modela niso v obsegu.

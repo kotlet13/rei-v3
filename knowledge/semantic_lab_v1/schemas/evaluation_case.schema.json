@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rei.local/schemas/semantic-lab-v1/evaluation-case.json",
+  "title": "SemanticEvaluationCase",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "subject_kind",
+    "domain",
+    "polarity",
+    "family_id",
+    "variant_id",
+    "source_claim_ids",
+    "policy_ids",
+    "input_scope",
+    "candidate_payload",
+    "trusted_expectation",
+    "expected_result",
+    "gold_origin",
+    "model_generated_gold",
+    "review_status",
+    "notes_sl"
+  ],
+  "properties": {
+    "schema_version": {"const": "rei-semantic-evaluation-case-v1"},
+    "case_id": {"type": "string", "pattern": "^eval_[a-z0-9_]+$"},
+    "subject_kind": {
+      "enum": ["native_route", "interpretation", "bilingual_pair", "ego_sequence"]
+    },
+    "domain": {
+      "enum": ["shared", "racio", "emocio", "instinkt", "communication", "bilingual", "ego"]
+    },
+    "polarity": {"enum": ["positive", "negative"]},
+    "family_id": {"type": "string", "pattern": "^sf_[a-z0-9_]+$"},
+    "variant_id": {"type": "string", "minLength": 1},
+    "source_claim_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^C-[A-Z]+-[0-9]{3}$"}
+    },
+    "policy_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "input_scope": {"$ref": "#/$defs/inputScope"},
+    "candidate_payload": {
+      "type": "object",
+      "description": "Intentionally unrestricted so a valid case envelope can carry an invalid candidate payload."
+    },
+    "trusted_expectation": {"$ref": "#/$defs/trustedExpectation"},
+    "expected_result": {"$ref": "#/$defs/expectedResult"},
+    "gold_origin": {"const": "manually_authored"},
+    "model_generated_gold": {"const": false},
+    "review_status": {"const": "c2_manual_reviewed"},
+    "notes_sl": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "idArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "inputScope": {
+      "type": "object",
+      "required": [
+        "actual_artifact_ids",
+        "visible_observation_ids",
+        "grounded_evidence_ids",
+        "allowed_option_ids",
+        "forbidden_native_truth_ids",
+        "forbidden_profile_ids"
+      ],
+      "properties": {
+        "actual_artifact_ids": {"$ref": "#/$defs/idArray"},
+        "visible_observation_ids": {"$ref": "#/$defs/idArray"},
+        "grounded_evidence_ids": {"$ref": "#/$defs/idArray"},
+        "allowed_option_ids": {"$ref": "#/$defs/idArray"},
+        "forbidden_native_truth_ids": {"$ref": "#/$defs/idArray"},
+        "forbidden_profile_ids": {"$ref": "#/$defs/idArray"}
+      },
+      "additionalProperties": false
+    },
+    "distortionEvidence": {
+      "type": "object",
+      "required": [
+        "evidence_kind",
+        "visible_support_ids",
+        "candidate_claim_ids",
+        "contradicted_claim_ids",
+        "expected_label"
+      ],
+      "properties": {
+        "evidence_kind": {"type": "string", "minLength": 1},
+        "visible_support_ids": {"$ref": "#/$defs/idArray"},
+        "candidate_claim_ids": {"$ref": "#/$defs/idArray"},
+        "contradicted_claim_ids": {"$ref": "#/$defs/idArray"},
+        "expected_label": {
+          "enum": [
+            "accurate",
+            "partial",
+            "omission",
+            "rationalization",
+            "minimization",
+            "projection",
+            "misclassification",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "trustedExpectation": {
+      "type": "object",
+      "required": [
+        "expected_label",
+        "expected_abstains",
+        "expected_decisive_representation",
+        "expected_sequence_id",
+        "expected_measure_ids",
+        "max_brier_error"
+      ],
+      "properties": {
+        "expected_label": {"type": "string", "minLength": 1},
+        "expected_mind": {"enum": ["R", "E", "I", null]},
+        "expected_option_id": {"type": ["string", "null"]},
+        "expected_abstains": {"type": "boolean"},
+        "expected_decisive_representation": {"type": ["string", "null"]},
+        "expected_sequence_id": {"type": ["string", "null"]},
+        "expected_measure_ids": {"$ref": "#/$defs/idArray"},
+        "expected_route_tags": {"$ref": "#/$defs/idArray"},
+        "expected_evidence_ids": {"$ref": "#/$defs/idArray"},
+        "expected_source_claim_ids": {"$ref": "#/$defs/idArray"},
+        "expected_interpretation_class": {
+          "enum": [
+            "accurate",
+            "partial",
+            "omission",
+            "rationalization",
+            "minimization",
+            "projection",
+            "misclassification",
+            "unknown",
+            null
+          ]
+        },
+        "expected_motive_class": {"type": ["string", "null"]},
+        "expected_action_tendency": {"type": ["string", "null"]},
+        "expected_motif_ids": {"$ref": "#/$defs/idArray"},
+        "expected_translation_gap_ids": {"$ref": "#/$defs/idArray"},
+        "expected_unresolved_tension_ids": {"$ref": "#/$defs/idArray"},
+        "expected_projection_minds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["R", "E", "I"]}
+        },
+        "expected_projection_facets": {"$ref": "#/$defs/idArray"},
+        "expected_semantic_signature": {"$ref": "#/$defs/idArray"},
+        "required_terminology_ids": {"$ref": "#/$defs/idArray"},
+        "distortion_evidence": {"$ref": "#/$defs/distortionEvidence"},
+        "max_brier_error": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+      },
+      "additionalProperties": false
+    },
+    "dimensionOutcome": {"enum": ["pass", "fail", "not_applicable"]},
+    "expectedResult": {
+      "type": "object",
+      "required": ["passed", "observed_label", "issue_codes", "dimension_outcomes"],
+      "properties": {
+        "passed": {"type": "boolean"},
+        "observed_label": {"type": "string", "minLength": 1},
+        "issue_codes": {"$ref": "#/$defs/idArray"},
+        "dimension_outcomes": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"$ref": "#/$defs/dimensionOutcome"}
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

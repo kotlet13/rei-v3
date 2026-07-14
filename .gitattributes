@@ -1,3 +1,9 @@
 archive/rei_v3_text_llm_baseline_2026-07-13/** -text -whitespace
 plans/archive/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md -text -whitespace
 plans/REI_native_composition_architecture_upgrade_2026-07-13.md -whitespace
+
+# C2 hashes these source and report artifacts byte-for-byte.
+knowledge/canon_v2/evaluation.json text eol=lf
+knowledge/semantic_lab_v1/schemas/evaluation_case.schema.json text eol=lf
+tests/fixtures/semantic_evaluation_v1/** text eol=lf
+Docs/evals/semantic_lab_v1/c2-deterministic-2026-07-14/** text eol=lf
