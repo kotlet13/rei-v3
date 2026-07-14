@@ -1,0 +1,1036 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "mirno prebujenje",
+    "tesnobno prebujenje"
+  ],
+  "family_id": "sf_dream_image_interpretation",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "internal_image_as_external_fact",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "dream_figures"
+    ],
+    "constraints": [
+      "Sanjska slika ni zunanji dokaz."
+    ],
+    "event_id": "sf_dream_image_interpretation_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Ohranjena je sanjska slika; njen pomen ni neposredno podan.",
+        "evidence_id": "sf_dream_image_interpretation_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_dream_image_interpretation"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Zapiši več možnih razlag z negotovostjo.",
+        "label": "ohrani hipoteze",
+        "option_id": "option_keep_hypotheses",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Eno razlago razglasi za dejstvo.",
+        "label": "razglasi pomen",
+        "option_id": "option_claim_fact",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Po prebujenju ostane slika zaprtega mostu in oddaljene skupine ljudi; Racio šele nato oblikuje več možnih razlag.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Pomen slike je nedoločen."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "spomin na izključitev",
+    "spomin na prekinjeno pot"
+  ],
+  "purpose": "Loči Emociev slikovni artefakt od Racijeve poznejše interpretacije.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "6d7f1f6db1628d401720c2ca91dc847059cc6b2304883166ff09ca11276ea622",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-EMOCIO-001"
+      ],
+      "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+      "page": 1,
+      "section": "Slikovno mišljenje",
+      "source_file": "Docs/REI osnova Emocio.docx"
+    },
+    {
+      "claim_ids": [
+        "C-CONSC-001"
+      ],
+      "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+      "page": 52,
+      "section": "Ozaveščanje prek Racia",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    }
+  ],
+  "title_sl": "Racio razlaga sanjsko sliko",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__sl_canonical__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__sl_canonical",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__sl_canonical__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva sanjska slika je notranji artefakt; Racijev poznejši pomen je interpretacija, ne retroaktivna sprememba slike.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__sl_canonical__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_dream_image_interpretation__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__sl_paraphrase__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__sl_paraphrase",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__sl_paraphrase__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Most in oddaljeni ljudje ostanejo slikovna vsebina, razlaga pa ločen Racijev objekt.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__sl_paraphrase__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_dream_image_interpretation__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__en_operational_gloss__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__en_operational_gloss",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__en_operational_gloss__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The bridge and distant people remain image content while meaning is a separate Racio interpretation.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__en_operational_gloss__manifestation_E"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_dream_image_interpretation__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__keyword_trap__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__keyword_trap",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__keyword_trap__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva sanjska slika je notranji artefakt; Racijev poznejši pomen je interpretacija, ne retroaktivna sprememba slike.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__keyword_trap__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "most"
+      },
+      "variant_id": "sf_dream_image_interpretation__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__same_behavior_different_route__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__same_behavior_different_route",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__same_behavior_different_route__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva sanjska slika je notranji artefakt; Racijev poznejši pomen je interpretacija, ne retroaktivna sprememba slike.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__same_behavior_different_route__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "zapiše sanje"
+      },
+      "variant_id": "sf_dream_image_interpretation__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__same_route_different_behavior__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__same_route_different_behavior",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__same_route_different_behavior__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva sanjska slika je notranji artefakt; Racijev poznejši pomen je interpretacija, ne retroaktivna sprememba slike.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__same_route_different_behavior__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "nariše prizor"
+      },
+      "variant_id": "sf_dream_image_interpretation__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__missing_information__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__missing_information",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__missing_information__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva sanjska slika je notranji artefakt; Racijev poznejši pomen je interpretacija, ne retroaktivna sprememba slike.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__missing_information",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__missing_information__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "oddaljena skupina ljudi"
+      },
+      "variant_id": "sf_dream_image_interpretation__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "zaprti most in oddaljena skupina",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "Racijeva razlaga kot izvorna slika"
+          ],
+          "mind": "E",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "internal_image",
+            "spatial_relation",
+            "social_distance"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Emocio ohrani prizorno celoto brez enega besednega pomena.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__contradictory_surface_cue",
+          "world_context_ids": []
+        },
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "več razlag iste vidne manifestacije",
+          "evidence_ids": [
+            "sf_dream_image_interpretation_e1"
+          ],
+          "family_id": "sf_dream_image_interpretation",
+          "forbidden_reasons": [
+            "sanjska slika kot zunanji fakt"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_hypotheses",
+          "route_id": "sf_dream_image_interpretation__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "interpretation",
+            "alternative_hypotheses",
+            "uncertainty"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker slika ne določa enega pomena, Racio ohrani več hipotez.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio povezuje slike v celoto.",
+              "page": 1,
+              "section": "Slikovno mišljenje",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-CONSC-001"
+              ],
+              "excerpt_summary_sl": "Racio pozneje interpretira Emocievo manifestacijo.",
+              "page": 52,
+              "section": "Ozaveščanje prek Racia",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            }
+          ],
+          "variant_id": "sf_dream_image_interpretation__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocieva sanjska slika je notranji artefakt; Racijev poznejši pomen je interpretacija, ne retroaktivna sprememba slike.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "internal_image",
+          "expected_option_id": "option_keep_hypotheses",
+          "family_id": "sf_dream_image_interpretation",
+          "interpretation_id": "sf_dream_image_interpretation__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_dream_image_interpretation__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_dream_image_interpretation__contradictory_surface_cue__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "slika deluje mirno, telesni odziv pa je napet"
+      },
+      "variant_id": "sf_dream_image_interpretation__contradictory_surface_cue"
+    }
+  ]
+}

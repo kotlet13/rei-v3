@@ -1,0 +1,676 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "tekoč gib",
+    "zavestna zategnjenost"
+  ],
+  "family_id": "sf_motor_vs_visual_emocio",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "visual_motor_collapse",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "audience"
+    ],
+    "constraints": [
+      "Koreografija je izurjena."
+    ],
+    "event_id": "sf_motor_vs_visual_emocio_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Želena prizorna celota in izurjena motorična izvedba sta ločena dela procesa.",
+        "evidence_id": "sf_motor_vs_visual_emocio_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_motor_vs_visual_emocio"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Izvedi gib kot povezano celoto.",
+        "label": "celotna fraza",
+        "option_id": "option_full_phrase",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Zavestno nadzoruj vsak mikro-gib.",
+        "label": "fragmentiraj",
+        "option_id": "option_fragment",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Plesalec si najprej zgradi želeno sliko celotne koreografije, nato pa telo izvede izurjeni motorični vzorec.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Odziv občinstva ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "močna vizualna predstava",
+    "močan proceduralni spomin"
+  ],
+  "purpose": "Loči slikovno vrednotenje od motorične izvedbe znotraj Emocieve modalnosti.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "c0cf0bc50f07fcdb732a1623464cd6bf99e10e0f517e6f78d1ff2faf6cc0e581",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-EMOCIO-001"
+      ],
+      "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+      "page": 1,
+      "section": "Slike, improvizacija in izkušnja",
+      "source_file": "Docs/REI osnova Emocio.docx"
+    },
+    {
+      "claim_ids": [
+        "C-EMOCIO-002"
+      ],
+      "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+      "page": null,
+      "section": "Operativni Emocio",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Motorični Emocio proti vizualnemu Emociu",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__sl_canonical__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vizualni Emocio oblikuje želeno prizorno celoto, motorični Emocio pa izvede izurjeni vzorec; funkciji nista isti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__sl_canonical__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_motor_vs_visual_emocio__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__sl_paraphrase__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Slika koreografije usmerja celoto, gib pa jo uresniči po motorični poti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__sl_paraphrase__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_motor_vs_visual_emocio__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__en_operational_gloss__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The choreography image guides the whole while the motor route realizes it.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__en_operational_gloss__manifestation_E"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_motor_vs_visual_emocio__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__keyword_trap__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vizualni Emocio oblikuje želeno prizorno celoto, motorični Emocio pa izvede izurjeni vzorec; funkciji nista isti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__keyword_trap__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "slika"
+      },
+      "variant_id": "sf_motor_vs_visual_emocio__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__same_behavior_different_route__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vizualni Emocio oblikuje želeno prizorno celoto, motorični Emocio pa izvede izurjeni vzorec; funkciji nista isti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__same_behavior_different_route__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "izvede isto koreografijo"
+      },
+      "variant_id": "sf_motor_vs_visual_emocio__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__same_route_different_behavior__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vizualni Emocio oblikuje želeno prizorno celoto, motorični Emocio pa izvede izurjeni vzorec; funkciji nista isti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__same_route_different_behavior__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "improvizira prehod"
+      },
+      "variant_id": "sf_motor_vs_visual_emocio__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__missing_information__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vizualni Emocio oblikuje želeno prizorno celoto, motorični Emocio pa izvede izurjeni vzorec; funkciji nista isti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__missing_information",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__missing_information__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "izurjen motorični vzorec"
+      },
+      "variant_id": "sf_motor_vs_visual_emocio__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "povezana prizorna in motorična celota",
+          "evidence_ids": [
+            "sf_motor_vs_visual_emocio_e1"
+          ],
+          "family_id": "sf_motor_vs_visual_emocio",
+          "forbidden_reasons": [
+            "slika in motorika kot ista struktura"
+          ],
+          "mind": "E",
+          "option_id": "option_full_phrase",
+          "route_id": "sf_motor_vs_visual_emocio__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "desired_scene",
+            "motor_pattern",
+            "integrated_movement"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je celota vidno jasna in motorično izurjena, Emocio izbere povezano frazo.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio združuje slikovno celoto, gibanje in neposredno izkušnjo.",
+              "page": 1,
+              "section": "Slike, improvizacija in izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-002"
+              ],
+              "excerpt_summary_sl": "Operativni model loči prizorno vrednotenje in gibanje.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_motor_vs_visual_emocio__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vizualni Emocio oblikuje želeno prizorno celoto, motorični Emocio pa izvede izurjeni vzorec; funkciji nista isti.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "desired_scene",
+          "expected_option_id": "option_full_phrase",
+          "family_id": "sf_motor_vs_visual_emocio",
+          "interpretation_id": "sf_motor_vs_visual_emocio__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_motor_vs_visual_emocio__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_motor_vs_visual_emocio__contradictory_surface_cue__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "vizualna predstava je jasna, motorični vzorec pa še ni utrjen"
+      },
+      "variant_id": "sf_motor_vs_visual_emocio__contradictory_surface_cue"
+    }
+  ]
+}

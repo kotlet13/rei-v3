@@ -1,0 +1,167 @@
+{
+  "family_count": 24,
+  "files": [
+    {
+      "family_id": "sf_acceptance_loss_cooperation",
+      "path": "sf_acceptance_loss_cooperation.json",
+      "sha256": "9207c932caaf2657792ada4524aa1e9af3b1481ef9100e792464bf909f9a5008",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_attachment_loss_fear",
+      "path": "sf_attachment_loss_fear.json",
+      "sha256": "b1def37b7db2b49700f695c5c423ceaa28a353b39923d9bd384b5e73b50af0e9",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_boundary_and_escape",
+      "path": "sf_boundary_and_escape.json",
+      "sha256": "bed88385b5b32c1558a5440d634935c8b727672873203fc4805b123a3fd34589",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_broken_desired_scene_anger",
+      "path": "sf_broken_desired_scene_anger.json",
+      "sha256": "73a468232600815059bd5069860f0f09db6e0feb85f1fa6b4dc6b05a339d1f10",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_character_route_not_behavior",
+      "path": "sf_character_route_not_behavior.json",
+      "sha256": "5b72c5fcd8cc5e0787420f96f3d8eab3a1a4b724c88303a8d32cca0f1b2cbcc3",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_claustrophobia_body_alarm",
+      "path": "sf_claustrophobia_body_alarm.json",
+      "sha256": "c85535d563ca20397bc250f355513ddbcd1617281f49eb66a32c7d9d314a23a5",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_dream_image_interpretation",
+      "path": "sf_dream_image_interpretation.json",
+      "sha256": "6cae5bdcff3fcd7b58168b27377a48e354357743394b56d0c677c430536b6501",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_emocio_delegation_overreach",
+      "path": "sf_emocio_delegation_overreach.json",
+      "sha256": "1d92b8eb921ebd13fd1e172a9ce908944a7f6adff7d930ff007f153c9b9d3430",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_emocio_three_scenes",
+      "path": "sf_emocio_three_scenes.json",
+      "sha256": "ea17c06478dfde3bfcf001ea79a2ae14ae97688140bf9497401886537b68a200",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_listen_to_instinct_signal",
+      "path": "sf_listen_to_instinct_signal.json",
+      "sha256": "7fded723bf63bb2b618ff40c33685c72725022dd48cad6067d27863e8109fdef",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_longitudinal_recurring_motif",
+      "path": "sf_longitudinal_recurring_motif.json",
+      "sha256": "cc54983da43072cde6edb0bd5e30e698c612783d7301dcb945d41d1cd0e7f350",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_malek_motor_delegation",
+      "path": "sf_malek_motor_delegation.json",
+      "sha256": "c070a12238e4e70e46695a9613744eac5d00c8f117f2b1c0192360daff9f7e02",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_motor_vs_visual_emocio",
+      "path": "sf_motor_vs_visual_emocio.json",
+      "sha256": "a3803c4b26511db1a87dfea195db4ccb923f50ceeaf4e08aa2cc19daf5fec91c",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_new_year_resolution",
+      "path": "sf_new_year_resolution.json",
+      "sha256": "d8675185264783e1bebc7408f2922309683f84f58d98b6bee8697fb61c873a64",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_nonacceptance_loss_blame",
+      "path": "sf_nonacceptance_loss_blame.json",
+      "sha256": "bdf6c57b21c06e9231facf0c93f78824bf030451a8554d028d0b35c6e2fe7e80",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_pair_character_conflict",
+      "path": "sf_pair_character_conflict.json",
+      "sha256": "ce055ab0429d9fafbc6b2f8bfe2ddc5f3669dc6a8d38e6fc3455b612a78dc8b6",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_racio_misreads_anger",
+      "path": "sf_racio_misreads_anger.json",
+      "sha256": "e95cb3880449ce1877f27a248e8cd60d88bcd507d75d5b9cd22ce5b989d49f19",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_same_behavior_three_routes",
+      "path": "sf_same_behavior_three_routes.json",
+      "sha256": "38c663fb46d560efb0c7d9b7f51d298298287037c033faf50b91b25ceb645f5a",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_same_route_different_behavior",
+      "path": "sf_same_route_different_behavior.json",
+      "sha256": "0b714e795a8b090775a104d3f801a62c5329d18960912121107410e1f4e08b1c",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_scarcity_and_saving",
+      "path": "sf_scarcity_and_saving.json",
+      "sha256": "438ccce1efb59ac51859dc92416776dd938571fc9ccd971a3e87250beec5d812",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_spoznanje_unanimous",
+      "path": "sf_spoznanje_unanimous.json",
+      "sha256": "4513ff3c9f24d43d54b1e64472b29f1e65d67c433130cbed482253e5fa14f628",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_thirteenth_two_of_three",
+      "path": "sf_thirteenth_two_of_three.json",
+      "sha256": "fb8fa344cd3ae0361194f6cd9d81eba7e04e0cdef4287591c833849da2cc1cf8",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_three_modal_planning_paths",
+      "path": "sf_three_modal_planning_paths.json",
+      "sha256": "3bc80d70b0ab5a3f69ae3610f390f63c387faac9fc795d8e54bbad943c442c99",
+      "variant_count": 8
+    },
+    {
+      "family_id": "sf_words_and_other_channels",
+      "path": "sf_words_and_other_channels.json",
+      "sha256": "c6d795f01ed8859ae542ed419d0f56f1c4346e644a691058e9e8436c378906b4",
+      "variant_count": 8
+    }
+  ],
+  "lab_id": "rei-semantic-lab-v1",
+  "model_generated_gold": false,
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-fixture-manifest-v1",
+  "source_file": "knowledge/semantic_lab_v1/scenario_families/families.jsonl",
+  "source_hash": "7a12bea9251513cdb01d98d2ec802601f526ee69a84d33988b420be3f049b12f",
+  "training_export": false,
+  "variant_count": 192,
+  "variant_modes": [
+    "sl_canonical",
+    "sl_paraphrase",
+    "en_operational_gloss",
+    "keyword_trap",
+    "same_behavior_different_route",
+    "same_route_different_behavior",
+    "missing_information",
+    "contradictory_surface_cue"
+  ]
+}

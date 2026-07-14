@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rei.local/schemas/semantic-lab-v1/scenario-family.json",
+  "title": "SemanticScenarioFamily",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "family_id",
+    "title_sl",
+    "purpose",
+    "source_locators",
+    "grounded_scene",
+    "canonical_input_sl",
+    "sl_paraphrase",
+    "operational_gloss_en",
+    "variant_modes",
+    "person_world_variants",
+    "current_state_variants",
+    "acceptance_variants",
+    "language_variants",
+    "perturbation_values",
+    "route_expectations",
+    "expected_route_ids",
+    "forbidden_shortcuts",
+    "review_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "rei-semantic-scenario-family-v1"},
+    "family_id": {"type": "string", "pattern": "^sf_[a-z0-9_]+$"},
+    "title_sl": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "source_locators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/sourceLocator"}
+    },
+    "grounded_scene": {"type": "object"},
+    "canonical_input_sl": {"type": "string", "minLength": 1},
+    "sl_paraphrase": {"type": "string", "minLength": 1},
+    "operational_gloss_en": {"type": "string", "minLength": 1},
+    "variant_modes": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "person_world_variants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "current_state_variants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "acceptance_variants": {
+      "type": "array",
+      "contains": {"const": "accepting"},
+      "minContains": 1,
+      "items": {"enum": ["accepting", "mixed", "conflicted"]}
+    },
+    "language_variants": {
+      "type": "array",
+      "contains": {"const": "sl"},
+      "minContains": 1,
+      "items": {"enum": ["sl", "en"]}
+    },
+    "perturbation_values": {
+      "type": "object",
+      "required": [
+        "keyword_trap",
+        "surface_behavior",
+        "alternate_behavior",
+        "omitted_information",
+        "contradictory_surface_cue"
+      ],
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "route_expectations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "native_route.schema.json"}
+    },
+    "expected_route_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "forbidden_shortcuts": {
+      "type": "array",
+      "minItems": 1,
+      "contains": {"const": "behavior_to_character"}
+    },
+    "review_status": {"const": "canon_approved"}
+  },
+  "$defs": {
+    "sourceLocator": {
+      "type": "object",
+      "required": [
+        "source_file",
+        "page",
+        "section",
+        "claim_ids",
+        "excerpt_summary_sl"
+      ],
+      "properties": {
+        "source_file": {"type": "string", "minLength": 1},
+        "page": {"type": ["integer", "null"], "minimum": 1},
+        "section": {"type": "string", "minLength": 1},
+        "claim_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "pattern": "^C-[A-Z]+-[0-9]{3}$"}
+        },
+        "excerpt_summary_sl": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

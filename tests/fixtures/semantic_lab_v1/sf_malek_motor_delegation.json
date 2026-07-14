@@ -1,0 +1,675 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "tekoča izvedba",
+    "zavestna zategnjenost"
+  ],
+  "family_id": "sf_malek_motor_delegation",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "delegation_changes_authority",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self"
+    ],
+    "constraints": [
+      "Delegacija ne spreminja authority tierov."
+    ],
+    "event_id": "sf_malek_motor_delegation_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Cilj giba je potrjen, motorični vzorec pa je izurjen v neposredni izvedbi.",
+        "evidence_id": "sf_malek_motor_delegation_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_malek_motor_delegation"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Prepusti motorično izvedbo izurjenemu vzorcu.",
+        "label": "delegiraj gib",
+        "option_id": "option_delegate_motor",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Vsak del giba zavestno nadzoruj.",
+        "label": "mikroupravljaj",
+        "option_id": "option_micromanage",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Pri izvedbi natančnega giba je smer zavestno potrjena, dejansko motorično izvedbo pa prevzame Emocieva izurjena vzorčna pot.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Natančnost prve ponovitve ni znana."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "dolgo urjen gib",
+    "nov motorični vzorec"
+  ],
+  "purpose": "Preveri delegacijo motorične naloge brez spremembe značajske avtoritete.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "bbd5ce96840c7689bab20cc1e94f3c792687d15b3ce5c1b9e5224faa210ddbb5",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-DELEG-001"
+      ],
+      "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+      "page": 23,
+      "section": "Delegacija pri sprejemanju",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-EMOCIO-001"
+      ],
+      "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+      "page": 1,
+      "section": "Improvizacija in neposredna izkušnja",
+      "source_file": "Docs/REI osnova Emocio.docx"
+    }
+  ],
+  "title_sl": "Malek in motorična delegacija Emociu",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__sl_canonical__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vodilni razum ohrani mandat, Emocio pa lahko kompetentno izvede delegirano motorično nalogo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__sl_canonical__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_malek_motor_delegation__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__sl_paraphrase__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Avtoriteta ostane nespremenjena, čeprav motorični vzorec izvede Emocio.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__sl_paraphrase__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_malek_motor_delegation__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__en_operational_gloss__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Authority stays unchanged while Emocio performs the delegated motor pattern.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__en_operational_gloss__manifestation_E"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_malek_motor_delegation__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__keyword_trap__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vodilni razum ohrani mandat, Emocio pa lahko kompetentno izvede delegirano motorično nalogo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__keyword_trap__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "nadzor"
+      },
+      "variant_id": "sf_malek_motor_delegation__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__same_behavior_different_route__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vodilni razum ohrani mandat, Emocio pa lahko kompetentno izvede delegirano motorično nalogo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__same_behavior_different_route__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "izvede enak gib"
+      },
+      "variant_id": "sf_malek_motor_delegation__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__same_route_different_behavior__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vodilni razum ohrani mandat, Emocio pa lahko kompetentno izvede delegirano motorično nalogo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__same_route_different_behavior__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "izvedbo upočasni"
+      },
+      "variant_id": "sf_malek_motor_delegation__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__missing_information__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vodilni razum ohrani mandat, Emocio pa lahko kompetentno izvede delegirano motorično nalogo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__missing_information",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__missing_information__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "izurjenost motoričnega vzorca"
+      },
+      "variant_id": "sf_malek_motor_delegation__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "izurjena motorična celota",
+          "evidence_ids": [
+            "sf_malek_motor_delegation_e1"
+          ],
+          "family_id": "sf_malek_motor_delegation",
+          "forbidden_reasons": [
+            "delegacija kot sprememba značaja"
+          ],
+          "mind": "E",
+          "option_id": "option_delegate_motor",
+          "route_id": "sf_malek_motor_delegation__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "motor_pattern",
+            "direct_experience",
+            "delegated_execution"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je vzorec izurjen, Emocio tekoče izvede delegirani gib.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Vodilni razum lahko nalogo prepusti podrejenemu brez spremembe hierarhije.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-EMOCIO-001"
+              ],
+              "excerpt_summary_sl": "Emocio podpira slikovno, motorično in improvizacijsko pot.",
+              "page": 1,
+              "section": "Improvizacija in neposredna izkušnja",
+              "source_file": "Docs/REI osnova Emocio.docx"
+            }
+          ],
+          "variant_id": "sf_malek_motor_delegation__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Vodilni razum ohrani mandat, Emocio pa lahko kompetentno izvede delegirano motorično nalogo.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "motor_pattern",
+          "expected_option_id": "option_delegate_motor",
+          "family_id": "sf_malek_motor_delegation",
+          "interpretation_id": "sf_malek_motor_delegation__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_malek_motor_delegation__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_malek_motor_delegation__contradictory_surface_cue__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "Racio govori o popolnem nadzoru, gib pa teče avtomatsko"
+      },
+      "variant_id": "sf_malek_motor_delegation__contradictory_surface_cue"
+    }
+  ]
+}

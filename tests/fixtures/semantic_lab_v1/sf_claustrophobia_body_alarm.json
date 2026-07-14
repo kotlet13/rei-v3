@@ -1,0 +1,675 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "nizka napetost",
+    "visoka napetost"
+  ],
+  "family_id": "sf_claustrophobia_body_alarm",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "medical_diagnosis",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self"
+    ],
+    "constraints": [
+      "Besedna varnostna informacija je na voljo."
+    ],
+    "event_id": "sf_claustrophobia_body_alarm_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Zaprt prostor spremljata naraščajoča napetost in težnja po izhodu.",
+        "evidence_id": "sf_claustrophobia_body_alarm_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_claustrophobia_body_alarm"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Izstopi ob prvi možnosti.",
+        "label": "izstopi",
+        "option_id": "option_exit",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Ostani v dvigalu do cilja.",
+        "label": "nadaljuj",
+        "option_id": "option_continue",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Vrata dvigala se zaprejo; oseba razumsko ve, da je dvigalo pregledano, telo pa kaže hitro naraščajočo napetost in potrebo po izhodu.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Hitrost umirjanja telesnega alarma ni znana."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "pretekla ujetost",
+    "brez podobne izkušnje"
+  ],
+  "purpose": "Preveri Instinktovo telesno-varovalno pot, ki je besedni argument ne odpravi.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "c386377fbef8b3db0a7ce6f7b6c208f8f616bd54f3b3dbf18b801287fd33e12f",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-INSTINKT-001"
+      ],
+      "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+      "page": 1,
+      "section": "Instinkt varuje pred nevarnostjo",
+      "source_file": "Docs/REI osnova Instinkt.docx"
+    },
+    {
+      "claim_ids": [
+        "C-INSTINKT-003"
+      ],
+      "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+      "page": null,
+      "section": "Telesno-varovalni Instinkt",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Klavstrofobija kot telesni alarm",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__sl_canonical__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racijeva informacija o tehnični varnosti ne izbriše Instinktove telesne trajektorije v zaprtem prostoru.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__sl_canonical__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__sl_canonical__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_claustrophobia_body_alarm__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__sl_paraphrase__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Telo zahteva izhod, čeprav analitični opis dvigala ne kaže okvare.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__sl_paraphrase__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__sl_paraphrase__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_claustrophobia_body_alarm__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__en_operational_gloss__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The body demands an exit even though the analytic description reports no elevator fault.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__en_operational_gloss__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__en_operational_gloss__manifestation_I"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_claustrophobia_body_alarm__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__keyword_trap__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racijeva informacija o tehnični varnosti ne izbriše Instinktove telesne trajektorije v zaprtem prostoru.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__keyword_trap__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__keyword_trap__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "varno"
+      },
+      "variant_id": "sf_claustrophobia_body_alarm__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__same_behavior_different_route__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racijeva informacija o tehnični varnosti ne izbriše Instinktove telesne trajektorije v zaprtem prostoru.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__same_behavior_different_route__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__same_behavior_different_route__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "pritisne gumb za izhod"
+      },
+      "variant_id": "sf_claustrophobia_body_alarm__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__same_route_different_behavior__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racijeva informacija o tehnični varnosti ne izbriše Instinktove telesne trajektorije v zaprtem prostoru.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__same_route_different_behavior__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__same_route_different_behavior__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "ostane pri odprtih vratih"
+      },
+      "variant_id": "sf_claustrophobia_body_alarm__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__missing_information__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racijeva informacija o tehnični varnosti ne izbriše Instinktove telesne trajektorije v zaprtem prostoru.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__missing_information__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__missing_information",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__missing_information__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "naraščajoča telesna napetost"
+      },
+      "variant_id": "sf_claustrophobia_body_alarm__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "naraščajoča telesna napetost in možnost umika",
+          "evidence_ids": [
+            "sf_claustrophobia_body_alarm_e1"
+          ],
+          "family_id": "sf_claustrophobia_body_alarm",
+          "forbidden_reasons": [
+            "diagnostična oznaka kot razlog"
+          ],
+          "mind": "I",
+          "option_id": "option_exit",
+          "route_id": "sf_claustrophobia_body_alarm__contradictory_surface_cue__route_I",
+          "route_tags": [
+            "body_alarm",
+            "escape_availability",
+            "protective_exit"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Telesni alarm in razpoložljiv izhod vodita Instinkt k umiku.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-INSTINKT-001"
+              ],
+              "excerpt_summary_sl": "Instinkt obdeluje nevarnost, previdnost, izgubo in navezanost.",
+              "page": 1,
+              "section": "Instinkt varuje pred nevarnostjo",
+              "source_file": "Docs/REI osnova Instinkt.docx"
+            },
+            {
+              "claim_ids": [
+                "C-INSTINKT-003"
+              ],
+              "excerpt_summary_sl": "Instinktov telesni sklep nastane pred Racijevo verbalizacijo.",
+              "page": null,
+              "section": "Telesno-varovalni Instinkt",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_claustrophobia_body_alarm__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Racijeva informacija o tehnični varnosti ne izbriše Instinktove telesne trajektorije v zaprtem prostoru.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "body_alarm",
+          "expected_option_id": "option_exit",
+          "family_id": "sf_claustrophobia_body_alarm",
+          "interpretation_id": "sf_claustrophobia_body_alarm__contradictory_surface_cue__interpret_I",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "I",
+          "variant_id": "sf_claustrophobia_body_alarm__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_claustrophobia_body_alarm__contradictory_surface_cue__manifestation_I"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "miren govor ob hitrem pulzu"
+      },
+      "variant_id": "sf_claustrophobia_body_alarm__contradictory_surface_cue"
+    }
+  ]
+}

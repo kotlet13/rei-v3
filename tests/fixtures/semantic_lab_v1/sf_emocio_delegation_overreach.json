@@ -1,0 +1,547 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "mirna ocena",
+    "evforija po uspehu"
+  ],
+  "family_id": "sf_emocio_delegation_overreach",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "delegation_changes_authority",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self"
+    ],
+    "constraints": [
+      "Strukturni karakter ostane nespremenjen."
+    ],
+    "event_id": "sf_emocio_delegation_overreach_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Uspešna je bila delegirana izvedba, ne pa prenos governance avtoritete.",
+        "evidence_id": "sf_emocio_delegation_overreach_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_emocio_delegation_overreach"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Ohrani delegacijo samo za izvedbo.",
+        "label": "ohrani obseg",
+        "option_id": "option_keep_scope",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Uspeh izvedbe obravnavaj kot prenos avtoritete.",
+        "label": "prenesi oblast",
+        "option_id": "option_transfer_authority",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Po uspešni motorični izvedbi Emocieva manifestacija zahteva, da bi odslej določala tudi cilj in mandat naslednjega koraka.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Naslednja naloga še ni določena."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "jasne meje delegacije",
+    "zgodovina nejasnih pristojnosti"
+  ],
+  "purpose": "Preveri mejo med kompetentno delegacijo in nedovoljenim spreminjanjem governance mandata.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "2a68d694da09d0badea916ed165a3c6f589a5cd955a9730915b8890a8a3a0fdd",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-DELEG-001"
+      ],
+      "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+      "page": 23,
+      "section": "Delegacija pri sprejemanju",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-GOV-001"
+      ],
+      "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+      "page": null,
+      "section": "GovernanceMandate",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Emocio zamenja delegacijo za prevzem oblasti",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__sl_canonical__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Kompetentna izvedba delegirane naloge ni dokaz, da je Emocio prevzel strukturno oblast.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_emocio_delegation_overreach__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__sl_paraphrase__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Uspeh pri gibu širi dokaz kompetence, ne authority tiera.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_emocio_delegation_overreach__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__en_operational_gloss__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Success in the motor task demonstrates competence, not a new authority tier.",
+      "interpretation_variants": [],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_emocio_delegation_overreach__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__keyword_trap__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Kompetentna izvedba delegirane naloge ni dokaz, da je Emocio prevzel strukturno oblast.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "vodstvo"
+      },
+      "variant_id": "sf_emocio_delegation_overreach__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__same_behavior_different_route__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Kompetentna izvedba delegirane naloge ni dokaz, da je Emocio prevzel strukturno oblast.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "Emocio predlaga naslednji korak"
+      },
+      "variant_id": "sf_emocio_delegation_overreach__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__same_route_different_behavior__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Kompetentna izvedba delegirane naloge ni dokaz, da je Emocio prevzel strukturno oblast.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "Emocio ostane pri izvedbi"
+      },
+      "variant_id": "sf_emocio_delegation_overreach__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__missing_information__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Kompetentna izvedba delegirane naloge ni dokaz, da je Emocio prevzel strukturno oblast.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "prvotni obseg delegacije"
+      },
+      "variant_id": "sf_emocio_delegation_overreach__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "eksplicitna meja med nalogo in mandatom",
+          "evidence_ids": [
+            "sf_emocio_delegation_overreach_e1"
+          ],
+          "family_id": "sf_emocio_delegation_overreach",
+          "forbidden_reasons": [
+            "uspeh kot samodejni prenos oblasti"
+          ],
+          "mind": "R",
+          "option_id": "option_keep_scope",
+          "route_id": "sf_emocio_delegation_overreach__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "scope_rule",
+            "delegation_boundary",
+            "authority_invariant"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker delegacija pokriva izvedbo, Racio ohrani prvotni obseg.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-DELEG-001"
+              ],
+              "excerpt_summary_sl": "Delegirana naloga ne spreminja značajskega položaja razumov.",
+              "page": 23,
+              "section": "Delegacija pri sprejemanju",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-GOV-001"
+              ],
+              "excerpt_summary_sl": "Mandat beleži ordinalno avtoriteto in ostane ločen od izvedbe.",
+              "page": null,
+              "section": "GovernanceMandate",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_delegation_overreach__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Kompetentna izvedba delegirane naloge ni dokaz, da je Emocio prevzel strukturno oblast.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "predlog je dober, vendar authority tier ostaja isti"
+      },
+      "variant_id": "sf_emocio_delegation_overreach__contradictory_surface_cue"
+    }
+  ]
+}

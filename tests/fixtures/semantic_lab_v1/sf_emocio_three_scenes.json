@@ -1,0 +1,612 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "radovednost",
+    "odboj"
+  ],
+  "family_id": "sf_emocio_three_scenes",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "generated_visual_as_evidence",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "group"
+    ],
+    "constraints": [
+      "Renderer je izklopljen."
+    ],
+    "event_id": "sf_emocio_three_scenes_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Podani so sedanji, želeni in porušeni prizor brez generirane slike.",
+        "evidence_id": "sf_emocio_three_scenes_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_emocio_three_scenes"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Ustvari pot proti sodelujočemu prizoru.",
+        "label": "povabi skupino",
+        "option_id": "option_invite",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Nadaljuj v porušeni osamljeni smeri.",
+        "label": "nastopi sam",
+        "option_id": "option_solo",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Sedanji prizor je prazna dvorana, želena slika je sodelujoča skupina, porušena slika pa osamljen nastop brez odziva.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Odziv povabljenih ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "spomin na sodelovanje",
+    "spomin na zavrnitev"
+  ],
+  "purpose": "Preveri trojno prizorno reprezentacijo brez renderer-added dejstev.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "a9afd1128f63cfda1aa0cce904cc40c69e710b838fe3f00ef2ce5b76e3f3cb8d",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-EMOCIO-002",
+        "C-EMOCIO-004"
+      ],
+      "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+      "page": null,
+      "section": "Operativni Emocio",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Emocieva sedanja, želena in porušena slika",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__sl_canonical__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio primerja sedanji prizor z želenim in porušenim prizorom ter izbere transformacijo proti želeni sliki.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__sl_canonical__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__sl_canonical",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__sl_canonical__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_emocio_three_scenes__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__sl_paraphrase__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Prazna dvorana, sodelujoča skupina in osamljen nastop so tri ločene prizorne vloge.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__sl_paraphrase__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__sl_paraphrase",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__sl_paraphrase__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_emocio_three_scenes__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__en_operational_gloss__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The empty hall, collaborating group, and isolated performance are three distinct scene roles.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__en_operational_gloss__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__en_operational_gloss",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__en_operational_gloss__manifestation_E"
+          ]
+        }
+      ],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_emocio_three_scenes__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__keyword_trap__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio primerja sedanji prizor z želenim in porušenim prizorom ter izbere transformacijo proti želeni sliki.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "mixed",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__keyword_trap__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__keyword_trap",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__keyword_trap__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "slika"
+      },
+      "variant_id": "sf_emocio_three_scenes__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__same_behavior_different_route__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio primerja sedanji prizor z želenim in porušenim prizorom ter izbere transformacijo proti želeni sliki.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__same_behavior_different_route__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__same_behavior_different_route",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__same_behavior_different_route__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "pošlje povabilo"
+      },
+      "variant_id": "sf_emocio_three_scenes__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__same_route_different_behavior__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio primerja sedanji prizor z želenim in porušenim prizorom ter izbere transformacijo proti želeni sliki.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "accepting",
+          "expected_interpretation_class": "accurate",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__same_route_different_behavior__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__same_route_different_behavior",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__same_route_different_behavior__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "preuredi prostor za skupino"
+      },
+      "variant_id": "sf_emocio_three_scenes__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__missing_information__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio primerja sedanji prizor z želenim in porušenim prizorom ter izbere transformacijo proti želeni sliki.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "partial",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__missing_information__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__missing_information",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__missing_information__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "porušena slika osamljenega nastopa"
+      },
+      "variant_id": "sf_emocio_three_scenes__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "prehod iz prazne v sodelujočo dvorano",
+          "evidence_ids": [
+            "sf_emocio_three_scenes_e1"
+          ],
+          "family_id": "sf_emocio_three_scenes",
+          "forbidden_reasons": [
+            "renderer-added oseba kot dokaz"
+          ],
+          "mind": "E",
+          "option_id": "option_invite",
+          "route_id": "sf_emocio_three_scenes__contradictory_surface_cue__route_E",
+          "route_tags": [
+            "current_scene",
+            "desired_scene",
+            "broken_scene",
+            "scene_transformation"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Možnost povabila najbolj približa sedanji prizor želeni skupini.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-EMOCIO-002",
+                "C-EMOCIO-004"
+              ],
+              "excerpt_summary_sl": "Emocio loči sedanjo, želeno in porušeno sliko; render ni grounded evidence.",
+              "page": null,
+              "section": "Operativni Emocio",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_emocio_three_scenes__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Emocio primerja sedanji prizor z želenim in porušenim prizorom ter izbere transformacijo proti želeni sliki.",
+      "interpretation_variants": [
+        {
+          "acceptance_mode": "conflicted",
+          "expected_interpretation_class": "unknown",
+          "expected_motive_class": "current_scene",
+          "expected_option_id": "option_invite",
+          "family_id": "sf_emocio_three_scenes",
+          "interpretation_id": "sf_emocio_three_scenes__contradictory_surface_cue__interpret_E",
+          "notes_sl": "Racio sme sklepati samo iz navedenega vidnega manifestation ID-ja; nativni route ostane evaluatorjev ground truth.",
+          "schema_version": "rei-canonical-interpretation-variant-v1",
+          "source_mind": "E",
+          "variant_id": "sf_emocio_three_scenes__contradictory_surface_cue",
+          "visible_manifestation_ids": [
+            "sf_emocio_three_scenes__contradictory_surface_cue__manifestation_E"
+          ]
+        }
+      ],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "prostor je svetel, socialna slika pa ostaja prazna"
+      },
+      "variant_id": "sf_emocio_three_scenes__contradictory_surface_cue"
+    }
+  ]
+}

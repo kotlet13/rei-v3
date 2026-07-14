@@ -1,0 +1,557 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "zmerna napetost",
+    "visok konflikt"
+  ],
+  "family_id": "sf_nonacceptance_loss_blame",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "hidden_ground_truth",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "self",
+      "team"
+    ],
+    "constraints": [
+      "Strukturni karakter se ne spremeni."
+    ],
+    "event_id": "sf_nonacceptance_loss_blame_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "E in I signala sta minimizirana, naloge okrevanja pa niso usklajene.",
+        "evidence_id": "sf_nonacceptance_loss_blame_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_nonacceptance_loss_blame"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Ponovno preveri manifestacije in potrebe.",
+        "label": "obnovi vidnost",
+        "option_id": "option_restore_visibility",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Vztrajaj pri minimiziranju signalov.",
+        "label": "nadaljuj obtoževanje",
+        "option_id": "option_blame",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Po izgubi projekta Racio Emocievo jezo razglasi za neracionalno, Instinktov alarm pa za lenobo; sodelovanje se razgradi v obtoževanje.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Obseg skritih signalov ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "zgodovina minimiziranja",
+    "zgodovina odprtega prevoda"
+  ],
+  "purpose": "Preveri slabšo vidnost, racionalizacijo in sabotažo brez spremembe karakterja.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "6e46a9c4dd0efd0cd597de512de51560bf8bcd2c8fe4fde58807cd7f0b0bd513",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-ACCEPT-001"
+      ],
+      "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+      "page": 23,
+      "section": "Konflikt razumov",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-ACCEPT-003",
+        "C-BEHAV-001"
+      ],
+      "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+      "page": null,
+      "section": "Sprejemanje kot relacija",
+      "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+    }
+  ],
+  "title_sl": "Nesprejemanje ob izgubi in obtoževanje",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__sl_canonical__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Nesprejemanje zmanjša vidnost in zvestobo prevoda ter poveča sabotažo, ne spremeni pa authority tierov.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_nonacceptance_loss_blame__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__sl_paraphrase__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Obtoževanje je posledica razpadlega sodelovanja, ne dokaz novega značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_nonacceptance_loss_blame__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__en_operational_gloss__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Blame follows failed cooperation and is not evidence of a new character structure.",
+      "interpretation_variants": [],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_nonacceptance_loss_blame__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__keyword_trap__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Nesprejemanje zmanjša vidnost in zvestobo prevoda ter poveča sabotažo, ne spremeni pa authority tierov.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "lenoba"
+      },
+      "variant_id": "sf_nonacceptance_loss_blame__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__same_behavior_different_route__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Nesprejemanje zmanjša vidnost in zvestobo prevoda ter poveča sabotažo, ne spremeni pa authority tierov.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "obtoži sodelavca"
+      },
+      "variant_id": "sf_nonacceptance_loss_blame__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__same_route_different_behavior__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Nesprejemanje zmanjša vidnost in zvestobo prevoda ter poveča sabotažo, ne spremeni pa authority tierov.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "prekine pogovor"
+      },
+      "variant_id": "sf_nonacceptance_loss_blame__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__missing_information__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Nesprejemanje zmanjša vidnost in zvestobo prevoda ter poveča sabotažo, ne spremeni pa authority tierov.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "Emocieva vidna manifestacija"
+      },
+      "variant_id": "sf_nonacceptance_loss_blame__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "razlika med vidnim signalom in gotovim negativnim motivom",
+          "evidence_ids": [
+            "sf_nonacceptance_loss_blame_e1"
+          ],
+          "family_id": "sf_nonacceptance_loss_blame",
+          "forbidden_reasons": [
+            "lenoba kot skriti ground truth"
+          ],
+          "mind": "R",
+          "option_id": "option_restore_visibility",
+          "route_id": "sf_nonacceptance_loss_blame__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "translation_failure",
+            "minimization",
+            "alternative_hypothesis"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker obtožba presega vidne podatke, Racio obnovi preverjanje signalov.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-ACCEPT-001"
+              ],
+              "excerpt_summary_sl": "V konfliktu si razumi preprečujejo sodelovanje.",
+              "page": 23,
+              "section": "Konflikt razumov",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ACCEPT-003",
+                "C-BEHAV-001"
+              ],
+              "excerpt_summary_sl": "Nizka vidnost in zvestoba prevoda lahko vodita v razhajanje od vedenja.",
+              "page": null,
+              "section": "Sprejemanje kot relacija",
+              "source_file": "plans/REI_native_composition_architecture_upgrade_2026-07-13.md"
+            }
+          ],
+          "variant_id": "sf_nonacceptance_loss_blame__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Nesprejemanje zmanjša vidnost in zvestobo prevoda ter poveča sabotažo, ne spremeni pa authority tierov.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "Racio govori o sodelovanju, a izpusti E/I signale"
+      },
+      "variant_id": "sf_nonacceptance_loss_blame__contradictory_surface_cue"
+    }
+  ]
+}

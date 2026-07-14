@@ -1,0 +1,547 @@
+{
+  "acceptance_variants": [
+    "accepting",
+    "mixed",
+    "conflicted"
+  ],
+  "current_state_variants": [
+    "mirnost",
+    "napetost"
+  ],
+  "family_id": "sf_character_route_not_behavior",
+  "forbidden_shortcuts": [
+    "behavior_to_character",
+    "profile_leakage",
+    "keyword_only_route"
+  ],
+  "grounded_scene": {
+    "actors": [
+      "observer",
+      "person"
+    ],
+    "constraints": [
+      "Ni notranjih route podatkov."
+    ],
+    "event_id": "sf_character_route_not_behavior_event",
+    "evidence": [
+      {
+        "confidence": 1.0,
+        "content": "Opazna je zavrnitev, notranja procesorska pot pa ni podana.",
+        "evidence_id": "sf_character_route_not_behavior_e1",
+        "grounded": true,
+        "modality": "text",
+        "provenance_kind": "supplied",
+        "schema_version": "rei-native-evidence-v1",
+        "source_ref": "semantic-lab:sf_character_route_not_behavior"
+      }
+    ],
+    "language": "sl",
+    "options": [
+      {
+        "description": "Ne sklepaj procesorskega izvora brez dodatnih dokazov.",
+        "label": "ne določi poti",
+        "option_id": "option_abstain_route",
+        "schema_version": "rei-native-decision-option-v1"
+      },
+      {
+        "description": "Iz vedenja določi značaj.",
+        "label": "določi značaj",
+        "option_id": "option_assign_character",
+        "schema_version": "rei-native-decision-option-v1"
+      }
+    ],
+    "raw_input": "Oseba zavrne tvegano ponudbo; na voljo ni podatka, ali je do zavrnitve prišla z izračunom, sliko posledic ali telesnim alarmom.",
+    "schema_version": "rei-native-scene-event-v1",
+    "unknowns": [
+      "Procesorski izvor zavrnitve ni znan."
+    ]
+  },
+  "model_generated_gold": false,
+  "person_world_variants": [
+    "izkušnja finančne izgube",
+    "izkušnja statusnega ponižanja"
+  ],
+  "purpose": "Prepreči sklepanje značaja iz enega opaznega rezultata.",
+  "review_status": "canon_approved",
+  "schema_version": "rei-semantic-family-fixture-v1",
+  "source_hash": "6565a7a7ae03678e1c671c065a8cee5fdf913a74384102e0e97e2c217643de03",
+  "source_locators": [
+    {
+      "claim_ids": [
+        "C-CHAR-002"
+      ],
+      "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+      "page": 63,
+      "section": "Stabilnost značaja",
+      "source_file": "Docs/Eros - pogovori.pdf"
+    },
+    {
+      "claim_ids": [
+        "C-ROUTE-001"
+      ],
+      "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+      "page": 1,
+      "section": "Enak rezultat iz različnih procesov",
+      "source_file": "Docs/REI osnova Racio.docx"
+    }
+  ],
+  "title_sl": "Značaj kot pot, ne vedenje",
+  "training_export": false,
+  "variants": [
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__sl_canonical__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__sl_canonical",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Samo zavrnitev ponudbe ne razkrije niti procesorske poti niti značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_canonical",
+      "perturbation": null,
+      "variant_id": "sf_character_route_not_behavior__sl_canonical"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__sl_paraphrase__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__sl_paraphrase",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Enako previdno dejanje je združljivo z Racijevo, Emocievo ali Instinktovo potjo.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "sl_paraphrase",
+      "perturbation": null,
+      "variant_id": "sf_character_route_not_behavior__sl_paraphrase"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__en_operational_gloss__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__en_operational_gloss",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "The same cautious act is compatible with Racio, Emocio, or Instinkt routes.",
+      "interpretation_variants": [],
+      "language": "en",
+      "mode": "en_operational_gloss",
+      "perturbation": null,
+      "variant_id": "sf_character_route_not_behavior__en_operational_gloss"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__keyword_trap__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__keyword_trap",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Samo zavrnitev ponudbe ne razkrije niti procesorske poti niti značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "keyword_trap",
+      "perturbation": {
+        "kind": "keyword_trap",
+        "value": "previden"
+      },
+      "variant_id": "sf_character_route_not_behavior__keyword_trap"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__same_behavior_different_route__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__same_behavior_different_route",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Samo zavrnitev ponudbe ne razkrije niti procesorske poti niti značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_behavior_different_route",
+      "perturbation": {
+        "kind": "same_behavior_different_route",
+        "value": "zavrne ponudbo"
+      },
+      "variant_id": "sf_character_route_not_behavior__same_behavior_different_route"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__same_route_different_behavior__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__same_route_different_behavior",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Samo zavrnitev ponudbe ne razkrije niti procesorske poti niti značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "same_route_different_behavior",
+      "perturbation": {
+        "kind": "same_route_different_behavior",
+        "value": "zahteva dodatne podatke"
+      },
+      "variant_id": "sf_character_route_not_behavior__same_route_different_behavior"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__missing_information__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__missing_information",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Samo zavrnitev ponudbe ne razkrije niti procesorske poti niti značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "missing_information",
+      "perturbation": {
+        "kind": "missing_information",
+        "value": "notranja procesorska pot"
+      },
+      "variant_id": "sf_character_route_not_behavior__missing_information"
+    },
+    {
+      "expected_routes": [
+        {
+          "allowed_variants": [
+            "all"
+          ],
+          "decisive_representation": "odsotnost notranjih route dokazov",
+          "evidence_ids": [
+            "sf_character_route_not_behavior_e1"
+          ],
+          "family_id": "sf_character_route_not_behavior",
+          "forbidden_reasons": [
+            "vedenje kot značaj"
+          ],
+          "mind": "R",
+          "option_id": "option_abstain_route",
+          "route_id": "sf_character_route_not_behavior__contradictory_surface_cue__route_R",
+          "route_tags": [
+            "insufficient_evidence",
+            "route_unknown",
+            "abstention"
+          ],
+          "schema_version": "rei-canonical-native-route-v1",
+          "short_decision_bridge_sl": "Ker je znano le vedenje, Racio abstinira od določitve poti.",
+          "source_locators": [
+            {
+              "claim_ids": [
+                "C-CHAR-002"
+              ],
+              "excerpt_summary_sl": "Značaj označuje pot do sklepa, ne reakcije ali vedenja.",
+              "page": 63,
+              "section": "Stabilnost značaja",
+              "source_file": "Docs/Eros - pogovori.pdf"
+            },
+            {
+              "claim_ids": [
+                "C-ROUTE-001"
+              ],
+              "excerpt_summary_sl": "Enako dejanje lahko nastane po različnih procesorskih poteh.",
+              "page": 1,
+              "section": "Enak rezultat iz različnih procesov",
+              "source_file": "Docs/REI osnova Racio.docx"
+            }
+          ],
+          "variant_id": "sf_character_route_not_behavior__contradictory_surface_cue",
+          "world_context_ids": []
+        }
+      ],
+      "input_text": "Samo zavrnitev ponudbe ne razkrije niti procesorske poti niti značaja.",
+      "interpretation_variants": [],
+      "language": "sl",
+      "mode": "contradictory_surface_cue",
+      "perturbation": {
+        "kind": "contradictory_surface_cue",
+        "value": "odločen ton ob popolni neznanki o motivu"
+      },
+      "variant_id": "sf_character_route_not_behavior__contradictory_surface_cue"
+    }
+  ]
+}

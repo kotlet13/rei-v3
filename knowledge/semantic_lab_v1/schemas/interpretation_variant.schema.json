@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rei.local/schemas/semantic-lab-v1/interpretation-variant.json",
+  "title": "CanonicalInterpretationVariant",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "interpretation_id",
+    "family_id",
+    "variant_id",
+    "source_mind",
+    "visible_manifestation_ids",
+    "acceptance_mode",
+    "expected_interpretation_class",
+    "expected_option_id",
+    "expected_motive_class",
+    "notes_sl"
+  ],
+  "properties": {
+    "schema_version": {"const": "rei-canonical-interpretation-variant-v1"},
+    "interpretation_id": {"type": "string", "minLength": 1},
+    "family_id": {"type": "string", "pattern": "^sf_[a-z0-9_]+$"},
+    "variant_id": {"type": "string", "minLength": 1},
+    "source_mind": {"enum": ["E", "I"]},
+    "visible_manifestation_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "acceptance_mode": {"enum": ["accepting", "mixed", "conflicted"]},
+    "expected_interpretation_class": {
+      "enum": [
+        "accurate",
+        "partial",
+        "omission",
+        "rationalization",
+        "minimization",
+        "projection",
+        "misclassification",
+        "unknown"
+      ]
+    },
+    "expected_option_id": {"type": ["string", "null"]},
+    "expected_motive_class": {"type": "string", "minLength": 1},
+    "notes_sl": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}
