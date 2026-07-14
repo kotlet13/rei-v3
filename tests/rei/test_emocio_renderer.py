@@ -520,7 +520,7 @@ def test_img2img_source_bytes_and_hash_are_closed_before_backend(
     failed = renderer.render((spec,), seed=19)
     assert failed.status == "failed"
     assert failed.artifacts == ()
-    assert failed.items[0].failure_code == "ValueError"
+    assert failed.items[0].failure_code == "renderer_provider_failure"
     assert failed.items[0].call_record.status == "failed"
     assert len(backend.calls) == calls_before_tamper
 
@@ -593,7 +593,8 @@ def test_backend_failure_is_structured_and_cannot_change_native_result(
     assert len(failed.render_batch.items) == backend.calls
     assert all(item.artifact is None for item in failed.render_batch.items)
     assert all(
-        item.failure_code == "RuntimeError" for item in failed.render_batch.items
+        item.failure_code == "renderer_provider_failure"
+        for item in failed.render_batch.items
     )
     assert all(
         item.call_record.status == "failed"
@@ -603,7 +604,68 @@ def test_backend_failure_is_structured_and_cannot_change_native_result(
     assert failed.stage_order.index("native_conclusion") < failed.stage_order.index(
         "render"
     )
+    durable_bytes = failed.render_batch.canonical_json_bytes()
+    assert b"synthetic backend outage" not in durable_bytes
+    assert "synthetic backend outage" not in failed.renderer_warning
     failed.validate_against(_scene(), _world())
+
+
+def test_provider_warnings_are_redacted_before_batch_persistence(
+    tmp_path: Path,
+) -> None:
+    backend = DeterministicPngBackend()
+    valid_provider, _ = _provider(tmp_path, backend)
+
+    class WarningProvider:
+        @property
+        def identity(self) -> ProviderIdentity:
+            return valid_provider.identity
+
+        def pipeline_spec(self, mode):
+            return valid_provider.pipeline_spec(mode)
+
+        def render(self, request: ImageRenderRequest, *, call: ProviderCallSpec):
+            outcome = valid_provider.render(request, call=call)
+            assert outcome.artifact is not None
+            record = outcome.call_record.model_copy(
+                update={"warnings": ("secret token=C4-DO-NOT-PERSIST",)}
+            )
+            return ImageRenderItemOutcome.create(
+                request=outcome.request,
+                call_spec=outcome.call_spec,
+                call_record=record,
+                artifact=outcome.artifact,
+            )
+
+    batch = LocalEmocioRenderer(
+        provider=WarningProvider(),
+        settings=_settings(),
+    ).render((_source_spec(),), seed=25)
+
+    assert batch.status == "succeeded"
+    assert batch.items[0].call_record.warnings == ()
+    assert b"C4-DO-NOT-PERSIST" not in batch.canonical_json_bytes()
+
+
+def test_prompt_compiler_exception_text_is_not_persisted(tmp_path: Path) -> None:
+    backend = DeterministicPngBackend()
+    provider, _ = _provider(tmp_path, backend)
+
+    class ExplodingPromptCompiler:
+        def compile(self, scene):
+            del scene
+            raise RuntimeError("secret=C4-PROMPT-SECRET at C:\\private\\model")
+
+    batch = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=ExplodingPromptCompiler(),
+    ).render((_source_spec(),), seed=27)
+
+    assert batch.status == "failed"
+    assert len(batch.preparation_failures) == 1
+    assert b"C4-PROMPT-SECRET" not in batch.canonical_json_bytes()
+    assert b"private" not in batch.canonical_json_bytes()
 
 
 def test_invalid_provider_outcome_is_quarantined(tmp_path: Path) -> None:
@@ -1233,7 +1295,7 @@ def test_preparation_failure_is_recorded_without_losing_prior_artifact(
     assert len(batch.items) == 1
     assert len(batch.preparation_failures) == 1
     assert batch.preparation_failures[0].source_spec_id == scenes[1].scene_id
-    assert batch.preparation_failures[0].failure_code == "RuntimeError"
+    assert batch.preparation_failures[0].failure_code == "RenderPreparationFailure"
     assert len(backend.calls) == 1
 
     with pytest.raises(ValidationError, match="cover every frozen source scene"):

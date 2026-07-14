@@ -4,7 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import timedelta
-from typing import Protocol, runtime_checkable
+from typing import TYPE_CHECKING, Protocol, runtime_checkable
+
+if TYPE_CHECKING:
+    from ..emocio.runtime import (
+        EmocioBinarySnapshot,
+        EmocioProcessingArtifact,
+        EmocioProcessorRuntimeConfig,
+    )
 
 from ..ids import content_id, utc_now
 from ..models.common import (
@@ -179,6 +186,20 @@ class EmocioNativeExecution(Protocol):
 
 
 @runtime_checkable
+class ConfiguredEmocioNativeExecution(EmocioNativeExecution, Protocol):
+    """Optional C4 extension carrying replay and materialization artifacts."""
+
+    @property
+    def runtime_config(self) -> EmocioProcessorRuntimeConfig | None: ...
+
+    @property
+    def processing_artifact(self) -> EmocioProcessingArtifact | None: ...
+
+    @property
+    def binary_snapshots(self) -> tuple[EmocioBinarySnapshot, ...]: ...
+
+
+@runtime_checkable
 class InstinktNativeExecution(Protocol):
     conclusion: InstinktNativeConclusion
     call_spec: ProviderCallSpec
@@ -300,6 +321,7 @@ class NativeProviderSet(Protocol):
 
 
 __all__ = [
+    "ConfiguredEmocioNativeExecution",
     "DeterministicExecutionClock",
     "EmocioNativeExecution",
     "EmocioNativeProvider",

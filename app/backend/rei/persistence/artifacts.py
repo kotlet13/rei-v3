@@ -36,8 +36,14 @@ RUN_TREE_DIRECTORIES: tuple[str, ...] = (
     "ego",
     "diagnostics",
 )
+OPTIONAL_RUN_TREE_DIRECTORIES: tuple[str, ...] = (
+    "emocio/embeddings",
+)
 
 _RUN_TOP_LEVEL = frozenset(path.split("/", 1)[0] for path in RUN_TREE_DIRECTORIES)
+_ALLOWED_RUN_TREE_DIRECTORIES = frozenset(
+    (*RUN_TREE_DIRECTORIES, *OPTIONAL_RUN_TREE_DIRECTORIES)
+)
 _RELATIVE_PATH_ADAPTER = TypeAdapter(ArtifactRelativePath)
 _STORAGE_ID_PATTERN = re.compile(r"^stored_[0-9a-f]{32}$")
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -750,7 +756,7 @@ class FileArtifactStore:
                         "Run tree contains a symlink or reparse point"
                     )
                 if stat.S_ISDIR(entry_stat.st_mode):
-                    if relative not in RUN_TREE_DIRECTORIES:
+                    if relative not in _ALLOWED_RUN_TREE_DIRECTORIES:
                         raise ArtifactIntegrityError(
                             "Run tree contains an undeclared directory"
                         )
@@ -774,7 +780,12 @@ class FileArtifactStore:
                 files[canonical] = path
 
         walk(run_path, ())
-        if directories != set(RUN_TREE_DIRECTORIES):
+        expected_directories = set(RUN_TREE_DIRECTORIES)
+        for optional_directory in OPTIONAL_RUN_TREE_DIRECTORIES:
+            prefix = f"{optional_directory}/"
+            if any(path.startswith(prefix) for path in files):
+                expected_directories.add(optional_directory)
+        if directories != expected_directories:
             raise ArtifactIntegrityError("Run tree directory inventory is incomplete")
         return files
 
@@ -867,6 +878,523 @@ class FileArtifactStore:
         if discovered != expected:
             raise ArtifactIntegrityError("Run tree differs from its durable inventory")
 
+    def _verify_emocio_execution(self, manifest: Any) -> None:
+        """Cold-replay configured Emocio lineage and every materialized byte."""
+
+        execution = manifest.emocio_execution
+        if execution is None:
+            return
+
+        from ..emocio.artifacts import inspect_png
+        from ..emocio.prompting import BilingualStructuredScenePromptCompiler
+        from ..emocio.renderer import (
+            StructuredScenePromptCompiler,
+            build_render_call_spec,
+            redact_render_batch_diagnostics,
+        )
+        from ..emocio.runtime import (
+            EmocioProcessingArtifact,
+            EmocioProcessorRuntimeConfig,
+            validate_processing_runtime_closure,
+        )
+        from ..emocio.vector_encoding import (
+            normalized_float32_le_bytes,
+            verified_float32_le_vector,
+        )
+        from ..models.emocio import (
+            EmocioInputPacket,
+            EmocioNativeConclusion,
+            EmocioVisualState,
+            EmocioWorld,
+            ImageArtifact,
+            VisualSceneSpec,
+        )
+        from ..models.rendering import ImageSourceReference
+        from ..models.scene import SceneEvent
+        from ..providers.deterministic import DeterministicEmocioNativeProvider
+        from ..providers.protocols import (
+            ImageEncodingRequest,
+            build_image_encoding_call_spec,
+        )
+
+        def load_canonical_model(path: str, model_type: Any) -> Any:
+            raw = self._inventory_bytes(manifest, path)
+            value = model_type.model_validate_json(raw)
+            if value.canonical_json_bytes() != raw:
+                raise ValueError("Configured Emocio JSON is not canonical")
+            return value
+
+        try:
+            config = load_canonical_model(
+                execution.processor_config_path,
+                EmocioProcessorRuntimeConfig,
+            )
+            artifact = load_canonical_model(
+                execution.processing_artifact_path,
+                EmocioProcessingArtifact,
+            )
+            scene = load_canonical_model("scene/event.json", SceneEvent)
+            world = load_canonical_model("scene/emocio_world.json", EmocioWorld)
+            if (
+                config.config_id != execution.processor_config_id
+                or config.content_hash() != execution.processor_config_hash
+                or artifact.result_id != execution.processing_artifact_id
+                or artifact.content_hash() != execution.processing_artifact_hash
+            ):
+                raise ValueError(
+                    "Configured Emocio artifacts differ from manifest lineage"
+                )
+
+            result = artifact.to_result(scene, world)
+            packet_view = load_canonical_model(
+                "scene/emocio_packet.json",
+                EmocioInputPacket,
+            )
+            visual_state_view = load_canonical_model(
+                "emocio/visual_state.json",
+                EmocioVisualState,
+            )
+            conclusion_view = load_canonical_model(
+                "native/emocio.json",
+                EmocioNativeConclusion,
+            )
+            if (
+                packet_view != result.packet
+                or visual_state_view != result.visual_state
+                or conclusion_view != result.native_conclusion
+            ):
+                raise ValueError(
+                    "Durable Emocio views differ from processing replay"
+                )
+
+            replayed_scenes = {
+                item.scene_id: item
+                for item in (
+                    result.visual_state.current_scene,
+                    result.visual_state.desired_scene,
+                    result.visual_state.broken_scene,
+                    *result.visual_state.option_rollouts,
+                )
+            }
+            expected_scene_paths = {
+                f"emocio/scenes/{scene_id}.json"
+                for scene_id in replayed_scenes
+            }
+            recorded_scene_paths = {
+                item.relative_path
+                for item in manifest.artifact_inventory
+                if item.relative_path.startswith("emocio/scenes/")
+            }
+            if recorded_scene_paths != expected_scene_paths:
+                raise ValueError(
+                    "Durable Emocio scene paths differ from processing replay"
+                )
+            for scene_id, replayed_scene in replayed_scenes.items():
+                scene_view = load_canonical_model(
+                    f"emocio/scenes/{scene_id}.json",
+                    VisualSceneSpec,
+                )
+                if scene_view != replayed_scene:
+                    raise ValueError(
+                        "Durable Emocio scene differs from processing replay"
+                    )
+
+            images_raw = self._inventory_bytes(
+                manifest,
+                "emocio/images/index.json",
+            )
+            images_view = TypeAdapter(tuple[ImageArtifact, ...]).validate_json(
+                images_raw
+            )
+            if (
+                canonical_json_bytes(images_view) != images_raw
+                or images_view != result.rendered_images
+            ):
+                raise ValueError(
+                    "Durable Emocio image index differs from processing replay"
+                )
+            if manifest.safety_flags not in {
+                (),
+                ("synthetic_execution_clock",),
+            }:
+                raise ValueError("Configured Emocio safety flags are not canonical")
+            synthetic_warning = (
+                "Deterministic logical execution clock; timestamps are synthetic."
+                if manifest.safety_flags == ("synthetic_execution_clock",)
+                else None
+            )
+            expected_manifest_warnings = tuple(
+                dict.fromkeys(
+                    item
+                    for item in (
+                        result.renderer_warning,
+                        result.visual_warning,
+                        synthetic_warning,
+                    )
+                    if item is not None
+                )
+            )
+            if manifest.warnings != expected_manifest_warnings:
+                raise ValueError(
+                    "Configured Emocio manifest warnings differ from replay"
+                )
+            (
+                nested_specs,
+                nested_records,
+                renderer_call_ids,
+                encoder_call_ids,
+            ) = validate_processing_runtime_closure(config, result)
+            if (
+                renderer_call_ids != execution.renderer_call_ids
+                or encoder_call_ids != execution.encoder_call_ids
+            ):
+                raise ValueError(
+                    "Cold-replayed Emocio provider calls differ from manifest"
+                )
+            manifest_specs = {
+                item.call_id: item for item in manifest.provider_call_specs
+            }
+            manifest_records = {
+                item.call_id: item for item in manifest.provider_calls
+            }
+            outer_spec = manifest_specs.get(execution.outer_call_id)
+            outer_record = manifest_records.get(execution.outer_call_id)
+            expected_outer_spec = (
+                DeterministicEmocioNativeProvider().configured_call_spec(
+                    scene,
+                    world,
+                    result.packet,
+                    runtime_config=config,
+                )
+            )
+            if (
+                outer_spec is None
+                or outer_record is None
+                or outer_spec != expected_outer_spec
+                or outer_record.output_artifact_ids
+                != (
+                    result.native_conclusion.conclusion_id,
+                    artifact.result_id,
+                )
+                or outer_record.status != "succeeded"
+                or outer_record.primary_status != "succeeded"
+                or outer_record.fallback is not None
+                or outer_record.warnings
+            ):
+                raise ValueError(
+                    "Configured Emocio outer call differs from cold replay"
+                )
+            for spec, record in zip(
+                nested_specs,
+                nested_records,
+                strict=True,
+            ):
+                if (
+                    manifest_specs.get(spec.call_id) != spec
+                    or manifest_records.get(record.call_id) != record
+                ):
+                    raise ValueError(
+                        "Emocio processing artifact differs from provider ledger"
+                    )
+
+            renderer_binding = config.renderer_binding
+            renderer_specs = tuple(
+                spec
+                for spec in nested_specs
+                if spec.provider.kind == "image_renderer"
+            )
+            if renderer_binding is None:
+                if renderer_specs or result.render_batch is not None:
+                    raise ValueError(
+                        "Unconfigured Emocio renderer appears in processing replay"
+                    )
+            else:
+                if any(
+                    spec.provider != renderer_binding.provider_identity
+                    for spec in renderer_specs
+                ):
+                    raise ValueError(
+                        "Nested renderer identity differs from runtime binding"
+                    )
+                if result.render_batch is not None:
+                    if (
+                        redact_render_batch_diagnostics(result.render_batch)
+                        != result.render_batch
+                    ):
+                        raise ValueError(
+                            "Render diagnostics differ from their canonical redaction"
+                        )
+                    settings = renderer_binding.render_settings
+                    rollout = renderer_binding.rollout_config
+                    scene_by_id = {
+                        item.scene_id: item
+                        for item in (
+                            result.visual_state.current_scene,
+                            result.visual_state.desired_scene,
+                            result.visual_state.broken_scene,
+                            *result.visual_state.option_rollouts,
+                        )
+                    }
+                    current_images = tuple(
+                        image
+                        for image in result.rendered_images
+                        if image.source_spec_id
+                        == result.visual_state.current_scene.scene_id
+                    )
+                    for item in result.render_batch.items:
+                        request = item.request
+                        source_scene = scene_by_id.get(request.source_spec_id)
+                        scene_kind = (
+                            None if source_scene is None else source_scene.scene_kind
+                        )
+                        expected_mode = (
+                            "image_to_image"
+                            if scene_kind == "option_rollout"
+                            else "text_to_image"
+                        )
+                        expected_pipeline = (
+                            renderer_binding.text_to_image_pipeline
+                            if expected_mode == "text_to_image"
+                            else renderer_binding.image_to_image_pipeline
+                        )
+                        if (
+                            scene_kind is None
+                            or request.mode != expected_mode
+                            or request.provider
+                            != renderer_binding.provider_identity
+                            or request.pipeline != expected_pipeline
+                            or request.width != settings.width
+                            or request.height != settings.height
+                            or request.num_inference_steps
+                            != settings.num_inference_steps
+                            or request.guidance_scale != settings.guidance_scale
+                            or request.negative_prompt != settings.negative_prompt
+                            or item.call_spec
+                            != build_render_call_spec(
+                                request,
+                                timeout_seconds=settings.timeout_seconds,
+                            )
+                            or item.call_record.fallback is not None
+                        ):
+                            raise ValueError(
+                                "Render request differs from its runtime binding"
+                            )
+                        if request.mode == "image_to_image":
+                            if len(current_images) != 1:
+                                raise ValueError(
+                                    "Rollout requires one exact current image"
+                                )
+                            expected_source = (
+                                ImageSourceReference.from_artifact_with_scene_lineage(
+                                    current_images[0]
+                                )
+                            )
+                            if (
+                                request.source_image != expected_source
+                                or request.conditioning_method
+                                != rollout.conditioning_method
+                                or request.strength != rollout.classic_strength
+                            ):
+                                raise ValueError(
+                                    "Rollout request differs from runtime binding"
+                                )
+                        compiler = renderer_binding.prompt_compiler_binding
+                        profile = compiler.prompt_profile
+                        if profile is None:
+                            prompt_compiler = StructuredScenePromptCompiler()
+                            prompt_provenance_matches = (
+                                request.prompt_language is None
+                                and request.style_id is None
+                                and request.profile_hash is None
+                            )
+                        else:
+                            prompt_compiler = (
+                                BilingualStructuredScenePromptCompiler(profile)
+                            )
+                            prompt_provenance_matches = (
+                                request.prompt_language == profile.language
+                                and request.style_id == profile.style_id
+                                and request.profile_hash == profile.content_hash()
+                            )
+                        if (
+                            source_scene is None
+                            or not prompt_provenance_matches
+                            or request.prompt
+                            != prompt_compiler.compile(source_scene)
+                        ):
+                            raise ValueError(
+                                "Render prompt profile differs from runtime binding"
+                            )
+
+            encoder_specs = tuple(
+                spec
+                for spec in nested_specs
+                if spec.provider.kind == "image_encoder"
+            )
+            if config.encoder_identity is None:
+                if encoder_specs or result.visual_observations:
+                    raise ValueError(
+                        "Unconfigured Emocio encoder appears in processing replay"
+                    )
+            else:
+                if any(
+                    spec.provider != config.encoder_identity
+                    for spec in encoder_specs
+                ):
+                    raise ValueError(
+                        "Nested encoder identity differs from runtime config"
+                    )
+                if any(
+                    observation.encoding.request.provider
+                    != config.encoder_identity
+                    or observation.encoding.request.spec != config.encoder_spec
+                    or observation.encoding.call_spec
+                    != build_image_encoding_call_spec(
+                        observation.encoding.request,
+                        timeout_seconds=config.encoding_timeout_seconds,
+                    )
+                    or observation.encoding.call.fallback is not None
+                    or bool(observation.encoding.call.warnings)
+                    for observation in result.visual_observations
+                ):
+                    raise ValueError(
+                        "Visual encoding spec differs from runtime config"
+                    )
+                failure = result.visual_failure
+                if failure is not None and failure.stage == "encoding":
+                    failed_spec = failure.attempted_call_spec
+                    if failed_spec is not None:
+                        referenced_images = tuple(
+                            image
+                            for image in result.rendered_images
+                            if image.image_id in failed_spec.input_artifact_ids
+                        )
+                        if len(referenced_images) != 1:
+                            raise ValueError(
+                                "Failed encoding must cite one rendered image"
+                            )
+                        expected_request = ImageEncodingRequest.create(
+                            image=referenced_images[0],
+                            provider=config.encoder_identity,
+                            spec=config.encoder_spec,
+                        )
+                        if (
+                            failed_spec
+                            != build_image_encoding_call_spec(
+                                expected_request,
+                                timeout_seconds=config.encoding_timeout_seconds,
+                            )
+                        ):
+                            raise ValueError(
+                                "Failed encoding call differs from runtime config"
+                            )
+
+            expected_materialized: dict[str, tuple[str, str, str, object]] = {}
+            for image in result.rendered_images:
+                expected_materialized[image.image_id] = (
+                    "image",
+                    image.path,
+                    image.content_sha256,
+                    image,
+                )
+            for observation in result.visual_observations:
+                encoding = observation.encoding
+                expected_materialized[encoding.encoding_id] = (
+                    "vector",
+                    encoding.vector_ref,
+                    encoding.vector_hash,
+                    encoding,
+                )
+            expected_image_paths = {
+                "emocio/images/index.json",
+                *(
+                    path
+                    for role, path, _digest, _source in expected_materialized.values()
+                    if role == "image"
+                ),
+            }
+            expected_embedding_paths = {
+                path
+                for role, path, _digest, _source in expected_materialized.values()
+                if role == "vector"
+            }
+            recorded_image_paths = {
+                item.relative_path
+                for item in manifest.artifact_inventory
+                if item.relative_path.startswith("emocio/images/")
+            }
+            recorded_embedding_paths = {
+                item.relative_path
+                for item in manifest.artifact_inventory
+                if item.relative_path.startswith("emocio/embeddings/")
+            }
+            if (
+                recorded_image_paths != expected_image_paths
+                or recorded_embedding_paths != expected_embedding_paths
+            ):
+                raise ValueError(
+                    "Materialized Emocio namespaces differ from processing replay"
+                )
+            recorded_ids = {
+                item.artifact_id for item in execution.materialized_artifacts
+            }
+            visual_observation_by_encoding_id = {
+                observation.encoding.encoding_id: observation
+                for observation in result.visual_observations
+            }
+            if recorded_ids != set(expected_materialized):
+                raise ValueError(
+                    "Materialized Emocio lineage differs from processing replay"
+                )
+            for item in execution.materialized_artifacts:
+                role, path, digest, source = expected_materialized[item.artifact_id]
+                if (
+                    item.role != role
+                    or item.relative_path != path
+                    or item.content_sha256 != digest
+                ):
+                    raise ValueError(
+                        "Materialized Emocio metadata differs from processing replay"
+                    )
+                raw = self._inventory_bytes(manifest, item.relative_path)
+                if len(raw) != item.size_bytes:
+                    raise ValueError(
+                        "Materialized Emocio byte size differs from its record"
+                    )
+                if item.role == "image":
+                    if (
+                        hashlib.sha256(raw).hexdigest() != digest
+                        or inspect_png(raw) != (source.width, source.height)
+                    ):
+                        raise ValueError(
+                            "Materialized Emocio PNG bytes differ from replay"
+                        )
+                else:
+                    _, vector_hash = verified_float32_le_vector(
+                        raw,
+                        expected_dimensions=source.dimensions,
+                    )
+                    observation = visual_observation_by_encoding_id[
+                        item.artifact_id
+                    ]
+                    if (
+                        vector_hash != source.vector_hash
+                        or raw
+                        != normalized_float32_le_bytes(
+                            observation.vector,
+                            expected_dimensions=source.dimensions,
+                        )
+                    ):
+                        raise ValueError(
+                            "Materialized Emocio vector differs from replay"
+                        )
+        except ArtifactIntegrityError:
+            raise
+        except (AttributeError, TypeError, UnicodeError, ValidationError, ValueError) as exc:
+            raise ArtifactIntegrityError(
+                "Configured Emocio execution failed cold replay"
+            ) from exc
+
     def verify_prepared_run(self, run_id: str):
         """Cold-verify a fully prepared run whose EgoTrace commit is not assumed."""
 
@@ -877,6 +1405,7 @@ class FileArtifactStore:
             manifest,
             anchor_paths={prepared_path},
         )
+        self._verify_emocio_execution(manifest)
         return manifest
 
     def verify_run(self, run_id: str):
@@ -900,6 +1429,7 @@ class FileArtifactStore:
             manifest,
             anchor_paths={prepared_path, "run_manifest.json"},
         )
+        self._verify_emocio_execution(manifest)
         return manifest
 
     def _inventory_bytes(self, manifest: Any, relative_path: str) -> bytes:
@@ -1033,6 +1563,7 @@ __all__ = [
     "ArtifactStoreError",
     "DEFAULT_RUNS_ROOT",
     "FileArtifactStore",
+    "OPTIONAL_RUN_TREE_DIRECTORIES",
     "RUN_TREE_DIRECTORIES",
     "StoredArtifact",
     "stored_artifact_id",

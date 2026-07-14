@@ -83,6 +83,13 @@ class EmocioRenderer(Protocol):
     ) -> ImageRenderBatchOutcome: ...
 
 
+@runtime_checkable
+class MaterializedEmocioRenderer(EmocioRenderer, Protocol):
+    """Renderer whose published image bytes can be re-read and verified exactly."""
+
+    def read_artifact_bytes(self, image: ImageArtifact) -> bytes: ...
+
+
 class NullRenderer:
     """Pure no-op renderer used by deterministic tests and headless runs."""
 
@@ -112,7 +119,7 @@ def derive_scene_seed(root_seed: int, source_spec_id: str) -> int:
     return int(digest[:16], 16) & ((1 << 63) - 1)
 
 
-def _call_spec_for(
+def build_render_call_spec(
     request: ImageRenderRequest,
     *,
     timeout_seconds: float,
@@ -176,6 +183,106 @@ def _failed_outcome(
         call_record=record,
         failure_code=code,
         failure_message=sanitized,
+    )
+
+
+def _safe_exception_code(
+    error: Exception,
+    *,
+    fallback: str,
+) -> str:
+    return "renderer_timeout" if isinstance(error, TimeoutError) else fallback
+
+
+def _fixed_failure_message(scope: str, code: str) -> str:
+    return f"{scope} failed closed ({code})"
+
+
+def _redact_provider_outcome(
+    item: ImageRenderItemOutcome,
+) -> ImageRenderItemOutcome:
+    """Remove provider-controlled diagnostics while preserving exact execution."""
+
+    if item.artifact is not None:
+        safe_warnings = tuple(
+            warning
+            for warning in item.call_record.warnings
+            if warning == "cache_hit_verified"
+        )
+        if safe_warnings == item.call_record.warnings:
+            return item
+        record = item.call_record.model_copy(update={"warnings": safe_warnings})
+        return ImageRenderItemOutcome.create(
+            request=item.request,
+            call_spec=item.call_spec,
+            call_record=record,
+            artifact=item.artifact,
+        )
+
+    code = (
+        "renderer_timeout"
+        if item.call_record.status == "timed_out"
+        else "renderer_provider_failure"
+    )
+    message = _fixed_failure_message("Image renderer provider", code)
+    record = item.call_record.model_copy(update={"warnings": (message,)})
+    return ImageRenderItemOutcome.create(
+        request=item.request,
+        call_spec=item.call_spec,
+        call_record=record,
+        failure_code=code,
+        failure_message=message,
+    )
+
+
+def redact_render_batch_diagnostics(
+    batch: ImageRenderBatchOutcome,
+) -> ImageRenderBatchOutcome:
+    """Canonicalize all renderer-controlled diagnostics before persistence."""
+
+    validated = ImageRenderBatchOutcome.model_validate(
+        batch.model_dump(mode="python", round_trip=True)
+    )
+    items = tuple(_redact_provider_outcome(item) for item in validated.items)
+    preparation_failures: list[ImageRenderPreparationFailure] = []
+    for failure in validated.preparation_failures:
+        code = "render_preparation_failure"
+        message = _fixed_failure_message("Image render preparation", code)
+        payload = {
+            "schema_version": "rei-native-image-render-preparation-failure-v1",
+            "source_spec_id": failure.source_spec_id,
+            "source_spec_hash": failure.source_spec_hash,
+            "failure_code": code,
+            "failure_message": message,
+        }
+        preparation_failures.append(
+            ImageRenderPreparationFailure(
+                failure_id=content_id("render_preparation_failure", payload),
+                **payload,
+            )
+        )
+    warnings = tuple(
+        dict.fromkeys(
+            (
+                *(
+                    failure.failure_message
+                    for failure in preparation_failures
+                ),
+                *(
+                    item.failure_message
+                    for item in items
+                    if item.failure_message is not None
+                ),
+            )
+        )
+    )
+    return ImageRenderBatchOutcome.create(
+        source_spec_ids=validated.source_spec_ids,
+        root_seed=validated.root_seed,
+        status=validated.status,
+        items=items,
+        preparation_failures=tuple(preparation_failures),
+        warnings=warnings,
     )
 
 
@@ -293,13 +400,19 @@ class LocalEmocioRenderer:
                         else None
                     ),
                 )
-                call = _call_spec_for(
+                call = build_render_call_spec(
                     request,
                     timeout_seconds=self._settings.timeout_seconds,
                 )
             except Exception as exc:
-                code = type(exc).__name__ or "RenderPreparationFailure"
-                message = " ".join(str(exc).split())[:500] or code
+                code = _safe_exception_code(
+                    exc,
+                    fallback="RenderPreparationFailure",
+                )
+                message = _fixed_failure_message(
+                    "Image render preparation",
+                    code,
+                )
                 preparation_failures.append(
                     ImageRenderPreparationFailure.create(
                         source_spec=scene,
@@ -314,13 +427,25 @@ class LocalEmocioRenderer:
             try:
                 item = self._provider.render(request, call=call)
                 validate_image_render_outcome(item, source_spec=scene)
+                if item.request != request or item.call_spec != call:
+                    raise ValueError(
+                        "Renderer returned another pre-approved request or call spec"
+                    )
+                item = _redact_provider_outcome(item)
             except Exception as exc:
+                code = _safe_exception_code(
+                    exc,
+                    fallback="RendererProviderFailure",
+                )
                 item = _failed_outcome(
                     request,
                     call,
                     started_at=started_at,
                     code="invalid_or_failed_provider_outcome",
-                    message=str(exc) or type(exc).__name__,
+                    message=_fixed_failure_message(
+                        "Image renderer provider outcome",
+                        code,
+                    ),
                 )
             items.append(item)
             if item.failure_message is not None:
@@ -396,13 +521,16 @@ def validate_renderer_outputs(
 
 
 __all__ = [
+    "build_render_call_spec",
     "EmocioRenderer",
     "LocalEmocioRenderer",
+    "MaterializedEmocioRenderer",
     "NullRenderer",
     "RenderSettings",
     "ScenePromptCompiler",
     "StructuredScenePromptCompiler",
     "derive_scene_seed",
+    "redact_render_batch_diagnostics",
     "validate_render_batch",
     "validate_renderer_outputs",
 ]

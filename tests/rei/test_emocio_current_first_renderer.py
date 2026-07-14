@@ -17,13 +17,18 @@ from app.backend.rei.emocio import (
     RenderSettings,
     derive_scene_seed,
 )
+from app.backend.rei.emocio.current_first_renderer import (
+    CurrentFirstRendererRuntimeBinding,
+)
 from app.backend.rei.emocio.prompting import (
     BilingualStructuredScenePromptCompiler,
     VisualPromptProfile,
 )
+from app.backend.rei.emocio.renderer import MaterializedEmocioRenderer
 from app.backend.rei.models.emocio import VisualSceneSpec
 from app.backend.rei.models.provider import ProviderIdentity
 from app.backend.rei.models.rendering import (
+    ImagePipelineSpec,
     ImageRenderRequest,
     ImageSourceReference,
 )
@@ -178,9 +183,11 @@ def test_current_first_success_reuses_one_verified_current_artifact(
     current_item = batch.items[0]
     current_artifact = current_item.artifact
     assert current_artifact is not None
+    assert isinstance(renderer, MaterializedEmocioRenderer)
     assert current_item.request.mode == "text_to_image"
     assert current_artifact.source_spec_id == scenes[0].scene_id
     current_bytes = (store.root / current_artifact.path).read_bytes()
+    assert renderer.read_artifact_bytes(current_artifact) == current_bytes
     assert hashlib.sha256(current_bytes).hexdigest() == current_artifact.content_sha256
     expected_source = ImageSourceReference.from_artifact_with_scene_lineage(
         current_artifact
@@ -220,6 +227,131 @@ def test_current_first_success_reuses_one_verified_current_artifact(
         assert item.request.seed == derive_scene_seed(71, scene.scene_id)
         assert item.call_spec.fallback_policy.mode == "none"
         assert item.call_record.fallback is None
+
+
+def test_current_first_runtime_binding_closes_every_runtime_input(
+    tmp_path: Path,
+) -> None:
+    renderer, _ = _renderer(tmp_path, RecordingBackend())
+    binding = renderer.runtime_binding()
+
+    assert binding == renderer.runtime_binding()
+    assert binding.provider_identity == _identity()
+    assert binding.render_settings == _settings()
+    assert binding.rollout_config == CurrentFirstRolloutConfig()
+    assert binding.prompt_compiler_binding.prompt_profile_id is None
+    assert binding.prompt_compiler_binding.prompt_profile is None
+    assert binding.text_to_image_pipeline == ImagePipelineSpec(
+        implementation=_identity().implementation,
+        implementation_revision=_identity().implementation_revision,
+    )
+    assert binding.image_to_image_pipeline == binding.text_to_image_pipeline
+
+    profile = VisualPromptProfile.create(
+        language="en",
+        style_id="runtime-binding-profile",
+        style_directive="Use the exact runtime binding profile.",
+    )
+    profiled_renderer, _ = _renderer(
+        tmp_path / "profiled",
+        RecordingBackend(),
+        prompt_compiler=BilingualStructuredScenePromptCompiler(profile),
+    )
+    profiled_compiler = profiled_renderer.runtime_binding().prompt_compiler_binding
+    assert profiled_compiler.prompt_profile == profile
+
+    values = {
+        "provider_identity": binding.provider_identity,
+        "text_to_image_pipeline": binding.text_to_image_pipeline,
+        "image_to_image_pipeline": binding.image_to_image_pipeline,
+        "render_settings": binding.render_settings,
+        "rollout_config": binding.rollout_config,
+        "prompt_compiler_binding": binding.prompt_compiler_binding,
+    }
+
+    def changed(**updates: object) -> CurrentFirstRendererRuntimeBinding:
+        return CurrentFirstRendererRuntimeBinding.create(
+            **{**values, **updates},  # type: ignore[arg-type]
+        )
+
+    changed_bindings = (
+        changed(
+            provider_identity=binding.provider_identity.model_copy(
+                update={"provider_id": "alternate-runtime-provider"}
+            )
+        ),
+        changed(
+            text_to_image_pipeline=ImagePipelineSpec(
+                implementation="tests.AlternateT2IPipeline",
+                implementation_revision="2",
+            )
+        ),
+        changed(
+            image_to_image_pipeline=ImagePipelineSpec(
+                implementation="tests.AlternateImg2ImgPipeline",
+                implementation_revision="3",
+            )
+        ),
+        changed(
+            render_settings=RenderSettings(
+                width=8,
+                height=3,
+                num_inference_steps=2,
+                guidance_scale=1.0,
+                negative_prompt="",
+                timeout_seconds=1.0,
+            )
+        ),
+        changed(
+            rollout_config=CurrentFirstRolloutConfig(
+                conditioning_method="classic_strength",
+                classic_strength=0.4,
+            )
+        ),
+        changed(prompt_compiler_binding=profiled_compiler),
+    )
+    assert len(
+        {
+            binding.content_hash(),
+            *(item.content_hash() for item in changed_bindings),
+        }
+    ) == 1 + len(changed_bindings)
+
+
+def test_current_first_materialization_rejects_tampered_or_unreadable_bytes(
+    tmp_path: Path,
+) -> None:
+    renderer, store = _renderer(tmp_path, RecordingBackend())
+    batch = renderer.render(_scenes(), seed=72)
+    artifact = batch.items[0].artifact
+    assert artifact is not None
+    artifact_path = store.root / artifact.path
+    artifact_path.write_bytes(_png(artifact.width, artifact.height, (9, 8, 7, 255)))
+
+    with pytest.raises(ValueError, match="recorded SHA-256"):
+        renderer.read_artifact_bytes(artifact)
+
+    class NonMaterializedProvider:
+        @property
+        def identity(self) -> ProviderIdentity:
+            return _identity()
+
+        def pipeline_spec(self, mode: str) -> ImagePipelineSpec:
+            del mode
+            return ImagePipelineSpec(
+                implementation=_identity().implementation,
+                implementation_revision=_identity().implementation_revision,
+            )
+
+        def render(self, request: object, *, call: object) -> None:
+            del request, call
+
+    unmaterialized = CurrentFirstEmocioRenderer(
+        provider=NonMaterializedProvider(),  # type: ignore[arg-type]
+        settings=_settings(),
+    )
+    with pytest.raises(TypeError, match="cannot verify artifact bytes"):
+        unmaterialized.read_artifact_bytes(artifact)
 
 
 def test_current_first_propagates_slovenian_prompt_profile_to_every_request(
@@ -289,6 +421,40 @@ def test_current_failure_keeps_context_and_structurally_blocks_rollouts(
     } == {"current_scene_render_unavailable"}
     assert all(item.call_spec.fallback_policy.mode == "none" for item in batch.items)
     assert all(item.call_record.fallback is None for item in batch.items)
+
+
+def test_current_source_preparation_warning_redacts_raw_exception(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    secret = "sk-secret-current-source"
+    absolute_path = r"C:\Users\Kotlet\private\current.png"
+
+    def fail_source_creation(
+        cls: type[ImageSourceReference],
+        artifact: object,
+    ) -> ImageSourceReference:
+        del cls, artifact
+        raise RuntimeError(f"{secret} at {absolute_path}")
+
+    monkeypatch.setattr(
+        ImageSourceReference,
+        "from_artifact_with_scene_lineage",
+        classmethod(fail_source_creation),
+    )
+    renderer, _ = _renderer(tmp_path, RecordingBackend())
+
+    batch = renderer.render(_scenes(), seed=77)
+
+    assert batch.status == "partial"
+    assert any(
+        "preparation failed closed (current_source_preparation_failure)" in warning
+        for warning in batch.warnings
+    )
+    persisted = batch.canonical_json_bytes().decode("utf-8")
+    assert secret not in persisted
+    assert absolute_path not in persisted
+    assert "Kotlet" not in persisted
 
 
 def test_current_first_rejects_noncanonical_option_or_role_order_before_calls(

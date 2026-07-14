@@ -13,7 +13,7 @@ from typing import Literal, Self
 
 from pydantic import Field, model_validator
 
-from ..ids import content_id, sha256_hex
+from ..ids import content_id, sha256_hex, utc_now
 from ..models.common import (
     FrozenArtifactModel,
     FrozenModel,
@@ -21,7 +21,9 @@ from ..models.common import (
     LanguageCode,
     NonEmptyId,
     NonEmptyText,
+    SafetyNotice,
     Score01,
+    UtcTimestamp,
 )
 from ..models.emocio import (
     EmocioVisualState,
@@ -30,16 +32,21 @@ from ..models.emocio import (
 )
 from ..models.provider import (
     PositiveSeconds,
+    ProviderCallRecord,
     ProviderCallSpec,
+    ProviderFallbackPolicy,
     ProviderIdentity,
     ensure_call_contract,
+    ensure_call_record_contract,
 )
 from ..models.rendering import ImageRenderBatchOutcome, ImageRenderItemOutcome
 from ..providers.protocols import (
+    IMAGE_ENCODER_NO_FALLBACK_REASON,
     ImageEncodingRequest,
     ImageEncodingSpec,
     VerifiedImageEncoder,
     VerifiedImageEncoding,
+    build_image_encoding_call_spec,
 )
 from .policy import EmocioPolicyDecision, OptionAggregateScore
 from .renderer import validate_render_batch
@@ -75,13 +82,20 @@ class VisualObservationBuildError(RuntimeError):
         failure_code: str | None = None,
         partial_observations: tuple[BoundVisualEmbedding, ...] = (),
         attempted_call_spec: ProviderCallSpec | None = None,
+        attempted_call_record: ProviderCallRecord | None = None,
     ) -> None:
-        code = failure_code or (
-            type(cause).__name__ if cause is not None else "VisualEncodingFailure"
+        code = (
+            "visual_encoding_timeout"
+            if (
+                failure_code == "visual_encoding_timeout"
+                or isinstance(cause, TimeoutError)
+            )
+            else "visual_encoding_failure"
         )
         self.failure_code = code
         self.partial_observations = partial_observations
         self.attempted_call_spec = attempted_call_spec
+        self.attempted_call_record = attempted_call_record
         super().__init__(f"Visual encoding failed closed ({code})")
 
     def with_partial_observations(
@@ -92,6 +106,7 @@ class VisualObservationBuildError(RuntimeError):
             failure_code=self.failure_code,
             partial_observations=observations,
             attempted_call_spec=self.attempted_call_spec,
+            attempted_call_record=self.attempted_call_record,
         )
 
 
@@ -101,15 +116,45 @@ def visual_failure_summary(
 ) -> tuple[str, str]:
     """Return stable canonical failure text without persisting provider secrets."""
 
-    code = getattr(error, "failure_code", None) or type(error).__name__
-    if not isinstance(code, str) or not code.strip():
-        code = "VisualCognitionFailure"
-    safe_code = "".join(
-        character
-        for character in code.strip()[:100]
-        if character.isalnum() or character in {"_", "-"}
-    ) or "VisualCognitionFailure"
-    return safe_code, f"Visual cognition {stage} failed closed ({safe_code})"
+    timed_out = isinstance(error, TimeoutError) or (
+        isinstance(error, VisualObservationBuildError)
+        and error.failure_code == "visual_encoding_timeout"
+    )
+    code = f"visual_{stage}_{'timeout' if timed_out else 'failure'}"
+    return code, f"Visual cognition {stage} failed closed ({code})"
+
+
+def _failed_encoding_call_record(
+    *,
+    call: ProviderCallSpec,
+    started_at: UtcTimestamp,
+    error: Exception,
+) -> ProviderCallRecord:
+    """Close an invoked encoder call without inventing a provider output."""
+
+    _, warning = visual_failure_summary("encoding", error)
+    finished_at = utc_now()
+    timed_out = isinstance(error, TimeoutError)
+    status = "timed_out" if timed_out else "failed"
+    return ProviderCallRecord(
+        call_id=call.call_id,
+        spec_hash=call.content_hash(),
+        request_id=call.request_id,
+        input_artifact_ids=call.input_artifact_ids,
+        provider=call.provider,
+        seed=call.seed,
+        parameters=call.parameters,
+        timeout_seconds=call.timeout_seconds,
+        started_at=started_at,
+        primary_finished_at=finished_at,
+        finished_at=finished_at,
+        status=status,
+        primary_status=status,
+        fallback=None,
+        output_artifact_ids=(),
+        warnings=(warning,),
+        safety_notice=call.safety_notice,
+    )
 
 
 class ApprovedVisualPromptProfile(FrozenModel):
@@ -957,6 +1002,10 @@ class VisualCognitionFailure(FrozenArtifactModel):
         default=None,
         exclude_if=lambda value: value is None,
     )
+    attempted_call_record: ProviderCallRecord | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
     visual_valuation_result_id: NonEmptyId | None = Field(
         default=None,
         exclude_if=lambda value: value is None,
@@ -993,6 +1042,7 @@ class VisualCognitionFailure(FrozenArtifactModel):
         render_batch: ImageRenderBatchOutcome | None = None,
         observations: tuple[BoundVisualEmbedding, ...] = (),
         attempted_call_spec: ProviderCallSpec | None = None,
+        attempted_call_record: ProviderCallRecord | None = None,
         valuation: VisualValuationResult | None = None,
         approval: VisualNativeInfluenceApproval | None = None,
         authority: PinnedVisualInfluenceAuthority | None = None,
@@ -1019,6 +1069,10 @@ class VisualCognitionFailure(FrozenArtifactModel):
             payload["attempted_call_spec"] = ProviderCallSpec.model_validate(
                 attempted_call_spec.model_dump(mode="python", round_trip=True)
             )
+        if attempted_call_record is not None:
+            payload["attempted_call_record"] = ProviderCallRecord.model_validate(
+                attempted_call_record.model_dump(mode="python", round_trip=True)
+            )
         if valuation is not None:
             payload.update(
                 visual_valuation_result_id=valuation.result_id,
@@ -1041,6 +1095,16 @@ class VisualCognitionFailure(FrozenArtifactModel):
 
     @model_validator(mode="after")
     def validate_failure(self) -> Self:
+        allowed_codes = {
+            f"visual_{self.stage}_failure",
+            f"visual_{self.stage}_timeout",
+        }
+        if self.failure_code not in allowed_codes or self.failure_message != (
+            f"Visual cognition {self.stage} failed closed ({self.failure_code})"
+        ):
+            raise ValueError(
+                "Visual cognition failure diagnostics must use closed stage codes"
+            )
         if len(self.observation_ids) != len(self.observation_hashes):
             raise ValueError(
                 "Visual failure observation IDs and hashes must have equal length"
@@ -1085,6 +1149,7 @@ class VisualCognitionFailure(FrozenArtifactModel):
         if self.stage == "render" and (
             self.observation_ids
             or self.attempted_call_spec is not None
+            or self.attempted_call_record is not None
             or self.visual_valuation_result_id is not None
             or self.visual_influence_approval_id is not None
             or self.visual_influence_authority_id is not None
@@ -1129,11 +1194,42 @@ class VisualCognitionFailure(FrozenArtifactModel):
                 )
             if (
                 call.provider.kind != "image_encoder"
-                or call.fallback_policy.mode != "none"
+                or call.fallback_policy
+                != ProviderFallbackPolicy(
+                    mode="none",
+                    no_fallback_reason=IMAGE_ENCODER_NO_FALLBACK_REASON,
+                )
+                or call.safety_notice != SafetyNotice()
                 or len(call.input_artifact_ids) != 1
             ):
                 raise ValueError(
                     "Attempted visual encoding call must be direct and exact"
+                )
+        if self.attempted_call_record is not None:
+            if self.attempted_call_spec is None:
+                raise ValueError(
+                    "Attempted encoding record requires its exact call spec"
+                )
+            record = ProviderCallRecord.model_validate(
+                self.attempted_call_record.model_dump(
+                    mode="python",
+                    round_trip=True,
+                )
+            )
+            ensure_call_record_contract(self.attempted_call_spec, record)
+            if (
+                record.fallback is not None
+                or (
+                    record.status in {"succeeded", "fell_back"}
+                    and record.warnings
+                )
+                or (
+                    record.status in {"failed", "timed_out"}
+                    and record.warnings != (self.failure_message,)
+                )
+            ):
+                raise ValueError(
+                    "Failed visual encoding boundary must use canonical diagnostics"
                 )
         expected_id = content_id(
             "visual_cognition_failure",
@@ -1239,6 +1335,9 @@ def _encode_visual_scene_observation(
     """Build one observation or preserve the exact attempted encoder call."""
 
     attempted_call: ProviderCallSpec | None = None
+    attempted_record: ProviderCallRecord | None = None
+    encoder_invoked = False
+    invocation_started_at: UtcTimestamp | None = None
     try:
         if (
             item is None
@@ -1271,7 +1370,7 @@ def _encode_visual_scene_observation(
                 "Image encoder request differs from its advertised identity or spec"
             )
         request.validate_image(image)
-        attempted_call = ProviderCallSpec.model_validate(
+        candidate_call = ProviderCallSpec.model_validate(
             encoder.build_call_spec(
                 image,
                 timeout_seconds=encoding_timeout_seconds,
@@ -1279,30 +1378,42 @@ def _encode_visual_scene_observation(
         )
         ensure_call_contract(
             encoder_identity,
-            attempted_call,
+            candidate_call,
             request_id=request.request_id,
             expected_kind="image_encoder",
             required_input_artifact_ids=(image.image_id,),
         )
-        if (
-            attempted_call.request_id != request.request_id
-            or attempted_call.input_artifact_ids != (image.image_id,)
-            or attempted_call.parameters != request.provider_parameters
-            or attempted_call.fallback_policy.mode != "none"
-        ):
+        expected_call = build_image_encoding_call_spec(
+            request,
+            timeout_seconds=encoding_timeout_seconds,
+        )
+        if candidate_call != expected_call:
             raise ValueError(
                 "Image encoder call differs from its immutable request"
             )
+        attempted_call = candidate_call
+        invocation_started_at = utc_now()
+        encoder_invoked = True
         encoding = VerifiedImageEncoding.model_validate(
             encoder.encode(image, call=attempted_call).model_dump(
                 mode="python",
                 round_trip=True,
             )
         )
-        if encoding.request != request:
+        attempted_record = encoding.call
+        if (
+            encoding.request != request
+            or encoding.call_spec != attempted_call
+        ):
             raise ValueError(
-                "Image encoder result differs from its immutable request"
+                "Image encoder result differs from its immutable request or call"
             )
+        if encoding.call.warnings:
+            sanitized_record = encoding.call.model_copy(update={"warnings": ()})
+            encoding_payload = encoding.model_dump(mode="python", round_trip=True)
+            encoding_payload["call"] = sanitized_record
+            encoding = VerifiedImageEncoding.model_validate(encoding_payload)
+        attempted_record = encoding.call
         vector = encoder.read_vector(encoding)
         return BoundVisualEmbedding.create(
             role=scene.scene_kind,
@@ -1314,12 +1425,22 @@ def _encode_visual_scene_observation(
             encoding=encoding,
             vector=vector,
         )
-    except VisualObservationBuildError:
-        raise
     except Exception as exc:
+        if (
+            encoder_invoked
+            and attempted_call is not None
+            and attempted_record is None
+            and invocation_started_at is not None
+        ):
+            attempted_record = _failed_encoding_call_record(
+                call=attempted_call,
+                started_at=invocation_started_at,
+                error=exc,
+            )
         raise VisualObservationBuildError(
             cause=exc,
             attempted_call_spec=attempted_call,
+            attempted_call_record=attempted_record,
         ) from None
 
 

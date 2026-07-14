@@ -16,6 +16,7 @@ from ..models.common import (
     LanguageCode,
     NonEmptyId,
     NonEmptyText,
+    SafetyNotice,
 )
 from ..models.ego import EgoCorrectionEvent, EgoMeasure, EgoTrace
 from ..models.emocio import (
@@ -46,6 +47,12 @@ from ..models.rendering import (
     ImageRenderItemOutcome,
     ImageRenderMode,
     ImageRenderRequest,
+)
+
+
+IMAGE_ENCODER_NO_FALLBACK_REASON = (
+    "Visual feature extraction fails closed; another encoder cannot silently "
+    "replace the pinned visual feature space"
 )
 
 
@@ -251,6 +258,36 @@ class ImageEncodingRequest(FrozenArtifactModel):
         ):
             raise ValueError("Image encoding request differs from its source artifact")
         return self
+
+
+def build_image_encoding_call_spec(
+    request: ImageEncodingRequest,
+    *,
+    timeout_seconds: PositiveSeconds,
+) -> ProviderCallSpec:
+    """Build the one canonical, direct call contract for verified encoders."""
+
+    request = ImageEncodingRequest.model_validate(
+        request.model_dump(mode="python", round_trip=True)
+    )
+    payload = {
+        "schema_version": "rei-native-provider-call-spec-v1",
+        "request_id": request.request_id,
+        "input_artifact_ids": (request.image_id,),
+        "provider": request.provider,
+        "seed": 0,
+        "parameters": request.provider_parameters,
+        "timeout_seconds": timeout_seconds,
+        "fallback_policy": ProviderFallbackPolicy(
+            mode="none",
+            no_fallback_reason=IMAGE_ENCODER_NO_FALLBACK_REASON,
+        ),
+        "safety_notice": SafetyNotice(),
+    }
+    return ProviderCallSpec(
+        call_id=content_id("image_encoding_call", payload),
+        **payload,
+    )
 
 
 class ImageEncoding(FrozenArtifactModel):
@@ -783,6 +820,7 @@ __all__ = [
     "BodyDynamicsResult",
     "EgoTraceStore",
     "ImageEncoder",
+    "IMAGE_ENCODER_NO_FALLBACK_REASON",
     "ImageEncoding",
     "ImageEncodingRequest",
     "ImageEncodingSpec",
@@ -810,6 +848,7 @@ __all__ = [
     "VisualWorldModelResult",
     "VerifiedImageEncoder",
     "VerifiedImageEncoding",
+    "build_image_encoding_call_spec",
     "ensure_call_contract",
     "ensure_call_record_contract",
     "validate_rendered_image",

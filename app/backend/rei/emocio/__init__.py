@@ -119,8 +119,11 @@ __all__ = [
     "DinoV2BaseImageEncoder",
     "DinoV2FeatureBackend",
     "DinoV2RuntimeConfig",
+    "EmocioBinarySnapshot",
     "EmocioPolicyDecision",
+    "EmocioProcessingArtifact",
     "EmocioProcessingResult",
+    "EmocioProcessorRuntimeConfig",
     "EmocioRenderer",
     "LazyDiffusersBackend",
     "LazyTransformersDinoV2Backend",
@@ -146,6 +149,7 @@ __all__ = [
     "VisualValuationResult",
     "VisualWorldMemoryRecord",
     "aggregate_option_valuation",
+    "binary_snapshots_from_processing",
     "build_emocio_packet",
     "build_emocio_visual_state",
     "build_visual_world_memory_record",
@@ -161,6 +165,7 @@ __all__ = [
     "load_visual_valuation_policy",
     "load_visual_valuation_policy_config",
     "normalized_float32_le_bytes",
+    "nested_provider_calls",
     "process_emocio",
     "policy_from_visual_valuation",
     "value_option_rollout",
@@ -172,7 +177,12 @@ __all__ = [
 
 _LAZY_EXPORTS = {
     "DeterministicEmocioProcessor": ".processor",
+    "EmocioBinarySnapshot": ".runtime",
+    "EmocioProcessingArtifact": ".runtime",
     "EmocioProcessingResult": ".processor",
+    "EmocioProcessorRuntimeConfig": ".runtime",
+    "binary_snapshots_from_processing": ".runtime",
+    "nested_provider_calls": ".runtime",
     "process_emocio": ".processor",
 }
 

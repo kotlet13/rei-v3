@@ -686,9 +686,12 @@ class LazyDiffusersBackend:
 
 
 def _sanitized_failure(exc: Exception) -> tuple[str, str]:
-    code = type(exc).__name__ or "RendererFailure"
-    message = " ".join(str(exc).split())[:500]
-    return code, message or code
+    code = (
+        RENDERER_TIMEOUT_FAILURE_CODE
+        if isinstance(exc, TimeoutError)
+        else "renderer_provider_failure"
+    )
+    return code, f"Image renderer failed closed ({code})"
 
 
 class DiffusersImageRenderer:
@@ -740,6 +743,14 @@ class DiffusersImageRenderer:
 
     def pipeline_spec(self, mode: ImageRenderMode) -> ImagePipelineSpec:
         return self._pipeline_specs[mode]
+
+    def read_artifact_bytes(self, image: ImageArtifact) -> bytes:
+        """Re-read one published PNG through the byte-verifying artifact store."""
+
+        validated = ImageArtifact.model_validate(
+            image.model_dump(mode="python", round_trip=True)
+        )
+        return self._artifact_store.verify_artifact(validated)
 
     def _validate_call(
         self,

@@ -26,14 +26,12 @@ from ..models.common import (
     FrozenModel,
     HashDigest,
     NonEmptyText,
-    SafetyNotice,
 )
 from ..models.emocio import ImageArtifact
 from ..models.provider import (
     PositiveSeconds,
     ProviderCallRecord,
     ProviderCallSpec,
-    ProviderFallbackPolicy,
     ProviderIdentity,
     ProviderParameter,
     ensure_call_contract,
@@ -42,6 +40,7 @@ from ..providers.protocols import (
     ImageEncodingRequest,
     ImageEncodingSpec,
     VerifiedImageEncoding,
+    build_image_encoding_call_spec,
 )
 from .artifacts import LocalPngArtifactStore
 from .diffusers_renderer import (
@@ -432,28 +431,9 @@ class DinoV2BaseImageEncoder:
         timeout_seconds: PositiveSeconds,
     ) -> ProviderCallSpec:
         request = self.request_for(image)
-        fallback = ProviderFallbackPolicy(
-            mode="none",
-            no_fallback_reason=(
-                "Visual feature extraction fails closed; another encoder cannot "
-                "silently replace the pinned DINOv2 feature space"
-            ),
-        )
-        safety_notice = SafetyNotice()
-        payload = {
-            "schema_version": "rei-native-provider-call-spec-v1",
-            "request_id": request.request_id,
-            "input_artifact_ids": (request.image_id,),
-            "provider": self.identity,
-            "seed": DINOV2_ENCODER_SEED,
-            "parameters": request.provider_parameters,
-            "timeout_seconds": timeout_seconds,
-            "fallback_policy": fallback,
-            "safety_notice": safety_notice,
-        }
-        return ProviderCallSpec(
-            call_id=content_id("image_encoding_call", payload),
-            **payload,
+        return build_image_encoding_call_spec(
+            request,
+            timeout_seconds=timeout_seconds,
         )
 
     def _verify_snapshot(self) -> Path:
@@ -486,7 +466,7 @@ class DinoV2BaseImageEncoder:
             repo_id=DINOV2_BASE_MODEL_ID,
             revision=DINOV2_BASE_MODEL_REVISION,
         )
-        if actual_manifest != manifest:
+        if canonical_snapshot_manifest_bytes(actual_manifest) != manifest_bytes:
             raise ValueError("DINOv2 snapshot bytes differ from its manifest")
         return snapshot
 

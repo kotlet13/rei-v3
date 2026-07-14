@@ -207,8 +207,10 @@ def test_changed_call_lineage_fails_closed_instead_of_reusing_request_cache(
     failed = renderer.render(request, call=changed_call)
 
     assert failed.artifact is None
-    assert failed.failure_code == "ValueError"
-    assert "render_call_id" in failed.failure_message
+    assert failed.failure_code == "renderer_provider_failure"
+    assert failed.failure_message == (
+        "Image renderer failed closed (renderer_provider_failure)"
+    )
     assert len(backend.calls) == 1
 
 
@@ -239,8 +241,10 @@ def test_grounded_metadata_tamper_fails_closed_without_backend_regeneration(
 
     assert failed.artifact is None
     assert failed.call_record.status == "failed"
-    assert failed.failure_code == "ValueError"
-    assert "cache metadata is invalid" in failed.failure_message.lower()
+    assert failed.failure_code == "renderer_provider_failure"
+    assert failed.failure_message == (
+        "Image renderer failed closed (renderer_provider_failure)"
+    )
     assert len(backend.calls) == calls_before_tamper
 
 
@@ -264,8 +268,10 @@ def test_png_tamper_fails_closed_without_backend_regeneration(
 
     assert failed.artifact is None
     assert failed.call_record.status == "failed"
-    assert failed.failure_code == "ValueError"
-    assert "sha-256" in failed.failure_message.lower()
+    assert failed.failure_code == "renderer_provider_failure"
+    assert failed.failure_message == (
+        "Image renderer failed closed (renderer_provider_failure)"
+    )
     assert len(backend.calls) == calls_before_tamper
 
 

@@ -23,6 +23,7 @@ from .packets import build_emocio_packet
 from .policy import EmocioPolicyDecision, choose_native_option
 from .renderer import (
     EmocioRenderer,
+    redact_render_batch_diagnostics,
     validate_render_batch,
     validate_renderer_outputs,
 )
@@ -358,6 +359,47 @@ class EmocioProcessingResult:
             raise ValueError(
                 "Visual exception fallback requires its typed failure and warning"
             )
+        if failure is not None and self.visual_warning != failure.failure_message:
+            raise ValueError(
+                "Visual warning differs from its closed failure diagnostic"
+            )
+
+        expected_renderer_warning: str | None = None
+        renderer_warning_options: set[str] | None = None
+        if self.render_batch is not None and self.render_batch.warnings:
+            timing = (
+                "before visual valuation"
+                if self.cognition_trace.requested_mode == "visual_cognition"
+                else "after native conclusion"
+            )
+            expected_renderer_warning = (
+                f"Renderer completed {timing} with "
+                f"{len(self.render_batch.warnings)} redacted warning(s)."
+            )
+        elif (
+            self.render_batch is None
+            and self.cognition_trace.fallback_reason == "renderer_failed"
+            and self.cognition_trace.requested_mode == "visual_cognition"
+            and failure is not None
+            and failure.stage == "render"
+        ):
+            expected_renderer_warning = failure.failure_message
+        elif (
+            self.render_batch is None
+            and self.cognition_trace.fallback_reason == "renderer_failed"
+            and self.cognition_trace.requested_mode == "render_observe"
+        ):
+            renderer_warning_options = {
+                "Renderer ignored after native conclusion; Visual cognition render "
+                "failed closed (visual_render_failure)",
+                "Renderer ignored after native conclusion; Visual cognition render "
+                "failed closed (visual_render_timeout)",
+            }
+        if renderer_warning_options is not None:
+            if self.renderer_warning not in renderer_warning_options:
+                raise ValueError("Renderer warning is not a closed diagnostic")
+        elif self.renderer_warning != expected_renderer_warning:
+            raise ValueError("Renderer warning differs from deterministic replay")
         if (
             self.cognition_trace.conclusion_source != "approved_visual_valuation"
             and (approval is not None or authority is not None)
@@ -667,7 +709,7 @@ def process_emocio(
         try:
             rendered = renderer.render(compiled.all_scenes, seed=render_seed)
             if isinstance(rendered, ImageRenderBatchOutcome):
-                render_batch = rendered
+                render_batch = redact_render_batch_diagnostics(rendered)
                 validate_render_batch(
                     render_batch,
                     compiled.all_scenes,
@@ -681,8 +723,8 @@ def process_emocio(
                         else "before visual valuation"
                     )
                     warning = (
-                        f"Renderer completed {timing} with warnings: "
-                        + " | ".join(render_batch.warnings)
+                        f"Renderer completed {timing} with "
+                        f"{len(render_batch.warnings)} redacted warning(s)."
                     )
             else:
                 images = tuple(rendered)
@@ -707,7 +749,8 @@ def process_emocio(
                 _, visual_warning = visual_failure_summary("render", exc)
                 warning = visual_warning
             else:
-                warning = f"Renderer {timing}: {type(exc).__name__}: {exc}"
+                _, safe_warning = visual_failure_summary("render", exc)
+                warning = f"Renderer {timing}; {safe_warning}"
         stages.append("render")
 
         if render_batch is not None:
@@ -770,6 +813,7 @@ def process_emocio(
                     render_batch=render_batch,
                     observations=observations,
                     attempted_call_spec=exc.attempted_call_spec,
+                    attempted_call_record=exc.attempted_call_record,
                 )
                 _, visual_warning = visual_failure_summary("encoding", exc)
             except Exception as exc:

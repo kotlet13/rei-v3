@@ -8,11 +8,18 @@ the identities explicitly state that no model is used.
 
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass, field
 from typing import Generic, TypeVar
 
 from ..emocio.packets import build_emocio_packet
-from ..emocio.processor import EmocioProcessingResult, process_emocio
+from ..emocio.processor import DeterministicEmocioProcessor, EmocioProcessingResult
+from ..emocio.runtime import (
+    EmocioBinarySnapshot,
+    EmocioProcessingArtifact,
+    EmocioProcessorRuntimeConfig,
+    binary_snapshots_from_processing,
+)
 from ..ids import content_id
 from ..instinkt.processor import InstinktProcessResult, process_instinkt
 from ..instinkt.association_memory import BoundedAssociativeMemory
@@ -175,7 +182,7 @@ def _validate_call(
 def _successful_record(
     *,
     call: ProviderCallSpec,
-    output_artifact_id: NonEmptyId,
+    output_artifact_ids: tuple[NonEmptyId, ...],
     started_at: UtcTimestamp,
     finished_at: UtcTimestamp,
 ) -> ProviderCallRecord:
@@ -193,7 +200,7 @@ def _successful_record(
         finished_at=finished_at,
         status="succeeded",
         primary_status="succeeded",
-        output_artifact_ids=(output_artifact_id,),
+        output_artifact_ids=output_artifact_ids,
         safety_notice=call.safety_notice,
     )
     ensure_call_record_contract(call, record)
@@ -237,12 +244,15 @@ class NativeProviderExecution(Generic[NativeConclusionT]):
     call_spec: ProviderCallSpec
     call_record: ProviderCallRecord
 
+    def _expected_output_artifact_ids(self) -> tuple[NonEmptyId, ...]:
+        return (self.conclusion.conclusion_id,)
+
     def __post_init__(self) -> None:
         ensure_call_record_contract(self.call_spec, self.call_record)
         if self.call_record.status != "succeeded":
             raise ValueError("Deterministic native execution must succeed directly")
-        if self.call_record.output_artifact_ids != (self.conclusion.conclusion_id,):
-            raise ValueError("Native provider must produce exactly its one conclusion")
+        if self.call_record.output_artifact_ids != self._expected_output_artifact_ids():
+            raise ValueError("Native provider outputs differ from its exact artifacts")
 
 
 @dataclass(frozen=True, slots=True)
@@ -261,11 +271,35 @@ class EmocioNativeExecution(NativeProviderExecution[EmocioNativeConclusion]):
     """Provider-bound Emocio conclusion plus its replayable native intermediates."""
 
     processing: EmocioProcessingResult
+    runtime_config: EmocioProcessorRuntimeConfig | None = None
+    processing_artifact: EmocioProcessingArtifact | None = None
+    binary_snapshots: tuple[EmocioBinarySnapshot, ...] = ()
+
+    def _expected_output_artifact_ids(self) -> tuple[NonEmptyId, ...]:
+        outputs = (self.conclusion.conclusion_id,)
+        if self.processing_artifact is not None:
+            outputs = (*outputs, self.processing_artifact.result_id)
+        return outputs
 
     def __post_init__(self) -> None:
         NativeProviderExecution.__post_init__(self)
         if self.conclusion != self.processing.native_conclusion:
             raise ValueError("Emocio execution conclusion differs from its processing result")
+        configured = self.runtime_config is not None
+        if configured != (self.processing_artifact is not None):
+            raise ValueError(
+                "Configured Emocio execution requires runtime and processing artifacts"
+            )
+        if not configured and self.binary_snapshots:
+            raise ValueError(
+                "Default structured Emocio execution cannot publish binary snapshots"
+            )
+        if self.processing_artifact is not None and (
+            self.processing_artifact != EmocioProcessingArtifact.create(self.processing)
+        ):
+            raise ValueError(
+                "Emocio processing artifact differs from the executed result"
+            )
 
     @property
     def packet(self) -> EmocioInputPacket:
@@ -381,7 +415,7 @@ class DeterministicRacioNativeProvider:
         )
         record = _successful_record(
             call=call,
-            output_artifact_id=conclusion.conclusion_id,
+            output_artifact_ids=(conclusion.conclusion_id,),
             started_at=observed_start,
             finished_at=observed_finish,
         )
@@ -394,10 +428,52 @@ class DeterministicRacioNativeProvider:
 
 @dataclass(frozen=True, slots=True)
 class DeterministicEmocioNativeProvider:
-    """Provider-free facade over B6 Emocio processing; rendering stays disabled."""
+    """Provider-owned facade over one exact Emocio processor configuration."""
+
+    processor: DeterministicEmocioProcessor = field(
+        default_factory=DeterministicEmocioProcessor
+    )
+    publish_runtime_config: bool = False
+
+    @property
+    def _is_legacy_default(self) -> bool:
+        processor = self.processor
+        return (
+            not self.publish_runtime_config
+            and type(processor) is DeterministicEmocioProcessor
+            and processor.renderer is None
+            and type(processor.render_seed) is int
+            and processor.render_seed == 0
+            and processor.cognition_mode is None
+            and processor.image_encoder is None
+            and processor.visual_policy_config is None
+            and processor.visual_influence_approval is None
+            and processor.visual_influence_authority is None
+            and type(processor.encoding_timeout_seconds) is float
+            and processor.encoding_timeout_seconds == 30.0
+        )
+
+    @property
+    def runtime_config(self) -> EmocioProcessorRuntimeConfig:
+        return EmocioProcessorRuntimeConfig.from_processor(self.processor)
+
+    @staticmethod
+    def configured_identity(
+        runtime_config: EmocioProcessorRuntimeConfig,
+    ) -> ProviderIdentity:
+        return _identity(
+            capability="emocio_native",
+            kind="visual_world_model",
+            implementation="rei.emocio.process_emocio",
+            implementation_revision=(
+                "c4-runtime-v1:" + runtime_config.content_hash()
+            ),
+        )
 
     @property
     def identity(self) -> ProviderIdentity:
+        if not self._is_legacy_default:
+            return self.configured_identity(self.runtime_config)
         return _identity(
             capability="emocio_native",
             kind="visual_world_model",
@@ -413,12 +489,45 @@ class DeterministicEmocioNativeProvider:
     ) -> tuple[NonEmptyId, ...]:
         active_packet = packet or build_emocio_packet(scene)
         active_packet.validate_against(scene)
-        return _canonical_artifact_ids(
-            (
-                scene.event_id,
-                active_packet.packet_id,
-                emocio_world_input_id(world),
-            )
+        inputs = (
+            scene.event_id,
+            active_packet.packet_id,
+            emocio_world_input_id(world),
+        )
+        if not self._is_legacy_default:
+            inputs = (*inputs, *self.runtime_config.input_artifact_ids)
+        return _canonical_artifact_ids(inputs)
+
+    def configured_call_spec(
+        self,
+        scene: SceneEvent,
+        world: EmocioWorld,
+        packet: EmocioInputPacket,
+        *,
+        runtime_config: EmocioProcessorRuntimeConfig,
+    ) -> ProviderCallSpec:
+        scene_count = 3 + len(scene.options)
+        timeout_seconds = runtime_config.outer_timeout_seconds_for(
+            scene_count=scene_count,
+        )
+        return build_provider_call_spec(
+            identity=self.configured_identity(runtime_config),
+            request_id=packet.packet_id,
+            input_artifact_ids=_canonical_artifact_ids(
+                (
+                    scene.event_id,
+                    packet.packet_id,
+                    emocio_world_input_id(world),
+                    *runtime_config.input_artifact_ids,
+                )
+            ),
+            seed=runtime_config.render_seed,
+            parameters=runtime_config.provider_parameters,
+            timeout_seconds=timeout_seconds,
+            fallback_policy=ProviderFallbackPolicy(
+                mode="none",
+                no_fallback_reason=_NO_FALLBACK_REASON,
+            ),
         )
 
     def build_call_spec(
@@ -427,6 +536,14 @@ class DeterministicEmocioNativeProvider:
         world: EmocioWorld,
         packet: EmocioInputPacket,
     ) -> ProviderCallSpec:
+        if not self._is_legacy_default:
+            runtime_config = self.runtime_config
+            return self.configured_call_spec(
+                scene,
+                world,
+                packet,
+                runtime_config=runtime_config,
+            )
         return build_native_call_spec(
             identity=self.identity,
             request_id=packet.packet_id,
@@ -452,34 +569,91 @@ class DeterministicEmocioNativeProvider:
             started_at=started_at,
             finished_at=finished_at,
         )
+        legacy_default = self._is_legacy_default
+        monotonic_deadline = (
+            None
+            if legacy_default
+            else time.monotonic() + call.timeout_seconds
+        )
         active_packet = packet or build_emocio_packet(scene)
         active_packet.validate_against(scene)
-        _validate_call(
-            identity=self.identity,
-            call=call,
-            request_id=active_packet.packet_id,
-            expected_kind="visual_world_model",
-            expected_inputs=self.required_input_artifact_ids(
-                scene, world, active_packet
-            ),
-        )
-        processing = process_emocio(
+        runtime_config: EmocioProcessorRuntimeConfig | None = None
+        if legacy_default:
+            _validate_call(
+                identity=self.identity,
+                call=call,
+                request_id=active_packet.packet_id,
+                expected_kind="visual_world_model",
+                expected_inputs=self.required_input_artifact_ids(
+                    scene, world, active_packet
+                ),
+            )
+        else:
+            # Re-freeze the live dependencies immediately before execution.
+            # Any mutation since call approval therefore fails before a renderer
+            # or encoder can be invoked.
+            runtime_config = EmocioProcessorRuntimeConfig.from_processor(
+                self.processor
+            )
+            expected_call = self.configured_call_spec(
+                scene,
+                world,
+                active_packet,
+                runtime_config=runtime_config,
+            )
+            ensure_call_contract(
+                expected_call.provider,
+                call,
+                request_id=active_packet.packet_id,
+                seed=runtime_config.render_seed,
+                expected_kind="visual_world_model",
+                required_input_artifact_ids=expected_call.input_artifact_ids,
+            )
+            if call != expected_call:
+                raise ValueError(
+                    "Configured Emocio call differs from its exact runtime contract"
+                )
+            assert monotonic_deadline is not None
+            if time.monotonic() > monotonic_deadline:
+                raise TimeoutError(
+                    "Configured Emocio outer call exceeded its deadline"
+                )
+        processing = self.processor.process(
             scene,
             world,
-            renderer=None,
             packet=active_packet,
         )
+        if monotonic_deadline is not None and time.monotonic() > monotonic_deadline:
+            raise TimeoutError("Configured Emocio outer call exceeded its deadline")
         if processing.packet != active_packet:
             raise ValueError("Emocio provider packet differs from its approved request")
         conclusion = processing.native_conclusion
+        processing_artifact = (
+            None
+            if runtime_config is None
+            else EmocioProcessingArtifact.create(processing)
+        )
+        binary_snapshots = (
+            ()
+            if runtime_config is None
+            else binary_snapshots_from_processing(processing, self.processor)
+        )
+        if monotonic_deadline is not None and time.monotonic() > monotonic_deadline:
+            raise TimeoutError("Configured Emocio outer call exceeded its deadline")
         observed_finish = _execution_finish(
             clock=clock,
             stage="emocio_call_finished",
             finished_at=finished_at,
         )
+        output_artifact_ids = (conclusion.conclusion_id,)
+        if processing_artifact is not None:
+            output_artifact_ids = (
+                *output_artifact_ids,
+                processing_artifact.result_id,
+            )
         record = _successful_record(
             call=call,
-            output_artifact_id=conclusion.conclusion_id,
+            output_artifact_ids=output_artifact_ids,
             started_at=observed_start,
             finished_at=observed_finish,
         )
@@ -488,6 +662,9 @@ class DeterministicEmocioNativeProvider:
             call_spec=call,
             call_record=record,
             processing=processing,
+            runtime_config=runtime_config,
+            processing_artifact=processing_artifact,
+            binary_snapshots=binary_snapshots,
         )
 
 
@@ -626,7 +803,7 @@ class DeterministicInstinktNativeProvider:
         )
         record = _successful_record(
             call=call,
-            output_artifact_id=conclusion.conclusion_id,
+            output_artifact_ids=(conclusion.conclusion_id,),
             started_at=observed_start,
             finished_at=observed_finish,
         )
@@ -661,10 +838,22 @@ class DeterministicNativeProviders:
         return (self.racio.identity, self.emocio.identity, self.instinkt.identity)
 
 
-def build_deterministic_native_providers() -> DeterministicNativeProviders:
-    """Return the canonical no-model provider set with stable identities."""
+def build_deterministic_native_providers(
+    *,
+    emocio_processor: DeterministicEmocioProcessor | None = None,
+) -> DeterministicNativeProviders:
+    """Return the deterministic provider set with an optional Emocio runtime."""
 
-    return DeterministicNativeProviders()
+    return DeterministicNativeProviders(
+        emocio=(
+            DeterministicEmocioNativeProvider()
+            if emocio_processor is None
+            else DeterministicEmocioNativeProvider(
+                processor=emocio_processor,
+                publish_runtime_config=True,
+            )
+        )
+    )
 
 
 __all__ = [

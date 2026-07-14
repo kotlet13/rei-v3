@@ -11,6 +11,7 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Literal, Mapping
 
 from pydantic import Field, model_validator
@@ -27,6 +28,14 @@ from .ego.measure import build_ego_measure
 from .ego.projections import EgoModalityProjections, derive_modality_projections
 from .ego.trace_store import FileEgoTraceStore
 from .emocio.packets import build_emocio_packet
+from .emocio.processor import DeterministicEmocioProcessor
+from .emocio.runtime import (
+    EmocioBinarySnapshot,
+    EmocioProcessingArtifact,
+    EmocioProcessorRuntimeConfig,
+    validate_binary_snapshots_against_processing,
+    validate_processing_runtime_closure,
+)
 from .governance.behavior import BehaviorResolver, DeterministicBehaviorResolver
 from .governance.profiles import derive_effective_authority
 from .governance.resolver import resolve_governance
@@ -56,7 +65,13 @@ from .models.ego import (
     InstinktProjection,
     OutcomeRecord,
 )
-from .models.emocio import EmocioInputPacket, EmocioWorld
+from .models.emocio import (
+    EmocioInputPacket,
+    EmocioNativeConclusion,
+    EmocioVisualState,
+    EmocioWorld,
+    ImageArtifact,
+)
 from .models.governance import GovernanceResolution, PairNegotiationRound, TaskDelegation
 from .models.instinkt import (
     BodyState,
@@ -75,6 +90,8 @@ from .models.provider import (
 from .models.racio import NumericCue, RacioConsequence, RacioInputPacket, RacioWorld
 from .models.run import (
     ArtifactHashRecord,
+    EmocioExecutionManifestRecord,
+    EmocioMaterializedArtifactRecord,
     NativeBundleAssemblyRecord,
     NativeMindBundle,
     RunArtifactRecord,
@@ -84,6 +101,7 @@ from .models.run import (
 from .models.scene import SceneEvent
 from .persistence import ArtifactExistsError, FileArtifactStore, StoredArtifact
 from .providers.deterministic import (
+    DeterministicEmocioNativeProvider,
     build_deterministic_native_providers,
 )
 from .providers.native import (
@@ -623,6 +641,24 @@ def _unique_provider_identities(
     return tuple(ordered)
 
 
+def _provider_identities_from_calls(
+    specs: tuple[ProviderCallSpec, ...],
+    records: tuple[ProviderCallRecord, ...],
+) -> tuple[ProviderIdentity, ...]:
+    """Collect primary and fallback identities from an exact call ledger."""
+
+    identities: list[ProviderIdentity] = []
+    for spec in specs:
+        identities.append(spec.provider)
+        if spec.fallback_policy.plan is not None:
+            identities.append(spec.fallback_policy.plan.provider)
+    for record in records:
+        identities.append(record.provider)
+        if record.fallback is not None:
+            identities.append(record.fallback.provider)
+    return _unique_provider_identities(tuple(identities))
+
+
 def _decisive_body_after(execution: InstinktNativeExecution) -> BodyState | None:
     decisive_id = execution.conclusion.decisive_rollout_id
     if decisive_id is None:
@@ -659,10 +695,14 @@ class ReiNativeEngine:
         runs_root: str | Path = "output/runs",
         ego_traces_root: str | Path = "output/ego_traces",
         clock: ExecutionClock | None = None,
+        emocio_processor: DeterministicEmocioProcessor | None = None,
     ) -> ReiNativeEngine:
         return cls(
             artifact_store=FileArtifactStore(runs_root),
             ego_trace_store=FileEgoTraceStore(ego_traces_root),
+            providers=build_deterministic_native_providers(
+                emocio_processor=emocio_processor,
+            ),
             clock=clock or SystemExecutionClock(),
         )
 
@@ -875,6 +915,25 @@ class ReiNativeEngine:
             ),
         )
 
+        configured_emocio_modes = tuple(
+            parameter.canonical_json_value
+            for parameter in emocio_spec.parameters
+            if parameter.name == "emocio.cognition_mode"
+        )
+        if len(configured_emocio_modes) > 1:
+            raise ValueError("Emocio call declares cognition mode more than once")
+        configured_emocio_expected = bool(configured_emocio_modes)
+        if (
+            self.clock.synthetic
+            and configured_emocio_expected
+            and configured_emocio_modes[0]
+            != canonical_json_bytes("structured_only").decode("utf-8")
+        ):
+            raise ValueError(
+                "Configured rendering Emocio requires a system execution clock so "
+                "nested provider intervals remain auditable"
+            )
+
         with ThreadPoolExecutor(max_workers=3, thread_name_prefix="rei-native") as pool:
             racio_future = pool.submit(
                 self.providers.racio.execute,
@@ -902,8 +961,97 @@ class ReiNativeEngine:
                 clock=self.clock,
             )
             racio_execution = racio_future.result()
-            emocio_execution = emocio_future.result()
+            raw_emocio_execution = emocio_future.result()
             instinkt_execution = instinkt_future.result()
+
+        try:
+            raw_runtime_config = getattr(
+                raw_emocio_execution,
+                "runtime_config",
+                None,
+            )
+            raw_processing_artifact = getattr(
+                raw_emocio_execution,
+                "processing_artifact",
+                None,
+            )
+            emocio_execution = SimpleNamespace(
+                conclusion=EmocioNativeConclusion.model_validate(
+                    raw_emocio_execution.conclusion.model_dump(
+                        mode="python",
+                        round_trip=True,
+                    )
+                ),
+                call_spec=ProviderCallSpec.model_validate(
+                    raw_emocio_execution.call_spec.model_dump(
+                        mode="python",
+                        round_trip=True,
+                    )
+                ),
+                call_record=ProviderCallRecord.model_validate(
+                    raw_emocio_execution.call_record.model_dump(
+                        mode="python",
+                        round_trip=True,
+                    )
+                ),
+                source_world_id=raw_emocio_execution.source_world_id,
+                source_world_hash=raw_emocio_execution.source_world_hash,
+                packet=EmocioInputPacket.model_validate(
+                    raw_emocio_execution.packet.model_dump(
+                        mode="python",
+                        round_trip=True,
+                    )
+                ),
+                visual_state=EmocioVisualState.model_validate(
+                    raw_emocio_execution.visual_state.model_dump(
+                        mode="python",
+                        round_trip=True,
+                    )
+                ),
+                rendered_images=tuple(
+                    ImageArtifact.model_validate(
+                        image.model_dump(mode="python", round_trip=True)
+                    )
+                    for image in raw_emocio_execution.rendered_images
+                ),
+                renderer_warning=raw_emocio_execution.renderer_warning,
+                processing=getattr(raw_emocio_execution, "processing", None),
+                runtime_config=(
+                    None
+                    if raw_runtime_config is None
+                    else EmocioProcessorRuntimeConfig.model_validate(
+                        raw_runtime_config.model_dump(
+                            mode="python",
+                            round_trip=True,
+                        )
+                    )
+                ),
+                processing_artifact=(
+                    None
+                    if raw_processing_artifact is None
+                    else EmocioProcessingArtifact.model_validate(
+                        raw_processing_artifact.model_dump(
+                            mode="python",
+                            round_trip=True,
+                        )
+                    )
+                ),
+                binary_snapshots=tuple(
+                    getattr(raw_emocio_execution, "binary_snapshots", ())
+                ),
+            )
+        except (AttributeError, TypeError, ValueError) as exc:
+            raise ValueError(
+                "Emocio provider execution failed canonical capture"
+            ) from exc
+        if (
+            emocio_execution.renderer_warning is not None
+            and (
+                type(emocio_execution.renderer_warning) is not str
+                or not emocio_execution.renderer_warning
+            )
+        ):
+            raise ValueError("Emocio renderer warning must be non-empty text")
 
         if (
             racio_execution.call_spec != racio_spec
@@ -937,6 +1085,132 @@ class ReiNativeEngine:
             raise ValueError(
                 "Instinkt execution returned inputs other than its pre-approved body, "
                 "effects, memory or config"
+            )
+
+        emocio_runtime_config = getattr(emocio_execution, "runtime_config", None)
+        emocio_processing_artifact = getattr(
+            emocio_execution,
+            "processing_artifact",
+            None,
+        )
+        emocio_binary_snapshots = tuple(
+            getattr(emocio_execution, "binary_snapshots", ())
+        )
+        configured_emocio = emocio_runtime_config is not None
+        if configured_emocio != configured_emocio_expected:
+            raise ValueError(
+                "Emocio execution shape differs from its approved configured call"
+            )
+        if configured_emocio != (emocio_processing_artifact is not None):
+            raise ValueError(
+                "Configured Emocio execution must close its processing artifact"
+            )
+        if not configured_emocio and emocio_binary_snapshots:
+            raise ValueError(
+                "Legacy Emocio execution cannot publish configured binary snapshots"
+            )
+        if not configured_emocio and (
+            emocio_execution.rendered_images
+            or emocio_execution.renderer_warning is not None
+        ):
+            raise ValueError(
+                "Legacy Emocio execution must preserve the structured-only baseline"
+            )
+        ensure_call_record_contract(emocio_spec, emocio_execution.call_record)
+        expected_emocio_outputs = (emocio_execution.conclusion.conclusion_id,)
+        if emocio_processing_artifact is not None:
+            expected_emocio_outputs = (
+                *expected_emocio_outputs,
+                emocio_processing_artifact.result_id,
+            )
+        if (
+            emocio_execution.call_record.status != "succeeded"
+            or emocio_execution.call_record.primary_status != "succeeded"
+            or emocio_execution.call_record.fallback is not None
+            or emocio_execution.call_record.output_artifact_ids
+            != expected_emocio_outputs
+            or emocio_execution.call_record.warnings
+        ):
+            raise ValueError(
+                "Emocio execution record differs from its direct successful call"
+            )
+
+        nested_specs: tuple[ProviderCallSpec, ...] = ()
+        nested_records: tuple[ProviderCallRecord, ...] = ()
+        renderer_call_ids: tuple[str, ...] = ()
+        encoder_call_ids: tuple[str, ...] = ()
+        emocio_execution_record: EmocioExecutionManifestRecord | None = None
+        emocio_renderer_warning = emocio_execution.renderer_warning
+        emocio_visual_warning: str | None = None
+        if configured_emocio:
+            assert emocio_runtime_config is not None
+            assert emocio_processing_artifact is not None
+            expected_emocio_spec = (
+                DeterministicEmocioNativeProvider().configured_call_spec(
+                    request.scene,
+                    emocio_world,
+                    emocio_packet,
+                    runtime_config=emocio_runtime_config,
+                )
+            )
+            if emocio_spec != expected_emocio_spec:
+                raise ValueError(
+                    "Configured Emocio runtime differs from its approved call"
+                )
+            replayed_processing = emocio_processing_artifact.to_result(
+                request.scene,
+                emocio_world,
+            )
+            if (
+                replayed_processing.packet != emocio_execution.packet
+                or replayed_processing.visual_state != emocio_execution.visual_state
+                or replayed_processing.native_conclusion
+                != emocio_execution.conclusion
+                or replayed_processing.rendered_images
+                != emocio_execution.rendered_images
+                or replayed_processing.renderer_warning
+                != emocio_execution.renderer_warning
+            ):
+                raise ValueError(
+                    "Configured Emocio processing artifact differs from execution"
+                )
+            (
+                nested_specs,
+                nested_records,
+                renderer_call_ids,
+                encoder_call_ids,
+            ) = validate_processing_runtime_closure(
+                emocio_runtime_config,
+                replayed_processing,
+            )
+            validate_binary_snapshots_against_processing(
+                replayed_processing,
+                emocio_binary_snapshots,
+            )
+            emocio_execution.processing = replayed_processing
+            emocio_renderer_warning = replayed_processing.renderer_warning
+            emocio_visual_warning = replayed_processing.visual_warning
+            materialized = tuple(
+                EmocioMaterializedArtifactRecord(
+                    artifact_id=snapshot.artifact_id,
+                    role=snapshot.role,
+                    relative_path=snapshot.relative_path,
+                    content_sha256=snapshot.content_sha256,
+                    size_bytes=len(snapshot.content),
+                )
+                for snapshot in emocio_binary_snapshots
+            )
+            emocio_execution_record = EmocioExecutionManifestRecord.create(
+                outer_call_id=emocio_execution.call_spec.call_id,
+                processor_config_id=emocio_runtime_config.config_id,
+                processor_config_hash=emocio_runtime_config.content_hash(),
+                processing_artifact_id=emocio_processing_artifact.result_id,
+                processing_artifact_hash=(
+                    emocio_processing_artifact.content_hash()
+                ),
+                renderer_call_ids=renderer_call_ids,
+                encoder_call_ids=encoder_call_ids,
+                materialized_artifacts=materialized,
             )
 
         assembly_started_at = self.clock.timestamp("assembly_started")
@@ -1068,12 +1342,14 @@ class ReiNativeEngine:
             racio_execution.call_spec,
             emocio_execution.call_spec,
             instinkt_execution.call_spec,
+            *nested_specs,
             *(result.execution.call_spec for result in c3_results),
         )
         call_records: tuple[ProviderCallRecord, ...] = (
             racio_execution.call_record,
             emocio_execution.call_record,
             instinkt_execution.call_record,
+            *nested_records,
             *(result.execution.call_record for result in c3_results),
         )
         base_provider_identities = (
@@ -1081,27 +1357,39 @@ class ReiNativeEngine:
             self.artifact_store.identity,
             self.ego_trace_store.identity,
         )
+        additional_specs = (
+            *nested_specs,
+            *(result.execution.call_spec for result in c3_results),
+        )
+        additional_records = (
+            *nested_records,
+            *(result.execution.call_record for result in c3_results),
+        )
+        additional_provider_identities = _provider_identities_from_calls(
+            additional_specs,
+            additional_records,
+        )
         manifest_provider_identities = (
             _unique_provider_identities(
-                (
-                    *base_provider_identities,
-                    *(result.execution.call_spec.provider for result in c3_results),
-                )
+                (*base_provider_identities, *additional_provider_identities)
             )
-            if c3_results
+            if additional_provider_identities
             else base_provider_identities
         )
         warnings = tuple(
-            item
-            for item in (
-                emocio_execution.renderer_warning,
-                (
-                    "Deterministic logical execution clock; timestamps are synthetic."
-                    if self.clock.synthetic
-                    else None
-                ),
+            dict.fromkeys(
+                item
+                for item in (
+                    emocio_renderer_warning,
+                    emocio_visual_warning,
+                    (
+                        "Deterministic logical execution clock; timestamps are synthetic."
+                        if self.clock.synthetic
+                        else None
+                    ),
+                )
+                if item is not None
             )
-            if item is not None
         )
         provisional_manifest = RunManifest(
             run_id=request.run_id,
@@ -1118,6 +1406,7 @@ class ReiNativeEngine:
             native_artifact_hashes=_native_hashes(bundle),
             native_artifact_source="produced",
             native_assembly=assembly,
+            emocio_execution=emocio_execution_record,
             started_at=run_started_at,
             finished_at=run_finished_at,
             status="completed",
@@ -1194,6 +1483,22 @@ class ReiNativeEngine:
             "diagnostics/prepared_manifest.json",
             manifest,
         )
+        verify_prepared = getattr(
+            self.artifact_store,
+            "verify_prepared_run",
+            None,
+        )
+        if callable(verify_prepared):
+            verified_prepared = verify_prepared(request.run_id)
+            if verified_prepared != manifest:
+                raise ValueError(
+                    "Prepared run verifier returned another manifest"
+                )
+        elif configured_emocio:
+            raise ValueError(
+                "Configured Emocio requires a cold prepared-run verifier before "
+                "EgoTrace commit"
+            )
         self.ego_trace_store.append_measure(
             request.ego_id,
             ego_measure,
@@ -1328,6 +1633,51 @@ class ReiNativeEngine:
             "emocio/images/index.json",
             emocio_execution.rendered_images,
         )
+        runtime_config = getattr(emocio_execution, "runtime_config", None)
+        processing_artifact = getattr(
+            emocio_execution,
+            "processing_artifact",
+            None,
+        )
+        binary_snapshots = tuple(
+            getattr(emocio_execution, "binary_snapshots", ())
+        )
+        if runtime_config is not None:
+            if processing_artifact is None:
+                raise ValueError(
+                    "Configured Emocio persistence requires its processing artifact"
+                )
+            write_json(
+                "emocio/processor_config.json",
+                runtime_config,
+            )
+            write_json(
+                "emocio/processing_result.json",
+                processing_artifact,
+            )
+            persisted_binary_paths: dict[str, EmocioBinarySnapshot] = {}
+            for snapshot in binary_snapshots:
+                previous = persisted_binary_paths.setdefault(
+                    snapshot.relative_path,
+                    snapshot,
+                )
+                if previous is not snapshot:
+                    if (
+                        previous.role != snapshot.role
+                        or previous.content_sha256 != snapshot.content_sha256
+                        or previous.content != snapshot.content
+                    ):
+                        raise ValueError(
+                            "One Emocio binary path cannot map to conflicting bytes"
+                        )
+                    continue
+                records.append(
+                    self.artifact_store.write_bytes(
+                        run_id,
+                        snapshot.relative_path,
+                        snapshot.content,
+                    )
+                )
 
         write_json("instinkt/body_before.json", request.body_state)
         write_json("instinkt/simulation_config.json", request.instinkt_config)

@@ -12,9 +12,12 @@ from typing import Literal, Self
 
 from pydantic import model_validator
 
-from ..models.common import FrozenModel, Score01
+from ..ids import content_id
+from ..models.common import FrozenArtifactModel, FrozenModel, NonEmptyId, Score01
 from ..models.emocio import ImageArtifact, VisualSceneSpec
+from ..models.provider import ProviderIdentity
 from ..models.rendering import (
+    ImagePipelineSpec,
     ImageRenderBatchOutcome,
     ImageRenderBatchStatus,
     ImageRenderItemOutcome,
@@ -22,6 +25,10 @@ from ..models.rendering import (
     ImageSourceReference,
 )
 from ..providers.protocols import ImageRenderer
+from .prompting import (
+    PromptCompilerRuntimeBinding,
+    prompt_compiler_runtime_binding,
+)
 from .renderer import (
     LocalEmocioRenderer,
     RenderSettings,
@@ -51,6 +58,89 @@ class CurrentFirstRolloutConfig(FrozenModel):
                 "classic_strength conditioning requires an explicit strength"
             )
         return self
+
+
+class CurrentFirstRendererRuntimeBinding(FrozenArtifactModel):
+    """Exact provider, pipelines, settings, rollout, and prompt runtime closure."""
+
+    schema_version: Literal["rei-native-current-first-renderer-binding-v1"] = (
+        "rei-native-current-first-renderer-binding-v1"
+    )
+    binding_id: NonEmptyId
+    provider_identity: ProviderIdentity
+    text_to_image_pipeline: ImagePipelineSpec
+    image_to_image_pipeline: ImagePipelineSpec
+    render_settings: RenderSettings
+    rollout_config: CurrentFirstRolloutConfig
+    prompt_compiler_binding: PromptCompilerRuntimeBinding
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        provider_identity: ProviderIdentity,
+        text_to_image_pipeline: ImagePipelineSpec,
+        image_to_image_pipeline: ImagePipelineSpec,
+        render_settings: RenderSettings,
+        rollout_config: CurrentFirstRolloutConfig,
+        prompt_compiler_binding: PromptCompilerRuntimeBinding,
+    ) -> CurrentFirstRendererRuntimeBinding:
+        provider = ProviderIdentity.model_validate(
+            provider_identity.model_dump(mode="python", round_trip=True)
+        )
+        text_pipeline = ImagePipelineSpec.model_validate(
+            text_to_image_pipeline.model_dump(mode="python", round_trip=True)
+        )
+        image_pipeline = ImagePipelineSpec.model_validate(
+            image_to_image_pipeline.model_dump(mode="python", round_trip=True)
+        )
+        settings = RenderSettings.model_validate(
+            render_settings.model_dump(mode="python", round_trip=True)
+        )
+        rollout = CurrentFirstRolloutConfig.model_validate(
+            rollout_config.model_dump(mode="python", round_trip=True)
+        )
+        compiler = PromptCompilerRuntimeBinding.model_validate(
+            prompt_compiler_binding.model_dump(mode="python", round_trip=True)
+        )
+        payload = {
+            "schema_version": "rei-native-current-first-renderer-binding-v1",
+            "provider_identity": provider,
+            "text_to_image_pipeline": text_pipeline,
+            "image_to_image_pipeline": image_pipeline,
+            "render_settings": settings,
+            "rollout_config": rollout,
+            "prompt_compiler_binding": compiler,
+        }
+        return cls(
+            binding_id=content_id("current_first_renderer_binding", payload),
+            **payload,
+        )
+
+    @model_validator(mode="after")
+    def validate_binding(self) -> Self:
+        if self.provider_identity.kind != "image_renderer":
+            raise ValueError(
+                "Current-first runtime binding requires an image renderer"
+            )
+        expected_id = content_id(
+            "current_first_renderer_binding",
+            self.model_dump(
+                mode="python",
+                round_trip=True,
+                exclude={"binding_id"},
+            ),
+        )
+        if self.binding_id != expected_id:
+            raise ValueError(
+                "Current-first renderer binding ID differs from canonical content"
+            )
+        return self
+
+
+def _safe_exception_code(error: Exception) -> str:
+    del error
+    return "current_source_preparation_failure"
 
 
 def _validate_scene_order(
@@ -127,6 +217,36 @@ class CurrentFirstEmocioRenderer:
         self._prompt_compiler = prompt_compiler or StructuredScenePromptCompiler()
         self._rollout = rollout or CurrentFirstRolloutConfig()
 
+    def runtime_binding(self) -> CurrentFirstRendererRuntimeBinding:
+        """Return the exact deterministic runtime inputs used by this coordinator."""
+
+        return CurrentFirstRendererRuntimeBinding.create(
+            provider_identity=self._provider.identity,
+            text_to_image_pipeline=self._provider.pipeline_spec("text_to_image"),
+            image_to_image_pipeline=self._provider.pipeline_spec("image_to_image"),
+            render_settings=self._settings,
+            rollout_config=self._rollout,
+            prompt_compiler_binding=prompt_compiler_runtime_binding(
+                self._prompt_compiler
+            ),
+        )
+
+    def read_artifact_bytes(self, image: ImageArtifact) -> bytes:
+        """Delegate byte materialization only to a provider that verifies artifacts."""
+
+        validated = ImageArtifact.model_validate(
+            image.model_dump(mode="python", round_trip=True)
+        )
+        reader = getattr(self._provider, "read_artifact_bytes", None)
+        if not callable(reader):
+            raise TypeError(
+                "Current-first renderer provider cannot verify artifact bytes"
+            )
+        data = reader(validated)
+        if type(data) is not bytes:
+            raise TypeError("Materialized renderer must return exact bytes")
+        return data
+
     def _text_renderer(self) -> LocalEmocioRenderer:
         return LocalEmocioRenderer(
             provider=self._provider,
@@ -197,10 +317,10 @@ class CurrentFirstEmocioRenderer:
                     current_artifact
                 )
             except Exception as exc:
-                message = " ".join(str(exc).split())[:500] or type(exc).__name__
+                code = _safe_exception_code(exc)
                 extra_warnings = (
                     "Current scene artifact could not become a verified rollout "
-                    f"source: {message}",
+                    f"source; preparation failed closed ({code})",
                 )
 
         if rollouts and source is not None:
@@ -265,6 +385,7 @@ class CurrentFirstEmocioRenderer:
 
 __all__ = [
     "CurrentFirstEmocioRenderer",
+    "CurrentFirstRendererRuntimeBinding",
     "CurrentFirstRolloutConfig",
     "RolloutConditioningMethod",
 ]

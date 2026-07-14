@@ -114,6 +114,17 @@ class ImagePipelineSpec(FrozenModel):
     implementation_revision: NonEmptyText
     parameters: tuple[ProviderParameter, ...] = ()
 
+    @model_validator(mode="before")
+    @classmethod
+    def preserve_canonical_json_parameters(cls, value: object) -> object:
+        """Permit canonical JSON arrays during nested strict-model replay."""
+
+        if isinstance(value, dict) and isinstance(value.get("parameters"), list):
+            updated = dict(value)
+            updated["parameters"] = tuple(updated["parameters"])
+            return updated
+        return value
+
     @model_validator(mode="after")
     def validate_parameters(self) -> Self:
         names = tuple(item.name for item in self.parameters)

@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Self
 
-from pydantic import model_validator
+from pydantic import Field, model_validator
 
 from ..ids import content_id
 from ..models.common import (
     FrozenArtifactModel,
+    HashDigest,
     LanguageCode,
     NonEmptyId,
     NonEmptyText,
@@ -163,6 +164,117 @@ class VisualPromptProfile(FrozenArtifactModel):
         return self
 
 
+class PromptCompilerRuntimeBinding(FrozenArtifactModel):
+    """Exact content-addressed prompt compiler implementation used at runtime."""
+
+    schema_version: Literal["rei-native-prompt-compiler-runtime-binding-v1"] = (
+        "rei-native-prompt-compiler-runtime-binding-v1"
+    )
+    binding_id: NonEmptyId
+    implementation: NonEmptyText
+    implementation_revision: NonEmptyText
+    prompt_profile_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    prompt_profile_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    prompt_profile: VisualPromptProfile | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        implementation: str,
+        implementation_revision: str,
+        prompt_profile: VisualPromptProfile | None = None,
+    ) -> PromptCompilerRuntimeBinding:
+        profile = None
+        if prompt_profile is not None:
+            profile = VisualPromptProfile.model_validate(
+                prompt_profile.model_dump(mode="python", round_trip=True)
+            )
+        payload = {
+            "schema_version": "rei-native-prompt-compiler-runtime-binding-v1",
+            "implementation": implementation,
+            "implementation_revision": implementation_revision,
+        }
+        if profile is not None:
+            payload.update(
+                prompt_profile_id=profile.profile_id,
+                prompt_profile_hash=profile.content_hash(),
+                prompt_profile=profile,
+            )
+        return cls(
+            binding_id=content_id("prompt_compiler_runtime_binding", payload),
+            **payload,
+        )
+
+    @model_validator(mode="after")
+    def validate_binding(self) -> Self:
+        profile_lineage = (
+            self.prompt_profile_id,
+            self.prompt_profile_hash,
+            self.prompt_profile,
+        )
+        if any(item is None for item in profile_lineage) != all(
+            item is None for item in profile_lineage
+        ):
+            raise ValueError(
+                "Prompt compiler profile content, ID and hash must be recorded together"
+            )
+        if self.prompt_profile is not None and (
+            self.prompt_profile_id != self.prompt_profile.profile_id
+            or self.prompt_profile_hash != self.prompt_profile.content_hash()
+        ):
+            raise ValueError(
+                "Prompt compiler profile lineage differs from its exact content"
+            )
+        structured_implementation = (
+            "app.backend.rei.emocio.renderer.StructuredScenePromptCompiler"
+        )
+        bilingual_implementation = (
+            "app.backend.rei.emocio.prompting."
+            "BilingualStructuredScenePromptCompiler"
+        )
+        if self.implementation_revision != "1":
+            raise ValueError(
+                "Prompt compiler runtime binding requires reviewed revision 1"
+            )
+        if self.implementation == structured_implementation:
+            if self.prompt_profile is not None:
+                raise ValueError(
+                    "Structured prompt compiler cannot carry a bilingual profile"
+                )
+        elif self.implementation == bilingual_implementation:
+            if self.prompt_profile is None:
+                raise ValueError(
+                    "Bilingual prompt compiler requires its exact profile"
+                )
+        else:
+            raise ValueError(
+                "Prompt compiler runtime binding uses an unreviewed implementation"
+            )
+        expected_id = content_id(
+            "prompt_compiler_runtime_binding",
+            self.model_dump(
+                mode="python",
+                round_trip=True,
+                exclude={"binding_id"},
+            ),
+        )
+        if self.binding_id != expected_id:
+            raise ValueError(
+                "Prompt compiler runtime binding ID differs from canonical content"
+            )
+        return self
+
+
 class BilingualStructuredScenePromptCompiler:
     """Compile every structured scene field with an SL or EN operational gloss."""
 
@@ -259,7 +371,39 @@ class BilingualStructuredScenePromptCompiler:
         )
 
 
+def prompt_compiler_runtime_binding(
+    compiler: object,
+) -> PromptCompilerRuntimeBinding:
+    """Bind only the two reviewed deterministic prompt compiler implementations."""
+
+    if type(compiler) is BilingualStructuredScenePromptCompiler:
+        return PromptCompilerRuntimeBinding.create(
+            implementation=(
+                "app.backend.rei.emocio.prompting."
+                "BilingualStructuredScenePromptCompiler"
+            ),
+            implementation_revision="1",
+            prompt_profile=compiler.prompt_profile,
+        )
+
+    # Imported lazily to preserve renderer.py's historical import of prompting.py.
+    from .renderer import StructuredScenePromptCompiler
+
+    if type(compiler) is StructuredScenePromptCompiler:
+        return PromptCompilerRuntimeBinding.create(
+            implementation=(
+                "app.backend.rei.emocio.renderer.StructuredScenePromptCompiler"
+            ),
+            implementation_revision="1",
+        )
+    raise TypeError(
+        "Unsupported scene prompt compiler; runtime binding fails closed"
+    )
+
+
 __all__ = [
     "BilingualStructuredScenePromptCompiler",
+    "PromptCompilerRuntimeBinding",
     "VisualPromptProfile",
+    "prompt_compiler_runtime_binding",
 ]

@@ -328,6 +328,147 @@ class RunArtifactRecord(FrozenModel):
         return self
 
 
+EmocioMaterializedArtifactRole = Literal["image", "vector"]
+
+
+class EmocioMaterializedArtifactRecord(FrozenModel):
+    """One verified binary handed from configured Emocio into run storage."""
+
+    artifact_id: NonEmptyId
+    role: EmocioMaterializedArtifactRole
+    relative_path: ArtifactRelativePath
+    content_sha256: HashDigest
+    size_bytes: int = Field(ge=0)
+
+    @model_validator(mode="after")
+    def validate_emocio_binary_path(self) -> Self:
+        if len(self.relative_path.split("/")) != 3:
+            raise ValueError(
+                "Materialized Emocio binary must be a direct file in its role directory"
+            )
+        if self.role == "image":
+            if not self.relative_path.startswith("emocio/images/") or not (
+                self.relative_path.endswith(".png")
+            ):
+                raise ValueError(
+                    "Materialized Emocio image must use emocio/images/*.png"
+                )
+        elif not self.relative_path.startswith("emocio/embeddings/") or not (
+            self.relative_path.endswith(".f32")
+        ):
+            raise ValueError(
+                "Materialized Emocio vector must use emocio/embeddings/*.f32"
+            )
+        return self
+
+
+class EmocioExecutionManifestRecord(FrozenArtifactModel):
+    """Manifest link from one configured Emocio call to all nested work."""
+
+    schema_version: Literal["rei-native-emocio-execution-manifest-v1"] = (
+        "rei-native-emocio-execution-manifest-v1"
+    )
+    record_id: NonEmptyId
+    outer_call_id: NonEmptyId
+    processor_config_id: NonEmptyId
+    processor_config_hash: HashDigest
+    processor_config_path: Literal["emocio/processor_config.json"] = (
+        "emocio/processor_config.json"
+    )
+    processing_artifact_id: NonEmptyId
+    processing_artifact_hash: HashDigest
+    processing_artifact_path: Literal["emocio/processing_result.json"] = (
+        "emocio/processing_result.json"
+    )
+    renderer_call_ids: tuple[NonEmptyId, ...] = ()
+    encoder_call_ids: tuple[NonEmptyId, ...] = ()
+    materialized_artifacts: tuple[EmocioMaterializedArtifactRecord, ...] = ()
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        outer_call_id: str,
+        processor_config_id: str,
+        processor_config_hash: str,
+        processing_artifact_id: str,
+        processing_artifact_hash: str,
+        renderer_call_ids: tuple[str, ...] = (),
+        encoder_call_ids: tuple[str, ...] = (),
+        materialized_artifacts: tuple[EmocioMaterializedArtifactRecord, ...] = (),
+    ) -> EmocioExecutionManifestRecord:
+        payload = {
+            "schema_version": "rei-native-emocio-execution-manifest-v1",
+            "outer_call_id": outer_call_id,
+            "processor_config_id": processor_config_id,
+            "processor_config_hash": processor_config_hash,
+            "processor_config_path": "emocio/processor_config.json",
+            "processing_artifact_id": processing_artifact_id,
+            "processing_artifact_hash": processing_artifact_hash,
+            "processing_artifact_path": "emocio/processing_result.json",
+            "renderer_call_ids": renderer_call_ids,
+            "encoder_call_ids": encoder_call_ids,
+            "materialized_artifacts": tuple(
+                sorted(
+                    materialized_artifacts,
+                    key=lambda item: (item.relative_path, item.artifact_id),
+                )
+            ),
+        }
+        return cls(
+            record_id=content_id("emocio_execution_manifest", payload),
+            **payload,
+        )
+
+    @model_validator(mode="after")
+    def validate_emocio_execution_record(self) -> Self:
+        if len(set(self.renderer_call_ids)) != len(self.renderer_call_ids):
+            raise ValueError("Emocio renderer call IDs must be unique")
+        if len(set(self.encoder_call_ids)) != len(self.encoder_call_ids):
+            raise ValueError("Emocio encoder call IDs must be unique")
+        if set(self.renderer_call_ids).intersection(self.encoder_call_ids):
+            raise ValueError("Emocio renderer and encoder call IDs must be disjoint")
+        artifact_order = tuple(
+            (item.relative_path, item.artifact_id)
+            for item in self.materialized_artifacts
+        )
+        if artifact_order != tuple(sorted(artifact_order)):
+            raise ValueError(
+                "Materialized Emocio artifacts must use canonical path/ID order"
+            )
+        artifact_ids = tuple(
+            item.artifact_id for item in self.materialized_artifacts
+        )
+        if len(set(artifact_ids)) != len(artifact_ids):
+            raise ValueError(
+                "Materialized Emocio artifact IDs must be unique"
+            )
+        artifacts_by_path: dict[str, EmocioMaterializedArtifactRecord] = {}
+        for item in self.materialized_artifacts:
+            previous = artifacts_by_path.setdefault(item.relative_path, item)
+            if (
+                previous.role != item.role
+                or previous.content_sha256 != item.content_sha256
+                or previous.size_bytes != item.size_bytes
+            ):
+                raise ValueError(
+                    "One materialized Emocio path cannot name conflicting bytes"
+                )
+        expected_id = content_id(
+            "emocio_execution_manifest",
+            self.model_dump(
+                mode="python",
+                round_trip=True,
+                exclude={"record_id"},
+            ),
+        )
+        if self.record_id != expected_id:
+            raise ValueError(
+                "Emocio execution manifest ID differs from canonical content"
+            )
+        return self
+
+
 class NativeBundleAssemblyRecord(FrozenArtifactModel):
     """Deterministic core step that freezes three provider outputs into a bundle."""
 
@@ -390,6 +531,10 @@ class RunManifest(FrozenArtifactModel):
     native_artifact_hashes: tuple[ArtifactHashRecord, ...] = ()
     native_artifact_source: NativeArtifactSource
     native_assembly: NativeBundleAssemblyRecord | None = None
+    emocio_execution: EmocioExecutionManifestRecord | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
     started_at: UtcTimestamp
     finished_at: UtcTimestamp | None = None
     status: RunStatus = "created"
@@ -457,11 +602,129 @@ class RunManifest(FrozenArtifactModel):
             ):
                 raise ValueError("Fallback spec differs from its manifest identity")
         spec_by_id = {spec.call_id: spec for spec in self.provider_call_specs}
+        call_by_id = {call.call_id: call for call in self.provider_calls}
         for call in self.provider_calls:
             spec = spec_by_id.get(call.call_id)
             if spec is None:
                 raise ValueError("Every provider call record requires its original spec")
             ensure_call_record_contract(spec, call)
+        renderer_call_ids = tuple(
+            call.call_id
+            for call in self.provider_calls
+            if call.provider.kind == "image_renderer"
+        )
+        encoder_call_ids = tuple(
+            call.call_id
+            for call in self.provider_calls
+            if call.provider.kind == "image_encoder"
+        )
+        if self.emocio_execution is None:
+            if renderer_call_ids or encoder_call_ids:
+                raise ValueError(
+                    "Nested visual provider calls require an Emocio execution record"
+                )
+        else:
+            execution = EmocioExecutionManifestRecord.model_validate(
+                self.emocio_execution.model_dump(
+                    mode="python",
+                    round_trip=True,
+                )
+            )
+            outer_spec = spec_by_id.get(execution.outer_call_id)
+            outer_call = call_by_id.get(execution.outer_call_id)
+            if outer_spec is None or outer_call is None:
+                raise ValueError(
+                    "Emocio execution record requires its exact outer call"
+                )
+            if outer_call.provider.kind != "visual_world_model":
+                raise ValueError(
+                    "Emocio outer call must use a visual-world-model provider"
+                )
+            if execution.processor_config_id not in outer_spec.input_artifact_ids:
+                raise ValueError(
+                    "Configured Emocio outer call omits its processor config input"
+                )
+            if (
+                execution.processing_artifact_id
+                not in outer_call.output_artifact_ids
+            ):
+                raise ValueError(
+                    "Configured Emocio outer call omits its processing artifact output"
+                )
+            if execution.renderer_call_ids != renderer_call_ids:
+                raise ValueError(
+                    "Emocio renderer calls differ from their manifest execution order"
+                )
+            if execution.encoder_call_ids != encoder_call_ids:
+                raise ValueError(
+                    "Emocio encoder calls differ from their manifest execution order"
+                )
+            nested_call_ids = (*renderer_call_ids, *encoder_call_ids)
+            if execution.outer_call_id in nested_call_ids:
+                raise ValueError("Emocio outer call cannot also be a nested call")
+            for call_id in nested_call_ids:
+                nested_spec = spec_by_id.get(call_id)
+                nested_call = call_by_id.get(call_id)
+                if nested_spec is None or nested_call is None:
+                    raise ValueError(
+                        "Every nested Emocio call requires exact spec and record"
+                    )
+                if (
+                    nested_call.started_at < outer_call.started_at
+                    or nested_call.finished_at > outer_call.finished_at
+                ):
+                    raise ValueError(
+                        "Nested Emocio calls must execute inside the outer call interval"
+                    )
+            ordered_nested_calls = tuple(
+                call_by_id[call_id] for call_id in nested_call_ids
+            )
+            for previous, current in zip(
+                ordered_nested_calls,
+                ordered_nested_calls[1:],
+            ):
+                if current.started_at < previous.finished_at:
+                    raise ValueError(
+                        "Nested Emocio calls must preserve causal execution order"
+                    )
+            expected_image_ids = {
+                artifact_id
+                for call_id in renderer_call_ids
+                for artifact_id in call_by_id[call_id].output_artifact_ids
+            }
+            expected_vector_ids = {
+                artifact_id
+                for call_id in encoder_call_ids
+                for artifact_id in call_by_id[call_id].output_artifact_ids
+            }
+            recorded_image_ids = {
+                item.artifact_id
+                for item in execution.materialized_artifacts
+                if item.role == "image"
+            }
+            recorded_vector_ids = {
+                item.artifact_id
+                for item in execution.materialized_artifacts
+                if item.role == "vector"
+            }
+            if recorded_image_ids != expected_image_ids:
+                raise ValueError(
+                    "Materialized Emocio images differ from renderer outputs"
+                )
+            if recorded_vector_ids != expected_vector_ids:
+                raise ValueError(
+                    "Materialized Emocio vectors differ from encoder outputs"
+                )
+            if self.native_assembly is not None and set(
+                outer_call.output_artifact_ids
+            ) != {
+                self.native_assembly.emocio_conclusion_id,
+                execution.processing_artifact_id,
+            }:
+                raise ValueError(
+                    "Configured Emocio outer outputs must be conclusion plus "
+                    "processing artifact"
+                )
         expected_seeds: dict[tuple[str, str], tuple[str, int]] = {}
         for call in self.provider_calls:
             if call.seed is not None:
@@ -625,6 +888,39 @@ class RunManifest(FrozenArtifactModel):
             raise ValueError("Run artifact inventory paths must be sorted and unique")
         if any(item.run_id != self.run_id for item in self.artifact_inventory):
             raise ValueError("Run artifact inventory entries belong to another run")
+        if self.emocio_execution is not None:
+            inventory_by_path = {
+                item.relative_path: item for item in self.artifact_inventory
+            }
+            execution = self.emocio_execution
+            config_entry = inventory_by_path.get(execution.processor_config_path)
+            result_entry = inventory_by_path.get(execution.processing_artifact_path)
+            if (
+                config_entry is None
+                or config_entry.content_sha256
+                != execution.processor_config_hash
+            ):
+                raise ValueError(
+                    "Emocio processor config differs from durable inventory"
+                )
+            if (
+                result_entry is None
+                or result_entry.content_sha256
+                != execution.processing_artifact_hash
+            ):
+                raise ValueError(
+                    "Emocio processing artifact differs from durable inventory"
+                )
+            for materialized in execution.materialized_artifacts:
+                entry = inventory_by_path.get(materialized.relative_path)
+                if (
+                    entry is None
+                    or entry.content_sha256 != materialized.content_sha256
+                    or entry.size_bytes != materialized.size_bytes
+                ):
+                    raise ValueError(
+                        "Materialized Emocio binary differs from durable inventory"
+                    )
         if any(
             path in {"run_manifest.json", "diagnostics/prepared_manifest.json"}
             for path in paths
@@ -700,6 +996,9 @@ class RunManifest(FrozenArtifactModel):
 __all__ = [
     "ArtifactHashRecord",
     "ArtifactHashRole",
+    "EmocioExecutionManifestRecord",
+    "EmocioMaterializedArtifactRecord",
+    "EmocioMaterializedArtifactRole",
     "LineageArtifactHash",
     "NativeArtifactSource",
     "NativeMindBundle",

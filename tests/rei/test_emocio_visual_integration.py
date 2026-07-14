@@ -23,6 +23,7 @@ from app.backend.rei.emocio import (
     visual_cognition_runtime_profile_hash,
 )
 from app.backend.rei.emocio import visual_integration
+from app.backend.rei.emocio.runtime import EmocioProcessingArtifact
 from app.backend.rei.emocio.vector_encoding import (
     canonical_l2_float32_le_vector,
 )
@@ -45,6 +46,7 @@ from app.backend.rei.providers.protocols import (
     ImageEncodingRequest,
     ImageEncodingSpec,
     VerifiedImageEncoding,
+    build_image_encoding_call_spec,
 )
 from tests.rei.test_emocio import _scene, _world
 
@@ -217,22 +219,9 @@ class DeterministicVisualEncoder:
         timeout_seconds: float,
     ) -> ProviderCallSpec:
         request = self.request_for(image)
-        payload = {
-            "schema_version": "rei-native-provider-call-spec-v1",
-            "request_id": request.request_id,
-            "input_artifact_ids": (image.image_id,),
-            "provider": self.identity,
-            "seed": 0,
-            "parameters": request.provider_parameters,
-            "timeout_seconds": timeout_seconds,
-            "fallback_policy": ProviderFallbackPolicy(
-                mode="none",
-                no_fallback_reason="Synthetic encoder fails closed",
-            ),
-        }
-        return ProviderCallSpec(
-            call_id=content_id("image_encoding_call", payload),
-            **payload,
+        return build_image_encoding_call_spec(
+            request,
+            timeout_seconds=timeout_seconds,
         )
 
     def encode(
@@ -252,7 +241,7 @@ class DeterministicVisualEncoder:
         )
         raw_vector = self._vectors_by_scene_id[image.source_spec_id]
         _, vector, vector_hash = canonical_l2_float32_le_vector(raw_vector)
-        vector_ref = f"emocio/vectors/{vector_hash}.f32"
+        vector_ref = f"emocio/embeddings/{vector_hash}.f32"
         encoding_id = VerifiedImageEncoding.derive_id(
             request=request,
             vector_ref=vector_ref,
@@ -623,6 +612,9 @@ def test_visual_encoding_failure_preserves_partial_provenance_without_secrets(
     assert result.visual_failure is not None
     assert result.visual_failure.stage == "encoding"
     assert result.visual_failure.attempted_call_spec is not None
+    assert result.visual_failure.attempted_call_record is not None
+    assert result.visual_failure.attempted_call_record.status == "failed"
+    assert result.visual_failure.attempted_call_record.output_artifact_ids == ()
     assert result.visual_failure.observation_ids == (
         result.visual_observations[0].observation_id,
     )
@@ -632,6 +624,100 @@ def test_visual_encoding_failure_preserves_partial_provenance_without_secrets(
     assert secret not in persisted_text
     assert absolute_path not in persisted_text
     assert "Kotlet" not in persisted_text
+
+
+def test_successful_encoder_warnings_are_redacted_before_persistence(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _, renderer, encoder, config, _, _ = _visual_dependencies()
+    original_encode = encoder.encode
+    secret = "sk-c4-success-warning-must-not-persist"
+
+    def encode_with_warning(
+        image: ImageArtifact,
+        *,
+        call: ProviderCallSpec,
+    ) -> VerifiedImageEncoding:
+        encoding = original_encode(image, call=call)
+        warned_record = encoding.call.model_copy(
+            update={"warnings": (secret,)}
+        )
+        return VerifiedImageEncoding.create(
+            request=encoding.request,
+            vector_ref=encoding.vector_ref,
+            vector_hash=encoding.vector_hash,
+            dimensions=encoding.dimensions,
+            call_spec=encoding.call_spec,
+            call=warned_record,
+        )
+
+    monkeypatch.setattr(encoder, "encode", encode_with_warning)
+    result = process_emocio(
+        _scene(),
+        _world(),
+        renderer=renderer,
+        render_seed=41,
+        cognition_mode="visual_cognition",
+        image_encoder=encoder,
+        visual_policy_config=config,
+    )
+
+    assert len(result.visual_observations) == 5
+    assert all(
+        observation.encoding.call.warnings == ()
+        for observation in result.visual_observations
+    )
+    assert secret.encode("utf-8") not in (
+        EmocioProcessingArtifact.create(result).canonical_json_bytes()
+    )
+
+
+def test_unapproved_encoder_call_text_is_rejected_without_persistence(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _, renderer, encoder, config, _, _ = _visual_dependencies()
+    original_build = encoder.build_call_spec
+    calls_before = encoder.calls
+    secret = "C4-UNAPPROVED-ENCODER-FALLBACK-SECRET"
+
+    def build_unapproved_call(
+        image: ImageArtifact,
+        *,
+        timeout_seconds: float,
+    ) -> ProviderCallSpec:
+        call = original_build(image, timeout_seconds=timeout_seconds)
+        payload = call.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"call_id"},
+        )
+        payload["fallback_policy"] = ProviderFallbackPolicy(
+            mode="none",
+            no_fallback_reason=secret,
+        )
+        return ProviderCallSpec(
+            call_id=content_id("image_encoding_call", payload),
+            **payload,
+        )
+
+    monkeypatch.setattr(encoder, "build_call_spec", build_unapproved_call)
+    result = process_emocio(
+        _scene(),
+        _world(),
+        renderer=renderer,
+        render_seed=41,
+        cognition_mode="visual_cognition",
+        image_encoder=encoder,
+        visual_policy_config=config,
+    )
+
+    assert encoder.calls == calls_before
+    assert result.visual_failure is not None
+    assert result.visual_failure.stage == "encoding"
+    assert result.visual_failure.attempted_call_spec is None
+    assert secret.encode("utf-8") not in (
+        EmocioProcessingArtifact.create(result).canonical_json_bytes()
+    )
 
 
 def test_visual_encoding_failure_rejects_foreign_partial_observation(
@@ -724,9 +810,9 @@ def test_unpinned_visual_authority_fails_closed() -> None:
     assert result.effective_policy == baseline.policy
     assert result.visual_failure is not None
     assert result.visual_failure.stage == "approval"
-    assert result.visual_failure.failure_code == "ValueError"
+    assert result.visual_failure.failure_code == "visual_approval_failure"
     assert result.visual_warning == (
-        "Visual cognition approval failed closed (ValueError)"
+        "Visual cognition approval failed closed (visual_approval_failure)"
     )
     result.validate_against(_scene(), _world())
 
@@ -756,9 +842,9 @@ def test_visual_approval_rejects_runtime_seed_outside_reviewed_cohort(
     assert result.cognition_trace.effective_mode == "render_observe"
     assert result.native_conclusion == baseline.native_conclusion
     assert result.visual_failure is not None
-    assert result.visual_failure.failure_code == "ValueError"
+    assert result.visual_failure.failure_code == "visual_approval_failure"
     assert result.visual_warning == (
-        "Visual cognition approval failed closed (ValueError)"
+        "Visual cognition approval failed closed (visual_approval_failure)"
     )
 
 

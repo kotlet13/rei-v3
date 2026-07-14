@@ -7,7 +7,9 @@ from pydantic import ValidationError
 
 from app.backend.rei.emocio.prompting import (
     BilingualStructuredScenePromptCompiler,
+    PromptCompilerRuntimeBinding,
     VisualPromptProfile,
+    prompt_compiler_runtime_binding,
 )
 from app.backend.rei.emocio.renderer import (
     LocalEmocioRenderer,
@@ -142,6 +144,75 @@ def test_prompt_language_and_style_change_render_request_identity() -> None:
     )
     assert len({request.request_id for request in requests}) == 3
     assert len({request.content_hash() for request in requests}) == 3
+
+
+def test_prompt_compiler_runtime_binding_is_exact_and_content_addressed() -> None:
+    profile = _profile()
+    structured = prompt_compiler_runtime_binding(
+        StructuredScenePromptCompiler()
+    )
+    bilingual = prompt_compiler_runtime_binding(
+        BilingualStructuredScenePromptCompiler(profile)
+    )
+
+    assert structured.prompt_profile_id is None
+    assert structured.prompt_profile_hash is None
+    assert structured.prompt_profile is None
+    assert structured.implementation.endswith("StructuredScenePromptCompiler")
+    assert bilingual.prompt_profile_id == profile.profile_id
+    assert bilingual.prompt_profile_hash == profile.content_hash()
+    assert bilingual.prompt_profile == profile
+    assert bilingual == prompt_compiler_runtime_binding(
+        BilingualStructuredScenePromptCompiler(profile)
+    )
+    assert bilingual.binding_id != structured.binding_id
+
+    alternate_profile = _profile(
+        style_id="alternate-runtime-style",
+        directive="Use another exact runtime style.",
+    )
+    alternate = prompt_compiler_runtime_binding(
+        BilingualStructuredScenePromptCompiler(alternate_profile)
+    )
+    assert bilingual.content_hash() != alternate.content_hash()
+    with pytest.raises(ValidationError, match="reviewed revision"):
+        PromptCompilerRuntimeBinding.create(
+            implementation=bilingual.implementation,
+            implementation_revision="2",
+            prompt_profile=profile,
+        )
+    with pytest.raises(ValidationError, match="unreviewed implementation"):
+        PromptCompilerRuntimeBinding.create(
+            implementation="tests.AlternatePromptCompiler",
+            implementation_revision=bilingual.implementation_revision,
+            prompt_profile=profile,
+        )
+
+    tampered = bilingual.model_dump(mode="python", round_trip=True)
+    tampered["implementation_revision"] = "forged-revision"
+    with pytest.raises(ValidationError, match="reviewed revision"):
+        PromptCompilerRuntimeBinding.model_validate(tampered)
+
+    tampered_profile = bilingual.model_dump(mode="python", round_trip=True)
+    tampered_profile["prompt_profile"] = profile.model_copy(
+        update={"style_directive": "forged runtime style"}
+    )
+    with pytest.raises(ValidationError, match="canonical content|profile lineage"):
+        PromptCompilerRuntimeBinding.model_validate(tampered_profile)
+
+
+def test_prompt_compiler_runtime_binding_rejects_unknown_compilers() -> None:
+    class UnknownPromptCompiler:
+        def compile(self, scene: VisualSceneSpec) -> str:
+            return scene.scene_id
+
+    class StructuredSubclass(StructuredScenePromptCompiler):
+        pass
+
+    with pytest.raises(TypeError, match="Unsupported scene prompt compiler"):
+        prompt_compiler_runtime_binding(UnknownPromptCompiler())
+    with pytest.raises(TypeError, match="Unsupported scene prompt compiler"):
+        prompt_compiler_runtime_binding(StructuredSubclass())
 
 
 def test_local_renderer_records_exact_prompt_profile_provenance() -> None:

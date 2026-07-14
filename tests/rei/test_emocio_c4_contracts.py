@@ -206,7 +206,7 @@ def test_structured_only_never_calls_renderer_and_renderer_failure_is_explicit()
     assert visual_failed.visual_failure.stage == "render"
     assert visual_failed.visual_failure.render_batch_id is None
     assert visual_failed.visual_warning == (
-        "Visual cognition render failed closed (RuntimeError)"
+        "Visual cognition render failed closed (visual_render_failure)"
     )
     assert "synthetic renderer outage" not in (
         visual_failed.visual_failure.canonical_json_bytes().decode("utf-8")
