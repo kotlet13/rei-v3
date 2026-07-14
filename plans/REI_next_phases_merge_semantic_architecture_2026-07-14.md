@@ -6,7 +6,7 @@
 **Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (zgodovinsko; že mergeana)
 **Pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`
 **Datum načrta:** 2026-07-14
-**Status:** naslednja aktivna razvojna smer po sprejemu arhitekture B14
+**Status:** C4 tehnični runtime integriran; C4 semantic-model quality gate odprt; C5 čaka na pregled
 **Izven obsega:** QLoRA, SFT, LoRA trening, generiranje učnih datasetov in dokončna izbira produkcijskega modela
 
 ---
@@ -157,6 +157,10 @@ Po vsaki fazi:
 5. počakaj na pregled pred naslednjo fazo.
 
 ## 3.2 Brez prepisovanja zgodovine
+
+Ta podrazdelek opisuje že zaključeno zgodovinsko integracijo M0–M2. Ne daje
+dovoljenja za novo fazno oziroma feature vejo; za vse nadaljnje delo velja
+izključno pravilo 3.3.
 
 - Ne uporabljaj `git rebase` na sprejeti arhitekturni veji.
 - Ne uporabljaj squash mergea.
@@ -1162,6 +1166,26 @@ main
 
 Sedanji `structured_only` Emocio ostane referenčni baseline.
 
+## 11.0 Status integracije 2026-07-14
+
+Tehnični C4 runtime je integriran neposredno v `main`. Integracija vključuje
+eksplicitne cognition-mode pogodbe, provenance-closed current-first renderer,
+pinned DINOv2 encoding in visual valuation, fail-closed approval/authority
+mejo, integracijo v engine ter trajni cold replay konfiguracije, klicev,
+opozoril, PNG-jev in vektorjev.
+
+Celoten `tests/rei` paket je po integraciji zelen (`825 passed`). Tehnični
+runtime je zato sprejet, vendar semantic-model quality gate ostaja odprt:
+
+- FLUX.2 Klein kandidat ni prestal človeškega pregleda stabilnosti akcij;
+- DINOv2 je pravilno zaznal action collapse in zavrnil visual fusion;
+- repozitorijski seznam dovoljenih visual-influence authority artefaktov je
+  namenoma prazen, zato produkcijski visual influence ostaja onemogočen;
+- seed/style/language/renderer robustness pregled še ni zaključen.
+
+Kanonično fazno poročilo je
+[`c4_runtime_integration_acceptance_2026-07-14.md`](../Docs/evals/semantic_lab_v1/c4_runtime_integration_acceptance_2026-07-14.md).
+
 ## 11.1 Tri runtime načini
 
 ```python
@@ -1364,10 +1388,18 @@ test_visual_ablation_report_is_reproducible
 - seed/style variacije ne povzročajo naključnega action collapsea;
 - structured baseline ostane delujoč.
 
-Commit:
+**Status 2026-07-14:** tehnična runtime, provenance, replay in regression
+zapora je prestana. Semantična zapora modelnega kandidata ostaja odprta, zato
+ta status ne dovoljuje pinanja produkcijske visual-influence authority.
+
+Integrirani commiti:
 
 ```text
-feat(emocio): make visual imagination an optional native cognition path
+d671796 feat(emocio): add explicit visual cognition contracts
+b849008 feat(emocio): add provenance-closed visual renderer
+983c691 feat(emocio): add provenance-closed visual valuation
+a625200 feat(emocio): integrate provenance-closed visual cognition
+2d9948d feat(emocio): close configured visual runtime replay
 ```
 
 ---
@@ -2030,11 +2062,11 @@ V poročilu loči:
 | M1 | main (integrirano) | `merge(main): reconcile documentation before native-composition integration` |
 | M1 docs | main (integrirano) | `docs(integration): mark canonical-v2 prompt superseded and record merge verification` |
 | M2 | main (integrirano) | `ci: verify native REI architecture without model dependencies` |
-| M3 | main | `docs(release): mark native-composition v1 integration baseline` |
-| C1 | main | `feat(eval): add source-grounded REI semantic laboratory` |
-| C2 | main | `feat(eval): add semantic route and translation evaluation` |
-| C3 | main | `feat(communication): add model-backed Racio interpretation behind conscious-access boundary` |
-| C4 | main | `feat(emocio): make visual imagination an optional native cognition path` |
+| M3 | main (integrirano) | `docs(release): mark native-composition v1 integration baseline` |
+| C1 | main (integrirano) | `feat(eval): add source-grounded REI semantic laboratory` |
+| C2 | main (integrirano) | `feat(eval): add semantic route and translation evaluation` |
+| C3 | main (runtime integriran; model gate blokiran) | `feat(communication): add model-backed Racio interpretation behind conscious-access boundary` |
+| C4 | main (tehnični runtime integriran; semantic gate odprt) | `d671796` … `2d9948d` — provenance-closed visual cognition in replay |
 | C5 | main | `feat(instinkt): infer grounded option body effects before protective rollouts` |
 | C6 | main | `feat(ego): validate longitudinal composition and modality-specific world learning` |
 | C7 | main | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
@@ -2086,8 +2118,10 @@ implementation_hypothesis
 
 # 20. Trenutno neposredno navodilo Codexu
 
-Faze M0–M3 in C1 so zaključene ter integrirane v `main`. Naslednja razvojna
-faza je C2, vendar se začne šele po uporabnikovem navodilu oziroma pregledu.
+Faze M0–M3, C1 in C2 so zaključene ter integrirane v `main`. C3 runtime je
+integriran, njegov produkcijski model gate pa ostaja blokiran. C4 tehnični
+runtime je integriran, semantic-model quality gate pa ostaja odprt. Naslednji
+korak je uporabniški pregled C4; C5 ni odobrena in se ne začne samodejno.
 
 Za vsako nadaljnjo fazo velja:
 
