@@ -219,10 +219,20 @@ def _redact_provider_outcome(
             artifact=item.artifact,
         )
 
+    allowed_codes = {
+        "renderer_api_incompatibility",
+        "renderer_out_of_memory",
+        "renderer_provider_failure",
+        "renderer_timeout",
+    }
     code = (
-        "renderer_timeout"
-        if item.call_record.status == "timed_out"
-        else "renderer_provider_failure"
+        item.failure_code
+        if item.failure_code in allowed_codes
+        else (
+            "renderer_timeout"
+            if item.call_record.status == "timed_out"
+            else "renderer_provider_failure"
+        )
     )
     message = _fixed_failure_message("Image renderer provider", code)
     record = item.call_record.model_copy(update={"warnings": (message,)})

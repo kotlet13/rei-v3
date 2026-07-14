@@ -245,6 +245,7 @@ class DiffusersRuntimeConfig(FrozenModel):
     local_files_only: Literal[True]
     variant: NonEmptyText | None = None
     enable_attention_slicing: bool
+    enable_model_cpu_offload: bool = False
     pipeline_family: Literal["auto", "flux2_klein"] = "auto"
     local_snapshot_path: NonEmptyText | None = None
     expected_snapshot_manifest_sha256: HashDigest | None = None
@@ -262,6 +263,8 @@ class DiffusersRuntimeConfig(FrozenModel):
             self.local_snapshot_path
         ).is_absolute():
             raise ValueError("local_snapshot_path must be an explicit absolute path")
+        if self.enable_model_cpu_offload and self.device != "cuda":
+            raise ValueError("Model CPU offload requires the CUDA execution device")
         return self
 
     def conditioning_method(
@@ -287,7 +290,10 @@ class DiffusersRuntimeConfig(FrozenModel):
             "conditioning_method": self.conditioning_method(mode),
             "device": self.device,
             "enable_attention_slicing": self.enable_attention_slicing,
-            "generator_device": self.device,
+            "enable_model_cpu_offload": self.enable_model_cpu_offload,
+            "generator_device": (
+                "cpu" if self.enable_model_cpu_offload else self.device
+            ),
             "guidance_behavior": (
                 "stepwise_distilled_ignored"
                 if self.pipeline_family == "flux2_klein"
@@ -554,9 +560,19 @@ class LazyDiffusersBackend:
             pipeline = pipeline_type.from_pretrained(load_target, **load_options)
             if deadline is not None:
                 deadline.check("pipeline_load_complete")
-            pipeline = pipeline.to(self._config.device)
-            if deadline is not None:
-                deadline.check("pipeline_device_transfer_complete")
+            if self._config.enable_model_cpu_offload:
+                enable_offload = getattr(pipeline, "enable_model_cpu_offload", None)
+                if not callable(enable_offload):
+                    raise RuntimeError(
+                        "Approved Diffusers pipeline cannot enable model CPU offload"
+                    )
+                enable_offload()
+                if deadline is not None:
+                    deadline.check("pipeline_model_cpu_offload_complete")
+            else:
+                pipeline = pipeline.to(self._config.device)
+                if deadline is not None:
+                    deadline.check("pipeline_device_transfer_complete")
             if self._config.enable_attention_slicing:
                 pipeline.enable_attention_slicing()
                 if deadline is not None:
@@ -630,9 +646,10 @@ class LazyDiffusersBackend:
             )
             if deadline is not None:
                 deadline.check("generator_creation_start")
-            generator = torch.Generator(device=self._config.device).manual_seed(
-                request.seed
+            generator_device = (
+                "cpu" if self._config.enable_model_cpu_offload else self._config.device
             )
+            generator = torch.Generator(device=generator_device).manual_seed(request.seed)
             if deadline is not None:
                 deadline.check("generator_creation_complete")
             options: dict[str, object] = {
@@ -686,11 +703,15 @@ class LazyDiffusersBackend:
 
 
 def _sanitized_failure(exc: Exception) -> tuple[str, str]:
-    code = (
-        RENDERER_TIMEOUT_FAILURE_CODE
-        if isinstance(exc, TimeoutError)
-        else "renderer_provider_failure"
-    )
+    exception_names = {kind.__name__ for kind in type(exc).__mro__}
+    if isinstance(exc, TimeoutError):
+        code = RENDERER_TIMEOUT_FAILURE_CODE
+    elif exception_names.intersection({"OutOfMemoryError", "CUDAOutOfMemoryError"}):
+        code = "renderer_out_of_memory"
+    elif isinstance(exc, (TypeError, AttributeError, NotImplementedError)):
+        code = "renderer_api_incompatibility"
+    else:
+        code = "renderer_provider_failure"
     return code, f"Image renderer failed closed ({code})"
 
 

@@ -148,6 +148,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--height", type=int, default=512)
     parser.add_argument("--steps", type=int, default=4)
     parser.add_argument("--timeout-seconds", type=float, default=600.0)
+    parser.add_argument(
+        "--model-cpu-offload",
+        action="store_true",
+        help="Enable Diffusers model CPU offload and a CPU generator.",
+    )
     return parser.parse_args(argv)
 
 
@@ -184,6 +189,7 @@ def main(argv: list[str] | None = None) -> int:
         local_files_only=True,
         variant=None,
         enable_attention_slicing=False,
+        enable_model_cpu_offload=args.model_cpu_offload,
         pipeline_family="flux2_klein",
         local_snapshot_path=str(snapshot),
         expected_snapshot_manifest_sha256=actual_manifest_sha256,
@@ -307,6 +313,8 @@ def main(argv: list[str] | None = None) -> int:
         "current_source_reused_for_every_rollout": lineage_ok,
         "prompt_provenance_matches_every_request": prompt_provenance_ok,
         "generated_images_are_external_evidence": False,
+        "production_authority_granted": False,
+        "model_cpu_offload_enabled": args.model_cpu_offload,
         "elapsed_seconds": elapsed_seconds,
         "runtime": {
             "python": platform.python_version(),
