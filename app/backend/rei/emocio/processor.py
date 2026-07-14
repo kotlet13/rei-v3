@@ -6,6 +6,9 @@ from dataclasses import dataclass
 
 from ..ids import content_id
 from ..models.emocio import (
+    EmocioCognitionFallbackReason,
+    EmocioCognitionMode,
+    EmocioCognitionTrace,
     EmocioInputPacket,
     EmocioNativeConclusion,
     EmocioVisualState,
@@ -34,6 +37,7 @@ class EmocioProcessingResult:
     visual_state: EmocioVisualState
     native_conclusion: EmocioNativeConclusion
     policy: EmocioPolicyDecision
+    cognition_trace: EmocioCognitionTrace
     rendered_images: tuple[ImageArtifact, ...]
     render_batch: ImageRenderBatchOutcome | None
     render_seed: int | None
@@ -48,6 +52,26 @@ class EmocioProcessingResult:
             or self.source_world_hash != world.content_hash()
         ):
             raise ValueError("Emocio result source world lineage differs")
+        validated_trace = EmocioCognitionTrace.model_validate(
+            self.cognition_trace.model_dump(mode="python", round_trip=True)
+        )
+        if validated_trace != self.cognition_trace:
+            raise ValueError("Emocio cognition trace differs from strict replay")
+        if (
+            self.cognition_trace.requested_mode == "structured_only"
+            and (
+                self.rendered_images
+                or self.render_batch is not None
+                or self.render_seed is not None
+                or "render" in self.stage_order
+            )
+        ):
+            raise ValueError("structured_only cognition cannot execute a renderer")
+        if (
+            self.cognition_trace.effective_mode == "render_observe"
+            and not self.rendered_images
+        ):
+            raise ValueError("render_observe requires at least one validated image")
         # B11 may admit an exact, content-addressed longitudinal projection in
         # the packet. Revalidate that approved packet against the scene, then
         # replay every downstream stage from it; rebuilding a projection-free
@@ -171,10 +195,23 @@ def process_emocio(
     renderer: EmocioRenderer | None = None,
     render_seed: int = 0,
     packet: EmocioInputPacket | None = None,
+    cognition_mode: EmocioCognitionMode | None = None,
 ) -> EmocioProcessingResult:
-    """Build the native result first, then optionally render frozen scenes."""
+    """Execute an explicit cognition path while preserving the B6/B7 API.
+
+    ``None`` is the compatibility sentinel: a supplied renderer retains the
+    historical render-after-conclusion path and no renderer retains the exact
+    structured baseline. Explicit ``structured_only`` never invokes a renderer.
+    C4.1 has no fused visual valuation yet, so a successful
+    ``visual_cognition`` request is truthfully traced as ``render_observe``.
+    """
 
     stages: list[str] = []
+    requested_mode: EmocioCognitionMode = (
+        cognition_mode
+        if cognition_mode is not None
+        else ("render_observe" if renderer is not None else "structured_only")
+    )
     packet = packet or build_emocio_packet(scene)
     packet.validate_against(scene)
     stages.append("packet")
@@ -198,7 +235,12 @@ def process_emocio(
     images: tuple[ImageArtifact, ...] = ()
     render_batch: ImageRenderBatchOutcome | None = None
     warning: str | None = None
-    if renderer is not None:
+    effective_mode: EmocioCognitionMode = "structured_only"
+    fallback_reason: EmocioCognitionFallbackReason | None = None
+    should_render = requested_mode != "structured_only"
+    if should_render and renderer is None:
+        fallback_reason = "renderer_not_configured"
+    elif should_render and renderer is not None:
         try:
             rendered = renderer.render(compiled.all_scenes, seed=render_seed)
             if isinstance(rendered, ImageRenderBatchOutcome):
@@ -226,6 +268,31 @@ def process_emocio(
             render_batch = None
             warning = f"Renderer ignored after native conclusion: {type(exc).__name__}: {exc}"
         stages.append("render")
+
+        if render_batch is not None:
+            if render_batch.status == "succeeded" and images:
+                effective_mode = "render_observe"
+            elif render_batch.status == "disabled":
+                fallback_reason = "renderer_disabled"
+            elif render_batch.status == "partial":
+                fallback_reason = "renderer_partial"
+            else:
+                fallback_reason = "renderer_failed"
+        elif images:
+            effective_mode = "render_observe"
+        elif warning is None:
+            fallback_reason = "renderer_returned_no_artifacts"
+        else:
+            fallback_reason = "renderer_failed"
+
+        if requested_mode == "visual_cognition" and effective_mode == "render_observe":
+            fallback_reason = "visual_valuation_unavailable"
+
+    cognition_trace = EmocioCognitionTrace.create(
+        requested_mode=requested_mode,
+        effective_mode=effective_mode,
+        fallback_reason=fallback_reason,
+    )
     result = EmocioProcessingResult(
         source_scene_hash=scene.scene_hash(),
         source_world_id=world.world_id,
@@ -234,9 +301,14 @@ def process_emocio(
         visual_state=visual_state,
         native_conclusion=native_conclusion,
         policy=policy,
+        cognition_trace=cognition_trace,
         rendered_images=images,
         render_batch=render_batch,
-        render_seed=render_seed if renderer is not None else None,
+        render_seed=(
+            render_seed
+            if should_render and renderer is not None
+            else None
+        ),
         renderer_warning=warning,
         stage_order=tuple(stages),
     )
@@ -250,6 +322,7 @@ class DeterministicEmocioProcessor:
 
     renderer: EmocioRenderer | None = None
     render_seed: int = 0
+    cognition_mode: EmocioCognitionMode | None = None
 
     def process(
         self,
@@ -261,6 +334,7 @@ class DeterministicEmocioProcessor:
             world,
             renderer=self.renderer,
             render_seed=self.render_seed,
+            cognition_mode=self.cognition_mode,
         )
 
 

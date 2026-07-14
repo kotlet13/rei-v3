@@ -22,6 +22,46 @@ def _option_atoms(option: DecisionOption) -> tuple[str, ...]:
     return _canonical([option.label, option.description])
 
 
+def _visual_lineage_hashes(
+    scene: SceneEvent,
+    packet: EmocioInputPacket,
+) -> tuple[str, str]:
+    """Canonicalize only option order for visual identity derivation.
+
+    ``SceneEvent.scene_hash()`` remains the exact structured-input hash and the
+    packet remains bound to it. Visual scene identity, however, represents
+    scene semantics rather than presentation order, so two otherwise identical
+    events with permuted options must compile to the same visual scene IDs.
+    The already-canonical path returns the historical hashes byte-for-byte.
+    """
+
+    canonical_options = tuple(sorted(scene.options, key=lambda item: item.option_id))
+    if scene.options == canonical_options:
+        return scene.scene_hash(), packet.content_hash()
+
+    canonical_scene = scene.model_copy(update={"options": canonical_options})
+    canonical_scene_hash = canonical_scene.scene_hash()
+    packet_payload = packet.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={"packet_id"},
+    )
+    if packet.source_scene_hash is not None:
+        packet_payload["source_scene_hash"] = canonical_scene_hash
+    canonical_packet_id = content_id("emocio_packet", packet_payload)
+    canonical_packet = packet.model_copy(
+        update={
+            "packet_id": canonical_packet_id,
+            "source_scene_hash": (
+                canonical_scene_hash
+                if packet.source_scene_hash is not None
+                else None
+            ),
+        }
+    )
+    return canonical_scene_hash, canonical_packet.content_hash()
+
+
 def _build_scene(
     *,
     scene: SceneEvent,
@@ -37,6 +77,7 @@ def _build_scene(
     obstacle_markers: tuple[str, ...],
     inferred_elements: tuple[str, ...],
 ) -> VisualSceneSpec:
+    source_scene_hash, source_packet_hash = _visual_lineage_hashes(scene, packet)
     payload = {
         "schema_version": "rei-native-visual-scene-spec-v1",
         "scene_kind": scene_kind,
@@ -57,8 +98,8 @@ def _build_scene(
         scene_id=content_id(
             "visual_scene",
             {
-                "source_scene_hash": scene.scene_hash(),
-                "source_packet_hash": packet.content_hash(),
+                "source_scene_hash": source_scene_hash,
+                "source_packet_hash": source_packet_hash,
                 "source_world_hash": world.content_hash(),
                 **payload,
             },

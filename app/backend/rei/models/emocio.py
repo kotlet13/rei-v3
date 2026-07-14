@@ -17,12 +17,27 @@ from .common import (
     FrozenModel,
     HashDigest,
     NonEmptyId,
+    NonEmptyText,
     Score01,
 )
+from .provider import ProviderIdentity
 from .scene import SceneEvent
 
 
 EmocioSceneKind = Literal["current", "desired", "broken", "option_rollout"]
+EmocioCognitionMode = Literal[
+    "structured_only",
+    "render_observe",
+    "visual_cognition",
+]
+EmocioCognitionFallbackReason = Literal[
+    "renderer_not_configured",
+    "renderer_disabled",
+    "renderer_failed",
+    "renderer_partial",
+    "renderer_returned_no_artifacts",
+    "visual_valuation_unavailable",
+]
 ImageMediaType = Annotated[
     str,
     StringConstraints(pattern=r"^image/[a-z0-9][a-z0-9.+-]*$"),
@@ -63,6 +78,88 @@ EMOCIO_VALUATION_DIMENSIONS: tuple[EmocioValuationDimensionName, ...] = (
     "competitive_success",
     "attack_or_breakthrough_affordance",
 )
+
+
+class EmocioCognitionTrace(FrozenArtifactModel):
+    """Typed record of the requested and actually executed cognition path."""
+
+    schema_version: Literal["rei-native-emocio-cognition-trace-v1"] = (
+        "rei-native-emocio-cognition-trace-v1"
+    )
+    trace_id: NonEmptyId
+    requested_mode: EmocioCognitionMode
+    effective_mode: EmocioCognitionMode
+    fallback_reason: EmocioCognitionFallbackReason | None = None
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        requested_mode: EmocioCognitionMode,
+        effective_mode: EmocioCognitionMode,
+        fallback_reason: EmocioCognitionFallbackReason | None = None,
+    ) -> "EmocioCognitionTrace":
+        payload = {
+            "schema_version": "rei-native-emocio-cognition-trace-v1",
+            "requested_mode": requested_mode,
+            "effective_mode": effective_mode,
+            "fallback_reason": fallback_reason,
+        }
+        return cls(
+            trace_id=content_id("emocio_cognition_trace", payload),
+            **payload,
+        )
+
+    @model_validator(mode="after")
+    def validate_transition(self) -> Self:
+        if self.requested_mode == self.effective_mode:
+            if self.fallback_reason is not None:
+                raise ValueError("A non-fallback cognition path cannot cite a reason")
+        elif self.fallback_reason is None:
+            raise ValueError("A changed cognition mode requires a typed fallback reason")
+
+        allowed_effective_modes = {
+            "structured_only": frozenset({"structured_only"}),
+            "render_observe": frozenset({"structured_only", "render_observe"}),
+            "visual_cognition": frozenset(
+                {"structured_only", "render_observe", "visual_cognition"}
+            ),
+        }
+        if self.effective_mode not in allowed_effective_modes[self.requested_mode]:
+            raise ValueError("A cognition fallback cannot increase capability")
+
+        structured_fallback_reasons = {
+            "renderer_not_configured",
+            "renderer_disabled",
+            "renderer_failed",
+            "renderer_partial",
+            "renderer_returned_no_artifacts",
+        }
+        if (
+            self.fallback_reason in structured_fallback_reasons
+            and self.effective_mode != "structured_only"
+        ):
+            raise ValueError("Renderer fallback reasons must end in structured_only")
+        if self.fallback_reason == "visual_valuation_unavailable" and (
+            self.requested_mode != "visual_cognition"
+            or self.effective_mode != "render_observe"
+        ):
+            raise ValueError(
+                "Unavailable visual valuation may only degrade visual cognition "
+                "to render_observe"
+            )
+
+        expected_id = content_id(
+            "emocio_cognition_trace",
+            self.model_dump(
+                mode="python",
+                round_trip=True,
+                exclude={"trace_id"},
+            ),
+        )
+        if self.trace_id != expected_id:
+            raise ValueError("Emocio cognition trace ID does not match its content")
+        return self
 
 
 class AttentionWeight(FrozenModel):
@@ -412,6 +509,131 @@ class ImageArtifact(FrozenArtifactModel):
         return self
 
 
+class GroundedVisualRepresentation(FrozenArtifactModel):
+    """Public visual facts, bounded to grounded evidence in one scene spec."""
+
+    schema_version: Literal["rei-native-grounded-visual-representation-v1"] = (
+        "rei-native-grounded-visual-representation-v1"
+    )
+    source_evidence_ids: tuple[NonEmptyId, ...]
+    scene_spec_id: NonEmptyId
+    external_fact_boundary: Literal[
+        "generated_images_never_extend_external_facts"
+    ] = "generated_images_never_extend_external_facts"
+
+    @model_validator(mode="after")
+    def validate_canonical_evidence(self) -> Self:
+        if len(set(self.source_evidence_ids)) != len(self.source_evidence_ids):
+            raise ValueError("Grounded visual evidence IDs must be unique")
+        if self.source_evidence_ids != tuple(sorted(self.source_evidence_ids)):
+            raise ValueError("Grounded visual evidence IDs must use canonical order")
+        return self
+
+    def validate_against(
+        self,
+        scene_spec: VisualSceneSpec,
+        scene: SceneEvent,
+    ) -> Self:
+        """Prove that no imagined artifact crossed the external-fact boundary."""
+
+        if self.scene_spec_id != scene_spec.scene_id:
+            raise ValueError("Grounded visual representation cites another scene spec")
+        if self.source_evidence_ids != scene_spec.grounded_evidence_ids:
+            raise ValueError(
+                "Grounded visual representation must preserve the scene evidence scope"
+            )
+        evidence_by_id = {item.evidence_id: item for item in scene.evidence}
+        for evidence_id in self.source_evidence_ids:
+            evidence = evidence_by_id.get(evidence_id)
+            if evidence is None or not evidence.grounded:
+                raise ValueError(
+                    "Grounded visual representation may cite only grounded evidence"
+                )
+        return self
+
+
+class ImaginedVisualArtifact(FrozenArtifactModel):
+    """Internal-only interpretation of one generated image artifact."""
+
+    schema_version: Literal["rei-native-imagined-visual-artifact-v1"] = (
+        "rei-native-imagined-visual-artifact-v1"
+    )
+    artifact_id: NonEmptyId
+    originating_scene_spec_id: NonEmptyId
+    option_id: NonEmptyId | None
+    seed: int
+    model_identity: ProviderIdentity
+    internal_only: Literal[True] = True
+    ungrounded_elements: tuple[NonEmptyText, ...]
+
+    @model_validator(mode="after")
+    def validate_epistemic_identity(self) -> Self:
+        if self.model_identity.kind != "image_renderer":
+            raise ValueError("Imagined visual artifacts require an image_renderer identity")
+        if len(set(self.ungrounded_elements)) != len(self.ungrounded_elements):
+            raise ValueError("Imagined visual ungrounded elements must be unique")
+        return self
+
+    def validate_against(
+        self,
+        image: ImageArtifact,
+        scene_spec: VisualSceneSpec,
+    ) -> Self:
+        """Close generated-image, renderer, seed, scene, and option provenance."""
+
+        if self.artifact_id != image.image_id:
+            raise ValueError("Imagined visual artifact cites another image")
+        if (
+            self.originating_scene_spec_id != scene_spec.scene_id
+            or image.source_spec_id != scene_spec.scene_id
+        ):
+            raise ValueError("Imagined visual artifact cites another scene spec")
+        if self.option_id != scene_spec.option_id:
+            raise ValueError("Imagined visual option differs from its scene spec")
+        if self.seed != image.seed:
+            raise ValueError("Imagined visual seed differs from renderer provenance")
+        if self.model_identity.provider_id != image.provider_id:
+            raise ValueError("Imagined visual provider differs from image provenance")
+        if self.model_identity.uses_model:
+            if (
+                self.model_identity.model != image.model
+                or self.model_identity.model_revision != image.model_revision
+            ):
+                raise ValueError("Imagined visual model differs from image provenance")
+        elif image.model is not None or image.model_revision is not None:
+            raise ValueError("A non-model renderer identity cannot close model provenance")
+        if self.ungrounded_elements != image.generated_only_elements:
+            raise ValueError(
+                "Imagined visual elements must preserve generated-only provenance"
+            )
+        return self
+
+
+class VisualEmbeddingArtifact(FrozenArtifactModel):
+    """Internal visual feature identity; never evidence about the external world."""
+
+    schema_version: Literal["rei-native-visual-embedding-artifact-v1"] = (
+        "rei-native-visual-embedding-artifact-v1"
+    )
+    source_artifact_id: NonEmptyId
+    encoder_identity: ProviderIdentity
+    vector_hash: HashDigest
+    dimensions: int = Field(gt=0)
+
+    @model_validator(mode="after")
+    def validate_encoder_identity(self) -> Self:
+        if self.encoder_identity.kind != "image_encoder":
+            raise ValueError("Visual embeddings require an image_encoder identity")
+        return self
+
+    def validate_against(self, imagined: ImaginedVisualArtifact) -> Self:
+        if self.source_artifact_id != imagined.artifact_id:
+            raise ValueError("Visual embedding cites another imagined artifact")
+        if imagined.internal_only is not True:
+            raise ValueError("Visual embeddings may derive only from internal artifacts")
+        return self
+
+
 class EmocioNativeConclusion(FrozenArtifactModel):
     """Emocio's immutable native result, preceding any manifestation."""
 
@@ -499,6 +721,9 @@ class EmocioNativeConclusion(FrozenArtifactModel):
 __all__ = [
     "AttentionWeight",
     "EmocioActionTendency",
+    "EmocioCognitionFallbackReason",
+    "EmocioCognitionMode",
+    "EmocioCognitionTrace",
     "EmocioInputPacket",
     "EmocioNativeConclusion",
     "EmocioOptionValuation",
@@ -508,7 +733,10 @@ __all__ = [
     "EMOCIO_VALUATION_DIMENSIONS",
     "ImageArtifact",
     "ImageMediaType",
+    "GroundedVisualRepresentation",
+    "ImaginedVisualArtifact",
     "ValuationDimension",
     "EmocioValuationDimensionName",
+    "VisualEmbeddingArtifact",
     "VisualSceneSpec",
 ]
