@@ -44,7 +44,7 @@ def test_json_compatible_yaml_registry_loads_three_unselected_candidates() -> No
     registry = load_racio_interpreter_model_registry()
 
     assert payload["schema_version"] == "rei-racio-interpreter-model-registry-v1"
-    assert registry.registry_version == "c3-v2"
+    assert registry.registry_version == "c3-v3"
     assert tuple(candidate.model_id for candidate in registry.candidates) == (
         "granite4.1:30b",
         "qwen2.5vl:32b",
@@ -75,16 +75,16 @@ def test_registry_records_required_candidate_metadata() -> None:
     assert granite.model_digest == GRANITE_DIGEST
     assert granite.runtime == "ollama"
     assert granite.modality_support == ("structured_text",)
-    assert granite.slovenian_baseline == "not_benchmarked"
+    assert granite.slovenian_baseline == "semantic_lab_benchmarked"
     assert granite.max_context == 131072
     assert granite.hardware_requirements.minimum_vram_gib == 24
     assert granite.license == "Apache-2.0"
-    assert granite.benchmark_status == "c3_candidate"
+    assert granite.benchmark_status == "rejected"
 
     assert qwen_vl.model_digest == QWEN_VL_DIGEST
     assert qwen_vl.runtime == "ollama"
     assert qwen_vl.modality_support == ("structured_text", "vision")
-    assert qwen_vl.slovenian_baseline == "not_benchmarked"
+    assert qwen_vl.slovenian_baseline == "semantic_lab_benchmarked"
     assert qwen_vl.max_context == 128000
     assert qwen_vl.hardware_requirements.minimum_vram_gib == 24
     assert qwen_vl.license == "Apache-2.0"
@@ -93,11 +93,11 @@ def test_registry_records_required_candidate_metadata() -> None:
     assert qwen_35.model_digest == QWEN_35_DIGEST
     assert qwen_35.runtime == "ollama"
     assert qwen_35.modality_support == ("structured_text", "vision")
-    assert qwen_35.slovenian_baseline == "not_benchmarked"
+    assert qwen_35.slovenian_baseline == "semantic_lab_benchmarked"
     assert qwen_35.max_context == 262144
     assert qwen_35.hardware_requirements.minimum_vram_gib == 24
     assert qwen_35.license == "Apache-2.0"
-    assert qwen_35.benchmark_status == "c3_candidate"
+    assert qwen_35.benchmark_status == "rejected"
 
 
 def test_lookup_requires_exact_explicit_model_id_and_digest() -> None:
@@ -134,8 +134,13 @@ def test_lookup_rejects_noncanonical_or_incomplete_digest(digest: str) -> None:
         registry.require_candidate(model_id="granite4.1:30b", digest=digest)
 
 
-@pytest.mark.parametrize("field_name", ("default_model_id", "selected_model_id"))
-def test_registry_rejects_default_or_selected_model_fields(field_name: str) -> None:
+@pytest.mark.parametrize(
+    "field_name",
+    ("default_model_id", "selected_model_id", "production_model_id"),
+)
+def test_registry_rejects_default_selected_or_production_model_fields(
+    field_name: str,
+) -> None:
     payload = _registry_payload()
     payload[field_name] = "granite4.1:30b"
 
