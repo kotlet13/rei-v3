@@ -2,8 +2,8 @@
 
 The public API deliberately separates grounded packet construction, structured
 scene compilation, transparent valuation, native policy, and optional
-rendering.  Image artifacts are presentation outputs and are never inputs to
-the native policy.
+rendering. Image artifacts remain internal imagination artifacts and may affect
+the native policy only through the separately pinned visual-influence gate.
 """
 
 from __future__ import annotations
@@ -56,6 +56,20 @@ from .visual_policy_config import (
     load_visual_valuation_policy,
     load_visual_valuation_policy_config,
 )
+from .visual_integration import (
+    ApprovedVisualPromptProfile,
+    PinnedVisualInfluenceAuthority,
+    ReviewedVisualCohortCell,
+    VisualCognitionArtifacts,
+    VisualCognitionFailure,
+    VisualNativeInfluenceApproval,
+    VisualObservationBuildError,
+    build_visual_observations,
+    evaluate_visual_cognition,
+    policy_from_visual_valuation,
+    visual_cognition_prompt_batch_hash,
+    visual_cognition_runtime_profile_hash,
+)
 from .visual_valuation import (
     BoundVisualEmbedding,
     VisualValuationPolicy,
@@ -83,6 +97,7 @@ from .valuation import (
 )
 
 __all__ = [
+    "ApprovedVisualPromptProfile",
     "CompiledEmocioScenes",
     "BilingualStructuredScenePromptCompiler",
     "BoundVisualEmbedding",
@@ -114,12 +129,18 @@ __all__ = [
     "LocalFloat32VectorStore",
     "NullRenderer",
     "OptionAggregateScore",
+    "PinnedVisualInfluenceAuthority",
     "RenderSettings",
+    "ReviewedVisualCohortCell",
     "ScenePromptCompiler",
     "StoredPng",
     "StoredFloat32Vector",
     "StructuredScenePromptCompiler",
     "VisualPromptProfile",
+    "VisualCognitionArtifacts",
+    "VisualCognitionFailure",
+    "VisualNativeInfluenceApproval",
+    "VisualObservationBuildError",
     "VisualValuationPolicy",
     "VisualValuationPolicyConfig",
     "VisualValuationResult",
@@ -128,19 +149,24 @@ __all__ = [
     "build_emocio_packet",
     "build_emocio_visual_state",
     "build_visual_world_memory_record",
+    "build_visual_observations",
     "choose_native_option",
     "compile_emocio_scenes",
     "canonical_l2_float32_le_vector",
     "derive_scene_seed",
     "dinov2_base_provider_identity",
     "evaluate_visual_valuation",
+    "evaluate_visual_cognition",
     "inspect_png",
     "load_visual_valuation_policy",
     "load_visual_valuation_policy_config",
     "normalized_float32_le_bytes",
     "process_emocio",
+    "policy_from_visual_valuation",
     "value_option_rollout",
     "verified_float32_le_vector",
+    "visual_cognition_prompt_batch_hash",
+    "visual_cognition_runtime_profile_hash",
 ]
 
 

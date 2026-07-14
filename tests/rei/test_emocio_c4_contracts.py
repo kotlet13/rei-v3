@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 from pydantic import ValidationError
 
@@ -158,7 +160,7 @@ def test_explicit_modes_trace_effective_path_and_freeze_structured_conclusion() 
     assert visual_request.cognition_trace.effective_mode == "render_observe"
     assert (
         visual_request.cognition_trace.fallback_reason
-        == "visual_valuation_unavailable"
+        == "visual_render_provenance_unavailable"
     )
     assert visual_request.native_conclusion == baseline.native_conclusion
 
@@ -175,6 +177,11 @@ def test_structured_only_never_calls_renderer_and_renderer_failure_is_explicit()
     assert structured.render_batch is None
     assert structured.render_seed is None
     assert "render" not in structured.stage_order
+    with pytest.raises(ValueError, match="stage order"):
+        replace(structured, stage_order=()).validate_against(
+            _scene(),
+            _world(),
+        )
 
     failed = process_emocio(
         _scene(),
@@ -186,6 +193,26 @@ def test_structured_only_never_calls_renderer_and_renderer_failure_is_explicit()
     assert failed.cognition_trace.requested_mode == "render_observe"
     assert failed.cognition_trace.effective_mode == "structured_only"
     assert failed.cognition_trace.fallback_reason == "renderer_failed"
+
+    visual_failed = process_emocio(
+        _scene(),
+        _world(),
+        renderer=renderer,
+        cognition_mode="visual_cognition",
+    )
+    assert visual_failed.cognition_trace.effective_mode == "structured_only"
+    assert visual_failed.cognition_trace.fallback_reason == "renderer_failed"
+    assert visual_failed.visual_failure is not None
+    assert visual_failed.visual_failure.stage == "render"
+    assert visual_failed.visual_failure.render_batch_id is None
+    assert visual_failed.visual_warning == (
+        "Visual cognition render failed closed (RuntimeError)"
+    )
+    assert "synthetic renderer outage" not in (
+        visual_failed.visual_failure.canonical_json_bytes().decode("utf-8")
+        + (visual_failed.renderer_warning or "")
+        + (visual_failed.visual_warning or "")
+    )
 
     unavailable = process_emocio(
         _scene(),

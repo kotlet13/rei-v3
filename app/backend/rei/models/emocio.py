@@ -37,6 +37,18 @@ EmocioCognitionFallbackReason = Literal[
     "renderer_partial",
     "renderer_returned_no_artifacts",
     "visual_valuation_unavailable",
+    "visual_render_provenance_unavailable",
+    "visual_encoding_failed",
+    "visual_valuation_failed",
+    "visual_memory_failed",
+    "visual_valuation_tie",
+    "visual_action_collapse",
+    "visual_approval_unavailable",
+    "visual_approval_mismatch",
+]
+EmocioConclusionSource = Literal[
+    "structured_valuation",
+    "approved_visual_valuation",
 ]
 ImageMediaType = Annotated[
     str,
@@ -90,6 +102,34 @@ class EmocioCognitionTrace(FrozenArtifactModel):
     requested_mode: EmocioCognitionMode
     effective_mode: EmocioCognitionMode
     fallback_reason: EmocioCognitionFallbackReason | None = None
+    conclusion_source: EmocioConclusionSource = Field(
+        default="structured_valuation",
+        exclude_if=lambda value: value == "structured_valuation",
+    )
+    source_visual_valuation_result_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_valuation_result_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_approval_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_approval_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_authority_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_authority_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
 
     @classmethod
     def create(
@@ -98,6 +138,13 @@ class EmocioCognitionTrace(FrozenArtifactModel):
         requested_mode: EmocioCognitionMode,
         effective_mode: EmocioCognitionMode,
         fallback_reason: EmocioCognitionFallbackReason | None = None,
+        conclusion_source: EmocioConclusionSource = "structured_valuation",
+        source_visual_valuation_result_id: str | None = None,
+        source_visual_valuation_result_hash: str | None = None,
+        source_visual_influence_approval_id: str | None = None,
+        source_visual_influence_approval_hash: str | None = None,
+        source_visual_influence_authority_id: str | None = None,
+        source_visual_influence_authority_hash: str | None = None,
     ) -> "EmocioCognitionTrace":
         payload = {
             "schema_version": "rei-native-emocio-cognition-trace-v1",
@@ -105,6 +152,28 @@ class EmocioCognitionTrace(FrozenArtifactModel):
             "effective_mode": effective_mode,
             "fallback_reason": fallback_reason,
         }
+        if conclusion_source != "structured_valuation":
+            payload.update(
+                conclusion_source=conclusion_source,
+                source_visual_valuation_result_id=(
+                    source_visual_valuation_result_id
+                ),
+                source_visual_valuation_result_hash=(
+                    source_visual_valuation_result_hash
+                ),
+                source_visual_influence_approval_id=(
+                    source_visual_influence_approval_id
+                ),
+                source_visual_influence_approval_hash=(
+                    source_visual_influence_approval_hash
+                ),
+                source_visual_influence_authority_id=(
+                    source_visual_influence_authority_id
+                ),
+                source_visual_influence_authority_hash=(
+                    source_visual_influence_authority_hash
+                ),
+            )
         return cls(
             trace_id=content_id("emocio_cognition_trace", payload),
             **payload,
@@ -140,13 +209,49 @@ class EmocioCognitionTrace(FrozenArtifactModel):
             and self.effective_mode != "structured_only"
         ):
             raise ValueError("Renderer fallback reasons must end in structured_only")
-        if self.fallback_reason == "visual_valuation_unavailable" and (
+        visual_fallback_reasons = {
+            "visual_valuation_unavailable",
+            "visual_render_provenance_unavailable",
+            "visual_encoding_failed",
+            "visual_valuation_failed",
+            "visual_memory_failed",
+            "visual_valuation_tie",
+            "visual_action_collapse",
+            "visual_approval_unavailable",
+            "visual_approval_mismatch",
+        }
+        if self.fallback_reason in visual_fallback_reasons and (
             self.requested_mode != "visual_cognition"
             or self.effective_mode != "render_observe"
         ):
             raise ValueError(
-                "Unavailable visual valuation may only degrade visual cognition "
-                "to render_observe"
+                "Visual pipeline fallbacks may only degrade visual cognition to "
+                "render_observe"
+            )
+
+        visual_lineage = (
+            self.source_visual_valuation_result_id,
+            self.source_visual_valuation_result_hash,
+            self.source_visual_influence_approval_id,
+            self.source_visual_influence_approval_hash,
+            self.source_visual_influence_authority_id,
+            self.source_visual_influence_authority_hash,
+        )
+        has_complete_visual_lineage = all(item is not None for item in visual_lineage)
+        has_any_visual_lineage = any(item is not None for item in visual_lineage)
+        if self.conclusion_source == "approved_visual_valuation":
+            if (
+                self.requested_mode != "visual_cognition"
+                or self.effective_mode != "visual_cognition"
+                or self.fallback_reason is not None
+                or not has_complete_visual_lineage
+            ):
+                raise ValueError(
+                    "Approved visual conclusions require complete non-fallback lineage"
+                )
+        elif has_any_visual_lineage:
+            raise ValueError(
+                "Structured conclusions cannot cite visual influence lineage"
             )
 
         expected_id = content_id(
@@ -685,6 +790,34 @@ class EmocioNativeConclusion(FrozenArtifactModel):
     intensity: Score01
     abstains: bool = False
     uncertainty: str
+    conclusion_source: EmocioConclusionSource = Field(
+        default="structured_valuation",
+        exclude_if=lambda value: value == "structured_valuation",
+    )
+    source_visual_valuation_result_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_valuation_result_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_approval_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_approval_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_authority_id: NonEmptyId | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
+    source_visual_influence_authority_hash: HashDigest | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
 
     @model_validator(mode="after")
     def validate_abstention(self) -> "EmocioNativeConclusion":
@@ -702,6 +835,26 @@ class EmocioNativeConclusion(FrozenArtifactModel):
                 )
         elif valuation_names:
             raise ValueError("A conclusion without an option cannot carry option valuation")
+        visual_lineage = (
+            self.source_visual_valuation_result_id,
+            self.source_visual_valuation_result_hash,
+            self.source_visual_influence_approval_id,
+            self.source_visual_influence_approval_hash,
+            self.source_visual_influence_authority_id,
+            self.source_visual_influence_authority_hash,
+        )
+        has_complete_visual_lineage = all(item is not None for item in visual_lineage)
+        has_any_visual_lineage = any(item is not None for item in visual_lineage)
+        if self.conclusion_source == "approved_visual_valuation":
+            if not has_complete_visual_lineage or self.option_id is None:
+                raise ValueError(
+                    "Approved visual native conclusion requires one option and "
+                    "complete valuation and approval lineage"
+                )
+        elif has_any_visual_lineage:
+            raise ValueError(
+                "Structured native conclusion cannot cite visual influence lineage"
+            )
         return self
 
     def validate_against(
@@ -754,6 +907,7 @@ __all__ = [
     "EmocioCognitionFallbackReason",
     "EmocioCognitionMode",
     "EmocioCognitionTrace",
+    "EmocioConclusionSource",
     "EmocioInputPacket",
     "EmocioNativeConclusion",
     "EmocioOptionValuation",
