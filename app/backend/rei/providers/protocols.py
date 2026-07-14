@@ -6,18 +6,24 @@ from typing import Literal, Protocol, runtime_checkable
 
 from pydantic import Field, model_validator
 
-from ..ids import content_id
+from ..ids import canonical_json_bytes, content_id
 from ..models.common import (
     ArtifactModel,
     ArtifactRelativePath,
     FrozenArtifactModel,
+    FrozenModel,
     HashDigest,
     LanguageCode,
     NonEmptyId,
     NonEmptyText,
 )
 from ..models.ego import EgoCorrectionEvent, EgoMeasure, EgoTrace
-from ..models.emocio import ImageArtifact, VisualSceneSpec
+from ..models.emocio import (
+    ImageArtifact,
+    ImageMediaType,
+    VerifiedVisualEmbeddingArtifact,
+    VisualSceneSpec,
+)
 from ..models.instinkt import BodyState, InstinktOptionRollout
 from ..models.provider import (
     PositiveSeconds,
@@ -132,7 +138,124 @@ class VisionLanguageResult(FrozenArtifactModel):
         return self
 
 
+class ImageEncodingSpec(FrozenModel):
+    """Exact feature extraction and canonical-vector representation contract."""
+
+    implementation: NonEmptyText
+    implementation_revision: NonEmptyText
+    dimensions: int = Field(gt=0)
+    pooling: Literal["cls_token"] = "cls_token"
+    normalization: Literal["l2"] = "l2"
+    vector_encoding: Literal["float32-little-endian"] = "float32-little-endian"
+    parameters: tuple[ProviderParameter, ...] = ()
+
+    @model_validator(mode="after")
+    def validate_parameters(self) -> ImageEncodingSpec:
+        names = tuple(item.name for item in self.parameters)
+        if len(set(names)) != len(names):
+            raise ValueError("Image encoding parameter names must be unique")
+        if names != tuple(sorted(names)):
+            raise ValueError("Image encoding parameters must use canonical order")
+        return self
+
+
+class ImageEncodingRequest(FrozenArtifactModel):
+    """Content-addressed image bytes and encoder settings approved for encoding."""
+
+    schema_version: Literal["rei-native-image-encoding-request-v1"] = (
+        "rei-native-image-encoding-request-v1"
+    )
+    request_id: NonEmptyId
+    image_id: NonEmptyId
+    image_content_sha256: HashDigest
+    media_type: ImageMediaType
+    width: int = Field(gt=0)
+    height: int = Field(gt=0)
+    provider: ProviderIdentity
+    spec: ImageEncodingSpec
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        image: ImageArtifact,
+        provider: ProviderIdentity,
+        spec: ImageEncodingSpec,
+    ) -> ImageEncodingRequest:
+        payload = {
+            "schema_version": "rei-native-image-encoding-request-v1",
+            "image_id": image.image_id,
+            "image_content_sha256": image.content_sha256,
+            "media_type": image.media_type,
+            "width": image.width,
+            "height": image.height,
+            "provider": provider,
+            "spec": spec,
+        }
+        return cls(
+            request_id=content_id("image_encoding_request", payload),
+            **payload,
+        )
+
+    @property
+    def provider_parameters(self) -> tuple[ProviderParameter, ...]:
+        values = {
+            "dimensions": self.spec.dimensions,
+            "image_content_sha256": self.image_content_sha256,
+            "image_height": self.height,
+            "image_width": self.width,
+            "normalization": self.spec.normalization,
+            "pooling": self.spec.pooling,
+            "spec_hash": self.spec.content_hash(),
+            "vector_encoding": self.spec.vector_encoding,
+        }
+        parameters = [
+            ProviderParameter(
+                name=name,
+                canonical_json_value=canonical_json_bytes(value).decode("utf-8"),
+            )
+            for name, value in sorted(values.items())
+        ]
+        parameters.extend(
+            ProviderParameter(
+                name=f"runtime.{parameter.name}",
+                canonical_json_value=parameter.canonical_json_value,
+            )
+            for parameter in self.spec.parameters
+        )
+        return tuple(sorted(parameters, key=lambda item: item.name))
+
+    @model_validator(mode="after")
+    def validate_request(self) -> ImageEncodingRequest:
+        if self.provider.kind != "image_encoder":
+            raise ValueError("Image encoding requests require an image_encoder provider")
+        expected = content_id(
+            "image_encoding_request",
+            self.model_dump(
+                mode="python",
+                round_trip=True,
+                exclude={"request_id"},
+            ),
+        )
+        if self.request_id != expected:
+            raise ValueError("Image encoding request ID differs from canonical content")
+        return self
+
+    def validate_image(self, image: ImageArtifact) -> ImageEncodingRequest:
+        if (
+            self.image_id != image.image_id
+            or self.image_content_sha256 != image.content_sha256
+            or self.media_type != image.media_type
+            or self.width != image.width
+            or self.height != image.height
+        ):
+            raise ValueError("Image encoding request differs from its source artifact")
+        return self
+
+
 class ImageEncoding(FrozenArtifactModel):
+    """Historical B2 vector-reference result retained byte-for-byte as v1."""
+
     schema_version: Literal["rei-native-image-encoding-v1"] = (
         "rei-native-image-encoding-v1"
     )
@@ -156,6 +279,156 @@ class ImageEncoding(FrozenArtifactModel):
         if self.image_id not in self.call.input_artifact_ids:
             raise ValueError("Encoded image must be recorded as a call input")
         return self
+
+
+class VerifiedImageEncoding(FrozenArtifactModel):
+    """C4 byte-verifiable, internal-only float32 visual encoding result."""
+
+    schema_version: Literal["rei-native-image-encoding-v2"] = (
+        "rei-native-image-encoding-v2"
+    )
+    encoding_id: NonEmptyId
+    request_id: NonEmptyId
+    image_id: NonEmptyId
+    request: ImageEncodingRequest
+    vector_ref: ArtifactRelativePath
+    vector_hash: HashDigest
+    dimensions: int = Field(gt=0)
+    vector_encoding: Literal["float32-little-endian"] = "float32-little-endian"
+    normalization: Literal["l2"] = "l2"
+    internal_only: Literal[True] = True
+    external_evidence: Literal[False] = False
+    semantic_interpretation: Literal["none"] = "none"
+    call_spec: ProviderCallSpec
+    call: ProviderCallRecord
+
+    @staticmethod
+    def derive_id(
+        *,
+        request: ImageEncodingRequest,
+        vector_ref: str,
+        vector_hash: str,
+        dimensions: int,
+    ) -> str:
+        identity_payload = {
+            "schema_version": "rei-native-image-encoding-v2",
+            "request_id": request.request_id,
+            "image_id": request.image_id,
+            "vector_ref": vector_ref,
+            "vector_hash": vector_hash,
+            "dimensions": dimensions,
+            "vector_encoding": request.spec.vector_encoding,
+            "normalization": request.spec.normalization,
+            "internal_only": True,
+            "external_evidence": False,
+            "semantic_interpretation": "none",
+        }
+        return content_id("image_encoding", identity_payload)
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        request: ImageEncodingRequest,
+        vector_ref: str,
+        vector_hash: str,
+        dimensions: int,
+        call_spec: ProviderCallSpec,
+        call: ProviderCallRecord,
+    ) -> VerifiedImageEncoding:
+        return cls(
+            encoding_id=cls.derive_id(
+                request=request,
+                vector_ref=vector_ref,
+                vector_hash=vector_hash,
+                dimensions=dimensions,
+            ),
+            request_id=request.request_id,
+            image_id=request.image_id,
+            request=request,
+            vector_ref=vector_ref,
+            vector_hash=vector_hash,
+            dimensions=dimensions,
+            vector_encoding=request.spec.vector_encoding,
+            normalization=request.spec.normalization,
+            call_spec=call_spec,
+            call=call,
+        )
+
+    @model_validator(mode="after")
+    def validate_lineage(self) -> VerifiedImageEncoding:
+        validated_request = ImageEncodingRequest.model_validate(
+            self.request.model_dump(mode="python", round_trip=True)
+        )
+        validated_call_spec = ProviderCallSpec.model_validate(
+            self.call_spec.model_dump(mode="python", round_trip=True)
+        )
+        validated_call = ProviderCallRecord.model_validate(
+            self.call.model_dump(mode="python", round_trip=True)
+        )
+        _validate_result_lineage(
+            validated_call_spec,
+            validated_call,
+            request_id=self.request_id,
+            result_id=self.encoding_id,
+            expected_kind="image_encoder",
+        )
+        if self.image_id not in validated_call.input_artifact_ids:
+            raise ValueError("Encoded image must be recorded as a call input")
+        if self.request_id != validated_request.request_id:
+            raise ValueError("Image encoding result cites another immutable request")
+        if self.image_id != validated_request.image_id:
+            raise ValueError("Image encoding result cites another image")
+        if validated_call_spec.provider != validated_request.provider:
+            raise ValueError("Image encoding request and call provider differ")
+        if validated_call_spec.parameters != validated_request.provider_parameters:
+            raise ValueError("Image encoding call parameters differ from its request")
+        if self.dimensions != validated_request.spec.dimensions:
+            raise ValueError("Image encoding dimensions differ from its request")
+        if (
+            self.vector_encoding != validated_request.spec.vector_encoding
+            or self.normalization != validated_request.spec.normalization
+        ):
+            raise ValueError("Image vector representation differs from its request")
+        identity_payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            include={
+                "schema_version",
+                "request_id",
+                "image_id",
+                "vector_ref",
+                "vector_hash",
+                "dimensions",
+                "vector_encoding",
+                "normalization",
+                "internal_only",
+                "external_evidence",
+                "semantic_interpretation",
+            },
+        )
+        expected_id = content_id("image_encoding", identity_payload)
+        if self.encoding_id != expected_id:
+            raise ValueError("Image encoding ID differs from canonical vector identity")
+        return self
+
+    def to_visual_embedding(self) -> VerifiedVisualEmbeddingArtifact:
+        """Project feature identity without inventing semantics or external facts."""
+
+        validated = type(self).model_validate(
+            self.model_dump(mode="python", round_trip=True)
+        )
+        return VerifiedVisualEmbeddingArtifact(
+            source_artifact_id=validated.image_id,
+            encoder_identity=validated.call.provider,
+            vector_hash=validated.vector_hash,
+            dimensions=validated.dimensions,
+            vector_encoding=validated.vector_encoding,
+            normalization=validated.normalization,
+            internal_only=validated.internal_only,
+            external_evidence=validated.external_evidence,
+            semantic_interpretation=validated.semantic_interpretation,
+        )
 
 
 class VisualWorldModelResult(FrozenArtifactModel):
@@ -399,6 +672,35 @@ class ImageEncoder(Protocol):
 
 
 @runtime_checkable
+class VerifiedImageEncoder(Protocol):
+    @property
+    def identity(self) -> ProviderIdentity: ...
+
+    def encoding_spec(self) -> ImageEncodingSpec: ...
+
+    def request_for(self, image: ImageArtifact) -> ImageEncodingRequest: ...
+
+    def build_call_spec(
+        self,
+        image: ImageArtifact,
+        *,
+        timeout_seconds: PositiveSeconds,
+    ) -> ProviderCallSpec: ...
+
+    def encode(
+        self,
+        image: ImageArtifact,
+        *,
+        call: ProviderCallSpec,
+    ) -> VerifiedImageEncoding: ...
+
+    def read_vector(
+        self,
+        encoding: VerifiedImageEncoding,
+    ) -> tuple[float, ...]: ...
+
+
+@runtime_checkable
 class VisualWorldModel(Protocol):
     @property
     def identity(self) -> ProviderIdentity: ...
@@ -482,6 +784,8 @@ __all__ = [
     "EgoTraceStore",
     "ImageEncoder",
     "ImageEncoding",
+    "ImageEncodingRequest",
+    "ImageEncodingSpec",
     "ImageRenderer",
     "PositiveSeconds",
     "ProviderAttemptStatus",
@@ -504,6 +808,8 @@ __all__ = [
     "VisionLanguageResult",
     "VisualWorldModel",
     "VisualWorldModelResult",
+    "VerifiedImageEncoder",
+    "VerifiedImageEncoding",
     "ensure_call_contract",
     "ensure_call_record_contract",
     "validate_rendered_image",

@@ -1,0 +1,33 @@
+{
+  "schema_version": "rei-native-visual-valuation-policy-config-v1",
+  "config_version": "c4-v1",
+  "config_id": "visual_policy_config_6515948ecb9889666d1dd0dc2e741d42",
+  "basis": "implementation_hypothesis",
+  "policy": {
+    "schema_version": "rei-native-visual-valuation-policy-v1",
+    "policy_id": "visual_valuation_policy_d0f88857d195481f576fb414838ab873",
+    "structured_weight": {
+      "value": 0.4,
+      "basis": "implementation_hypothesis"
+    },
+    "desired_similarity_weight": {
+      "value": 0.4,
+      "basis": "implementation_hypothesis"
+    },
+    "broken_avoidance_weight": {
+      "value": 0.2,
+      "basis": "implementation_hypothesis"
+    },
+    "seed_consistency_penalty": {
+      "value": 0.15,
+      "basis": "implementation_hypothesis"
+    },
+    "uncertainty_penalty": {
+      "value": 0.1,
+      "basis": "implementation_hypothesis"
+    },
+    "action_collapse_epsilon": 0.01,
+    "selection_tie_epsilon": 0.000001,
+    "basis": "implementation_hypothesis"
+  }
+}

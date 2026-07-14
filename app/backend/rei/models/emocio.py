@@ -634,6 +634,36 @@ class VisualEmbeddingArtifact(FrozenArtifactModel):
         return self
 
 
+class VerifiedVisualEmbeddingArtifact(FrozenArtifactModel):
+    """Byte-verifiable v2 visual feature identity with explicit safety semantics."""
+
+    schema_version: Literal["rei-native-verified-visual-embedding-artifact-v2"] = (
+        "rei-native-verified-visual-embedding-artifact-v2"
+    )
+    source_artifact_id: NonEmptyId
+    encoder_identity: ProviderIdentity
+    vector_hash: HashDigest
+    dimensions: int = Field(gt=0)
+    vector_encoding: Literal["float32-little-endian"] = "float32-little-endian"
+    normalization: Literal["l2"] = "l2"
+    internal_only: Literal[True] = True
+    external_evidence: Literal[False] = False
+    semantic_interpretation: Literal["none"] = "none"
+
+    @model_validator(mode="after")
+    def validate_encoder_identity(self) -> Self:
+        if self.encoder_identity.kind != "image_encoder":
+            raise ValueError("Visual embeddings require an image_encoder identity")
+        return self
+
+    def validate_against(self, imagined: ImaginedVisualArtifact) -> Self:
+        if self.source_artifact_id != imagined.artifact_id:
+            raise ValueError("Visual embedding cites another imagined artifact")
+        if imagined.internal_only is not True:
+            raise ValueError("Visual embeddings may derive only from internal artifacts")
+        return self
+
+
 class EmocioNativeConclusion(FrozenArtifactModel):
     """Emocio's immutable native result, preceding any manifestation."""
 
@@ -738,5 +768,6 @@ __all__ = [
     "ValuationDimension",
     "EmocioValuationDimensionName",
     "VisualEmbeddingArtifact",
+    "VerifiedVisualEmbeddingArtifact",
     "VisualSceneSpec",
 ]
