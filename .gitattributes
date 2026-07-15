@@ -1,3 +1,5 @@
+/.gitattributes text eol=lf
+
 archive/rei_v3_text_llm_baseline_2026-07-13/** -text -whitespace
 plans/archive/REI_v3_Codex_canonical_v2_QLoRA_plan_2026-07-10.md -text -whitespace
 plans/REI_native_composition_architecture_upgrade_2026-07-13.md -whitespace
@@ -12,3 +14,14 @@ Docs/evals/semantic_lab_v1/c2-deterministic-2026-07-14/** text eol=lf
 config/racio_interpreter_models.yaml text eol=lf
 knowledge/canon_v2/semantic_lab_v1/c3_racio_interpreter/** text eol=lf
 Docs/evals/semantic_lab_v1/c3-racio-interpreter-*/** text eol=lf
+
+# C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
+tests/fixtures/semantic_lab_v1/** text eol=lf
+tests/fixtures/native_bundles/** text eol=lf
+tests/fixtures/native_cycles/** text eol=lf
+Docs/evals/semantic_lab_v1/c4_*_2026-07-14.md text eol=lf
+Docs/evals/semantic_lab_v1/c5-body-mapper-v3-2026-07-14/** text eol=lf
+Docs/evals/semantic_lab_v1/c6-longitudinal-2026-07-14/** text eol=lf
+Docs/evals/semantic_lab_v1/c7-integrated-2026-07-15/** text eol=lf
+knowledge/canon_v2/semantic_lab_v1/c6_longitudinal/** text eol=lf
+knowledge/canon_v2/semantic_lab_v1/c7_integrated/** text eol=lf

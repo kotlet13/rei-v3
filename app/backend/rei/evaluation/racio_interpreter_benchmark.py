@@ -9,7 +9,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
+import stat
 from typing import Literal, Self
 
 from pydantic import Field, model_validator
@@ -53,6 +55,8 @@ DATA_ROOT = (
     / "c3_racio_interpreter"
 )
 MANIFEST_PATH = DATA_ROOT / "manifest.json"
+MAX_C3_MANIFEST_BYTES = 256 * 1024
+MAX_C3_DATA_FILE_BYTES = 2 * 1024 * 1024
 
 ProviderMode = Literal["deterministic", "ollama"]
 AmbiguityClass = Literal["unambiguous", "ambiguous"]
@@ -118,8 +122,70 @@ _FORBIDDEN_PROVIDER_KEYS = frozenset(
 )
 
 
-def _raw_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def _is_reparse_stat(value: os.stat_result) -> bool:
+    attributes = getattr(value, "st_file_attributes", 0)
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    return stat.S_ISLNK(value.st_mode) or bool(attributes & reparse_flag)
+
+
+def _reject_reparse_components(path: Path, *, label: str) -> None:
+    absolute = path.expanduser().absolute()
+    for component in reversed((absolute, *absolute.parents)):
+        try:
+            metadata = component.lstat()
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            raise ValueError(f"{label} path metadata is unavailable") from exc
+        if _is_reparse_stat(metadata):
+            raise ValueError(f"{label} path cannot traverse a link or reparse point")
+
+
+def _read_bounded(path: Path, *, maximum_bytes: int, label: str) -> bytes:
+    source = path.expanduser()
+    _reject_reparse_components(source, label=label)
+    try:
+        before = source.lstat()
+    except OSError as exc:
+        raise ValueError(f"{label} is unavailable") from exc
+    if _is_reparse_stat(before) or not stat.S_ISREG(before.st_mode):
+        raise ValueError(f"{label} must be a regular non-link file")
+    if before.st_size <= 0 or before.st_size > maximum_bytes:
+        raise ValueError(f"{label} exceeds its bounded file size")
+
+    descriptor: int | None = None
+    try:
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_BINARY", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+        )
+        descriptor = os.open(source, flags)
+        opened = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(opened.st_mode)
+            or not os.path.samestat(before, opened)
+            or opened.st_size != before.st_size
+        ):
+            raise ValueError(f"{label} changed before it was opened")
+        with os.fdopen(descriptor, "rb") as handle:
+            descriptor = None
+            payload = handle.read(maximum_bytes + 1)
+        after = source.lstat()
+    except OSError as exc:
+        raise ValueError(f"{label} could not be read safely") from exc
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+    if (
+        _is_reparse_stat(after)
+        or not stat.S_ISREG(after.st_mode)
+        or not os.path.samestat(opened, after)
+        or len(payload) != opened.st_size
+        or len(payload) > maximum_bytes
+    ):
+        raise ValueError(f"{label} changed or exceeded bounds while reading")
+    return payload
 
 
 def _walk_keys(value: object) -> set[str]:
@@ -292,17 +358,22 @@ class C3BenchmarkSuite(FrozenModel):
     cases: tuple[C3BenchmarkCase, ...]
 
 
-def _read_jsonl(path: Path, model_type: type[FrozenModel]) -> list[FrozenModel]:
+def _read_jsonl(
+    payload: bytes,
+    *,
+    source: Path,
+    model_type: type[FrozenModel],
+) -> list[FrozenModel]:
     records: list[FrozenModel] = []
-    for line_number, line in enumerate(
-        path.read_text(encoding="utf-8").splitlines(), start=1
-    ):
+    for line_number, line in enumerate(payload.splitlines(), start=1):
         if not line.strip():
             continue
         try:
             records.append(model_type.model_validate_json(line))
         except ValueError as exc:
-            raise ValueError(f"Invalid C3 benchmark record {path}:{line_number}") from exc
+            raise ValueError(
+                f"Invalid C3 benchmark record {source}:{line_number}"
+            ) from exc
     return records
 
 
@@ -400,25 +471,39 @@ def _validate_provider_boundary(
 def load_c3_racio_interpreter_benchmark(
     manifest_path: str | Path = MANIFEST_PATH,
 ) -> C3BenchmarkSuite:
-    manifest_source = Path(manifest_path).expanduser().resolve(strict=True)
-    if not manifest_source.is_file():
-        raise ValueError("C3 benchmark manifest must be a regular file")
-    manifest = C3BenchmarkManifest.model_validate_json(
-        manifest_source.read_text(encoding="utf-8")
+    manifest_source = Path(manifest_path).expanduser()
+    manifest_payload = _read_bounded(
+        manifest_source,
+        maximum_bytes=MAX_C3_MANIFEST_BYTES,
+        label="C3 benchmark manifest",
     )
-    data_root = manifest_source.parent
+    manifest = C3BenchmarkManifest.model_validate_json(manifest_payload)
+    data_root = manifest_source.absolute().parent
     declared_files = {item.path: item for item in manifest.files}
+    file_payloads: dict[str, bytes] = {}
     for relative_path, declared in declared_files.items():
-        source = (data_root / relative_path).resolve(strict=True)
-        if source.parent != data_root or not source.is_file():
+        source = data_root / relative_path
+        if source.absolute().parent != data_root:
             raise ValueError("C3 benchmark files must stay directly below data root")
-        if _raw_sha256(source) != declared.sha256:
+        payload = _read_bounded(
+            source,
+            maximum_bytes=MAX_C3_DATA_FILE_BYTES,
+            label=f"C3 benchmark file {relative_path}",
+        )
+        if hashlib.sha256(payload).hexdigest() != declared.sha256:
             raise ValueError(f"C3 benchmark file hash mismatch: {relative_path}")
+        file_payloads[relative_path] = payload
 
     public_records = _read_jsonl(
-        data_root / "public_cases.jsonl", C3PublicBenchmarkCase
+        file_payloads["public_cases.jsonl"],
+        source=data_root / "public_cases.jsonl",
+        model_type=C3PublicBenchmarkCase,
     )
-    gold_records = _read_jsonl(data_root / "gold.jsonl", C3GoldBenchmarkCase)
+    gold_records = _read_jsonl(
+        file_payloads["gold.jsonl"],
+        source=data_root / "gold.jsonl",
+        model_type=C3GoldBenchmarkCase,
+    )
     public_by_id = {record.case_id: record for record in public_records}
     gold_by_id = {record.case_id: record for record in gold_records}
     if len(public_by_id) != len(public_records) or len(gold_by_id) != len(gold_records):
@@ -443,7 +528,7 @@ def load_c3_racio_interpreter_benchmark(
         _validate_provider_boundary(case, forbidden_tokens=all_hidden_tokens)
     return C3BenchmarkSuite(
         manifest=manifest,
-        manifest_file_hash=_raw_sha256(manifest_source),
+        manifest_file_hash=hashlib.sha256(manifest_payload).hexdigest(),
         cases=cases,
     )
 

@@ -1992,6 +1992,50 @@ Commit:
 feat(eval): add integrated semantic and longitudinal REI benchmark
 ```
 
+## 14.6 Status integracije 2026-07-15
+
+C7 je implementiran kot determinističen, model-free integrirani benchmark.
+Tehnični contract gate je uspešen, raziskovalna kakovost pa ostaja izrecno
+`blocked`; semantična in produkcijska avtoriteta nista podeljeni.
+
+Checked-in report je v:
+
+```text
+Docs/evals/semantic_lab_v1/c7-integrated-2026-07-15/
+```
+
+Avtoritativen report ID in hash sta:
+
+```text
+c7_integrated_benchmark_57c1db13906284edd641ac7cfbc6f5dc
+fb96308989974776e29fbe8c7e1e185211f77155d4726a453e1158b5a3c16adc
+```
+
+Controlled benchmark ohrani isti frozen native bundle in governance za
+`12 x 13 x 3 = 468` vrstic, `156` paired invariantov in nič ponovnih native
+procesorskih izvajanj. Person-causality rezina ima `4/4` uspešne bounded
+simulator primere; hash in izvajanje uporabljata iste corpus bajte, Character
+pa ni vhod v simulator prehod.
+
+Poročilo ohrani vseh šest ablation družin in 17 meritev ločeno. Trenutni run
+ima nič modelskih klicev; 32 C3 klicev je označenih samo kot historical
+evidence. Dispozicija meritev je `7 passed`, `6 blocked`, `3 observed` in
+`1 not_measured`; agregatni REI score in interaction score nista uvedena.
+
+Raziskovalni blockerji ostajajo:
+
+```text
+c3_model_quality_gate_failed
+c4_semantic_visual_gate_open
+vlm_interpreter_arm_not_executed
+semantic_motif_arm_not_executed
+uniform_resource_telemetry_missing
+```
+
+`--require-research-ready` zato reproducibilno vrne exit code `2`, medtem ko
+navaden create/check tehničnega poročila uspe. C8 mora te ločene statuse
+prikazati brez njihovega pretvarjanja v en sam rezultat.
+
 ---
 
 # 15. Faza C8 — GUI semantičnega laboratorija
@@ -2211,7 +2255,9 @@ integriran, njegov produkcijski model gate pa ostaja blokiran. C4 tehnični
 runtime in composite editor sta integrirana, semantic-model quality gate pa
 ostaja odprt. C6 je integriran neposredno na `main`; njegov reproducibilni
 bounded-software gate je uspešen, semantična avtoriteta pa izrecno ni podeljena.
-Naslednja implementacijska faza je C7.
+C7 je integriran neposredno na `main`; njegov model-free tehnični contract gate
+je uspešen, research-quality gate pa zaradi petih eksplicitnih blockerjev ostaja
+`blocked`. Naslednja implementacijska faza je C8.
 
 Za vsako nadaljnjo fazo velja:
 

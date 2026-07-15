@@ -13,6 +13,7 @@ from app.backend.rei.ids import content_id, sha256_hex
 from app.backend.rei.models.character import CHARACTER_PROFILE_ORDER
 from app.backend.rei.profile_matrix import (
     NativeProfileMatrix,
+    build_matrix_acceptance_state,
     run_native_profile_matrix,
 )
 
@@ -24,6 +25,30 @@ PROCESSOR_MODULE_SUFFIXES = (
     ".racio.processor",
     ".emocio.processor",
     ".instinkt.processor",
+)
+
+ACCEPTANCE_MODE_REGRESSIONS = (
+    (
+        "accepting",
+        "profile_matrix_afee1d4ef7d55c8ae86cef713ef9d810",
+        "3209a310369eea4d5050b40e5f122d429de38a98cb79ec1e971b04499aea4af9",
+        0,
+        0,
+    ),
+    (
+        "mixed",
+        "profile_matrix_8033a2430284e16648578ac4b7cb8e00",
+        "70111b8b5a57a6d2fba1209f0fbd8d5c355ae4516fc9cb3853aa72eaee711c4d",
+        54,
+        79,
+    ),
+    (
+        "conflicted",
+        "profile_matrix_e7a58ae9d6b89a69959e89331b763a4d",
+        "b7249e1d4b4f7aeccdbb48718c1aaaf96e6ea49ed0d8f64b598ed7781974ee31",
+        54,
+        130,
+    ),
 )
 
 
@@ -91,6 +116,52 @@ def test_matrix_is_exact_frozen_12_by_13_and_matches_governance_gold() -> None:
             assert row.behavior_status == row.expected_behavior_status
             assert row.governance_alignment == row.expected_governance_alignment
             assert row.conscious_alignment == row.expected_conscious_alignment
+
+
+@pytest.mark.parametrize(
+    (
+        "acceptance_mode",
+        "expected_matrix_id",
+        "expected_matrix_hash",
+        "expected_mandate_conscious_divergence",
+        "expected_conscious_behavior_divergence",
+    ),
+    ACCEPTANCE_MODE_REGRESSIONS,
+)
+def test_matrix_acceptance_modes_are_exact_frozen_regressions(
+    acceptance_mode: str,
+    expected_matrix_id: str,
+    expected_matrix_hash: str,
+    expected_mandate_conscious_divergence: int,
+    expected_conscious_behavior_divergence: int,
+) -> None:
+    fixture_digests = _fixture_digests()
+    acceptance_state = build_matrix_acceptance_state(acceptance_mode)
+
+    matrix = run_native_profile_matrix(
+        FIXTURE_ROOT,
+        acceptance_state=acceptance_state,
+    )
+
+    assert matrix.matrix_id == expected_matrix_id
+    assert matrix.matrix_hash == expected_matrix_hash
+    assert matrix.acceptance_state == acceptance_state
+    assert matrix.acceptance_state.overall_mode == acceptance_mode
+    assert len(matrix.rows) == 156
+    assert matrix.native_processor_executions == 0
+    assert matrix.coverage.b10_oracle_rows == 156
+    assert (
+        matrix.coverage.mandate_conscious_option_divergence_rows
+        == expected_mandate_conscious_divergence
+    )
+    assert (
+        matrix.coverage.conscious_behavior_state_divergence_rows
+        == expected_conscious_behavior_divergence
+    )
+    assert matrix.coverage.pair_conflict_rows == 36
+    assert matrix.coverage.thirteenth_majority_rows == 9
+    assert matrix.coverage.simulated_spoznanje_rows == 13
+    assert _fixture_digests() == fixture_digests
 
 
 def test_matrix_replay_is_byte_identical() -> None:

@@ -1,0 +1,119 @@
+{
+  "schema_version": "rei-c7-integrated-benchmark-manifest-v1",
+  "benchmark_id": "rei-c7-integrated-semantic-longitudinal-v1",
+  "evaluation_date": "2026-07-15",
+  "input_baseline_commit": "5f93731a03fd0bb2c72b0bcdf6aaa6257cbd583e",
+  "human_authored": true,
+  "model_generated_gold": false,
+  "training_export": false,
+  "current_model_calls_allowed": false,
+  "expected_research_quality_status": "blocked",
+  "semantic_authority_granted": false,
+  "production_authority_granted": false,
+  "required_ablation_families": [
+    "racio_provider",
+    "emocio_cognition_mode",
+    "instinkt_effect_source",
+    "interpreter_input_mode",
+    "ego_motif_mode",
+    "acceptance_mode"
+  ],
+  "required_metric_dimensions": [
+    "processor_route_identity",
+    "source_grounding",
+    "option_choice",
+    "abstention",
+    "translation_fidelity",
+    "character_causality",
+    "conscious_behavior_divergence",
+    "spoznanje",
+    "cross_language_consistency",
+    "visual_robustness",
+    "body_mapper_agreement",
+    "longitudinal_motif_precision",
+    "latency",
+    "vram",
+    "ram",
+    "artifact_size",
+    "failure_mode"
+  ],
+  "source_artifacts": [
+    {
+      "artifact_key": "c1_fixture_manifest",
+      "path": "tests/fixtures/semantic_lab_v1/manifest.json",
+      "sha256": "c22a299afc3063d7edf338d738396c18ca9298081d17374e4a1b153b3fad606e",
+      "size_bytes": 5975,
+      "evidence_scope": "current_tree_model_free"
+    },
+    {
+      "artifact_key": "c2_metrics",
+      "path": "Docs/evals/semantic_lab_v1/c2-deterministic-2026-07-14/metrics.json",
+      "sha256": "3cb01e0914919c6d266bbfc8572049108f51e9884246b66564ded52ce3bfc1c5",
+      "size_bytes": 350293,
+      "evidence_scope": "current_tree_model_free"
+    },
+    {
+      "artifact_key": "c3_baseline_results",
+      "path": "Docs/evals/semantic_lab_v1/c3-racio-interpreter-qwen3.5-27b-v5-2026-07-14/baseline_results.jsonl",
+      "sha256": "1289834b0fddcb171554fd85ed328de32c139894a3108fb78dfd7017099cbc7f",
+      "size_bytes": 217548,
+      "evidence_scope": "historical_model_backed_run"
+    },
+    {
+      "artifact_key": "c3_metrics",
+      "path": "Docs/evals/semantic_lab_v1/c3-racio-interpreter-qwen3.5-27b-v5-2026-07-14/metrics.json",
+      "sha256": "0c47be2249d379a289c5b0acfe348a0a2223ebde13427df4349411aef3fa21cc",
+      "size_bytes": 714,
+      "evidence_scope": "historical_model_backed_run"
+    },
+    {
+      "artifact_key": "c3_model_results",
+      "path": "Docs/evals/semantic_lab_v1/c3-racio-interpreter-qwen3.5-27b-v5-2026-07-14/results.jsonl",
+      "sha256": "ca7d6e3e20a6198bf2dd6316d1f694d2cb709eb2973892e1f364f8c137108a39",
+      "size_bytes": 308823,
+      "evidence_scope": "historical_model_backed_run"
+    },
+    {
+      "artifact_key": "c3_provenance",
+      "path": "Docs/evals/semantic_lab_v1/c3-racio-interpreter-qwen3.5-27b-v5-2026-07-14/provenance.json",
+      "sha256": "46d27a501735cc7e2bf6a912ee495a7c6aa1342b52ab02da86193a723497127c",
+      "size_bytes": 1511,
+      "evidence_scope": "historical_model_backed_run"
+    },
+    {
+      "artifact_key": "c4_dinov2_smoke",
+      "path": "Docs/evals/semantic_lab_v1/c4_dinov2_visual_valuation_smoke_2026-07-14.md",
+      "sha256": "aaef9f79e7784b953c6f3aa38b28a0e782cec1226e83195d3c238e76bd99e8bf",
+      "size_bytes": 9006,
+      "evidence_scope": "historical_model_backed_run"
+    },
+    {
+      "artifact_key": "c4_model_screen",
+      "path": "Docs/evals/semantic_lab_v1/c4_visual_model_selection_addendum_2026-07-14.md",
+      "sha256": "9707967c903bf818f28b994e7f49f09828984cade23e81a8f69342ed90b35760",
+      "size_bytes": 15066,
+      "evidence_scope": "historical_model_backed_run"
+    },
+    {
+      "artifact_key": "c4_runtime_acceptance",
+      "path": "Docs/evals/semantic_lab_v1/c4_runtime_integration_acceptance_2026-07-14.md",
+      "sha256": "3c421502bc190cc833a62e15b65f930f2f6eba7edee28c9c71bcc161f6a08d5b",
+      "size_bytes": 6820,
+      "evidence_scope": "current_tree_technical_contract"
+    },
+    {
+      "artifact_key": "c5_body_mapper",
+      "path": "Docs/evals/semantic_lab_v1/c5-body-mapper-v3-2026-07-14/body_mapper_evaluation.json",
+      "sha256": "e9e7dba13b1f65435ced65228894f862717dce2f0d33174743f9fb8a3890e72e",
+      "size_bytes": 439601,
+      "evidence_scope": "current_tree_bounded_contract"
+    },
+    {
+      "artifact_key": "c6_longitudinal",
+      "path": "Docs/evals/semantic_lab_v1/c6-longitudinal-2026-07-14/longitudinal_evaluation.json",
+      "sha256": "b6ff3c5abee578661a638621ddb6b6299d5159e5dc1668ac844b784ddc7b2fdf",
+      "size_bytes": 42742,
+      "evidence_scope": "current_tree_bounded_contract"
+    }
+  ]
+}

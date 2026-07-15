@@ -13,7 +13,9 @@ from datetime import timedelta
 import hashlib
 import inspect
 import json
+import os
 from pathlib import Path
+import stat
 import struct
 from typing import Literal, Self
 import zlib
@@ -962,24 +964,83 @@ def _materialize_visual_signal(
     return signal.validate_stored_bytes(artifact_store)
 
 
+def _is_reparse_stat(value: os.stat_result) -> bool:
+    attributes = getattr(value, "st_file_attributes", 0)
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    return stat.S_ISLNK(value.st_mode) or bool(attributes & reparse_flag)
+
+
+def _reject_reparse_components(path: Path, *, label: str) -> None:
+    absolute = path.expanduser().absolute()
+    for component in reversed((absolute, *absolute.parents)):
+        try:
+            metadata = component.lstat()
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            raise ValueError(f"{label} path metadata is unavailable") from exc
+        if _is_reparse_stat(metadata):
+            raise ValueError(f"{label} path cannot traverse a link or reparse point")
+
+
 def _read_bounded(path: str | Path, *, maximum_bytes: int, label: str) -> bytes:
-    source = Path(path)
-    size = source.stat().st_size
-    if size > maximum_bytes:
+    source = Path(path).expanduser()
+    _reject_reparse_components(source, label=label)
+    try:
+        before = source.lstat()
+    except OSError as exc:
+        raise ValueError(f"{label} is unavailable") from exc
+    if _is_reparse_stat(before) or not stat.S_ISREG(before.st_mode):
+        raise ValueError(f"{label} must be a regular non-link file")
+    if before.st_size <= 0 or before.st_size > maximum_bytes:
         raise ValueError(f"{label} exceeds its bounded file size")
-    payload = source.read_bytes()
-    if len(payload) != size or len(payload) > maximum_bytes:
+
+    descriptor: int | None = None
+    try:
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_BINARY", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+        )
+        descriptor = os.open(source, flags)
+        opened = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(opened.st_mode)
+            or not os.path.samestat(before, opened)
+            or opened.st_size != before.st_size
+        ):
+            raise ValueError(f"{label} changed before it was opened")
+        with os.fdopen(descriptor, "rb") as handle:
+            descriptor = None
+            payload = handle.read(maximum_bytes + 1)
+        after = source.lstat()
+    except OSError as exc:
+        raise ValueError(f"{label} could not be read safely") from exc
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+    if (
+        _is_reparse_stat(after)
+        or not stat.S_ISREG(after.st_mode)
+        or not os.path.samestat(opened, after)
+        or len(payload) != opened.st_size
+        or len(payload) > maximum_bytes
+    ):
         raise ValueError(f"{label} changed or exceeded bounds while reading")
     return payload
 
 
-def load_longitudinal_corpus(path: str | Path) -> LongitudinalCorpus:
-    payload = _read_bounded(
-        path,
-        maximum_bytes=MAX_LONGITUDINAL_CORPUS_BYTES,
-        label="C6 corpus",
-    )
-    raw = json.loads(payload.decode("utf-8"))
+def parse_longitudinal_corpus(payload: bytes) -> LongitudinalCorpus:
+    """Parse one already-read C6 corpus so its hash and execution share bytes."""
+
+    if not payload or len(payload) > MAX_LONGITUDINAL_CORPUS_BYTES:
+        raise ValueError("C6 corpus bytes are empty or exceed the size bound")
+    try:
+        raw = json.loads(payload.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("C6 corpus bytes are not valid UTF-8 JSON") from exc
+    if not isinstance(raw, dict) or not isinstance(raw.get("sequences"), list):
+        raise ValueError("C6 corpus must contain a sequence list")
     sequences = tuple(
         LongitudinalCorpusSequence.model_validate(
             {
@@ -995,6 +1056,15 @@ def load_longitudinal_corpus(path: str | Path) -> LongitudinalCorpus:
         for item in raw["sequences"]
     )
     return LongitudinalCorpus.model_validate({**raw, "sequences": sequences})
+
+
+def load_longitudinal_corpus(path: str | Path) -> LongitudinalCorpus:
+    payload = _read_bounded(
+        path,
+        maximum_bytes=MAX_LONGITUDINAL_CORPUS_BYTES,
+        label="C6 corpus",
+    )
+    return parse_longitudinal_corpus(payload)
 
 
 def _content_addressed_outcome(
@@ -2037,6 +2107,7 @@ __all__ = [
     "build_longitudinal_scenarios",
     "evaluate_longitudinal_corpus",
     "load_longitudinal_corpus",
+    "parse_longitudinal_corpus",
     "render_longitudinal_report",
     "write_longitudinal_report",
 ]

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
+import stat
 from typing import Literal, Self
 
 from pydantic import Field, model_validator
@@ -39,6 +41,25 @@ from .models.governance import (
     PairConflictStatus,
     SpoznanjeStatus,
 )
+
+
+def _reject_reparse_components(path: Path) -> None:
+    absolute = path.expanduser().absolute()
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    for component in reversed((absolute, *absolute.parents)):
+        try:
+            metadata = component.lstat()
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            raise ValueError(
+                "Native profile fixture path metadata is unavailable"
+            ) from exc
+        attributes = getattr(metadata, "st_file_attributes", 0)
+        if stat.S_ISLNK(metadata.st_mode) or bool(attributes & reparse_flag):
+            raise ValueError(
+                "Native profile fixture path cannot traverse a link or reparse point"
+            )
 
 
 class NativeProfileMatrixRow(FrozenArtifactModel):
@@ -103,8 +124,8 @@ class NativeProfileMatrixCoverage(FrozenModel):
     """Explicit causal coverage proved by the canonical 12x13 matrix."""
 
     b10_oracle_rows: int = Field(ge=156, le=156)
-    mandate_conscious_option_divergence_rows: int = Field(ge=1)
-    conscious_behavior_state_divergence_rows: int = Field(ge=1)
+    mandate_conscious_option_divergence_rows: int = Field(ge=0)
+    conscious_behavior_state_divergence_rows: int = Field(ge=0)
     pair_conflict_rows: int = Field(ge=1)
     thirteenth_majority_rows: int = Field(ge=1)
     simulated_spoznanje_rows: int = Field(ge=1)
@@ -372,13 +393,36 @@ def run_native_profile_matrix(
 ) -> NativeProfileMatrix:
     """Evaluate governance/B10 only; native processors are never imported or run."""
 
-    fixture_root = Path(fixture_directory).expanduser().resolve()
+    requested_root = Path(fixture_directory).expanduser()
+    _reject_reparse_components(requested_root)
+    try:
+        root_metadata = requested_root.lstat()
+    except OSError as exc:
+        raise ValueError("Native profile fixture root is unavailable") from exc
+    attributes = getattr(root_metadata, "st_file_attributes", 0)
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    if bool(attributes & reparse_flag) or not stat.S_ISDIR(root_metadata.st_mode):
+        raise ValueError(
+            "Native profile fixture root must be a non-link regular directory"
+        )
+    fixture_root = requested_root.resolve()
     fixture_paths = tuple(sorted(fixture_root.glob("*.json")))
     if len(fixture_paths) != 12:
         raise ValueError(
             "Native profile matrix requires exactly 12 frozen fixture files"
         )
     fixtures = tuple(load_governance_fixture(path) for path in fixture_paths)
+    try:
+        final_root_metadata = requested_root.lstat()
+    except OSError as exc:
+        raise ValueError("Native profile fixture root changed during replay") from exc
+    final_attributes = getattr(final_root_metadata, "st_file_attributes", 0)
+    if (
+        bool(final_attributes & reparse_flag)
+        or not stat.S_ISDIR(final_root_metadata.st_mode)
+        or not os.path.samestat(root_metadata, final_root_metadata)
+    ):
+        raise ValueError("Native profile fixture root changed during replay")
     fixture_ids = tuple(item.fixture_id for item in fixtures)
     if len(set(fixture_ids)) != len(fixture_ids):
         raise ValueError("Native profile matrix fixture IDs must be unique")

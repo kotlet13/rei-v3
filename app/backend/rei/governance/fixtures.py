@@ -8,7 +8,9 @@ ordered profile tuple owned by :mod:`rei.models.character`.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
+import stat
 from types import MappingProxyType
 from typing import Final, Literal, NamedTuple, Self
 
@@ -42,6 +44,7 @@ NativeReasonSourceField = Literal[
     "desired_transformation",
     "minimum_safety_condition",
 ]
+MAX_GOVERNANCE_FIXTURE_BYTES = 4 * 1024 * 1024
 
 
 class NativeReasonExpectation(FrozenModel):
@@ -257,11 +260,79 @@ def canonical_expected_profile_outcomes(
     )
 
 
+def _is_reparse_stat(value: os.stat_result) -> bool:
+    attributes = getattr(value, "st_file_attributes", 0)
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    return stat.S_ISLNK(value.st_mode) or bool(attributes & reparse_flag)
+
+
+def _reject_reparse_components(path: Path) -> None:
+    absolute = path.expanduser().absolute()
+    for component in reversed((absolute, *absolute.parents)):
+        try:
+            metadata = component.lstat()
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            raise ValueError("Governance fixture path metadata is unavailable") from exc
+        if _is_reparse_stat(metadata):
+            raise ValueError(
+                "Governance fixture path cannot traverse a link or reparse point"
+            )
+
+
+def _read_governance_fixture(path: Path) -> bytes:
+    source = path.expanduser()
+    _reject_reparse_components(source)
+    try:
+        before = source.lstat()
+    except OSError as exc:
+        raise ValueError("Governance fixture is unavailable") from exc
+    if _is_reparse_stat(before) or not stat.S_ISREG(before.st_mode):
+        raise ValueError("Governance fixture must be a regular non-link file")
+    if before.st_size <= 0 or before.st_size > MAX_GOVERNANCE_FIXTURE_BYTES:
+        raise ValueError("Governance fixture exceeds its bounded file size")
+
+    descriptor: int | None = None
+    try:
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_BINARY", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+        )
+        descriptor = os.open(source, flags)
+        opened = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(opened.st_mode)
+            or not os.path.samestat(before, opened)
+            or opened.st_size != before.st_size
+        ):
+            raise ValueError("Governance fixture changed before it was opened")
+        with os.fdopen(descriptor, "rb") as handle:
+            descriptor = None
+            payload = handle.read(MAX_GOVERNANCE_FIXTURE_BYTES + 1)
+        after = source.lstat()
+    except OSError as exc:
+        raise ValueError("Governance fixture could not be read safely") from exc
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+    if (
+        _is_reparse_stat(after)
+        or not stat.S_ISREG(after.st_mode)
+        or not os.path.samestat(opened, after)
+        or len(payload) != opened.st_size
+        or len(payload) > MAX_GOVERNANCE_FIXTURE_BYTES
+    ):
+        raise ValueError("Governance fixture changed or exceeded its size bound")
+    return payload
+
+
 def load_governance_fixture(path: Path) -> "CanonicalGovernanceFixture":
     """Load and strictly validate one checked-in canonical fixture."""
 
     return CanonicalGovernanceFixture.model_validate_json(
-        path.read_text(encoding="utf-8")
+        _read_governance_fixture(path)
     )
 
 
@@ -379,6 +450,7 @@ __all__ = [
     "ExpectedProfileOutcome",
     "ExpectedSpoznanjeStatus",
     "LogicPattern",
+    "MAX_GOVERNANCE_FIXTURE_BYTES",
     "NativeReasonExpectation",
     "NativeReasonSourceField",
     "canonical_expected_profile_outcomes",
