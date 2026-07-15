@@ -23,9 +23,14 @@ from ..communication.conscious_access import (
     ConsciousAccessPacket,
     InterpreterAblationMode,
 )
-from ..communication.structured_interpreter import StructuredRacioInterpreterOutput
+from ..communication.structured_interpreter import (
+    StructuredRacioInterpreterEvidence,
+    StructuredRacioInterpreterOutput,
+)
 from ..ids import canonical_json_bytes, content_id, sha256_hex
 from ..models.common import (
+    ArtifactRelativePath,
+    CommitDigest,
     FrozenArtifactModel,
     FrozenModel,
     HashDigest,
@@ -44,6 +49,10 @@ from ..models.provider import (
 
 BENCHMARK_ID = "rei-c3-racio-interpreter-benchmark-v1"
 BENCHMARK_SCHEMA_VERSION = "rei-c3-racio-interpreter-benchmark-manifest-v1"
+HOLDOUT_BENCHMARK_ID = "rei-c3-racio-interpreter-holdout-v1"
+HOLDOUT_BENCHMARK_SCHEMA_VERSION = (
+    "rei-c3-racio-interpreter-benchmark-manifest-v2"
+)
 OFFICIAL_MANIFEST_SHA256 = (
     "1cbb5607acc95426673feddb9891567b5a46e5f4988f8cc171a6636069bbab4b"
 )
@@ -55,10 +64,28 @@ DATA_ROOT = (
     / "c3_racio_interpreter"
 )
 MANIFEST_PATH = DATA_ROOT / "manifest.json"
+HOLDOUT_DATA_ROOT = (
+    Path(__file__).resolve().parents[4]
+    / "knowledge"
+    / "canon_v2"
+    / "semantic_lab_v1"
+    / "c3_racio_interpreter_holdout_v1"
+)
+HOLDOUT_MANIFEST_PATH = HOLDOUT_DATA_ROOT / "manifest.json"
 MAX_C3_MANIFEST_BYTES = 256 * 1024
 MAX_C3_DATA_FILE_BYTES = 2 * 1024 * 1024
 
 ProviderMode = Literal["deterministic", "ollama"]
+C3FailureCode = Literal[
+    "transport_failure",
+    "request_contract_failure",
+    "runtime_identity_mismatch",
+    "gpu_placement_failure",
+    "generation_contract_failure",
+    "structured_output_invalid",
+    "conscious_access_rejected",
+    "unexpected_provider_failure",
+]
 AmbiguityClass = Literal["unambiguous", "ambiguous"]
 AcceptanceMode = Literal["accepting", "mixed", "conflicted"]
 BenchmarkMotiveClass = Literal[
@@ -109,6 +136,7 @@ _FORBIDDEN_PROVIDER_KEYS = frozenset(
         "expected_motive_class",
         "expected_option_id",
         "family_id",
+        "bilingual_pair_id",
         "hidden_native_motive",
         "native_conclusion",
         "native_truth_id",
@@ -332,6 +360,129 @@ class C3BenchmarkManifest(FrozenModel):
         return self
 
 
+C3_REGRESSION_FAMILY_IDS: tuple[str, ...] = (
+    "sf_attachment_loss_fear",
+    "sf_boundary_and_escape",
+    "sf_broken_desired_scene_anger",
+    "sf_claustrophobia_body_alarm",
+    "sf_emocio_delegation_overreach",
+    "sf_listen_to_instinct_signal",
+    "sf_motor_vs_visual_emocio",
+    "sf_words_and_other_channels",
+)
+
+
+class C3SourceGroundingPin(FrozenModel):
+    """Frozen link from one holdout root to its reviewed C1 fixture route."""
+
+    root_id: NonEmptyId
+    family_id: NonEmptyId
+    fixture_path: ArtifactRelativePath
+    fixture_sha256: HashDigest
+    fixture_review_status: Literal["canon_approved"]
+    fixture_variant_count: Literal[8]
+    source_mind: Literal["E", "I"]
+    source_option_id: NonEmptyId
+    source_route_tags: tuple[NonEmptyId, ...] = Field(min_length=1)
+    holdout_option_id: Literal["option_001", "option_002"]
+    expected_action_tendency: BenchmarkActionTendency
+    expected_motive_class: BenchmarkMotiveClass
+    mapping_rationale: NonEmptyText
+
+    @model_validator(mode="after")
+    def validate_pin(self) -> Self:
+        expected_path = (
+            f"tests/fixtures/semantic_lab_v1/{self.family_id}.json"
+        )
+        if self.fixture_path != expected_path:
+            raise ValueError("C3 source fixture path must be canonical for its family")
+        if len(set(self.source_route_tags)) != len(self.source_route_tags):
+            raise ValueError("C3 source route tags must be unique")
+        if self.expected_action_tendency == "unknown":
+            raise ValueError("C3 source pin action mapping cannot be unknown")
+        if self.expected_motive_class == "unknown":
+            raise ValueError("C3 source pin motive mapping cannot be unknown")
+        return self
+
+
+class C3BenchmarkManifestV2(FrozenModel):
+    """Sealed holdout manifest bound to a pre-run provider protocol commit."""
+
+    schema_version: Literal["rei-c3-racio-interpreter-benchmark-manifest-v2"]
+    benchmark_id: Literal["rei-c3-racio-interpreter-holdout-v1"]
+    corpus_version: Literal["2026-07-15"]
+    suite_role: Literal["untouched_holdout"]
+    protocol_freeze_commit: CommitDigest
+    instruction_sha256: HashDigest
+    output_schema_sha256: HashDigest
+    calibration_policy_id: Literal["c3-conscious-access-calibration-v1"]
+    gold_origin: Literal["manually_authored"]
+    model_generated_gold: Literal[False]
+    training_export: Literal[False]
+    sealed_before_candidate_run: Literal[True]
+    post_seal_prompt_tuning_allowed: Literal[False]
+    counts: C3BenchmarkCounts
+    ambiguity_confidence_threshold: Score01
+    bilingual_confidence_tolerance: Score01
+    source_family_ids: tuple[NonEmptyId, ...] = Field(min_length=8, max_length=8)
+    source_grounding_pins: tuple[C3SourceGroundingPin, ...] = Field(
+        min_length=8,
+        max_length=8,
+    )
+    files: tuple[C3BenchmarkFile, C3BenchmarkFile]
+    root_ids: tuple[NonEmptyId, ...]
+
+    @model_validator(mode="after")
+    def validate_manifest(self) -> Self:
+        if len(self.protocol_freeze_commit) != 40:
+            raise ValueError("C3 holdout protocol freeze must use a 40-hex commit")
+        if tuple(item.path for item in self.files) != (
+            "public_cases.jsonl",
+            "gold.jsonl",
+        ):
+            raise ValueError("C3 holdout must keep public cases and gold separate")
+        if any(item.case_count != 32 for item in self.files):
+            raise ValueError("Every C3 holdout file must declare exactly 32 cases")
+        if self.root_ids != tuple(sorted(set(self.root_ids))) or len(self.root_ids) != 8:
+            raise ValueError("C3 holdout must declare eight sorted unique roots")
+        if self.source_family_ids != tuple(sorted(set(self.source_family_ids))):
+            raise ValueError("C3 holdout source families must be sorted and unique")
+        if set(self.source_family_ids) & set(C3_REGRESSION_FAMILY_IDS):
+            raise ValueError("C3 holdout source families must be absent from regression")
+        pins = self.source_grounding_pins
+        if pins != tuple(sorted(pins, key=lambda item: item.root_id)):
+            raise ValueError("C3 source-grounding pins must be sorted by root ID")
+        if len({pin.root_id for pin in pins}) != len(pins):
+            raise ValueError("C3 source-grounding pin roots must be unique")
+        if len({pin.family_id for pin in pins}) != len(pins):
+            raise ValueError("C3 source-grounding pin families must be unique")
+        if len({pin.fixture_path for pin in pins}) != len(pins):
+            raise ValueError("C3 source-grounding fixture paths must be unique")
+        if len({pin.fixture_sha256 for pin in pins}) != len(pins):
+            raise ValueError("C3 source-grounding fixture hashes must be unique")
+        if tuple(sorted(pin.root_id for pin in pins)) != self.root_ids:
+            raise ValueError("C3 source-grounding roots differ from manifest roots")
+        if tuple(sorted(pin.family_id for pin in pins)) != self.source_family_ids:
+            raise ValueError("C3 source-grounding families differ from manifest families")
+        expected_count_links = {
+            "roots": len(pins),
+            "cases": len(pins) * 4,
+            "unambiguous": len(pins) * 2,
+            "ambiguous": len(pins) * 2,
+            "bilingual_pairs": len(pins) * 2,
+        }
+        count_payload = self.counts.model_dump(mode="python")
+        if any(
+            count_payload[field] != expected
+            for field, expected in expected_count_links.items()
+        ):
+            raise ValueError("C3 source-grounding pins differ from manifest counts")
+        return self
+
+
+C3Manifest = C3BenchmarkManifest | C3BenchmarkManifestV2
+
+
 class C3BenchmarkCase(FrozenModel):
     public: C3PublicBenchmarkCase
     gold: C3GoldBenchmarkCase
@@ -353,7 +504,7 @@ class C3BenchmarkCase(FrozenModel):
 
 
 class C3BenchmarkSuite(FrozenModel):
-    manifest: C3BenchmarkManifest
+    manifest: C3Manifest
     manifest_file_hash: HashDigest
     cases: tuple[C3BenchmarkCase, ...]
 
@@ -378,7 +529,7 @@ def _read_jsonl(
 
 
 def _validate_suite_counts(
-    manifest: C3BenchmarkManifest,
+    manifest: C3Manifest,
     cases: tuple[C3BenchmarkCase, ...],
 ) -> None:
     counts = {
@@ -427,6 +578,7 @@ def _validate_suite_counts(
             (
                 item.public.root_id,
                 item.gold.family_id,
+                item.gold.expected_source_mind,
                 item.gold.acceptance_mode,
                 item.gold.ambiguity_class,
                 item.gold.expected_option_id,
@@ -450,6 +602,107 @@ def _validate_suite_counts(
     for field_name, values in unique_gold_fields.items():
         if len(set(values)) != len(values):
             raise ValueError(f"C3 gold {field_name} values must be unique")
+    if isinstance(manifest, C3BenchmarkManifestV2):
+        if {case.gold.family_id for case in cases} != set(manifest.source_family_ids):
+            raise ValueError("C3 holdout gold families differ from its source-family pin")
+        pins_by_root = {
+            pin.root_id: pin for pin in manifest.source_grounding_pins
+        }
+        root_families = {
+            root_id: {
+                case.gold.family_id
+                for case in cases
+                if case.public.root_id == root_id
+            }
+            for root_id in manifest.root_ids
+        }
+        if any(len(families) != 1 for families in root_families.values()) or {
+            next(iter(families)) for families in root_families.values()
+        } != set(manifest.source_family_ids):
+            raise ValueError("C3 holdout roots and source families must be bijective")
+        for root_id in manifest.root_ids:
+            rooted = tuple(
+                case for case in cases if case.public.root_id == root_id
+            )
+            pin = pins_by_root[root_id]
+            if {case.gold.family_id for case in rooted} != {pin.family_id}:
+                raise ValueError(
+                    "C3 holdout root family differs from source-grounding pin"
+                )
+            if {case.gold.expected_source_mind for case in rooted} != {
+                pin.source_mind
+            }:
+                raise ValueError(
+                    "C3 holdout root mind differs from source-grounding pin"
+                )
+            ambiguity_counts = {
+                ambiguity: sum(
+                    case.gold.ambiguity_class == ambiguity for case in rooted
+                )
+                for ambiguity in ("unambiguous", "ambiguous")
+            }
+            if ambiguity_counts != {"unambiguous": 2, "ambiguous": 2}:
+                raise ValueError(
+                    "Every C3 holdout root needs one bilingual clear/ambiguous pair"
+                )
+            unambiguous = tuple(
+                case
+                for case in rooted
+                if case.gold.ambiguity_class == "unambiguous"
+            )
+            mapped_gold = {
+                (
+                    case.gold.expected_option_id,
+                    case.gold.expected_action_tendency,
+                    case.gold.expected_motive_class,
+                )
+                for case in unambiguous
+            }
+            if mapped_gold != {
+                (
+                    pin.holdout_option_id,
+                    pin.expected_action_tendency,
+                    pin.expected_motive_class,
+                )
+            }:
+                raise ValueError(
+                    "C3 holdout gold differs from source-grounding mapping"
+                )
+        correct_option_counts = {
+            option_id: sum(
+                case.gold.ambiguity_class == "unambiguous"
+                and case.gold.expected_option_id == option_id
+                for case in cases
+            )
+            for option_id in ("option_001", "option_002")
+        }
+        if correct_option_counts != {"option_001": 8, "option_002": 8}:
+            raise ValueError("C3 holdout correct options must be balanced 8/8")
+        represented_actions = {
+            case.gold.expected_action_tendency
+            for case in cases
+            if case.gold.ambiguity_class == "unambiguous"
+        }
+        if represented_actions != {
+            "connect",
+            "perform",
+            "protect",
+            "seek_safety",
+            "set_boundary",
+        }:
+            raise ValueError("C3 holdout action coverage differs from its protocol")
+        represented_motives = {
+            case.gold.expected_motive_class
+            for case in cases
+            if case.gold.ambiguity_class == "unambiguous"
+        }
+        if represented_motives != {
+            "body_alarm",
+            "boundary_alarm",
+            "broken_scene",
+            "motor_pattern",
+        }:
+            raise ValueError("C3 holdout motive coverage differs from its protocol")
 
 
 def _validate_provider_boundary(
@@ -477,7 +730,21 @@ def load_c3_racio_interpreter_benchmark(
         maximum_bytes=MAX_C3_MANIFEST_BYTES,
         label="C3 benchmark manifest",
     )
-    manifest = C3BenchmarkManifest.model_validate_json(manifest_payload)
+    try:
+        manifest_object = json.loads(manifest_payload)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Invalid C3 benchmark manifest JSON") from exc
+    if not isinstance(manifest_object, dict):
+        raise ValueError("C3 benchmark manifest must contain one object")
+    schema_version = manifest_object.get("schema_version")
+    if schema_version == BENCHMARK_SCHEMA_VERSION:
+        manifest: C3Manifest = C3BenchmarkManifest.model_validate_json(
+            manifest_payload
+        )
+    elif schema_version == HOLDOUT_BENCHMARK_SCHEMA_VERSION:
+        manifest = C3BenchmarkManifestV2.model_validate_json(manifest_payload)
+    else:
+        raise ValueError("Unsupported C3 benchmark manifest schema")
     data_root = manifest_source.absolute().parent
     declared_files = {item.path: item for item in manifest.files}
     file_payloads: dict[str, bytes] = {}
@@ -522,7 +789,15 @@ def load_c3_racio_interpreter_benchmark(
     all_hidden_tokens = tuple(
         token
         for case in cases
-        for token in (*case.gold.hidden_provider_tokens, case.gold.profile_id)
+        for token in (
+            *case.gold.hidden_provider_tokens,
+            case.gold.profile_id,
+            case.public.case_id,
+            case.public.root_id,
+            case.gold.family_id,
+            case.gold.variant_id,
+            case.gold.bilingual_pair_id,
+        )
     )
     for case in cases:
         _validate_provider_boundary(case, forbidden_tokens=all_hidden_tokens)
@@ -548,6 +823,8 @@ class C3ExecutionProvenance(FrozenModel):
     response_evidence_hash: HashDigest | None = None
     response_evidence_json: NonEmptyText | None = None
     request_payload_hash: HashDigest | None = None
+    # Compatibility key: new executions store a stable C3FailureCode here.
+    # Historical successful artifacts already serialize this key as null.
     execution_error_type: NonEmptyId | None = None
 
     @model_validator(mode="after")
@@ -586,12 +863,109 @@ class C3ExecutionProvenance(FrozenModel):
             if self.call_record.content_hash() != self.call_record_hash:
                 raise ValueError("C3 provenance call record hash differs")
             ensure_call_record_contract(self.call_spec, self.call_record)
+        typed_evidence: FrozenArtifactModel | None = None
         if self.response_evidence_json is not None:
             decoded = json.loads(self.response_evidence_json)
             if canonical_json_bytes(decoded).decode("utf-8") != self.response_evidence_json:
                 raise ValueError("C3 response evidence JSON must be canonical")
             if sha256_hex(decoded) != self.response_evidence_hash:
                 raise ValueError("C3 response evidence JSON differs from its hash")
+            if not isinstance(decoded, dict):
+                raise ValueError("C3 response evidence must contain one object")
+            schema_version = decoded.get("schema_version")
+            try:
+                if schema_version == (
+                    "rei-structured-racio-interpreter-evidence-v1"
+                ):
+                    typed_evidence = StructuredRacioInterpreterEvidence.model_validate_json(
+                        self.response_evidence_json
+                    )
+                elif schema_version == (
+                    "rei-ollama-structured-racio-interpreter-response-v1"
+                ):
+                    from ..providers.ollama_interpreter import (
+                        OllamaStructuredRacioInterpreterResponseEvidence,
+                    )
+
+                    typed_evidence = (
+                        OllamaStructuredRacioInterpreterResponseEvidence.model_validate_json(
+                            self.response_evidence_json
+                        )
+                    )
+                else:
+                    raise ValueError("Unsupported C3 response evidence schema")
+            except ValueError as exc:
+                raise ValueError("C3 response evidence is not a valid typed artifact") from exc
+            if (
+                getattr(typed_evidence, "result_id", None)
+                != self.response_evidence_id
+                or typed_evidence.content_hash() != self.response_evidence_hash
+            ):
+                raise ValueError(
+                    "C3 response evidence identity/hash differs from embedded artifact"
+                )
+            if (
+                getattr(typed_evidence, "packet_id", None)
+                != self.call_spec.request_id
+                or getattr(typed_evidence, "call_id", None) != self.call_id
+                or getattr(typed_evidence, "call_spec_hash", None)
+                != self.call_spec_hash
+                or getattr(typed_evidence, "provider_id", None) != self.provider_id
+            ):
+                raise ValueError("C3 response evidence differs from provider call")
+            if isinstance(typed_evidence, StructuredRacioInterpreterEvidence):
+                if self.provider_uses_model or self.request_payload_hash is not None:
+                    raise ValueError(
+                        "Deterministic C3 evidence cannot claim model request payload"
+                    )
+            else:
+                parameter_values = {
+                    parameter.name: json.loads(parameter.canonical_json_value)
+                    for parameter in self.call_spec.parameters
+                }
+                requested_num_ctx = parameter_values.get("num_ctx")
+                requested_num_gpu = parameter_values.get("num_gpu")
+                require_full_gpu = parameter_values.get("require_full_gpu")
+                if (
+                    not self.provider_uses_model
+                    or getattr(typed_evidence, "model", None) != self.model_id
+                    or getattr(typed_evidence, "model_revision", None)
+                    != self.model_digest
+                    or getattr(typed_evidence, "request_payload_hash", None)
+                    != self.request_payload_hash
+                ):
+                    raise ValueError(
+                        "Ollama C3 response evidence differs from model request"
+                    )
+                if (
+                    not isinstance(requested_num_ctx, int)
+                    or isinstance(requested_num_ctx, bool)
+                    or requested_num_ctx < 1
+                    or not isinstance(requested_num_gpu, int)
+                    or isinstance(requested_num_gpu, bool)
+                    or requested_num_gpu < 0
+                    or not isinstance(require_full_gpu, bool)
+                    or getattr(typed_evidence, "requested_num_ctx", None)
+                    != requested_num_ctx
+                    or getattr(typed_evidence, "requested_num_gpu", None)
+                    != requested_num_gpu
+                    or getattr(typed_evidence, "active_context_length", None)
+                    != requested_num_ctx
+                ):
+                    raise ValueError(
+                        "Ollama C3 placement evidence differs from call parameters"
+                    )
+                if require_full_gpu and (
+                    getattr(typed_evidence, "active_size_vram_bytes", None)
+                    != getattr(typed_evidence, "active_size_bytes", None)
+                    or getattr(typed_evidence, "active_gpu_percent_rounded", None)
+                    != 100
+                ):
+                    raise ValueError(
+                        "Ollama C3 evidence does not prove required full-GPU placement"
+                    )
+        elif self.request_payload_hash is not None:
+            raise ValueError("C3 request payload hash requires response evidence")
         if self.execution_error_type is None:
             if self.call_record is None or self.response_evidence_id is None:
                 raise ValueError(
@@ -613,7 +987,7 @@ def build_execution_provenance(
     call: ProviderCallSpec,
     call_record: ProviderCallRecord | None,
     response_evidence: FrozenArtifactModel | None,
-    execution_error_type: str | None = None,
+    execution_failure_code: C3FailureCode | None = None,
 ) -> C3ExecutionProvenance:
     evidence_id = None
     evidence_hash = None
@@ -641,8 +1015,95 @@ def build_execution_provenance(
         response_evidence_hash=evidence_hash,
         response_evidence_json=evidence_json,
         request_payload_hash=request_payload_hash,
-        execution_error_type=execution_error_type,
+        execution_error_type=execution_failure_code,
     )
+
+
+class C3FailureEvidence(FrozenArtifactModel):
+    """Sanitized content-addressed evidence for one failed provider attempt."""
+
+    schema_version: Literal["rei-c3-racio-interpreter-failure-v1"] = (
+        "rei-c3-racio-interpreter-failure-v1"
+    )
+    failure_id: NonEmptyId
+    run_id: NonEmptyId
+    benchmark_id: Literal[
+        "rei-c3-racio-interpreter-benchmark-v1",
+        "rei-c3-racio-interpreter-holdout-v1",
+    ]
+    case_id: NonEmptyId
+    packet_id: NonEmptyId
+    packet_hash: HashDigest
+    call_id: NonEmptyId
+    call_spec_hash: HashDigest
+    provider_id: NonEmptyId
+    provider_revision: NonEmptyText
+    model_id: NonEmptyText | None = None
+    model_digest: HashDigest | None = None
+    failure_code: C3FailureCode
+    provider_payload_sha256: HashDigest
+    rejected_response_sha256: HashDigest | None = None
+    rejected_response_byte_count: int | None = Field(default=None, ge=0)
+    retry_attempted: Literal[False] = False
+    fallback_used: Literal[False] = False
+    failure_hash: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        run_id: str,
+        benchmark_id: str,
+        case_id: str,
+        packet: ConsciousAccessPacket,
+        call: ProviderCallSpec,
+        failure_code: C3FailureCode,
+        rejected_response_sha256: str | None = None,
+        rejected_response_byte_count: int | None = None,
+    ) -> "C3FailureEvidence":
+        base = {
+            "schema_version": "rei-c3-racio-interpreter-failure-v1",
+            "run_id": run_id,
+            "benchmark_id": benchmark_id,
+            "case_id": case_id,
+            "packet_id": packet.packet_id,
+            "packet_hash": packet.content_hash(),
+            "call_id": call.call_id,
+            "call_spec_hash": call.content_hash(),
+            "provider_id": call.provider.provider_id,
+            "provider_revision": call.provider.implementation_revision,
+            "model_id": call.provider.model,
+            "model_digest": call.provider.model_revision,
+            "failure_code": failure_code,
+            "provider_payload_sha256": sha256_hex(packet.provider_payload()),
+            "rejected_response_sha256": rejected_response_sha256,
+            "rejected_response_byte_count": rejected_response_byte_count,
+            "retry_attempted": False,
+            "fallback_used": False,
+        }
+        failure_id = content_id("c3_interpreter_failure", base)
+        payload = {"failure_id": failure_id, **base}
+        return cls(**payload, failure_hash=sha256_hex(payload))
+
+    @model_validator(mode="after")
+    def validate_failure(self) -> Self:
+        if (self.model_id is None) != (self.model_digest is None):
+            raise ValueError("C3 failure model identity must appear together")
+        if (self.rejected_response_sha256 is None) != (
+            self.rejected_response_byte_count is None
+        ):
+            raise ValueError("C3 rejected-response hash and size must appear together")
+        base = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"failure_id", "failure_hash"},
+        )
+        if self.failure_id != content_id("c3_interpreter_failure", base):
+            raise ValueError("C3 failure ID differs from sanitized content")
+        payload = {"failure_id": self.failure_id, **base}
+        if self.failure_hash != sha256_hex(payload):
+            raise ValueError("C3 failure hash differs from sanitized content")
+        return self
 
 
 class C3BenchmarkCaseResult(FrozenArtifactModel):
@@ -718,6 +1179,23 @@ def evaluate_c3_benchmark_case(
         if provenance.response_evidence_json is not None
         else None
     )
+    evidence_output_bound = evidence_payload is None
+    if evidence_payload is not None and output is not None:
+        if evidence_payload.get("schema_version") == (
+            "rei-ollama-structured-racio-interpreter-response-v1"
+        ):
+            evidence_output_bound = (
+                evidence_payload.get("structured_output_hash") == sha256_hex(output)
+                and evidence_payload.get("cited_observation_ids")
+                == list(output.cited_observation_ids)
+            )
+        elif evidence_payload.get("schema_version") == (
+            "rei-structured-racio-interpreter-evidence-v1"
+        ):
+            typed_evidence = StructuredRacioInterpreterEvidence.model_validate_json(
+                provenance.response_evidence_json
+            )
+            evidence_output_bound = typed_evidence.output == output
     expected_model_usage = provider_mode == "ollama"
     provenance_scope_valid = (
         provenance.call_spec.request_id == packet.packet_id
@@ -725,6 +1203,7 @@ def evaluate_c3_benchmark_case(
         and provenance.call_spec.fallback_policy.mode == "none"
         and provenance.provider_identity.kind == "text_reasoner"
         and provenance.provider_uses_model == expected_model_usage
+        and evidence_output_bound
         and (
             evidence_payload is None
             or (
@@ -810,7 +1289,10 @@ def evaluate_c3_benchmark_case(
 
 
 class C3BenchmarkRunMetrics(FrozenModel):
-    benchmark_id: Literal["rei-c3-racio-interpreter-benchmark-v1"]
+    benchmark_id: Literal[
+        "rei-c3-racio-interpreter-benchmark-v1",
+        "rei-c3-racio-interpreter-holdout-v1",
+    ]
     provider_mode: ProviderMode
     case_count: int
     model_call_count: int
@@ -835,6 +1317,37 @@ class C3BenchmarkRunMetrics(FrozenModel):
     quality_gate_pass: bool
 
 
+def _validate_recomputed_results(
+    *,
+    suite: C3BenchmarkSuite,
+    provider_mode: ProviderMode,
+    results: tuple[C3BenchmarkCaseResult, ...],
+    label: str,
+) -> None:
+    cases_by_id = {case.public.case_id: case for case in suite.cases}
+    for result in results:
+        try:
+            cold = C3BenchmarkCaseResult.model_validate_json(
+                result.canonical_json_bytes()
+            )
+        except ValueError as exc:
+            raise ValueError(f"C3 {label} result artifact is invalid") from exc
+        if cold != result:
+            raise ValueError(f"C3 {label} result differs after cold validation")
+        case = cases_by_id.get(result.case_id)
+        if case is None:
+            raise ValueError(f"C3 {label} result references an unknown case")
+        recomputed = evaluate_c3_benchmark_case(
+            case=case,
+            provider_mode=provider_mode,
+            output=result.output,
+            provenance=result.provenance,
+            input_packet_unchanged=result.input_packet_unchanged,
+        )
+        if recomputed != result:
+            raise ValueError(f"C3 {label} result differs from recomputed evaluation")
+
+
 def evaluate_c3_benchmark_run(
     *,
     suite: C3BenchmarkSuite,
@@ -851,6 +1364,12 @@ def evaluate_c3_benchmark_run(
         raise ValueError("C3 benchmark result case IDs must be unique")
     if any(result.provider_mode != provider_mode for result in results):
         raise ValueError("C3 result provider modes differ from the requested run")
+    _validate_recomputed_results(
+        suite=suite,
+        provider_mode=provider_mode,
+        results=results,
+        label="candidate",
+    )
     expected_model_call_count = 32 if provider_mode == "ollama" else 0
     if model_call_count != expected_model_call_count:
         raise ValueError(
@@ -907,6 +1426,12 @@ def evaluate_c3_benchmark_run(
             raise ValueError("C3 baseline results must cover the same frozen cases")
         if any(result.provider_mode != "deterministic" for result in baseline_results):
             raise ValueError("C3 paired baseline must be deterministic")
+        _validate_recomputed_results(
+            suite=suite,
+            provider_mode="deterministic",
+            results=baseline_results,
+            label="baseline",
+        )
         baseline_correct = sum(
             result.option_exact
             for result in baseline_results
@@ -929,11 +1454,19 @@ def evaluate_c3_benchmark_run(
         and len(pair_results) == 16
         and bilingual_consistent == 16
     )
+    passed_case_count = sum(result.passed for result in results)
     quality_gate = structural_gate and (
-        provider_mode == "deterministic" or outperforms is True
+        provider_mode == "deterministic"
+        or (
+            outperforms is True
+            and (
+                suite.manifest.benchmark_id == BENCHMARK_ID
+                or passed_case_count == len(results)
+            )
+        )
     )
     return C3BenchmarkRunMetrics(
-        benchmark_id=BENCHMARK_ID,
+        benchmark_id=suite.manifest.benchmark_id,
         provider_mode=provider_mode,
         case_count=len(results),
         model_call_count=model_call_count,
@@ -951,7 +1484,7 @@ def evaluate_c3_benchmark_run(
         ambiguous_gate_pass_count=ambiguity_passes,
         bilingual_pair_count=len(pair_results),
         bilingual_consistent_pair_count=bilingual_consistent,
-        passed_case_count=sum(result.passed for result in results),
+        passed_case_count=passed_case_count,
         baseline_unambiguous_exact_option_count=baseline_correct,
         model_outperforms_baseline=outperforms,
         structural_gate_pass=structural_gate,
@@ -962,17 +1495,25 @@ def evaluate_c3_benchmark_run(
 __all__ = [
     "BENCHMARK_ID",
     "BENCHMARK_SCHEMA_VERSION",
+    "HOLDOUT_BENCHMARK_ID",
+    "HOLDOUT_BENCHMARK_SCHEMA_VERSION",
+    "HOLDOUT_DATA_ROOT",
+    "HOLDOUT_MANIFEST_PATH",
     "DATA_ROOT",
     "MANIFEST_PATH",
     "OFFICIAL_MANIFEST_SHA256",
     "C3BenchmarkCase",
     "C3BenchmarkCaseResult",
     "C3BenchmarkManifest",
+    "C3BenchmarkManifestV2",
     "C3BenchmarkRunMetrics",
     "C3BenchmarkSuite",
     "C3ExecutionProvenance",
+    "C3FailureCode",
+    "C3FailureEvidence",
     "C3GoldBenchmarkCase",
     "C3PublicBenchmarkCase",
+    "C3SourceGroundingPin",
     "build_execution_provenance",
     "evaluate_c3_benchmark_case",
     "evaluate_c3_benchmark_run",

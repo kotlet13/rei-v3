@@ -230,17 +230,14 @@ def test_run_gate_requires_exact_model_call_count_and_strict_improvement() -> No
         result.model_copy(update={"provider_mode": "ollama"})
         for result in baseline
     )
-    metrics = evaluate_c3_benchmark_run(
-        suite=suite,
-        provider_mode="ollama",
-        results=unchanged_model_results,
-        model_call_count=32,
-        baseline_results=baseline,
-    )
-    assert metrics.baseline_unambiguous_exact_option_count == 0
-    assert metrics.unambiguous_exact_option_count == 0
-    assert metrics.model_outperforms_baseline is False
-    assert metrics.quality_gate_pass is False
+    with pytest.raises(ValueError, match="result artifact is invalid"):
+        evaluate_c3_benchmark_run(
+            suite=suite,
+            provider_mode="ollama",
+            results=unchanged_model_results,
+            model_call_count=32,
+            baseline_results=baseline,
+        )
 
 
 def test_loader_rejects_raw_corpus_tampering(tmp_path: Path) -> None:

@@ -149,6 +149,28 @@ strogi JSON, zapre provider call/result ID in hash ter zavrne neznana dejstva,
 možnosti, evidence ali dodatna polja. Konkreten LLM ni izbran. Interpretation,
 commit in narration niso del B5 ter ostajajo ločene poznejše faze.
 
+### C3 remediation izvedbena odločitev — 2026-07-15
+
+Status: `implementation_hypothesis`, operativno zamrznjeno za C3-v2
+generalizacijski preizkus. Nov, model-free serializer določa 32 ročno
+avtoriranih holdout primerov iz osmih semantic-lab družin, ki niso uporabljene
+v C3-v1 regresijskem korpusu. Javni paketi in evaluatorjev gold ostanejo fizično
+ločeni ter hash-pinned; gold ni model-generated in ni dovoljen training export.
+
+Holdout manifest je vezan na predhodni protocol-freeze commit, instruction hash,
+output-schema hash in `c3-conscious-access-calibration-v1`. Kandidat se mora brez
+vmesne spremembe najprej izvesti na holdoutu in nato na starem regresijskem
+korpusu. V2 gate zahteva uspeh vseh 32 primerov, vseh 16 ambiguity abstention
+primerov in vseh 16 dvojezičnih parov ter nič leakage, mutation ali provenance
+napak. Prag confidence `0.35`, toleranca dvojezičnega confidence `0.15`, razredi
+action/motive in zahteva 32/32 so evalvacijske operacionalizacije; niso
+empirično potrjene psihološke meje ali populacijska trditev.
+
+Sanitizirane kategorije provider failure služijo samo diagnostiki izvajanja.
+Ne dokazujejo halucinacije, psihološke napačne interpretacije ali značaja
+resnične osebe. Tudi uspešen kandidat ostane eksplicitni benchmark kandidat brez
+default oziroma production avtoritete.
+
 ## OQ-TRANSLATION-001 — zvestoba Racijevega prevoda
 
 Kako evaluator loči uporaben prevod od opustitve, racionalizacije,

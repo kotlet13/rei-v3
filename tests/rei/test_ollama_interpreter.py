@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -16,7 +17,7 @@ from app.backend.rei.communication.conscious_access import (
 from app.backend.rei.communication.structured_interpreter import (
     StructuredLLMRacioInterpreter,
 )
-from app.backend.rei.ids import sha256_hex
+from app.backend.rei.ids import canonical_json_bytes, content_id, sha256_hex
 from app.backend.rei.providers.native import DeterministicExecutionClock
 from app.backend.rei.providers.ollama import (
     OllamaApiClient,
@@ -25,6 +26,7 @@ from app.backend.rei.providers.ollama import (
     OllamaTransportError,
 )
 from app.backend.rei.providers.ollama_interpreter import (
+    OllamaInterpreterExecutionError,
     OllamaStructuredRacioInterpreterProvider,
     RACIO_INTERPRETER_STRUCTURED_INSTRUCTION,
     StructuredRacioInterpreterOutput,
@@ -127,6 +129,8 @@ class FakeOllamaTransport:
         self.done_reason = "stop"
         self.thinking: str | None = None
         self.remote_generate = False
+        self.generate_overrides: dict[str, Any] = {}
+        self.last_generate_response: dict[str, Any] | None = None
         self.active_size = 17_490_259_354
         self.active_size_vram = self.active_size
         self.active_context_length = 65536
@@ -197,6 +201,8 @@ class FakeOllamaTransport:
                         "remote_host": "https://ollama.com",
                     }
                 )
+            response.update(self.generate_overrides)
+            self.last_generate_response = deepcopy(response)
             if self.post_generate_digest is not None:
                 self.digest = self.post_generate_digest
             return response
@@ -240,6 +246,11 @@ def _execute(
         call=provider.build_call_spec(packet),
         clock=DeterministicExecutionClock(STARTED_AT),
     )
+
+
+def _last_generate_envelope_bytes(transport: FakeOllamaTransport) -> bytes:
+    assert transport.last_generate_response is not None
+    return canonical_json_bytes(transport.last_generate_response)
 
 
 def test_structured_output_is_extra_forbid_and_has_no_reasoning_field() -> None:
@@ -404,9 +415,23 @@ def test_ollama_interpreter_rejects_untrusted_alias_output(
         text = json.dumps(payload)
     provider, transport = _provider(response_text=text)
 
-    with pytest.raises(OllamaResponseError, match=message):
+    with pytest.raises(
+        OllamaInterpreterExecutionError, match=message
+    ) as exc_info:
         _execute(provider, _packet())
 
+    expected_code = (
+        "structured_output_invalid"
+        if mutation in {"malformed", "extra"}
+        else "conscious_access_rejected"
+    )
+    assert exc_info.value.failure_code == expected_code
+    encoded = _last_generate_envelope_bytes(transport)
+    assert exc_info.value.rejected_response_sha256 == hashlib.sha256(
+        encoded
+    ).hexdigest()
+    assert exc_info.value.rejected_response_byte_count == len(encoded)
+    assert not hasattr(exc_info.value, "rejected_response")
     assert sum(
         item["url"].endswith("/api/generate") for item in transport.calls
     ) == 1
@@ -476,19 +501,21 @@ def test_ollama_interpreter_transport_failure_has_no_retry_or_fallback() -> None
 
 
 @pytest.mark.parametrize(
-    ("mutation", "message"),
+    ("mutation", "message", "failure_code"),
     (
-        ("done_reason", "stop cleanly"),
-        ("thinking", "unapproved thinking"),
-        ("remote", "remote model"),
-        ("context", "digest or context"),
-        ("placement", "fully GPU-resident"),
-        ("digest", "digest"),
+        ("done_reason", "stop cleanly", "generation_contract_failure"),
+        ("thinking", "unapproved thinking", "generation_contract_failure"),
+        ("remote", "remote model", "generation_contract_failure"),
+        ("context", "digest or context", "gpu_placement_failure"),
+        ("placement", "fully GPU-resident", "gpu_placement_failure"),
+        ("placement_metadata", "placement metadata", "gpu_placement_failure"),
+        ("digest", "runtime identity", "runtime_identity_mismatch"),
     ),
 )
 def test_ollama_interpreter_rejects_runtime_or_placement_drift(
     mutation: str,
     message: str,
+    failure_code: str,
 ) -> None:
     packet = _packet()
     provider, transport = _provider()
@@ -502,11 +529,57 @@ def test_ollama_interpreter_rejects_runtime_or_placement_drift(
         transport.active_context_length = 32768
     elif mutation == "placement":
         transport.active_size_vram -= 1
+    elif mutation == "placement_metadata":
+        transport.active_size_vram += 1
     else:
         transport.post_generate_digest = "a" * 64
 
-    with pytest.raises(OllamaResponseError, match=message):
+    with pytest.raises(
+        OllamaInterpreterExecutionError, match=message
+    ) as exc_info:
         _execute(provider, packet)
+    assert exc_info.value.failure_code == failure_code
+    encoded = _last_generate_envelope_bytes(transport)
+    assert exc_info.value.rejected_response_sha256 == hashlib.sha256(
+        encoded
+    ).hexdigest()
+    assert exc_info.value.rejected_response_byte_count == len(encoded)
+
+
+def test_rejected_envelope_fingerprint_includes_thinking_metadata() -> None:
+    rejections: list[tuple[OllamaInterpreterExecutionError, bytes]] = []
+    for thinking in ("private chain A", "private chain B"):
+        provider, transport = _provider()
+        transport.thinking = thinking
+        with pytest.raises(OllamaInterpreterExecutionError) as exc_info:
+            _execute(provider, _packet())
+        rejections.append(
+            (exc_info.value, _last_generate_envelope_bytes(transport))
+        )
+
+    first, second = rejections
+    assert first[1] != second[1]
+    assert first[0].rejected_response_sha256 == hashlib.sha256(first[1]).hexdigest()
+    assert second[0].rejected_response_sha256 == hashlib.sha256(second[1]).hexdigest()
+    assert first[0].rejected_response_sha256 != second[0].rejected_response_sha256
+
+
+def test_invalid_response_metadata_is_wrapped_with_envelope_fingerprint() -> None:
+    provider, transport = _provider()
+    transport.generate_overrides["created_at"] = ""
+
+    with pytest.raises(
+        OllamaInterpreterExecutionError,
+        match="evidence metadata failed validation",
+    ) as exc_info:
+        _execute(provider, _packet())
+
+    encoded = _last_generate_envelope_bytes(transport)
+    assert exc_info.value.failure_code == "generation_contract_failure"
+    assert exc_info.value.rejected_response_sha256 == hashlib.sha256(
+        encoded
+    ).hexdigest()
+    assert exc_info.value.rejected_response_byte_count == len(encoded)
 
 
 def test_response_evidence_rejects_tampered_content_address() -> None:
@@ -517,6 +590,21 @@ def test_response_evidence_rejects_tampered_content_address() -> None:
     payload["result_id"] = "forged_response_id"
 
     with pytest.raises(ValidationError, match="content-addressed"):
+        type(execution.response_evidence).model_validate(payload)
+
+
+def test_response_evidence_binds_raw_text_to_structured_output() -> None:
+    packet = _packet()
+    provider, _ = _provider()
+    execution = _execute(provider, packet)
+    payload = execution.response_evidence.model_dump(mode="python", round_trip=True)
+    changed_output = deepcopy(_structured_payload())
+    changed_output["inferred_action_tendency"] = "connect"
+    payload["response_text"] = json.dumps(changed_output)
+    base = {key: value for key, value in payload.items() if key != "result_id"}
+    payload["result_id"] = content_id("ollama_interpreter_response", base)
+
+    with pytest.raises(ValidationError, match="differs from structured output pin"):
         type(execution.response_evidence).model_validate(payload)
 
 

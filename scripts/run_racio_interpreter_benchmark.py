@@ -15,7 +15,9 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, Self
+
+from pydantic import Field, model_validator
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,12 +39,22 @@ from app.backend.rei.evaluation.racio_interpreter_benchmark import (  # noqa: E4
     C3BenchmarkCaseResult,
     C3BenchmarkRunMetrics,
     C3BenchmarkSuite,
+    C3FailureCode,
+    C3FailureEvidence,
     build_execution_provenance,
     evaluate_c3_benchmark_case,
     evaluate_c3_benchmark_run,
     load_c3_racio_interpreter_benchmark,
 )
 from app.backend.rei.ids import canonical_json_bytes, utc_now  # noqa: E402
+from app.backend.rei.models.common import (  # noqa: E402
+    CommitDigest,
+    FrozenModel,
+    HashDigest,
+    NonEmptyId,
+    NonEmptyText,
+    UtcTimestamp,
+)
 from app.backend.rei.providers.native import (  # noqa: E402
     DeterministicExecutionClock,
     ExecutionClock,
@@ -52,27 +64,75 @@ from app.backend.rei.providers.ollama import (  # noqa: E402
     DEFAULT_OLLAMA_BASE_URL,
     OllamaApiClient,
     OllamaRacioSettings,
+    OllamaResponseError,
+    OllamaTransportError,
 )
 from app.backend.rei.providers.ollama_interpreter import (  # noqa: E402
+    OllamaInterpreterExecutionError,
     OllamaStructuredRacioInterpreterProvider,
 )
 
 
 SCOPED_RUNTIME_PATHS = (
-    "app/backend/rei/models/communication.py",
-    "app/backend/rei/communication/__init__.py",
-    "app/backend/rei/communication/conscious_access.py",
-    "app/backend/rei/communication/model_registry.py",
-    "app/backend/rei/communication/processor.py",
-    "app/backend/rei/communication/structured_interpreter.py",
-    "app/backend/rei/providers/__init__.py",
-    "app/backend/rei/providers/ollama_interpreter.py",
-    "app/backend/rei/evaluation/racio_interpreter_benchmark.py",
+    "app/backend/rei",
     "config/racio_interpreter_models.yaml",
     "knowledge/canon_v2/semantic_lab_v1/c3_racio_interpreter",
+    "knowledge/canon_v2/semantic_lab_v1/c3_racio_interpreter_holdout_v1",
+    "scripts/build_c3_racio_holdout.py",
     "scripts/run_racio_interpreter_benchmark.py",
+    "tests/fixtures/semantic_lab_v1",
 )
 FIXED_CLOCK_START = datetime(2026, 7, 14, tzinfo=timezone.utc)
+
+
+class C3BenchmarkRunProvenance(FrozenModel):
+    schema_version: Literal["rei-c3-racio-interpreter-run-provenance-v2"]
+    run_id: NonEmptyId
+    source_commit: CommitDigest
+    created_at: UtcTimestamp
+    provider_mode: Literal["deterministic", "ollama"]
+    benchmark_id: Literal[
+        "rei-c3-racio-interpreter-benchmark-v1",
+        "rei-c3-racio-interpreter-holdout-v1",
+    ]
+    benchmark_manifest_path: NonEmptyText
+    benchmark_manifest_hash: HashDigest
+    public_cases_hash: HashDigest
+    gold_hash: HashDigest
+    model_call_count: int = Field(ge=0)
+    results_sha256: HashDigest
+    metrics_sha256: HashDigest
+    baseline_results_sha256: HashDigest | None = None
+    failure_count: int = Field(ge=0)
+    failures_sha256: HashDigest | None = None
+    registry_path: NonEmptyText | None = None
+    registry_sha256: HashDigest | None = None
+    model_candidate: RacioInterpreterModelCandidate | None = None
+    quality_gate_pass: bool
+
+    @model_validator(mode="after")
+    def validate_run_closure(self) -> Self:
+        if self.provider_mode == "deterministic":
+            if (
+                self.model_call_count != 0
+                or self.baseline_results_sha256 is not None
+                or self.failure_count != 0
+                or self.failures_sha256 is not None
+                or self.registry_path is not None
+                or self.registry_sha256 is not None
+                or self.model_candidate is not None
+            ):
+                raise ValueError("Deterministic C3 run provenance claims model artifacts")
+        elif (
+            self.model_call_count != 32
+            or self.baseline_results_sha256 is None
+            or self.failures_sha256 is None
+            or self.registry_path is None
+            or self.registry_sha256 is None
+            or self.model_candidate is None
+        ):
+            raise ValueError("Ollama C3 run provenance is not fully closed")
+        return self
 
 
 def _default_run_id(mode: str) -> str:
@@ -122,6 +182,34 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 
 def scoped_source_commit() -> str:
+    branch = subprocess.run(
+        ["git", "branch", "--show-current"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if branch.stdout.strip() != "main":
+        raise ValueError("Official C3 runs must execute directly on main")
+    completed = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    commit = completed.stdout.strip()
+    if len(commit) != 40:
+        raise ValueError("C3 benchmark requires a full Git source commit")
+    remote = subprocess.run(
+        ["git", "rev-parse", "--verify", "origin/main"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if remote.stdout.strip() != commit:
+        raise ValueError("Official C3 runs require HEAD to equal origin/main")
     status = subprocess.run(
         [
             "git",
@@ -140,17 +228,21 @@ def scoped_source_commit() -> str:
         raise ValueError(
             "C3 benchmark runtime and corpus sources must be committed before a run"
         )
-    completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    commit = completed.stdout.strip()
-    if len(commit) != 40:
-        raise ValueError("C3 benchmark requires a full Git source commit")
     return commit
+
+
+def verify_scoped_source_unchanged(
+    *,
+    source_commit: str,
+    registry_path: Path | None,
+    registry_sha256: str | None,
+) -> None:
+    if scoped_source_commit() != source_commit:
+        raise ValueError("C3 scoped source changed during benchmark execution")
+    if (registry_path is None) != (registry_sha256 is None):
+        raise ValueError("C3 registry snapshot identity is incomplete")
+    if registry_path is not None and _file_hash(registry_path.resolve()) != registry_sha256:
+        raise ValueError("C3 model registry changed during benchmark execution")
 
 
 def execute_provider_suite(
@@ -159,9 +251,13 @@ def execute_provider_suite(
     provider_mode: str,
     provider: RacioInterpreterProvider,
     clock: ExecutionClock,
+    run_id: str | None = None,
+    failure_records: list[C3FailureEvidence] | None = None,
 ) -> tuple[C3BenchmarkCaseResult, ...]:
     if provider_mode not in {"deterministic", "ollama"}:
         raise ValueError("Unsupported C3 benchmark provider mode")
+    if (run_id is None) != (failure_records is None):
+        raise ValueError("C3 failure evidence requires both run ID and output sink")
     results: list[C3BenchmarkCaseResult] = []
     for case in suite.cases:
         packet = case.packet
@@ -169,11 +265,29 @@ def execute_provider_suite(
         before_hash = packet.content_hash()
         call = provider.build_call_spec(packet)
         execution = None
-        error_type = None
+        failure_code: C3FailureCode | None = None
         try:
             execution = provider.execute(packet, call=call, clock=clock)
         except Exception as exc:  # one failed attempt remains in the denominator
-            error_type = type(exc).__name__
+            failure_code = classify_c3_execution_failure(exc)
+            if failure_records is not None and run_id is not None:
+                rejected_hash = None
+                rejected_size = None
+                if isinstance(exc, OllamaInterpreterExecutionError):
+                    rejected_hash = exc.rejected_response_sha256
+                    rejected_size = exc.rejected_response_byte_count
+                failure_records.append(
+                    C3FailureEvidence.create(
+                        run_id=run_id,
+                        benchmark_id=suite.manifest.benchmark_id,
+                        case_id=case.public.case_id,
+                        packet=packet,
+                        call=call,
+                        failure_code=failure_code,
+                        rejected_response_sha256=rejected_hash,
+                        rejected_response_byte_count=rejected_size,
+                    )
+                )
         output = execution.output if execution is not None else None
         call_record = execution.call_record if execution is not None else None
         evidence = None
@@ -186,7 +300,7 @@ def execute_provider_suite(
             call=call,
             call_record=call_record,
             response_evidence=evidence,
-            execution_error_type=error_type,
+            execution_failure_code=failure_code,
         )
         unchanged = (
             packet.canonical_json_bytes() == before_bytes
@@ -202,6 +316,18 @@ def execute_provider_suite(
             )
         )
     return tuple(results)
+
+
+def classify_c3_execution_failure(exc: Exception) -> C3FailureCode:
+    """Map an exception to a stable code without persisting its message."""
+
+    if isinstance(exc, OllamaInterpreterExecutionError):
+        return exc.failure_code
+    if isinstance(exc, OllamaTransportError):
+        return "transport_failure"
+    if isinstance(exc, OllamaResponseError):
+        return "generation_contract_failure"
+    return "unexpected_provider_failure"
 
 
 def deterministic_results(
@@ -254,6 +380,10 @@ def _jsonl_bytes(values: tuple[C3BenchmarkCaseResult, ...]) -> bytes:
     return b"".join(canonical_json_bytes(value) + b"\n" for value in values)
 
 
+def _failure_jsonl_bytes(values: tuple[C3FailureEvidence, ...]) -> bytes:
+    return b"".join(canonical_json_bytes(value) + b"\n" for value in values)
+
+
 def _file_hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -265,6 +395,74 @@ def _recorded_path(path: Path) -> str:
     except ValueError:
         value = resolved
     return str(value).replace("\\", "/")
+
+
+def _validate_failure_closure(
+    *,
+    run_id: str,
+    metrics: C3BenchmarkRunMetrics,
+    results: tuple[C3BenchmarkCaseResult, ...],
+    registry_path: Path | None,
+    candidate: RacioInterpreterModelCandidate | None,
+    failures: tuple[C3FailureEvidence, ...],
+) -> None:
+    for failure in failures:
+        try:
+            cold = C3FailureEvidence.model_validate_json(
+                failure.canonical_json_bytes()
+            )
+        except ValueError as exc:
+            raise ValueError("C3 failure evidence is not content-address valid") from exc
+        if cold != failure:
+            raise ValueError("C3 failure evidence differs after cold validation")
+    if candidate is None:
+        if registry_path is not None or failures:
+            raise ValueError(
+                "Deterministic C3 artifacts cannot claim registry or failure evidence"
+            )
+        if any(result.provenance.execution_error_type is not None for result in results):
+            raise ValueError(
+                "Deterministic C3 artifacts cannot contain provider failures"
+            )
+        return
+    if registry_path is None or metrics.provider_mode != "ollama":
+        raise ValueError("Model-backed C3 artifacts require registry provenance")
+
+    expected: dict[str, C3BenchmarkCaseResult] = {}
+    for result in results:
+        provenance = result.provenance
+        if (
+            provenance.model_id != candidate.model_id
+            or provenance.model_digest != candidate.model_digest
+        ):
+            raise ValueError("C3 result model identity differs from candidate")
+        if provenance.execution_error_type is not None:
+            expected[result.case_id] = result
+
+    failure_case_ids = tuple(failure.case_id for failure in failures)
+    if failure_case_ids != tuple(sorted(expected)):
+        raise ValueError(
+            "C3 failure evidence must exactly cover provider-rejected cases"
+        )
+    for failure in failures:
+        result = expected[failure.case_id]
+        provenance = result.provenance
+        if (
+            failure.run_id != run_id
+            or failure.benchmark_id != metrics.benchmark_id
+            or failure.packet_id != result.packet_id
+            or failure.packet_hash != result.packet_hash
+            or failure.provider_payload_sha256 != result.provider_payload_hash
+            or failure.call_id != provenance.call_id
+            or failure.call_spec_hash != provenance.call_spec_hash
+            or failure.provider_id != provenance.provider_id
+            or failure.provider_revision
+            != provenance.provider_identity.implementation_revision
+            or failure.model_id != candidate.model_id
+            or failure.model_digest != candidate.model_digest
+            or failure.failure_code != provenance.execution_error_type
+        ):
+            raise ValueError("C3 failure evidence differs from its rejected result")
 
 
 def write_artifacts(
@@ -279,7 +477,31 @@ def write_artifacts(
     baseline_results: tuple[C3BenchmarkCaseResult, ...] | None,
     registry_path: Path | None,
     candidate: RacioInterpreterModelCandidate | None,
+    failures: tuple[C3FailureEvidence, ...] = (),
 ) -> dict[str, Any]:
+    try:
+        cold_metrics = C3BenchmarkRunMetrics.model_validate_json(
+            canonical_json_bytes(metrics)
+        )
+    except ValueError as exc:
+        raise ValueError("C3 run metrics are invalid") from exc
+    recomputed_metrics = evaluate_c3_benchmark_run(
+        suite=suite,
+        provider_mode=metrics.provider_mode,
+        results=results,
+        model_call_count=metrics.model_call_count,
+        baseline_results=baseline_results,
+    )
+    if cold_metrics != metrics or recomputed_metrics != metrics:
+        raise ValueError("C3 run metrics differ from recomputed evidence")
+    _validate_failure_closure(
+        run_id=run_id,
+        metrics=metrics,
+        results=results,
+        registry_path=registry_path,
+        candidate=candidate,
+        failures=failures,
+    )
     target = output_dir.expanduser().resolve()
     target.mkdir(parents=True, exist_ok=False)
     results_path = target / "results.jsonl"
@@ -290,43 +512,50 @@ def write_artifacts(
     if baseline_results is not None:
         baseline_path = target / "baseline_results.jsonl"
         baseline_path.write_bytes(_jsonl_bytes(baseline_results))
+    failures_path = None
+    if candidate is not None:
+        failures_path = target / "failures.jsonl"
+        failures_path.write_bytes(_failure_jsonl_bytes(failures))
 
-    provenance: dict[str, Any] = {
-        "schema_version": "rei-c3-racio-interpreter-run-provenance-v1",
-        "run_id": run_id,
-        "source_commit": source_commit,
-        "created_at": utc_now(),
-        "provider_mode": metrics.provider_mode,
-        "benchmark_id": metrics.benchmark_id,
-        "benchmark_manifest_path": _recorded_path(manifest_path),
-        "benchmark_manifest_hash": suite.manifest_file_hash,
-        "public_cases_hash": suite.manifest.files[0].sha256,
-        "gold_hash": suite.manifest.files[1].sha256,
-        "model_call_count": metrics.model_call_count,
-        "results_sha256": _file_hash(results_path),
-        "metrics_sha256": _file_hash(metrics_path),
-        "baseline_results_sha256": (
+    provenance = C3BenchmarkRunProvenance(
+        schema_version="rei-c3-racio-interpreter-run-provenance-v2",
+        run_id=run_id,
+        source_commit=source_commit,
+        created_at=utc_now(),
+        provider_mode=metrics.provider_mode,
+        benchmark_id=metrics.benchmark_id,
+        benchmark_manifest_path=_recorded_path(manifest_path),
+        benchmark_manifest_hash=suite.manifest_file_hash,
+        public_cases_hash=suite.manifest.files[0].sha256,
+        gold_hash=suite.manifest.files[1].sha256,
+        model_call_count=metrics.model_call_count,
+        results_sha256=_file_hash(results_path),
+        metrics_sha256=_file_hash(metrics_path),
+        baseline_results_sha256=(
             _file_hash(baseline_path) if baseline_path is not None else None
         ),
-        "registry_path": (
-            _recorded_path(registry_path)
-            if registry_path is not None
-            else None
+        failure_count=len(failures),
+        failures_sha256=(
+            _file_hash(failures_path) if failures_path is not None else None
         ),
-        "registry_sha256": (
+        registry_path=(
+            _recorded_path(registry_path) if registry_path is not None else None
+        ),
+        registry_sha256=(
             _file_hash(registry_path.resolve()) if registry_path is not None else None
         ),
-        "model_candidate": candidate,
-        "quality_gate_pass": metrics.quality_gate_pass,
-    }
+        model_candidate=candidate,
+        quality_gate_pass=metrics.quality_gate_pass,
+    )
     provenance_path = target / "provenance.json"
     provenance_path.write_bytes(canonical_json_bytes(provenance) + b"\n")
     return {
         "output_dir": str(target),
-        "results_sha256": provenance["results_sha256"],
-        "metrics_sha256": provenance["metrics_sha256"],
+        "results_sha256": provenance.results_sha256,
+        "metrics_sha256": provenance.metrics_sha256,
         "provenance_sha256": _file_hash(provenance_path),
         "quality_gate_pass": metrics.quality_gate_pass,
+        "failure_count": len(failures),
     }
 
 
@@ -339,6 +568,7 @@ def main(argv: list[str] | None = None) -> int:
     baseline = deterministic_results(suite)
     candidate = None
     registry_path = None
+    registry_snapshot_sha256 = None
     if args.mode == "deterministic":
         results = baseline
         metrics = evaluate_c3_benchmark_run(
@@ -349,13 +579,17 @@ def main(argv: list[str] | None = None) -> int:
         )
         baseline_artifact = None
     else:
-        provider, candidate = _ollama_provider(args)
         registry_path = args.registry
+        registry_snapshot_sha256 = _file_hash(registry_path.resolve())
+        provider, candidate = _ollama_provider(args)
+        failures: list[C3FailureEvidence] = []
         results = execute_provider_suite(
             suite=suite,
             provider_mode="ollama",
             provider=provider,
             clock=SystemExecutionClock(),
+            run_id=args.run_id,
+            failure_records=failures,
         )
         metrics = evaluate_c3_benchmark_run(
             suite=suite,
@@ -365,6 +599,11 @@ def main(argv: list[str] | None = None) -> int:
             baseline_results=baseline,
         )
         baseline_artifact = baseline
+    verify_scoped_source_unchanged(
+        source_commit=source_commit,
+        registry_path=registry_path,
+        registry_sha256=registry_snapshot_sha256,
+    )
     summary = write_artifacts(
         output_dir=args.output_dir,
         run_id=args.run_id,
@@ -376,6 +615,7 @@ def main(argv: list[str] | None = None) -> int:
         baseline_results=baseline_artifact,
         registry_path=registry_path,
         candidate=candidate,
+        failures=(tuple(failures) if args.mode == "ollama" else ()),
     )
     print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
     return 0 if metrics.quality_gate_pass else 1

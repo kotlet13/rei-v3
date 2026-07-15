@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
+import hashlib
 from typing import Any, Literal, Self
 
 from pydantic import Field, model_validator
@@ -46,10 +47,58 @@ from .ollama import (
 )
 
 
-OLLAMA_INTERPRETER_PROVIDER_REVISION = "rei-ollama-racio-interpreter-c3-v5"
+OLLAMA_INTERPRETER_PROVIDER_REVISION = "rei-ollama-racio-interpreter-c3-v6"
 OLLAMA_INTERPRETER_NO_FALLBACK_REASON = (
     "The conscious-access Racio interpreter has no retry or fallback provider."
 )
+OllamaInterpreterFailureCode = Literal[
+    "request_contract_failure",
+    "runtime_identity_mismatch",
+    "gpu_placement_failure",
+    "generation_contract_failure",
+    "structured_output_invalid",
+    "conscious_access_rejected",
+]
+
+
+class OllamaInterpreterExecutionError(OllamaResponseError):
+    """Provider rejection with a stable, message-free diagnostic category."""
+
+    def __init__(
+        self,
+        failure_code: OllamaInterpreterFailureCode,
+        message: str,
+        *,
+        rejected_response_sha256: str | None = None,
+        rejected_response_byte_count: int | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.failure_code = failure_code
+        self.rejected_response_sha256 = rejected_response_sha256
+        self.rejected_response_byte_count = rejected_response_byte_count
+        if (rejected_response_sha256 is None) != (
+            rejected_response_byte_count is None
+        ):
+            raise ValueError(
+                "Rejected-response hash and byte count must appear together"
+            )
+
+
+def _reject(
+    failure_code: OllamaInterpreterFailureCode,
+    message: str,
+    *,
+    rejected_response_envelope: Mapping[str, Any] | None = None,
+) -> OllamaInterpreterExecutionError:
+    if rejected_response_envelope is None:
+        return OllamaInterpreterExecutionError(failure_code, message)
+    rejected_bytes = canonical_json_bytes(rejected_response_envelope)
+    return OllamaInterpreterExecutionError(
+        failure_code,
+        message,
+        rejected_response_sha256=hashlib.sha256(rejected_bytes).hexdigest(),
+        rejected_response_byte_count=len(rejected_bytes),
+    )
 RACIO_INTERPRETER_STRUCTURED_INSTRUCTION = """\
 You are a bounded Racio interpreter. Interpret only the conscious-access JSON
 packet supplied as the prompt. Treat every observation_id and option_id as an
@@ -126,6 +175,25 @@ class OllamaStructuredRacioInterpreterResponseEvidence(FrozenArtifactModel):
 
     @model_validator(mode="after")
     def validate_result_id(self) -> Self:
+        try:
+            parsed_output = StructuredRacioInterpreterOutput.model_validate_json(
+                self.response_text
+            )
+        except ValueError as exc:
+            raise ValueError(
+                "Ollama interpreter response text is not typed structured output"
+            ) from exc
+        if (
+            sha256_hex(parsed_output) != self.structured_output_hash
+            or parsed_output.cited_observation_ids != self.cited_observation_ids
+        ):
+            raise ValueError(
+                "Ollama interpreter response text differs from structured output pin"
+            )
+        if self.active_context_length != self.requested_num_ctx:
+            raise ValueError(
+                "Ollama interpreter active context differs from requested context"
+            )
         payload = self.model_dump(
             mode="python",
             round_trip=True,
@@ -463,87 +531,152 @@ class OllamaStructuredRacioInterpreterProvider:
             )
         payload = self.request_payload(packet)
         payload_hash = sha256_hex(payload)
-        current_runtime = inspect_ollama_runtime(
-            self.client,
-            self.settings.model,
-            expected_digest=self.runtime.digest,
-        )
+        try:
+            current_runtime = inspect_ollama_runtime(
+                self.client,
+                self.settings.model,
+                expected_digest=self.runtime.digest,
+            )
+        except OllamaResponseError as exc:
+            raise _reject(
+                "runtime_identity_mismatch",
+                "Ollama runtime identity could not be revalidated before generation",
+            ) from exc
         if current_runtime != self.runtime:
-            raise OllamaResponseError(
-                "Ollama runtime changed after the interpreter call was approved"
+            raise _reject(
+                "runtime_identity_mismatch",
+                "Ollama runtime changed after the interpreter call was approved",
             )
         response = self.client.generate(
             payload,
             timeout_seconds=call.timeout_seconds,
         )
+        response_text = response.get("response")
+
+        def reject_post_generation(
+            failure_code: OllamaInterpreterFailureCode,
+            message: str,
+        ) -> OllamaInterpreterExecutionError:
+            return _reject(
+                failure_code,
+                message,
+                rejected_response_envelope=response,
+            )
+
         if sha256_hex(payload) != payload_hash:
-            raise OllamaResponseError("Ollama transport mutated the interpreter request")
+            raise reject_post_generation(
+                "request_contract_failure",
+                "Ollama transport mutated the interpreter request",
+            )
         if response.get("done") is not True:
-            raise OllamaResponseError("Ollama interpreter generation did not finish")
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama interpreter generation did not finish",
+            )
         if response.get("done_reason") != "stop":
-            raise OllamaResponseError(
-                "Ollama interpreter generation did not stop cleanly"
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama interpreter generation did not stop cleanly",
             )
         if response.get("thinking") not in (None, ""):
-            raise OllamaResponseError(
-                "Ollama returned unapproved thinking despite think=false"
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama returned unapproved thinking despite think=false",
             )
         if response.get("model") != self.settings.model:
-            raise OllamaResponseError("Ollama interpreter used an unexpected model")
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama interpreter used an unexpected model",
+            )
         if response.get("remote_model") or response.get("remote_host"):
-            raise OllamaResponseError("Ollama interpreter used a remote model")
-        post_runtime = inspect_ollama_runtime(
-            self.client,
-            self.settings.model,
-            expected_digest=self.runtime.digest,
-        )
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama interpreter used a remote model",
+            )
+        try:
+            post_runtime = inspect_ollama_runtime(
+                self.client,
+                self.settings.model,
+                expected_digest=self.runtime.digest,
+            )
+        except OllamaResponseError as exc:
+            raise reject_post_generation(
+                "runtime_identity_mismatch",
+                "Ollama runtime identity could not be revalidated after generation",
+            ) from exc
         if post_runtime != self.runtime:
-            raise OllamaResponseError("Ollama runtime changed during interpretation")
-        placement = inspect_ollama_active_model(self.client, self.settings.model)
+            raise reject_post_generation(
+                "runtime_identity_mismatch",
+                "Ollama runtime changed during interpretation",
+            )
+        try:
+            placement = inspect_ollama_active_model(
+                self.client,
+                self.settings.model,
+            )
+        except OllamaResponseError as exc:
+            raise reject_post_generation(
+                "gpu_placement_failure",
+                "Active Ollama placement metadata failed validation",
+            ) from exc
         if (
             placement.digest != self.runtime.digest
             or placement.context_length != self.settings.num_ctx
         ):
-            raise OllamaResponseError(
-                "Active Ollama model differs from approved digest or context"
+            raise reject_post_generation(
+                "gpu_placement_failure",
+                "Active Ollama model differs from approved digest or context",
             )
         if self.settings.require_full_gpu and not placement.full_gpu:
-            raise OllamaResponseError("Active Ollama model is not fully GPU-resident")
-        response_text = response.get("response")
+            raise reject_post_generation(
+                "gpu_placement_failure",
+                "Active Ollama model is not fully GPU-resident",
+            )
         if not isinstance(response_text, str):
-            raise OllamaResponseError("Ollama generation is missing response text")
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama generation is missing response text",
+            )
         try:
             output = StructuredRacioInterpreterOutput.model_validate_json(response_text)
         except (ValueError, TypeError) as exc:
-            raise OllamaResponseError(
-                "Ollama returned invalid structured Racio interpreter output"
+            raise reject_post_generation(
+                "structured_output_invalid",
+                "Ollama returned invalid structured Racio interpreter output",
             ) from exc
         try:
             output.validate_against(packet)
         except ValueError as exc:
-            raise OllamaResponseError(
-                "Ollama structured interpreter output exceeds conscious access"
+            raise reject_post_generation(
+                "conscious_access_rejected",
+                "Ollama structured interpreter output exceeds conscious access",
             ) from exc
-        evidence = OllamaStructuredRacioInterpreterResponseEvidence.create(
-            packet=packet,
-            call=call,
-            runtime=self.runtime,
-            settings=self.settings,
-            request_payload=payload,
-            response=response,
-            output=output,
-            placement=placement,
-        )
-        evidence.validate_against(
-            packet=packet,
-            call=call,
-            runtime=self.runtime,
-            settings=self.settings,
-            placement=placement,
-            request_payload=payload,
-            response=response,
-            output=output,
-        )
+        try:
+            evidence = OllamaStructuredRacioInterpreterResponseEvidence.create(
+                packet=packet,
+                call=call,
+                runtime=self.runtime,
+                settings=self.settings,
+                request_payload=payload,
+                response=response,
+                output=output,
+                placement=placement,
+            )
+            evidence.validate_against(
+                packet=packet,
+                call=call,
+                runtime=self.runtime,
+                settings=self.settings,
+                placement=placement,
+                request_payload=payload,
+                response=response,
+                output=output,
+            )
+        except (OllamaResponseError, TypeError, ValueError) as exc:
+            raise reject_post_generation(
+                "generation_contract_failure",
+                "Ollama response evidence metadata failed validation",
+            ) from exc
         finished_at = clock.timestamp("racio_call_finished")
         record = ProviderCallRecord(
             call_id=call.call_id,
@@ -573,6 +706,8 @@ class OllamaStructuredRacioInterpreterProvider:
 __all__ = [
     "OLLAMA_INTERPRETER_NO_FALLBACK_REASON",
     "OLLAMA_INTERPRETER_PROVIDER_REVISION",
+    "OllamaInterpreterExecutionError",
+    "OllamaInterpreterFailureCode",
     "RACIO_INTERPRETER_STRUCTURED_INSTRUCTION",
     "OllamaStructuredRacioInterpreterExecution",
     "OllamaStructuredRacioInterpreterProvider",

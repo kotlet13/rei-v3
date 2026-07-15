@@ -25,6 +25,9 @@ QWEN_VL_DIGEST = (
 QWEN_35_DIGEST = (
     "7653528ba5cba4dd8e19da24aaddc7f4d0b5ecd93571c0825dfd4137958ec06e"
 )
+QWEN_36_35B_DIGEST = (
+    "07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522"
+)
 
 
 def _registry_payload() -> dict[str, object]:
@@ -39,16 +42,17 @@ def _validate(payload: dict[str, object]) -> RacioInterpreterModelRegistry:
     )
 
 
-def test_json_compatible_yaml_registry_loads_three_unselected_candidates() -> None:
+def test_json_compatible_yaml_registry_loads_four_unselected_candidates() -> None:
     payload = _registry_payload()
     registry = load_racio_interpreter_model_registry()
 
     assert payload["schema_version"] == "rei-racio-interpreter-model-registry-v1"
-    assert registry.registry_version == "c3-v3"
+    assert registry.registry_version == "c3-v4"
     assert tuple(candidate.model_id for candidate in registry.candidates) == (
         "granite4.1:30b",
         "qwen2.5vl:32b",
         "qwen3.5:27b",
+        "qwen3.6:35b",
     )
     assert {
         "default_model_id",
@@ -70,7 +74,7 @@ def test_registry_api_is_public_without_selecting_or_loading_a_model() -> None:
 
 def test_registry_records_required_candidate_metadata() -> None:
     registry = load_racio_interpreter_model_registry()
-    granite, qwen_vl, qwen_35 = registry.candidates
+    granite, qwen_vl, qwen_35, qwen_36_35b = registry.candidates
 
     assert granite.model_digest == GRANITE_DIGEST
     assert granite.runtime == "ollama"
@@ -98,6 +102,15 @@ def test_registry_records_required_candidate_metadata() -> None:
     assert qwen_35.hardware_requirements.minimum_vram_gib == 24
     assert qwen_35.license == "Apache-2.0"
     assert qwen_35.benchmark_status == "rejected"
+
+    assert qwen_36_35b.model_digest == QWEN_36_35B_DIGEST
+    assert qwen_36_35b.runtime == "ollama"
+    assert qwen_36_35b.modality_support == ("structured_text", "vision")
+    assert qwen_36_35b.slovenian_baseline == "not_benchmarked"
+    assert qwen_36_35b.max_context == 262144
+    assert qwen_36_35b.hardware_requirements.minimum_vram_gib == 32
+    assert qwen_36_35b.license == "Apache-2.0"
+    assert qwen_36_35b.benchmark_status == "c3_candidate"
 
 
 def test_lookup_requires_exact_explicit_model_id_and_digest() -> None:

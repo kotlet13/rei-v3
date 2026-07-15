@@ -18,7 +18,7 @@ from ..models.common import FrozenModel, HashDigest, NonEmptyText
 
 
 REGISTRY_SCHEMA_VERSION = "rei-racio-interpreter-model-registry-v1"
-REGISTRY_VERSION = "c3-v3"
+REGISTRY_VERSION = "c3-v4"
 RACIO_INTERPRETER_MODEL_REGISTRY_PATH = (
     Path(__file__).resolve().parents[4]
     / "config"
@@ -81,7 +81,7 @@ class RacioInterpreterModelRegistry(FrozenModel):
     """Versioned candidate registry with no default or selected-model field."""
 
     schema_version: Literal["rei-racio-interpreter-model-registry-v1"]
-    registry_version: Literal["c3-v3"]
+    registry_version: Literal["c3-v4"]
     candidates: tuple[RacioInterpreterModelCandidate, ...] = Field(min_length=1)
 
     @model_validator(mode="after")

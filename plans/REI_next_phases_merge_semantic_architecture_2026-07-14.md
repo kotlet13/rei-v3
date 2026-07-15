@@ -3,8 +3,8 @@
 **Namen:** neposredno izvedbeno navodilo za Codex
 **Repozitorij:** `kotlet13/rei-v3`
 **Aktivna in edina dovoljena izvedbena veja:** `main`
-**Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (zgodovinsko; že mergeana)
-**Temeljno pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`; drugih vej se ne ustvarja, uporablja ali objavlja
+**Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (izključno zgodovinski podatek; že mergeana in se ne uporablja več)
+**Temeljno pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main` oziroma `origin/main`; drugih vej se ne ustvarja, uporablja, objavlja ali obravnava kot izvedbeno alternativo
 **Datum načrta:** 2026-07-14
 **Status:** C8 integriran s tem faznim commitom neposredno na `main`; C7 tehnični contract gate uspešen, research-quality gate pa blokiran; pred C9 je potrebna kontrolirana image/model remediation
 **Izven obsega:** QLoRA, SFT, LoRA trening, generiranje učnih datasetov in dokončna izbira produkcijskega modela
@@ -39,7 +39,7 @@ EgoTrace / EgoCompositionSnapshot
 
 Naslednji razvojni cikel nima več naloge postavljati osnovne arhitekture. Njegov cilj je:
 
-1. varno združiti sprejeto vejo v `main`;
+1. ohraniti sledljiv zapis že zaključene integracije sprejete arhitekture v `main`;
 2. vzpostaviti semantični laboratorij, ki preverja, ali posamezni procesorji res sledijo REI-poti;
 3. izdelati pravi Racijev interpretacijski sloj;
 4. Emocia postopno premakniti iz strukturiranega simbolnega modela v pravo vizualno kognicijo;
@@ -51,7 +51,7 @@ To ni en sam velik commit. Codex mora vsako fazo izvajati ločeno in se po vsake
 
 ---
 
-# 1. Trenutno stanje repozitorija
+# 1. Zgodovinski predintegracijski posnetek repozitorija
 
 Naslednji blok je zgodovinski posnetek pred zaključenim mergem in ni navodilo
 za izbiro aktivne veje. Aktivna veja je `main`.
@@ -66,9 +66,13 @@ merge_base: 995b572c893058c82d265d978a0391e317f1ea67
 main head: 07a26401e0b2707a79018efc2fdd7194d3062566
 ```
 
-Veji manjka en dokumentacijski commit z `main`, ki je dodal star canonical-v2/QLoRA prompt. Ta prompt je po novi arhitekturi presežen in ga je treba ohraniti samo kot zgodovinski dokument z jasno oznako `SUPERSEDED`.
+V takratnem posnetku je zgodovinski veji manjkal en dokumentacijski commit z
+`main`, ki je dodal star canonical-v2/QLoRA prompt. Ta prompt je po novi
+arhitekturi presežen in se ohranja samo kot zgodovinski dokument z jasno oznako
+`SUPERSEDED`.
 
-Na arhitekturni veji je B14 sprejemna dokumentacija, ki navaja:
+Zgodovinska arhitekturna veja je vsebovala B14 sprejemno dokumentacijo, ki
+navaja:
 
 - arhiv stare tekstovne arhitekture;
 - 632 uspešnih kontroliranih testov;
@@ -79,7 +83,9 @@ Na arhitekturni veji je B14 sprejemna dokumentacija, ki navaja:
 - en kontroliran lokalni Ollama Racio smoke run;
 - eksplicitno navedene manjkajoče integracije.
 
-Ta dokument je treba ob integraciji ohraniti nespremenjen kot zgodovinski B14 zapis. Morebitni novi rezultati gredo v nov dodatek, ne v retroaktivno prepisovanje B14 poročila.
+Ta dokument je bil ob integraciji ohranjen nespremenjen kot zgodovinski B14
+zapis. Morebitni novi rezultati gredo v nov dodatek, ne v retroaktivno
+prepisovanje B14 poročila.
 
 ---
 
@@ -152,22 +158,20 @@ Po vsaki fazi:
 
 1. zaženi predpisane teste;
 2. pripravi poročilo;
-3. naredi majhen commit oziroma omejeno serijo commitov;
-4. ustavi se;
-5. počakaj na pregled pred naslednjo fazo.
+3. preveri, da delo še vedno poteka na `main` in da so nepovezane uporabnikove
+   spremembe ostale nestageane;
+4. naredi majhen commit oziroma omejeno serijo commitov neposredno na `main`;
+5. pushaj odobreni fazni obseg neposredno na `origin/main`;
+6. ustavi se in počakaj na pregled pred naslednjo fazo.
 
 ## 3.2 Brez prepisovanja zgodovine
 
 Ta podrazdelek opisuje že zaključeno zgodovinsko integracijo M0–M2. Ne daje
 dovoljenja za novo fazno oziroma feature vejo; za vse nadaljnje delo velja
-izključno pravilo 3.3.
-
-- Ne uporabljaj `git rebase` na sprejeti arhitekturni veji.
-- Ne uporabljaj squash mergea.
-- Ne force-pushaj.
-- Ne briši ali premikaj baseline taga.
-- Ne spreminjaj SHA-ledgerja v B14 poročilu.
-- Za združitev uporabi merge commit.
+izključno pravilo 3.3. Zgodovinski ledger beleži, da sprejeta integracija ni
+uporabila rebasea, squash mergea ali force-pusha, da baseline tag in SHA-ledger
+v B14 poročilu nista bila premaknjena ter da je bila integracija izvedena z
+merge commitom. To so dejstva o zaključeni integraciji, ne ponovljiv workflow.
 
 Razlog: B14, arhiv in rollback dokumentacija se sklicujejo na konkretne commite.
 
@@ -177,10 +181,14 @@ Od uporabnikovega navodila 2026-07-14 naprej se vse faze izvajajo striktno na
 veji `main`:
 
 - ne ustvarjaj ali uporabljaj faznih oziroma feature vej;
+- ne preklapljaj na drugo vejo in ne odpiraj PR-ja kot nadomestila za neposreden
+  `main` workflow;
 - pred začetkom faze preveri `main` in `origin/main`;
 - nepovezane uporabnikove lokalne spremembe ohrani nestageane;
 - po pregledu faze commitaj in pushaj samo njen dogovorjeni obseg neposredno na
   `main`;
+- če `main` in `origin/main` nista varno uskladljiva, se ustavi in poročaj;
+  pomožne ali reševalne veje ne ustvarjaj;
 - pravilo »ena faza, en pregled« ostane v veljavi tudi brez ločenih vej.
 
 Imena drugih vej, ukazi za preklop vej ter PR/merge postopki v M0–M3 so samo
@@ -209,41 +217,34 @@ Faze M0–M2 so zaključeni zgodovinski integracijski zapis. Ukazi in PR koraki 
 njih niso navodilo za ustvarjanje, preklop ali uporabo druge veje. Aktivno in
 vse prihodnje delo poteka izključno neposredno na `main` po pravilu 3.3.
 
-**Cilj:** ugotoviti dejansko stanje lokalne in oddaljene veje brez sprememb.
+**Zgodovinski cilj:** ugotoviti takratno stanje lokalne in oddaljene veje brez
+sprememb. Ta cilj je zaključen in ga ni dovoljeno ponovno izvajati kot vejni
+workflow.
 
-## 4.1 Ukazi
+## 4.1 Zgodovinsko opravljene poizvedbe
 
-```powershell
-git fetch origin --prune --tags
-git status --short
-git branch -avv
-git log --graph --decorate --oneline --all -40
-git rev-parse origin/main
-git rev-parse origin/codex/architecture/rei-native-composition
-git merge-base origin/main origin/codex/architecture/rei-native-composition
-git diff --stat origin/main...origin/codex/architecture/rei-native-composition
-```
+Preflight je takrat prebral oddaljene refe in tage, status ter graf vej, SHA
+`origin/main`, SHA zgodovinske arhitekturne veje, njun merge-base in primerjalni
+diff-stat. Ta odstavek ohranja dokazni obseg pregleda, ne pa ukazov za ponovno
+uporabo nekdanje veje.
 
-## 4.2 Preveri
+## 4.2 Zgodovinsko preverjeni pogoji
 
-- da je `origin/main` pričakovano na ali po `07a2640...`;
-- da arhitekturna veja vsebuje B14 poročilo;
-- da se archive tag razreši;
-- da ni nepričakovanih dodatnih commitov;
-- da ni lokalnih necommitiranih uporabnikovih sprememb;
-- ali obstaja odprt PR;
-- ali GitHub Actions že obstaja;
-- katere datoteke je dodal manjkajoči main commit.
+- `origin/main` je bil preverjen glede na pričakovani `07a2640...`;
+- potrjeno je bilo, da je zgodovinska arhitekturna veja vsebovala B14 poročilo;
+- preverjeni so bili archive tag, nepričakovani dodatni commiti, lokalne
+  necommitirane spremembe, takratni PR, GitHub Actions in datoteke manjkajočega
+  main commita.
 
 ## 4.3 Izhod
 
-Pripravi samo poročilo:
+Zgodovinski izhod je bilo poročilo:
 
 ```text
 Docs/evals/merge_preflight_native_composition_2026-07-14.md
 ```
 
-Poročilo naj vsebuje:
+Poročilo je zajelo:
 
 - source refs;
 - branch graph;
@@ -253,25 +254,25 @@ Poročilo naj vsebuje:
 - testna navodila;
 - priporočeno merge strategijo.
 
-Če je delovno drevo dirty, ne nadaljuj brez pojasnila.
+Takratni postopek je zahteval ustavitev ob nepojasnjenem dirty delovnem drevesu.
 
-**Commit:** samo če je poročilo dodano:
+**Zgodovinski commit poročila:**
 
 ```text
 docs(integration): record native-composition merge preflight
 ```
 
-Po tej fazi se Codex ustavi.
+Faza je zaključena; ta zapis je samo zgodovinski.
 
 ---
 
 # 5. Faza M1 — zaključena zgodovinska integracija
 
-Ta faza je zaključena in integrirana v `main`. Spodnji postopek preklopa na
-arhitekturno vejo ni več aktiven in se ne ponavlja. Vse nadaljnje delo ostane
-na `main`.
+Ta faza je zaključena in integrirana v `main`. Spodnji zapis takratne rešitve
+ni več aktiven in se ne ponavlja. Vse nadaljnje delo ostane na `main` ter se po
+pregledu commita in pusha neposredno na `origin/main`.
 
-## 5.1 Trenutno preverjanje
+## 5.1 Zgodovinsko preverjanje po integraciji
 
 ```powershell
 git switch main
@@ -280,7 +281,7 @@ git rev-parse main
 git rev-parse origin/main
 ```
 
-## 5.2 Pričakovani dokumentacijski konflikt oziroma podvajanje
+## 5.2 Zgodovinski dokumentacijski konflikt oziroma podvajanje
 
 `main` vsebuje:
 
@@ -288,9 +289,10 @@ git rev-parse origin/main
 Docs/plans/REI_v3_Codex_first_execution_prompt.md
 ```
 
-Arhitekturna veja vsebuje nove načrte in arhivirane kopije stare QLoRA smeri pod `plans/`.
+Zgodovinska arhitekturna veja je vsebovala nove načrte in arhivirane kopije
+stare QLoRA smeri pod `plans/`.
 
-Rešitev:
+Takrat uporabljena rešitev:
 
 1. zgodovinskega dokumenta ne briši;
 2. na vrh `Docs/plans/REI_v3_Codex_first_execution_prompt.md` dodaj:
@@ -310,15 +312,15 @@ Glej:
 4. ne spreminjaj vsebine arhivske kopije;
 5. posodobi `README.md`, `CURRENT.md` in `AGENTS.md`, če bi merge vrnil star opis baselinea.
 
-## 5.3 Dodaj integracijski dodatek, ne spreminjaj B14
+## 5.3 Zgodovinski integracijski dodatek
 
-Ustvari:
+Ustvarjen je bil:
 
 ```text
 Docs/evals/rei_native_architecture_integration_addendum_2026-07-14.md
 ```
 
-V njem zapiši:
+V njem so bili zapisani:
 
 - pre-merge source SHA;
 - merge commit SHA;
@@ -329,7 +331,7 @@ V njem zapiši:
 - morebitne razlike v številu testov;
 - GitHub Actions status.
 
-## 5.4 Testi
+## 5.4 Zgodovinski testi
 
 Najprej:
 
@@ -371,7 +373,7 @@ Preveri:
 - mobile width;
 - browser console.
 
-## 5.5 Prepovedi
+## 5.5 Zgodovinske omejitve
 
 V tej fazi ne:
 
@@ -382,21 +384,21 @@ V tej fazi ne:
 - spreminjaš archive tag;
 - uvajaš semantic lab.
 
-## 5.6 Commit
+## 5.6 Zgodovinska commita
 
-Merge commit:
+Uporabljen merge commit:
 
 ```text
 merge(main): reconcile documentation before native-composition integration
 ```
 
-Po testih dodatni dokumentacijski commit samo, če je potreben:
+Po testih je bil po potrebi uporabljen še dokumentacijski commit:
 
 ```text
 docs(integration): mark canonical-v2 prompt superseded and record merge verification
 ```
 
-Po fazi se ustavi.
+Faza je zaključena; ta zapis ni navodilo za nov merge ali drugo vejo.
 
 ---
 
@@ -406,11 +408,12 @@ Ta faza je že integrirana v `main`. Spodnji opis PR-ja in merge načina ohranja
 zgodovinski kontekst; ni aktiven workflow. Za naslednje faze se spremembe po
 pregledu commitajo in pushajo neposredno na `main`, brez fazne ali feature veje.
 
-**Cilj:** zagotoviti, da merge ni odvisen samo od enega lokalnega okolja.
+**Zgodovinski cilj:** zagotoviti, da integracija ni bila odvisna samo od enega
+lokalnega okolja.
 
-## 6.1 GitHub Actions
+## 6.1 Zgodovinski GitHub Actions hardening
 
-Če `.github/workflows/` še nima primernega workflowa, dodaj:
+V okviru zaključene faze je bil dodan:
 
 ```text
 .github/workflows/rei-native-tests.yml
@@ -447,15 +450,15 @@ CI ne sme:
 - zaganjati QLoRA;
 - spreminjati committed artefaktov.
 
-## 6.2 Zgodovinski PR zapis
+## 6.2 Zgodovinski PR zapis (ni izvedbeno navodilo)
 
-Predlagani naslov:
+Takrat predlagani naslov je bil:
 
 ```text
 Merge native-modality REI architecture into main
 ```
 
-PR body naj vsebuje:
+Takratni PR body je moral vsebovati:
 
 - arhitekturni povzetek;
 - branch graph;
@@ -467,24 +470,14 @@ PR body naj vsebuje:
 - breaking change;
 - eksplicitno pojasnilo, da QLoRA ni del PR-ja.
 
-## 6.3 Zgodovinski merge način
+## 6.3 Zgodovinski merge način (ni izvedbeno navodilo)
 
-Uporabi:
+Izbran je bil GitHub način `Create a merge commit`; načina `Squash and merge`
+in `Rebase and merge` nista bila uporabljena.
 
-```text
-Create a merge commit
-```
+## 6.4 Zgodovinski pogoji pred mergem (ni izvedbeno navodilo)
 
-Ne uporabljaj:
-
-```text
-Squash and merge
-Rebase and merge
-```
-
-## 6.4 Zgodovinski pogoji pred mergem
-
-Obvezno:
+Takrat so bili obvezno preverjeni:
 
 - vsi CI jobi zeleni;
 - branch ni več behind;
@@ -496,11 +489,15 @@ Obvezno:
 
 ---
 
-# 7. Faza M3 — post-merge sprejem na `main`
+# 7. Faza M3 — zaključen zgodovinski post-merge sprejem na `main`
 
-**Cilj:** zamrzniti novo aktivno razvojno osnovo.
+Ta faza je zaključena in integrirana. Spodnji `main`/tag zapis ohranja
+zgodovinsko sled sprejema; ni navodilo za ponovno tagiranje ali nov vejni
+workflow.
 
-## 7.1 Po mergeu
+**Zgodovinski cilj:** zamrzniti novo aktivno razvojno osnovo.
+
+## 7.1 Zgodovinsko preverjanje po mergeu
 
 ```powershell
 git switch main
@@ -513,7 +510,7 @@ python scripts/run_rei_native_profile_matrix.py
 
 ## 7.2 Release tag
 
-Če vse uspe:
+Po uspešnem zgodovinskem preverjanju je bil ustvarjen in objavljen tag:
 
 ```powershell
 git tag -a rei-v3-native-composition-v1 -m "Accepted REI native-modality and Ego-composition architecture"
@@ -524,13 +521,13 @@ Obstoječega taga stare arhitekture ne spreminjaj.
 
 ## 7.3 Release zapis
 
-Ustvari:
+Ustvarjen je bil:
 
 ```text
 Docs/releases/rei-v3-native-composition-v1.md
 ```
 
-Vključuje:
+Zapis vključuje:
 
 - main merge SHA;
 - tag;
@@ -541,7 +538,7 @@ Vključuje:
 - naslednje faze C1–C6;
 - opozorilo, da gre za raziskovalni simulator.
 
-Commit:
+Zgodovinski commit:
 
 ```text
 docs(release): mark native-composition v1 integration baseline
@@ -551,11 +548,8 @@ docs(release): mark native-composition v1 integration baseline
 
 # 8. Faza C1 — kanonični semantični laboratorij
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** preiti iz testiranja arhitekturne pravilnosti v testiranje kakovosti notranjih REI-poti.
 
@@ -808,11 +802,8 @@ feat(eval): add source-grounded REI semantic laboratory
 
 # 9. Faza C2 — semantični evaluator
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** ocenjevati notranjo pot, ne samo pravilnost JSON-a ali prisotnost ključnih besed.
 
@@ -972,11 +963,8 @@ feat(eval): add semantic route and translation evaluation
 
 # 10. Faza C3 — pravi RacioInterpreter
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** Racio naj prvič res interpretira Emocieve manifestacije in Instinktovo telesno stanje, ne da bi videl nativni ground truth.
 
@@ -1156,15 +1144,39 @@ Commit:
 feat(communication): add model-backed Racio interpretation behind conscious-access boundary
 ```
 
+## 10.11 Kontrolirana remediation — 2026-07-15
+
+C3 runtime ostaja integriran, model-quality gate pa ostaja `blocked`. Pred novim
+modelnim klicem se ločen remediation protokol pregleda, commita neposredno na
+`main` in pusha neposredno na `origin/main`; druga veja ali PR workflow nista
+dovoljena:
+
+- kandidat `qwen3.6:35b` je pripet z natančnim Ollama digestom samo kot
+  `c3_candidate`, brez default ali production izbire;
+- provider v6 ohranja isti conscious-access prompt/schema in dodaja samo
+  stabilne sanitizirane failure kategorije ter hash/velikost zavrnjenega
+  odziva, brez njegove vsebine;
+- novi v2 holdout je create-only, model-free, ročno avtoriran, fizično loči
+  public/gold in se v manifestu veže na predhodni protocol-freeze commit;
+- holdout se mora izvesti prvi, stari nespremenjeni regression corpus drugi,
+  oba z istim pripetim provider contractom in brez vmesnega tuninga;
+- v2 gate zahteva uspeh vseh 32 primerov; pragovi ostajajo poimenovane
+  implementacijske hipoteze, ne empirična psihološka trditev.
+
+Avtoritativen protokol je:
+
+```text
+Docs/evals/semantic_lab_v1/c3_remediation_protocol_2026-07-15.md
+```
+
+Ta checkpoint še ne izvaja modela, ne odblokira C3/C7 in ne odpira C9.
+
 ---
 
 # 11. Faza C4 — Emocio kot prava vizualna kognicija
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** image generator naj ne bo samo ilustrator že dokončanega sklepa, ampak nadzorovan del Emocieve notranje predstavne poti.
 
@@ -1411,11 +1423,8 @@ c304404 feat(emocio): add provenance-closed composite editor screen
 
 # 12. Faza C5 — Instinktov samodejni body-effect mapper
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** odstraniti potrebo, da uporabnik ročno poda učinek vsake možnosti na telo.
 
@@ -1639,11 +1648,8 @@ slepe semantične avtoritete in ne zapira odprtega C4 modelnega quality gatea.
 
 # 13. Faza C6 — longitudinalni Ego kot skladba
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** preveriti, ali Ego skozi zaporedje ciklov res predstavlja nastajajočo skladbo, ki povratno oblikuje svetove treh razumov.
 
@@ -1899,11 +1905,8 @@ dimensions.md                 a26342a87f4a86fff00bf59ed4da8afe382e91e5490a498b59
 
 # 14. Faza C7 — integrirani semantični benchmark
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** preveriti celoten sistem po tem, ko so RacioInterpreter, Emocio visual cognition, Instinkt mapper in longitudinalni Ego na voljo.
 
@@ -2044,11 +2047,8 @@ prikazati brez njihovega pretvarjanja v en sam rezultat.
 
 # 15. Faza C8 — GUI semantičnega laboratorija
 
-**Veja:**
-
-```text
-main
-```
+**Izvedba:** neposredno na `main`; odobreni fazni commit se pusha neposredno na
+`origin/main`; fazna oziroma feature veja in PR workflow nista dovoljena.
 
 **Cilj:** omogočiti človeku, da pregleda razliko med nativnim sklepom, manifestacijo, Racijevim prevodom in časovno Ego kompozicijo.
 
@@ -2183,6 +2183,11 @@ feat(gui): add semantic native-process and longitudinal Ego workbench
 
 # 16. Faza C9 — naslednji release
 
+**Izvedba po izrecni odobritvi:** neposredno na `main`; release commit in
+morebitni spremljevalni dokumentacijski commiti se pushajo neposredno na
+`origin/main`. Tudi za C9 se ne ustvari fazna oziroma feature veja in se ne
+uporabi PR workflow.
+
 Ko so C1–C8 sprejeti:
 
 C8 tehnični sprejem sam po sebi ne odpre C9. Pred releaseom mora biti C7
@@ -2247,7 +2252,10 @@ V poročilu loči:
 
 # 18. Predlagani commit in `main` pregled
 
-| Faza | Veja | Predlagani commit |
+Vse še odprte vrstice v tej tabeli pomenijo neposreden commit na `main` in push
+na `origin/main`, nikoli dela na ločeni veji.
+
+| Faza | Izvedba | Predlagani commit |
 |---|---|---|
 | M0 | main (integrirano) | `docs(integration): record native-composition merge preflight` |
 | M1 | main (integrirano) | `merge(main): reconcile documentation before native-composition integration` |
@@ -2262,7 +2270,7 @@ V poročilu loči:
 | C6 | main (integrirano; bounded gate uspešen; semantic authority ni podeljena) | `feat(ego): validate longitudinal composition and modality-specific world learning` |
 | C7 | main (integrirano; tehnični gate uspešen, research gate blokiran) | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
 | C8 | main (integrirano s faznim commitom, ki vsebuje ta status) | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
-| C9 | main (še ni odprto; čaka research remediation) | `docs(release): record semantic-native v1 acceptance` |
+| C9 | main-only (še ni odprto; čaka research remediation) | `docs(release): record semantic-native v1 acceptance` |
 
 ---
 
@@ -2330,7 +2338,7 @@ Za vsako nadaljnjo fazo velja:
 
 ```text
 Preberi ta načrt in repozitorijski AGENTS.md.
-Delaj neposredno na main; ne ustvarjaj ali uporabljaj druge veje.
+Delaj neposredno na main; ne ustvarjaj, uporabljaj, objavljaj ali checkoutaj druge veje.
 Pred spremembami preveri, da sta main in origin/main usklajena.
 Ohrani nepovezane uporabnikove lokalne spremembe nestageane.
 Izvedi samo trenutno odobreno fazo.

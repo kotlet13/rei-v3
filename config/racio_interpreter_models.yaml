@@ -1,6 +1,6 @@
 {
   "schema_version": "rei-racio-interpreter-model-registry-v1",
-  "registry_version": "c3-v3",
+  "registry_version": "c3-v4",
   "candidates": [
     {
       "model_id": "granite4.1:30b",
@@ -51,6 +51,23 @@
       },
       "license": "Apache-2.0",
       "benchmark_status": "rejected"
+    },
+    {
+      "model_id": "qwen3.6:35b",
+      "model_digest": "07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522",
+      "runtime": "ollama",
+      "modality_support": [
+        "structured_text",
+        "vision"
+      ],
+      "slovenian_baseline": "not_benchmarked",
+      "max_context": 262144,
+      "hardware_requirements": {
+        "minimum_vram_gib": 32,
+        "gpu_offload_policy": "full_gpu_preferred"
+      },
+      "license": "Apache-2.0",
+      "benchmark_status": "c3_candidate"
     }
   ]
 }
