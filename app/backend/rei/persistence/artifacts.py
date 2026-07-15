@@ -344,14 +344,27 @@ class FileArtifactStore:
     checks, so run roots must not be shared with untrusted writers.
     """
 
-    def __init__(self, root: str | os.PathLike[str] = DEFAULT_RUNS_ROOT) -> None:
+    def __init__(
+        self,
+        root: str | os.PathLike[str] = DEFAULT_RUNS_ROOT,
+        *,
+        create: bool = True,
+    ) -> None:
+        if type(create) is not bool:
+            raise TypeError("create must be a boolean")
         root_path = _absolute_without_resolving(Path(root).expanduser())
         _assert_no_reparse_ancestry(root_path)
         if root_path.exists() and not root_path.is_dir():
             raise ValueError("Artifact store root must be a directory")
-        root_path.mkdir(parents=True, exist_ok=True)
+        if create:
+            root_path.mkdir(parents=True, exist_ok=True)
+        elif not root_path.exists():
+            raise ArtifactNotFoundError("Artifact store root is missing")
         _assert_no_reparse_ancestry(root_path)
-        self._root = root_path.resolve(strict=True)
+        try:
+            self._root = root_path.resolve(strict=True)
+        except FileNotFoundError as exc:
+            raise ArtifactNotFoundError("Artifact store root is missing") from exc
         self._records: dict[str, StoredArtifact] = {}
         self._records_lock = RLock()
         identity_payload = {
@@ -526,6 +539,11 @@ class FileArtifactStore:
         expected_size: int | None = None,
         maximum_size: int | None = None,
     ) -> tuple[bytes, StoredArtifact]:
+        relevant_limits = tuple(
+            limit
+            for limit in (expected_size, maximum_size)
+            if limit is not None
+        )
         _assert_no_reparse_components(
             self._root,
             target,
@@ -557,8 +575,9 @@ class FileArtifactStore:
                 raise ArtifactIntegrityError("Stored artifact size differs from metadata")
             if maximum_size is not None and opened.st_size > maximum_size:
                 raise ArtifactIntegrityError("Stored artifact exceeds the safe read limit")
+            read_limit = min((opened.st_size, *relevant_limits))
             with os.fdopen(descriptor, "rb", closefd=False) as handle:
-                content = handle.read()
+                content = handle.read(read_limit + 1)
         finally:
             os.close(descriptor)
 
@@ -678,6 +697,32 @@ class FileArtifactStore:
             raise ArtifactIntegrityError("Stored bytes differ from expected metadata")
         with self._records_lock:
             self._records[artifact.storage_id] = artifact
+        return content
+
+    def read_bounded_unverified(
+        self,
+        run_id: str,
+        relative_path: str,
+        *,
+        maximum_size: int,
+    ) -> bytes:
+        """Safely read a bounded candidate before later manifest verification.
+
+        The returned bytes are protected against traversal, reparse points and
+        time-of-check/time-of-use replacement, but are not evidence until the
+        caller resolves them through ``verify_run`` or ``verify_prepared_run``.
+        """
+
+        if type(maximum_size) is not int or maximum_size <= 0:
+            raise ValueError("maximum_size must be a positive integer")
+        canonical_run_id = validate_run_id(run_id)
+        canonical_path = validate_relative_path(relative_path)
+        content, _ = self._read_target(
+            canonical_run_id,
+            canonical_path,
+            self.artifact_path(canonical_run_id, canonical_path),
+            maximum_size=maximum_size,
+        )
         return content
 
     def _iter_run_files(self, run_id: str, run_path: Path) -> Iterator[tuple[str, Path]]:

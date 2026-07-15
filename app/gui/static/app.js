@@ -1,29 +1,4 @@
-const state = {
-  bootstrap: null,
-  result: null,
-  activePanel: "native",
-  busy: false,
-};
-
-const els = {
-  statusDot: document.querySelector("#statusDot"),
-  runtimeStatus: document.querySelector("#runtimeStatus"),
-  runtimeMeta: document.querySelector("#runtimeMeta"),
-  sceneSummary: document.querySelector("#sceneSummary"),
-  sceneId: document.querySelector("#sceneId"),
-  runId: document.querySelector("#runId"),
-  invariantState: document.querySelector("#invariantState"),
-  profileSelect: document.querySelector("#profileSelect"),
-  debugToggle: document.querySelector("#debugToggle"),
-  runCycleBtn: document.querySelector("#runCycleBtn"),
-  tabs: [...document.querySelectorAll("[role='tab']")],
-  panels: {
-    native: document.querySelector("#panel-native"),
-    communication: document.querySelector("#panel-communication"),
-    character: document.querySelector("#panel-character"),
-    ego: document.querySelector("#panel-ego"),
-  },
-};
+const RACIO_GROUND_TRUTH_WARNING = "Racio ground trutha ni prejel.";
 
 const BODY_DIMENSIONS = [
   "energy",
@@ -41,6 +16,45 @@ const BODY_DIMENSIONS = [
   "predictability",
 ];
 
+const state = {
+  bootstrap: null,
+  lab: null,
+  labError: null,
+  result: null,
+  activePanel: "semantic",
+  busy: false,
+  sessionEgoId: `gui-ego-${randomToken()}`,
+  selectedFamilyId: null,
+  selectedVariantId: null,
+};
+
+const els = {
+  statusDot: document.querySelector("#statusDot"),
+  runtimeStatus: document.querySelector("#runtimeStatus"),
+  runtimeMeta: document.querySelector("#runtimeMeta"),
+  sceneSummary: document.querySelector("#sceneSummary"),
+  sceneId: document.querySelector("#sceneId"),
+  runId: document.querySelector("#runId"),
+  invariantState: document.querySelector("#invariantState"),
+  profileSelect: document.querySelector("#profileSelect"),
+  debugToggle: document.querySelector("#debugToggle"),
+  runCycleBtn: document.querySelector("#runCycleBtn"),
+  tabs: [...document.querySelectorAll("[role='tab']")],
+  panels: {
+    semantic: document.querySelector("#panel-semantic"),
+    racio: document.querySelector("#panel-racio"),
+    emocio: document.querySelector("#panel-emocio"),
+    instinkt: document.querySelector("#panel-instinkt"),
+    character: document.querySelector("#panel-character"),
+    ego: document.querySelector("#panel-ego"),
+  },
+};
+
+function randomToken() {
+  const uuid = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`;
+  return `${Date.now().toString(36)}-${uuid.replaceAll("-", "").replaceAll(".", "").slice(0, 10)}`.toLowerCase();
+}
+
 function element(tag, className = "", text = null) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -52,13 +66,16 @@ function append(parent, ...children) {
   for (const child of children.flat()) {
     if (child !== null && child !== undefined) parent.append(child);
   }
-  return parent;
 }
 
 function asArray(value) {
   if (Array.isArray(value)) return value;
   if (value === null || value === undefined || value === "") return [];
   return [value];
+}
+
+function asObject(value) {
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {};
 }
 
 function humanize(value) {
@@ -71,15 +88,29 @@ function display(value) {
   if (value === null || value === undefined || value === "") return "—";
   if (typeof value === "boolean") return value ? "yes" : "no";
   if (typeof value === "number") return Number.isInteger(value) ? String(value) : value.toFixed(3);
-  if (Array.isArray(value)) return value.length ? value.join(" · ") : "—";
+  if (Array.isArray(value)) return value.length ? value.map(display).join(" · ") : "—";
   if (typeof value === "object") return JSON.stringify(value);
   return String(value);
 }
 
 function compactId(value) {
   const text = display(value);
-  if (text.length <= 34) return text;
-  return `${text.slice(0, 18)}…${text.slice(-10)}`;
+  if (text.length <= 40) return text;
+  return `${text.slice(0, 22)}…${text.slice(-12)}`;
+}
+
+function statusTone(value) {
+  const normalized = String(value ?? "").toLowerCase();
+  if (["true", "pass", "passed", "available", "canon_approved", "ok", "selected"].includes(normalized)) return "ok";
+  if (["false", "fail", "failed", "error", "rejected"].includes(normalized)) return "bad";
+  if (["blocked", "warning", "observed", "not_measured", "not_executed", "not_executed_in_this_cycle"].includes(normalized)) return "warn";
+  return "neutral";
+}
+
+function statusPill(label, value) {
+  const pill = element("span", "status-pill", `${label}: ${display(value)}`);
+  pill.dataset.state = statusTone(value);
+  return pill;
 }
 
 function setRuntime(status, meta, mode = "idle") {
@@ -99,6 +130,77 @@ async function apiJson(path, options = {}) {
   return payload;
 }
 
+function safeTranslationGap(gap) {
+  const source = asObject(gap);
+  return {
+    translation_gap_id: source.translation_gap_id,
+    source_mind: source.source_mind,
+    interpretation_id: source.interpretation_id,
+    gap_status: source.gap_status,
+    distortion_type: source.distortion_type,
+    evaluator_detail_visible: false,
+    detail: "Native comparison truth is available only through the local evaluator-debug switch.",
+  };
+}
+
+function safeTranslationErrorText(value) {
+  const parts = String(value || "").split(":");
+  return parts.length >= 3 && parts[0] === "translation_gap"
+    ? parts.slice(0, 3).join(":")
+    : "translation_gap:detail_withheld";
+}
+
+function redactEvaluatorState(result = state.result) {
+  const panels = asObject(result?.panels);
+  const current = asObject(panels.racio);
+  if (Object.keys(current).length) {
+    const safe = { ...current };
+    delete safe.evaluator_ground_truth;
+    delete safe.translation_gaps;
+    delete safe.evaluator_labels;
+    safe.ground_truth_visible = false;
+    safe.warning = state.bootstrap?.communication_warning || RACIO_GROUND_TRUTH_WARNING;
+    panels.racio = safe;
+  }
+
+  const ego = asObject(panels.ego);
+  if (Object.keys(ego).length) {
+    const safeMeasure = (measure) => {
+      const payload = { ...asObject(measure) };
+      payload.translation_gaps = asArray(payload.translation_gaps).map(safeTranslationGap);
+      return payload;
+    };
+    const snapshot = { ...asObject(ego.composition_snapshot) };
+    snapshot.recurring_translation_errors = asArray(snapshot.recurring_translation_errors).map(safeTranslationErrorText);
+    snapshot.sourced_claims = asArray(snapshot.sourced_claims).map((claim) => {
+      const safeClaim = { ...asObject(claim) };
+      if (safeClaim.kind === "recurring_translation_error") {
+        safeClaim.text = safeTranslationErrorText(safeClaim.text);
+        safeClaim.evaluator_detail_visible = false;
+      }
+      return safeClaim;
+    });
+    snapshot.translation_error_detail_visible = false;
+    const narrative = { ...asObject(ego.self_narrative) };
+    for (const fieldName of ["recurrent_translation_gaps", "recurring_translation_errors"]) {
+      if (fieldName in narrative) narrative[fieldName] = asArray(narrative[fieldName]).map(safeTranslationErrorText);
+    }
+    if ("translation_gaps" in narrative) narrative.translation_gaps = asArray(narrative.translation_gaps).map(safeTranslationGap);
+    panels.ego = {
+      ...ego,
+      measure: safeMeasure(ego.measure),
+      timeline: asArray(ego.timeline).map((item) => (
+        item?.event_kind === "measure"
+          ? { ...item, event: safeMeasure(item.event) }
+          : item
+      )),
+      composition_snapshot: snapshot,
+      self_narrative: narrative,
+    };
+  }
+  return result;
+}
+
 function panelHeading(title, description, meta = "") {
   const wrapper = element("div", "panel-heading");
   const copy = element("div");
@@ -108,21 +210,21 @@ function panelHeading(title, description, meta = "") {
   return wrapper;
 }
 
-function chips(values, emptyText = "None recorded") {
-  const list = element("div", "chip-list");
+function chips(values, emptyText = "None recorded", className = "") {
+  const list = element("div", `chip-list ${className}`.trim());
   const items = asArray(values);
   if (!items.length) {
-    append(list, element("span", "signal-chip", emptyText));
+    append(list, element("span", "signal-chip empty", emptyText));
     return list;
   }
   for (const value of items) append(list, element("span", "signal-chip", display(value)));
   return list;
 }
 
-function fieldGroup(label, value, { asChips = false } = {}) {
+function fieldGroup(label, value, { asChips = false, emptyText = "None recorded" } = {}) {
   const group = element("div", "field-group");
   append(group, element("h4", "", label));
-  append(group, asChips ? chips(value) : element("p", "", display(value)));
+  append(group, asChips ? chips(value, emptyText) : element("p", "", display(value)));
   return group;
 }
 
@@ -144,112 +246,523 @@ function keyValues(entries) {
 
 function rawDetails(label, payload) {
   const details = element("details", "raw-details");
-  const summary = element("summary", "", label);
-  const pre = element("pre", "raw-json", JSON.stringify(payload, null, 2));
-  append(details, summary, pre);
+  append(details, element("summary", "", label), element("pre", "raw-json", JSON.stringify(payload, null, 2)));
   return details;
 }
 
-function card(title, payload = null) {
-  const wrapper = element("article", "card");
+function card(title, payload = null, className = "") {
+  const wrapper = element("article", `card ${className}`.trim());
   append(wrapper, element("h3", "", title));
   if (payload !== null) append(wrapper, rawDetails("Inspect exact artifact", payload));
   return wrapper;
 }
 
-function mindCard(title, letter, className, conclusion, groups) {
-  const wrapper = element("article", `mind-card ${className}`);
-  const heading = element("div", "mind-heading");
-  append(heading, element("h3", "", title), element("span", "mind-badge", letter));
-  append(wrapper, heading, choiceLine("Native option", conclusion?.option_id));
-  for (const group of groups) append(wrapper, group);
-  append(wrapper, rawDetails("Inspect native conclusion", conclusion));
+function emptyNotice(title, detail) {
+  const notice = element("div", "empty-notice");
+  append(notice, element("strong", "", title), element("p", "", detail));
+  return notice;
+}
+
+function subsectionTitle(title, meta = "") {
+  const heading = element("div", "subsection-title");
+  append(heading, element("h3", "", title));
+  if (meta) append(heading, element("span", "", meta));
+  return heading;
+}
+
+function semanticFamilies() {
+  const families = state.lab?.families;
+  if (Array.isArray(families)) return families;
+  if (families && typeof families === "object") return Object.values(families);
+  return [];
+}
+
+function familyId(family) {
+  return family?.family_id || family?.id || "unknown-family";
+}
+
+function familyVariants(family) {
+  return asArray(family?.variants || family?.semantic_variants);
+}
+
+function sourceLocatorCard(locator, index) {
+  const source = asObject(locator);
+  const item = card(`Source ${index + 1}`);
+  append(
+    item,
+    keyValues([
+      ["File", source.source_file || source.path],
+      ["Section", source.section],
+      ["Page", source.page],
+    ]),
+    fieldGroup("Claim IDs", source.claim_ids, { asChips: true }),
+    fieldGroup("Slovene source summary", source.excerpt_summary_sl || source.summary_sl),
+    rawDetails("Inspect source locator", source)
+  );
+  return item;
+}
+
+function routeItems(value) {
+  const routeValue = value?.routes || value?.actual_routes || value?.expected_routes || value;
+  return asArray(routeValue).map((route) => (typeof route === "string" ? { route_id: route } : asObject(route)));
+}
+
+function routeCard(title, routes, emptyText) {
+  const wrapper = card(title, null, "route-card");
+  const items = routeItems(routes);
+  if (!items.length) {
+    append(wrapper, emptyNotice(emptyText, "The workbench does not substitute expected truth for missing execution evidence."));
+    return wrapper;
+  }
+  for (const route of items) {
+    const item = element("div", "route-item");
+    append(
+      item,
+      choiceLine("Route", route.route_id || route.candidate_route_id || route.id),
+      choiceLine("Mind", route.mind || route.source_mind),
+      choiceLine("Option", route.option_id || route.interpreted_option_id),
+      fieldGroup("Route tags", route.route_tags || route.tags, { asChips: true }),
+      fieldGroup("Evidence", route.evidence_ids || route.evidence_artifact_ids, { asChips: true }),
+      fieldGroup("Decision bridge", route.short_decision_bridge_sl || route.decisive_representation),
+      rawDetails("Inspect route", route)
+    );
+    append(wrapper, item);
+  }
   return wrapper;
 }
 
-function renderNativePanel(payload) {
-  const panel = els.panels.native;
-  panel.replaceChildren();
-  const native = payload || {};
-  const racio = native.racio || {};
-  const emocio = native.emocio || {};
-  const instinkt = native.instinkt || {};
-  const eConclusion = emocio.conclusion || {};
-  const iConclusion = instinkt.conclusion || {};
-  const visualState = emocio.visual_state || {};
+function variantFailureTags(variant, family) {
+  const evaluation = asObject(variant?.evaluation || variant?.evaluation_result);
+  const issues = asArray(evaluation.issues || variant?.issues || family?.issues);
+  return [
+    ...asArray(variant?.failure_tags || variant?.issue_codes || evaluation.failure_tags || evaluation.issue_codes),
+    ...issues.map((issue) => (typeof issue === "string" ? issue : issue.issue_code || issue.code || issue.tag)).filter(Boolean),
+  ];
+}
 
+function variantActualRoutes(variant) {
+  const evaluation = asObject(variant?.evaluation || variant?.evaluation_result);
+  return (
+    variant?.actual_routes ||
+    variant?.candidate_routes ||
+    evaluation.actual_routes ||
+    evaluation.actual_route_ids ||
+    evaluation.context?.actual_route_ids ||
+    []
+  );
+}
+
+function bilingualText(family, selectedVariant, language) {
+  const sideBySide = asObject(selectedVariant?.side_by_side);
+  const variants = familyVariants(family);
+  const preferredMode = language === "sl" ? "sl_canonical" : "en_operational_gloss";
+  const variant =
+    variants.find((item) => item.language === language && item.mode === preferredMode) ||
+    variants.find((item) => item.language === language);
+  const bilingual = asObject(family?.bilingual_pair || family?.bilingual);
+  return {
+    variant,
+    text:
+      sideBySide[language] ||
+      variant?.input_text ||
+      variant?.text ||
+      (language === "sl" ? bilingual.sl_text : bilingual.en_text) ||
+      null,
+  };
+}
+
+function renderBenchmarkStatus(benchmark) {
+  const section = element("section", "subsection benchmark-section");
+  append(section, subsectionTitle("Integrated benchmark status", "dimensions remain separate"));
+  const technicalRecord = asObject(benchmark.technical);
+  const researchRecord = asObject(benchmark.research);
+  const authorityRecord = asObject(benchmark.authority);
+  const modelCalls = asObject(benchmark.model_calls);
+  const metricDisposition = asObject(benchmark.metric_disposition);
+  const statuses = element("div", "benchmark-status-grid");
+  const technical = technicalRecord.contract_passed ?? benchmark.technical_contract_passed ?? benchmark.technical_status;
+  const research = researchRecord.quality_status ?? benchmark.research_quality_status ?? benchmark.research_status;
+  const semanticAuthority = authorityRecord.semantic_granted ?? benchmark.semantic_authority_granted ?? benchmark.semantic_authority;
+  const productionAuthority = authorityRecord.production_granted ?? benchmark.production_authority_granted ?? benchmark.production_authority;
+  for (const [title, value, detail] of [
+    ["Technical contract", technical, "Current deterministic and bounded contracts"],
+    ["Research quality", research, "Model-backed and semantic readiness"],
+    ["Semantic authority", semanticAuthority, "Permission to treat semantic output as authoritative"],
+    ["Production authority", productionAuthority, "Permission for production visual influence"],
+  ]) {
+    const status = card(title, null, "benchmark-status-card");
+    status.dataset.state = statusTone(value);
+    append(status, element("strong", "benchmark-status-value", display(value)), element("p", "", detail));
+    append(statuses, status);
+  }
+  append(section, statuses);
+
+  const counts = element("div", "status-strip");
+  for (const [label, value] of [
+    ["passed metrics", metricDisposition.passed ?? benchmark.passed_metric_count],
+    ["blocked metrics", metricDisposition.blocked ?? benchmark.blocked_metric_count],
+    ["observed metrics", metricDisposition.observed ?? benchmark.observed_metric_count],
+    ["not measured", metricDisposition.not_measured ?? benchmark.not_measured_metric_count],
+    ["current model calls", modelCalls.current],
+    ["historical model calls", modelCalls.historical],
+  ]) {
+    if (value !== undefined) append(counts, statusPill(label, value));
+  }
+  append(section, counts);
+
+  const blockerRecords = asArray(researchRecord.blockers || benchmark.failures);
+  const blockers =
+    benchmark.research_readiness_blocker_codes ||
+    benchmark.blocker_codes ||
+    blockerRecords.map((item) => (typeof item === "string" ? item : item.code || item.blocker_code)).filter(Boolean);
+  const blockerCard = card("Research-readiness blockers", null, "blocker-card");
+  append(
+    blockerCard,
+    chips(blockers, "No blocker codes recorded", "failure-chips"),
+    fieldGroup(
+      "Score policy",
+      benchmark.aggregate_score_present === false
+        ? "No aggregate score. Every metric remains a separate dimension."
+        : "No aggregate score is displayed by this workbench."
+    )
+  );
+  for (const blocker of blockerRecords) {
+    if (typeof blocker === "string") continue;
+    const blockerDetail = element("div", "blocker-detail");
+    append(
+      blockerDetail,
+      element("strong", "", blocker.code || blocker.blocker_code || "Unidentified blocker"),
+      element("p", "", blocker.detail || "No detail recorded."),
+      fieldGroup("Affected ablation families", blocker.affected_ablation_families, { asChips: true }),
+      fieldGroup("Affected metric dimensions", blocker.affected_metric_dimensions, { asChips: true })
+    );
+    append(blockerCard, blockerDetail);
+  }
+  append(section, blockerCard);
+
+  const metrics = asArray(benchmark.metrics);
+  if (metrics.length) {
+    const metricGrid = element("div", "metric-grid semantic-metrics");
+    for (const metric of metrics) {
+      const metricCard = card(humanize(metric.dimension), null, "metric-card");
+      metricCard.dataset.state = statusTone(metric.status);
+      append(
+        metricCard,
+        statusPill("status", metric.status),
+        choiceLine("Value", metric.value),
+        choiceLine("Evidence ratio", metric.numerator !== undefined ? `${metric.numerator}/${metric.denominator}` : null),
+        fieldGroup("Blockers", metric.blocker_codes, { asChips: true }),
+        fieldGroup("Limitation", metric.limitation),
+        rawDetails("Inspect metric", metric)
+      );
+      append(metricGrid, metricCard);
+    }
+    append(section, metricGrid);
+  }
+  return section;
+}
+
+function renderSemanticFamily(family) {
+  const section = element("section", "semantic-family");
+  const variants = familyVariants(family);
+  if (!state.selectedVariantId || !variants.some((item) => item.variant_id === state.selectedVariantId)) {
+    state.selectedVariantId = variants[0]?.variant_id || null;
+  }
+  const variant = variants.find((item) => item.variant_id === state.selectedVariantId) || variants[0] || {};
+  const evaluation = asObject(variant.evaluation || variant.evaluation_result);
+
+  const controls = element("div", "lab-controls");
+  const variantField = element("label", "field lab-field");
+  append(variantField, element("span", "", "Variant"));
+  const variantSelect = element("select", "lab-select");
+  variantSelect.setAttribute("aria-label", "Semantic variant");
+  for (const item of variants) {
+    const option = element("option", "", `${humanize(item.mode || item.language)} · ${compactId(item.variant_id)}`);
+    option.value = item.variant_id;
+    option.selected = item.variant_id === state.selectedVariantId;
+    append(variantSelect, option);
+  }
+  variantSelect.addEventListener("change", () => {
+    state.selectedVariantId = variantSelect.value;
+    renderSemanticPanel({ focusControl: "variant" });
+  });
+  append(variantField, variantSelect);
+  append(
+    controls,
+    variantField,
+    statusPill("family review", family.reviewer_status),
+    statusPill("variant review", variant.reviewer_status)
+  );
+  append(section, controls);
+
+  const overview = element("div", "panel-grid two");
+  const sourceCard = card(family.title_sl || family.title || familyId(family));
+  append(
+    sourceCard,
+    fieldGroup("Purpose", family.purpose),
+    fieldGroup("Family", familyId(family)),
+    fieldGroup("Source hash", family.fixture?.source_hash),
+    fieldGroup("Fixture SHA-256", family.fixture?.sha256),
+    rawDetails("Inspect family metadata", {
+      family_id: familyId(family),
+      reviewer_status: family.reviewer_status,
+      fixture: family.fixture,
+      forbidden_shortcuts: family.forbidden_shortcuts,
+    })
+  );
+  const scene = asObject(family.grounded_scene || family.scene);
+  const sceneCard = card("Grounded scene");
+  append(
+    sceneCard,
+    fieldGroup("Source text", scene.raw_input || variant.input_text),
+    fieldGroup("Grounded evidence", asArray(scene.evidence).map((item) => item.evidence_id || item.source_ref || display(item)), { asChips: true }),
+    fieldGroup("Unknowns", scene.unknowns, { asChips: true }),
+    fieldGroup("Allowed options", asArray(scene.options).map((item) => item.option_id || item), { asChips: true }),
+    rawDetails("Inspect grounded SceneEvent", scene)
+  );
+  append(overview, sourceCard, sceneCard);
+  append(section, overview);
+
+  const sourceLocators = asArray(family.source_locators);
+  const sourceSection = element("div", "subsection");
+  append(sourceSection, subsectionTitle("Source traceability", `${sourceLocators.length} locator${sourceLocators.length === 1 ? "" : "s"}`));
+  const sourceGrid = element("div", "source-grid");
+  sourceLocators.forEach((locator, index) => append(sourceGrid, sourceLocatorCard(locator, index)));
+  if (!sourceLocators.length) append(sourceGrid, emptyNotice("No source locator", "This family cannot be treated as source-grounded."));
+  append(sourceSection, sourceGrid);
+  append(section, sourceSection);
+
+  const bilingualSection = element("div", "subsection");
+  append(bilingualSection, subsectionTitle("Slovene / English", "canonical meaning beside operational gloss"));
+  const bilingualGrid = element("div", "bilingual-grid");
+  for (const [language, label] of [["sl", "Slovenščina · canonical"], ["en", "English · operational gloss"]]) {
+    const item = bilingualText(family, variant, language);
+    const languageCard = card(label, null, "language-card");
+    append(
+      languageCard,
+      element("p", "language-copy", item.text || "No paired text is available."),
+      fieldGroup("Variant", item.variant?.variant_id),
+      rawDetails("Inspect language variant", item.variant || {})
+    );
+    append(bilingualGrid, languageCard);
+  }
+  append(bilingualSection, bilingualGrid);
+  append(section, bilingualSection);
+
+  const routeSection = element("div", "subsection");
+  append(routeSection, subsectionTitle("Expected route / actual evaluated route", humanize(variant.mode || variant.language)));
+  const routeGrid = element("div", "route-grid");
+  append(
+    routeGrid,
+    routeCard("Expected route", variant.expected_routes || variant.expected_route_ids, "Expected route unavailable"),
+    routeCard("Actual evaluated route", variantActualRoutes(variant), "Not evaluated")
+  );
+  append(routeSection, routeGrid);
+  const interpretationTruth = asArray(variant.expected_interpretation_truth);
+  const truthCard = card("Expected interpretation truth");
+  if (!interpretationTruth.length) {
+    append(truthCard, emptyNotice("No interpretation truth", "This variant has no evaluator-side interpretation record."));
+  } else {
+    for (const truth of interpretationTruth) {
+      const truthItem = element("div", "route-item");
+      append(
+        truthItem,
+        choiceLine("Source mind", truth.source_mind),
+        choiceLine("Interpretation", truth.interpretation_id),
+        choiceLine("Native option", truth.native_option_id || truth.option_id),
+        fieldGroup("Native motive", truth.native_motive_summary || truth.motive_summary),
+        rawDetails("Inspect expected interpretation", truth)
+      );
+      append(truthCard, truthItem);
+    }
+  }
+  append(routeSection, truthCard);
+  const failures = variantFailureTags(variant, family);
+  const resultPasses = asArray(evaluation.results).map((result) => result.passed);
+  const evaluationPassed = resultPasses.length ? resultPasses.every(Boolean) : "not evaluated";
+  const reviewCard = card("Review and failure status");
+  append(
+    reviewCard,
+    keyValues([
+      ["Variant reviewer status", variant.reviewer_status],
+      ["Evaluation status", evaluation.status],
+      ["Evaluation reason", evaluation.reason],
+      ["Reviewer statuses", evaluation.reviewer_statuses],
+      ["Actual labels", evaluation.actual_labels],
+      ["Evaluation passed", evaluationPassed],
+    ]),
+    fieldGroup("Failure tags", failures, { asChips: true, emptyText: "No failure tags recorded" }),
+    fieldGroup("Family failure tags", family.failure_tags, { asChips: true, emptyText: "No family-level failure tags recorded" }),
+    rawDetails("Inspect variant and evaluation", { variant, evaluation })
+  );
+  append(routeSection, reviewCard);
+  append(section, routeSection);
+  return section;
+}
+
+function renderSemanticPanel({ focusControl = null } = {}) {
+  const panel = els.panels.semantic;
+  panel.replaceChildren();
   append(
     panel,
     panelHeading(
-      "Native layer",
-      "Three modality-specific conclusions, frozen before character authority or communication.",
-      state.result?.run?.profile_id || ""
+      "Semantic Lab",
+      "Source-grounded families, reviewed routes, bilingual variants, and benchmark readiness remain auditable without model calls.",
+      state.lab?.schema_version || "read-only"
     )
   );
-
-  const grid = element("div", "mind-grid");
-  append(
-    grid,
-    mindCard("Racio", "R", "racio", racio, [
-      fieldGroup("Facts used", racio.facts_used, { asChips: true }),
-      fieldGroup("Unknowns", racio.unknowns, { asChips: true }),
-      fieldGroup("Causal sequence", racio.causal_sequence, { asChips: true }),
-      fieldGroup("Utility structure", racio.utility_structure),
-      fieldGroup("Main objection", racio.main_objection),
-    ]),
-    mindCard("Emocio", "E", "emocio", eConclusion, [
-      fieldGroup("Desired transformation", eConclusion.desired_transformation),
-      fieldGroup("Main obstacle", eConclusion.main_obstacle),
-      fieldGroup("Action tendency", eConclusion.action_tendency),
-      fieldGroup("Valuation dimensions", eConclusion.valuation_dimensions, { asChips: true }),
-      fieldGroup("Intensity / uncertainty", [eConclusion.intensity, eConclusion.uncertainty], {
-        asChips: true,
-      }),
-    ]),
-    mindCard("Instinkt", "I", "instinkt", iConclusion, [
-      fieldGroup("Dominant alarm", iConclusion.dominant_alarm),
-      fieldGroup("Minimum safety condition", iConclusion.minimum_safety_condition),
-      fieldGroup("Protected targets", iConclusion.protected_targets, { asChips: true }),
-      fieldGroup("Action tendency", iConclusion.action_tendency),
-      fieldGroup("Danger claims", iConclusion.danger_claims, { asChips: true }),
-    ])
-  );
-  append(panel, grid);
-
-  const imageSlots = asArray(emocio.image_slots);
-  const imageTitle = element("div", "subsection-title");
-  append(
-    imageTitle,
-    element("h3", "", "Emocio visual scenes"),
-    element(
-      "span",
-      "",
-      imageSlots.some((slot) => slot.status === "available")
-        ? "Verified rendered artifacts"
-        : "Renderer disabled · structured scenes remain authoritative"
-    )
-  );
-  const imageSection = element("div", "subsection");
-  const sceneGrid = element("div", "scene-grid");
-  const valuationsByScene = new Map(
-    asArray(visualState.option_valuations).map((valuation) => [valuation.rollout_scene_id, valuation])
-  );
-  for (const slot of imageSlots) {
-    append(sceneGrid, renderSceneSlot(slot, valuationsByScene.get(slot.scene_id)));
+  if (state.labError) {
+    append(panel, emptyNotice("Semantic laboratory unavailable", state.labError));
+    return;
   }
-  append(imageSection, imageTitle, sceneGrid, rawDetails("Inspect exact Emocio visual state", visualState));
-  append(panel, imageSection);
+  if (!state.lab) {
+    append(panel, emptyNotice("Loading semantic laboratory", "No cycle or model is started while this read-only evidence loads."));
+    return;
+  }
 
-  const trajectorySection = element("div", "subsection");
-  const trajectoryTitle = element("div", "subsection-title");
+  append(panel, renderBenchmarkStatus(asObject(state.lab.benchmark_status || state.lab.benchmark)));
+  const families = semanticFamilies();
+  if (!state.selectedFamilyId || !families.some((item) => familyId(item) === state.selectedFamilyId)) {
+    state.selectedFamilyId = familyId(families[0]);
+  }
+  const selected = families.find((item) => familyId(item) === state.selectedFamilyId);
+  const picker = element("section", "subsection family-picker");
+  append(picker, subsectionTitle("Scenario family", `${families.length} source-grounded families`));
+  const field = element("label", "field lab-field");
+  append(field, element("span", "", "Family"));
+  const select = element("select", "lab-select");
+  select.setAttribute("aria-label", "Semantic scenario family");
+  for (const family of families) {
+    const option = element("option", "", family.title_sl || familyId(family));
+    option.value = familyId(family);
+    option.selected = familyId(family) === state.selectedFamilyId;
+    append(select, option);
+  }
+  select.addEventListener("change", () => {
+    state.selectedFamilyId = select.value;
+    state.selectedVariantId = null;
+    renderSemanticPanel({ focusControl: "family" });
+  });
+  append(field, select);
+  append(picker, field);
+  append(panel, picker);
+  if (selected) append(panel, renderSemanticFamily(selected));
+  else append(panel, emptyNotice("No semantic families", "The endpoint returned no reviewable family records."));
+  if (focusControl) {
+    const label = focusControl === "family"
+      ? "Semantic scenario family"
+      : "Semantic variant";
+    panel.querySelector(`[aria-label="${label}"]`)?.focus();
+  }
+}
+
+function byMind(items, mind, index) {
+  if (items && !Array.isArray(items) && typeof items === "object") {
+    const named = items[mind === "E" ? "emocio" : "instinkt"];
+    if (named) return named;
+  }
+  return asArray(items).find((item) => item?.source_mind === mind || item?.mind === mind) || asArray(items)[index] || {};
+}
+
+function renderRacioPanel(payload) {
+  const panel = els.panels.racio;
+  panel.replaceChildren();
+  if (!payload) {
+    append(panel, panelHeading("Racio Interpretation", "Run an explicit deterministic cycle to inspect Racio's visible inputs."));
+    append(panel, emptyNotice("No cycle yet", "Bootstrap never starts a cycle automatically."));
+    return;
+  }
+  const racio = asObject(payload);
+  const debugTruthRecord = els.debugToggle.checked
+    ? asObject(racio.evaluator_ground_truth)
+    : {};
+  const debugTruth = Object.keys(debugTruthRecord).length ? debugTruthRecord : null;
   append(
-    trajectoryTitle,
-    element("h3", "", "Instinkt body trajectories"),
-    element("span", "", `${asArray(instinkt.rollouts).length} option rollouts · 13 body dimensions`)
+    panel,
+    panelHeading(
+      "Racio Interpretation",
+      "Observable input and fallible interpretation are kept separate from evaluator-only native truth.",
+      debugTruth ? "local debug visible" : "runtime view"
+    )
   );
-  append(trajectorySection, trajectoryTitle);
-  for (const rollout of asArray(instinkt.rollouts)) append(trajectorySection, renderRollout(rollout));
-  append(panel, trajectorySection);
+  const boundary = element("div", "warning-banner epistemic-warning");
+  const warningDetail = String(racio.warning || "").replace(RACIO_GROUND_TRUTH_WARNING, "").trim();
+  append(boundary, element("strong", "", RACIO_GROUND_TRUTH_WARNING), document.createTextNode(warningDetail ? ` ${warningDetail}` : ""));
+  append(panel, boundary);
+
+  const conclusion = card("Racio native conclusion");
+  append(
+    conclusion,
+    choiceLine("Native option", racio.native_conclusion?.option_id),
+    fieldGroup("Facts used", racio.native_conclusion?.facts_used, { asChips: true }),
+    fieldGroup("Unknowns", racio.native_conclusion?.unknowns, { asChips: true }),
+    fieldGroup("Causal sequence", racio.native_conclusion?.causal_sequence, { asChips: true }),
+    rawDetails("Inspect Racio conclusion", racio.native_conclusion)
+  );
+  append(panel, conclusion);
+
+  const comparison = element("div", "racio-comparison-stack");
+  for (const [mind, index, label] of [["E", 0, "Emocio"], ["I", 1, "Instinkt"]]) {
+    const visible = byMind(racio.visible_inputs, mind, index);
+    const manifestation = byMind(racio.manifestations, mind, index);
+    const interpretation = byMind(racio.interpretations, mind, index);
+    const gap = byMind(racio.translation_gaps, mind, index);
+    const truth = debugTruth ? byMind(debugTruth, mind, index) : null;
+    const visibleObservations = asArray(visible.observable_views).flatMap((view) => asArray(view.observations));
+    const row = element("section", `racio-case ${mind === "E" ? "emocio" : "instinkt"}`);
+    append(row, subsectionTitle(`${label} → Racio`, truth ? "evaluator comparison enabled" : "ground truth withheld"));
+    const grid = element("div", `racio-grid ${truth ? "debug" : ""}`.trim());
+    const seen = card("Kar je Racio dejansko videl", null, "racio-visible-card");
+    append(
+      seen,
+      keyValues([
+        ["Source mind", visible.source_mind],
+        ["Relation direction", visible.relation_direction],
+        ["Acceptance state", visible.acceptance_state_id],
+      ]),
+      fieldGroup("Visible observations", visibleObservations.map((observation) => observation.content || `${observation.signal_name}=${observation.canonical_json_value}`), { asChips: true }),
+      fieldGroup("Allowed options", visible.allowed_option_ids, { asChips: true }),
+      fieldGroup("Manifestation", Object.entries(manifestation).filter(([key, value]) => typeof value !== "object" && !key.includes("hash")).slice(0, 8).map(([key, value]) => `${humanize(key)}: ${display(value)}`), { asChips: true }),
+      rawDetails("Exact conscious-access input", visible),
+      rawDetails("Exact manifestation", manifestation)
+    );
+    const interpreted = card("Racio translation", null, "racio-interpretation-card");
+    append(
+      interpreted,
+      keyValues([
+        ["Inferred option", interpretation.inferred_option_id],
+        ["Inferred tendency", interpretation.inferred_action_tendency],
+        ["Confidence", interpretation.confidence],
+        ["Status", interpretation.status || interpretation.interpretation_status],
+      ]),
+      fieldGroup("Inferred motive", interpretation.inferred_motive || interpretation.inferred_motive_class),
+      fieldGroup("Alternative hypotheses", interpretation.alternative_hypotheses, { asChips: true }),
+      rawDetails("Exact interpretation", interpretation)
+    );
+    append(grid, seen, interpreted);
+    if (truth) {
+      const evaluator = card("Debug · evaluator only", null, "debug-card");
+      append(
+        evaluator,
+        element("strong", "debug-boundary-copy", RACIO_GROUND_TRUTH_WARNING),
+        choiceLine("Evaluator label", byMind(racio.evaluator_labels, mind, index) || racio.evaluator_labels?.[mind === "E" ? "emocio" : "instinkt"]),
+        choiceLine("Native option", truth.native_option_id),
+        fieldGroup("Native motive", truth.native_motive_summary),
+        keyValues([
+          ["Gap status", gap.gap_status],
+          ["Distortion", gap.distortion_type],
+          ["Option match", gap.option_match],
+          ["Motive fidelity", gap.motive_fidelity],
+        ]),
+        rawDetails("Evaluator ground truth", truth),
+        rawDetails("TranslationGap", gap)
+      );
+      append(grid, evaluator);
+    }
+    append(row, grid);
+    append(comparison, row);
+  }
+  append(panel, comparison, rawDetails("Inspect complete safe Racio panel", racio));
 }
 
 function renderSceneSlot(slot, valuation = null) {
@@ -264,11 +777,7 @@ function renderSceneSlot(slot, valuation = null) {
     append(well, image);
   } else {
     const placeholder = element("div", "image-placeholder");
-    append(
-      placeholder,
-      element("strong", "", "No rendered image artifact"),
-      element("span", "", "The structured visual scene is available without invented pixels.")
-    );
+    append(placeholder, element("strong", "", "No rendered image artifact"), element("span", "", "The structured scene remains authoritative; no pixels are invented."));
     append(well, placeholder);
   }
   const body = element("div", "scene-body");
@@ -276,202 +785,368 @@ function renderSceneSlot(slot, valuation = null) {
     body,
     element("h4", "", humanize(scene.scene_kind || slot.scene_kind || "visual scene")),
     element("p", "", asArray(scene.composition).join(" · ") || compactId(slot.scene_id)),
-    element("span", "image-status", humanize(slot.status || "not rendered"))
+    statusPill("image", slot.status || "not rendered")
   );
+  if (scene.option_id || slot.option_id) append(body, choiceLine("Option", scene.option_id || slot.option_id));
   if (valuation) {
-    const dimensions = asArray(valuation.dimensions).map(
-      (dimension) => `${humanize(dimension.name)} ${display(dimension.score)}`
+    append(
+      body,
+      fieldGroup("Structured valuation", asArray(valuation.dimensions).map((dimension) => `${humanize(dimension.name)} ${display(dimension.score)}`), { asChips: true }),
+      rawDetails("Inspect structured valuation", valuation)
     );
-    append(body, fieldGroup("Option valuation", dimensions, { asChips: true }));
+  }
+  if (slot.artifact?.generated_only_elements?.length) {
+    append(body, fieldGroup("Renderer-added · ungrounded", slot.artifact.generated_only_elements, { asChips: true }));
   }
   append(wrapper, well, body);
   return wrapper;
 }
 
-function renderRollout(rollout) {
-  const wrapper = element("details", "card body-trajectory");
-  wrapper.open = rollout.option_id === state.result?.panels?.native?.instinkt?.conclusion?.option_id;
-  const summary = element(
-    "summary",
-    "",
-    `${rollout.option_id || "option"} · loss ${display(rollout.predicted_loss)} · recovery ${display(rollout.recoverability)}`
+function renderEmocioPanel(payload) {
+  const panel = els.panels.emocio;
+  panel.replaceChildren();
+  if (!payload) {
+    append(panel, panelHeading("Emocio", "Run an explicit deterministic cycle to inspect structured and visual cognition."));
+    append(panel, emptyNotice("No cycle yet", "No renderer or encoder is contacted during bootstrap."));
+    return;
+  }
+  const emocio = asObject(payload);
+  const visualStatus = asObject(emocio.visual_status);
+  append(
+    panel,
+    panelHeading(
+      "Emocio",
+      "Scene construction, image lineage, embeddings, and structured versus visual valuation remain separate.",
+      visualStatus.effective_mode || visualStatus.requested_mode || "structured"
+    )
   );
-  append(wrapper, summary);
+  const statusStrip = element("div", "status-strip");
+  append(
+    statusStrip,
+    statusPill("requested mode", visualStatus.requested_mode),
+    statusPill("effective mode", visualStatus.effective_mode),
+    statusPill("embeddings", visualStatus.embedding_status),
+    statusPill("similarity", visualStatus.similarity_status)
+  );
+  append(panel, statusStrip);
+  if (visualStatus.renderer_warning || visualStatus.visual_warning) {
+    const warning = element("div", "warning-banner");
+    append(warning, element("strong", "", "Visual runtime status"), document.createTextNode(` ${visualStatus.renderer_warning || visualStatus.visual_warning}`));
+    append(panel, warning);
+  }
+
+  const conclusionGrid = element("div", "panel-grid two");
+  const structured = card("Structured valuation and conclusion");
+  append(
+    structured,
+    choiceLine("Structured option", emocio.structured_conclusion?.option_id),
+    fieldGroup("Desired transformation", emocio.structured_conclusion?.desired_transformation),
+    fieldGroup("Valuation dimensions", emocio.structured_conclusion?.valuation_dimensions, { asChips: true }),
+    rawDetails("Inspect structured conclusion", emocio.structured_conclusion),
+    rawDetails("Inspect structured valuations", emocio.structured_valuations)
+  );
+  const effective = card("Effective native conclusion");
+  append(
+    effective,
+    choiceLine("Native option", emocio.native_option_id),
+    choiceLine("Conclusion source", emocio.cognition_trace?.conclusion_source),
+    fieldGroup("Action tendency", emocio.conclusion?.action_tendency),
+    fieldGroup("Uncertainty", emocio.conclusion?.uncertainty),
+    rawDetails("Inspect cognition trace", emocio.cognition_trace),
+    rawDetails("Inspect native conclusion", emocio.conclusion)
+  );
+  append(conclusionGrid, structured, effective);
+  append(panel, conclusionGrid);
+
+  const scenes = element("section", "subsection");
+  const slots = asArray(emocio.image_slots);
+  append(scenes, subsectionTitle("Current / desired / broken / option rollouts", `${slots.length} scene slots`));
+  const valuationsByScene = new Map(asArray(emocio.structured_valuations).map((item) => [item.rollout_scene_id, item]));
+  const sceneGrid = element("div", "scene-grid");
+  for (const slot of slots) append(sceneGrid, renderSceneSlot(slot, valuationsByScene.get(slot.scene_id)));
+  if (!slots.length) {
+    for (const scene of asArray(emocio.scene_specs)) {
+      append(sceneGrid, renderSceneSlot({ scene, scene_id: scene.scene_id, scene_kind: scene.scene_kind, option_id: scene.option_id, status: "not_rendered" }));
+    }
+  }
+  append(scenes, sceneGrid, rawDetails("Inspect exact scene specs", emocio.scene_specs));
+  append(panel, scenes);
+
+  const visualSection = element("section", "subsection");
+  append(visualSection, subsectionTitle("Embeddings and similarity", visualStatus.similarity_status || "not executed"));
+  const observations = asArray(emocio.visual_observations);
+  const observationGrid = element("div", "panel-grid two");
+  for (const observation of observations) {
+    const observationCard = card(`${humanize(observation.role)} embedding`);
+    append(
+      observationCard,
+      keyValues([
+        ["Observation", observation.observation_id],
+        ["Scene", observation.scene_spec_id],
+        ["Encoding", observation.encoding_id],
+        ["Dimensions", observation.embedding?.dimensions],
+        ["Vector hash", observation.embedding?.vector_hash],
+        ["Internal only", observation.internal_only],
+        ["External evidence claim", observation.external_evidence_claim],
+      ]),
+      fieldGroup("Ungrounded imagined elements", observation.imagined?.ungrounded_elements, { asChips: true }),
+      rawDetails("Inspect embedding lineage", observation)
+    );
+    append(observationGrid, observationCard);
+  }
+  if (!observations.length) append(observationGrid, emptyNotice("Embeddings not executed in this cycle", "Structured scenes remain available without simulated similarity values."));
+  append(visualSection, observationGrid);
+
+  const valuation = asObject(emocio.visual_valuation);
+  if (Object.keys(valuation).length) {
+    const valuationCard = card("Visual valuation");
+    append(
+      valuationCard,
+      keyValues([
+        ["Current ↔ desired similarity", valuation.current_desired_similarity],
+        ["Leading option", valuation.leading_option_id],
+        ["Tied options", valuation.tied_option_ids],
+        ["Mean uncertainty", valuation.mean_uncertainty],
+        ["Integration disposition", valuation.integration_disposition],
+      ]),
+      fieldGroup("Option scores", asArray(valuation.option_scores).map((score) => `${score.option_id}: ${display(score.fused_score ?? score.score)}`), { asChips: true }),
+      rawDetails("Inspect visual comparisons and scores", valuation)
+    );
+    append(visualSection, valuationCard);
+  } else {
+    append(
+      visualSection,
+      emptyNotice(
+        "Visual valuation not executed in this cycle",
+        "The structured valuation remains separate and no visual score is simulated."
+      )
+    );
+  }
+  append(panel, visualSection);
+
+  const ungrounded = asArray(emocio.renderer_added_ungrounded_elements);
+  const provenanceSection = element("section", "subsection");
+  append(provenanceSection, subsectionTitle("Renderer-added elements", "always ungrounded internal artifacts"));
+  if (!ungrounded.length) {
+    append(provenanceSection, emptyNotice("No renderer-added elements", "No generated image was admitted in this cycle."));
+  } else {
+    for (const record of ungrounded) {
+      const recordCard = card(compactId(record.image_id));
+      append(recordCard, choiceLine("Scene", record.source_spec_id), fieldGroup("Ungrounded elements", record.elements, { asChips: true }), rawDetails("Inspect provenance", record));
+      append(provenanceSection, recordCard);
+    }
+  }
+  append(provenanceSection, rawDetails("Inspect generated image metadata", emocio.generated_images));
+  append(panel, provenanceSection, rawDetails("Inspect complete Emocio panel", emocio));
+}
+
+function bodyBars(bodyState) {
+  const bars = element("div", "body-bars");
+  for (const dimension of BODY_DIMENSIONS) {
+    const raw = Number(bodyState?.[dimension]);
+    const value = Number.isFinite(raw) ? Math.max(0, Math.min(1, raw)) : 0;
+    const row = element("div", "body-bar");
+    const track = element("span", "bar-track");
+    const fill = element("span", "bar-fill");
+    fill.style.width = `${value * 100}%`;
+    append(track, fill);
+    append(row, element("span", "", humanize(dimension)), track, element("output", "", display(Number.isFinite(raw) ? raw : null)));
+    append(bars, row);
+  }
+  return bars;
+}
+
+function renderRollout(rollout, decisiveRolloutId = null) {
+  const wrapper = element("details", "card body-trajectory");
+  wrapper.open = rollout.rollout_id === decisiveRolloutId;
   append(
     wrapper,
+    element("summary", "", `${rollout.option_id || "option"} · loss ${display(rollout.predicted_loss)} · recovery ${display(rollout.recoverability)}`),
     keyValues([
       ["Alarm", rollout.dominant_alarm],
       ["Boundary", rollout.boundary_outcome],
       ["Trust", rollout.trust_outcome],
       ["Attachment", rollout.attachment_outcome],
       ["Escape", rollout.escape_outcome],
-    ])
+    ]),
+    fieldGroup("Association matches", rollout.association_match_ids, { asChips: true })
   );
   asArray(rollout.trajectory).forEach((bodyState, index) => {
     const step = element("div", "trajectory-step");
-    append(step, element("div", "step-label", index === 0 ? "body before" : `step ${index}`));
-    const bars = element("div", "body-bars");
-    for (const dimension of BODY_DIMENSIONS) {
-      const raw = Number(bodyState?.[dimension]);
-      const value = Number.isFinite(raw) ? Math.max(0, Math.min(1, raw)) : 0;
-      const row = element("div", "body-bar");
-      const track = element("span", "bar-track");
-      const fill = element("span", "bar-fill");
-      fill.style.width = `${value * 100}%`;
-      append(track, fill);
-      append(row, element("span", "", humanize(dimension)), track, element("output", "", display(raw)));
-      append(bars, row);
-    }
-    append(step, bars);
+    append(step, element("div", "step-label", index === 0 ? "body before" : `step ${index}`), bodyBars(bodyState));
     append(wrapper, step);
   });
   append(wrapper, rawDetails("Inspect exact rollout", rollout));
   return wrapper;
 }
 
-function byMind(items, mind, index) {
-  if (items && !Array.isArray(items) && typeof items === "object") {
-    const named = items[mind === "E" ? "emocio" : "instinkt"];
-    if (named) return named;
-  }
-  return asArray(items).find((item) => item?.source_mind === mind || item?.mind === mind) || asArray(items)[index] || {};
-}
-
-function renderCommunicationPanel(payload) {
-  const panel = els.panels.communication;
+function renderInstinktPanel(payload) {
+  const panel = els.panels.instinkt;
   panel.replaceChildren();
-  const communication = payload || {};
+  if (!payload) {
+    append(panel, panelHeading("Instinkt", "Run an explicit deterministic cycle to inspect cue evidence and body trajectories."));
+    append(panel, emptyNotice("No cycle yet", "Bootstrap does not infer body effects or start a processor."));
+    return;
+  }
+  const instinkt = asObject(payload);
+  const policy = asObject(instinkt.policy);
+  const abstention = asObject(instinkt.abstention);
   append(
     panel,
     panelHeading(
-      "Communication layer",
-      "Observable manifestation is separated from Racio’s fallible interpretation.",
-      communication.ground_truth_visible ? "debug visible" : "runtime view"
+      "Instinkt",
+      "Cue provenance, predicted effects, memory associations, and virtual body trajectories remain inspectable.",
+      policy.status || "native"
     )
   );
-
-  const warning = element("div", "warning-banner");
+  const statusStrip = element("div", "status-strip");
   append(
-    warning,
-    element("strong", "", "Epistemic boundary"),
-    document.createTextNode(
-      communication.warning ||
-        "Racio receives manifestations only. Native Emocio and Instinkt conclusions are never supplied as runtime ground truth."
-    )
+    statusStrip,
+    statusPill("policy", policy.status),
+    statusPill("abstained", abstention.abstained),
+    statusPill("native abstains", instinkt.conclusion?.abstains),
+    statusPill("effect source", instinkt.effect_status?.source),
+    statusPill("prediction", instinkt.effect_status?.prediction_status),
+    statusPill("dominant alarm", instinkt.dominant_alarm),
+    statusPill("native option", instinkt.conclusion?.option_id)
   );
-  append(panel, warning);
+  append(
+    panel,
+    statusStrip,
+    fieldGroup("Native uncertainty", instinkt.conclusion?.uncertainty)
+  );
 
-  if (communication.evaluator_ground_truth) {
-    const banner = element("div", "debug-banner");
+  const bodySection = element("section", "subsection");
+  append(bodySection, subsectionTitle("Body before / body after", "13 bounded dimensions"));
+  const bodyGrid = element("div", "body-comparison-grid");
+  for (const [title, value] of [["Body before", instinkt.body_before], ["Body after", instinkt.body_after]]) {
+    const bodyCard = card(title);
+    append(bodyCard, value ? bodyBars(value) : emptyNotice("No body state", "The policy abstained or no decisive trajectory exists."), rawDetails(`Inspect ${title.toLowerCase()}`, value));
+    append(bodyGrid, bodyCard);
+  }
+  append(bodySection, bodyGrid);
+  append(panel, bodySection);
+
+  const cueSection = element("section", "subsection");
+  const cues = asArray(instinkt.cue_evidence);
+  append(cueSection, subsectionTitle("Cue evidence", `${cues.length} provenance binding${cues.length === 1 ? "" : "s"}`));
+  const cueGrid = element("div", "panel-grid two");
+  for (const cue of cues) {
+    const cueCard = card(humanize(cue.lane || cue.cue_lane || "cue evidence"));
     append(
-      banner,
-      element("strong", "", "DEBUG / EVALUATOR GROUND TRUTH"),
-      document.createTextNode(
-        "This comparison exists for evaluation only. Racio did not see these native motives or option IDs."
-      )
+      cueCard,
+      choiceLine("Cue", cue.cue || cue.cue_text || cue.normalized_cue),
+      fieldGroup("Evidence IDs", cue.evidence_ids, { asChips: true }),
+      rawDetails("Inspect cue binding", cue)
     );
-    append(panel, banner);
+    append(cueGrid, cueCard);
   }
+  if (!cues.length) append(cueGrid, emptyNotice("No automatic cue bindings", "This cycle may use explicit manual fixture effects."));
+  append(cueSection, cueGrid);
+  append(panel, cueSection);
 
-  const comparison = element("div", "comparison-grid");
-  for (const [mind, index, label] of [
-    ["E", 0, "Emocio"],
-    ["I", 1, "Instinkt"],
-  ]) {
-    const manifestation = byMind(communication.manifestations, mind, index);
-    const interpretation = byMind(communication.interpretations, mind, index);
-    const gap = byMind(communication.translation_gaps, mind, index);
-    append(comparison, renderCommunicationFlow(label, mind, manifestation, interpretation, gap));
+  const predictionsSection = element("section", "subsection");
+  const predictions = asArray(instinkt.predicted_body_effects);
+  append(predictionsSection, subsectionTitle("Predicted body effects", `${predictions.length} option prediction${predictions.length === 1 ? "" : "s"}`));
+  const predictionGrid = element("div", "panel-grid two");
+  for (const prediction of predictions) {
+    const predictionCard = card(prediction.option_id || "Option prediction");
+    append(
+      predictionCard,
+      statusPill("abstains", prediction.abstains),
+      fieldGroup("Uncertainty", prediction.uncertainty),
+      fieldGroup("Body deltas", asArray(prediction.combined_deltas).map((item) => `${humanize(item.dimension)} ${display(item.delta)}`), { asChips: true }),
+      fieldGroup("Unsupported dimensions", prediction.unsupported_dimensions, { asChips: true }),
+      fieldGroup("Conflict flags", prediction.conflict_flags, { asChips: true }),
+      fieldGroup("Cue evidence", asArray(prediction.evidence).map((item) => item.evidence_id), { asChips: true }),
+      rawDetails("Inspect prediction and provenance", prediction)
+    );
+    append(predictionGrid, predictionCard);
   }
-  append(panel, comparison);
+  if (!predictions.length) append(predictionGrid, emptyNotice("No rule-based prediction in this cycle", "No default body effect is invented when the manual fixture path is active."));
+  const compilations = asArray(instinkt.effect_compilations);
+  append(predictionsSection, subsectionTitle("Effect compilations", `${compilations.length} lineage wrapper${compilations.length === 1 ? "" : "s"}`));
+  const compilationGrid = element("div", "panel-grid two");
+  for (const compilation of compilations) {
+    const compilationCard = card(compactId(compilation.compilation_id));
+    append(
+      compilationCard,
+      keyValues([
+        ["Source prediction", compilation.source_prediction_id],
+        ["Ruleset", compilation.ruleset_id],
+        ["Compiler", compilation.compiler_id],
+        ["Revision", compilation.compiler_revision],
+        ["Option", compilation.option_body_effect?.option_id],
+      ]),
+      rawDetails("Inspect effect compilation", compilation)
+    );
+    append(compilationGrid, compilationCard);
+  }
+  if (!compilations.length) append(compilationGrid, emptyNotice("No compiled prediction", "The active manual-fixture path supplied option effects without inventing a rule-based compilation."));
+  append(predictionsSection, compilationGrid, rawDetails("Inspect manual option effects", instinkt.manual_option_effects));
+  append(panel, predictionsSection);
 
-  if (communication.evaluator_ground_truth) {
-    const debugSection = element("div", "subsection");
-    const title = element("div", "subsection-title");
-    append(title, element("h3", "", "Evaluator-only native comparison"), element("span", "", "never an interpreter input"));
-    const debugGrid = element("div", "panel-grid two");
-    const truth = communication.evaluator_ground_truth;
-    for (const key of ["emocio", "instinkt"]) {
-      const value = truth[key];
-      if (!value) continue;
-      const truthCard = card(humanize(key));
-      append(
-        truthCard,
-        choiceLine("Native option", value?.native_option_id),
-        fieldGroup("Native action tendency", value?.native_action_tendency),
-        fieldGroup(
-          "Native motive",
-          value?.native_motive_summary || value?.desired_transformation || value?.minimum_safety_condition
-        ),
-        rawDetails("Inspect evaluator truth", value)
-      );
-      append(debugGrid, truthCard);
+  const associationSection = element("section", "subsection");
+  const associationRecords = asArray(instinkt.association_matches);
+  const matchCount = associationRecords.reduce((count, record) => count + asArray(record.matches).length, 0);
+  append(associationSection, subsectionTitle("Association matches", `${associationRecords.length} option record${associationRecords.length === 1 ? "" : "s"} · ${matchCount} admitted match${matchCount === 1 ? "" : "es"}`));
+  const associationGrid = element("div", "panel-grid two");
+  for (const record of associationRecords) {
+    const recordCard = card(record.option_id || "Option associations");
+    const optionMatches = asArray(record.matches);
+    if (!optionMatches.length) {
+      append(recordCard, emptyNotice("No admitted association", "Bounded retrieval returned no memory record for this option."));
     }
-    append(debugSection, title, debugGrid);
-    append(panel, debugSection);
+    for (const match of optionMatches) {
+      const matchItem = element("div", "route-item");
+      append(
+        matchItem,
+        choiceLine("Match", compactId(match.match_id)),
+        keyValues([
+          ["Source kind", match.source_record_kind || "experienced_association"],
+          ["Retrieval score", match.retrieval_score],
+          ["Effective strength", match.effective_strength],
+          ["Protected target", match.protected_target],
+        ]),
+        fieldGroup("Overlap tokens", match.overlap_tokens, { asChips: true }),
+        rawDetails("Inspect admitted match", match)
+      );
+      append(recordCard, matchItem);
+    }
+    append(recordCard, rawDetails("Inspect option retrieval record", record));
+    append(associationGrid, recordCard);
   }
-}
+  if (!associationRecords.length) append(associationGrid, emptyNotice("No association retrieval", "No bounded retrieval record was produced for this cycle."));
+  append(associationSection, associationGrid);
+  append(panel, associationSection);
 
-function renderCommunicationFlow(label, mind, manifestation, interpretation, gap) {
-  const wrapper = element("article", `mind-card ${mind === "E" ? "emocio" : "instinkt"}`);
-  const heading = element("div", "mind-heading");
-  append(heading, element("h3", "", label), element("span", "mind-badge", mind));
-  append(wrapper, heading);
-
-  const flow = element("div", "flow-column");
-  const manifested = card("Manifestation");
-  const manifestationFields = Object.entries(manifestation || {})
-    .filter(([key, value]) => typeof value !== "object" && !key.includes("hash") && !key.includes("id") && key !== "schema_version")
-    .slice(0, 8)
-    .map(([key, value]) => [humanize(key), value]);
-  append(manifested, keyValues(manifestationFields), rawDetails("Exact manifestation", manifestation));
-  const interpreted = card("Racio interpretation");
+  const rolloutSection = element("section", "subsection");
+  const rollouts = asArray(instinkt.rollouts);
+  append(rolloutSection, subsectionTitle("Option trajectories", `${rollouts.length} rollout${rollouts.length === 1 ? "" : "s"}`));
+  for (const rollout of rollouts) append(rolloutSection, renderRollout(rollout, instinkt.conclusion?.decisive_rollout_id));
   append(
-    interpreted,
-    keyValues([
-      ["Inferred tendency", interpretation?.inferred_action_tendency],
-      ["Inferred option", interpretation?.inferred_option_id],
-      ["Confidence", interpretation?.confidence],
-      ["Policy", interpretation?.interpreter_policy],
-    ]),
-    fieldGroup("Inferred motive", interpretation?.inferred_motive),
-    rawDetails("Exact interpretation", interpretation)
+    rolloutSection,
+    fieldGroup("Abstention and uncertainty", asArray(abstention.uncertainty_by_option).map((item) => `${item.option_id}: ${item.uncertainty}${item.abstains ? " (abstained)" : ""}`), { asChips: true }),
+    rawDetails("Inspect policy", policy)
   );
-  append(flow, manifested, element("div", "flow-arrow", "→"), interpreted);
-  append(wrapper, flow);
-
-  const gapBox = element("div", "translation-gap");
-  append(
-    gapBox,
-    element("strong", "", `Translation gap · ${humanize(gap?.distortion_type || "not measured")}`),
-    element(
-      "p",
-      "",
-      `Motive fidelity ${display(gap?.motive_fidelity)} · option match ${display(gap?.option_match)} · status ${display(gap?.gap_status)}`
-    )
-  );
-  append(wrapper, gapBox, rawDetails("Inspect safe gap summary", gap));
-  return wrapper;
+  append(panel, rolloutSection, rawDetails("Inspect complete Instinkt panel", instinkt));
 }
 
 function renderCharacterPanel(payload) {
   const panel = els.panels.character;
   panel.replaceChildren();
-  const character = payload || {};
-  const structural = character.structural_profile || {};
-  const effective = character.effective_authority || {};
-  const mandate = character.governance_mandate || {};
-  const decision = character.conscious_decision || {};
-  const behavior = character.behavior_resultant || {};
-
-  append(
-    panel,
-    panelHeading(
-      "Character authority",
-      "Stable structure selects governance; Racio commits consciously; behavior remains a separate resultant.",
-      structural.profile_id || ""
-    )
-  );
+  if (!payload) {
+    append(panel, panelHeading("Character authority", "Run a cycle to inspect structural governance without diagnosing a person."));
+    append(panel, emptyNotice("No cycle yet", "The profile selector is an explicit simulation input, not a diagnosis."));
+    return;
+  }
+  const character = asObject(payload);
+  const structural = asObject(character.structural_profile);
+  const effective = asObject(character.effective_authority);
+  const mandate = asObject(character.governance_mandate);
+  const decision = asObject(character.conscious_decision);
+  const behavior = asObject(character.behavior_resultant);
+  append(panel, panelHeading("Character authority", "Stable structure selects governance; it is never inferred from behavior.", structural.profile_id || ""));
 
   const overview = element("div", "panel-grid two");
   const authorityCard = card("Structural and effective authority");
@@ -486,44 +1161,34 @@ function renderCharacterPanel(payload) {
   append(
     authorityCard,
     authorityHeading,
-    fieldGroup("Effective tiers", asArray(effective.effective_tiers).map((tier) => asArray(tier).join(" = ")), {
-      asChips: true,
-    }),
+    fieldGroup("Effective tiers", asArray(effective.effective_tiers).map((tier) => asArray(tier).join(" = ")), { asChips: true }),
     rawDetails("Inspect authority", { structural, effective })
   );
 
   const availabilityCard = card("Processor availability");
-  const availability = character.processor_availability || {};
-  const availabilityScores = availability.scores || {};
+  const availability = asObject(character.processor_availability);
+  const availabilityScores = asObject(availability.scores);
   const unavailable = new Set(asArray(availability.unavailable_minds));
   const availabilityList = element("div", "availability-list");
   for (const mind of ["R", "E", "I"]) {
     const row = element("div", "availability-row");
-    const value =
-      availability.explicit && Object.hasOwn(availabilityScores, mind)
-        ? availabilityScores[mind]
-        : unavailable.has(mind)
-          ? "unavailable"
-          : "retained · not explicitly measured";
+    const value = availability.explicit && Object.hasOwn(availabilityScores, mind)
+      ? availabilityScores[mind]
+      : unavailable.has(mind) ? "unavailable" : "retained · not explicitly measured";
     append(row, element("span", "", mind), element("output", "", display(value)));
     append(availabilityList, row);
   }
   append(
     availabilityCard,
     availabilityList,
-    fieldGroup(
-      "Availability basis",
-      availability.status ||
-        (effective.functional_override ? "explicit functional override" : "no explicit unavailability · all retained")
-    ),
+    fieldGroup("Availability basis", availability.status || (effective.functional_override ? "explicit functional override" : "no explicit unavailability · all retained")),
     rawDetails("Inspect availability evidence", effective.functional_override)
   );
   append(overview, authorityCard, availabilityCard);
   append(panel, overview);
 
   const governanceSection = element("div", "subsection");
-  const governanceTitle = element("div", "subsection-title");
-  append(governanceTitle, element("h3", "", "Governance resolution"), element("span", "", display(mandate.status)));
+  append(governanceSection, subsectionTitle("Governance resolution", display(mandate.status)));
   const governanceGrid = element("div", "panel-grid two");
   const mandateCard = card("Mandate");
   append(
@@ -535,27 +1200,23 @@ function renderCharacterPanel(payload) {
     rawDetails("Inspect mandate", mandate)
   );
   const conflictCard = card("Conflict and majority");
-  const majority = character.thirteenth_majority || {};
+  const majority = asObject(character.thirteenth_majority);
   const agreeingMinds = asArray(majority.agreeing_minds);
   const majoritySummary = majority.applicable
     ? `${display(majority.winning_option_id)} · ${agreeingMinds.length}/3 (${agreeingMinds.join(", ")})`
     : "not applicable";
   append(
     conflictCard,
-    keyValues([
-      ["Pair conflict", character.pair_conflict ? "present" : "none"],
-      ["13th majority", majoritySummary],
-    ]),
+    keyValues([["Pair conflict", character.pair_conflict ? "present" : "none"], ["13th majority", majoritySummary]]),
     rawDetails("Inspect pair conflict", character.pair_conflict),
     rawDetails("Inspect 13th majority", character.thirteenth_majority)
   );
   append(governanceGrid, mandateCard, conflictCard);
-  append(governanceSection, governanceTitle, governanceGrid);
+  append(governanceSection, governanceGrid);
   append(panel, governanceSection);
 
   const chainSection = element("div", "subsection");
-  const chainTitle = element("div", "subsection-title");
-  append(chainTitle, element("h3", "", "Mandate → conscious decision → behavior"), element("span", "", "three distinct records"));
+  append(chainSection, subsectionTitle("Mandate → conscious decision → behavior", "three distinct records"));
   const chain = element("div", "decision-chain");
   for (const [label, item, option, status] of [
     ["Governance mandate", mandate, mandate.option_id, mandate.status],
@@ -563,98 +1224,56 @@ function renderCharacterPanel(payload) {
     ["Behavior resultant", behavior, behavior.option_id, behavior.status],
   ]) {
     const node = element("article", "decision-node");
-    append(node, element("span", "", label), element("strong", "", display(option)), element("p", "", humanize(status)));
-    append(node, rawDetails(`Inspect ${label.toLowerCase()}`, item));
+    append(node, element("span", "", label), element("strong", "", display(option)), element("p", "", humanize(status)), rawDetails(`Inspect ${label.toLowerCase()}`, item));
     append(chain, node);
   }
-  append(chainSection, chainTitle, chain);
+  append(chainSection, chain);
   append(panel, chainSection);
 }
 
-function renderEgoPanel(payload) {
-  const panel = els.panels.ego;
-  panel.replaceChildren();
-  const ego = payload || {};
-  const snapshot = ego.composition_snapshot || {};
-  const measure = ego.measure || {};
-  const narrative = ego.self_narrative || {};
-  const projections = ego.projections || {};
-
-  append(
-    panel,
-    panelHeading(
-      "Ego composition",
-      "Executed history becomes sourced motifs, unresolved tensions, insights, and modality-specific projections.",
-      compactId(snapshot.snapshot_id)
-    )
-  );
-
-  const upper = element("div", "ego-grid");
-  const timelineCard = card("EgoTrace timeline");
-  const timeline = element("div", "trace-timeline");
-  for (const event of asArray(ego.timeline)) {
-    const node = element("div", "trace-node");
+function renderEgoEvent(event, index, total) {
+  const payload = asObject(event.event);
+  const kind = event.event_kind || event.kind || "measure";
+  const details = element("details", "timeline-event-card");
+  details.open = index === total - 1;
+  const summary = element("summary", "timeline-event-summary");
+  append(summary, element("span", "event-index", String(index + 1).padStart(2, "0")), element("strong", "", humanize(kind)), element("code", "", compactId(event.event_id || payload.measure_id || payload.correction_id)));
+  append(details, summary);
+  if (kind === "measure") {
+    const decision = asObject(payload.conscious_decision);
+    const behavior = asObject(payload.behavior_resultant);
+    const outcome = payload.outcome;
+    const overview = element("div", "timeline-event-grid");
+    const decisionCard = card("Conscious decision");
     append(
-      node,
-      element("strong", "", humanize(event.event_kind || event.kind || "measure")),
-      element("code", "", compactId(event.event_id || event.measure_id || event.id))
+      decisionCard,
+      choiceLine("Option", decision.option_id),
+      choiceLine("Made by", decision.made_by),
+      fieldGroup("Reason", decision.reason || decision.explanation),
+      rawDetails("Inspect decision", decision)
     );
-    append(timeline, node);
+    const outcomeCard = card("Behavior and outcome");
+    append(
+      outcomeCard,
+      choiceLine("Behavior option", behavior.option_id),
+      choiceLine("Behavior status", behavior.status),
+      choiceLine("Outcome", outcome?.outcome_kind || outcome?.status || (outcome ? "recorded" : "not recorded")),
+      rawDetails("Inspect behavior", behavior),
+      rawDetails("Inspect outcome", outcome)
+    );
+    append(overview, decisionCard, outcomeCard);
+    append(
+      details,
+      overview,
+      fieldGroup("Translation gaps", asArray(payload.translation_gaps).map((gap) => `${gap.source_mind}: ${humanize(gap.distortion_type || gap.gap_status)}`), { asChips: true }),
+      fieldGroup("Unresolved tensions", payload.unresolved_tensions, { asChips: true }),
+      fieldGroup("Spoznanje", payload.spoznanje_status),
+      rawDetails("Inspect complete EgoMeasure", payload)
+    );
+  } else {
+    append(details, keyValues(Object.entries(payload).filter(([, value]) => typeof value !== "object").slice(0, 10).map(([key, value]) => [humanize(key), value])), rawDetails("Inspect correction event", payload));
   }
-  append(
-    timelineCard,
-    choiceLine("Current measure", measure.measure_id),
-    timeline,
-    rawDetails("Inspect EgoMeasure", measure)
-  );
-
-  const compositionCard = card("Composition snapshot");
-  append(
-    compositionCard,
-    fieldGroup("Identity motifs", snapshot.identity_motifs, { asChips: true }),
-    fieldGroup("Recurring conflicts", snapshot.recurring_conflicts, { asChips: true }),
-    fieldGroup("Translation errors", snapshot.recurring_translation_errors, { asChips: true }),
-    fieldGroup("Unresolved tensions", snapshot.unresolved_tensions, { asChips: true }),
-    fieldGroup("Resolved tensions", snapshot.resolved_tensions, { asChips: true }),
-    rawDetails("Inspect composition snapshot", snapshot)
-  );
-  append(upper, timelineCard, compositionCard);
-  append(panel, upper);
-
-  const insightSection = element("div", "subsection");
-  const insightTitle = element("div", "subsection-title");
-  append(insightTitle, element("h3", "", "Spoznanja and self-narrative"), element("span", "", "hypothesis vs trace-derived composition"));
-  const insightGrid = element("div", "panel-grid two");
-  const insightsCard = card("Trace-backed spoznanja");
-  const insightList = element("div", "insight-list");
-  for (const insight of asArray(snapshot.spoznanja)) append(insightList, element("div", "insight", display(insight)));
-  if (!asArray(snapshot.spoznanja).length) append(insightList, element("div", "insight", "No spoznanje recorded"));
-  append(insightsCard, insightList, rawDetails("Inspect sourced claims", snapshot.sourced_claims));
-  const narrativeCard = card("Racio self-narrative");
-  append(
-    narrativeCard,
-    fieldGroup("Claimed motive", narrative.claimed_motive),
-    fieldGroup("Explanation", narrative.explanation),
-    fieldGroup("Acknowledged minds", narrative.acknowledged_minds, { asChips: true }),
-    fieldGroup("Omitted minds", narrative.omitted_minds, { asChips: true }),
-    rawDetails("Inspect self-narrative", narrative)
-  );
-  append(insightGrid, insightsCard, narrativeCard);
-  append(insightSection, insightTitle, insightGrid);
-  append(panel, insightSection);
-
-  const projectionSection = element("div", "subsection");
-  const projectionTitle = element("div", "subsection-title");
-  append(projectionTitle, element("h3", "", "Three projected histories"), element("span", "", "same trace · modality-specific memory"));
-  const projectionGrid = element("div", "projection-grid");
-  append(
-    projectionGrid,
-    renderProjection("Racio projection", "racio", projections.racio, ["facts", "chronology", "causal_links", "commitments"]),
-    renderProjection("Emocio projection", "emocio", projections.emocio, ["recurring_scenes", "desire_motifs", "rupture_motifs", "belonging_motifs"]),
-    renderProjection("Instinkt projection", "instinkt", projections.instinkt, ["dangers", "losses", "recovery_patterns", "boundary_patterns", "trust_patterns"])
-  );
-  append(projectionSection, projectionTitle, projectionGrid);
-  append(panel, projectionSection);
+  return details;
 }
 
 function renderProjection(title, className, projection = {}, fields = []) {
@@ -665,14 +1284,86 @@ function renderProjection(title, className, projection = {}, fields = []) {
   return wrapper;
 }
 
-function renderAll() {
-  if (!state.result) return;
-  const panels = state.result.panels || {};
-  renderNativePanel(panels.native);
-  renderCommunicationPanel(panels.communication);
+function renderEgoPanel(payload) {
+  const panel = els.panels.ego;
+  panel.replaceChildren();
+  if (!payload) {
+    append(panel, panelHeading("Ego Timeline", "Run explicit cycles to build one session-scoped longitudinal trace."));
+    append(panel, emptyNotice("No measures yet", `This browser session will retain Ego ID ${state.sessionEgoId}; bootstrap never runs a cycle.`));
+    return;
+  }
+  const ego = asObject(payload);
+  const snapshot = asObject(ego.composition_snapshot);
+  const measure = asObject(ego.measure);
+  const narrative = asObject(ego.self_narrative);
+  const projections = asObject(ego.projections);
+  const timelineEvents = asArray(ego.timeline);
+  append(
+    panel,
+    panelHeading(
+      "Ego Timeline",
+      "Ordered measures preserve decisions, outcomes, translation errors, tensions, spoznanja, self-narrative, and modality projections.",
+      `${timelineEvents.length} event${timelineEvents.length === 1 ? "" : "s"}`
+    )
+  );
+  const sessionStrip = element("div", "status-strip");
+  append(sessionStrip, statusPill("session ego", state.result?.run?.ego_id || state.sessionEgoId), statusPill("current measure", measure.measure_id), statusPill("events", timelineEvents.length));
+  append(panel, sessionStrip);
+
+  const timelineSection = element("section", "subsection");
+  append(timelineSection, subsectionTitle("Measures, decisions, and outcomes", "append-only event order"));
+  const timeline = element("div", "expanded-timeline");
+  timelineEvents.forEach((event, index) => append(timeline, renderEgoEvent(event, index, timelineEvents.length)));
+  append(timelineSection, timeline);
+  append(panel, timelineSection);
+
+  const compositionGrid = element("div", "ego-grid");
+  const compositionCard = card("Composition snapshot");
+  append(
+    compositionCard,
+    fieldGroup("Identity motifs", snapshot.identity_motifs, { asChips: true }),
+    fieldGroup("Recurring conflicts", snapshot.recurring_conflicts, { asChips: true }),
+    fieldGroup("Translation errors", snapshot.recurring_translation_errors, { asChips: true }),
+    fieldGroup("Unresolved tensions", snapshot.unresolved_tensions, { asChips: true }),
+    fieldGroup("Resolved tensions", snapshot.resolved_tensions, { asChips: true }),
+    fieldGroup("Spoznanja", snapshot.spoznanja, { asChips: true }),
+    rawDetails("Inspect composition snapshot", snapshot),
+    rawDetails("Inspect sourced claims", snapshot.sourced_claims)
+  );
+  const narrativeCard = card("Racio self-narrative");
+  append(
+    narrativeCard,
+    fieldGroup("Claimed motive", narrative.claimed_motive),
+    fieldGroup("Explanation", narrative.explanation),
+    fieldGroup("Acknowledged minds", narrative.acknowledged_minds, { asChips: true }),
+    fieldGroup("Omitted minds", narrative.omitted_minds, { asChips: true }),
+    fieldGroup("Narrative uncertainty", narrative.uncertainty),
+    rawDetails("Inspect self-narrative", narrative)
+  );
+  append(compositionGrid, compositionCard, narrativeCard);
+  append(panel, compositionGrid);
+
+  const projectionSection = element("section", "subsection");
+  append(projectionSection, subsectionTitle("R / E / I projected histories", "same trace · modality-specific learning"));
+  const projectionGrid = element("div", "projection-grid");
+  append(
+    projectionGrid,
+    renderProjection("Racio projection", "racio", projections.racio, ["facts", "chronology", "causal_links", "commitments"]),
+    renderProjection("Emocio projection", "emocio", projections.emocio, ["recurring_scenes", "desire_motifs", "rupture_motifs", "belonging_motifs"]),
+    renderProjection("Instinkt projection", "instinkt", projections.instinkt, ["dangers", "losses", "recovery_patterns", "boundary_patterns", "trust_patterns"])
+  );
+  append(projectionSection, projectionGrid);
+  append(panel, projectionSection, rawDetails("Inspect current EgoMeasure", measure));
+}
+
+function renderRuntimePanels() {
+  const panels = state.result?.panels || {};
+  renderRacioPanel(panels.racio);
+  renderEmocioPanel(panels.emocio);
+  renderInstinktPanel(panels.instinkt);
   renderCharacterPanel(panels.character);
   renderEgoPanel(panels.ego);
-
+  if (!state.result) return;
   const run = state.result.run || {};
   els.runId.textContent = `run ${compactId(run.run_id)}`;
   const passed = Boolean(run.all_invariants_passed ?? state.result.diagnostics?.invariants?.all_passed);
@@ -709,55 +1400,46 @@ function buildCycleRequest() {
   const template = templateRequest();
   if (!template) throw new Error("Bootstrap did not provide a deterministic request fixture.");
   const request = structuredClone(template);
-  const token = `${Date.now().toString(36)}-${crypto.randomUUID().replaceAll("-", "").slice(0, 8)}`.toLowerCase();
-  request.run_id = `gui-${token}`;
-  request.ego_id = `gui-ego-${token}`;
+  request.run_id = `gui-${randomToken()}`;
+  request.ego_id = state.sessionEgoId;
   request.started_at = new Date().toISOString();
-
   const profileId = els.profileSelect.value;
   const contract = profileContracts().find((item) => (typeof item === "string" ? item : item.profile_id) === profileId);
   if (contract && typeof contract === "object") {
-    request.character = {
-      ...request.character,
-      profile_id: contract.profile_id,
-      authority_tiers: contract.authority_tiers,
-      rule: contract.rule,
-    };
+    request.character = { ...request.character, profile_id: contract.profile_id, authority_tiers: contract.authority_tiers, rule: contract.rule };
   }
   return request;
 }
 
 async function runCycle() {
   if (state.busy) return;
+  const debugRequested = els.debugToggle.checked;
   state.busy = true;
   els.runCycleBtn.disabled = true;
   els.profileSelect.disabled = true;
-  setRuntime("Running native cycle…", "Deterministic R/E/I providers · CPU only", "working");
+  els.debugToggle.disabled = true;
+  setRuntime("Running native cycle…", `Session Ego ${compactId(state.sessionEgoId)} · deterministic providers`, "working");
   try {
     const request = buildCycleRequest();
-    const debug = els.debugToggle.checked ? "true" : "false";
-    state.result = await apiJson(`/api/cycles?debug=${debug}`, {
+    const completed = await apiJson(`/api/cycles?debug=${debugRequested ? "true" : "false"}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(request),
     });
-    renderAll();
-    setRuntime(
-      "Cycle complete",
-      `${state.result.run?.profile_id || request.character.profile_id} · ${state.result.run?.run_id || request.run_id}`,
-      "ok"
-    );
+    state.result = completed;
+    if (!debugRequested || !els.debugToggle.checked) {
+      redactEvaluatorState();
+    }
+    renderRuntimePanels();
+    setRuntime("Cycle complete", `${state.result.run?.profile_id || request.character.profile_id} · Ego trace ${state.result.panels?.ego?.timeline?.length || 1}`, "ok");
   } catch (error) {
     console.error(error);
     setRuntime("Cycle failed", error.message, "error");
-    const active = els.panels[state.activePanel];
-    const errorCard = element("div", "error-card");
-    append(errorCard, element("h2", "", "Workbench request failed"), element("p", "", error.message));
-    active.replaceChildren(errorCard);
   } finally {
     state.busy = false;
     els.runCycleBtn.disabled = false;
     els.profileSelect.disabled = false;
+    els.debugToggle.disabled = false;
   }
 }
 
@@ -774,23 +1456,45 @@ function loadProfiles() {
 }
 
 async function bootstrap() {
-  try {
-    state.bootstrap = await apiJson("/api/bootstrap");
-    const request = templateRequest();
-    if (!request) throw new Error("Missing deterministic request fixture.");
-    loadProfiles();
-    els.sceneSummary.textContent = request.scene?.raw_input || "Deterministic native cycle";
-    els.sceneId.textContent = `scene ${compactId(request.scene?.event_id)}`;
-    els.runCycleBtn.disabled = false;
+  const [runtimeResult, labResult] = await Promise.allSettled([
+    apiJson("/api/bootstrap"),
+    apiJson("/api/semantic-lab"),
+  ]);
+  if (runtimeResult.status === "rejected") {
+    console.error(runtimeResult.reason);
+    setRuntime("Bootstrap failed", runtimeResult.reason.message, "error");
+    els.sceneSummary.textContent = runtimeResult.reason.message;
+    state.labError = labResult.status === "rejected" ? labResult.reason.message : null;
+    if (labResult.status === "fulfilled") state.lab = labResult.value;
+    renderSemanticPanel();
+    renderRuntimePanels();
+    return;
+  }
+  state.bootstrap = runtimeResult.value;
+  if (labResult.status === "fulfilled") {
+    state.lab = labResult.value;
+  } else {
+    state.labError = labResult.reason.message;
+    console.error(labResult.reason);
+  }
+  const request = templateRequest();
+  if (!request) throw new Error("Missing deterministic request fixture.");
+  loadProfiles();
+  els.sceneSummary.textContent = request.scene?.raw_input || "Deterministic native cycle";
+  els.sceneId.textContent = `scene ${compactId(request.scene?.event_id)}`;
+  els.runId.textContent = `session ${compactId(state.sessionEgoId)}`;
+  els.runCycleBtn.disabled = false;
+  renderSemanticPanel();
+  renderRuntimePanels();
+  const familyCount = semanticFamilies().length;
+  if (state.labError) {
     setRuntime(
-      "Ready",
-      "Checked-in fixture · deterministic providers · no model or renderer",
-      "ok"
+      "Runtime ready · Semantic Lab unavailable",
+      `${state.labError} · deterministic cycle idle`,
+      "error"
     );
-  } catch (error) {
-    console.error(error);
-    setRuntime("Bootstrap failed", error.message, "error");
-    els.sceneSummary.textContent = error.message;
+  } else {
+    setRuntime("Ready", `${familyCount} semantic families · deterministic cycle idle · no hidden model calls`, "ok");
   }
 }
 
@@ -811,5 +1515,14 @@ for (const tab of els.tabs) {
 }
 
 els.runCycleBtn.addEventListener("click", runCycle);
-activatePanel("native");
-bootstrap();
+els.debugToggle.addEventListener("change", () => {
+  if (!els.debugToggle.checked) redactEvaluatorState();
+  renderRuntimePanels();
+});
+activatePanel("semantic");
+bootstrap().catch((error) => {
+  console.error(error);
+  setRuntime("Bootstrap failed", error.message, "error");
+  state.labError ||= error.message;
+  renderSemanticPanel();
+});

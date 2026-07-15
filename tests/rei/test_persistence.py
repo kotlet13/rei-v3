@@ -8,6 +8,7 @@ import sys
 
 import pytest
 
+import app.backend.rei.persistence.artifacts as artifacts_module
 from app.backend.rei.persistence import (
     RUN_TREE_DIRECTORIES,
     ArtifactExistsError,
@@ -66,6 +67,99 @@ def test_file_store_writes_canonical_json_and_complete_run_tree(tmp_path: Path) 
         expected=artifact,
     ) == artifact
     assert store.read_verified(artifact) == expected_bytes
+
+
+def test_bounded_unverified_read_is_safe_but_not_manifest_evidence(
+    tmp_path: Path,
+) -> None:
+    store = FileArtifactStore(tmp_path / "runs")
+    payload = b'{"candidate":"native-bundle"}'
+    store.write_bytes("candidate-run", "native/bundle.json", payload)
+
+    assert (
+        store.read_bounded_unverified(
+            "candidate-run",
+            "native/bundle.json",
+            maximum_size=len(payload),
+        )
+        == payload
+    )
+    with pytest.raises(ArtifactIntegrityError, match="safe read limit"):
+        store.read_bounded_unverified(
+            "candidate-run",
+            "native/bundle.json",
+            maximum_size=len(payload) - 1,
+        )
+    with pytest.raises(ValueError, match="positive integer"):
+        store.read_bounded_unverified(
+            "candidate-run",
+            "native/bundle.json",
+            maximum_size=0,
+        )
+
+
+@pytest.mark.parametrize(
+    "limit_mode",
+    ("expected", "maximum", "minimum", "observed_size"),
+)
+def test_target_read_caps_concurrent_growth_at_smallest_relevant_limit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    limit_mode: str,
+) -> None:
+    store = FileArtifactStore(tmp_path / "runs")
+    payload = b"bounded-candidate"
+    artifact = store.write_bytes("growing-run", "native/bundle.json", payload)
+    target = store.artifact_path(artifact.run_id, artifact.relative_path)
+    observed_read_sizes: list[int] = []
+    original_fdopen = artifacts_module.os.fdopen
+
+    class GrowingReader:
+        def __init__(self, handle: object) -> None:
+            self.handle = handle
+
+        def __enter__(self):
+            self.handle.__enter__()
+            with target.open("ab") as writer:
+                writer.write(b"x" * 100_000)
+                writer.flush()
+            return self
+
+        def read(self, size: int = -1) -> bytes:
+            observed_read_sizes.append(size)
+            return self.handle.read(size)
+
+        def __exit__(self, exc_type, exc, traceback):
+            return self.handle.__exit__(exc_type, exc, traceback)
+
+    def growing_fdopen(descriptor: int, mode: str, *, closefd: bool = True):
+        return GrowingReader(
+            original_fdopen(descriptor, mode, closefd=closefd)
+        )
+
+    monkeypatch.setattr(artifacts_module.os, "fdopen", growing_fdopen)
+    expected_size = len(payload) if limit_mode in {"expected", "minimum"} else None
+    maximum_size = (
+        len(payload) + 10
+        if limit_mode == "minimum"
+        else len(payload) if limit_mode == "maximum" else None
+    )
+    relevant_limits = (len(payload),) + tuple(
+        limit
+        for limit in (expected_size, maximum_size)
+        if limit is not None
+    )
+
+    with pytest.raises(ArtifactIntegrityError, match="changed while it was read"):
+        store._read_target(
+            artifact.run_id,
+            artifact.relative_path,
+            target,
+            expected_size=expected_size,
+            maximum_size=maximum_size,
+        )
+
+    assert observed_read_sizes == [min(relevant_limits) + 1]
 
 
 @pytest.mark.parametrize(

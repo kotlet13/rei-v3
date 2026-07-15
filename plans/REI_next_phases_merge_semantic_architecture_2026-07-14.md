@@ -6,7 +6,7 @@
 **Predhodna integracijska veja:** `codex/architecture/rei-native-composition` (zgodovinsko; že mergeana)
 **Temeljno pravilo:** vse nadaljnje faze, commiti in pushi potekajo neposredno na `main`; drugih vej se ne ustvarja, uporablja ali objavlja
 **Datum načrta:** 2026-07-14
-**Status:** C4 tehnični runtime integriran in semantic-model quality gate odprt; C5 integriran z internim bounded-software gateom; C6 integriran kot reproducibilen bounded-software tehnični rez brez podeljene semantične avtoritete
+**Status:** C8 integriran s tem faznim commitom neposredno na `main`; C7 tehnični contract gate uspešen, research-quality gate pa blokiran; pred C9 je potrebna kontrolirana image/model remediation
 **Izven obsega:** QLoRA, SFT, LoRA trening, generiranje učnih datasetov in dokončna izbira produkcijskega modela
 
 ---
@@ -182,6 +182,10 @@ veji `main`:
 - po pregledu faze commitaj in pushaj samo njen dogovorjeni obseg neposredno na
   `main`;
 - pravilo »ena faza, en pregled« ostane v veljavi tudi brez ločenih vej.
+
+Imena drugih vej, ukazi za preklop vej ter PR/merge postopki v M0–M3 so samo
+zgodovinski zapis že zaključene integracije. Ne smejo se uporabiti kot aktivno
+navodilo in ne morejo razveljaviti tega `main`-only pravila.
 
 ## 3.4 Deterministični baseline ostane
 
@@ -2119,6 +2123,56 @@ Racio ground trutha ni prejel.
 - brez skritih model callov;
 - debug ground truth samo z izrecnim lokalnim stikalom.
 
+## 15.7 Status integracije 2026-07-15
+
+C8 je integriran in sprejemno preverjen s tem faznim commitom neposredno na
+`main` na osnovi `1d8c391bb8e60f02e0f7552463069c257699b9fc`. Fazni commit
+vsebuje ta statusni zapis in fazno poročilo, zato samoreferenčni končni SHA v
+njiju ni vpisan.
+
+GUI vsebuje šest ločenih pregledov: Semantic Lab, Racio, Emocio, Instinkt,
+Character in Ego. Semantic Lab bere zamrznjeni C1/C2/C7 corpus in poročila skozi
+integritetno preverjeno, read-only projekcijo. Neizvedene variante ostanejo
+označeni kot `not_executed`; GUI ne izmišljuje dejanskega routea. C7 tehnični
+`pass` in raziskovalni `blocked` sta prikazana ločeno brez agregatnega REI
+rezultata.
+
+Normalni Racio pogled vsebuje samo dejansko vidni input. Nativni ground truth,
+`TranslationGap` in evaluatorjeva oznaka se pojavijo samo po izrecnem lokalnem
+debug stikalu, ob izklopu pa se takoj odstranijo iz odjemalčevega stanja. Emocio,
+Instinkt in Ego pogledi ohranijo zahtevane procesne meje, negotovost in
+longitudinalno sled; Character ostane governance pregled in ne diagnoza.
+
+Runtime je privzeto omejen na loopback. Host, Origin, vsebinski tip in
+cross-site zahteve se preverjajo fail-closed; API odgovori imajo omejevalne
+varnostne glave. Izvajanje cikla in gradnja Semantic Lab projekcije sta
+konkurenčno omejena. GUI ne izvaja skritih modelskih klicev, ne omogoča
+samodejnega training exporta in ne uvaja Character diagnosis gumba.
+
+Longitudinalno zgodovino razrešuje strežnik iz polno preverjenih finalnih ali
+prepared manifestov; odjemalec zgodovinskih bundle-ov ne sme injicirati.
+Run artefakti so particionirani po SHA-256 namespaceu iz `ego_id`; recovery v
+eni Ego particiji absolutno pregleda največ 64 vnosov, GUI Ego seja pa je
+omejena na 30 measures. Nativni bundle nad 2 MiB se zavrne pred persistenco.
+Preverjene slike so dosegljive samo skozi Ego-particionirano pot
+`/api/ego-runs/{partition_id}/{run_id}/images/{image_id}`; URL vsebuje samo
+kanonični 64-hex partition digest in nikoli surovega `ego_id`. Read-only image
+lookup uporablja `FileArtifactStore(create=False)`, zato manjkajoča particija
+ne ustvari direktorija ali drugega stanja. Oddaljeni opt-in ostaja
+neavtenticiran trusted-single-user način; `ego_id` je namespace, ne credential,
+zato izpostavitev nezaupanja vrednemu ali večuporabniškemu omrežju brez zunanje
+avtentikacije ni podprta.
+
+Avtoritativno fazno poročilo je:
+
+```text
+Docs/evals/semantic_lab_v1/c8-gui-2026-07-15/acceptance.md
+```
+
+C8 podeljuje tehnično GUI sprejemljivost, ne pa C7 raziskovalne, semantične ali
+produkcijske avtoritete. Naslednji korak zato ni C9, temveč kontrolirana
+image/model remediation odprtih C3/C4/C7 blockerjev.
+
 Commit:
 
 ```text
@@ -2130,6 +2184,11 @@ feat(gui): add semantic native-process and longitudinal Ego workbench
 # 16. Faza C9 — naslednji release
 
 Ko so C1–C8 sprejeti:
+
+C8 tehnični sprejem sam po sebi ne odpre C9. Pred releaseom mora biti C7
+research-quality gate dejansko odblokiran z nadzorovano modelno evidenco;
+trenutnih pet blockerjev se ne sme preimenovati v sprejem ali skriti v release
+opombi.
 
 ```text
 rei-v3-semantic-native-v1
@@ -2201,9 +2260,9 @@ V poročilu loči:
 | C4 | main (tehnični runtime integriran; semantic gate odprt) | `d671796` … `c304404` — provenance-closed visual cognition, replay in composite editor |
 | C5 | main (integrirano; bounded software gate sprejet) | `feat(instinkt): infer grounded option body effects before protective rollouts` |
 | C6 | main (integrirano; bounded gate uspešen; semantic authority ni podeljena) | `feat(ego): validate longitudinal composition and modality-specific world learning` |
-| C7 | main | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
-| C8 | main | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
-| C9 | main | `docs(release): record semantic-native v1 acceptance` |
+| C7 | main (integrirano; tehnični gate uspešen, research gate blokiran) | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
+| C8 | main (integrirano s faznim commitom, ki vsebuje ta status) | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
+| C9 | main (še ni odprto; čaka research remediation) | `docs(release): record semantic-native v1 acceptance` |
 
 ---
 
@@ -2257,7 +2316,15 @@ ostaja odprt. C6 je integriran neposredno na `main`; njegov reproducibilni
 bounded-software gate je uspešen, semantična avtoriteta pa izrecno ni podeljena.
 C7 je integriran neposredno na `main`; njegov model-free tehnični contract gate
 je uspešen, research-quality gate pa zaradi petih eksplicitnih blockerjev ostaja
-`blocked`. Naslednja implementacijska faza je C8.
+`blocked`. C8 je integriran s tem faznim commitom neposredno na `main`; phase
+commit vsebuje tudi statusni zapis in fazno poročilo. C8 ne spreminja C7
+raziskovalnega statusa in ne podeljuje semantične ali produkcijske avtoritete.
+
+Naslednja odobritvena točka ni C9. Najprej izvedi kontrolirano image/model
+remediation odprtih C3/C4/C7 blockerjev z vnaprej pripetimi modelnimi revizijami,
+nespremenjenimi determinističnimi baseline-i, popolnim provenanceom in ločenimi
+quality gatei. C9 se lahko začne šele, ko raziskovalni blockerji niso več
+`blocked` in je ta sprememba podprta z reproducibilnimi artefakti.
 
 Za vsako nadaljnjo fazo velja:
 

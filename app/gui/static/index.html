@@ -7,13 +7,13 @@
       name="description"
       content="REI native modalities and Ego composition workbench"
     />
-    <title>REI Native Composition Workbench</title>
+    <title>REI Semantic Workbench</title>
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/static/styles.css" />
     <script type="module" src="/static/app.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#panel-native">Skip to workbench</a>
+    <a class="skip-link" href="#workbench">Skip to workbench</a>
     <div class="app-shell">
       <header class="topbar">
         <div class="brand-lockup">
@@ -21,8 +21,8 @@
             <span>R</span><span>E</span><span>I</span>
           </div>
           <div>
-            <p class="eyebrow">Native modalities · Ego composition</p>
-            <h1>REI Workbench</h1>
+            <p class="eyebrow">Semantic laboratory · Native modalities · Ego composition</p>
+            <h1>REI Semantic Workbench</h1>
           </div>
         </div>
         <div class="runtime-state" aria-live="polite">
@@ -34,11 +34,11 @@
         </div>
       </header>
 
-      <main>
+      <main id="workbench" tabindex="-1">
         <section class="control-deck" aria-labelledby="cycle-heading">
           <div class="cycle-context">
             <p class="eyebrow">Cycle input</p>
-            <h2 id="cycle-heading">Deterministic architecture probe</h2>
+            <h2 id="cycle-heading">Deterministic native-process probe</h2>
             <p id="sceneSummary" class="scene-summary">Loading scene…</p>
             <div class="context-meta">
               <span id="sceneId" class="meta-chip">scene —</span>
@@ -67,33 +67,61 @@
           </div>
         </section>
 
-        <nav class="panel-tabs" role="tablist" aria-label="Workbench layers">
+        <nav class="panel-tabs" role="tablist" aria-label="Semantic workbench views">
           <button
-            id="tab-native"
+            id="tab-semantic"
             class="panel-tab active"
             type="button"
             role="tab"
             aria-selected="true"
-            aria-controls="panel-native"
-            data-panel="native"
+            aria-controls="panel-semantic"
+            data-panel="semantic"
           >
             <span class="tab-index">01</span>
-            <span>Native</span>
-            <small>Untranslated signals</small>
+            <span>Semantic Lab</span>
+            <small>Source → route evidence</small>
           </button>
           <button
-            id="tab-communication"
+            id="tab-racio"
             class="panel-tab"
             type="button"
             role="tab"
             aria-selected="false"
-            aria-controls="panel-communication"
-            data-panel="communication"
+            aria-controls="panel-racio"
+            data-panel="racio"
             tabindex="-1"
           >
             <span class="tab-index">02</span>
-            <span>Communication</span>
-            <small>Manifestation → interpretation</small>
+            <span>Racio Interpretation</span>
+            <small>Visible input → translation</small>
+          </button>
+          <button
+            id="tab-emocio"
+            class="panel-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-emocio"
+            data-panel="emocio"
+            tabindex="-1"
+          >
+            <span class="tab-index">03</span>
+            <span>Emocio</span>
+            <small>Scenes → visual valuation</small>
+          </button>
+          <button
+            id="tab-instinkt"
+            class="panel-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-instinkt"
+            data-panel="instinkt"
+            tabindex="-1"
+          >
+            <span class="tab-index">04</span>
+            <span>Instinkt</span>
+            <small>Cues → body trajectory</small>
           </button>
           <button
             id="tab-character"
@@ -105,7 +133,7 @@
             data-panel="character"
             tabindex="-1"
           >
-            <span class="tab-index">03</span>
+            <span class="tab-index">05</span>
             <span>Character</span>
             <small>Authority → behavior</small>
           </button>
@@ -119,30 +147,46 @@
             data-panel="ego"
             tabindex="-1"
           >
-            <span class="tab-index">04</span>
-            <span>Ego</span>
-            <small>History → composition</small>
+            <span class="tab-index">06</span>
+            <span>Ego Timeline</span>
+            <small>Measures → composition</small>
           </button>
         </nav>
 
         <section
-          id="panel-native"
+          id="panel-semantic"
           class="workbench-panel active"
           role="tabpanel"
-          aria-labelledby="tab-native"
+          aria-labelledby="tab-semantic"
           tabindex="0"
         >
           <div class="empty-state">
             <span class="empty-orbit" aria-hidden="true"></span>
-            <h2>Native signal space</h2>
-            <p>Run the deterministic fixture to inspect Racio, Emocio, and Instinkt before communication.</p>
+            <h2>Semantic laboratory</h2>
+            <p>Loading source-grounded families and the dimension-preserving benchmark…</p>
           </div>
         </section>
         <section
-          id="panel-communication"
+          id="panel-racio"
           class="workbench-panel"
           role="tabpanel"
-          aria-labelledby="tab-communication"
+          aria-labelledby="tab-racio"
+          tabindex="0"
+          hidden
+        ></section>
+        <section
+          id="panel-emocio"
+          class="workbench-panel"
+          role="tabpanel"
+          aria-labelledby="tab-emocio"
+          tabindex="0"
+          hidden
+        ></section>
+        <section
+          id="panel-instinkt"
+          class="workbench-panel"
+          role="tabpanel"
+          aria-labelledby="tab-instinkt"
           tabindex="0"
           hidden
         ></section>
