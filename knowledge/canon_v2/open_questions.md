@@ -817,6 +817,45 @@ operativni gloss. Natančno ujemanje podpisa ne dokazuje kakovosti naravnega
 prevoda; to ostane predmet slepega človeškega pregleda. C2 zato ne uporablja
 embeddingov ali modelnega judgea za avtomatsko dvojezično gold odločitev.
 
+## OQ-EVAL-002 — C4 vizualna capacity in semantična remediation
+
+Ali lahko lokalni image-edit kandidat pri nespremenjenem current-source PNG-ju
+zanesljivo loči dve opcijski akciji, ohrani identiteto in kompozicijo ter to
+ponovi čez jezik, slog, vrstni red in neodvisno družino rendererja?
+
+### C4 remediation izvedbena odločitev — 2026-07-15
+
+Status: `implementation_hypothesis`, omejeno na kontrolirani eval screen.
+`meituan-longcat/LongCat-Image-Edit-Turbo` in
+`Shitao/OmniGen-v1-diffusers` sta pripeta kot zamenljivi, neavtoritativni
+hipotezi po protokolu
+`Docs/evals/semantic_lab_v1/c4_visual_remediation_protocol_2026-07-15.md`.
+Njuni izhodi niso external evidence in ne smejo vplivati na native sklep brez
+ločene, pregledane authority odločitve. Pred prvim modelnim klicem so obvezni
+popoln snapshot manifest, parent-owned process-tree hard timeout, enotna
+resource telemetrija ter zapečaten slepi človeški review. Uspeh enega modela ali
+enega sintetičnega primera ne razreši širšega C4 gatea.
+
+Slepi review sprejme samo zunanjo operatorjevo attestacijo ročnega vnosa,
+vezano na atomsko enkratno porabo policy lease-a v zunanjem ledgerju. Šele
+ponovna verifikacija operatorjevega secreta potrdi HMAC attestacijo; consumed-use
+receipt ima live replay veljavo samo po ponovni verifikaciji zunanjega ledgerja.
+Nobena od teh preveritev ne dokazuje človeške kognicije, neodvisnosti presoje
+ali semantične kakovosti. Cold-validiran artefakt sam zato nima kriptografske
+ali live-ledger avtoritete. Builder zavrne neposredne raw, UTF-8 in hex zapise
+operatorjevega ključa, vendar so zunanji tekstovni identifikatorji še vedno
+trusted-caller meja in ne dokazujejo odsotnosti prikrite reverzibilne kode.
+
+Resource telemetrija meri vzorčeni RSS celotnega Windows Job procesnega drevesa
+in vzorčeno porabo celotne fizično identificirane CUDA naprave. Objavljena vrha
+sta spodnji meji vzorčenja, ne dokaz odsotnosti kratkega vmesnega presežka in ne
+meritev izključno otrokove CUDA alokacije. Ta foundation še nima uspešne
+background-sampling finalizacije v trajni telemetry artefakt in nima
+immutable-display receipt-a, ki bi dokazal, da je reviewer videl prav tiste PNG
+bajte, ki jih veže manifest. Zato sama ne zapre C7 resource gatea in ne
+dovoljuje prvega modelnega klica ali avtoritativnega reviewa brez ločene Stage 1
+integracije ter preverjenih artefaktov.
+
 ## Izrecno zaprte smeri, ki niso odprta vprašanja B1
 
 - QLoRA, LoRA, SFT, training dataset in izbor končnega modela niso v obsegu.
