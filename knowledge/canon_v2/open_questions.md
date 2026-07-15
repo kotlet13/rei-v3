@@ -849,12 +849,20 @@ trusted-caller meja in ne dokazujejo odsotnosti prikrite reverzibilne kode.
 Resource telemetrija meri vzorčeni RSS celotnega Windows Job procesnega drevesa
 in vzorčeno porabo celotne fizično identificirane CUDA naprave. Objavljena vrha
 sta spodnji meji vzorčenja, ne dokaz odsotnosti kratkega vmesnega presežka in ne
-meritev izključno otrokove CUDA alokacije. Ta foundation še nima uspešne
-background-sampling finalizacije v trajni telemetry artefakt in nima
-immutable-display receipt-a, ki bi dokazal, da je reviewer videl prav tiste PNG
-bajte, ki jih veže manifest. Zato sama ne zapre C7 resource gatea in ne
-dovoljuje prvega modelnega klica ali avtoritativnega reviewa brez ločene Stage 1
-integracije ter preverjenih artefaktov.
+meritev izključno otrokove CUDA alokacije.
+
+Foundation commit sam še ni imel uspešne background-sampling finalizacije v
+trajni telemetry artefakt in immutable-display receipta. Model-free Stage 1
+integracija na `main` s commitoma `5c39c6a` in `e04e21f` zdaj dodaja exact
+snapshot/provider/runtime vezavo, trajno telemetrijo, atomski member marker ter
+receipt-bound DINO in display/review porabnike. Status ostaja
+`implementation_hypothesis`: noben image model ali DINOv2 ni bil naložen ali
+poklican, človeški review ni bil izveden in semantična ali produkcijska
+avtoriteta ni podeljena. Obstoječi UV renderer venv je zavrnjen zaradi hardlinkov
+in reparse-pointa; pred ločenim model-backed screenom je potreben nov copy-only
+zunanji runtime. Vzorčeni peak ostaja spodnja meja, display receipt pa ne
+dokazuje reviewerjeve pozornosti ali kognicije. Zato C4 vprašanje in C7 resource
+gate ostajata odprta.
 
 ## Izrecno zaprte smeri, ki niso odprta vprašanja B1
 
