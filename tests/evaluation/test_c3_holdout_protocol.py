@@ -10,6 +10,8 @@ from types import SimpleNamespace
 import pytest
 from pydantic import ValidationError
 
+import app.backend.rei.evaluation.racio_interpreter_benchmark as c3_benchmark
+import app.backend.rei.evaluation.c3_official_suite as official_c3
 from app.backend.rei.communication.structured_interpreter import (
     DeterministicStructuredRacioInterpreterProvider,
     StructuredRacioInterpreterOutput,
@@ -54,9 +56,7 @@ from scripts.run_racio_interpreter_benchmark import (
 PROTOCOL_COMMIT = "a" * 40
 INSTRUCTION_SHA256 = "b" * 64
 OUTPUT_SCHEMA_SHA256 = "c" * 64
-MODEL_DIGEST = (
-    "07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522"
-)
+MODEL_DIGEST = "07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522"
 FIXED_TIME = datetime(2026, 7, 15, tzinfo=timezone.utc)
 
 
@@ -250,6 +250,178 @@ def _perfect_model_results(suite, *, wrong_motive_case_id: str | None = None):
     return tuple(results)
 
 
+def test_official_c3_suite_registration_loads_holdout_then_regression() -> None:
+    assert c3_benchmark.OFFICIAL_MANIFEST_SHA256 == (
+        official_c3.OFFICIAL_REGRESSION_MANIFEST_SHA256
+    )
+    assert official_c3.OFFICIAL_C3_SUITE_ORDER == (
+        (
+            c3_benchmark.HOLDOUT_MANIFEST_PATH,
+            official_c3.OFFICIAL_HOLDOUT_MANIFEST_SHA256,
+        ),
+        (
+            c3_benchmark.MANIFEST_PATH,
+            official_c3.OFFICIAL_REGRESSION_MANIFEST_SHA256,
+        ),
+    )
+
+    holdout, regression = official_c3.load_official_c3_suite_pair()
+    assert official_c3.load_official_c3_racio_interpreter_suites() == (
+        holdout,
+        regression,
+    )
+
+    assert isinstance(holdout.manifest, C3BenchmarkManifestV2)
+    assert holdout.manifest.benchmark_id == c3_benchmark.HOLDOUT_BENCHMARK_ID
+    assert holdout.manifest.suite_role == "untouched_holdout"
+    assert holdout.manifest.protocol_freeze_commit == official_c3.PROTOCOL_FREEZE_COMMIT
+    assert holdout.manifest_file_hash == (official_c3.OFFICIAL_HOLDOUT_MANIFEST_SHA256)
+    assert regression.manifest.benchmark_id == c3_benchmark.BENCHMARK_ID
+    assert regression.manifest.schema_version == c3_benchmark.BENCHMARK_SCHEMA_VERSION
+    assert regression.manifest_file_hash == (
+        official_c3.OFFICIAL_REGRESSION_MANIFEST_SHA256
+    )
+    assert tuple(suite.manifest.benchmark_id for suite in (holdout, regression)) == (
+        c3_benchmark.HOLDOUT_BENCHMARK_ID,
+        c3_benchmark.BENCHMARK_ID,
+    )
+
+
+def test_official_c3_suite_loader_rejects_source_fixture_drift(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original_read = official_c3._read_bounded
+
+    def drifted_read(path, *, maximum_bytes, label):
+        payload = original_read(
+            path,
+            maximum_bytes=maximum_bytes,
+            label=label,
+        )
+        source = Path(path)
+        if source.name == "sf_new_year_resolution.json" and (
+            source.parent.name == "semantic_lab_v1"
+        ):
+            return payload + b"\n"
+        return payload
+
+    monkeypatch.setattr(official_c3, "_read_bounded", drifted_read)
+    with pytest.raises(ValueError, match="source fixture differs from pin"):
+        official_c3.load_official_c3_suite_pair()
+
+
+@pytest.mark.parametrize("suite_name", ("holdout", "regression"))
+def test_official_c3_suite_loader_rejects_manifest_hash_substitution(
+    monkeypatch: pytest.MonkeyPatch,
+    suite_name: str,
+) -> None:
+    holdout = load_c3_racio_interpreter_benchmark(c3_benchmark.HOLDOUT_MANIFEST_PATH)
+    regression = load_c3_racio_interpreter_benchmark(c3_benchmark.MANIFEST_PATH)
+    if suite_name == "holdout":
+        holdout = holdout.model_copy(update={"manifest_file_hash": "0" * 64})
+    else:
+        regression = regression.model_copy(update={"manifest_file_hash": "0" * 64})
+
+    def fake_loader(path):
+        if path == c3_benchmark.HOLDOUT_MANIFEST_PATH:
+            return holdout
+        if path == c3_benchmark.MANIFEST_PATH:
+            return regression
+        raise AssertionError(f"unexpected manifest path: {path}")
+
+    monkeypatch.setattr(
+        official_c3,
+        "load_c3_racio_interpreter_benchmark",
+        fake_loader,
+    )
+    with pytest.raises(ValueError, match="path/hash registration differs"):
+        official_c3.load_official_c3_suite_pair()
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    (
+        ("protocol_freeze_commit", "0" * 40),
+        ("instruction_sha256", "0" * 64),
+        ("output_schema_sha256", "0" * 64),
+        ("calibration_policy_id", "changed-calibration-policy"),
+    ),
+)
+def test_official_c3_suite_loader_rejects_protocol_substitution(
+    monkeypatch: pytest.MonkeyPatch,
+    field: str,
+    value: str,
+) -> None:
+    holdout = load_c3_racio_interpreter_benchmark(c3_benchmark.HOLDOUT_MANIFEST_PATH)
+    regression = load_c3_racio_interpreter_benchmark(c3_benchmark.MANIFEST_PATH)
+    forged_manifest = holdout.manifest.model_copy(update={field: value})
+    forged_holdout = holdout.model_copy(update={"manifest": forged_manifest})
+
+    def fake_loader(path):
+        if path == c3_benchmark.HOLDOUT_MANIFEST_PATH:
+            return forged_holdout
+        if path == c3_benchmark.MANIFEST_PATH:
+            return regression
+        raise AssertionError(f"unexpected manifest path: {path}")
+
+    monkeypatch.setattr(
+        official_c3,
+        "load_c3_racio_interpreter_benchmark",
+        fake_loader,
+    )
+    with pytest.raises(ValueError, match="protocol contract differs"):
+        official_c3.load_official_c3_suite_pair()
+
+
+@pytest.mark.parametrize(
+    ("suite_name", "updates", "message"),
+    (
+        ("holdout", {"suite_role": "regression"}, "holdout role"),
+        (
+            "holdout",
+            {"benchmark_id": "rei-c3-racio-interpreter-benchmark-v1"},
+            "holdout role",
+        ),
+        (
+            "regression",
+            {"benchmark_id": "rei-c3-racio-interpreter-holdout-v1"},
+            "regression identity",
+        ),
+    ),
+)
+def test_official_c3_suite_loader_rejects_role_or_id_substitution(
+    monkeypatch: pytest.MonkeyPatch,
+    suite_name: str,
+    updates: dict[str, str],
+    message: str,
+) -> None:
+    holdout = load_c3_racio_interpreter_benchmark(c3_benchmark.HOLDOUT_MANIFEST_PATH)
+    regression = load_c3_racio_interpreter_benchmark(c3_benchmark.MANIFEST_PATH)
+    if suite_name == "holdout":
+        holdout = holdout.model_copy(
+            update={"manifest": holdout.manifest.model_copy(update=updates)}
+        )
+    else:
+        regression = regression.model_copy(
+            update={"manifest": regression.manifest.model_copy(update=updates)}
+        )
+
+    def fake_loader(path):
+        if path == c3_benchmark.HOLDOUT_MANIFEST_PATH:
+            return holdout
+        if path == c3_benchmark.MANIFEST_PATH:
+            return regression
+        raise AssertionError(f"unexpected manifest path: {path}")
+
+    monkeypatch.setattr(
+        official_c3,
+        "load_c3_racio_interpreter_benchmark",
+        fake_loader,
+    )
+    with pytest.raises(ValueError, match=message):
+        official_c3.load_official_c3_suite_pair()
+
+
 def test_holdout_builder_is_create_only_and_v2_manifest_is_sealed(
     tmp_path: Path,
 ) -> None:
@@ -267,9 +439,7 @@ def test_holdout_builder_is_create_only_and_v2_manifest_is_sealed(
     assert suite.manifest.model_generated_gold is False
     assert suite.manifest.training_export is False
     assert len(suite.cases) == 32
-    assert not set(suite.manifest.source_family_ids) & set(
-        C3_REGRESSION_FAMILY_IDS
-    )
+    assert not set(suite.manifest.source_family_ids) & set(C3_REGRESSION_FAMILY_IDS)
 
     with pytest.raises(FileExistsError):
         write_corpus(
@@ -339,12 +509,10 @@ def test_builder_validates_selected_canonical_interpretation(
     )
     changed_hash = hashlib.sha256(fixture_path.read_bytes()).hexdigest()
     fixture_manifest_path = fixture_root / "manifest.json"
-    fixture_manifest = json.loads(
-        fixture_manifest_path.read_text(encoding="utf-8")
-    )
-    next(
-        item for item in fixture_manifest["files"] if item["family_id"] == family_id
-    )["sha256"] = changed_hash
+    fixture_manifest = json.loads(fixture_manifest_path.read_text(encoding="utf-8"))
+    next(item for item in fixture_manifest["files"] if item["family_id"] == family_id)[
+        "sha256"
+    ] = changed_hash
     fixture_manifest_path.write_text(
         json.dumps(fixture_manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -420,8 +588,12 @@ def test_holdout_is_balanced_and_every_evaluator_identifier_stays_private(
     unambiguous = [
         case for case in suite.cases if case.gold.ambiguity_class == "unambiguous"
     ]
-    assert sum(case.gold.expected_option_id == "option_001" for case in unambiguous) == 8
-    assert sum(case.gold.expected_option_id == "option_002" for case in unambiguous) == 8
+    assert (
+        sum(case.gold.expected_option_id == "option_001" for case in unambiguous) == 8
+    )
+    assert (
+        sum(case.gold.expected_option_id == "option_002" for case in unambiguous) == 8
+    )
 
     forbidden_tokens = {
         token
