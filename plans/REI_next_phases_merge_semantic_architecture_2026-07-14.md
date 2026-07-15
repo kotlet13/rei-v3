@@ -1169,7 +1169,40 @@ Avtoritativen protokol je:
 Docs/evals/semantic_lab_v1/c3_remediation_protocol_2026-07-15.md
 ```
 
-Ta checkpoint še ne izvaja modela, ne odblokira C3/C7 in ne odpira C9.
+Ta protokolni checkpoint sam še ne izvaja modela, ne odblokira C3/C7 in ne
+odpira C9. Poznejša uradna izvedba je evidentirana v naslednjem podpoglavju.
+
+## 10.12 Uradna paired izvedba remediation protokola — 2026-07-15
+
+Protokol je bil zamrznjen v commitu `d74891c`, create-only holdout in paired
+runner pa zapečatena v commitu `707cb20`. Nato je bil brez vmesnega tuninga
+izveden uradni zaporedni par: najprej nedotaknjeni v2 holdout in zatem
+nespremenjeni regression corpus. Kanonični rezultati so objavljeni v commitu
+`e66f14c` pod:
+
+```text
+Docs/evals/semantic_lab_v1/c3-racio-official-pair-qwen3-6-35b-2026-07-15/
+```
+
+Izvedba je uporabila kandidata `qwen3.6:35b` z digestom
+`07d35212591fc27746f0a317c975a6d68754fb38e9053d82e25f06057af28522`,
+provider `rei-ollama-racio-interpreter-c3-v6`, `num_ctx=65536`,
+`num_gpu=999`, `retry_count=0` in `fallback_mode=none`. Vseh 64 načrtovanih
+modelnih klicev je bilo izvedenih s polnim GPU offloadom; izvajalnih napak ni
+bilo.
+
+Rezultat ni prestal quality gatea:
+
+- untouched holdout: `23/32`, `quality_gate_pass=false`;
+- frozen regression: `23/32`, `quality_gate_pass=false`;
+- oba korpusa: 100 % veljaven strukturiran izhod, brez hidden/profile leakage,
+  mutacije inputa, citation-scope ali provenance-scope napak;
+- neuspeh je semantičen: vsak korpus ima devet neuspešnih primerov, zato strogi
+  v2 pogoj `32/32` ni dosežen.
+
+C3 produkcijski model gate in z njim povezani C7 blocker zato ostajata
+`blocked`. Kandidat ni promoviran v default ali production status in ta rezultat
+ne odpira C9.
 
 ---
 
@@ -2318,7 +2351,9 @@ implementation_hypothesis
 # 20. Trenutno neposredno navodilo Codexu
 
 Faze M0–M3, C1, C2 in C5 so zaključene ter integrirane v `main`. C3 runtime je
-integriran, njegov produkcijski model gate pa ostaja blokiran. C4 tehnični
+integriran; uradna paired izvedba kandidata `qwen3.6:35b` je zaključena z
+rezultatoma `23/32` na holdoutu in `23/32` na regression corpusu, zato njegov
+produkcijski model gate ostaja blokiran. C4 tehnični
 runtime in composite editor sta integrirana, semantic-model quality gate pa
 ostaja odprt. C6 je integriran neposredno na `main`; njegov reproducibilni
 bounded-software gate je uspešen, semantična avtoriteta pa izrecno ni podeljena.
