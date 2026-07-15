@@ -18,7 +18,7 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Literal, Protocol, Self, runtime_checkable
 
-from pydantic import Field, TypeAdapter, model_validator
+from pydantic import TypeAdapter, model_validator
 
 from ..ids import canonical_json_bytes, content_id, utc_now
 from ..models.common import (
@@ -79,6 +79,55 @@ DINOV2_BASE_IMPLEMENTATION_REVISION = (
 )
 
 _PATH_ADAPTER = TypeAdapter(ArtifactRelativePath)
+_HASH_ADAPTER = TypeAdapter(HashDigest)
+
+
+def dinov2_base_encoding_spec(
+    *,
+    snapshot_manifest_sha256: str,
+    device: Literal["cpu", "cuda"],
+) -> ImageEncodingSpec:
+    """Return the complete path-free DINOv2 Base encoding contract."""
+
+    manifest_digest = _HASH_ADAPTER.validate_python(snapshot_manifest_sha256)
+    runtime_values = {
+        "device": device,
+        "cudnn_benchmark": False,
+        "cudnn_deterministic": True,
+        "deterministic_algorithms": True,
+        "float32_matmul_precision": "highest",
+        "local_files_only": True,
+        "model_repo": DINOV2_BASE_MODEL_ID,
+        "model_revision": DINOV2_BASE_MODEL_REVISION,
+        "offline": True,
+        "runtime_reassertion": "per_inference",
+        "snapshot_manifest_filename": DIFFUSERS_SNAPSHOT_MANIFEST_FILENAME,
+        "snapshot_manifest_sha256": manifest_digest,
+        "snapshot_trust_boundary": "trusted_local_filesystem",
+        "pillow_version": DINOV2_BASE_PILLOW_VERSION,
+        "torch_dtype": "float32",
+        "torch_version": DINOV2_BASE_TORCH_VERSION,
+        "torchvision_version": DINOV2_BASE_TORCHVISION_VERSION,
+        "transformers_version": DINOV2_BASE_TRANSFORMERS_VERSION,
+        "image_processor_backend": DINOV2_BASE_IMAGE_PROCESSOR_BACKEND,
+        "timeout_enforcement_mode": "cooperative_monotonic_deadline",
+        "timeout_hard_cancellation": False,
+    }
+    return ImageEncodingSpec(
+        implementation="transformers.AutoImageProcessor+AutoModel:DINOv2-CLS",
+        implementation_revision=DINOV2_BASE_IMPLEMENTATION_REVISION,
+        dimensions=DINOV2_BASE_DIMENSIONS,
+        pooling="cls_token",
+        normalization="l2",
+        vector_encoding="float32-little-endian",
+        parameters=tuple(
+            ProviderParameter(
+                name=name,
+                canonical_json_value=canonical_json_bytes(value).decode("utf-8"),
+            )
+            for name, value in sorted(runtime_values.items())
+        ),
+    )
 
 
 class DinoV2RuntimeConfig(FrozenModel):
@@ -373,45 +422,9 @@ class DinoV2BaseImageEncoder:
         return self._identity
 
     def encoding_spec(self) -> ImageEncodingSpec:
-        runtime_values = {
-            "device": self._runtime.device,
-            "cudnn_benchmark": self._runtime.cudnn_benchmark,
-            "cudnn_deterministic": self._runtime.cudnn_deterministic,
-            "deterministic_algorithms": self._runtime.deterministic_algorithms,
-            "float32_matmul_precision": self._runtime.float32_matmul_precision,
-            "local_files_only": self._runtime.local_files_only,
-            "model_repo": DINOV2_BASE_MODEL_ID,
-            "model_revision": DINOV2_BASE_MODEL_REVISION,
-            "offline": self._runtime.offline,
-            "runtime_reassertion": "per_inference",
-            "snapshot_manifest_filename": DIFFUSERS_SNAPSHOT_MANIFEST_FILENAME,
-            "snapshot_manifest_sha256": (
-                self._runtime.expected_snapshot_manifest_sha256
-            ),
-            "snapshot_trust_boundary": self._runtime.snapshot_trust_boundary,
-            "pillow_version": self._runtime.pillow_version,
-            "torch_dtype": self._runtime.torch_dtype,
-            "torch_version": self._runtime.torch_version,
-            "torchvision_version": self._runtime.torchvision_version,
-            "transformers_version": self._runtime.transformers_version,
-            "image_processor_backend": self._runtime.image_processor_backend,
-            "timeout_enforcement_mode": "cooperative_monotonic_deadline",
-            "timeout_hard_cancellation": False,
-        }
-        return ImageEncodingSpec(
-            implementation="transformers.AutoImageProcessor+AutoModel:DINOv2-CLS",
-            implementation_revision=DINOV2_BASE_IMPLEMENTATION_REVISION,
-            dimensions=DINOV2_BASE_DIMENSIONS,
-            pooling="cls_token",
-            normalization="l2",
-            vector_encoding="float32-little-endian",
-            parameters=tuple(
-                ProviderParameter(
-                    name=name,
-                    canonical_json_value=canonical_json_bytes(value).decode("utf-8"),
-                )
-                for name, value in sorted(runtime_values.items())
-            ),
+        return dinov2_base_encoding_spec(
+            snapshot_manifest_sha256=(self._runtime.expected_snapshot_manifest_sha256),
+            device=self._runtime.device,
         )
 
     def request_for(self, image: ImageArtifact) -> ImageEncodingRequest:
@@ -606,5 +619,6 @@ __all__ = [
     "LazyTransformersDinoV2Backend",
     "LocalFloat32VectorStore",
     "StoredFloat32Vector",
+    "dinov2_base_encoding_spec",
     "dinov2_base_provider_identity",
 ]

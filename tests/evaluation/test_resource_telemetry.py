@@ -1274,6 +1274,49 @@ def test_background_sampler_poll_and_stop_do_not_wait_for_probe() -> None:
         sampler.finish()
 
 
+def test_background_sampler_join_timeout_freezes_latest_but_hides_samples() -> None:
+    final_entered = threading.Event()
+    release_final = threading.Event()
+    final_exited = threading.Event()
+    probe_calls = 0
+
+    class BlockingFinalProbe:
+        def snapshot(self) -> ResourceTelemetrySnapshot:
+            nonlocal probe_calls
+            probe_calls += 1
+            if probe_calls == 1:
+                return _snapshot(rss=100, ram_available=800, cuda_used=20)
+            final_entered.set()
+            release_final.wait(timeout=2.0)
+            try:
+                return _snapshot(rss=90, ram_available=810, cuda_used=10)
+            finally:
+                final_exited.set()
+
+    sampler = BackgroundResourceTelemetrySampler(
+        BlockingFinalProbe(),
+        cadence_seconds=1.0,
+        max_samples=2,
+        join_timeout_seconds=0.01,
+    )
+    sampler.start()
+    initial = sampler.wait_for_initial_sample(timeout_seconds=0.5)
+
+    result = sampler.finish()
+
+    assert final_entered.is_set()
+    assert result.status.state == "join_timed_out"
+    assert result.status.sample_count == 1
+    assert result.status.latest_sample == initial.latest_sample
+    assert result.status.sampled_cuda_vram_peak is not None
+    assert result.status.sampled_cuda_vram_peak.value_bytes == 20
+    assert result.samples == ()
+    assert result.sampling_overhead_monotonic_ns == 0
+    release_final.set()
+    assert final_exited.wait(timeout=1.0)
+    assert sampler.poll() == result.status
+
+
 def test_background_sampler_stop_state_cannot_regress_during_inflight_probe() -> None:
     entered = threading.Event()
     release = threading.Event()
@@ -1296,9 +1339,129 @@ def test_background_sampler_stop_state_cannot_regress_during_inflight_probe() ->
     result = sampler.finish()
 
     assert result.status.state == "finished"
-    assert result.status.sample_count == 1
-    assert len(result.samples) == 1
+    assert result.status.sample_count == 2
+    assert len(result.samples) == 2
+    assert result.status.latest_sample == result.samples[-1]
     assert sampler.request_stop().state == "finished"
+
+
+@pytest.mark.parametrize("failure_type", (RuntimeError, KeyboardInterrupt))
+def test_background_sampler_thread_start_side_effect_then_failure_is_poisoned(
+    monkeypatch: pytest.MonkeyPatch,
+    failure_type: type[BaseException],
+) -> None:
+    original_start = threading.Thread.start
+    probe_called = threading.Event()
+
+    class Probe:
+        def snapshot(self) -> ResourceTelemetrySnapshot:
+            probe_called.set()
+            return _snapshot(rss=100, ram_available=800, cuda_used=20)
+
+    def side_effect_then_raise(thread: threading.Thread) -> None:
+        original_start(thread)
+        if thread.name == "rei-resource-telemetry-sampler":
+            raise failure_type("hostile sampler start failure")
+
+    monkeypatch.setattr(threading.Thread, "start", side_effect_then_raise)
+    sampler = BackgroundResourceTelemetrySampler(
+        Probe(),
+        cadence_seconds=0.01,
+        join_timeout_seconds=0.5,
+    )
+
+    expected = (
+        ResourceTelemetryStateError
+        if issubclass(failure_type, Exception)
+        else failure_type
+    )
+    with pytest.raises(expected):
+        sampler.start()
+
+    assert not probe_called.wait(timeout=0.05)
+    assert sampler.poll().state == "failed"
+    assert sampler.poll().failure_code == "sampler_thread_start_failure"
+    assert sampler._thread is not None
+    assert not sampler._thread.is_alive()
+    result = sampler.finish()
+    assert result.status.state == "failed"
+    assert result.samples == ()
+
+
+def test_background_sampler_publishes_initial_and_reserved_final_endpoints() -> None:
+    probe_calls = 0
+
+    class Probe:
+        def snapshot(self) -> ResourceTelemetrySnapshot:
+            nonlocal probe_calls
+            probe_calls += 1
+            return _snapshot(
+                rss=100 + probe_calls,
+                ram_available=800,
+                cuda_used=20 + probe_calls,
+            )
+
+    sampler = BackgroundResourceTelemetrySampler(
+        Probe(),
+        cadence_seconds=1.0,
+        max_samples=2,
+        join_timeout_seconds=0.5,
+    )
+    sampler.start()
+    initial = sampler.wait_for_initial_sample(timeout_seconds=0.5)
+
+    assert initial.state == "running"
+    assert initial.sample_count == 1
+    assert initial.latest_sample is not None
+    assert probe_calls == 1
+    for _ in range(20):
+        assert sampler.poll() == initial
+    assert probe_calls == 1
+
+    result = sampler.finish()
+
+    assert result.status.state == "finished"
+    assert len(result.samples) == 2
+    assert result.status.latest_sample == result.samples[-1]
+    assert result.samples[0].snapshot.process_scope_rss_bytes.value_bytes == 101
+    assert result.samples[-1].snapshot.process_scope_rss_bytes.value_bytes == 102
+    assert probe_calls == 2
+
+
+def test_background_sampler_status_preserves_superseded_cuda_peak() -> None:
+    second_probe = threading.Event()
+    probe_calls = 0
+
+    class Probe:
+        def snapshot(self) -> ResourceTelemetrySnapshot:
+            nonlocal probe_calls
+            probe_calls += 1
+            cuda_used = {1: 20, 2: 100}.get(probe_calls, 10)
+            if probe_calls == 2:
+                second_probe.set()
+            return _snapshot(rss=100, ram_available=800, cuda_used=cuda_used)
+
+    sampler = BackgroundResourceTelemetrySampler(
+        Probe(),
+        cadence_seconds=0.01,
+        max_samples=4,
+        join_timeout_seconds=0.5,
+    )
+    sampler.start()
+    initial = sampler.wait_for_initial_sample(timeout_seconds=0.5)
+    assert initial.sampled_cuda_vram_peak is not None
+    assert initial.sampled_cuda_vram_peak.value_bytes == 20
+    assert second_probe.wait(timeout=0.5)
+    deadline = time.monotonic() + 0.5
+    while sampler.poll().sample_count < 2 and time.monotonic() < deadline:
+        pass
+
+    result = sampler.finish()
+
+    assert result.status.sampled_cuda_vram_peak is not None
+    assert result.status.sampled_cuda_vram_peak.value_bytes == 100
+    assert result.status.latest_sample is not None
+    assert result.status.latest_sample.snapshot.cuda_vram_used_bytes.value_bytes == 10
 
 
 def test_background_sampler_skips_missed_cadence_slots_without_bursting() -> None:

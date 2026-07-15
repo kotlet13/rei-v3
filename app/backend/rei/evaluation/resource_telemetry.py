@@ -13,6 +13,7 @@ from collections.abc import Callable, Sequence
 import ctypes
 from dataclasses import dataclass
 import hashlib
+import math
 import os
 from pathlib import Path
 import platform
@@ -1683,6 +1684,24 @@ class BackgroundResourceTelemetrySample:
         return self.probe_finished_monotonic_ns - self.probe_started_monotonic_ns
 
 
+def _background_sampled_cuda_peak(
+    samples: Sequence[BackgroundResourceTelemetrySample],
+) -> ResourceByteReading | None:
+    measured = tuple(
+        sample.snapshot.cuda_vram_used_bytes
+        for sample in samples
+        if sample.snapshot.cuda_vram_used_bytes.status == "measured"
+    )
+    if not measured:
+        return None
+    return max(
+        measured,
+        key=lambda reading: (
+            reading.value_bytes if reading.value_bytes is not None else -1
+        ),
+    )
+
+
 @dataclass(frozen=True, slots=True)
 class BackgroundResourceTelemetrySamplerStatus:
     """Immutable status published atomically by the single owner thread."""
@@ -1690,6 +1709,8 @@ class BackgroundResourceTelemetrySamplerStatus:
     state: BackgroundSamplerState
     sample_count: int
     failure_code: str | None = None
+    latest_sample: BackgroundResourceTelemetrySample | None = None
+    sampled_cuda_vram_peak: ResourceByteReading | None = None
 
     def __post_init__(self) -> None:
         if self.state not in {
@@ -1707,6 +1728,34 @@ class BackgroundResourceTelemetrySamplerStatus:
             or not 0 <= self.sample_count <= RESOURCE_TELEMETRY_MAX_SAMPLES
         ):
             raise ValueError("Background telemetry status sample count is invalid")
+        if (self.sample_count == 0) != (self.latest_sample is None):
+            raise ValueError(
+                "Background telemetry latest sample differs from its sample count"
+            )
+        if self.latest_sample is not None:
+            validated_sample = BackgroundResourceTelemetrySample(
+                snapshot=self.latest_sample.snapshot,
+                probe_started_monotonic_ns=(
+                    self.latest_sample.probe_started_monotonic_ns
+                ),
+                probe_finished_monotonic_ns=(
+                    self.latest_sample.probe_finished_monotonic_ns
+                ),
+            )
+            if validated_sample != self.latest_sample:
+                raise ValueError("Background telemetry latest sample is not canonical")
+        if self.sampled_cuda_vram_peak is not None:
+            validated_peak = _cold_validate_exact(
+                ResourceByteReading,
+                self.sampled_cuda_vram_peak,
+                label="Background telemetry sampled CUDA peak",
+            )
+            if (
+                self.sample_count == 0
+                or validated_peak.status != "measured"
+                or validated_peak != self.sampled_cuda_vram_peak
+            ):
+                raise ValueError("Background telemetry sampled CUDA peak is invalid")
         failure_required = self.state in {"failed", "join_timed_out"}
         if failure_required != (self.failure_code is not None):
             raise ValueError("Background telemetry failure provenance is inconsistent")
@@ -1752,6 +1801,18 @@ class BackgroundResourceTelemetrySamplerResult:
             raise ValueError("Background telemetry result is not terminal")
         elif self.status.sample_count != len(self.samples):
             raise ValueError("Background telemetry result count differs from samples")
+        elif self.samples and self.status.latest_sample != self.samples[-1]:
+            raise ValueError("Background telemetry result latest sample differs")
+        if self.status.state != "join_timed_out" and (
+            self.status.sampled_cuda_vram_peak
+            != _background_sampled_cuda_peak(self.samples)
+        ):
+            raise ValueError("Background telemetry sampled CUDA peak differs")
+        if any(
+            current.probe_started_monotonic_ns < previous.probe_finished_monotonic_ns
+            for previous, current in zip(self.samples, self.samples[1:], strict=False)
+        ):
+            raise ValueError("Background telemetry samples overlap or move backwards")
         if self.status.state != "join_timed_out" and (
             self.sampling_overhead_monotonic_ns
             != sum(sample.sampling_overhead_monotonic_ns for sample in self.samples)
@@ -1820,6 +1881,8 @@ class BackgroundResourceTelemetrySampler:
         self._last_clock_ns: int | None = None
         self._finish_called = False
         self._join_timed_out = False
+        self._startup_poisoned = False
+        self._initial_sample_published = threading.Event()
         self._status = BackgroundResourceTelemetrySamplerStatus(
             state="new",
             sample_count=0,
@@ -1842,22 +1905,53 @@ class BackgroundResourceTelemetrySampler:
                 state=state,
                 sample_count=len(self._samples),
                 failure_code=failure_code,
+                latest_sample=(self._samples[-1] if self._samples else None),
+                sampled_cuda_vram_peak=self._status.sampled_cuda_vram_peak,
             )
+            if state in self._TERMINAL_STATES:
+                self._initial_sample_published.set()
 
-    def _append_sample(self, sample: BackgroundResourceTelemetrySample) -> bool:
+    def _append_sample(
+        self,
+        sample: BackgroundResourceTelemetrySample,
+        *,
+        terminal_state: Literal["finished", "sample_limit_reached"] | None = None,
+    ) -> bool:
         with self._publication_lock:
-            if self._join_timed_out or self._status.state in self._TERMINAL_STATES:
+            if (
+                self._startup_poisoned
+                or self._join_timed_out
+                or self._status.state in self._TERMINAL_STATES
+            ):
                 return False
             self._samples.append(sample)
-            state: BackgroundSamplerState = (
-                "stop_requested"
-                if self._stop_event.is_set() or self._status.state == "stop_requested"
-                else "running"
-            )
+            sampled_cuda_vram_peak = self._status.sampled_cuda_vram_peak
+            current_cuda = sample.snapshot.cuda_vram_used_bytes
+            if current_cuda.status == "measured" and (
+                sampled_cuda_vram_peak is None
+                or (
+                    current_cuda.value_bytes is not None
+                    and sampled_cuda_vram_peak.value_bytes is not None
+                    and current_cuda.value_bytes > sampled_cuda_vram_peak.value_bytes
+                )
+            ):
+                sampled_cuda_vram_peak = current_cuda
+            if terminal_state == "sample_limit_reached" and self._stop_event.is_set():
+                state: BackgroundSamplerState = "finished"
+            else:
+                state = terminal_state or (
+                    "stop_requested"
+                    if self._stop_event.is_set()
+                    or self._status.state == "stop_requested"
+                    else "running"
+                )
             self._status = BackgroundResourceTelemetrySamplerStatus(
                 state=state,
                 sample_count=len(self._samples),
+                latest_sample=sample,
+                sampled_cuda_vram_peak=sampled_cuda_vram_peak,
             )
+            self._initial_sample_published.set()
             return True
 
     def _read_clock(self) -> int:
@@ -1880,38 +1974,62 @@ class BackgroundResourceTelemetrySampler:
         except Exception:
             return ResourceTelemetrySnapshot.unavailable("probe_exception")
 
+    def _timed_sample(self) -> BackgroundResourceTelemetrySample:
+        started_ns = self._read_clock()
+        snapshot = self._safe_snapshot()
+        finished_ns = self._read_clock()
+        return BackgroundResourceTelemetrySample(
+            snapshot=snapshot,
+            probe_started_monotonic_ns=started_ns,
+            probe_finished_monotonic_ns=finished_ns,
+        )
+
     def _run(self) -> None:
         try:
-            while not self._stop_event.is_set():
-                with self._publication_lock:
-                    sample_count = len(self._samples)
-                if sample_count >= self._max_samples:
-                    self._publish("sample_limit_reached")
+            # ``start`` owns this lock until Thread.start() either returns or
+            # fails.  A hostile implementation may start the worker and then
+            # raise; the poison check prevents that worker from ever probing.
+            with self._publication_lock:
+                if self._startup_poisoned:
                     return
-                sample_started_monotonic = time.monotonic()
-                started_ns = self._read_clock()
-                snapshot = self._safe_snapshot()
-                finished_ns = self._read_clock()
-                if not self._append_sample(
-                    BackgroundResourceTelemetrySample(
-                        snapshot=snapshot,
-                        probe_started_monotonic_ns=started_ns,
-                        probe_finished_monotonic_ns=finished_ns,
-                    )
-                ):
-                    return
-                # Anchor the next deadline to this actual sample start.  A slow
-                # probe or scheduler suspension therefore skips missed slots
-                # instead of issuing a burst of back-to-back catch-up probes.
+
+            sample_started_monotonic = time.monotonic()
+            if not self._append_sample(self._timed_sample()):
+                return
+
+            while True:
                 next_start_deadline = sample_started_monotonic + self._cadence_seconds
                 remaining = max(0.0, next_start_deadline - time.monotonic())
-                if self._stop_event.wait(remaining):
-                    break
-            self._publish("finished")
-        except Exception:
+                stop_requested = self._stop_event.wait(remaining)
+                with self._publication_lock:
+                    sample_count = len(self._samples)
+
+                # One sample slot is always reserved for a worker-owned final
+                # endpoint.  Stop requests therefore never turn the latest
+                # cadence sample into an inferred end reading.
+                if stop_requested:
+                    self._append_sample(
+                        self._timed_sample(),
+                        terminal_state="finished",
+                    )
+                    return
+
+                if sample_count >= self._max_samples - 1:
+                    self._append_sample(
+                        self._timed_sample(),
+                        terminal_state="sample_limit_reached",
+                    )
+                    return
+
+                sample_started_monotonic = time.monotonic()
+                if not self._append_sample(self._timed_sample()):
+                    return
+        except BaseException:
             self._publish("failed", failure_code="background_sampler_failure")
 
     def start(self) -> None:
+        start_failure: BaseException | None = None
+        thread: threading.Thread
         with self._publication_lock:
             state = self._status.state
             if state != "new":
@@ -1932,16 +2050,58 @@ class BackgroundResourceTelemetrySampler:
                 # Holding the publication lock keeps finish() from observing an
                 # assigned-but-not-yet-started thread.
                 thread.start()
-            except Exception as exc:
-                self._thread = None
+            except BaseException as exc:
+                self._startup_poisoned = True
+                self._stop_event.set()
                 self._status = BackgroundResourceTelemetrySamplerStatus(
                     state="failed",
                     sample_count=0,
                     failure_code="sampler_thread_start_failure",
                 )
+                self._initial_sample_published.set()
+                start_failure = exc
+
+        if start_failure is not None:
+            # Join only after releasing the publication lock: a worker started
+            # as a side effect must acquire it to observe the poison state.
+            try:
+                thread.join(timeout=self._join_timeout_seconds)
+            except BaseException:
+                # A never-started Thread raises RuntimeError here.  The original
+                # startup failure remains the authoritative exception.
+                pass
+            if isinstance(start_failure, Exception):
                 raise ResourceTelemetryStateError(
                     "Background telemetry worker could not start"
-                ) from exc
+                ) from start_failure
+            raise start_failure
+
+    def wait_for_initial_sample(
+        self,
+        *,
+        timeout_seconds: float,
+    ) -> BackgroundResourceTelemetrySamplerStatus:
+        """Wait once for the initial immutable publication without probing."""
+
+        if (
+            isinstance(timeout_seconds, bool)
+            or not isinstance(timeout_seconds, (int, float))
+            or not math.isfinite(float(timeout_seconds))
+            or not 0.0
+            < float(timeout_seconds)
+            <= RESOURCE_TELEMETRY_BACKGROUND_JOIN_MAX_SECONDS
+        ):
+            raise ValueError("Background telemetry initial wait must be bounded")
+        with self._publication_lock:
+            if self._status.state == "new":
+                raise ResourceTelemetryStateError(
+                    "Background telemetry initial wait requires a started sampler"
+                )
+        if not self._initial_sample_published.wait(float(timeout_seconds)):
+            raise ResourceTelemetryStateError(
+                "Background telemetry initial sample was not published in time"
+            )
+        return self.poll()
 
     def poll(self) -> BackgroundResourceTelemetrySamplerStatus:
         """Return the last immutable publication without joining or probing."""
@@ -1963,6 +2123,8 @@ class BackgroundResourceTelemetrySampler:
                 self._status = BackgroundResourceTelemetrySamplerStatus(
                     state="stop_requested",
                     sample_count=len(self._samples),
+                    latest_sample=(self._samples[-1] if self._samples else None),
+                    sampled_cuda_vram_peak=self._status.sampled_cuda_vram_peak,
                 )
             return self._status
 
@@ -1981,7 +2143,12 @@ class BackgroundResourceTelemetrySampler:
                 )
             self._finish_called = True
         self.request_stop()
-        thread.join(timeout=self._join_timeout_seconds)
+        try:
+            thread.join(timeout=self._join_timeout_seconds)
+        except RuntimeError:
+            # A pre-start Thread failure is already represented by the frozen
+            # terminal status published by start().
+            pass
         if thread.is_alive():
             with self._publication_lock:
                 self._join_timed_out = True
@@ -1989,6 +2156,8 @@ class BackgroundResourceTelemetrySampler:
                     state="join_timed_out",
                     sample_count=len(self._samples),
                     failure_code="sampler_join_timeout",
+                    latest_sample=(self._samples[-1] if self._samples else None),
+                    sampled_cuda_vram_peak=self._status.sampled_cuda_vram_peak,
                 )
                 status = self._status
             return BackgroundResourceTelemetrySamplerResult(
@@ -2004,6 +2173,8 @@ class BackgroundResourceTelemetrySampler:
                     state="failed",
                     sample_count=len(samples),
                     failure_code="background_sampler_nonterminal_exit",
+                    latest_sample=(samples[-1] if samples else None),
+                    sampled_cuda_vram_peak=_background_sampled_cuda_peak(samples),
                 )
                 self._status = status
         return BackgroundResourceTelemetrySamplerResult(

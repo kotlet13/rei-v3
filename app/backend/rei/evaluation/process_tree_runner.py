@@ -797,6 +797,12 @@ class ProcessLifecycleObserver(Protocol):
 
     def on_poll(self, context: ProcessLifecycleContext) -> None: ...
 
+    def after_natural_completion(
+        self,
+        context: ProcessLifecycleContext,
+        outcome: TreeInspectionOutcome,
+    ) -> None: ...
+
     def before_termination(
         self,
         context: ProcessLifecycleContext,
@@ -816,6 +822,13 @@ class NullProcessLifecycleObserver:
 
     def on_poll(self, context: ProcessLifecycleContext) -> None:
         del context
+
+    def after_natural_completion(
+        self,
+        context: ProcessLifecycleContext,
+        outcome: TreeInspectionOutcome,
+    ) -> None:
+        del context, outcome
 
     def before_termination(
         self,
@@ -1849,7 +1862,7 @@ class _BoundedObserverDispatcher:
                     return
                 try:
                     invocation.callback()
-                except Exception:
+                except BaseException:
                     pass
                 else:
                     invocation.succeeded.set()
@@ -1866,6 +1879,7 @@ class _BoundedObserverDispatcher:
 class _PostSpawnCleanupState:
     request: BoundedProcessRequest | None = None
     started_at: datetime | None = None
+    started_ns: int | None = None
     real_started_ns: int | None = None
     managed: ManagedProcess | None = None
     stdout_pipe: Any = field(default=None, repr=False)
@@ -1913,8 +1927,17 @@ class BoundedProcessTreeRunner:
         self._observer = observer or NullProcessLifecycleObserver()
         self._observer_dispatcher: _BoundedObserverDispatcher | None = None
         self._active_cleanup_state: _PostSpawnCleanupState | None = None
+        self._last_terminal_result: BoundedProcessResult | None = None
         self._poll_interval_seconds = poll_interval_seconds
         self._termination_timeout_seconds = termination_timeout_seconds
+
+    @property
+    def last_terminal_result(self) -> BoundedProcessResult:
+        """Return the sanitized result retained before a propagated BaseException."""
+
+        if self._last_terminal_result is None:
+            raise RuntimeError("Process-tree runner has no terminal result")
+        return self._last_terminal_result
 
     def run(self, request: BoundedProcessRequest) -> BoundedProcessResult:
         if self._active_cleanup_state is not None:
@@ -1922,12 +1945,28 @@ class BoundedProcessTreeRunner:
         state = _PostSpawnCleanupState()
         state.real_started_ns = time.monotonic_ns()
         self._active_cleanup_state = state
+        self._last_terminal_result = None
         try:
-            return self._run_once(request, state=state)
+            result = self._run_once(request, state=state)
+            self._last_terminal_result = result
+            return result
         except BaseException as exc:
-            if state.managed is None or state.request is None:
+            if state.managed is not None and state.request is not None:
+                result = self._abort_post_spawn_failure(state)
+            elif (
+                state.request is not None
+                and state.started_at is not None
+                and state.started_ns is not None
+            ):
+                result = self._start_failure(
+                    state.request,
+                    started_at=state.started_at,
+                    started_ns=state.started_ns,
+                    containment_closed=False,
+                )
+            else:
                 raise
-            result = self._abort_post_spawn_failure(state)
+            self._last_terminal_result = result
             if not isinstance(exc, Exception):
                 raise
             return result
@@ -1958,6 +1997,7 @@ class BoundedProcessTreeRunner:
         started_at = self._utc_clock()
         state.started_at = started_at
         started_ns = self._monotonic_ns()
+        state.started_ns = started_ns
         try:
             managed = self._adapter.spawn(request)
         except Exception as exc:
@@ -2238,12 +2278,30 @@ class BoundedProcessTreeRunner:
                         "deadline_expired",
                     }
 
-        self._close_observer_dispatcher()
-
         if final_inspection is None:
             final_inspection = self._safe_inspect_tree(managed)
         if final_inspection.empty_tree_confirmed and workload_finished_ns is None:
             workload_finished_ns = self._monotonic_ns()
+        if trigger == "not_required" and final_inspection.empty_tree_confirmed:
+            observer_outcome = self._call_optional_observer(
+                "after_natural_completion",
+                context,
+                final_inspection,
+                deadline_ns=None,
+                max_wait_seconds=(
+                    _PROCESS_TREE_OBSERVER_POST_TERMINATION_CALLBACK_MAX_SECONDS
+                ),
+            )
+            if observer_outcome != "succeeded":
+                observer_failed = True
+                state.observer_failed = True
+                observer_callbacks_disabled = observer_outcome in {
+                    "timed_out",
+                    "deadline_expired",
+                }
+                trigger = "observer_failure"
+
+        self._close_observer_dispatcher()
 
         containment_closed: bool | None = None
         root_reap_attempted = False
@@ -2426,6 +2484,24 @@ class BoundedProcessTreeRunner:
                 time.sleep(min(0.005, remaining_real))
             return "deadline_expired"
         return outcome
+
+    def _call_optional_observer(
+        self,
+        method: str,
+        *arguments: Any,
+        deadline_ns: int | None,
+        max_wait_seconds: float,
+    ) -> Literal["succeeded", "failed", "timed_out", "deadline_expired"]:
+        """Call one backwards-compatible optional lifecycle extension."""
+
+        if not callable(getattr(self._observer, method, None)):
+            return "succeeded"
+        return self._call_observer(
+            method,
+            *arguments,
+            deadline_ns=deadline_ns,
+            max_wait_seconds=max_wait_seconds,
+        )
 
     def _close_observer_dispatcher(self) -> None:
         dispatcher = self._observer_dispatcher

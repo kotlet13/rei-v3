@@ -555,6 +555,8 @@ class FileArtifactStore:
             raise ArtifactNotFoundError("Stored artifact file is missing") from exc
         if _is_reparse_stat(before) or not stat.S_ISREG(before.st_mode):
             raise ArtifactIntegrityError("Stored artifact is not a regular file")
+        if before.st_nlink != 1:
+            raise ArtifactIntegrityError("Stored artifact is hard-linked")
         if expected_size is not None and before.st_size != expected_size:
             raise ArtifactIntegrityError("Stored artifact size differs from metadata")
         if maximum_size is not None and before.st_size > maximum_size:
@@ -569,6 +571,8 @@ class FileArtifactStore:
             opened = os.fstat(descriptor)
             if not stat.S_ISREG(opened.st_mode):
                 raise ArtifactIntegrityError("Opened artifact is not a regular file")
+            if opened.st_nlink != 1:
+                raise ArtifactIntegrityError("Opened artifact is hard-linked")
             if not os.path.samestat(before, opened):
                 raise ArtifactIntegrityError("Stored artifact changed before it was read")
             if expected_size is not None and opened.st_size != expected_size:
@@ -587,6 +591,7 @@ class FileArtifactStore:
             raise ArtifactIntegrityError("Stored artifact changed while it was read") from exc
         if (
             _is_reparse_stat(after)
+            or after.st_nlink != 1
             or not os.path.samestat(opened, after)
             or opened.st_size != len(content)
         ):
@@ -640,6 +645,8 @@ class FileArtifactStore:
             raise ArtifactNotFoundError("Stored artifact file is missing") from exc
         if _is_reparse_stat(before) or not stat.S_ISREG(before.st_mode):
             raise ArtifactIntegrityError("Stored artifact is not a regular file")
+        if before.st_nlink != 1:
+            raise ArtifactIntegrityError("Stored artifact is hard-linked")
         if expected_size is not None and before.st_size != expected_size:
             raise ArtifactIntegrityError("Stored artifact size differs from metadata")
 
@@ -654,6 +661,8 @@ class FileArtifactStore:
             opened = os.fstat(descriptor)
             if not stat.S_ISREG(opened.st_mode):
                 raise ArtifactIntegrityError("Opened artifact is not a regular file")
+            if opened.st_nlink != 1:
+                raise ArtifactIntegrityError("Opened artifact is hard-linked")
             if not os.path.samestat(before, opened):
                 raise ArtifactIntegrityError("Stored artifact changed before it was read")
             if expected_size is not None and opened.st_size != expected_size:
@@ -671,6 +680,7 @@ class FileArtifactStore:
             raise ArtifactIntegrityError("Stored artifact changed while it was read") from exc
         if (
             _is_reparse_stat(after)
+            or after.st_nlink != 1
             or not os.path.samestat(opened, after)
             or opened.st_size != total_size
         ):
@@ -833,6 +843,39 @@ class FileArtifactStore:
         if directories != expected_directories:
             raise ArtifactIntegrityError("Run tree directory inventory is incomplete")
         return files
+
+    def inspect_run_inventory_exact(self, run_id: str) -> tuple[StoredArtifact, ...]:
+        """Cold-inspect every file and reject an added, missing or changed entry.
+
+        This public primitive deliberately does not interpret a native
+        ``RunManifest``.  Specialized create-only workflows such as the C4
+        Stage 1 preflight can bind their own versioned final anchor while still
+        reusing the store's strict directory, reparse-point and stable-handle
+        boundary.
+        """
+
+        canonical_run_id = validate_run_id(run_id)
+
+        def inspect_pass() -> tuple[StoredArtifact, ...]:
+            discovered = self._discover_run_files_exact(canonical_run_id)
+            return tuple(
+                self._inspect_target_streaming(
+                    canonical_run_id,
+                    relative_path,
+                    discovered[relative_path],
+                )
+                for relative_path in sorted(discovered)
+            )
+
+        first = inspect_pass()
+        second = inspect_pass()
+        if first != second:
+            raise ArtifactIntegrityError(
+                "Run tree changed during exact inventory inspection"
+            )
+        with self._records_lock:
+            self._records.update((item.storage_id, item) for item in second)
+        return second
 
     def _restart_lookup(self, storage_id: str) -> bytes:
         matches: list[StoredArtifact] = []

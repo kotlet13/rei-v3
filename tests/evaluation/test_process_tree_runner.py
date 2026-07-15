@@ -1223,6 +1223,158 @@ def test_lifecycle_observer_order_exposes_runtime_only_target_for_telemetry(
     assert rss_readings and rss_readings[0] > 0
 
 
+def test_natural_completion_observer_runs_before_containment_close(
+    tmp_path: Path,
+) -> None:
+    events: list[str] = []
+    terminal_rss: list[int] = []
+
+    class Observer:
+        def on_started(self, context: ProcessLifecycleContext) -> None:
+            del context
+            events.append("started")
+
+        def on_poll(self, context: ProcessLifecycleContext) -> None:
+            del context
+
+        def after_natural_completion(
+            self,
+            context: ProcessLifecycleContext,
+            outcome: TreeInspectionOutcome,
+        ) -> None:
+            assert outcome.empty_tree_confirmed is True
+            terminal_rss.append(context.read_process_tree_rss_bytes())
+            events.append("natural")
+
+        def before_termination(
+            self,
+            context: ProcessLifecycleContext,
+            trigger: str,
+        ) -> None:
+            del context, trigger
+            raise AssertionError("natural completion must not terminate")
+
+        def after_termination(
+            self,
+            context: ProcessLifecycleContext,
+            outcome: TreeTerminationOutcome,
+        ) -> None:
+            del context, outcome
+            raise AssertionError("natural completion must not terminate")
+
+    result = BoundedProcessTreeRunner(observer=Observer()).run(
+        _request(tmp_path, "-c", "pass")
+    )
+
+    assert result.succeeded is True
+    assert events == ["started", "natural"]
+    assert terminal_rss == [0]
+
+
+def test_blocking_natural_completion_observer_is_bounded_and_fails_closed(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    entered = threading.Event()
+    release = threading.Event()
+    exited = threading.Event()
+    monkeypatch.setattr(
+        process_tree_runner_module,
+        "_PROCESS_TREE_OBSERVER_POST_TERMINATION_CALLBACK_MAX_SECONDS",
+        0.05,
+    )
+
+    class Observer:
+        def on_started(self, context: ProcessLifecycleContext) -> None:
+            del context
+
+        def on_poll(self, context: ProcessLifecycleContext) -> None:
+            del context
+
+        def after_natural_completion(
+            self,
+            context: ProcessLifecycleContext,
+            outcome: TreeInspectionOutcome,
+        ) -> None:
+            del context, outcome
+            entered.set()
+            try:
+                release.wait(timeout=1.0)
+            finally:
+                exited.set()
+
+        def before_termination(
+            self,
+            context: ProcessLifecycleContext,
+            trigger: str,
+        ) -> None:
+            del context, trigger
+
+        def after_termination(
+            self,
+            context: ProcessLifecycleContext,
+            outcome: TreeTerminationOutcome,
+        ) -> None:
+            del context, outcome
+
+    started = time.perf_counter()
+    result = BoundedProcessTreeRunner(observer=Observer()).run(
+        _request(tmp_path, "-c", "pass")
+    )
+    elapsed = time.perf_counter() - started
+
+    assert entered.is_set()
+    assert elapsed < 1.0
+    assert result.record.failure_code == "process_observer_failure"
+    assert result.record.termination_trigger == "observer_failure"
+    assert result.record.empty_tree_confirmed is True
+    assert result.record.containment_closed is True
+    release.set()
+    assert exited.wait(timeout=1.0)
+
+
+def test_natural_completion_observer_base_exception_is_sanitized(
+    tmp_path: Path,
+) -> None:
+    class Observer:
+        def on_started(self, context: ProcessLifecycleContext) -> None:
+            del context
+
+        def on_poll(self, context: ProcessLifecycleContext) -> None:
+            del context
+
+        def after_natural_completion(
+            self,
+            context: ProcessLifecycleContext,
+            outcome: TreeInspectionOutcome,
+        ) -> None:
+            del context, outcome
+            raise KeyboardInterrupt("secret natural callback detail")
+
+        def before_termination(
+            self,
+            context: ProcessLifecycleContext,
+            trigger: str,
+        ) -> None:
+            del context, trigger
+
+        def after_termination(
+            self,
+            context: ProcessLifecycleContext,
+            outcome: TreeTerminationOutcome,
+        ) -> None:
+            del context, outcome
+
+    result = BoundedProcessTreeRunner(observer=Observer()).run(
+        _request(tmp_path, "-c", "pass")
+    )
+
+    assert result.record.failure_code == "process_observer_failure"
+    assert result.record.empty_tree_confirmed is True
+    assert result.record.containment_closed is True
+    assert b"secret natural callback" not in result.record.canonical_json_bytes()
+
+
 def test_observer_polling_reuses_one_bounded_dispatcher_thread(
     tmp_path: Path,
 ) -> None:
@@ -2598,15 +2750,43 @@ def test_base_exception_after_spawn_cleans_tree_then_propagates(
             return containment_closed
 
     code = "from pathlib import Path; import sys; Path(sys.argv[1]).touch()"
+    runner = BoundedProcessTreeRunner(
+        adapter=TrackingAdapter(),
+        monotonic_ns=interrupting_clock,
+    )
     with pytest.raises(type(interrupt)):
-        BoundedProcessTreeRunner(
-            adapter=TrackingAdapter(),
-            monotonic_ns=interrupting_clock,
-        ).run(_request(tmp_path, "-c", code, str(marker)))
+        runner.run(_request(tmp_path, "-c", code, str(marker)))
 
     assert termination is not None
     assert termination.succeeded is True
     assert termination.final_inspection.empty_tree_confirmed is True
     assert containment_closed is True
+    assert runner.last_terminal_result.record.status == "failed"
+    assert runner.last_terminal_result.record.empty_tree_confirmed is True
     time.sleep(0.2)
     assert not marker.exists()
+
+
+def test_spawn_base_exception_retains_sanitized_terminal_result(tmp_path: Path) -> None:
+    inner = PlatformProcessTreeAdapter()
+
+    class SpawnInterruptAdapter:
+        @property
+        def isolation_mode(self) -> str:
+            return inner.isolation_mode
+
+        def spawn(self, request: BoundedProcessRequest) -> ManagedProcess:
+            del request
+            raise KeyboardInterrupt("secret spawn interruption")
+
+    runner = BoundedProcessTreeRunner(adapter=SpawnInterruptAdapter())
+
+    with pytest.raises(KeyboardInterrupt):
+        runner.run(_request(tmp_path, "-c", "pass"))
+
+    result = runner.last_terminal_result
+    assert result.record.status == "failed"
+    assert result.record.failure_code == "process_start_failure"
+    assert result.record.workload_release_status == "not_attempted"
+    assert result.record.process_id is None
+    assert b"secret spawn interruption" not in result.record.canonical_json_bytes()

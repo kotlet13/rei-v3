@@ -266,10 +266,13 @@ def test_pinned_encoder_is_deterministic_and_closes_vector_provenance(
     assert request == replay_request
     assert request.provider == encoder.identity
     assert request.spec.dimensions == DINOV2_BASE_DIMENSIONS
-    assert ProviderParameter(
-        name="snapshot_trust_boundary",
-        canonical_json_value='"trusted_local_filesystem"',
-    ) in request.spec.parameters
+    assert (
+        ProviderParameter(
+            name="snapshot_trust_boundary",
+            canonical_json_value='"trusted_local_filesystem"',
+        )
+        in request.spec.parameters
+    )
 
     call = encoder.build_call_spec(image, timeout_seconds=5.0)
     result = encoder.encode(image, call=call)
@@ -660,8 +663,7 @@ def test_wrong_snapshot_identity_and_call_parameters_are_rejected(
         canonical_json_value="1",
     )
     tampered_parameters = tuple(
-        changed if item.name == "dimensions" else item
-        for item in valid_call.parameters
+        changed if item.name == "dimensions" else item for item in valid_call.parameters
     )
     tampered_call = valid_call.model_copy(update={"parameters": tampered_parameters})
     with pytest.raises(ValueError, match="parameters differ"):
