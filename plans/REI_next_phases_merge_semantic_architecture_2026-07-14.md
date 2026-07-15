@@ -1235,6 +1235,28 @@ runtime je zato sprejet, vendar semantic-model quality gate ostaja odprt:
 Kanonično fazno poročilo je
 [`c4_runtime_integration_acceptance_2026-07-14.md`](../Docs/evals/semantic_lab_v1/c4_runtime_integration_acceptance_2026-07-14.md).
 
+## 11.0.1 Kontrolirana capacity remediation — 2026-07-15
+
+Obstoječi LongCat/FireRed screen ostaja tehnično veljaven negativni dokaz, vendar
+FireRedova izmerjena projekcija približno 295 GPU-ur ne dopušča tihega zagona
+polne matrike. Pred novim prenosom ali modelnim klicem je zato na `main`
+zapečaten ločen protokol:
+
+```text
+Docs/evals/semantic_lab_v1/c4_visual_remediation_protocol_2026-07-15.md
+```
+
+Kot nova implementation hypothesis sta v njem pripeta
+`LongCat-Image-Edit-Turbo` za primarni bounded screen in neodvisni
+`OmniGen-v1-diffusers` za alternate-renderer screen. Protokol zahteva zunanji
+offline snapshot, popoln file manifest, process-tree hard timeout, enocelični
+capacity/semantic stop pred razširitvijo, nespremenjen DINOv2 collapse prag ter
+ločeno človeško review/authority sled. En sintetični 48-cell screen lahko model
+zavrne, ne more pa sam zapreti širšega gatea za vse Emocio semantic-lab route.
+
+Ta pin ne prenaša ali izvaja modela, ne podeljuje visual influence authority in
+ne odblokira C4/C7/C9.
+
 ## 11.1 Tri runtime načini
 
 ```python
