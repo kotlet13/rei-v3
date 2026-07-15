@@ -791,8 +791,8 @@ def _validate_repository_gate(repository_root: Path, gate: object) -> None:
         prefix="c4_stage1_git_runtime",
     )
     if os.name == "nt":
-        git_path = Path(r"C:\Program Files\Git\cmd\git.exe")
-        location_class = "windows-program-files-git-cmd"
+        git_path = Path(r"C:\Program Files\Git\bin\git.exe")
+        location_class = "windows-program-files-git-bin"
     elif os.name == "posix":
         git_path = Path("/usr/bin/git")
         location_class = "posix-usr-bin-git"

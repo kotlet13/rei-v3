@@ -157,7 +157,7 @@ def _git_runtime_pin() -> C4Stage1GitRuntimePin:
         git_executable_sha256=hashlib.sha256(b"trusted-git-fixture").hexdigest(),
         git_executable_size_bytes=len(b"trusted-git-fixture"),
         git_version="git version 2.54.0.windows.1",
-        trusted_location_class="windows-program-files-git-cmd",
+        trusted_location_class="windows-program-files-git-bin",
     )
 
 

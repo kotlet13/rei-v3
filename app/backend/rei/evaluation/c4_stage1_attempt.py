@@ -173,7 +173,7 @@ class C4Stage1GitRuntimePin(FrozenArtifactModel):
     git_executable_size_bytes: Annotated[int, Field(gt=0, le=_MAX_GIT_EXECUTABLE_BYTES)]
     git_version: NonEmptyId
     trusted_location_class: Literal[
-        "windows-program-files-git-cmd",
+        "windows-program-files-git-bin",
         "posix-usr-bin-git",
     ]
     trusted_location_policy: Literal[
@@ -191,7 +191,7 @@ class C4Stage1GitRuntimePin(FrozenArtifactModel):
         git_executable_size_bytes: int,
         git_version: str,
         trusted_location_class: Literal[
-            "windows-program-files-git-cmd",
+            "windows-program-files-git-bin",
             "posix-usr-bin-git",
         ],
     ) -> C4Stage1GitRuntimePin:
@@ -1720,12 +1720,12 @@ def _capture_runtime_tree_inventory(
 
 def _trusted_git_executable_path() -> tuple[
     Path,
-    Literal["windows-program-files-git-cmd", "posix-usr-bin-git"],
+    Literal["windows-program-files-git-bin", "posix-usr-bin-git"],
 ]:
     if os.name == "nt":
         return (
-            Path(r"C:\Program Files\Git\cmd\git.exe"),
-            "windows-program-files-git-cmd",
+            Path(r"C:\Program Files\Git\bin\git.exe"),
+            "windows-program-files-git-bin",
         )
     if os.name == "posix":
         return Path("/usr/bin/git"), "posix-usr-bin-git"
