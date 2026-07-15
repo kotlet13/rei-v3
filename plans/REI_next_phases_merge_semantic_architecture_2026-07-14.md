@@ -1257,6 +1257,19 @@ zavrne, ne more pa sam zapreti širšega gatea za vse Emocio semantic-lab route.
 Ta pin ne prenaša ali izvaja modela, ne podeljuje visual influence authority in
 ne odblokira C4/C7/C9.
 
+Model-free varnostni foundation za ta protokol je integriran neposredno na
+`main` s commitom `303da44bf7d240dc91ae39e5ff3331ad8112fca1`. Vključuje
+content-addressed slepi review z zunanjo enkratno ledger attestacijo, omejeno
+preverjanje PNG bajtov, parent-owned Windows Job process-tree runner in enotne
+resource-telemetry pogodbe. Commit ni izvedel nobenega modelnega klica in ne
+podeljuje semantične ali produkcijske avtoritete.
+
+Pred prvim modelnim klicem ostaja obvezna ločena model-free Stage 1 integracija:
+exact-snapshot/provider adapterji, durable background-telemetry finalizacija in
+immutable-display receipt, ki veže dejansko prikazane PNG bajte. Foundation
+acceptance je zapisan v
+[`c4_visual_remediation_foundation_acceptance_2026-07-15.md`](../Docs/evals/semantic_lab_v1/c4_visual_remediation_foundation_acceptance_2026-07-15.md).
+
 ## 11.1 Tri runtime načini
 
 ```python
@@ -2325,6 +2338,7 @@ na `origin/main`, nikoli dela na ločeni veji.
 | C6 | main (integrirano; bounded gate uspešen; semantic authority ni podeljena) | `feat(ego): validate longitudinal composition and modality-specific world learning` |
 | C7 | main (integrirano; tehnični gate uspešen, research gate blokiran) | `feat(eval): add integrated semantic and longitudinal REI benchmark` |
 | C8 | main (integrirano s faznim commitom, ki vsebuje ta status) | `feat(gui): add semantic native-process and longitudinal Ego workbench` |
+| C4 remediation foundation | main (integrirano; model-free, brez authority) | `303da44` — blind review, hard process-tree cancellation and resource telemetry |
 | C9 | main-only (še ni odprto; čaka research remediation) | `docs(release): record semantic-native v1 acceptance` |
 
 ---
@@ -2384,6 +2398,14 @@ je uspešen, research-quality gate pa zaradi petih eksplicitnih blockerjev ostaj
 `blocked`. C8 je integriran s tem faznim commitom neposredno na `main`; phase
 commit vsebuje tudi statusni zapis in fazno poročilo. C8 ne spreminja C7
 raziskovalnega statusa in ne podeljuje semantične ali produkcijske avtoritete.
+
+C4 remediation safety foundation je integriran neposredno na `main` s commitom
+`303da44bf7d240dc91ae39e5ff3331ad8112fca1`. Je model-free in ne dovoljuje
+inference, avtoritativnega človeškega reviewa ali visual influence authority.
+Naslednji odobreni korak je izključno model-free Stage 1 integracija exact
+providerjev, durable background telemetrije in immutable-display receipta.
+Prvi modelni klic je dovoljen šele po ločenem pregledu ter commitu in pushu te
+integracije na `main`.
 
 Naslednja odobritvena točka ni C9. Najprej izvedi kontrolirano image/model
 remediation odprtih C3/C4/C7 blockerjev z vnaprej pripetimi modelnimi revizijami,
