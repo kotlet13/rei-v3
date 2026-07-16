@@ -1,5 +1,31 @@
 # Current Project State
 
+## Research reset status - 2026-07-16
+
+- Architecture status: stable.
+- Technical contract status: strong.
+- Research quality status: blocked.
+- Default model-backed RacioInterpreter: none.
+- Visual native-influence authority: none.
+- Instinkt status: transparent effect-rules engine; raw scene understanding
+  remains open.
+- Ego status: append-only composition; untagged semantic motif detection
+  remains open.
+- Active next step: four-image Emocio exploration.
+
+C3 has not been accepted for model quality. The official `qwen3.6:35b` pair
+scored 23/32 on the holdout and 23/32 on the frozen regression corpus, without
+a phase pass. C4's technical runtime is accepted, but its visual semantic
+quality and native-influence authority are not. C5 and C6 are bounded software
+contracts rather than evidence of autonomous Instinkt scene understanding or
+untagged Ego motif understanding. C7 research quality remains blocked, and C9
+is not open.
+
+Future research follows
+`plans/REI_research_reset_human_signal_plan_2026-07-16.md`: feature branches,
+human review between phases, exploration before validation, and no automatic
+phase continuation.
+
 As of 2026-07-13, the native REI composition architecture is the active
 runtime. Phase B13 completed the breaking cutover from the transitional
 packages to `app/backend/rei/` and `app/gui/`. Phase B14 owns the final
