@@ -98,3 +98,40 @@
   semantic, production, and external-evidence authority remain false; the
   parent goal remains blocked.
 - next allowed step: none until a new explicit user direction.
+
+## V1 follow-up — English REMAIN stabilization
+
+- date: 2026-07-16
+- branch: `codex/emocio-english-remain-v1`
+- implementation commit: `e642349c66327b829cc766c97365bd3e11b17423`
+- hypothesis: one frozen, explicit English preservation prompt may retain the
+  already accepted REMAIN state in at least two of the three precommitted V1
+  roots, without relying on Chinese instructions.
+- experiment: LongCat only, original frozen source, roots `424240`, `424241`,
+  and `424242`, and the existing derived REMAIN seeds. Each call received the
+  same ASCII English prompt, SHA-256
+  `bea218feca5c63a89846d89b7882fba1b097fb45d828eb08c50ce42f63ac1564`.
+  Exactly three source-to-REMAIN calls ran in the frozen order, with no ENTER
+  calls, retry, fallback, prompt change, extra seed, language variant, model
+  change, or best-of-N selection.
+- visible result: run `english_v1_20260716T092856Z` completed 3/3 calls in
+  69.9 seconds with technical status `passed`. Every call used the pinned
+  source SHA-256, native outputs were 1184 × 896, review outputs were
+  1024 × 768, and the source, preflight, runner, and snapshot manifest remained
+  unchanged. The three review panels are complete; semantic acceptance remains
+  pending user review.
+- output path:
+  `C:\Users\Kotlet\Codex\github\rei-v3\tmp\codex-worktrees\emocio-english-remain-v1\output\exploration\emocio_longcat_english_remain\english_v1_20260716T092856Z`
+- manifest SHA-256:
+  `b536de3c4253d45b835e8d1b5c16b313fcc643729593f1a41f532dbda420606b`
+- focused tests: `3 passed`; compile check and `git diff --check` passed before
+  inference. An independent technical artifact audit passed with no hash,
+  lineage, dimension, call-order, or authority mismatch; it remained separate
+  from human semantic review.
+- human decision: pending review of `contact_sheet.png` and
+  `review_template.md`; the precommitted minimum is at least 2/3 accepted
+  English REMAIN images.
+- authority: `exploratory_no_authority`; semantic review by Codex is false;
+  semantic, production, and external-evidence authority remain false; the
+  parent goal remains blocked.
+- next allowed step: none until the user completes this human review.
