@@ -89,9 +89,12 @@
   `14443b9f9570316715a62bcd1f7effaa638c93e66fa2926e45446abd3f4ea0ba`
 - focused tests: `2 passed`; compile check, `git diff --check`, and independent
   technical artifact audit passed.
-- human decision: pending review of `contact_sheet.png` and
-  `review_template.md`.
+- human decision: partial review recorded. The user judged ENTER successful in
+  2/3 roots: `424240` and `424242` were accepted; `424241` failed because the
+  navy-sweater person disappeared. REMAIN and complete-pair criteria were not
+  explicitly scored, and no further phase was authorized.
 - authority: `exploratory_no_authority`; semantic review by Codex is false;
   semantic, production, and external-evidence authority remain false; the
   parent goal remains blocked.
-- next allowed step: none until the user completes the V1 human review.
+- next allowed step: none until the remaining V1 review or a new explicit user
+  direction.
