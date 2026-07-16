@@ -118,20 +118,26 @@
   69.9 seconds with technical status `passed`. Every call used the pinned
   source SHA-256, native outputs were 1184 × 896, review outputs were
   1024 × 768, and the source, preflight, runner, and snapshot manifest remained
-  unchanged. The three review panels are complete; semantic acceptance remains
-  pending user review.
+  unchanged. The three review panels are complete. The user subsequently
+  reviewed all listed preservation criteria and accepted all 3/3 images.
 - output path:
   `C:\Users\Kotlet\Codex\github\rei-v3\tmp\codex-worktrees\emocio-english-remain-v1\output\exploration\emocio_longcat_english_remain\english_v1_20260716T092856Z`
 - manifest SHA-256:
   `b536de3c4253d45b835e8d1b5c16b313fcc643729593f1a41f532dbda420606b`
+- recorded human-review SHA-256:
+  `eb4a33f51f2f4f13707611e642fe6aed1f3cf07c16378f1f0124d26f9bc14b66`
 - focused tests: `3 passed`; compile check and `git diff --check` passed before
   inference. An independent technical artifact audit passed with no hash,
   lineage, dimension, call-order, or authority mismatch; it remained separate
   from human semantic review.
-- human decision: pending review of `contact_sheet.png` and
-  `review_template.md`; the precommitted minimum is at least 2/3 accepted
-  English REMAIN images.
+- human decision: review completed. Roots `424240`, `424241`, and `424242` were
+  all accepted. The user confirmed the same four people, the mustard-jacket
+  subject and both sneakers fully on the corridor side, the other three adults
+  inside the room, acceptable clothing/position/composition preservation, and
+  no blocking extra or missing actor or object. Result: 3/3 accepted, exceeding
+  the precommitted minimum of at least 2/3.
 - authority: `exploratory_no_authority`; semantic review by Codex is false;
   semantic, production, and external-evidence authority remain false; the
   parent goal remains blocked.
-- next allowed step: none until the user completes this human review.
+- next allowed step: no phase auto-continues; explicit user direction is still
+  required before another research phase or merge is proposed.
