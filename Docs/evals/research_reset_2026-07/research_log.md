@@ -18,7 +18,7 @@
 ## X1 — four-image Emocio exploratory screen
 
 - date: 2026-07-16
-- commit: this entry's X1 commit (resolve from Git history)
+- commit: `dca1d621d648cbbc7c4ba3e12fe6e69a56c92632`
 - hypothesis: at least one of the two preselected image-edit families may turn
   the same frozen current scene into two preserved but meaningfully different
   option-conditioned future scenes.
@@ -69,7 +69,7 @@
 
 - date: 2026-07-16
 - branch: `codex/emocio-exploration-v2`
-- commit: this entry's V1 commit (resolve from Git history)
+- commit: `45f1040e898e337885d974c589ad36a0f06a20b9`
 - hypothesis: the frozen LongCat workflow may produce reviewable ENTER and
   REMAIN states for at least two of the three precommitted root seeds.
 - experiment: roots `424240`, `424241`, and `424242`; for each root, ENTER pass
@@ -141,3 +141,30 @@
   parent goal remains blocked.
 - next allowed step: no phase auto-continues; explicit user direction is still
   required before another research phase or merge is proposed.
+
+## X2 — human review decision and Gemma 4 selection
+
+- date: 2026-07-16
+- audit branch: `codex/racio-failure-audit`
+- audit branch SHA: `78c8bd0c5087c18e4790a542c176b3fd0a0788c0`
+- hypothesis: separating direct action and option evidence from cited motive
+  hypotheses will make Racio evaluation more epistemically faithful than one
+  exact option/action/motive boolean.
+- human decision: the X2 audit is accepted with explicit H3, H7, and H11 human
+  amendments. The frozen Qwen result remains `23/32 + 23/32`, does not pass, and
+  becomes a frozen historical comparison baseline.
+- H3 amendment: the visible surface is `desired_scene_absent`, not automatic
+  body or boundary alarm; the legacy `broken_scene` gold is too broad for v2.
+- H7 amendment: `set_boundary` is an action and does not prove a
+  `boundary_alarm` motive.
+- H11 amendment: protective alarms form a candidate hierarchy in which
+  `boundary_alarm` may be a supported subtype of a broader protective family.
+- model decision: `gemma4:31b` is the next and only new candidate for the
+  model-backed RacioInterpreter in this cycle. No fallback, ensemble, or new
+  Qwen call is authorized.
+- model calls in G0: `0`.
+- authority: human review authorizes only the bounded G0–G3 development block;
+  it grants no semantic, production, default-model, PR, or merge authority.
+- next allowed step: G1 — add the parallel epistemic output contract/evaluator
+  v2 and complete a deterministic 8–12-case pass-symmetry audit before any
+  Gemma call.

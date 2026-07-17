@@ -7,19 +7,30 @@
 - Research quality status: blocked.
 - Default model-backed RacioInterpreter: none.
 - Visual native-influence authority: none.
-- Instinkt status: transparent effect-rules engine; raw scene understanding
-  remains open.
-- Ego status: append-only composition; untagged semantic motif detection
-  remains open.
-- Active next step: four-image Emocio exploration.
+- Emocio exploration:
+  - LongCat is the selected promising renderer/editor.
+  - ENTER was accepted in 2/3 reviewed roots.
+  - English REMAIN was accepted in 3/3 reviewed roots.
+  - No visual native-influence authority has been granted.
+- RacioInterpreter:
+  - The official Qwen pair remains `23/32 + 23/32` and is not accepted.
+  - The X2 failure audit was human-reviewed with H3/H7/H11 amendments.
+  - The next and only new candidate in this cycle is `gemma4:31b`.
+  - The active phase is epistemic output v2 plus a bounded Gemma development
+    screen.
+- Instinkt: transparent effect-rules engine; raw scene understanding remains
+  open.
+- Ego: append-only composition; untagged semantic motif detection remains
+  open.
 
 C3 has not been accepted for model quality. The official `qwen3.6:35b` pair
 scored 23/32 on the holdout and 23/32 on the frozen regression corpus, without
-a phase pass. C4's technical runtime is accepted, but its visual semantic
-quality and native-influence authority are not. C5 and C6 are bounded software
-contracts rather than evidence of autonomous Instinkt scene understanding or
-untagged Ego motif understanding. C7 research quality remains blocked, and C9
-is not open.
+a phase pass. The X2 audit is now human-reviewed, but it does not retroactively
+change either result. C4's technical runtime is accepted, but its visual
+semantic quality and native-influence authority are not. C5 and C6 are bounded
+software contracts rather than evidence of autonomous Instinkt scene
+understanding or untagged Ego motif understanding. C7 research quality remains
+blocked, and C9 is not open.
 
 Future research follows
 `plans/REI_research_reset_human_signal_plan_2026-07-16.md`: feature branches,

@@ -3,7 +3,7 @@
 **Date:** 2026-07-16
 **Branch:** `codex/racio-failure-audit`
 **Audit base commit:** `f0cad7c828d8a24987b927fc32ab586f05b7fb70`
-**Status:** awaiting human review
+**Status:** human-reviewed with amendments; Qwen remains a frozen failed baseline
 **Authority:** evidence-only research audit; no semantic, production, or model-promotion authority
 
 ## 1. Disposition and phase boundary
@@ -23,8 +23,9 @@ different phenomena:
    need an overlap-aware target.
 
 The model is therefore not retroactively passed. The current exact gate is also
-not accepted as the sole measure of Racio quality. X3 remains unauthorized until
-the user reviews the classifications and metric proposal below.
+not accepted as the sole measure of Racio quality. At initial publication, X3
+remained unauthorized until user review. Section 14 records the subsequent
+human amendment and bounded continuation decision.
 
 No new model call, retry, prompt tuning, training dataset, LoRA/QLoRA/SFT,
 holdout mutation, or retroactive rescoring occurred.
@@ -371,7 +372,11 @@ Human review may accept, reject, or amend individual classifications. It does
 not grant production authority and does not retroactively change the frozen
 23/32 outcomes.
 
-## 13. Mandatory stop
+## 13. Mandatory stop at X2 publication
+
+This is the historical phase-boundary state when the audit was first published.
+It is preserved rather than rewritten; the later human decision is recorded in
+section 14.
 
 - X2 report status: `awaiting_user_review`
 - New model calls in X2: `0`
@@ -382,3 +387,72 @@ not grant production authority and does not retroactively change the frozen
 - External-evidence authority granted: `no`
 - Next allowed step: none until user review
 - X3: requires explicit user authorization after review
+
+## 14. Human review decision — 2026-07-16
+
+This section is a **human amendment**. It does not retroactively correct the
+frozen Qwen evidence, gold, outputs, hashes, or `23/32 + 23/32` results.
+
+### 14.1 Accepted
+
+The user accepts that:
+
+- `qwen3.6:35b` did not retroactively pass and remains a frozen historical
+  comparison baseline;
+- exact top-1 is insufficient as the only metric, while clear action and
+  unsupported-motive errors remain genuine model errors;
+- R1 and H15 are underdetermined at the option level, so the preferred output
+  is a null option with explicit uncertainty;
+- the next contract must support multiple cited motive hypotheses and preserve
+  `unknown` when the visible signal does not identify a motive;
+- any later generalization or model-promotion claim requires a new untouched
+  holdout;
+- `gemma4:31b` is the next and only new model candidate in this research cycle.
+
+### 14.2 H3 amendment — `desired_scene_absent`
+
+H3 is not adequately described only as an overlap between `broken_scene` and
+`body_alarm`. The visible surface is closer to `desired_scene_absent` with low
+attraction to the planned exercise.
+
+- The model's `boundary_alarm` remains an unsupported overclaim.
+- `body_alarm` is also not directly manifested.
+- The old `broken_scene` gold is too broad for the new epistemic contract.
+- V2 must distinguish `desired_scene_absent`, `desired_scene_mismatch`,
+  `broken_scene`, and `recurrent_broken_scene`; when the surface cannot support
+  that distinction, `unknown` is preferable to a forced legacy enum.
+
+### 14.3 H7 amendment — action is not motive
+
+The visible surface supports a recurrent broken scene and the action tendency
+`set_boundary`. The action name does not establish `boundary_alarm` as the
+motive. `broken_scene` or `recurrent_broken_scene` remains the better-supported
+causal family, and the v2 evaluator must prevent direct action-to-motive
+substitution.
+
+### 14.4 H11 amendment — protective-alarm hierarchy
+
+H11 is better represented as a hierarchy rather than two unrelated exact
+classes:
+
+```text
+protective_alarm
+├── general_body_alarm
+├── boundary_alarm
+├── attachment_alarm
+├── resource_alarm
+├── trust_alarm
+└── escape_alarm
+```
+
+`boundary_alarm` may be a more specific subtype of a broader protective family
+when the visible manifestation supports it. This is an implementation
+hypothesis for v2, not a retroactive rewrite of the frozen gold.
+
+### 14.5 Symmetry requirement and next boundary
+
+Because X2 reviewed failures only, G1 must audit a deterministic, stratified
+sample of 8–12 old passing records before the evaluator is changed. The next
+authorized work is the bounded G0–G3 Gemma development block defined by the
+Gemma continuation plan. It grants no semantic, production, default-model, or
+merge authority and requires a mandatory human-review stop after G3.
