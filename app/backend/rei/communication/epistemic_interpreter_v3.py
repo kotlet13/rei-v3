@@ -315,6 +315,93 @@ class OptionInferenceV3(FrozenModel):
         return self
 
 
+class ActionHypothesisDraftV3(FrozenModel):
+    """Model-facing action claim before deterministic canonical ordering."""
+
+    family: ActionFamilyV3
+    subtype: ActionSubtypeV3 | None
+    family_fallback: ActionFamilyFallbackV3 | None = None
+    cited_observation_ids: tuple[NonEmptyId, ...]
+    confidence: Score01
+    support_mode: ActionSupportModeV3
+
+    @model_validator(mode="after")
+    def validate_action_draft(self) -> Self:
+        exact = self.subtype is not None
+        fallback = self.family_fallback is not None
+        if exact == fallback:
+            raise ValueError(
+                "An action draft requires exactly one subtype or family fallback"
+            )
+        if exact and not action_subtype_belongs_to_family_v3(
+            self.family, self.subtype or ""
+        ):
+            raise ValueError("Action draft subtype does not belong to its family")
+        if fallback and not action_fallback_belongs_to_family_v3(
+            self.family, self.family_fallback or ""
+        ):
+            raise ValueError("Action draft fallback does not belong to its family")
+        if not self.cited_observation_ids:
+            raise ValueError("An action draft requires claim-local citations")
+        if self.confidence == 0.0:
+            raise ValueError("A claimed action draft requires positive confidence")
+        return self
+
+
+class OptionInferenceDraftV3(FrozenModel):
+    """Model-facing option claim with evidence local to this claim."""
+
+    option_id: NonEmptyId
+    cited_observation_ids: tuple[NonEmptyId, ...]
+    confidence: Score01
+
+    @model_validator(mode="after")
+    def validate_option_draft(self) -> Self:
+        if not self.cited_observation_ids:
+            raise ValueError("An option draft requires claim-local citations")
+        if self.confidence == 0.0:
+            raise ValueError("A selected option draft requires positive confidence")
+        return self
+
+
+class MotiveHypothesisDraftV3(FrozenModel):
+    """Model-facing motive claim before deterministic canonical ordering."""
+
+    family: MotiveFamily
+    subtype: MotiveSubtypeV3
+    cited_observation_ids: tuple[NonEmptyId, ...]
+    confidence: Score01
+    support_mode: MotiveSupportModeV3
+
+    @model_validator(mode="after")
+    def validate_motive_draft(self) -> Self:
+        if not motive_subtype_belongs_to_family(self.family, self.subtype):
+            raise ValueError("Motive draft subtype does not belong to its family")
+        if not self.cited_observation_ids:
+            raise ValueError("A motive draft requires claim-local citations")
+        if self.confidence == 0.0:
+            raise ValueError("A claimed motive draft requires positive confidence")
+        return self
+
+
+class RacioEpistemicDraftV3(FrozenModel):
+    """Minimal semantic output exposed to a model-facing V3 provider."""
+
+    source_mind: Literal["E", "I"]
+    action_hypotheses: tuple[ActionHypothesisDraftV3, ...]
+    option_inference: OptionInferenceDraftV3 | None
+    motive_hypotheses: tuple[MotiveHypothesisDraftV3, ...]
+    racio_reported_uncertainty: RacioReportedUncertainty
+
+    @model_validator(mode="after")
+    def validate_draft_bounds(self) -> Self:
+        if len(self.action_hypotheses) > 2:
+            raise ValueError("At most two action drafts are permitted")
+        if len(self.motive_hypotheses) > 3:
+            raise ValueError("At most three motive drafts are permitted")
+        return self
+
+
 _DIRECT_RESERVED_MARKERS_V3: Final[Mapping[str, str]] = MappingProxyType(
     {
         **{
@@ -1051,6 +1138,102 @@ class RacioEpistemicInterpretationV3(FrozenModel):
         return self
 
 
+def canonicalize_racio_epistemic_draft_v3(
+    packet: RacioEpistemicPacketV3,
+    draft: RacioEpistemicDraftV3,
+) -> RacioEpistemicInterpretationV3:
+    """Canonicalize syntax and scope without changing a model's semantics.
+
+    The canonicalizer only normalizes citation and hypothesis ordering, derives
+    the global citation union, and supplies the frozen bounded unknown strings
+    for claims the draft explicitly leaves empty.  Invalid semantic identities
+    or packet-local references fail closed through the V3 model validators.
+    """
+
+    if draft.source_mind != packet.source_mind:
+        raise ValueError("Draft source mind differs from its packet")
+
+    visible_ids = set(packet.visible_observation_ids)
+    public_option_ids = set(packet.public_option_ids)
+
+    def canonical_citations(values: tuple[str, ...]) -> tuple[str, ...]:
+        citations = tuple(sorted(set(values)))
+        if not set(citations).issubset(visible_ids):
+            raise ValueError("Draft claim cites outside visible packet scope")
+        return citations
+
+    actions = tuple(
+        sorted(
+            (
+                ActionHypothesisV3(
+                    family=item.family,
+                    subtype=item.subtype,
+                    family_fallback=item.family_fallback,
+                    cited_observation_ids=canonical_citations(
+                        item.cited_observation_ids
+                    ),
+                    confidence=item.confidence,
+                    support_mode=item.support_mode,
+                )
+                for item in draft.action_hypotheses
+            ),
+            key=lambda item: (-item.confidence, *item.key),
+        )
+    )
+    motives = tuple(
+        sorted(
+            (
+                MotiveHypothesisV3(
+                    family=item.family,
+                    subtype=item.subtype,
+                    cited_observation_ids=canonical_citations(
+                        item.cited_observation_ids
+                    ),
+                    confidence=item.confidence,
+                    support_mode=item.support_mode,
+                )
+                for item in draft.motive_hypotheses
+            ),
+            key=lambda item: (-item.confidence, *item.key),
+        )
+    )
+    option: OptionInferenceV3 | None = None
+    if draft.option_inference is not None:
+        if draft.option_inference.option_id not in public_option_ids:
+            raise ValueError("Draft selects outside public option scope")
+        option = OptionInferenceV3(
+            option_id=draft.option_inference.option_id,
+            cited_observation_ids=canonical_citations(
+                draft.option_inference.cited_observation_ids
+            ),
+            confidence=draft.option_inference.confidence,
+        )
+
+    claim_citations = {
+        citation
+        for claim in (
+            *actions,
+            *((option,) if option is not None else ()),
+            *motives,
+        )
+        for citation in claim.cited_observation_ids
+    }
+    output = RacioEpistemicInterpretationV3(
+        source_mind=draft.source_mind,
+        cited_observation_ids=tuple(sorted(claim_citations)),
+        action_hypotheses=actions,
+        action_unknown_reason=(None if actions else ACTION_UNKNOWN_REASON_SL_V3),
+        option_inference=option,
+        option_unknown_reason=(
+            None if option is not None else OPTION_UNKNOWN_REASON_SL_V3
+        ),
+        motive_hypotheses=motives,
+        motive_unknown_reason=(None if motives else MOTIVE_UNKNOWN_REASON_SL),
+        racio_reported_uncertainty=draft.racio_reported_uncertainty,
+    )
+    return output.validate_against(packet)
+
+
 class RacioEpistemicStructuralSidecarV3(FrozenModel):
     """Provider-derived structure only; never semantic evidence or authority."""
 
@@ -1075,6 +1258,7 @@ __all__ = [
     "AtomicEvidenceUnitIdV3",
     "ActionFamilyFallbackV3",
     "ActionFamilyV3",
+    "ActionHypothesisDraftV3",
     "ActionHypothesisV3",
     "ActionSubtypeV3",
     "ActionSupportModeV3",
@@ -1090,20 +1274,24 @@ __all__ = [
     "LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3",
     "LEGACY_ACTION_RESOLUTION_V3",
     "MotiveHypothesisV3",
+    "MotiveHypothesisDraftV3",
     "MotiveSupportModeV3",
     "MotiveSubtypeV3",
     "MotiveUnknownReasonSlV3",
     "OpaqueSignalAliasV3",
     "OPTION_UNKNOWN_REASON_SL_V3",
     "OptionInferenceV3",
+    "OptionInferenceDraftV3",
     "OptionUnknownReasonSlV3",
     "PresentationModeV3",
     "ProtectionRegulationActionSubtypeV3",
+    "RacioEpistemicDraftV3",
     "RacioEpistemicInterpretationV3",
     "RacioEpistemicPacketV3",
     "RacioEpistemicStructuralSidecarV3",
     "action_fallback_belongs_to_family_v3",
     "action_subtype_belongs_to_family_v3",
+    "canonicalize_racio_epistemic_draft_v3",
     "normalize_bilingual_audit_text_v3",
     "reserved_bilingual_markers_v3",
 ]

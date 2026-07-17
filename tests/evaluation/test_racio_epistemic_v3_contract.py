@@ -19,17 +19,22 @@ from app.backend.rei.communication.epistemic_interpreter_v3 import (
     LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3,
     LEGACY_ACTION_RESOLUTION_V3,
     OPTION_UNKNOWN_REASON_SL_V3,
+    ActionHypothesisDraftV3,
     ActionHypothesisV3,
     AuditedBilingualTextV3,
     BilingualGlossAuditV3,
     BilingualObservationV3,
     BilingualOptionV3,
     BilingualUncertaintyV3,
+    MotiveHypothesisDraftV3,
     MotiveHypothesisV3,
+    OptionInferenceDraftV3,
     OptionInferenceV3,
+    RacioEpistemicDraftV3,
     RacioEpistemicInterpretationV3,
     RacioEpistemicPacketV3,
     RacioEpistemicStructuralSidecarV3,
+    canonicalize_racio_epistemic_draft_v3,
     reserved_bilingual_markers_v3,
 )
 from app.backend.rei.communication.structured_interpreter import (
@@ -397,6 +402,177 @@ def test_v2_and_v3_shapes_do_not_silently_coerce() -> None:
     )
     with pytest.raises(ValidationError):
         RacioEpistemicInterpretationV3.model_validate(v2_payload)
+
+
+def test_v3_model_draft_exposes_only_semantic_claims() -> None:
+    assert set(RacioEpistemicDraftV3.model_fields) == {
+        "source_mind",
+        "action_hypotheses",
+        "option_inference",
+        "motive_hypotheses",
+        "racio_reported_uncertainty",
+    }
+    serialized_schema = json.dumps(
+        RacioEpistemicDraftV3.model_json_schema(),
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    for excluded in (
+        "action_unknown_reason",
+        "motive_unknown_reason",
+        "option_unknown_reason",
+        "cited_observation_ids union",
+        "sidecar",
+        "artifact_id",
+        "evaluator_gold",
+        "native_truth",
+        "governance",
+    ):
+        assert excluded not in serialized_schema
+
+
+def test_v3_draft_canonicalizer_only_normalizes_structure() -> None:
+    packet = _packet()
+    draft = RacioEpistemicDraftV3(
+        source_mind="E",
+        action_hypotheses=(
+            ActionHypothesisDraftV3(
+                family="protection_regulation",
+                subtype="retreat",
+                cited_observation_ids=("observation_002", "observation_001"),
+                confidence=0.7,
+                support_mode="functional_inference",
+            ),
+            ActionHypothesisDraftV3(
+                family="protection_regulation",
+                subtype="set_boundary",
+                cited_observation_ids=("observation_001", "observation_001"),
+                confidence=0.9,
+                support_mode="direct_manifestation",
+            ),
+        ),
+        option_inference=OptionInferenceDraftV3(
+            option_id="option_001",
+            cited_observation_ids=("observation_002", "observation_001"),
+            confidence=0.8,
+        ),
+        motive_hypotheses=(),
+        racio_reported_uncertainty=RacioReportedUncertainty(
+            option_mapping="not_uncertain",
+            motive_interpretation="not_reported",
+        ),
+    )
+
+    output = canonicalize_racio_epistemic_draft_v3(packet, draft)
+
+    assert tuple(item.subtype for item in output.action_hypotheses) == (
+        "set_boundary",
+        "retreat",
+    )
+    assert output.action_hypotheses[0].cited_observation_ids == (
+        "observation_001",
+    )
+    assert output.action_hypotheses[1].support_mode == "functional_inference"
+    assert output.option_inference is not None
+    assert output.option_inference.cited_observation_ids == (
+        "observation_001",
+        "observation_002",
+    )
+    assert output.cited_observation_ids == (
+        "observation_001",
+        "observation_002",
+    )
+    assert output.motive_unknown_reason == MOTIVE_UNKNOWN_REASON_SL
+    assert output.option_unknown_reason is None
+    assert output.racio_reported_uncertainty == draft.racio_reported_uncertainty
+
+
+def test_v3_draft_canonicalizer_inserts_only_bounded_abstention_text() -> None:
+    packet = _packet()
+    draft = RacioEpistemicDraftV3(
+        source_mind="E",
+        action_hypotheses=(
+            ActionHypothesisDraftV3(
+                family="protection_regulation",
+                subtype="retreat",
+                cited_observation_ids=("observation_001",),
+                confidence=0.9,
+                support_mode="direct_manifestation",
+            ),
+        ),
+        option_inference=None,
+        motive_hypotheses=(),
+        racio_reported_uncertainty=RacioReportedUncertainty(
+            option_mapping="uncertain",
+            motive_interpretation="not_reported",
+        ),
+    )
+
+    output = canonicalize_racio_epistemic_draft_v3(packet, draft)
+
+    assert output.option_inference is None
+    assert output.option_unknown_reason == OPTION_UNKNOWN_REASON_SL_V3
+    assert output.motive_hypotheses == ()
+    assert output.motive_unknown_reason == MOTIVE_UNKNOWN_REASON_SL
+
+
+def test_v3_draft_canonicalizer_fails_closed_without_semantic_repair() -> None:
+    packet = _packet()
+    uncertainty = RacioReportedUncertainty(
+        option_mapping="not_uncertain",
+        motive_interpretation="not_reported",
+    )
+    action = ActionHypothesisDraftV3(
+        family="protection_regulation",
+        subtype="retreat",
+        cited_observation_ids=("observation_001",),
+        confidence=0.9,
+        support_mode="direct_manifestation",
+    )
+
+    with pytest.raises(ValueError, match="outside public option scope"):
+        canonicalize_racio_epistemic_draft_v3(
+            packet,
+            RacioEpistemicDraftV3(
+                source_mind="E",
+                action_hypotheses=(action,),
+                option_inference=OptionInferenceDraftV3(
+                    option_id="option_999",
+                    cited_observation_ids=("observation_001",),
+                    confidence=0.8,
+                ),
+                motive_hypotheses=(),
+                racio_reported_uncertainty=uncertainty,
+            ),
+        )
+
+    with pytest.raises(ValueError, match="outside visible packet scope"):
+        canonicalize_racio_epistemic_draft_v3(
+            packet,
+            RacioEpistemicDraftV3(
+                source_mind="E",
+                action_hypotheses=(
+                    action.model_copy(
+                        update={"cited_observation_ids": ("observation_999",)}
+                    ),
+                ),
+                option_inference=None,
+                motive_hypotheses=(),
+                racio_reported_uncertainty=uncertainty,
+            ),
+        )
+
+    with pytest.raises(ValidationError, match="must be unique"):
+        canonicalize_racio_epistemic_draft_v3(
+            packet,
+            RacioEpistemicDraftV3(
+                source_mind="E",
+                action_hypotheses=(action, action),
+                option_inference=None,
+                motive_hypotheses=(),
+                racio_reported_uncertainty=uncertainty,
+            ),
+        )
 
 
 def test_v3_action_taxonomy_resolves_legacy_ambiguities() -> None:
