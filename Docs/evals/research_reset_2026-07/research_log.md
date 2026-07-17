@@ -412,3 +412,87 @@
 - next allowed step: human review of the v6 contract and model-free evidence.
   A new Gemma confirmation call or G3 dispatch requires a new explicit user
   authorization; no phase auto-continues.
+
+## G2 v6 confirmation and 16k profile correction - 2026-07-17
+
+- user contract decision: Racio's `uncertain`, `not_uncertain`, and
+  `not_reported` states retain the approved self-report meanings. They remain
+  independent of option, confidence, motive, sidecar, and evaluator fields.
+  The provider-derived sidecar remains structural-only and has no semantic,
+  governance, `ConsciousDecision`, or `BehaviorResultant` authority. The first
+  G3 screen will record and compare the self-report descriptively but will not
+  score its per-case calibration as a hard gate.
+- seventh technical probe: exactly one authorized v6 `/api/chat` call used the
+  frozen packet and `num_predict=2048`. The packet, provider-payload,
+  instruction, schema, messages, request, and call-spec SHA-256 values were,
+  respectively,
+  `1ec04b21901b29318f2825e4742d8f7e59fe1556a9286d2d99699ee8ab2e70c0`,
+  `8c459e0f8c4a005a589b8a722e8fa8c4df509cd7fc6b0589be1e26f46311a0ad`,
+  `4137891d92dec4b90875ee755f7ca5d67fc9d93e733180a85803a6b891840b91`,
+  `16602d51fb48f6b64b415ea22693bae16ebf67a97a9ca52703cdd58ca4cae49e`,
+  `be4f17f8835c5ac8e7f39b8e4431cd3125622aa16c6c270bab22b572f7dd9e8a`,
+  `16490104645212f2a773f15101de3dc5d1699b7dee50a5b0ad8f0ac3fd65cbbe`,
+  and
+  `6e9da81d9b858f1dc6a54008eda2602cc78cec515d2298a115039f4ed3744879`.
+- seventh-probe result: one dispatch, zero retries, and zero fallbacks failed
+  as `generation_contract_failure` before JSON/Pydantic validation. The
+  rejected envelope was 8,196 bytes with SHA-256
+  `9da83c33afcbf4e6f1d24fb5d6512d04675b250e67e9a9984ea0f4c15d39443c`;
+  separate private thinking was 7,732 bytes with SHA-256
+  `a6b05df7e3595662fffdbcc0f9785d1fbcc47773c25204a2d30ce1a064247491`.
+  No final-response fingerprint, successful response evidence, or
+  `ProviderCallRecord` was created. No raw response or thinking content was
+  printed or persisted.
+- user-authorized profile correction: commit
+  `0f931151d50f7e06ec1db45ba9a00a35895a35f9` changed only the pinned
+  `num_predict` value from `2048` to `16384`. Provider revision remains
+  `rei-racio-gemma4-epistemic-g2-chat-v6`; the exact profile difference is
+  frozen in request and call-spec provenance. Focused model-free verification
+  passed `109/109` tests before the next dispatch.
+- eighth technical probe: exactly one newly authorized `/api/chat` call kept
+  the same packet, provider payload, instruction, schema, messages, model
+  digest, seed, temperature, top-p, top-k, context, GPU setting, endpoint, and
+  no-fallback policy. Only `num_predict=16384` changed the request SHA-256 to
+  `0b6581dab147d4df96f0a6c9c694af077f225b89407157f5e1a2303ff76045e3`
+  and the call-spec SHA-256 to
+  `b1d7c134aaf066c7d6d38c529051fd67fc9f9608557ec9b3b2fa76a02c4b2541`.
+  Call ID was `provider_call_2148b1f337222420f537b0dcf1b8422b`.
+- eighth-probe result: `done_reason=stop`; strict JSON/Pydantic and conscious-
+  access validation passed. The structured output SHA-256 was
+  `9cf1527b6289b3a1aa955d39c5897f42a8309d2f16debcaa9267507492ea5df5`.
+  It cited `observation_001`, returned action `set_boundary` at confidence
+  `1.0`, selected `option_001` at confidence `1.0`, returned no motive
+  hypothesis with the required unknown reason, and self-reported option
+  mapping as `not_uncertain` and motive interpretation as `not_reported`.
+  These values are recorded technical output, not semantic acceptance or a
+  calibration judgment.
+- successful response evidence ID:
+  `gemma4_epistemic_response_b66ec431c6dcae651f18da3c046f3864`; evidence
+  content SHA-256:
+  `31d9ab053328c645c01009373f4b532e605b92a1507ddf2051686412bdf6e108`.
+  The envelope was 4,957 bytes with SHA-256
+  `c92456feec6ebc6e546d9c2d40ecf8afa00fc47e897f81f83a2a142e3fe0605f`;
+  the validated final was 461 bytes with SHA-256
+  `5dfba140a0e7ee88777f006182e8b6d334a5fcd3457b3857b252e8b3f383fae4`.
+  Private thinking content was not persisted; its permitted fingerprint is
+  4,030 bytes and SHA-256
+  `c120e25a42804b3e8ff9f1ae3a72e09d006b86ed514e8cdce94a5c3c6dc7899b`.
+- the provider-derived sidecar recorded only `option_id_present=true` and
+  `motive_hypothesis_count=0`, with `semantic_evidence=false` and
+  `governance_effect=false`. Runtime evidence recorded exact digest
+  `6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7`,
+  context `65536`, `num_gpu=999`, and byte-exact `100% GPU` placement.
+- the successful `ProviderCallRecord` content SHA-256 is
+  `01390e5f50a7b1978af6ee52ec2622e8465d822cd8a3c49f423fe029a4f38af6`;
+  it records one direct successful primary call, no fallback, seed `314159`,
+  and output artifact
+  `gemma4_epistemic_response_b66ec431c6dcae651f18da3c046f3864`.
+- cumulative technical calls/retries/fallbacks: `8 / 0 / 0`. The two calls in
+  this section were separately user-authorized call specs, not provider
+  retries. The G3 development screen remains unstarted at `0/16`.
+- authority: the eighth probe is technical confirmation that the v6 provider
+  can close its structured contract with the 16k profile. It is not semantic
+  model promotion, objective correctness evidence, uncertainty-calibration
+  acceptance, or permission to begin G3.
+- next allowed step: stop for human review. G3 requires a separate explicit
+  phase decision.

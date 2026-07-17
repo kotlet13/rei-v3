@@ -54,6 +54,21 @@
     model content. This was a model-free correction: calls/retries/fallbacks
     remain `6/0/0`, G3 remains unstarted, and a new human gate is required
     before another Gemma call.
+  - The explicitly authorized v6 confirmation at `num_predict=2048` produced
+    separate thinking but no contract-acceptable final and failed as
+    `generation_contract_failure` before JSON/Pydantic validation. It used one
+    call with no retry or fallback.
+  - The user then authorized a profile-only correction to
+    `num_predict=16384`. The next and only call closed with `done_reason=stop`,
+    passed strict structured-output and conscious-access validation, and
+    created response evidence
+    `gemma4_epistemic_response_b66ec431c6dcae651f18da3c046f3864` plus a
+    successful `ProviderCallRecord`. Exact digest, context `65536`,
+    `num_gpu=999`, and `100% GPU` placement were recorded.
+  - The successful output and Racio uncertainty self-report are technical
+    evidence only. Per-case semantic correctness and uncertainty calibration
+    were not scored. Cumulative calls/retries/fallbacks are `8/0/0`; G3 remains
+    unstarted at `0/16` and still requires an explicit phase decision.
 - Instinkt: transparent effect-rules engine; raw scene understanding remains
   open.
 - Ego: append-only composition; untagged semantic motif detection remains
