@@ -277,7 +277,7 @@ class RacioEpistemicBilingualEvaluation(FrozenModel):
     motive_family_consistent: bool
     motive_subtype_consistent: bool
     citation_consistent: bool
-    ambiguity_presence_consistent: bool
+    reported_uncertainty_consistent: bool
     action_confidence_delta: Score01
     option_confidence_delta: Score01
     motive_confidence_delta: Score01
@@ -594,9 +594,9 @@ def evaluate_racio_epistemic_bilingual_pair(
         citation_consistent=(
             sl_output.cited_observation_ids == en_output.cited_observation_ids
         ),
-        ambiguity_presence_consistent=(
-            (sl_output.unresolved_ambiguity is None)
-            == (en_output.unresolved_ambiguity is None)
+        reported_uncertainty_consistent=(
+            sl_output.racio_reported_uncertainty
+            == en_output.racio_reported_uncertainty
         ),
         action_confidence_delta=action_delta,
         option_confidence_delta=option_delta,

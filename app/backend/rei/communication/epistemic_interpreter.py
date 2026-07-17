@@ -84,31 +84,26 @@ MOTIVE_SUBTYPES_BY_FAMILY: Final[Mapping[str, frozenset[str]]] = MappingProxyTyp
 )
 
 MotiveHypothesisExplanationSl = Literal[
-    "Omejena hipoteza, ne dejstvo; podprta je le z navedenimi vidnimi opazkami."
+    (
+        "Racio to obravnava kot omejeno hipotezo ter jo povezuje z navedenimi "
+        "vidnimi opazkami."
+    )
 ]
 MotiveUnknownReasonSl = Literal[
-    "Vidne opazke ne določajo motiva."
+    "Racio iz navedenih vidnih opazk ni izpeljal motivne hipoteze."
 ]
-UnresolvedAmbiguitySl = Literal[
-    "Vidne opazke ne določajo ene javne možnosti.",
-    "Vidne opazke podpirajo več konkurenčnih hipotez.",
-    (
-        "Vidne opazke ne določajo ene javne možnosti in podpirajo več "
-        "konkurenčnih hipotez."
-    ),
+RacioUncertaintyReportState = Literal[
+    "uncertain",
+    "not_uncertain",
+    "not_reported",
 ]
 
 MOTIVE_HYPOTHESIS_EXPLANATION_SL: Final = (
-    "Omejena hipoteza, ne dejstvo; podprta je le z navedenimi vidnimi opazkami."
+    "Racio to obravnava kot omejeno hipotezo ter jo povezuje z navedenimi "
+    "vidnimi opazkami."
 )
-MOTIVE_UNKNOWN_REASON_SL: Final = "Vidne opazke ne določajo motiva."
-OPTION_AMBIGUITY_SL: Final = "Vidne opazke ne določajo ene javne možnosti."
-MOTIVE_AMBIGUITY_SL: Final = (
-    "Vidne opazke podpirajo več konkurenčnih hipotez."
-)
-OPTION_AND_MOTIVE_AMBIGUITY_SL: Final = (
-    "Vidne opazke ne določajo ene javne možnosti in podpirajo več "
-    "konkurenčnih hipotez."
+MOTIVE_UNKNOWN_REASON_SL: Final = (
+    "Racio iz navedenih vidnih opazk ni izpeljal motivne hipoteze."
 )
 
 
@@ -144,6 +139,13 @@ class MotiveHypothesis(FrozenModel):
         ):
             raise ValueError("Motive citations must be sorted and unique")
         return self
+
+
+class RacioReportedUncertainty(FrozenModel):
+    """Racio-owned uncertainty report, independent of the claim structure."""
+
+    option_mapping: RacioUncertaintyReportState
+    motive_interpretation: RacioUncertaintyReportState
 
 
 class RacioEpistemicPacketV2(FrozenArtifactModel):
@@ -276,7 +278,7 @@ class RacioEpistemicInterpretationV2(FrozenModel):
     option_confidence: Score01
     motive_hypotheses: tuple[MotiveHypothesis, ...]
     motive_unknown_reason: MotiveUnknownReasonSl | None
-    unresolved_ambiguity: UnresolvedAmbiguitySl | None
+    racio_reported_uncertainty: RacioReportedUncertainty
 
     @model_validator(mode="after")
     def validate_canonical_output(self) -> Self:
@@ -319,20 +321,6 @@ class RacioEpistemicInterpretationV2(FrozenModel):
                 raise ValueError("Unknown action requires zero action confidence")
         elif self.action_confidence == 0.0:
             raise ValueError("A claimed action requires positive action confidence")
-        option_is_ambiguous = self.inferred_option_id is None
-        motives_are_ambiguous = len(self.motive_hypotheses) > 1
-        if option_is_ambiguous and motives_are_ambiguous:
-            expected_ambiguity = OPTION_AND_MOTIVE_AMBIGUITY_SL
-        elif option_is_ambiguous:
-            expected_ambiguity = OPTION_AMBIGUITY_SL
-        elif motives_are_ambiguous:
-            expected_ambiguity = MOTIVE_AMBIGUITY_SL
-        else:
-            expected_ambiguity = None
-        if self.unresolved_ambiguity != expected_ambiguity:
-            raise ValueError(
-                "Unresolved ambiguity differs from the structured claim state"
-            )
         if self.inferred_option_id is None:
             if self.option_confidence != 0.0:
                 raise ValueError("Option abstention requires zero option confidence")
@@ -377,17 +365,16 @@ class RacioEpistemicInterpretationV2(FrozenModel):
 
 __all__ = [
     "MOTIVE_SUBTYPES_BY_FAMILY",
-    "MOTIVE_AMBIGUITY_SL",
     "MOTIVE_HYPOTHESIS_EXPLANATION_SL",
     "MOTIVE_UNKNOWN_REASON_SL",
     "MotorSocialMotiveSubtype",
     "MotiveFamily",
     "MotiveHypothesis",
-    "OPTION_AMBIGUITY_SL",
-    "OPTION_AND_MOTIVE_AMBIGUITY_SL",
     "ProtectionMotiveSubtype",
     "RacioEpistemicInterpretationV2",
     "RacioEpistemicPacketV2",
+    "RacioReportedUncertainty",
+    "RacioUncertaintyReportState",
     "SceneMotiveSubtype",
     "motive_subtype_belongs_to_family",
 ]

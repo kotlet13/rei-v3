@@ -16,15 +16,13 @@ from app.backend.rei.communication.conscious_access import (
     ConsciousAccessOption,
 )
 from app.backend.rei.communication.epistemic_interpreter import (
-    MOTIVE_AMBIGUITY_SL,
     MOTIVE_HYPOTHESIS_EXPLANATION_SL,
     MOTIVE_SUBTYPES_BY_FAMILY,
     MOTIVE_UNKNOWN_REASON_SL,
-    OPTION_AMBIGUITY_SL,
-    OPTION_AND_MOTIVE_AMBIGUITY_SL,
     MotiveHypothesis,
     RacioEpistemicInterpretationV2,
     RacioEpistemicPacketV2,
+    RacioReportedUncertainty,
 )
 from app.backend.rei.ids import canonical_json_bytes, sha256_hex
 from app.backend.rei.models.provider import ProviderCallSpec
@@ -42,11 +40,16 @@ from app.backend.rei.providers.ollama_gemma4_epistemic import (
     GEMMA4_EPISTEMIC_NUM_PREDICT,
     GEMMA4_EPISTEMIC_PARAMETER_COUNT,
     GEMMA4_EPISTEMIC_SEED,
+    GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID,
+    GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256,
+    GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_SCHEMA,
     GEMMA4_EPISTEMIC_TEMPERATURE,
     GEMMA4_EPISTEMIC_TOP_K,
     GEMMA4_EPISTEMIC_TOP_P,
+    Gemma4EpistemicExecution,
     Gemma4EpistemicExecutionError,
     Gemma4EpistemicSettings,
+    Gemma4StructuralOutputProjection,
     OllamaGemma4EpistemicProvider,
 )
 
@@ -97,17 +100,24 @@ def _packet(
 def _output(
     *,
     cited: tuple[str, ...] = ("observation_001",),
+    option_id: str | None = "option_001",
+    motives: tuple[MotiveHypothesis, ...] = (),
+    option_uncertainty: str = "not_uncertain",
+    motive_uncertainty: str = "not_uncertain",
 ) -> RacioEpistemicInterpretationV2:
     return RacioEpistemicInterpretationV2(
         source_mind="E",
         cited_observation_ids=cited,
         inferred_action_tendency="perform",
         action_confidence=0.9,
-        inferred_option_id="option_001",
-        option_confidence=0.9,
-        motive_hypotheses=(),
-        motive_unknown_reason=MOTIVE_UNKNOWN_REASON_SL,
-        unresolved_ambiguity=None,
+        inferred_option_id=option_id,
+        option_confidence=0.9 if option_id is not None else 0.0,
+        motive_hypotheses=motives,
+        motive_unknown_reason=(None if motives else MOTIVE_UNKNOWN_REASON_SL),
+        racio_reported_uncertainty=RacioReportedUncertainty(
+            option_mapping=option_uncertainty,
+            motive_interpretation=motive_uncertainty,
+        ),
     )
 
 
@@ -303,30 +313,26 @@ def test_happy_path_pins_request_and_discards_thinking_text() -> None:
         assert taxonomy_line in GEMMA4_EPISTEMIC_INSTRUCTION
         for subtype in subtypes:
             assert f"- {family}/{subtype}:" in GEMMA4_EPISTEMIC_INSTRUCTION
-    ambiguity_description = output_schema["properties"][
-        "unresolved_ambiguity"
-    ]["description"]
-    expected_ambiguity_description = f"""\
-Set unresolved_ambiguity mechanically from the other final JSON fields:
-- inferred_option_id is null and motive_hypotheses has 0 or 1 item: use
-  {OPTION_AMBIGUITY_SL!r}
-- inferred_option_id is null and motive_hypotheses has 2 or 3 items: use
-  {OPTION_AND_MOTIVE_AMBIGUITY_SL!r}
-- inferred_option_id is not null and motive_hypotheses has 0 or 1 item: use null
-- inferred_option_id is not null and motive_hypotheses has 2 or 3 items: use
-  {MOTIVE_AMBIGUITY_SL!r}"""
-    assert ambiguity_description == expected_ambiguity_description
-    assert ambiguity_description in GEMMA4_EPISTEMIC_INSTRUCTION
-    assert "inferred_option_id is null" in ambiguity_description
-    assert "inferred_option_id is not null" in ambiguity_description
-    assert "motive_hypotheses has 0 or 1 item" in ambiguity_description
-    assert "motive_hypotheses has 2 or 3 items" in ambiguity_description
-    for ambiguity_value in (
-        OPTION_AMBIGUITY_SL,
-        OPTION_AND_MOTIVE_AMBIGUITY_SL,
-        MOTIVE_AMBIGUITY_SL,
-    ):
-        assert repr(ambiguity_value) in ambiguity_description
+    assert output_schema["additionalProperties"] is False
+    assert "racio_reported_uncertainty" in output_schema["required"]
+    assert "unresolved_ambiguity" not in output_schema["properties"]
+    assert "structural_output_projection" not in output_schema["properties"]
+    uncertainty_schema = output_schema["$defs"]["RacioReportedUncertainty"]
+    assert uncertainty_schema["additionalProperties"] is False
+    assert set(uncertainty_schema["required"]) == {
+        "option_mapping",
+        "motive_interpretation",
+    }
+    for field_name in ("option_mapping", "motive_interpretation"):
+        assert uncertainty_schema["properties"][field_name]["enum"] == [
+            "uncertain",
+            "not_uncertain",
+            "not_reported",
+        ]
+    assert "do not derive it mechanically" in GEMMA4_EPISTEMIC_INSTRUCTION
+    assert "selected option may coexist" in GEMMA4_EPISTEMIC_INSTRUCTION
+    assert "null option may coexist" in GEMMA4_EPISTEMIC_INSTRUCTION
+    assert "not_reported" in GEMMA4_EPISTEMIC_INSTRUCTION
     assert "raw" not in request_payload
     assert "system" not in request_payload
     assert "prompt" not in request_payload
@@ -352,6 +358,7 @@ Set unresolved_ambiguity mechanically from the other final JSON fields:
     assert parameters["chat_messages_sha256"] == sha256_hex(
         request_payload["messages"]
     )
+    assert parameters["request_payload_sha256"] == sha256_hex(request_payload)
     assert parameters["raw_request_field_sent"] is False
     assert "raw" not in parameters
     assert parameters["model"] == GEMMA4_EPISTEMIC_MODEL
@@ -375,10 +382,73 @@ Set unresolved_ambiguity mechanically from the other final JSON fields:
     assert parameters["top_k"] == GEMMA4_EPISTEMIC_TOP_K
     assert parameters["retry_count"] == 0
     assert parameters["thinking_separate_required"] is True
+    assert parameters["structural_projection_policy_id"] == (
+        GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID
+    )
+    assert parameters["structural_projection_policy_sha256"] == (
+        GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256
+    )
+    assert GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256 == sha256_hex(
+        {
+            "policy_id": GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID,
+            "revision": 1,
+            "derived_value_source_fields": [
+                "inferred_option_id",
+                "motive_hypotheses",
+            ],
+            "derived_fields": [
+                "option_id_present",
+                "motive_hypothesis_count",
+            ],
+            "derived_value_rules": {
+                "option_id_present": "inferred_option_id is not null",
+                "motive_hypothesis_count": "length(motive_hypotheses)",
+            },
+            "excluded_from_derived_values": [
+                "packet",
+                "thinking",
+                "evaluator_gold",
+                "racio_reported_uncertainty",
+            ],
+            "lineage_hash_covers_entire_validated_interpretation": True,
+            "semantic_evidence": False,
+            "governance_effect": False,
+        }
+    )
+    assert parameters["structural_projection_schema"] == (
+        GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_SCHEMA
+    )
+    assert parameters["structural_projection_schema_sha256"] == sha256_hex(
+        Gemma4StructuralOutputProjection.model_json_schema()
+    )
+    assert parameters["structural_projection_provenance_kind"] == (
+        "provider_derived"
+    )
+    assert parameters["structural_projection_semantic_evidence"] is False
+    assert parameters["structural_projection_governance_effect"] is False
+    assert (
+        parameters[
+            "structural_projection_racio_uncertainty_used_for_derived_values"
+        ]
+        is False
+    )
     assert execution.call_spec.fallback_policy.mode == "none"
 
     evidence = execution.response_evidence
+    projection = evidence.structural_output_projection
+    assert evidence.schema_version == "rei-racio-gemma4-epistemic-response-v2"
     assert execution.output.motive_unknown_reason == MOTIVE_UNKNOWN_REASON_SL
+    assert evidence.structured_output == execution.output
+    assert evidence.structured_output_hash == sha256_hex(execution.output)
+    assert projection.provenance_kind == "provider_derived"
+    assert projection.option_id_present is True
+    assert projection.motive_hypothesis_count == 0
+    assert projection.source_interpretation_sha256 == evidence.structured_output_hash
+    assert projection.semantic_evidence is False
+    assert projection.governance_effect is False
+    assert (
+        projection.racio_reported_uncertainty_used_for_derived_values is False
+    )
     assert evidence.thinking_present is True
     assert evidence.thinking_byte_count == len(trace.encode("utf-8"))
     assert evidence.thinking_sha256 == hashlib.sha256(trace.encode("utf-8")).hexdigest()
@@ -389,7 +459,159 @@ Set unresolved_ambiguity mechanically from the other final JSON fields:
     serialized = evidence.model_dump_json()
     assert trace not in serialized
     assert trace not in repr(execution)
-    assert _response(thinking=trace)["message"]["content"] not in serialized
+    assert '"structured_output":' in serialized
+
+
+@pytest.mark.parametrize("option_id", (None, "option_001"))
+@pytest.mark.parametrize("motive_count", range(4))
+def test_structural_projection_is_neutral_across_all_output_shapes(
+    option_id: str | None,
+    motive_count: int,
+) -> None:
+    motives = (
+        MotiveHypothesis(
+            family="motor_social",
+            subtype="motor_execution",
+            cited_observation_ids=("observation_001",),
+            confidence=0.9,
+            explanation_short_sl=MOTIVE_HYPOTHESIS_EXPLANATION_SL,
+        ),
+        MotiveHypothesis(
+            family="protection",
+            subtype="general_body_alarm",
+            cited_observation_ids=("observation_001",),
+            confidence=0.8,
+            explanation_short_sl=MOTIVE_HYPOTHESIS_EXPLANATION_SL,
+        ),
+        MotiveHypothesis(
+            family="scene",
+            subtype="broken_scene",
+            cited_observation_ids=("observation_001",),
+            confidence=0.7,
+            explanation_short_sl=MOTIVE_HYPOTHESIS_EXPLANATION_SL,
+        ),
+    )[:motive_count]
+    reported = _output(
+        option_id=option_id,
+        motives=motives,
+        option_uncertainty="uncertain",
+        motive_uncertainty="uncertain",
+    )
+    unreported = _output(
+        option_id=option_id,
+        motives=motives,
+        option_uncertainty="not_reported",
+        motive_uncertainty="not_reported",
+    )
+
+    first = Gemma4StructuralOutputProjection.create(reported)
+    second = Gemma4StructuralOutputProjection.create(unreported)
+
+    assert first.option_id_present is (option_id is not None)
+    assert first.motive_hypothesis_count == motive_count
+    assert first.semantic_evidence is False
+    assert first.governance_effect is False
+    assert first.racio_reported_uncertainty_used_for_derived_values is False
+    assert (first.option_id_present, first.motive_hypothesis_count) == (
+        second.option_id_present,
+        second.motive_hypothesis_count,
+    )
+    assert (
+        first.source_interpretation_sha256
+        != second.source_interpretation_sha256
+    )
+
+
+def test_structural_projection_tampering_fails_closed() -> None:
+    output = _output()
+    projection = Gemma4StructuralOutputProjection.create(output)
+
+    wrong_policy = projection.model_dump(mode="python", round_trip=True)
+    wrong_policy["policy_sha256"] = "b" * 64
+    with pytest.raises(ValueError, match="policy hash differs"):
+        Gemma4StructuralOutputProjection.model_validate(wrong_policy)
+
+    wrong_count = projection.model_dump(mode="python", round_trip=True)
+    wrong_count["motive_hypothesis_count"] = 4
+    with pytest.raises(ValueError):
+        Gemma4StructuralOutputProjection.model_validate(wrong_count)
+
+    wrong_hash = projection.model_dump(mode="python", round_trip=True)
+    wrong_hash["projection_sha256"] = "b" * 64
+    with pytest.raises(ValueError, match="projection hash differs"):
+        Gemma4StructuralOutputProjection.model_validate(wrong_hash)
+
+    execution = _execute(_provider(FakeOllamaTransport()))
+    evidence_payload = execution.response_evidence.model_dump(
+        mode="python",
+        round_trip=True,
+    )
+    nested = evidence_payload["structural_output_projection"]
+    nested["source_interpretation_sha256"] = "b" * 64
+    nested["projection_sha256"] = sha256_hex(
+        {key: value for key, value in nested.items() if key != "projection_sha256"}
+    )
+    with pytest.raises(ValueError, match="differs from response lineage"):
+        type(execution.response_evidence).model_validate(evidence_payload)
+
+    cold_tamper = execution.response_evidence.model_dump(
+        mode="python",
+        round_trip=True,
+    )
+    cold_projection = cold_tamper["structural_output_projection"]
+    cold_projection["option_id_present"] = False
+    cold_projection["projection_sha256"] = sha256_hex(
+        {
+            key: value
+            for key, value in cold_projection.items()
+            if key != "projection_sha256"
+        }
+    )
+    with pytest.raises(ValueError, match="differs from validated output"):
+        type(execution.response_evidence).model_validate(cold_tamper)
+
+    tampered_projection = (
+        execution.response_evidence.structural_output_projection.model_copy(
+            update={"option_id_present": False}
+        )
+    )
+    tampered_evidence = execution.response_evidence.model_copy(
+        update={"structural_output_projection": tampered_projection}
+    )
+    with pytest.raises(ValueError, match="execution lineage is inconsistent"):
+        Gemma4EpistemicExecution(
+            output=execution.output,
+            call_spec=execution.call_spec,
+            call_record=execution.call_record,
+            response_evidence=tampered_evidence,
+        )
+
+
+@pytest.mark.parametrize(
+    "change",
+    (
+        {"packet_id": "packet_forged"},
+        {"packet_hash": "b" * 64},
+        {"provider_id": "provider_forged"},
+        {"model": "gemma4:latest"},
+        {"model_revision": "b" * 64},
+        {"ollama_server_version": "forged"},
+        {"request_payload_hash": "b" * 64},
+    ),
+)
+def test_execution_rejects_response_evidence_lineage_drift(
+    change: Mapping[str, object],
+) -> None:
+    execution = _execute(_provider(FakeOllamaTransport()))
+    tampered_evidence = execution.response_evidence.model_copy(update=change)
+
+    with pytest.raises(ValueError, match="execution lineage is inconsistent"):
+        Gemma4EpistemicExecution(
+            output=execution.output,
+            call_spec=execution.call_spec,
+            call_record=execution.call_record,
+            response_evidence=tampered_evidence,
+        )
 
 
 @pytest.mark.parametrize(
@@ -453,7 +675,10 @@ def test_populated_motive_uses_exposed_closed_vocabulary() -> None:
             ),
         ),
         motive_unknown_reason=None,
-        unresolved_ambiguity=None,
+        racio_reported_uncertainty=RacioReportedUncertainty(
+            option_mapping="not_uncertain",
+            motive_interpretation="not_uncertain",
+        ),
     )
     transport = FakeOllamaTransport(_response(output=output))
 
@@ -708,6 +933,104 @@ def test_extra_json_and_out_of_scope_citation_fail_closed() -> None:
     assert outside_transport.chat_count == 1
 
 
+@pytest.mark.parametrize(
+    "field_name",
+    (
+        "unresolved_ambiguity",
+        "structural_output_projection",
+        "option_id_present",
+        "motive_hypothesis_count",
+    ),
+)
+def test_model_cannot_send_legacy_or_provider_derived_fields(
+    field_name: str,
+) -> None:
+    payload = json.loads(_output().model_dump_json())
+    payload[field_name] = "TOP_SECRET_FORGED_PROVIDER_STATE"
+    response = _response()
+    response["message"]["content"] = json.dumps(payload)
+    transport = FakeOllamaTransport(response)
+
+    with pytest.raises(Gemma4EpistemicExecutionError) as caught:
+        _execute(_provider(transport))
+
+    assert caught.value.failure_code == "structured_output_invalid"
+    assert caught.value.validation_error_type == "extra_forbidden"
+    assert "TOP_SECRET" not in repr(caught.value.__dict__)
+    assert transport.chat_count == 1
+
+
+@pytest.mark.parametrize("nested", (False, True))
+def test_duplicate_json_keys_fail_closed_without_key_or_value_leakage(
+    nested: bool,
+) -> None:
+    if nested:
+        final_content = _output().model_dump_json().replace(
+            '"option_mapping":"not_uncertain"',
+            (
+                '"option_mapping":"not_uncertain",'
+                '"option_mapping":"TOP_SECRET_DUPLICATE_VALUE"'
+            ),
+            1,
+        )
+    else:
+        valid = _output().model_dump_json()
+        final_content = (
+            valid[:-1]
+            + ',"inferred_option_id":"TOP_SECRET_DUPLICATE_VALUE"}'
+        )
+    response = _response(thinking="TOP_SECRET_PRIVATE_TRACE")
+    response["message"]["content"] = final_content
+    transport = FakeOllamaTransport(response)
+
+    with pytest.raises(Gemma4EpistemicExecutionError) as caught:
+        _execute(_provider(transport))
+
+    error = caught.value
+    assert error.failure_code == "structured_output_invalid"
+    assert error.validation_issue_count == 1
+    assert error.validation_error_type == "value_error"
+    assert error.validation_field_path == "$.*"
+    assert error.validation_invariant_code == "duplicate_json_key"
+    assert error.rejected_final_response_sha256 == hashlib.sha256(
+        final_content.encode("utf-8")
+    ).hexdigest()
+    assert error.rejected_final_response_byte_count == len(
+        final_content.encode("utf-8")
+    )
+    assert "TOP_SECRET" not in str(error)
+    assert "TOP_SECRET" not in repr(error.__dict__)
+    assert transport.chat_count == 1
+
+
+@pytest.mark.parametrize(
+    "final_content",
+    (
+        '{"nested":{"key":"TOP_SECRET","key":"SECOND"},"broken":}',
+        '{"oversized_integer":' + ("9" * 5000) + "}",
+    ),
+)
+def test_json_syntax_or_numeric_failure_precedes_duplicate_classification(
+    final_content: str,
+) -> None:
+    response = _response(thinking="TOP_SECRET_PRIVATE_TRACE")
+    response["message"]["content"] = final_content
+    transport = FakeOllamaTransport(response)
+
+    with pytest.raises(Gemma4EpistemicExecutionError) as caught:
+        _execute(_provider(transport))
+
+    error = caught.value
+    assert error.failure_code == "structured_output_invalid"
+    assert error.validation_issue_count == 1
+    assert error.validation_error_type == "json_invalid"
+    assert error.validation_field_path == "$"
+    assert error.validation_invariant_code is None
+    assert "TOP_SECRET" not in str(error)
+    assert "TOP_SECRET" not in repr(error.__dict__)
+    assert transport.chat_count == 1
+
+
 def test_structured_output_failure_exposes_only_safe_diagnostics() -> None:
     valid = json.loads(_output().model_dump_json())
     extra = copy.deepcopy(valid)
@@ -718,6 +1041,8 @@ def test_structured_output_failure_exposes_only_safe_diagnostics() -> None:
     cross_field["action_confidence"] = 0.0
     missing = copy.deepcopy(valid)
     missing.pop("motive_unknown_reason")
+    missing_uncertainty = copy.deepcopy(valid)
+    missing_uncertainty.pop("racio_reported_uncertainty")
     cases = (
         ("TOP_SECRET_INVALID_JSON {", "json_invalid", "$", None),
         (json.dumps(extra), "extra_forbidden", "$.*", None),
@@ -737,6 +1062,12 @@ def test_structured_output_failure_exposes_only_safe_diagnostics() -> None:
             json.dumps(missing),
             "missing",
             "$.motive_unknown_reason",
+            None,
+        ),
+        (
+            json.dumps(missing_uncertainty),
+            "missing",
+            "$.racio_reported_uncertainty",
             None,
         ),
     )
@@ -850,7 +1181,10 @@ def test_validation_diagnostics_are_stable_bounded_and_value_free() -> None:
                 ),
             ),
             motive_unknown_reason=None,
-            unresolved_ambiguity=None,
+            racio_reported_uncertainty=RacioReportedUncertainty(
+                option_mapping="not_uncertain",
+                motive_interpretation="not_uncertain",
+            ),
         ).model_dump_json()
     )
     nested["motive_hypotheses"][0]["confidence"] = "TOP_SECRET_CONFIDENCE"
@@ -899,7 +1233,7 @@ def test_validation_diagnostics_are_stable_bounded_and_value_free() -> None:
         {"validation_issue_count": 1},
         {"validation_error_type": "missing"},
         {"validation_field_path": "$.source_mind"},
-        {"validation_invariant_code": "ambiguity_state_mismatch"},
+        {"validation_invariant_code": "claimed_action_zero_confidence"},
         {"validation_diagnostic_sha256": "b" * 64},
     ),
 )
@@ -939,13 +1273,13 @@ def test_execution_error_requires_value_error_for_invariant_code() -> None:
             validation_issue_count=1,
             validation_error_type="missing",
             validation_field_path="$.motive_unknown_reason",
-            validation_invariant_code="ambiguity_state_mismatch",
+            validation_invariant_code="claimed_action_zero_confidence",
             validation_diagnostic_sha256="b" * 64,
         )
 
 
 def test_invariant_classifier_requires_exact_context_shapes() -> None:
-    known_message = "Unresolved ambiguity differs from the structured claim state"
+    known_message = "A claimed action requires positive action confidence"
 
     class ValueErrorSubclass(ValueError):
         pass
@@ -987,7 +1321,7 @@ def test_invariant_classifier_requires_exact_context_shapes() -> None:
     exact = gemma_provider._safe_validation_diagnostics(
         SyntheticValidationError({"error": ValueError(known_message)})
     )
-    assert exact[3] == "ambiguity_state_mismatch"
+    assert exact[3] == "claimed_action_zero_confidence"
 
     unsafe_contexts = (
         {"error": ValueErrorSubclass(known_message)},

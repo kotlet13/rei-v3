@@ -654,3 +654,79 @@ open_question_ids:
   - OQ-ACCEPTANCE-001
   - OQ-ACCEPTANCE-002
   - OQ-PROVIDER-001
+
+g2_epistemic_provider_v2_boundary:
+  policy_id: rei-racio-gemma4-epistemic-boundary-v2
+  status: implementation_hypothesis
+  correction_date: 2026-07-17
+  frozen_c3_v1_changed: false
+  layers:
+    racio_model_owned_semantics:
+      boundary_relevant_required_fields:
+        - inferred_option_id
+        - motive_hypotheses
+        - racio_reported_uncertainty.option_mapping
+        - racio_reported_uncertainty.motive_interpretation
+      reported_uncertainty_is_explicit: true
+      reported_uncertainty_has_default: false
+      reported_uncertainty_derived_from_other_fields: false
+      provider_may_rewrite_reported_uncertainty: false
+      dimension_states: [uncertain, not_uncertain, not_reported]
+      not_reported_means: racio_made_no_self_assessment_for_that_dimension
+      allowed_visible_combinations:
+        - selected_option_and_option_mapping_uncertain
+        - null_option_and_option_mapping_not_uncertain
+        - any_claim_shape_and_not_reported
+        - high_confidence_and_reported_uncertainty
+    provider_derived_structure:
+      location: sanitized_response_evidence_sidecar_only
+      fields:
+        option_id_present: inferred_option_id_is_not_null
+        motive_hypothesis_count: length_of_motive_hypotheses_0_through_3
+      derived_value_source_fields:
+        - inferred_option_id
+        - motive_hypotheses
+      excluded_from_derived_values:
+        - packet
+        - thinking
+        - evaluator_gold
+        - racio_reported_uncertainty
+      lineage_hash_covers_entire_validated_interpretation: true
+      required_provenance:
+        - provider_derived
+        - policy_id_and_sha256
+        - embedded_validated_structured_output
+        - call_spec_pinned_request_payload_sha256
+        - source_interpretation_sha256
+        - projection_sha256
+      cold_validation_recomputes_projection_from_embedded_output: true
+      semantic_evidence: false
+      governance_effect: false
+      evaluator_input: false
+    evaluator_owned_assessment:
+      option_determinacy: evaluator_only
+      motive_support: evaluator_only
+      bilingual_reported_uncertainty_metric: exact_model_owned_structure_comparison
+      provider_sidecar_scored: false
+      per_case_uncertainty_calibration: deferred_open_question
+  null_option_semantics:
+    means: racio_made_no_option_inference
+    does_not_mean:
+      - observations_objectively_determine_no_option
+      - observations_objectively_do_not_determine_an_option
+      - provider_failure
+      - semantic_acceptance
+  fail_closed_boundaries:
+    duplicate_json_keys_at_any_object_depth: rejected_before_semantic_validation
+    legacy_unresolved_ambiguity: extra_forbidden
+    model_sent_provider_projection_fields: extra_forbidden
+    provider_projection_created_after:
+      - strict_semantic_output_validation
+      - packet_scope_validation
+    response_evidence_embeds_validated_semantic_output: true
+  canonical_sl: >-
+    Provider-derived structural state opisuje samo obliko že validiranega
+    interpretacijskega izhoda. Ni Racijeva izjava, ni evaluatorjeva ugotovitev
+    in ne trdi, da vidne opazke objektivno določajo ali ne določajo možnosti
+    oziroma motiva.
+  source_claim_ids: [C-CONSC-001, C-RACIO-003, C-PROV-001, C-ACCEPT-003]

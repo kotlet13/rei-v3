@@ -906,6 +906,46 @@ zunanji runtime. Vzorčeni peak ostaja spodnja meja, display receipt pa ne
 dokazuje reviewerjeve pozornosti ali kognicije. Zato C4 vprašanje in C7 resource
 gate ostajata odprta.
 
+## G2 dopolnitev OQ-PROVIDER-001 — meja izjave in strukture
+
+Kako ohraniti Racijevo lastno poročilo o negotovosti, ne da bi provider iz
+oblike odgovora ustvaril navidezno semantično dejstvo?
+
+### G2 izvedbeni popravek — 2026-07-17
+
+Status: `implementation_hypothesis`, model-free pogodbeni popravek pred novim
+Gemma klicem. Racijeva negotovost je obvezna model-owned struktura z ločenima
+tri-state dimenzijama za preslikavo možnosti in interpretacijo motiva:
+`uncertain`, `not_uncertain` ali `not_reported`. Zadnja vrednost eksplicitno
+ohrani odsotno Racijevo samooceno in ni manjkajoče JSON polje. Noben validator
+poročila ne izpelje iz izbrane možnosti, števila motivnih hipotez ali
+confidencea. Zato so dovoljene in vidne tudi navidezno protislovne kombinacije,
+na primer izbrana možnost ob hkrati poročani negotovosti preslikave.
+
+Provider po popolni validaciji Racijevega izhoda izdela ločen response-evidence
+sidecar. Ta zabeleži samo, ali je `inferred_option_id` prisoten, in število
+elementov `motive_hypotheses`. Sidecar ni Racijeva izjava, ni evaluatorjeva
+ugotovitev, ni semantični dokaz in nima governance učinka. Pri izračunu obeh
+strukturnih vrednosti ne uporablja packeta, thinking sledi, golda ali Racijevega
+poročila o negotovosti. Lineage hash pa namenoma pokriva celoten validirani
+Racijev izhod, tudi njegovo poročilo, ter sidecar veže na policy ID/hash.
+Sanitized response evidence vsebuje tudi tipizirani validirani izhod, zato
+cold validator obe strukturni vrednosti ponovno izračuna brez thinking sledi
+ali raw responsea; content hash sam zase ni dokaz pravilne derivacije.
+
+`inferred_option_id: null` še naprej pomeni samo, da Racio ni podal option
+inferencea. Ne dokazuje, da vidne opazke objektivno določajo ali ne določajo
+možnosti. Določljivost ostaja evaluator-owned presoja. Legacy polje
+`unresolved_ambiguity`, model-poslani providerjevi sidecar podatki in podvojeni
+JSON ključi se zavrnejo fail-closed. Zamrznjena C3 v1 pogodba se s tem ne
+spreminja.
+
+G2 per-case evaluator tega poročila še ne kalibrira in ga ne uporablja v hard
+gateu. Trenutno meri samo njegovo dvojezično skladnost; ali poročilo semantično
+ustreza evaluator-owned določljivosti in podpori, ostaja odprto kalibracijsko
+vprašanje za ločen pregled. Konstanten report zato v tej fazi ne more pomeniti
+semantičnega sprejema modela.
+
 ## Izrecno zaprte smeri, ki niso odprta vprašanja B1
 
 - QLoRA, LoRA, SFT, training dataset in izbor končnega modela niso v obsegu.

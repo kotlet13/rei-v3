@@ -8,6 +8,7 @@ persists only hashes and sizes for that private trace.
 from __future__ import annotations
 
 import hashlib
+import json
 import math
 import os
 import re
@@ -18,18 +19,16 @@ from typing import Any, Literal, Self
 from pydantic import Field, ValidationError, model_validator
 
 from ..communication.epistemic_interpreter import (
-    MOTIVE_AMBIGUITY_SL,
     MOTIVE_HYPOTHESIS_EXPLANATION_SL,
     MOTIVE_SUBTYPES_BY_FAMILY,
     MOTIVE_UNKNOWN_REASON_SL,
-    OPTION_AMBIGUITY_SL,
-    OPTION_AND_MOTIVE_AMBIGUITY_SL,
     RacioEpistemicInterpretationV2,
     RacioEpistemicPacketV2,
 )
 from ..ids import canonical_json_bytes, content_id, sha256_hex
 from ..models.common import (
     FrozenArtifactModel,
+    FrozenModel,
     HashDigest,
     NonEmptyId,
     NonEmptyText,
@@ -64,7 +63,37 @@ GEMMA4_EPISTEMIC_TOP_P = 0.95
 GEMMA4_EPISTEMIC_TOP_K = 64
 GEMMA4_EPISTEMIC_KEEP_ALIVE = "10m"
 GEMMA4_EPISTEMIC_TIMEOUT_SECONDS = 600.0
-GEMMA4_EPISTEMIC_PROVIDER_REVISION = "rei-racio-gemma4-epistemic-g2-chat-v5"
+GEMMA4_EPISTEMIC_PROVIDER_REVISION = "rei-racio-gemma4-epistemic-g2-chat-v6"
+GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_SCHEMA = (
+    "rei-racio-gemma4-structural-projection-v1"
+)
+GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID = (
+    "rei-racio-provider-structural-projection-v1"
+)
+GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256 = sha256_hex(
+    {
+        "policy_id": GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID,
+        "revision": 1,
+        "derived_value_source_fields": [
+            "inferred_option_id",
+            "motive_hypotheses",
+        ],
+        "derived_fields": ["option_id_present", "motive_hypothesis_count"],
+        "derived_value_rules": {
+            "option_id_present": "inferred_option_id is not null",
+            "motive_hypothesis_count": "length(motive_hypotheses)",
+        },
+        "excluded_from_derived_values": [
+            "packet",
+            "thinking",
+            "evaluator_gold",
+            "racio_reported_uncertainty",
+        ],
+        "lineage_hash_covers_entire_validated_interpretation": True,
+        "semantic_evidence": False,
+        "governance_effect": False,
+    }
+)
 GEMMA4_EPISTEMIC_PARAMETER_COUNT = 31_273_089_132
 GEMMA4_EPISTEMIC_QUANTIZATION = "Q4_K_M"
 GEMMA4_EPISTEMIC_TEMPLATE = "{{ .Prompt }}"
@@ -132,16 +161,6 @@ _MOTIVE_SUBTYPE_VALUES = tuple(
         for subtype in subtypes
     )
 )
-_AMBIGUITY_STATE_INSTRUCTION = f"""\
-Set unresolved_ambiguity mechanically from the other final JSON fields:
-- inferred_option_id is null and motive_hypotheses has 0 or 1 item: use
-  {OPTION_AMBIGUITY_SL!r}
-- inferred_option_id is null and motive_hypotheses has 2 or 3 items: use
-  {OPTION_AND_MOTIVE_AMBIGUITY_SL!r}
-- inferred_option_id is not null and motive_hypotheses has 0 or 1 item: use null
-- inferred_option_id is not null and motive_hypotheses has 2 or 3 items: use
-  {MOTIVE_AMBIGUITY_SL!r}"""
-
 GEMMA4_EPISTEMIC_INSTRUCTION = f"""<|think|>
 You simulate Racio's conscious interpretation of one limited, sanitized signal.
 You do not see Emocio's or Instinkt's native conclusion, the true motive, a
@@ -173,7 +192,13 @@ the exact motive_unknown_reason {MOTIVE_UNKNOWN_REASON_SL!r}. Every populated
 motive hypothesis must use the exact explanation_short_sl
 {MOTIVE_HYPOTHESIS_EXPLANATION_SL!r}.
 
-{_AMBIGUITY_STATE_INSTRUCTION}
+Report Racio's own uncertainty explicitly in racio_reported_uncertainty. Set
+both option_mapping and motive_interpretation to exactly one report state:
+uncertain, not_uncertain, or not_reported. The last state means Racio makes no
+self-assessment for that dimension; it is not a missing JSON field. This report
+is independent of the selected option, hypothesis count, and confidence values:
+do not derive it mechanically from those fields. A selected option may coexist
+with uncertain, and a null option may coexist with not_uncertain or not_reported.
 Do not diagnose, characterize a person, or state a hidden motive as fact.
 
 Think only in Ollama's separate thinking field. The final response must contain
@@ -204,9 +229,11 @@ _SAFE_VALIDATION_PATH_SEGMENTS = frozenset(
         "motive_hypotheses",
         "motive_unknown_reason",
         "option_confidence",
+        "option_mapping",
+        "motive_interpretation",
+        "racio_reported_uncertainty",
         "source_mind",
         "subtype",
-        "unresolved_ambiguity",
     }
 )
 _SAFE_VALIDATION_INVARIANT_BY_MESSAGE = {
@@ -235,9 +262,6 @@ _SAFE_VALIDATION_INVARIANT_BY_MESSAGE = {
     "A claimed action requires positive action confidence": (
         "claimed_action_zero_confidence"
     ),
-    "Unresolved ambiguity differs from the structured claim state": (
-        "ambiguity_state_mismatch"
-    ),
     "Option abstention requires zero option confidence": (
         "option_abstention_nonzero_confidence"
     ),
@@ -255,7 +279,7 @@ _SAFE_VALIDATION_INVARIANT_BY_MESSAGE = {
     ),
 }
 _SAFE_VALIDATION_INVARIANT_CODES = frozenset(
-    _SAFE_VALIDATION_INVARIANT_BY_MESSAGE.values()
+    (*_SAFE_VALIDATION_INVARIANT_BY_MESSAGE.values(), "duplicate_json_key")
 )
 
 
@@ -345,6 +369,43 @@ def _safe_validation_diagnostics(
             else first_issue["invariant"]
         ),
         fingerprint,
+    )
+
+
+def _contains_duplicate_json_key(value: str) -> bool:
+    """Detect duplicate keys at every object depth without retaining values."""
+
+    duplicate_found = False
+
+    def record_object_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        nonlocal duplicate_found
+        parsed: dict[str, Any] = {}
+        for key, item in pairs:
+            if key in parsed:
+                duplicate_found = True
+            parsed[key] = item
+        return parsed
+
+    try:
+        json.loads(value, object_pairs_hook=record_object_pairs)
+    except (ValueError, RecursionError):
+        # A complete JSON document is required before duplicate classification.
+        return False
+    return duplicate_found
+
+
+def _duplicate_key_validation_diagnostics() -> tuple[int, str, str, str, str]:
+    issue = {
+        "type": "value_error",
+        "path": "$.*",
+        "invariant": "duplicate_json_key",
+    }
+    return (
+        1,
+        issue["type"],
+        issue["path"],
+        issue["invariant"],
+        sha256_hex({"issue_count": 1, "issues": [issue]}),
     )
 
 
@@ -510,16 +571,13 @@ def _validate_sanitized_packet(packet: RacioEpistemicPacketV2) -> None:
 
 
 def _output_schema() -> dict[str, Any]:
-    """Expose the closed motive vocabulary in the model-facing JSON schema."""
+    """Expose the closed semantic vocabulary in the model-facing schema."""
 
     schema = RacioEpistemicInterpretationV2.model_json_schema()
     subtype_schema = schema["$defs"]["MotiveHypothesis"]["properties"]["subtype"]
     subtype_schema["enum"] = list(_MOTIVE_SUBTYPE_VALUES)
     subtype_schema["description"] = (
         "Use only a subtype paired with its family by the system instruction."
-    )
-    schema["properties"]["unresolved_ambiguity"]["description"] = (
-        _AMBIGUITY_STATE_INSTRUCTION
     )
     return schema
 
@@ -719,12 +777,69 @@ class Gemma4EpistemicSettings:
         )
 
 
-class Gemma4EpistemicResponseEvidence(FrozenArtifactModel):
-    """Content-addressed response metadata with the private trace removed."""
+class Gemma4StructuralOutputProjection(FrozenModel):
+    """Provider-derived output shape with no semantic or governance authority."""
 
     schema_version: Literal[
-        "rei-racio-gemma4-epistemic-response-v1"
-    ] = "rei-racio-gemma4-epistemic-response-v1"
+        "rei-racio-gemma4-structural-projection-v1"
+    ] = "rei-racio-gemma4-structural-projection-v1"
+    provenance_kind: Literal["provider_derived"] = "provider_derived"
+    policy_id: Literal[
+        "rei-racio-provider-structural-projection-v1"
+    ] = "rei-racio-provider-structural-projection-v1"
+    policy_sha256: HashDigest
+    source_interpretation_sha256: HashDigest
+    option_id_present: bool
+    motive_hypothesis_count: int = Field(ge=0, le=3)
+    semantic_evidence: Literal[False] = False
+    governance_effect: Literal[False] = False
+    racio_reported_uncertainty_used_for_derived_values: Literal[False] = False
+    projection_sha256: HashDigest
+
+    @model_validator(mode="after")
+    def validate_projection(self) -> Self:
+        if (
+            self.policy_sha256
+            != GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256
+        ):
+            raise ValueError("Structural projection policy hash differs")
+        payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"projection_sha256"},
+        )
+        if self.projection_sha256 != sha256_hex(payload):
+            raise ValueError("Structural projection hash differs")
+        return self
+
+    @classmethod
+    def create(
+        cls,
+        output: RacioEpistemicInterpretationV2,
+    ) -> "Gemma4StructuralOutputProjection":
+        base = {
+            "schema_version": GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_SCHEMA,
+            "provenance_kind": "provider_derived",
+            "policy_id": GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID,
+            "policy_sha256": (
+                GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256
+            ),
+            "source_interpretation_sha256": sha256_hex(output),
+            "option_id_present": output.inferred_option_id is not None,
+            "motive_hypothesis_count": len(output.motive_hypotheses),
+            "semantic_evidence": False,
+            "governance_effect": False,
+            "racio_reported_uncertainty_used_for_derived_values": False,
+        }
+        return cls(**base, projection_sha256=sha256_hex(base))
+
+
+class Gemma4EpistemicResponseEvidence(FrozenArtifactModel):
+    """Validated output and response metadata with the private trace removed."""
+
+    schema_version: Literal[
+        "rei-racio-gemma4-epistemic-response-v2"
+    ] = "rei-racio-gemma4-epistemic-response-v2"
     result_id: NonEmptyId
     packet_id: NonEmptyId
     packet_hash: HashDigest
@@ -739,7 +854,9 @@ class Gemma4EpistemicResponseEvidence(FrozenArtifactModel):
     response_envelope_byte_count: int = Field(gt=0)
     final_response_hash: HashDigest
     final_response_byte_count: int = Field(gt=0)
+    structured_output: RacioEpistemicInterpretationV2
     structured_output_hash: HashDigest
+    structural_output_projection: Gemma4StructuralOutputProjection
     thinking_present: Literal[True] = True
     thinking_sha256: HashDigest
     thinking_byte_count: int = Field(gt=0)
@@ -771,6 +888,19 @@ class Gemma4EpistemicResponseEvidence(FrozenArtifactModel):
             raise ValueError("Gemma 4 evidence requires byte-exact full GPU placement")
         if self.active_gpu_percent_rounded != 100:
             raise ValueError("Gemma 4 evidence requires 100 percent GPU placement")
+        if self.structured_output_hash != sha256_hex(self.structured_output):
+            raise ValueError("Structured output differs from its evidence hash")
+        if (
+            self.structural_output_projection.source_interpretation_sha256
+            != self.structured_output_hash
+        ):
+            raise ValueError("Structural projection differs from response lineage")
+        if self.structural_output_projection != (
+            Gemma4StructuralOutputProjection.create(self.structured_output)
+        ):
+            raise ValueError("Structural projection differs from validated output")
+        if self.cited_observation_ids != self.structured_output.cited_observation_ids:
+            raise ValueError("Evidence citations differ from validated output")
         payload = self.model_dump(
             mode="python",
             round_trip=True,
@@ -800,8 +930,12 @@ class Gemma4EpistemicResponseEvidence(FrozenArtifactModel):
         response_metadata: Mapping[str, Any],
         placement: OllamaActiveModel,
     ) -> "Gemma4EpistemicResponseEvidence":
+        structured_output_hash = sha256_hex(output)
+        structural_output_projection = Gemma4StructuralOutputProjection.create(
+            output
+        )
         base = {
-            "schema_version": "rei-racio-gemma4-epistemic-response-v1",
+            "schema_version": "rei-racio-gemma4-epistemic-response-v2",
             "packet_id": packet.packet_id,
             "packet_hash": packet.packet_hash,
             "call_id": call.call_id,
@@ -815,7 +949,9 @@ class Gemma4EpistemicResponseEvidence(FrozenArtifactModel):
             "response_envelope_byte_count": response_envelope_byte_count,
             "final_response_hash": final_response_hash,
             "final_response_byte_count": final_response_byte_count,
-            "structured_output_hash": sha256_hex(output),
+            "structured_output": output,
+            "structured_output_hash": structured_output_hash,
+            "structural_output_projection": structural_output_projection,
             "thinking_present": True,
             "thinking_sha256": thinking_sha256,
             "thinking_byte_count": thinking_byte_count,
@@ -859,11 +995,37 @@ class Gemma4EpistemicExecution:
         ):
             raise ValueError("Gemma 4 call must publish only sanitized evidence")
         if (
-            self.response_evidence.call_id != self.call_spec.call_id
+            self.response_evidence.packet_id != self.call_spec.request_id
+            or self.call_spec.input_artifact_ids
+            != (self.response_evidence.packet_id,)
+            or _parameter(
+                "packet_hash",
+                self.response_evidence.packet_hash,
+            )
+            not in self.call_spec.parameters
+            or _parameter(
+                "request_payload_sha256",
+                self.response_evidence.request_payload_hash,
+            )
+            not in self.call_spec.parameters
+            or self.response_evidence.call_id != self.call_spec.call_id
             or self.response_evidence.call_spec_hash
             != self.call_spec.content_hash()
+            or self.response_evidence.provider_id
+            != self.call_spec.provider.provider_id
+            or self.response_evidence.model != self.call_spec.provider.model
+            or self.response_evidence.model_revision
+            != self.call_spec.provider.model_revision
+            or _parameter(
+                "ollama_server_version",
+                self.response_evidence.ollama_server_version,
+            )
+            not in self.call_spec.parameters
             or self.response_evidence.structured_output_hash
             != sha256_hex(self.output)
+            or self.response_evidence.structured_output != self.output
+            or self.response_evidence.structural_output_projection
+            != Gemma4StructuralOutputProjection.create(self.output)
         ):
             raise ValueError("Gemma 4 execution lineage is inconsistent")
 
@@ -965,6 +1127,24 @@ class OllamaGemma4EpistemicProvider:
             "require_full_gpu": self.settings.require_full_gpu,
             "retry_count": self.settings.retry_count,
             "stream": self.settings.stream,
+            "structural_projection_governance_effect": False,
+            "structural_projection_policy_id": (
+                GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID
+            ),
+            "structural_projection_policy_sha256": (
+                GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256
+            ),
+            "structural_projection_provenance_kind": "provider_derived",
+            "structural_projection_racio_uncertainty_used_for_derived_values": (
+                False
+            ),
+            "structural_projection_schema": (
+                GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_SCHEMA
+            ),
+            "structural_projection_schema_sha256": sha256_hex(
+                Gemma4StructuralOutputProjection.model_json_schema()
+            ),
+            "structural_projection_semantic_evidence": False,
             "chat_message_roles": ["system", "user"],
             "system_role_transport": "ollama_chat_system_message",
             "temperature": self.settings.temperature,
@@ -986,13 +1166,18 @@ class OllamaGemma4EpistemicProvider:
         packet: RacioEpistemicPacketV2,
     ) -> ProviderCallSpec:
         _validate_sanitized_packet(packet)
-        messages = self.request_payload(packet)["messages"]
+        request_payload = self.request_payload(packet)
+        messages = request_payload["messages"]
         packet_parameters = (
             _parameter("chat_messages_sha256", sha256_hex(messages)),
             _parameter("packet_hash", packet.packet_hash),
             _parameter(
                 "provider_payload_sha256",
                 hashlib.sha256(packet.provider_payload_bytes()).hexdigest(),
+            ),
+            _parameter(
+                "request_payload_sha256",
+                sha256_hex(request_payload),
             ),
         )
         return build_provider_call_spec(
@@ -1291,6 +1476,13 @@ class OllamaGemma4EpistemicProvider:
         validation_diagnostics: (
             tuple[int, str, str, str | None, str] | None
         ) = None
+        if _contains_duplicate_json_key(final_response):
+            del final_response
+            raise reject_response(
+                "structured_output_invalid",
+                "Gemma 4 returned duplicate JSON object keys",
+                validation_diagnostics=_duplicate_key_validation_diagnostics(),
+            ) from None
         try:
             output = RacioEpistemicInterpretationV2.model_validate_json(
                 final_response
@@ -1369,6 +1561,9 @@ __all__ = [
     "GEMMA4_EPISTEMIC_QUANTIZATION",
     "GEMMA4_EPISTEMIC_PROVIDER_REVISION",
     "GEMMA4_EPISTEMIC_SEED",
+    "GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_ID",
+    "GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_POLICY_SHA256",
+    "GEMMA4_EPISTEMIC_STRUCTURAL_PROJECTION_SCHEMA",
     "GEMMA4_EPISTEMIC_TEMPERATURE",
     "GEMMA4_EPISTEMIC_TEMPLATE",
     "GEMMA4_EPISTEMIC_TOP_K",
@@ -1378,5 +1573,6 @@ __all__ = [
     "Gemma4EpistemicFailureCode",
     "Gemma4EpistemicResponseEvidence",
     "Gemma4EpistemicSettings",
+    "Gemma4StructuralOutputProjection",
     "OllamaGemma4EpistemicProvider",
 ]

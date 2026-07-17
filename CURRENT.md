@@ -41,6 +41,19 @@
     the `option` ambiguity literal; that state mechanically requires `null`.
     The provider is correctly fail-closed. No raw thinking/final/envelope was
     persisted, calls/retries/fallbacks are `6/0/0`, and G3 remains unstarted.
+  - A subsequent REI theory review superseded that mechanical v2 ambiguity
+    contract without changing the historical diagnosis. Model-free provider
+    revision `g2-chat-v6` now requires Racio-owned tri-state uncertainty reports
+    (`uncertain`, `not_uncertain`, `not_reported`) that remain independent of
+    option, motive count and confidence.
+  - Response evidence v2 embeds the sanitized validated output and a
+    cold-verifiable provider-derived sidecar containing only option-ID presence
+    and motive-hypothesis count as derived facts. The sidecar is explicitly
+    non-semantic, non-governance and excluded from evaluator scoring.
+  - Duplicate JSON keys now fail closed at every object depth without leaking
+    model content. This was a model-free correction: calls/retries/fallbacks
+    remain `6/0/0`, G3 remains unstarted, and a new human gate is required
+    before another Gemma call.
 - Instinkt: transparent effect-rules engine; raw scene understanding remains
   open.
 - Ego: append-only composition; untagged semantic motif detection remains

@@ -352,3 +352,63 @@
   and validated motive count as provider-derived state before constructing the
   unchanged v2 output.
   Do not make another model call or auto-continue into G3 without approval.
+
+## G2 model-free REI boundary correction — 2026-07-17
+
+- theory review: the preceding recommendation was not accepted literally.
+  Deriving an ambiguity claim from option nullability and motive count would
+  hide the exact contradiction exposed by probes 3–6 and would treat output
+  shape as objective semantic evidence. The user authorized the narrower
+  REI-compatible contract correction only.
+- provider revision: `rei-racio-gemma4-epistemic-g2-chat-v6`; no Ollama or
+  other model call occurred while producing this revision.
+- Racio-owned semantics: `racio_reported_uncertainty` is a required structure
+  with separate option-mapping and motive-interpretation states: `uncertain`,
+  `not_uncertain`, or `not_reported`. The last state preserves an absent Racio
+  self-assessment without turning it into a missing transport field. The
+  structure has no default and no validator coupling it to option ID, motive
+  count, or confidence. A selected option plus `uncertain` and a null option
+  plus `not_uncertain` or `not_reported` all remain representable.
+- provider-owned structure: response evidence v2 adds a content-addressed
+  `provider_derived` sidecar containing only `option_id_present` and
+  `motive_hypothesis_count`. Its derived values explicitly exclude packet,
+  thinking, evaluator gold, and Racio-reported uncertainty. Its lineage hash
+  intentionally covers the complete validated Racio output, including that
+  report. The sidecar is marked as neither semantic evidence nor governance
+  input and is bound to the exact output hash and policy hash. Response
+  evidence embeds that sanitized typed output so cold validation can recompute
+  both derived values; content addressing alone is not treated as derivation
+  proof.
+- evaluator boundary: the semantic case evaluator never receives the sidecar.
+  The bilingual diagnostic compares only the two model-owned uncertainty
+  structures. Option determinacy and motive support remain evaluator-owned.
+  Per-case semantic calibration of the self-report is deliberately deferred;
+  it neither changes the current hard gate nor establishes model quality.
+- fail-closed hardening: the provider now rejects duplicate JSON object keys at
+  any nesting depth before Pydantic semantic validation and exposes only the
+  static `duplicate_json_key` diagnostic. Legacy `unresolved_ambiguity` and
+  model-sent provider projection fields remain forbidden extras and are never
+  rewritten or silently removed.
+- fixed Slovene contract text now attributes non-inference and hypotheses to
+  Racio rather than claiming that observations objectively determine or
+  support a motive.
+- model-free focused verification: `109/109` tests passed across the v2 contract,
+  evaluator, provider, provenance sidecar, all eight option-presence × motive-
+  count shapes, tri-state omission, complete-JSON duplicate guards, cold
+  projection replay, and packet/provider/model lineage tamper checks.
+- broader model-free evaluation regression: `381/381` tests passed with a
+  repository-local pytest basetemp. The run excluded only C3 official
+  source-gate tests, which intentionally require their frozen clean-main
+  context, and `test_c4_stage1_*`, whose unmerged C4 modules are absent from
+  this feature worktree. The C3 holdout-protocol suite was included. An earlier
+  unfiltered attempt had only those collection/source-gate and system-temp
+  constraints and is not used as acceptance evidence.
+- historical probe hashes and the earlier `ambiguity_state_mismatch` diagnosis
+  remain unchanged as evidence of the superseded v2 draft's technical failure.
+- calls/retries/fallbacks remain `6 / 0 / 0`; development screen remains not
+  started and Gemma development calls remain `0/16`.
+- authority: this correction is still an `implementation_hypothesis`, not
+  semantic acceptance, model-capability evidence, or authorization to proceed.
+- next allowed step: human review of the v6 contract and model-free evidence.
+  A new Gemma confirmation call or G3 dispatch requires a new explicit user
+  authorization; no phase auto-continues.

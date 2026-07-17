@@ -12,10 +12,10 @@ from app.backend.rei.communication.conscious_access import (
 from app.backend.rei.communication.epistemic_interpreter import (
     MOTIVE_HYPOTHESIS_EXPLANATION_SL,
     MOTIVE_UNKNOWN_REASON_SL,
-    OPTION_AMBIGUITY_SL,
     MotiveHypothesis,
     RacioEpistemicInterpretationV2,
     RacioEpistemicPacketV2,
+    RacioReportedUncertainty,
 )
 from app.backend.rei.communication.structured_interpreter import (
     StructuredRacioInterpreterOutput,
@@ -143,7 +143,8 @@ def _output(
     action: str = "set_boundary",
     action_confidence: float = 0.9,
     cited: tuple[str, ...] = ("observation_001",),
-    ambiguity: str | None = OPTION_AMBIGUITY_SL,
+    option_uncertainty: str = "uncertain",
+    motive_uncertainty: str = "not_uncertain",
 ) -> RacioEpistemicInterpretationV2:
     return RacioEpistemicInterpretationV2(
         source_mind="E",
@@ -158,7 +159,10 @@ def _output(
             if motives
             else MOTIVE_UNKNOWN_REASON_SL
         ),
-        unresolved_ambiguity=ambiguity,
+        racio_reported_uncertainty=RacioReportedUncertainty(
+            option_mapping=option_uncertainty,
+            motive_interpretation=motive_uncertainty,
+        ),
     )
 
 
@@ -299,7 +303,6 @@ def test_option_text_cannot_create_hidden_signal() -> None:
     overcommitted = _output(
         option_id="option_001",
         option_confidence=0.9,
-        ambiguity=None,
     )
 
     result = evaluate_racio_epistemic_case(
@@ -487,27 +490,67 @@ def test_motive_explanation_rejects_character_diagnosis_and_fact_claims(
         )
 
 
-@pytest.mark.parametrize(
-    ("field_name", "unsafe_text"),
-    (
-        (
-            "motive_unknown_reason",
-            "Oseba je depresivna, čeprav motiv morda ni določljiv.",
-        ),
-        (
-            "unresolved_ambiguity",
-            "Karakter je zagotovo razlog za to dvoumnost.",
-        ),
-    ),
-)
-def test_free_text_fields_reject_character_or_diagnosis_claims(
-    field_name: str,
-    unsafe_text: str,
-) -> None:
+def test_free_text_field_rejects_character_or_diagnosis_claims() -> None:
     payload = _output().model_dump(mode="python", round_trip=True)
-    payload[field_name] = unsafe_text
+    payload["motive_unknown_reason"] = (
+        "Oseba je depresivna, čeprav motiv morda ni določljiv."
+    )
     with pytest.raises(ValidationError):
         RacioEpistemicInterpretationV2.model_validate(payload)
+
+
+def test_racio_reported_uncertainty_is_required_and_model_owned() -> None:
+    missing = _output().model_dump(mode="python", round_trip=True)
+    missing.pop("racio_reported_uncertainty")
+    with pytest.raises(ValidationError, match="Field required"):
+        RacioEpistemicInterpretationV2.model_validate(missing)
+
+    selected_but_uncertain = _output(
+        option_id="option_001",
+        option_confidence=1.0,
+        option_uncertainty="uncertain",
+        motive_uncertainty="uncertain",
+    )
+    assert selected_but_uncertain.inferred_option_id == "option_001"
+    assert selected_but_uncertain.racio_reported_uncertainty == (
+        RacioReportedUncertainty(
+            option_mapping="uncertain",
+            motive_interpretation="uncertain",
+        )
+    )
+
+    no_option_without_self_assessment = _output(
+        option_uncertainty="not_reported",
+        motive_uncertainty="not_reported",
+    )
+    assert no_option_without_self_assessment.inferred_option_id is None
+    assert (
+        no_option_without_self_assessment.racio_reported_uncertainty
+        == RacioReportedUncertainty(
+            option_mapping="not_reported",
+            motive_interpretation="not_reported",
+        )
+    )
+
+
+def test_per_case_uncertainty_calibration_is_deliberately_deferred() -> None:
+    packet = _packet()
+    gold = _gold()
+    evaluations = tuple(
+        evaluate_racio_epistemic_case(
+            packet=packet,
+            gold=gold,
+            output=_output(
+                option_uncertainty=state,
+                motive_uncertainty=state,
+            ),
+            input_packet_unchanged=True,
+        )
+        for state in ("uncertain", "not_uncertain", "not_reported")
+    )
+
+    assert evaluations[0] == evaluations[1] == evaluations[2]
+    assert evaluations[0].hard_contract_pass is True
 
 
 def test_unknown_motive_requires_reason() -> None:
@@ -538,7 +581,6 @@ def test_confidences_are_separate() -> None:
         action_confidence=0.9,
         motives=(motive,),
         cited=("observation_001", "observation_002"),
-        ambiguity=None,
     )
 
     assert output.validate_against(packet) is output
@@ -612,8 +654,28 @@ def test_bilingual_metric_compares_structured_semantics_and_confidence() -> None
     assert result.action_consistent is True
     assert result.option_consistent is True
     assert result.motive_subtype_consistent is True
+    assert result.reported_uncertainty_consistent is True
     assert result.motive_confidence_delta == 0.05
     assert result.motive_confidence_consistent is True
+
+    changed_en_output = RacioEpistemicInterpretationV2(
+        **{
+            **en_output.model_dump(mode="python", round_trip=True),
+            "racio_reported_uncertainty": RacioReportedUncertainty(
+                option_mapping="not_reported",
+                motive_interpretation="not_uncertain",
+            ),
+        }
+    )
+    changed = evaluate_racio_epistemic_bilingual_pair(
+        bilingual_pair_id="pair_001",
+        sl_packet=sl_packet,
+        sl_output=sl_output,
+        en_packet=en_packet,
+        en_output=changed_en_output,
+        confidence_tolerance=0.1,
+    )
+    assert changed.reported_uncertainty_consistent is False
 
 
 def test_provider_boundary_contains_no_evaluator_gold() -> None:

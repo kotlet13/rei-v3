@@ -972,6 +972,17 @@ Po poročilu se ustavi.
 
 **Šele po uporabnikovem pregledu X2.**
 
+> Dopolnitev 2026-07-17: spodnji začetni sketch je nadomeščen z uporabnikovima
+> zunanjima, v tem worktreeju še-ne-sledenima dokumentoma
+> `CODEX_Gemma4_Racio_epistemic_kickoff_2026-07-16.md` in
+> `REI_gemma4_racio_epistemic_continuation_2026-07-16.md` ter z G2 v6
+> pogodbenim popravkom v raziskovalnem dnevniku. Ta datirana dopolnitev
+> nadomesti tudi njune morebitne stare v2 reference. Polje
+> `unresolved_ambiguity` ni več veljaven v2 model-facing output; provider ga
+> zavrne fail-closed. Nadaljnja izvedba mora uporabiti obvezni tri-state
+> `racio_reported_uncertainty`, ločeni provider-derived strukturni sidecar in
+> nov človeški gate pred modelnim klicem.
+
 ## 9.1 Ne izbiraj novega modela takoj
 
 Najprej ponovno uporabi `qwen3.6:35b`.
