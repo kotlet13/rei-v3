@@ -496,3 +496,77 @@
   acceptance, or permission to begin G3.
 - next allowed step: stop for human review. G3 requires a separate explicit
   phase decision.
+
+## G3 Gemma 4 Racio epistemic development screen - 2026-07-17
+
+- user authorization: execute the bounded G3 screen on exactly eight
+  precommitted roots in Slovenian and English, for 16 Gemma calls total. The
+  provider revision, instruction, output schema, motive taxonomy, model and
+  digest, seed, sampling, context, GPU settings, and evaluator were frozen.
+  Retry was zero and fallback was none. No aggregate semantic pass/fail was
+  authorized.
+- pre-call seal: the naturalized corpus, hidden gold, manifest, one-shot
+  runner, and model-free tests were committed at
+  `d9027d97faec36f1d2c806a5efe5e935ed931014`. The manifest SHA-256 is
+  `07172858ac94a5e78dc4bf2d49e14030f5ad85021e62c120265e356063f9a6de`.
+  Before sealing and before any G3 model call, independent review removed an
+  accidentally added somatic phrase from both R1 surfaces because it would
+  have introduced motive support inconsistent with the precommitted
+  `not_identifiable` gold. No prompt or corpus change occurred after model
+  results were available.
+- model-free preflight: the sealed suite loaded as 16 cases and eight SL/EN
+  pairs with zero model calls. The focused provider, evaluator, and runner
+  suite passed `119/119`; an additional independent runner audit passed all 10
+  one-shot artifact tests. All 16 call specs were frozen before the first chat
+  dispatch.
+- frozen runtime: provider revision
+  `rei-racio-gemma4-epistemic-g2-chat-v6`; model `gemma4:31b`; exact digest
+  `6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7`;
+  seed `314159`; temperature `0`; top-p `0.95`; top-k `64`;
+  `num_ctx=65536`; `num_gpu=999`; `num_predict=16384`; endpoint `/api/chat`;
+  thinking enabled and private; raw and stream disabled. Runtime response
+  evidence recorded context `65536` and `100% GPU` placement.
+- execution result: exactly 16 `/api/chat` dispatches completed in the sealed
+  order. All 16 produced strict JSON/Pydantic-valid outputs, response evidence,
+  and successful `ProviderCallRecord` artifacts. G3 calls/retries/fallbacks
+  were `16 / 0 / 0`; provider successes/failures were `16 / 0`.
+- evidence: 204 generated files were copied byte-for-byte into
+  `Docs/evals/semantic_lab_v1/g3-gemma4-racio-epistemic-2026-07-17/`.
+  Cold validation replayed all 16 provider execution lineages, all 16 case
+  evaluations, and all eight bilingual evaluations. No private thinking text
+  or raw response envelope was persisted. The complete ten-section human
+  report is `gemma4_racio_epistemic_dev_screen.md`.
+- structural contract: all four structural dimensions were true in `16/16`
+  cases. This is structural evidence only.
+- action interpretation: supported `8/16`; unsupported `8/16`; action citation
+  support `16/16`.
+- option mapping and abstention: all 12 unique cases mapped correctly and all
+  four underdetermined cases abstained as required; option citation support was
+  `16/16`; option mapping was bilingual-consistent in `8/8` pairs.
+- motives: support states were supported `4`, hierarchy-compatible `1`,
+  partially supported `9`, unknown preserved `1`, and unsupported `1`.
+  Coverage was `1.0` in 15 cases and `0.0` only in R1 EN. Citation failure
+  count was zero in all cases, but the evaluator counted 15 unsupported motive
+  hypotheses across 10 cases.
+- confidence: action and option values were within evaluator bounds in
+  `16/16`; motive values were within bounds in `15/16`. R1 EN emitted two
+  unsupported motives above its zero-confidence motive bound.
+- Racio self-report: all 16 structures were valid; no value was mechanically
+  repaired or used as a hard gate. Option self-report was `not_uncertain` for
+  all 12 unique cases and `uncertain` for all four underdetermined cases.
+  Motive self-report was `uncertain` in seven and `not_uncertain` in nine.
+  Bilingual self-report consistency was `7/8`, with only R5 differing.
+- bilingual dimensions: source mind and option were consistent in `8/8`;
+  action `3/8`; motive family `7/8`; motive subtype `4/8`; citations `7/8`;
+  Racio uncertainty `7/8`. Pair consistency is not correctness; H15 was
+  action-consistent because both outputs shared the same unsupported action.
+- individual findings: 14 cases carried one or more evaluator research
+  observations; only H11 SL and R5 EN carried none. There were no provider
+  failures. The compact generated `summary.json` exposes only provider failure
+  code counts under its `individual_failures` key, so the canonical report and
+  per-case artifacts are the sources for semantic individual findings.
+- cumulative technical calls/retries/fallbacks: `24 / 0 / 0`. G3 development
+  calls are complete at `16/16`.
+- authority: no aggregate semantic result was computed. Gemma is not promoted,
+  runtime integration is not started, and no further phase or model call is
+  authorized. Stop for human review.

@@ -19,6 +19,7 @@ Docs/evals/semantic_lab_v1/c3-racio-official-pair-*/** text eol=lf
 
 # G3 freezes the Gemma 4 development corpus and manifest by raw SHA-256.
 knowledge/canon_v2/semantic_lab_v1/gemma4_epistemic_dev_v1/** text eol=lf
+Docs/evals/semantic_lab_v1/g3-gemma4-racio-epistemic-2026-07-17/** text eol=lf
 
 # C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
 tests/fixtures/semantic_lab_v1/** text eol=lf

@@ -1,6 +1,6 @@
 # Current Project State
 
-## Research reset status - 2026-07-16
+## Research reset status - 2026-07-17
 
 - Architecture status: stable.
 - Technical contract status: strong.
@@ -65,10 +65,26 @@
     `gemma4_epistemic_response_b66ec431c6dcae651f18da3c046f3864` plus a
     successful `ProviderCallRecord`. Exact digest, context `65536`,
     `num_gpu=999`, and `100% GPU` placement were recorded.
-  - The successful output and Racio uncertainty self-report are technical
-    evidence only. Per-case semantic correctness and uncertainty calibration
-    were not scored. Cumulative calls/retries/fallbacks are `8/0/0`; G3 remains
-    unstarted at `0/16` and still requires an explicit phase decision.
+  - The successful confirmation output and its Racio uncertainty self-report
+    remain technical evidence only; they were not reused as G3 semantic gold.
+  - After a separate explicit phase decision, the sealed G3 development screen
+    completed exactly 16/16 Gemma calls over eight precommitted SL/EN roots.
+    All calls produced validated outputs and successful `ProviderCallRecord`
+    artifacts with retry `0`, fallback `none`, context `65536`, `num_gpu=999`,
+    and recorded `100% GPU` placement.
+  - G3's independent dimensions are mixed: structural contract `16/16`; action
+    support `8/16`; all 12 unique options mapped and all four required
+    abstentions were observed; 15 unsupported motive hypotheses occurred
+    across 10 cases; motive confidence was within bound in `15/16`; action
+    bilingual consistency was `3/8`; option consistency was `8/8`; Racio
+    uncertainty self-report consistency was `7/8` and remains non-gating.
+  - The complete report and sanitized evidence are in
+    `Docs/evals/research_reset_2026-07/gemma4_racio_epistemic_dev_screen.md`
+    and
+    `Docs/evals/semantic_lab_v1/g3-gemma4-racio-epistemic-2026-07-17/`.
+    No aggregate semantic pass/fail was computed, Gemma is not promoted, and
+    runtime integration has not started. Cumulative
+    calls/retries/fallbacks are `24/0/0`; stop for human review.
 - Instinkt: transparent effect-rules engine; raw scene understanding remains
   open.
 - Ego: append-only composition; untagged semantic motif detection remains
