@@ -171,6 +171,48 @@ Ne dokazujejo halucinacije, psihološke napačne interpretacije ali značaja
 resnične osebe. Tudi uspešen kandidat ostane eksplicitni benchmark kandidat brez
 default oziroma production avtoritete.
 
+### G1 epistemološka pogodba v2 — 2026-07-17
+
+Status: `implementation_hypothesis`, omejeno na razvojni RacioInterpreter v2;
+ne spreminja zamrznjene C3 v1 sheme, prompta, golda ali rezultatov.
+
+V2 loči neposredno prepoznano akcijsko težnjo, mapiranje javne možnosti in
+hipoteze o motivu. Ime akcije samo po sebi ni dokaz motiva, opis možnosti pa je
+dovoljen samo za mapiranje že vidne smeri. Če signal ne razlikuje dveh
+modalnosti iste akcije, je pravilen `null` option. Če motiv ni vidno podprt, je
+pravilen prazen seznam hipotez z razlogom neznanke.
+
+Za prvi razvojni rez je sprejeta naslednja zamenljiva hierarhija:
+
+```text
+scene
+├── desired_scene_absent
+├── desired_scene_mismatch
+├── broken_scene
+├── recurrent_broken_scene
+├── scene_realization
+└── scene_repair
+
+motor_social
+├── motor_execution
+├── connection
+├── competition
+└── attention_or_status
+
+protection
+├── general_body_alarm
+├── boundary_alarm
+├── attachment_alarm
+├── resource_alarm
+├── trust_alarm
+└── escape_alarm
+```
+
+Ta hierarhija operacionalizira razlike iz kanoničnih virov in človeških
+popravkov H3/H7/H11. Ni neposredna trditev iz knjige, empirično potrjena
+taksonomija ali dovoljenje za sklepanje skritega nativnega motiva. Njena
+ustreznost ostaja odprta in jo mora poznejši untouched holdout oceniti ločeno.
+
 ## OQ-TRANSLATION-001 — zvestoba Racijevega prevoda
 
 Kako evaluator loči uporaben prevod od opustitve, racionalizacije,
