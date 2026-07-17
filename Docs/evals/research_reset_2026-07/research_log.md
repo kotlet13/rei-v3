@@ -168,3 +168,187 @@
 - next allowed step: G1 — add the parallel epistemic output contract/evaluator
   v2 and complete a deterministic 8–12-case pass-symmetry audit before any
   Gemma call.
+
+## G2 — six Gemma 4 technical probes stopped before the development screen
+
+- date: 2026-07-17
+- branch: `codex/racio-gemma4-epistemic-interpreter`
+- model: local `gemma4:31b`, exact Ollama digest
+  `6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7`
+- runtime identity: Ollama `0.31.2`, `Q4_K_M`, 31,273,089,132 parameters,
+  19,868,981,791 serialized bytes, context capability `262144`
+- request profile: context `65536`, `num_gpu=999`, seed `314159`, temperature
+  `0`, top-p `0.95`, top-k `64`, `num_predict=2048`, stream/raw false,
+  keep-alive `10m`, retry `0`, fallback `none`
+- first technical probe: exactly one `/api/generate` call using the trivial
+  sanitized Slovenian packet; it is not part of any semantic score
+- packet SHA-256:
+  `fd280f75a1bcd2d70fbc4122c43bbc8a61293f8c411a5ab375301f14646c4059`
+- provider payload SHA-256:
+  `bc9df98eddac77530d4653a7ebed178f7b060072b3136e77bc6bca15afc7a63f`
+- call-spec SHA-256:
+  `3780a7250860a4469a911d3d06ca4b5ed15be22514d261031c528e66e5e7d4a3`
+- instruction SHA-256:
+  `8c496c2be42d16c370eda4a3eb823bd16ccf5b07c2e71f5b21105ffeab90819e`
+- model-facing schema SHA-256:
+  `92515d2e697ae5892524f5674c708d1b360b280773f125fb8cd902adf05e9385`
+- observed placement after the call: `gemma4:31b`, context `65536`, `100% GPU`
+- result: `thinking_separation_failure`; Ollama returned no separate non-empty
+  thinking field, so the provider rejected the response before structured
+  semantic evaluation
+- privacy: no thinking text, final response, or raw response envelope was
+  printed, stored, or added to Git; no thinking hash exists because the field
+  was absent or empty
+- user amendment: after the first stop, the user explicitly authorized exactly
+  one additional endpoint experiment through native `/api/chat`. This raises
+  the bounded cycle ceiling from 17 to 18 calls without authorizing a retry.
+- second technical probe: exactly one `/api/chat` call with the same packet,
+  digest, instruction, schema, seed, sampling settings, context, and GPU pin;
+  the request used system/user messages and sent no unsupported `raw` field
+- chat request-payload SHA-256:
+  `168adfe902992f90eaded111946747bf7e665bf2d990b9418eb8da8a7757f371`
+- chat messages SHA-256:
+  `f0e6c6aa1d5398a964e51cc5f10e4640fc830c7ad2413af67e9431898ae90dd5`
+- chat call-spec SHA-256:
+  `f82edfa196a9de8967ff329a2eeace6cfdb75f56f6676e52029ea83a408669f9`
+- chat result: the response passed clean-stop/model/envelope checks, contained
+  separate non-empty thinking and final content, and passed post-call exact
+  runtime/context/full-GPU checks. It then failed closed as
+  `structured_output_invalid` when final content did not validate as
+  `RacioEpistemicInterpretationV2`.
+- second-probe privacy: no thinking text, final content, or raw response
+  envelope was printed, persisted, or added to Git. The one-shot harness exited
+  on the sanitized exception, so response/thinking fingerprints were not
+  durably captured.
+- model-free diagnostic amendment: provider revision
+  `rei-racio-gemma4-epistemic-g2-chat-v3` keeps the v2 schema and semantic gate
+  fail-closed but makes a future structured-output failure reviewable through
+  an exact issue count, sanitized Pydantic error type, schema-whitelisted field
+  path, value-free diagnostic fingerprint, and final-response SHA-256/byte
+  count. Unknown model-controlled field names collapse to `*`; raw Pydantic
+  input, messages, context, final content, and thinking remain unavailable.
+- leakage regression: the sanitized exception is raised only after leaving the
+  Pydantic exception context; tests require both `__cause__` and `__context__`
+  to be absent and verify stable fingerprints across different secret values.
+  This amendment made no model call and cannot diagnose the already-discarded
+  second response retroactively.
+- diagnostic authorization: the user explicitly authorized an evidence-driven
+  `/api/chat` diagnosis. It is bounded here to one classification probe and,
+  only after a concrete model-free diagnostic refinement, one deterministic
+  confirmation probe. Neither is a retry; prompt/schema/sampling changes,
+  fallback, another model, and G3 dispatch remain forbidden in this sequence.
+- third technical probe: exactly one `g2-chat-v3` `/api/chat` call used the
+  current reproducible provider unit-test packet. This packet is not claimed
+  to reproduce the discarded second-probe packet byte-for-byte.
+- third-probe packet SHA-256:
+  `1ec04b21901b29318f2825e4742d8f7e59fe1556a9286d2d99699ee8ab2e70c0`
+- third-probe provider-payload SHA-256:
+  `8c459e0f8c4a005a589b8a722e8fa8c4df509cd7fc6b0589be1e26f46311a0ad`
+- third-probe request-payload SHA-256:
+  `e578fa18b42366728fc65d3d20314896cd1712f0c606a09cca43985f7844a583`
+- third-probe messages SHA-256:
+  `48f7d4e9400f83910579e88073446fcd092409f53dd72c60827d5bdc2322abe1`
+- third-probe call-spec SHA-256:
+  `fa407defb302cde63263dde7f1718e03d8a3c6b21292872e3928454df031ce18`
+- third-probe result: one `/api/chat` dispatch, clean separate thinking and
+  final fields, then one `structured_output_invalid` issue of type
+  `value_error` at `$`; diagnostic SHA-256
+  `9ac3f3295e1e4cd1326880219a9bc6577ac83cd5282e9da022ceadd27a77cd2a`.
+- third-probe rejected envelope: 4,004 bytes, SHA-256
+  `58d6e6e6956d63e4c481622174f4a7a1c1a218c670eccb7b01789b1aa8242694`;
+  rejected final: 387 bytes, SHA-256
+  `edb1917fe549227e9f2494c7e5ddeaf92276c815eb5bbeff858a56d5ec373f0f`;
+  thinking: 3,180 bytes, SHA-256
+  `b545794c05ac2fac900c49fdebfa3f313db81efc6f016eb2633c611518d6157b`.
+- third-probe runtime: provider pre/post checks passed and independent
+  `wsl ollama ps` showed `gemma4:31b`, context `65536`, and `100% GPU`.
+  No raw thinking, final content, envelope, Pydantic context, or traceback was
+  printed or persisted.
+- model-free invariant refinement: provider revision
+  `rei-racio-gemma4-epistemic-g2-chat-v4` maps only exact built-in `ValueError`
+  instances with one exact static validator message to a closed invariant code.
+  All other context shapes remain `unclassified`; raw context/messages are
+  neither copied nor hashed. Focused G1+G2 tests pass `84/84`.
+- fourth technical probe: exactly one v4 confirmation `/api/chat` call passed
+  the frozen preflight hashes from the third probe. The v4 call-spec SHA-256 was
+  `75413d2e2a2b447ebf7a5c9f004e3b052f576c7df9f1d8152b59bcdbb0f7c904`.
+- fourth-probe result: one root `value_error` was classified as
+  `ambiguity_state_mismatch`; diagnostic SHA-256
+  `0038d951c6fbd56e538ad6256d1f85b11f55890b6dcfc0c436610be22734c9cb`.
+  The final response was byte-identical to the third probe: 387 bytes and
+  SHA-256
+  `edb1917fe549227e9f2494c7e5ddeaf92276c815eb5bbeff858a56d5ec373f0f`.
+- fourth-probe rejected envelope: 3,723 bytes, SHA-256
+  `46d1411cce835765073d8606b7e90a834c48b2d16d487d4922bf9b8568a88dba`;
+  thinking: 2,912 bytes, SHA-256
+  `1256e59c960a3093f2b749a4c1e7c96d5e5a77c05d2881615e1d61efaca3fa85`.
+  The private thinking differed, but the validated final-response bytes did
+  not; runtime/context/full-GPU checks again passed with one dispatch and no
+  retry or fallback.
+- diagnosis: the v2 validator requires `unresolved_ambiguity` to follow a
+  mechanical four-way mapping from `inferred_option_id` nullability and whether
+  `motive_hypotheses` contains more than one item. The v4 instruction and JSON
+  schema enumerated allowed ambiguity strings but did not expose that mapping.
+  The stable mismatch is therefore a model-facing instruction/contract gap,
+  not an empty response, endpoint, GPU, JSON syntax, or field-type failure.
+- model-free correction: provider revision
+  `rei-racio-gemma4-epistemic-g2-chat-v5` exposes the existing four-way mapping
+  verbatim in the instruction and the `unresolved_ambiguity` schema description.
+  It does not relax or alter the v2 validator. Focused G1+G2 tests remain
+  `84/84`.
+- fifth technical probe: the isolated v5 correction experiment froze packet,
+  model, seed, sampling, context, and GPU settings. Its new hashes were:
+  instruction
+  `3e4716e0a8d9d2a86eeaacf41a2632a3fceae6f1d06f419eccdeb2d48e20bef3`,
+  schema
+  `16c2d8298b732fedd39764e169815c4f29bb6d85a0196720e9743dba4c40fc98`,
+  messages
+  `f22cfc0994dc6d21d07012384d160369a3e820c757fa4246f6af2d5757ac381f`,
+  request
+  `21c17a4e23b117a5407e8b2c4a6c1e027d4255ddfdbfbf682013503a1bae730f`,
+  and call spec
+  `a08a9a58580dbffc44b7d9c23dc7368135e1b8eb6ef19a1693e3f610729db11a`.
+- fifth-probe result: the explicit mapping did not alter the final response. It
+  remained 387 bytes with SHA-256
+  `edb1917fe549227e9f2494c7e5ddeaf92276c815eb5bbeff858a56d5ec373f0f`
+  and failed with the same `ambiguity_state_mismatch` and diagnostic SHA-256
+  `0038d951c6fbd56e538ad6256d1f85b11f55890b6dcfc0c436610be22734c9cb`.
+  The rejected envelope was 3,267 bytes, SHA-256
+  `bd58b590fe7f1249dcc84ba3ec3a8f82e409d848ce702c0e3b8c8c4dbefb4a6e`;
+  thinking was 2,463 bytes, SHA-256
+  `85b2a9a25e7cea43886188b2fa4567154382e586fbd9812b9a2db7cfe8a5e22c`.
+- sixth technical probe: because the fifth probe preserved the exact final
+  hash, one at-most-one observer repeated the frozen v5 request. Packet,
+  instruction, schema, messages, request, and call-spec hashes matched the
+  fifth probe; exactly one `/api/chat` dispatch occurred with zero retries and
+  zero fallbacks. The observer derived only closed state categories in memory
+  before normal provider validation. It did not print or persist the raw
+  envelope, thinking, final JSON, decoded JSON, or traceback.
+- sixth-probe safe state: final hash and size again matched exactly;
+  `option_state=selected`, `motive_count=0`,
+  `motive_bucket=zero_or_one`, `observed_ambiguity=option`, and
+  `expected_ambiguity=none`. This is the concrete contradiction behind the
+  root invariant. The rejected envelope was 4,361 bytes, SHA-256
+  `0ff65d8c0fab38899ad3ad4afa6560d40d8c9f8c1e60ac34b1ddfab5a9301ee8`;
+  thinking was 3,503 bytes, SHA-256
+  `baad5f8285b9cdf1f1d7801d3321dd96597da82da8eb30929aa4d540d1d022ed`.
+- final G2 diagnosis: on this frozen diagnostic packet, the repeated Gemma
+  response contained individually schema-valid fields but an internally
+  contradictory redundant derived field. Prompt and schema descriptions alone
+  did not correct it. For these probes, the provider and Pydantic validator
+  behaved correctly by failing closed; the observed failure was not caused by
+  an empty response, endpoint, thinking separation, JSON syntax, digest,
+  context, or GPU placement.
+- no successful response evidence or `ProviderCallRecord` was created; the
+  one-attempt count is established by the bounded probe dispatch and external
+  runtime observation.
+- calls/retries/fallbacks: `6 / 0 / 0`
+- development screen: not started; Gemma development calls: `0/16`
+- authority: this is a technical failure observation, not a semantic model
+  rejection or acceptance
+- next allowed step: stop for a design decision. The minimal recommended fix is
+  to remove the mechanically derived `unresolved_ambiguity` field from the
+  model-facing draft and compute it deterministically from the selected option
+  and validated motive count as provider-derived state before constructing the
+  unchanged v2 output.
+  Do not make another model call or auto-continue into G3 without approval.

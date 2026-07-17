@@ -15,9 +15,32 @@
 - RacioInterpreter:
   - The official Qwen pair remains `23/32 + 23/32` and is not accepted.
   - The X2 failure audit was human-reviewed with H3/H7/H11 amendments.
-  - The next and only new candidate in this cycle is `gemma4:31b`.
-  - The active phase is epistemic output v2 plus a bounded Gemma development
-    screen.
+  - The epistemic output/evaluator v2 contract and pass-symmetry audit are in
+    place without changing the frozen v1 contract.
+  - The next and only new candidate in this cycle is `gemma4:31b` at exact
+    digest `6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7`.
+  - The first G2 `/api/generate` probe lacked a separate thinking field. One
+    explicitly authorized `/api/chat` endpoint probe then returned separate
+    thinking/content and loaded at context `65536` and `100% GPU`, but its
+    final content failed the strict v2 structured-output contract. Both probes
+    failed closed, no retry or fallback was used, and G3 was not started.
+  - After explicit diagnostic authorization, one `g2-chat-v3` probe on the
+    reproducible provider test packet again failed as
+    `structured_output_invalid`, now narrowed to one root `value_error`.
+    Thinking separation, final-content presence, exact runtime, context
+    `65536`, and `100% GPU` all passed; no retry or fallback was used.
+  - A frozen v4 confirmation returned the same 387-byte final-response hash and
+    identified `ambiguity_state_mismatch`. The validator requires a mechanical
+    four-way mapping from option selection and motive count, while the v4
+    prompt/schema exposed only the allowed ambiguity values, not that mapping.
+  - Provider revision `g2-chat-v5` exposed the existing mapping explicitly in
+    the instruction and schema description, but the correction experiment still
+    produced the same 387-byte final response and the same invariant failure.
+  - A final state-only diagnostic established the exact contradiction: the
+    model selected an option and returned zero motive hypotheses, yet emitted
+    the `option` ambiguity literal; that state mechanically requires `null`.
+    The provider is correctly fail-closed. No raw thinking/final/envelope was
+    persisted, calls/retries/fallbacks are `6/0/0`, and G3 remains unstarted.
 - Instinkt: transparent effect-rules engine; raw scene understanding remains
   open.
 - Ego: append-only composition; untagged semantic motif detection remains
