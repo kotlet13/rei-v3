@@ -16,7 +16,9 @@ from app.backend.rei.communication.epistemic_interpreter import (
 from app.backend.rei.communication.epistemic_interpreter_v3 import (
     ACTION_SUBTYPES_BY_FAMILY_V3,
     ACTION_UNKNOWN_REASON_SL_V3,
+    LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3,
     LEGACY_ACTION_RESOLUTION_V3,
+    OPTION_UNKNOWN_REASON_SL_V3,
     ActionHypothesisV3,
     AuditedBilingualTextV3,
     BilingualGlossAuditV3,
@@ -24,6 +26,7 @@ from app.backend.rei.communication.epistemic_interpreter_v3 import (
     BilingualOptionV3,
     BilingualUncertaintyV3,
     MotiveHypothesisV3,
+    OptionInferenceV3,
     RacioEpistemicInterpretationV3,
     RacioEpistemicPacketV3,
     RacioEpistemicStructuralSidecarV3,
@@ -107,6 +110,7 @@ def _packet(
     observations = (
         BilingualObservationV3(
             observation_id="observation_001",
+            atomic_evidence_unit_id="atomic_001",
             signal_alias="signal_001",
             perception_status="clear",
             text=visible("Vidna je prva smer.", "The first direction is visible."),
@@ -114,6 +118,7 @@ def _packet(
         ),
         BilingualObservationV3(
             observation_id="observation_002",
+            atomic_evidence_unit_id="atomic_002",
             signal_alias="signal_002",
             perception_status="clear",
             text=visible("Vidna je druga opora.", "The second support is visible."),
@@ -121,6 +126,7 @@ def _packet(
         ),
         BilingualObservationV3(
             observation_id="observation_003",
+            atomic_evidence_unit_id="atomic_003",
             signal_alias="signal_003",
             perception_status="clear",
             text=visible("Vidna je tretja opora.", "The third support is visible."),
@@ -186,6 +192,7 @@ def _output(
     actions: tuple[ActionHypothesisV3, ...] | None = None,
     motives: tuple[MotiveHypothesisV3, ...] = (),
     option_id: str | None = "option_001",
+    option_citations: tuple[str, ...] = ("observation_001",),
     option_uncertainty: str = "not_uncertain",
     motive_uncertainty: str = "not_uncertain",
 ) -> RacioEpistemicInterpretationV3:
@@ -196,7 +203,7 @@ def _output(
             {
                 *(item for action in actions for item in action.cited_observation_ids),
                 *(item for motive in motives for item in motive.cited_observation_ids),
-                *(("observation_001",) if option_id is not None else ()),
+                *(option_citations if option_id is not None else ()),
             }
         )
     )
@@ -205,8 +212,18 @@ def _output(
         cited_observation_ids=cited,
         action_hypotheses=actions,
         action_unknown_reason=(None if actions else ACTION_UNKNOWN_REASON_SL_V3),
-        inferred_option_id=option_id,
-        option_confidence=(0.8 if option_id is not None else 0.0),
+        option_inference=(
+            None
+            if option_id is None
+            else OptionInferenceV3(
+                option_id=option_id,
+                cited_observation_ids=option_citations,
+                confidence=0.8,
+            )
+        ),
+        option_unknown_reason=(
+            OPTION_UNKNOWN_REASON_SL_V3 if option_id is None else None
+        ),
         motive_hypotheses=motives,
         motive_unknown_reason=(None if motives else MOTIVE_UNKNOWN_REASON_SL),
         racio_reported_uncertainty=RacioReportedUncertainty(
@@ -222,6 +239,7 @@ def _gold_action(
     subtype: str | None = "set_boundary",
     family_fallback: str | None = None,
     role: str = "exact",
+    legacy_source_action: str | None = None,
     citations: tuple[str, ...] = ("observation_001",),
     modes: tuple[str, ...] = ("direct_manifestation",),
 ) -> EpistemicGoldActionHypothesisV3:
@@ -230,6 +248,7 @@ def _gold_action(
         subtype=subtype,
         family_fallback=family_fallback,
         role=role,
+        legacy_source_action=legacy_source_action,
         supporting_observation_ids=citations,
         accepted_support_modes=modes,
     )
@@ -392,7 +411,14 @@ def test_v3_action_taxonomy_resolves_legacy_ambiguities() -> None:
     assert len(LEGACY_ACTION_RESOLUTION_V3["maintain"]) == 3
     assert LEGACY_ACTION_RESOLUTION_V3["unknown"] == ()
     assert LEGACY_ACTION_RESOLUTION_V3["withdraw"] == ()
+    assert LEGACY_ACTION_RESOLUTION_V3["retreat"] == (
+        "protection_regulation/retreat",
+    )
     assert LEGACY_ACTION_RESOLUTION_V3["withdraw_contact"] == (
+        "protection_regulation/withdraw_contact",
+    )
+    assert LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3["withdraw"] == (
+        "protection_regulation/retreat",
         "protection_regulation/withdraw_contact",
     )
 
@@ -404,12 +430,56 @@ def test_v3_action_taxonomy_resolves_legacy_ambiguities() -> None:
         "seek_contact"
     )
     assert _action(subtype="maintain_boundary").subtype == "maintain_boundary"
+    assert _action(subtype="retreat").subtype == "retreat"
     assert _action(subtype="withdraw_contact").subtype == "withdraw_contact"
     fallback = _action(subtype=None, family_fallback="protect")
     assert fallback.key == (
         "protection_regulation",
         "<family_fallback:protect>",
     )
+
+
+@pytest.mark.parametrize(
+    ("gold_subtype", "output_subtype"),
+    tuple(
+        (gold_subtype, output_subtype)
+        for gold_subtype in ("seek_safety", "retreat", "withdraw_contact")
+        for output_subtype in ("seek_safety", "retreat", "withdraw_contact")
+    ),
+)
+def test_protective_spatial_contact_and_safety_actions_are_exactly_distinct(
+    gold_subtype: str,
+    output_subtype: str,
+) -> None:
+    result = _evaluate(
+        _output(actions=(_action(subtype=output_subtype),)),
+        gold=_gold(actions=(_gold_action(subtype=gold_subtype),)),
+    )
+    exact = gold_subtype == output_subtype
+    assert result.action_family_support == 1.0
+    assert result.action_subtype_support == float(exact)
+    assert result.action_unsupported_overclaims == int(not exact)
+
+
+def test_legacy_withdraw_requires_explicit_exact_gold_resolution() -> None:
+    for subtype in ("retreat", "withdraw_contact"):
+        resolved = _gold_action(
+            subtype=subtype,
+            legacy_source_action="withdraw",
+        )
+        assert resolved.legacy_source_action == "withdraw"
+
+    with pytest.raises(ValidationError, match="explicit allowed exact resolution"):
+        _gold_action(
+            subtype="seek_safety",
+            legacy_source_action="withdraw",
+        )
+    with pytest.raises(ValidationError, match="explicit allowed exact resolution"):
+        _gold_action(
+            subtype="retreat",
+            role="acceptable_sibling",
+            legacy_source_action="withdraw",
+        )
 
 
 @pytest.mark.parametrize(
@@ -548,6 +618,123 @@ def test_action_bounds_order_citations_and_speculative_support() -> None:
     assert wrong_assessment.assessment == "wrong_family"
     assert wrong_assessment.identity_precommitted is False
     assert wrong_result.action_unsupported_overclaims == 1
+
+
+def test_option_credit_uses_only_option_specific_evidence() -> None:
+    supported = _evaluate(_output(option_citations=("observation_001",)))
+    assert supported.option_mapping == "mapped"
+    assert supported.option_citation_support is True
+
+    global_only = _output(option_citations=("observation_002",))
+    assert "observation_001" in global_only.cited_observation_ids
+    assert global_only.option_inference is not None
+    assert global_only.option_inference.cited_observation_ids == (
+        "observation_002",
+    )
+    unsupported = _evaluate(global_only)
+    assert unsupported.option_mapping == "mapping_without_visible_support"
+    assert unsupported.option_citation_support is False
+
+
+def test_option_inference_and_abstention_have_one_bounded_shape() -> None:
+    abstention = _output(option_id=None)
+    assert abstention.option_inference is None
+    assert abstention.option_unknown_reason == OPTION_UNKNOWN_REASON_SL_V3
+
+    base_packet = _packet()
+    abstention_packet = RacioEpistemicPacketV3.create(
+        source_mind=base_packet.source_mind,
+        presentation_mode=base_packet.presentation_mode,
+        visible_observations=base_packet.visible_observations,
+        omitted_observation_ids=base_packet.omitted_observation_ids,
+        public_option_scope=(
+            *base_packet.public_option_scope,
+            BilingualOptionV3(
+                option_id="option_002",
+                text=_plain_text("Izberi drugo možnost."),
+            ),
+        ),
+        channel_quality=base_packet.channel_quality,
+        uncertainty=base_packet.uncertainty,
+    )
+    abstention_gold_payload = _gold().model_dump(mode="python", round_trip=True)
+    abstention_gold_payload.update(
+        option_determinacy="underdetermined",
+        acceptable_option_ids=("option_001", "option_002"),
+        option_support_observation_ids=(),
+        required_abstention=True,
+    )
+    abstention_gold = EpistemicCaseGoldV3.model_validate(
+        abstention_gold_payload
+    )
+    abstention_result = _evaluate(
+        abstention,
+        gold=abstention_gold,
+        packet=abstention_packet,
+    )
+    assert abstention_result.option_mapping == "required_abstention"
+    assert abstention_result.required_abstention == "required_and_observed"
+
+    overcommitted = _evaluate(
+        _output(),
+        gold=abstention_gold,
+        packet=abstention_packet,
+    )
+    assert overcommitted.option_mapping == "overcommitted"
+    assert overcommitted.required_abstention == "missed"
+
+    abstention_payload = abstention.model_dump(mode="python", round_trip=True)
+    abstention_payload["option_unknown_reason"] = None
+    with pytest.raises(ValidationError, match="exact bounded unknown reason"):
+        RacioEpistemicInterpretationV3.model_validate(abstention_payload)
+
+    selected_payload = _output().model_dump(mode="python", round_trip=True)
+    selected_payload["option_unknown_reason"] = OPTION_UNKNOWN_REASON_SL_V3
+    with pytest.raises(ValidationError, match="cannot also claim option unknown"):
+        RacioEpistemicInterpretationV3.model_validate(selected_payload)
+
+    selected_payload = _output().model_dump(mode="python", round_trip=True)
+    selected_payload["inferred_option_id"] = "option_001"
+    selected_payload["option_confidence"] = 0.8
+    with pytest.raises(ValidationError, match="Extra inputs"):
+        RacioEpistemicInterpretationV3.model_validate(selected_payload)
+
+    with pytest.raises(ValidationError, match="requires visible citations"):
+        OptionInferenceV3(
+            option_id="option_001",
+            cited_observation_ids=(),
+            confidence=0.8,
+        )
+    with pytest.raises(ValidationError, match="sorted and unique"):
+        OptionInferenceV3(
+            option_id="option_001",
+            cited_observation_ids=("observation_002", "observation_001"),
+            confidence=0.8,
+        )
+    with pytest.raises(ValidationError, match="positive confidence"):
+        OptionInferenceV3(
+            option_id="option_001",
+            cited_observation_ids=("observation_001",),
+            confidence=0.0,
+        )
+
+
+def test_option_inference_scope_is_validated_locally_and_globally() -> None:
+    outside_citation = _output(option_citations=("observation_999",))
+    with pytest.raises(ValueError, match="outside packet scope"):
+        outside_citation.validate_against(_packet())
+
+    outside_option = _output(option_id="option_999")
+    with pytest.raises(ValueError, match="outside public options"):
+        outside_option.validate_against(_packet())
+
+    missing_global = _output(
+        actions=(),
+        option_citations=("observation_002",),
+    ).model_dump(mode="python", round_trip=True)
+    missing_global["cited_observation_ids"] = ("observation_001",)
+    with pytest.raises(ValidationError, match="included globally"):
+        RacioEpistemicInterpretationV3.model_validate(missing_global)
 
 
 def test_direct_motive_gold_and_output_require_non_action_evidence() -> None:
@@ -886,6 +1073,54 @@ def test_unknown_action_and_motive_are_preserved_without_fake_labels() -> None:
     assert "motive_unknown_preservation_failure" in violated.research_observations
 
 
+def test_observation_atomicity_is_attested_without_text_deduplication() -> None:
+    base = _packet()
+    first, second = base.visible_observations[:2]
+
+    def rebuild(
+        observations: tuple[BilingualObservationV3, ...],
+    ) -> RacioEpistemicPacketV3:
+        return RacioEpistemicPacketV3.create(
+            source_mind=base.source_mind,
+            presentation_mode=base.presentation_mode,
+            visible_observations=observations,
+            omitted_observation_ids=base.omitted_observation_ids,
+            public_option_scope=base.public_option_scope,
+            channel_quality=base.channel_quality,
+            uncertainty=base.uncertainty,
+        )
+
+    composite = first.model_dump(mode="python", round_trip=True)
+    composite["perceptual_unit_count"] = 2
+    with pytest.raises(ValidationError):
+        BilingualObservationV3.model_validate(composite)
+
+    duplicate_observation_id = second.model_copy(
+        update={"observation_id": first.observation_id}
+    )
+    with pytest.raises(ValidationError, match="sorted and unique"):
+        rebuild((first, duplicate_observation_id))
+
+    duplicate_atomic_unit = second.model_copy(
+        update={"atomic_evidence_unit_id": first.atomic_evidence_unit_id}
+    )
+    with pytest.raises(ValidationError, match="cannot be duplicated"):
+        rebuild((first, duplicate_atomic_unit))
+
+    same_text = _plain_text("Enak površinski opis dveh različnih signalov.")
+    first_signal = first.model_copy(update={"text": same_text})
+    second_signal = second.model_copy(update={"text": same_text})
+    distinct = rebuild((first_signal, second_signal))
+    provider_rows = distinct.provider_payload()["visible_observations"]
+    assert len(provider_rows) == 2
+    assert {row["observation_id"] for row in provider_rows} == {
+        "observation_001",
+        "observation_002",
+    }
+    assert all("atomic_evidence_unit_id" not in row for row in provider_rows)
+    assert all("perceptual_unit_count" not in row for row in provider_rows)
+
+
 def test_bilingual_audit_binds_one_identity_and_rejects_semantic_drift() -> None:
     packet = _packet(presentation_mode="canonical_sl_plus_operational_en")
     payload = packet.provider_payload()
@@ -952,6 +1187,7 @@ def test_bilingual_audit_binds_one_identity_and_rejects_semantic_drift() -> None
             "protection regulation",
             "action_family:protection_regulation",
         ),
+        ("umik", "retreat", "action:retreat"),
         ("soočenje", "confrontation", "action_family:confrontation"),
         (
             "izvedba in izražanje",
@@ -1049,6 +1285,12 @@ def test_bilingual_marker_audit_aligns_slovenian_motive_terms(
 
 def test_english_presentation_requires_audited_observation_option_and_uncertainty() -> None:
     packet = _packet()
+    assert "operational_en" not in packet.provider_payload_bytes().decode("utf-8")
+    with pytest.raises(ValidationError, match="requires a human audit"):
+        AuditedBilingualTextV3(
+            canonical_sl="Vidna sprememba.",
+            operational_en="A visible change.",
+        )
     payload = packet.model_dump(mode="python", round_trip=True)
     payload["presentation_mode"] = "operational_en_only"
     payload.pop("packet_id")
@@ -1086,6 +1328,24 @@ def test_bilingual_metrics_keep_family_subtype_support_and_uncertainty_separate(
     assert pair.bilingual_family_consistency.action is True
     assert pair.bilingual_subtype_consistency.action is False
     assert pair.uncertainty_consistency.option is False
+
+    sl_option_evidence = _output(
+        motives=(_motive(),),
+        option_citations=("observation_001",),
+    )
+    en_option_evidence = _output(
+        motives=(_motive(),),
+        option_citations=("observation_002",),
+    )
+    option_pair = evaluate_racio_epistemic_bilingual_pair_v3(
+        bilingual_pair_id="pair_001",
+        sl_packet=sl_packet,
+        sl_output=sl_option_evidence,
+        en_packet=en_packet,
+        en_output=en_option_evidence,
+    )
+    assert option_pair.option_mapping_consistency is True
+    assert option_pair.citation_identity_consistency is False
 
     extra_speculative = _motive(
         family="protection",

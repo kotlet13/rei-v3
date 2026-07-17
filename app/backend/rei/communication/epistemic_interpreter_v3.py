@@ -55,6 +55,7 @@ ApproachEngageActionSubtypeV3 = Literal[
 ProtectionRegulationActionSubtypeV3 = Literal[
     "set_boundary",
     "seek_safety",
+    "retreat",
     "withdraw_contact",
     "freeze",
     "conserve",
@@ -105,6 +106,14 @@ OpaqueSignalAliasV3 = Annotated[
         max_length=80,
     ),
 ]
+AtomicEvidenceUnitIdV3 = Annotated[
+    str,
+    StringConstraints(
+        strip_whitespace=True,
+        pattern=r"^atomic_[0-9]{3,}$",
+        max_length=80,
+    ),
+]
 
 ACTION_SUBTYPES_BY_FAMILY_V3: Final[Mapping[str, frozenset[str]]] = (
     MappingProxyType(
@@ -116,6 +125,7 @@ ACTION_SUBTYPES_BY_FAMILY_V3: Final[Mapping[str, frozenset[str]]] = (
                 {
                     "set_boundary",
                     "seek_safety",
+                    "retreat",
                     "withdraw_contact",
                     "freeze",
                     "conserve",
@@ -157,6 +167,7 @@ LEGACY_ACTION_RESOLUTION_V3: Final[Mapping[str, tuple[str, ...]]] = (
             ),
             "perform": ("execution_expression/perform",),
             "protect": ("protection_regulation/<family_fallback:protect>",),
+            "retreat": ("protection_regulation/retreat",),
             "seek_attachment": ("approach_engage/seek_contact",),
             "seek_safety": ("protection_regulation/seek_safety",),
             "set_boundary": ("protection_regulation/set_boundary",),
@@ -167,6 +178,20 @@ LEGACY_ACTION_RESOLUTION_V3: Final[Mapping[str, tuple[str, ...]]] = (
     )
 )
 
+# Bare legacy ``withdraw`` remains unresolved at the communication boundary.
+# Evaluator gold may explicitly select one of these two context-dependent
+# resolutions without turning either into an automatic legacy rewrite.
+LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3: Final[
+    Mapping[str, tuple[str, ...]]
+] = MappingProxyType(
+    {
+        "withdraw": (
+            "protection_regulation/retreat",
+            "protection_regulation/withdraw_contact",
+        )
+    }
+)
+
 ACTION_UNKNOWN_REASON_SL_V3: Final = (
     "Racio iz navedenih vidnih opazk ni izpeljal akcijske hipoteze."
 )
@@ -175,6 +200,12 @@ ActionUnknownReasonSlV3 = Literal[
 ]
 MotiveUnknownReasonSlV3 = Literal[
     "Racio iz navedenih vidnih opazk ni izpeljal motivne hipoteze."
+]
+OPTION_UNKNOWN_REASON_SL_V3: Final = (
+    "Racio iz navedenih vidnih opazk ni izpeljal dovolj podprte izbire možnosti."
+)
+OptionUnknownReasonSlV3 = Literal[
+    "Racio iz navedenih vidnih opazk ni izpeljal dovolj podprte izbire možnosti."
 ]
 
 
@@ -264,6 +295,26 @@ class MotiveHypothesisV3(FrozenModel):
         return self
 
 
+class OptionInferenceV3(FrozenModel):
+    """One option claim with evidence scoped only to that claim."""
+
+    option_id: NonEmptyId
+    cited_observation_ids: tuple[NonEmptyId, ...]
+    confidence: Score01
+
+    @model_validator(mode="after")
+    def validate_option_inference(self) -> Self:
+        if not self.cited_observation_ids:
+            raise ValueError("An option inference requires visible citations")
+        if self.cited_observation_ids != tuple(
+            sorted(set(self.cited_observation_ids))
+        ):
+            raise ValueError("Option citations must be sorted and unique")
+        if self.confidence == 0.0:
+            raise ValueError("A selected option requires positive confidence")
+        return self
+
+
 _DIRECT_RESERVED_MARKERS_V3: Final[Mapping[str, str]] = MappingProxyType(
     {
         **{
@@ -322,6 +373,13 @@ _RESERVED_MARKER_ALIASES_V3: Final[Mapping[str, tuple[str, ...]]] = (
             "action:maintain_contact": ("ohraniti stik", "maintain contact"),
             "action:set_boundary": ("postaviti mejo", "set boundary"),
             "action:seek_safety": ("poiskati varnost", "seek safety", "safer direction"),
+            "action:retreat": (
+                "umik",
+                "umika",
+                "prostorski umik",
+                "umik v prostoru",
+                "retreat",
+            ),
             "action:withdraw_contact": ("prekiniti stik", "end contact", "withdraw contact"),
             "action:freeze": ("zamrzniti", "freeze"),
             "action:conserve": ("varčevati", "conserve"),
@@ -334,7 +392,6 @@ _RESERVED_MARKER_ALIASES_V3: Final[Mapping[str, tuple[str, ...]]] = (
             "action:coordinate": ("uskladiti", "coordinate"),
             "action:maintain_execution": ("ohraniti izvedbo", "maintain execution"),
             "family_fallback:protect": ("zaščititi", "protect"),
-            "semantic:retreat": ("umik", "umika", "retreat"),
             "action_family:approach_engage": (
                 "pristop in vključevanje",
                 "approach engage",
@@ -674,9 +731,11 @@ class AuditedBilingualTextV3(FrozenModel):
 
 
 class BilingualObservationV3(FrozenModel):
-    """One evidence identity with an opaque signal alias and audited text."""
+    """One citeable observation plus non-provider-facing atomicity attestation."""
 
     observation_id: NonEmptyId
+    atomic_evidence_unit_id: AtomicEvidenceUnitIdV3
+    perceptual_unit_count: Literal[1] = 1
     signal_alias: OpaqueSignalAliasV3
     perception_status: Literal["clear", "degraded"]
     text: AuditedBilingualTextV3 | None
@@ -791,6 +850,13 @@ class RacioEpistemicPacketV3(FrozenArtifactModel):
         signal_aliases = tuple(item.signal_alias for item in self.visible_observations)
         if len(signal_aliases) != len(set(signal_aliases)):
             raise ValueError("Opaque signal aliases must be unique")
+        atomic_unit_ids = tuple(
+            item.atomic_evidence_unit_id for item in self.visible_observations
+        )
+        if len(atomic_unit_ids) != len(set(atomic_unit_ids)):
+            raise ValueError(
+                "One atomic evidence unit cannot be duplicated across observations"
+            )
         if self.omitted_observation_ids != tuple(
             sorted(set(self.omitted_observation_ids))
         ):
@@ -829,7 +895,7 @@ class RacioEpistemicPacketV3(FrozenArtifactModel):
         return self
 
     def provider_payload(self) -> dict[str, object]:
-        """Return one explicit evidence unit per observation, without audit data."""
+        """Return one citeable row per observation, without audit/atomic metadata."""
 
         observations: list[dict[str, object]] = []
         for item in self.visible_observations:
@@ -881,8 +947,8 @@ class RacioEpistemicInterpretationV3(FrozenModel):
     cited_observation_ids: tuple[NonEmptyId, ...]
     action_hypotheses: tuple[ActionHypothesisV3, ...]
     action_unknown_reason: ActionUnknownReasonSlV3 | None
-    inferred_option_id: NonEmptyId | None
-    option_confidence: Score01
+    option_inference: OptionInferenceV3 | None
+    option_unknown_reason: OptionUnknownReasonSlV3 | None
     motive_hypotheses: tuple[MotiveHypothesisV3, ...]
     motive_unknown_reason: MotiveUnknownReasonSlV3 | None
     racio_reported_uncertainty: RacioReportedUncertainty
@@ -920,12 +986,16 @@ class RacioEpistemicInterpretationV3(FrozenModel):
         if self.motive_hypotheses != expected_motives:
             raise ValueError("Motive hypotheses must use canonical confidence order")
         global_citations = set(self.cited_observation_ids)
-        hypotheses = (*self.action_hypotheses, *self.motive_hypotheses)
+        scoped_claims = (
+            *self.action_hypotheses,
+            *((self.option_inference,) if self.option_inference is not None else ()),
+            *self.motive_hypotheses,
+        )
         if any(
             not set(item.cited_observation_ids).issubset(global_citations)
-            for item in hypotheses
+            for item in scoped_claims
         ):
-            raise ValueError("Hypothesis citations must be included globally")
+            raise ValueError("Claim-specific citations must be included globally")
         if self.action_hypotheses:
             if self.action_unknown_reason is not None:
                 raise ValueError("Populated actions cannot claim action unknown")
@@ -936,11 +1006,13 @@ class RacioEpistemicInterpretationV3(FrozenModel):
                 raise ValueError("Populated motives cannot claim motive unknown")
         elif self.motive_unknown_reason != MOTIVE_UNKNOWN_REASON_SL:
             raise ValueError("Empty motives require the exact bounded unknown reason")
-        if self.inferred_option_id is None:
-            if self.option_confidence != 0.0:
-                raise ValueError("Option abstention requires zero confidence")
-        elif self.option_confidence == 0.0:
-            raise ValueError("A selected option requires positive confidence")
+        if self.option_inference is None:
+            if self.option_unknown_reason != OPTION_UNKNOWN_REASON_SL_V3:
+                raise ValueError(
+                    "Option abstention requires the exact bounded unknown reason"
+                )
+        elif self.option_unknown_reason is not None:
+            raise ValueError("A selected option cannot also claim option unknown")
         return self
 
     def validate_against(
@@ -959,18 +1031,23 @@ class RacioEpistemicInterpretationV3(FrozenModel):
                 raise ValueError("An empty packet cannot have citations")
             if (
                 self.action_hypotheses
-                or self.inferred_option_id is not None
+                or self.option_inference is not None
                 or self.motive_hypotheses
             ):
                 raise ValueError("An empty packet requires full epistemic abstention")
         if (
-            self.inferred_option_id is not None
-            and self.inferred_option_id not in set(packet.public_option_ids)
+            self.option_inference is not None
+            and self.option_inference.option_id not in set(packet.public_option_ids)
         ):
             raise ValueError("Epistemic v3 output selects outside public options")
-        for hypothesis in (*self.action_hypotheses, *self.motive_hypotheses):
-            if not set(hypothesis.cited_observation_ids).issubset(visible_ids):
-                raise ValueError("A v3 hypothesis cites outside packet scope")
+        scoped_claims = (
+            *self.action_hypotheses,
+            *((self.option_inference,) if self.option_inference is not None else ()),
+            *self.motive_hypotheses,
+        )
+        for claim in scoped_claims:
+            if not set(claim.cited_observation_ids).issubset(visible_ids):
+                raise ValueError("A v3 claim cites outside packet scope")
         return self
 
 
@@ -986,7 +1063,7 @@ class RacioEpistemicStructuralSidecarV3(FrozenModel):
         output: RacioEpistemicInterpretationV3,
     ) -> "RacioEpistemicStructuralSidecarV3":
         return cls(
-            option_id_present=output.inferred_option_id is not None,
+            option_id_present=output.option_inference is not None,
             motive_hypothesis_count=len(output.motive_hypotheses),
         )
 
@@ -995,6 +1072,7 @@ __all__ = [
     "ACTION_PARENT_FALLBACKS_V3",
     "ACTION_SUBTYPES_BY_FAMILY_V3",
     "ACTION_UNKNOWN_REASON_SL_V3",
+    "AtomicEvidenceUnitIdV3",
     "ActionFamilyFallbackV3",
     "ActionFamilyV3",
     "ActionHypothesisV3",
@@ -1009,12 +1087,16 @@ __all__ = [
     "BilingualUncertaintyV3",
     "ConfrontationActionSubtypeV3",
     "ExecutionExpressionActionSubtypeV3",
+    "LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3",
     "LEGACY_ACTION_RESOLUTION_V3",
     "MotiveHypothesisV3",
     "MotiveSupportModeV3",
     "MotiveSubtypeV3",
     "MotiveUnknownReasonSlV3",
     "OpaqueSignalAliasV3",
+    "OPTION_UNKNOWN_REASON_SL_V3",
+    "OptionInferenceV3",
+    "OptionUnknownReasonSlV3",
     "PresentationModeV3",
     "ProtectionRegulationActionSubtypeV3",
     "RacioEpistemicInterpretationV3",

@@ -235,3 +235,146 @@ hashes, demonstrating that v3 did not rewrite those contracts.
 G3B stops after the isolated contract, evaluator, documentation, tests, commit,
 and feature-branch push. G3C, G4, shadow runtime integration, PR, and merge all
 require separate authorization.
+
+## G3B.1 finalization
+
+G3B.1 is the single authorized finalization of v3 before any v3 model call,
+provider response, or runtime artifact exists. It refines only the isolated v3
+contract/evaluator. The preceding G3B record remains the historical design
+decision; v1, v2, frozen G3 evidence, and G3A adjudication remain unchanged.
+
+### Option-specific evidence
+
+The two parallel option scalars are replaced by one optional claim:
+
+```text
+OptionInferenceV3
+├── option_id
+├── cited_observation_ids
+└── confidence
+```
+
+An option selection requires nonempty, canonical, visible citations and
+positive confidence. When no selection is made, `option_inference` is absent
+and `option_unknown_reason` must equal the single bounded contract value. A
+selection and an option-unknown reason are mutually exclusive.
+
+The evaluator derives option support exclusively from
+`option_inference.cited_observation_ids`. Global `cited_observation_ids` remains
+a union/diagnostic scope list and must contain every claim-local citation, but
+it cannot grant option credit. An action or motive citation therefore cannot
+silently support option mapping.
+
+### Final protective action semantics
+
+`protection_regulation/retreat` is added as an exact subtype. The three nearby
+actions have different identities:
+
+- `seek_safety`: a direction or goal toward a safer state; it does not require
+  physical withdrawal;
+- `retreat`: manifested physical or spatial increase of distance; it does not
+  assert interpersonal disconnection or a safety motive;
+- `withdraw_contact`: reduction or termination of interpersonal contact; it
+  does not require spatial movement.
+
+Bare legacy `withdraw` remains unmapped at the communication boundary. An
+evaluator gold entry may record `legacy_source_action="withdraw"` only while
+explicitly resolving it to exact `retreat` or exact `withdraw_contact`.
+`seek_safety`, a sibling role, or a family fallback is not a valid legacy
+resolution.
+
+The following short definitions are normative for v3:
+
+| Action | Normative manifested meaning |
+|---|---|
+| `approach` | Movement or orientation closer to a target, without claiming that contact was established. |
+| `connect` | Actual establishment of contact or a communication channel. |
+| `seek_contact` | An attempt or direction toward establishing or restoring contact; success is not required and the label is motive-neutral. |
+| `maintain_contact` | Preservation of contact that already exists. |
+| `seek_safety` | Direction or goal toward a safer state, without necessarily retreating. |
+| `retreat` | Physical or spatial increase of distance, without claiming contact termination or a safety motive. |
+| `withdraw_contact` | Reduction or termination of interpersonal contact, without necessarily moving in space. |
+| `protect` family fallback | Parent-level `protection_regulation` only when exact subtype evidence is insufficient and evaluator gold precommits the fallback. |
+| `attack` | Manifested direct aggressive action toward a target; no motive is inferred from the action alone. |
+| `compete` | Manifested competition or comparative opposition; it is not an attack synonym. |
+| `perform` | Execution or expression of an act or task. |
+| `coordinate` | Alignment of roles, timing, or actions across actors or components. |
+
+Family support never implies exact-subtype support. In particular,
+`seek_safety`, `retreat`, and `withdraw_contact` can share family credit while
+remaining mutually non-exact.
+
+### Observation atomicity
+
+One `observation_id` represents exactly one semantically perceptible unit.
+Compound manifestations are an upstream producer/pre-packet responsibility and
+must be split before packet construction. G3B.1 does not introduce a scene
+parser or attempt to infer atomicity from prose.
+
+Each observation carries non-provider-facing corpus-attestation metadata:
+
+- one unique `atomic_evidence_unit_id`;
+- `perceptual_unit_count=1`.
+
+The packet rejects duplicate observation IDs, duplicate atomic-unit IDs, and a
+declared unit count other than one. Two genuinely different signals require two
+observation IDs and two atomic-unit IDs, even if their surface descriptions are
+textually identical. Conversely, one atomic signal may not be cloned under two
+observation IDs merely to support multiple motives.
+
+The attestation metadata is neither a second evidence identity nor citability
+surface. It is omitted from provider payloads; the only model-facing and
+citeable identity remains `observation_id`.
+
+### Runtime/evaluation bilingual boundary
+
+Human-audited `operational_en` is required only for bilingual evaluation or a
+precommitted reviewed corpus. A future general shadow runtime must use
+`canonical_sl_only`; G3B.1 does not implement that runtime.
+
+A future machine-generated gloss may exist only as an explicitly marked,
+unreviewed shadow artifact outside the audited packet/evaluator boundary. Such
+a gloss cannot:
+
+- count as bilingual quality evidence;
+- enter governance or decision authority;
+- create a new observation or atomic evidence identity;
+- satisfy the human-reviewed bilingual audit.
+
+### Model-facing draft requirement for the next provider phase
+
+The next separately authorized provider phase must make Gemma return a simpler
+`RacioEpistemicDraftV3`. G3B.1 deliberately implements neither that draft
+schema, a provider, nor a canonicalizer.
+
+The future deterministic canonicalizer may perform only:
+
+- canonical sorting;
+- insertion of the standard bounded unknown-reason values when the draft
+  explicitly abstains or supplies an empty claim shape;
+- canonical serialization.
+
+It may not add, remove, rename, or select semantic claims; change family,
+subtype, support mode, citations, confidence, or option identity; repair an
+invalid semantic output; infer missing evidence; or otherwise turn a failed
+draft into an accepted interpretation.
+
+### G3B.1 scope and authority
+
+The structural sidecar remains limited to `option_id_present` and
+`motive_hypothesis_count`. V3 outputs remain isolated from providers, runtime,
+GUI, governance, `ConsciousDecision`, `BehaviorResultant`, and `MindWorld`.
+There is no aggregate semantic score and no model promotion.
+
+G3B.1 verification completed without contacting Ollama or another model
+endpoint:
+
+- focused finalized-v3 contract/evaluator suite: `58 passed`;
+- combined finalized-v3, frozen v1/v2 contract, frozen G3 runner, and
+  model-free provider suites: `177 passed`;
+- Python compilation/import checks for the finalized v3 modules: passed;
+- model calls, retries, and fallbacks: `0 / 0 / 0`.
+
+G3B.1 stops after its tests, dedicated commit, and feature-branch push. Provider
+implementation, G3C, G4, shadow integration, PR, and merge require separate
+authorization.

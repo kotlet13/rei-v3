@@ -17,6 +17,7 @@ from ..communication.epistemic_interpreter_v3 import (
     ActionHypothesisV3,
     ActionSubtypeV3,
     ActionSupportModeV3,
+    LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3,
     MotiveHypothesisV3,
     MotiveSupportModeV3,
     PresentationModeV3,
@@ -35,6 +36,7 @@ from ..models.common import FrozenModel, NonEmptyId, NonEmptyText, Score01
 
 OptionDeterminacyV3 = Literal["unique", "underdetermined"]
 ActionGoldRoleV3 = Literal["exact", "acceptable_sibling", "parent_fallback"]
+LegacyAmbiguousActionSourceV3 = Literal["withdraw"]
 AcceptedActionSupportModeV3 = Literal[
     "direct_manifestation",
     "functional_inference",
@@ -120,6 +122,7 @@ class EpistemicGoldActionHypothesisV3(FrozenModel):
     subtype: ActionSubtypeV3 | None
     family_fallback: ActionFamilyFallbackV3 | None = None
     role: ActionGoldRoleV3
+    legacy_source_action: LegacyAmbiguousActionSourceV3 | None = None
     supporting_observation_ids: tuple[NonEmptyId, ...]
     accepted_support_modes: tuple[AcceptedActionSupportModeV3, ...]
 
@@ -151,6 +154,19 @@ class EpistemicGoldActionHypothesisV3(FrozenModel):
             raise ValueError("Exact and sibling action gold require a subtype")
         if self.role == "parent_fallback" and not fallback:
             raise ValueError("Parent action gold requires a family fallback")
+        if self.legacy_source_action is not None:
+            resolved_identity = (
+                f"{self.family}/{self.subtype}" if self.subtype is not None else ""
+            )
+            if self.role != "exact" or resolved_identity not in set(
+                LEGACY_AMBIGUOUS_ACTION_GOLD_RESOLUTIONS_V3[
+                    self.legacy_source_action
+                ]
+            ):
+                raise ValueError(
+                    "Legacy ambiguous action gold requires an explicit allowed "
+                    "exact resolution"
+                )
         if not self.supporting_observation_ids or not _is_canonical(
             self.supporting_observation_ids
         ):
@@ -609,15 +625,15 @@ def _assess_option(
     RequiredAbstentionAssessmentV3,
 ]:
     if gold.required_abstention:
-        if output.inferred_option_id is None:
+        if output.option_inference is None:
             return ("required_abstention", True, "required_and_observed")
         return ("overcommitted", False, "missed")
-    if output.inferred_option_id is None:
+    if output.option_inference is None:
         return ("unnecessary_abstention", True, "unnecessary")
     citation_support = set(gold.option_support_observation_ids).issubset(
-        output.cited_observation_ids
+        output.option_inference.cited_observation_ids
     )
-    if output.inferred_option_id not in gold.acceptable_option_ids:
+    if output.option_inference.option_id not in gold.acceptable_option_ids:
         return ("mismatched", citation_support, "not_required")
     if not citation_support:
         return ("mapping_without_visible_support", False, "not_required")
@@ -1016,6 +1032,8 @@ def _canonical_evidence_identity(packet: RacioEpistemicPacketV3) -> tuple[object
     observations = tuple(
         (
             item.observation_id,
+            item.atomic_evidence_unit_id,
+            item.perceptual_unit_count,
             item.signal_alias,
             item.perception_status,
             None if item.text is None else item.text.canonical_sl,
@@ -1104,10 +1122,29 @@ def evaluate_racio_epistemic_bilingual_pair_v3(
             == {(item.key, item.support_mode) for item in en_output.motive_hypotheses}
         ),
         option_mapping_consistency=(
-            sl_output.inferred_option_id == en_output.inferred_option_id
+            (
+                None
+                if sl_output.option_inference is None
+                else sl_output.option_inference.option_id
+            )
+            == (
+                None
+                if en_output.option_inference is None
+                else en_output.option_inference.option_id
+            )
         ),
         citation_identity_consistency=(
             sl_output.cited_observation_ids == en_output.cited_observation_ids
+            and (
+                None
+                if sl_output.option_inference is None
+                else sl_output.option_inference.cited_observation_ids
+            )
+            == (
+                None
+                if en_output.option_inference is None
+                else en_output.option_inference.cited_observation_ids
+            )
             and {
                 (item.key, item.cited_observation_ids)
                 for item in sl_output.action_hypotheses
@@ -1148,6 +1185,7 @@ __all__ = [
     "EpistemicCaseGoldV3",
     "EpistemicGoldActionHypothesisV3",
     "EpistemicGoldMotiveHypothesisV3",
+    "LegacyAmbiguousActionSourceV3",
     "MotiveHypothesisAssessmentCodeV3",
     "MotiveHypothesisAssessmentV3",
     "MotiveIdentifiabilityV3",
