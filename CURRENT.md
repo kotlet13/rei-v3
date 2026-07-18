@@ -54,6 +54,7 @@ current Gemma evidence is recorded in:
 
 - [P3 technical confirmation](Docs/evals/research_reset_2026-07/gemma4_racio_epistemic_v3_p3_confirmation.md)
 - [G3C V3 development rerun](Docs/evals/research_reset_2026-07/gemma4_racio_epistemic_v3_g3c.md)
+- [G3C integration readiness](Docs/evals/research_reset_2026-07/g3c_integration_readiness.md)
 - [Frozen G3 V2 development screen](Docs/evals/research_reset_2026-07/gemma4_racio_epistemic_dev_screen.md)
 - [G3A semantic adjudication](Docs/evals/research_reset_2026-07/g3_semantic_adjudication.md)
 - [G3B/G3B.1 V3 contract record](Docs/evals/research_reset_2026-07/g3b_epistemic_contract_v3.md)
