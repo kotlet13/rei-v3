@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import inspect
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -1629,13 +1631,108 @@ def test_sidecar_is_structural_only_and_v3_has_no_runtime_authority() -> None:
         "app/backend/rei/governance/resolver.py",
         "app/backend/rei/conscious/committer.py",
         "app/backend/rei/governance/behavior.py",
+        "app/backend/rei/models/character.py",
+        "app/backend/rei/models/governance.py",
+        "app/backend/rei/models/conscious.py",
+        "app/backend/rei/ego/world_updates.py",
+        "app/backend/rei/providers/__init__.py",
         "app/backend/rei/providers/ollama_gemma4_epistemic.py",
     )
     forbidden = (
         "epistemic_interpreter_v3",
         "racio_epistemic_v3",
+        "ollama_gemma4_epistemic_v3",
+        "OllamaGemma4EpistemicV3Provider",
+        "RacioEpistemicDraftV3",
+        "RacioEpistemicInterpretationV3",
         "RacioEpistemicStructuralSidecarV3",
     )
     for relative in runtime_paths:
         source = (REPO_ROOT / relative).read_text(encoding="utf-8")
         assert not any(token in source for token in forbidden)
+
+    v3_paths = (
+        "app/backend/rei/communication/epistemic_interpreter_v3.py",
+        "app/backend/rei/evaluation/racio_epistemic_v3.py",
+        "app/backend/rei/providers/ollama_gemma4_epistemic_v3.py",
+    )
+    authority_symbols = (
+        "CharacterAuthority",
+        "GovernanceMandate",
+        "ConsciousDecision",
+        "BehaviorResultant",
+        "MindWorlds",
+        "RacioWorldUpdater",
+        "EmocioWorldUpdater",
+        "InstinktWorldUpdater",
+    )
+    for relative in v3_paths:
+        source = (REPO_ROOT / relative).read_text(encoding="utf-8")
+        assert not any(token in source for token in authority_symbols)
+
+
+def test_default_runtime_import_and_construction_are_model_free(
+    tmp_path: Path,
+) -> None:
+    script = """
+import http.client
+import json
+import socket
+import sys
+import urllib.request
+from pathlib import Path
+
+def forbidden_external_call(*args, **kwargs):
+    raise AssertionError("default runtime attempted an external model call")
+
+socket.create_connection = forbidden_external_call
+http.client.HTTPConnection.connect = forbidden_external_call
+urllib.request.urlopen = forbidden_external_call
+
+sys.path.insert(0, sys.argv[1])
+from app.backend.rei.engine import ReiNativeEngine
+
+engine = ReiNativeEngine.with_file_stores(
+    runs_root=Path(sys.argv[2]),
+    ego_traces_root=Path(sys.argv[3]),
+)
+loaded = tuple(sorted(sys.modules))
+print(json.dumps({
+    "interpreter": (
+        type(engine.interpreter).__module__ + "." +
+        type(engine.interpreter).__qualname__
+    ),
+    "provider_model_flags": [
+        identity.uses_model for identity in engine.providers.identities
+    ],
+    "ollama_modules": [name for name in loaded if ".ollama" in name],
+    "gemma_modules": [name for name in loaded if "gemma" in name.casefold()],
+}))
+"""
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            "-c",
+            script,
+            str(REPO_ROOT),
+            str(tmp_path / "runs"),
+            str(tmp_path / "ego_traces"),
+        ],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert completed.returncode == 0, completed.stderr
+    observed = json.loads(completed.stdout)
+    assert observed == {
+        "interpreter": (
+            "app.backend.rei.communication.interpreter."
+            "DeterministicRacioInterpreter"
+        ),
+        "provider_model_flags": [False, False, False],
+        "ollama_modules": [],
+        "gemma_modules": [],
+    }

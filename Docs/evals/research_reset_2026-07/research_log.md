@@ -31,7 +31,7 @@
   technically checked only for readable labels and complete panel placement;
   Codex did not perform the semantic review.
 - output path:
-  `C:\Users\Kotlet\Codex\github\rei-v3\output\exploration\emocio_four_image_screen\x1_20260716T045904Z`
+  `output/exploration/emocio_four_image_screen/x1_20260716T045904Z`
 - manifest SHA-256:
   `614fdad52944e9f16adb29fa51d5dabd330640588fad45232d1cc988ca19094a`
 - human decision: pending review of `contact_sheet.png` and
@@ -84,7 +84,7 @@
   hashes byte-for-byte. The six final panels are complete and readable; their
   semantic usefulness is intentionally pending human review.
 - output path:
-  `C:\Users\Kotlet\Codex\github\rei-v3\tmp\codex-worktrees\emocio-exploration-v2\output\exploration\emocio_longcat_seed_screen\v1_20260716T083028Z`
+  `output/exploration/emocio_longcat_seed_screen/v1_20260716T083028Z`
 - manifest SHA-256:
   `14443b9f9570316715a62bcd1f7effaa638c93e66fa2926e45446abd3f4ea0ba`
 - focused tests: `2 passed`; compile check, `git diff --check`, and independent
@@ -121,7 +121,7 @@
   unchanged. The three review panels are complete. The user subsequently
   reviewed all listed preservation criteria and accepted all 3/3 images.
 - output path:
-  `C:\Users\Kotlet\Codex\github\rei-v3\tmp\codex-worktrees\emocio-english-remain-v1\output\exploration\emocio_longcat_english_remain\english_v1_20260716T092856Z`
+  `output/exploration/emocio_longcat_english_remain/english_v1_20260716T092856Z`
 - manifest SHA-256:
   `b536de3c4253d45b835e8d1b5c16b313fcc643729593f1a41f532dbda420606b`
 - recorded human-review SHA-256:
@@ -570,3 +570,23 @@
 - authority: no aggregate semantic result was computed. Gemma is not promoted,
   runtime integration is not started, and no further phase or model call is
   authorized. Stop for human review.
+
+## G3C human decision - 2026-07-18
+
+- reviewed result: the human accepted the frozen G3C development rerun at
+  commit `37940f815bff1b98bbee9d989d0ccb89c8ec8c6c`; the canonical report is
+  `gemma4_racio_epistemic_v3_g3c.md`.
+- technical decision: the V3 technical contract and Gemma V3 provider
+  implementation are accepted. Provider revision
+  `rei-racio-gemma4-epistemic-v3-chat-v1` remains frozen.
+- semantic decision: the development result is promising, but it is not an
+  untouched holdout and grants no generalization claim.
+- integration boundary: Gemma is allowed only as an inactive-by-default text
+  shadow. It is not promoted and has no governance, runtime-decision,
+  conscious-decision, behavior, or MindWorld authority.
+- frozen boundary: the V3 contract, provider revision, instruction, DraftV3
+  schema, canonicalizer, evaluator, G3C corpus, and G3C results must not change.
+- research boundary: there is no G3D. G4 untouched holdout remains required on
+  a separate feature branch before any promotion decision.
+- next allowed step: M-G3C PR preparation only. This phase permits no model
+  call, G4 execution, shadow integration, or provider/prompt tuning.

@@ -29,6 +29,7 @@ Docs/evals/semantic_lab_v1/g3c-gemma4-racio-epistemic-v3-2026-07-17/** text eol=
 tests/fixtures/semantic_lab_v1/** text eol=lf
 tests/fixtures/native_bundles/** text eol=lf
 tests/fixtures/native_cycles/** text eol=lf
+Docs/evals/semantic_lab_v1/c4-stage1-preflight-2026-07-15/** text eol=lf
 Docs/evals/semantic_lab_v1/c4_*_2026-07-14.md text eol=lf
 Docs/evals/semantic_lab_v1/c5-body-mapper-v3-2026-07-14/** text eol=lf
 Docs/evals/semantic_lab_v1/c6-longitudinal-2026-07-14/** text eol=lf
