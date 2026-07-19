@@ -46,7 +46,7 @@ from rei.providers.native import DeterministicExecutionClock, ExecutionClock  # 
 
 
 CYCLE_SOURCE_COMMIT = "1511d871a92dd15217899c5b43e1acdcea4c972b"
-IMPLEMENTATION_COMMIT = "6130942c7726240773d7298d6583a77d38a82650"
+IMPLEMENTATION_COMMIT = "42565d483a527c372d726634eb059a175e387876"
 BRANCH = "codex/racio-gemma4-text-shadow"
 BASE_FIXTURE = (
     ROOT / "tests" / "fixtures" / "native_cycles" / "deterministic_e2e.json"
