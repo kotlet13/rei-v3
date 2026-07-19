@@ -43,6 +43,13 @@ from app.backend.rei.providers.native import DeterministicExecutionClock
 from app.backend.rei.providers.protocols import StoredArtifact
 
 from .semantic_lab import SemanticLabIntegrityError, build_semantic_lab_view
+from .shadow_view import (
+    SHADOW_EVIDENCE_IDS,
+    ShadowEvidenceIntegrityError,
+    build_shadow_evidence_index,
+    build_shadow_evidence_view,
+    is_registered_shadow_evidence_id,
+)
 from .storage import ego_partition_id, validate_ego_partition_id
 from .view_model import COMMUNICATION_WARNING, build_workbench_view
 
@@ -68,6 +75,7 @@ MAX_NATIVE_BUNDLE_BYTES = 2 * MAX_CYCLE_REQUEST_BYTES
 MAX_GUI_LONGITUDINAL_BUNDLES = 30
 IMAGE_INDEX_ADAPTER = TypeAdapter(tuple[ImageArtifact, ...])
 _SEMANTIC_LAB_BUILD_GATE = BoundedSemaphore(value=1)
+_SHADOW_EVIDENCE_BUILD_GATE = BoundedSemaphore(value=1)
 _CYCLE_EXECUTION_GATE = BoundedSemaphore(value=1)
 
 
@@ -640,6 +648,20 @@ def _require_debug_access(request: Request, *, debug: bool) -> None:
         )
 
 
+def _require_loopback_shadow_replay(request: Request) -> None:
+    """Keep every frozen shadow replay endpoint strictly loopback-only."""
+
+    request_host, _request_port = _request_authority(request)
+    if not (_loopback_client(request) and _loopback_hostname(request_host)):
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Frozen shadow evidence replay is restricted to "
+                "loopback clients."
+            ),
+        )
+
+
 def _stored_artifact(record: Any) -> StoredArtifact:
     return StoredArtifact(**record.model_dump(mode="python"))
 
@@ -779,6 +801,12 @@ def bootstrap() -> dict[str, Any]:
         "profile_contracts": _profile_contracts(),
         "safety_caveat": PUBLIC_SAFETY_CAVEAT_SL,
         "communication_warning": COMMUNICATION_WARNING,
+        "shadow_evidence_replay": {
+            "available": True,
+            "live_model_execution": False,
+            "authority": "none",
+            "evidence_ids": list(SHADOW_EVIDENCE_IDS),
+        },
         "execution": {
             "providers": "deterministic_only",
             "models_enabled": False,
@@ -814,6 +842,49 @@ def semantic_lab() -> dict[str, Any]:
             ) from exc
     finally:
         _SEMANTIC_LAB_BUILD_GATE.release()
+
+
+def _shadow_replay(build: Any) -> dict[str, Any]:
+    if not _SHADOW_EVIDENCE_BUILD_GATE.acquire(blocking=False):
+        raise HTTPException(
+            status_code=503,
+            detail="Shadow evidence verification is already in progress.",
+            headers={"Retry-After": "1"},
+        )
+    try:
+        try:
+            return build()
+        except ShadowEvidenceIntegrityError as exc:
+            raise HTTPException(
+                status_code=409,
+                detail="Frozen shadow evidence failed integrity verification.",
+            ) from exc
+    finally:
+        _SHADOW_EVIDENCE_BUILD_GATE.release()
+
+
+@app.get("/api/shadow-evidence")
+def shadow_evidence_index(request: Request) -> dict[str, Any]:
+    """Return the cold-verified, model-free frozen replay registry."""
+
+    _require_loopback_shadow_replay(request)
+    return _shadow_replay(lambda: build_shadow_evidence_index(ROOT))
+
+
+@app.get("/api/shadow-evidence/{evidence_id}")
+def shadow_evidence_detail(
+    evidence_id: str,
+    request: Request,
+    debug: bool = False,
+) -> dict[str, Any]:
+    """Return one allowlisted replay; never accept a filesystem locator."""
+
+    _require_loopback_shadow_replay(request)
+    if not is_registered_shadow_evidence_id(evidence_id):
+        raise HTTPException(status_code=404, detail="Shadow evidence ID not found.")
+    return _shadow_replay(
+        lambda: build_shadow_evidence_view(ROOT, evidence_id, debug=debug)
+    )
 
 
 def execute_native_cycle(
@@ -914,5 +985,7 @@ __all__ = [
     "index",
     "run_native_cycle",
     "semantic_lab",
+    "shadow_evidence_detail",
+    "shadow_evidence_index",
     "verified_run_image",
 ]

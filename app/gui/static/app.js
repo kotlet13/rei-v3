@@ -20,6 +20,14 @@ const state = {
   bootstrap: null,
   lab: null,
   labError: null,
+  shadowRegistry: null,
+  shadowRegistryError: null,
+  shadowEvidence: null,
+  shadowEvidenceError: null,
+  selectedShadowEvidenceId: "s1r-reconciled",
+  shadowBusy: false,
+  shadowRequestGeneration: 0,
+  shadowAbortController: null,
   result: null,
   activePanel: "semantic",
   busy: false,
@@ -664,12 +672,564 @@ function byMind(items, mind, index) {
   return asArray(items).find((item) => item?.source_mind === mind || item?.mind === mind) || asArray(items)[index] || {};
 }
 
+function shadowRegistryEntries() {
+  const registry = asObject(state.shadowRegistry);
+  const records = asArray(registry.evidence || registry.items);
+  if (records.length) return records;
+  const ids = asArray(
+    registry.evidence_ids
+      || state.bootstrap?.shadow_evidence_replay?.evidence_ids
+  );
+  return ids.map((evidenceId) => ({ evidence_id: evidenceId }));
+}
+
+function shadowEvidenceLabel(record) {
+  const source = asObject(record);
+  if (source.label) return source.label;
+  if (source.evidence_id === "s1-partial") return "S1 delni neuspeh";
+  if (source.evidence_id === "s1r-reconciled") return "S1R usklajen uspeh";
+  return source.evidence_id || "Zamrznjena shadow evidenca";
+}
+
+function redactShadowEvaluatorState() {
+  const replay = asObject(state.shadowEvidence);
+  const lanes = replay.lanes;
+  if (!lanes) return;
+  for (const lane of Array.isArray(lanes) ? lanes : Object.values(lanes)) {
+    if (lane && typeof lane === "object") delete lane.debug_evaluator_ground_truth;
+  }
+}
+
+function shadowDetailPath(evidenceId, debug = false) {
+  const safeId = encodeURIComponent(evidenceId);
+  return `/api/shadow-evidence/${safeId}?debug=${debug ? "true" : "false"}`;
+}
+
+async function loadShadowEvidence(
+  evidenceId,
+  { announce = true, render = true } = {}
+) {
+  if (!evidenceId) return;
+  const requestGeneration = ++state.shadowRequestGeneration;
+  const requestedDebug = els.debugToggle.checked;
+  state.shadowAbortController?.abort();
+  const abortController = new AbortController();
+  state.shadowAbortController = abortController;
+  state.shadowBusy = true;
+  state.shadowEvidenceError = null;
+  state.selectedShadowEvidenceId = evidenceId;
+  if (announce) {
+    setRuntime(
+      "Reviewing frozen shadow evidence",
+      "No model call will be made",
+      "working"
+    );
+  }
+  try {
+    const evidence = await apiJson(
+      shadowDetailPath(evidenceId, requestedDebug),
+      { signal: abortController.signal }
+    );
+    if (
+      requestGeneration !== state.shadowRequestGeneration
+      || evidenceId !== state.selectedShadowEvidenceId
+      || requestedDebug !== els.debugToggle.checked
+    ) return;
+    state.shadowEvidence = evidence;
+    if (announce) {
+      setRuntime(
+        "Reviewing frozen shadow evidence",
+        "No model call will be made",
+        "ok"
+      );
+    }
+  } catch (error) {
+    if (
+      requestGeneration !== state.shadowRequestGeneration
+      || error?.name === "AbortError"
+    ) return;
+    state.shadowEvidence = null;
+    state.shadowEvidenceError = error.message;
+    if (announce) {
+      setRuntime(
+        "Frozen shadow evidence unavailable",
+        "No model call was made",
+        "error"
+      );
+    }
+  } finally {
+    if (requestGeneration === state.shadowRequestGeneration) {
+      state.shadowBusy = false;
+      state.shadowAbortController = null;
+      if (render) renderRacioPanel(state.result?.panels?.racio);
+    }
+  }
+}
+
+function shadowEnumValue(label, value) {
+  const line = element("div", "choice-line shadow-enum-line");
+  append(line, element("span", "", label));
+  const code = element("code", "shadow-enum", value === null || value === undefined || value === "" ? "ni na voljo" : value);
+  append(line, code);
+  return line;
+}
+
+function shadowCitations(label, values) {
+  return fieldGroup(label, values, {
+    asChips: true,
+    emptyText: "Brez citatov",
+  });
+}
+
+function shadowObservationCard(observation, index) {
+  const source = asObject(observation);
+  const text = asObject(source.text);
+  const canonicalSl = source.canonical_sl ?? text.canonical_sl;
+  const operationalEn = source.operational_en ?? text.operational_en;
+  const item = element("article", "shadow-observation");
+  item.dataset.observationId = source.observation_id || `observation-${index + 1}`;
+  append(
+    item,
+    shadowEnumValue("Observation ID", source.observation_id),
+    fieldGroup(
+      "Kanonizirani slovenski signal",
+      canonicalSl || "Vidni signal je bil degradiran in nima besedilne vsebine."
+    )
+  );
+  const metadata = [
+    ["Channel", source.channel],
+    ["Visibility", source.visibility ?? source.perception_status],
+    ["Fidelity", source.fidelity],
+    ["Provenance", source.provenance],
+  ].filter(([, value]) => value !== null && value !== undefined && value !== "");
+  if (metadata.length) append(item, keyValues(metadata));
+  if (operationalEn) {
+    append(item, rawDetails("Operational English gloss (ista evidence enota)", operationalEn));
+  }
+  return item;
+}
+
+function shadowVisibleInputCard(visibleInput, sourceMind = null) {
+  const visible = asObject(visibleInput);
+  const observations = asArray(visible.observations || visible.visible_observations);
+  const options = asArray(visible.public_options || visible.public_option_scope);
+  const result = card("Visible conscious input", null, "shadow-visible-card");
+  result.dataset.shadowKind = "visible-input";
+  append(
+    result,
+    keyValues([
+      ["Source mind", visible.source_mind || sourceMind],
+      ["Channel quality", visible.channel_quality],
+      ["Presentation mode", visible.presentation_mode],
+    ]),
+    fieldGroup("Degraded observations", visible.degraded_observation_ids, {
+      asChips: true,
+      emptyText: "Nobena",
+    }),
+    fieldGroup("Omitted observations", visible.omitted_observation_ids, {
+      asChips: true,
+      emptyText: "Nobena",
+    })
+  );
+  const observationList = element("div", "shadow-observation-list");
+  observations.forEach((observation, index) => append(observationList, shadowObservationCard(observation, index)));
+  append(
+    result,
+    fieldGroup("Vidne observation enote", observations.length ? `${observations.length}` : "Ni vidnih observations"),
+    observationList
+  );
+  const optionList = element("div", "shadow-option-scope");
+  for (const option of options) {
+    const record = asObject(option);
+    const text = asObject(record.text);
+    const optionItem = element("div", "shadow-option-item");
+    append(
+      optionItem,
+      shadowEnumValue("Option ID", record.option_id),
+      fieldGroup("Javni opis", record.canonical_sl ?? text.canonical_sl)
+    );
+    const english = record.operational_en ?? text.operational_en;
+    if (english) append(optionItem, rawDetails("Operational English gloss", english));
+    append(optionList, optionItem);
+  }
+  append(
+    result,
+    fieldGroup("Public option scope", options.length ? `${options.length} možnosti` : "Prazen javni scope"),
+    optionList,
+    rawDetails("Inspect safe visible-input artifact", visible.raw_details || visible)
+  );
+  return result;
+}
+
+function shadowAuthoritativeCard(authoritative) {
+  const source = asObject(authoritative);
+  const result = card(
+    "Authoritative Racio · deterministic",
+    null,
+    "shadow-authoritative-card"
+  );
+  result.dataset.shadowKind = "authoritative";
+  append(
+    result,
+    statusPill("authoritative cycle", source.status || "succeeded"),
+    keyValues([
+      ["Action tendency", source.action_tendency ?? source.inferred_action_tendency],
+      ["Inferred option", source.option_id ?? source.inferred_option_id],
+      ["Confidence", source.confidence],
+      ["Interpretation ID", source.interpretation_id],
+    ]),
+    fieldGroup("Motive summary", source.motive_summary ?? source.inferred_motive),
+    rawDetails("Inspect authoritative interpretation", source.raw_details || source)
+  );
+  return result;
+}
+
+function shadowActionClaim(claim, index) {
+  const source = asObject(claim);
+  const item = element("div", "shadow-claim shadow-action-claim");
+  append(
+    item,
+    element("h4", "", `Action claim ${index + 1}`),
+    shadowEnumValue("Family", source.family),
+    shadowEnumValue("Subtype", source.subtype ?? source.family_fallback),
+    shadowEnumValue("Support mode", source.support_mode),
+    choiceLine("Confidence", source.confidence),
+    shadowCitations("Action citations", source.citations || source.cited_observation_ids)
+  );
+  return item;
+}
+
+function shadowMotiveClaim(claim, index) {
+  const source = asObject(claim);
+  const item = element("div", "shadow-claim shadow-motive-claim");
+  append(
+    item,
+    element("h4", "", `Motive hypothesis ${index + 1}`),
+    shadowEnumValue("Family", source.family),
+    shadowEnumValue("Subtype", source.subtype),
+    shadowEnumValue("Support mode", source.support_mode),
+    choiceLine("Confidence", source.confidence),
+    shadowCitations("Motive citations", source.citations || source.cited_observation_ids)
+  );
+  return item;
+}
+
+function inferredShadowShape(shadow, preferredShape = null) {
+  if (preferredShape) return preferredShape;
+  const source = asObject(shadow);
+  if (source.status === "failed") return "failed";
+  const output = asObject(source.structured_output || source.interpretation);
+  const actions = asArray(source.action_hypotheses || output.action_hypotheses);
+  const option = source.option_inference ?? output.option_inference;
+  const motives = asArray(source.motive_hypotheses || output.motive_hypotheses);
+  if (!actions.length && !option && !motives.length) return "full_abstention";
+  if (actions.length && !option && !motives.length) return "action_only";
+  return "bounded_claims";
+}
+
+function shadowStatusNotice(shadow, presentationShape) {
+  const source = asObject(shadow);
+  const shape = inferredShadowShape(source, presentationShape);
+  const notice = element("div", `shadow-status-notice ${shape}`);
+  notice.dataset.shadowStatus = shape;
+  if (shape === "full_abstention") {
+    append(
+      notice,
+      element("strong", "", "Epistemološko omejena abstinenca"),
+      element("p", "", "Racio ni imel dovolj vidne evidence za utemeljeno trditev.")
+    );
+  } else if (shape === "action_only") {
+    append(
+      notice,
+      element("strong", "", "Omejena action-only interpretacija"),
+      element("p", "", "Akcijska trditev obstaja; možnost in motiv ostajata neznana.")
+    );
+  } else if (shape === "failed") {
+    append(
+      notice,
+      element("strong", "", "Gemma shadow veja ni uspela"),
+      element("p", "", "Avtoritativni deterministični cikel je kljub temu uspel; sprejeta shadow interpretacija ni bila objavljena.")
+    );
+  } else {
+    append(
+      notice,
+      element("strong", "", "Omejene epistemološke trditve"),
+      element("p", "", "Prikazane trditve so diagnostični shadow rezultat brez avtoritete.")
+    );
+  }
+  return notice;
+}
+
+function shadowInterpretationCard(shadow, presentationShape) {
+  const source = asObject(shadow);
+  const output = asObject(source.structured_output || source.interpretation);
+  const actions = asArray(source.action_hypotheses || output.action_hypotheses);
+  const option = asObject(source.option_inference || output.option_inference);
+  const motives = asArray(source.motive_hypotheses || output.motive_hypotheses);
+  const uncertainty = asObject(
+    source.uncertainty
+      || source.racio_reported_uncertainty
+      || output.racio_reported_uncertainty
+  );
+  const unknownReasons = asObject(source.unknown_reasons);
+  const failure = asObject(source.failure);
+  const result = card("Gemma V3 shadow · NO AUTHORITY", null, "shadow-model-card");
+  result.dataset.shadowKind = "shadow";
+  append(
+    result,
+    shadowStatusNotice(source, presentationShape),
+    statusPill("shadow status", source.status),
+    statusPill("no_authority", source.no_authority),
+    shadowEnumValue("Semantic shape", inferredShadowShape(source, presentationShape)),
+    choiceLine(
+      "Accepted shadow interpretation published",
+      source.accepted_interpretation_published
+    )
+  );
+  if (source.status === "failed") {
+    append(
+      result,
+      keyValues([
+        ["Failure stage", failure.stage ?? source.failure_stage],
+        ["Failure code", failure.code ?? source.failure_code],
+      ]),
+      fieldGroup("Bounded failure summary", failure.summary ?? source.failure_summary)
+    );
+  } else {
+    const actionClaims = element("div", "shadow-claim-list");
+    actions.forEach((claim, index) => append(actionClaims, shadowActionClaim(claim, index)));
+    append(
+      result,
+      fieldGroup("Action hypotheses", actions.length ? `${actions.length}` : "Brez action claima"),
+      actionClaims,
+      fieldGroup(
+        "Action unknown reason",
+        unknownReasons.action ?? source.action_unknown_reason ?? output.action_unknown_reason
+      )
+    );
+
+    const optionSection = element("div", "shadow-claim shadow-option-claim");
+    append(optionSection, element("h4", "", "Option inference"));
+    if (Object.keys(option).length) {
+      append(
+        optionSection,
+        shadowEnumValue("Option ID", option.option_id),
+        choiceLine("Confidence", option.confidence),
+        shadowCitations("Option-specific citations", option.citations || option.cited_observation_ids)
+      );
+    } else {
+      append(
+        optionSection,
+        fieldGroup("Status", "Ni option claima"),
+        fieldGroup(
+          "Bounded unknown reason",
+          unknownReasons.option ?? source.option_unknown_reason ?? output.option_unknown_reason
+        )
+      );
+    }
+    append(result, optionSection);
+
+    const motiveClaims = element("div", "shadow-claim-list");
+    motives.forEach((claim, index) => append(motiveClaims, shadowMotiveClaim(claim, index)));
+    append(
+      result,
+      fieldGroup("Motive hypotheses", motives.length ? `${motives.length}` : "Brez motive claima"),
+      motiveClaims,
+      fieldGroup(
+        "Motive unknown reason",
+        unknownReasons.motive ?? source.motive_unknown_reason ?? output.motive_unknown_reason
+      ),
+      keyValues([
+        ["Option uncertainty", uncertainty.option_mapping],
+        ["Motive uncertainty", uncertainty.motive_interpretation],
+      ])
+    );
+  }
+  append(result, rawDetails("Inspect safe shadow artifact", source.raw_details || source));
+  return result;
+}
+
+function comparisonValue(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    if (value.comparable === false) {
+      return value.reason ? `ni na voljo · ${value.reason}` : "ni na voljo";
+    }
+    if (value.comparable === true) return comparisonValue(value.value);
+  }
+  return value === null || value === undefined || value === ""
+    ? "ni na voljo"
+    : value;
+}
+
+function shadowComparisonCard(comparison) {
+  const source = asObject(comparison);
+  const citationDifferences = asObject(source.citation_differences);
+  const uncertaintyDifferences = asObject(source.uncertainty_differences);
+  const result = card("Diagnostic comparison · no aggregate score", null, "shadow-comparison-card");
+  result.dataset.shadowKind = "comparison";
+  append(
+    result,
+    keyValues([
+      ["Option agreement", comparisonValue(source.option_agreement ?? source.option_mapping_matches)],
+      ["Action-family agreement", comparisonValue(source.action_family_agreement ?? source.action_family_matches)],
+      ["Action-subtype agreement", comparisonValue(source.action_subtype_agreement ?? source.action_subtype_matches)],
+      ["Motive-family overlap", comparisonValue(source.motive_family_overlap)],
+      ["Motive-subtype overlap", comparisonValue(source.motive_subtype_overlap)],
+      ["Citation comparison", comparisonValue(citationDifferences)],
+      ["Uncertainty comparison", comparisonValue(uncertaintyDifferences)],
+    ]),
+    shadowCitations(
+      "Authoritative supporting observation IDs",
+      citationDifferences.authoritative_supporting_observation_ids
+    ),
+    shadowCitations("Shadow action citations", citationDifferences.shadow_action_citations),
+    shadowCitations("Shadow option citations", citationDifferences.shadow_option_citations),
+    shadowCitations("Shadow motive citations", citationDifferences.shadow_motive_citations),
+    keyValues([
+      ["Authoritative uncertainty", comparisonValue(uncertaintyDifferences.authoritative)],
+      ["Shadow option uncertainty", comparisonValue(asObject(uncertaintyDifferences.shadow).option_mapping)],
+      ["Shadow motive uncertainty", comparisonValue(asObject(uncertaintyDifferences.shadow).motive_interpretation)],
+    ]),
+    rawDetails("Inspect safe diagnostic comparison", source.raw_details || source)
+  );
+  return result;
+}
+
+function shadowDebugCard(debugTruth) {
+  const source = asObject(debugTruth);
+  if (!Object.keys(source).length) return null;
+  const result = card("DEBUG / EVALUATOR GROUND TRUTH", null, "debug-card shadow-debug-card");
+  result.dataset.shadowKind = "debug-ground-truth";
+  append(
+    result,
+    element("strong", "debug-boundary-copy", RACIO_GROUND_TRUTH_WARNING),
+    element(
+      "p",
+      "debug-boundary-copy",
+      "Gemma shadow in avtoritativni Racio teh vrednosti nista prejela; prikazane so samo skozi lokalno evaluator-debug mejo."
+    ),
+    keyValues([
+      ["Native option", source.native_option_id],
+      ["Native action tendency", source.native_action_tendency],
+      ["Gap status", source.gap_status],
+      ["Distortion", source.distortion_type],
+      ["Option match", source.option_match],
+      ["Motive fidelity", source.motive_fidelity],
+    ]),
+    fieldGroup("Native motive", source.native_motive_summary),
+    rawDetails("Inspect evaluator-only ground truth", source.raw_details || source)
+  );
+  return result;
+}
+
+function shadowLaneSection(lane, mind, index) {
+  const source = asObject(lane);
+  const label = source.mind_label || (mind === "E" ? "Emocio" : "Instinkt");
+  const section = element("section", `shadow-lane ${mind === "E" ? "emocio" : "instinkt"}`);
+  section.dataset.shadowMind = mind;
+  append(
+    section,
+    subsectionTitle(`${label} → Racio`, `source mind ${source.source_mind || mind}`),
+    shadowVisibleInputCard(source.visible_input, source.source_mind || mind)
+  );
+  const pair = element("div", "shadow-interpretation-grid");
+  append(
+    pair,
+    shadowAuthoritativeCard(source.authoritative),
+    shadowInterpretationCard(source.shadow, source.presentation_shape)
+  );
+  append(
+    section,
+    pair,
+    shadowComparisonCard(source.diagnostic_comparison),
+    shadowDebugCard(source.debug_evaluator_ground_truth),
+    rawDetails(`Inspect complete safe ${label} replay lane`, source.raw_details || source)
+  );
+  return section;
+}
+
+function renderShadowReplaySection() {
+  const section = element("section", "subsection shadow-replay-section");
+  section.dataset.shadowSection = "gemma-text-shadow";
+  append(
+    section,
+    subsectionTitle(
+      "Gemma Text Shadow",
+      "zamrznjena read-only evidenca · brez avtoritete"
+    )
+  );
+  const entries = shadowRegistryEntries();
+  if (state.shadowRegistryError) {
+    append(section, emptyNotice("Shadow evidence registry ni na voljo", state.shadowRegistryError));
+    return section;
+  }
+  const controls = element("div", "shadow-replay-controls");
+  const field = element("label", "field shadow-evidence-field");
+  append(field, element("span", "", "Frozen evidence replay"));
+  const select = element("select", "shadow-evidence-select");
+  select.id = "shadowEvidenceSelect";
+  select.setAttribute("aria-label", "Frozen Gemma shadow evidence");
+  select.disabled = state.shadowBusy || !entries.length;
+  for (const record of entries) {
+    const source = asObject(record);
+    const option = element("option", "", shadowEvidenceLabel(source));
+    option.value = source.evidence_id;
+    option.selected = source.evidence_id === state.selectedShadowEvidenceId;
+    append(select, option);
+  }
+  select.addEventListener("change", () => loadShadowEvidence(select.value));
+  append(field, select);
+  const boundary = element("div", "shadow-boundary-copy");
+  append(
+    boundary,
+    element("strong", "", "Reviewing frozen shadow evidence"),
+    element("span", "", "No model call will be made")
+  );
+  append(controls, field, boundary);
+  append(section, controls);
+  if (state.shadowEvidenceError) {
+    append(section, emptyNotice("Evidence ni bilo mogoče prikazati", state.shadowEvidenceError));
+    return section;
+  }
+  const replay = asObject(state.shadowEvidence);
+  if (!Object.keys(replay).length) {
+    append(section, emptyNotice("Evidence se nalaga", "Izberi registrirano S1 ali S1R evidenco."));
+    return section;
+  }
+  append(
+    section,
+    element("div", "shadow-no-authority-banner", "GEMMA TEXT SHADOW · NO AUTHORITY"),
+    statusPill("no_authority", replay.no_authority),
+    keyValues([
+      ["Evidence", replay.label],
+      ["Evidence ID", replay.evidence_id],
+      ["Phase", replay.phase],
+      ["Authority", replay.authority],
+      ["Live model execution", replay.live_model_execution],
+      ["Cold verification", asObject(replay.integrity).status || asObject(replay.integrity).cold_verified],
+    ]),
+    fieldGroup("Povzetek zamrznjene evidence", replay.summary)
+  );
+  const lanes = replay.lanes;
+  const laneStack = element("div", "shadow-lane-stack");
+  for (const [mind, index] of [["E", 0], ["I", 1]]) {
+    append(laneStack, shadowLaneSection(byMind(lanes, mind, index), mind, index));
+  }
+  append(
+    section,
+    laneStack,
+    rawDetails("Inspect complete safe frozen replay", replay.raw_details || replay)
+  );
+  return section;
+}
+
 function renderRacioPanel(payload) {
   const panel = els.panels.racio;
   panel.replaceChildren();
   if (!payload) {
     append(panel, panelHeading("Racio Interpretation", "Run an explicit deterministic cycle to inspect Racio's visible inputs."));
     append(panel, emptyNotice("No cycle yet", "Bootstrap never starts a cycle automatically."));
+    append(panel, renderShadowReplaySection());
     return;
   }
   const racio = asObject(payload);
@@ -762,7 +1322,12 @@ function renderRacioPanel(payload) {
     append(row, grid);
     append(comparison, row);
   }
-  append(panel, comparison, rawDetails("Inspect complete safe Racio panel", racio));
+  append(
+    panel,
+    comparison,
+    rawDetails("Inspect complete safe Racio panel", racio),
+    renderShadowReplaySection()
+  );
 }
 
 function renderSceneSlot(slot, valuation = null) {
@@ -1431,7 +1996,15 @@ async function runCycle() {
       redactEvaluatorState();
     }
     renderRuntimePanels();
-    setRuntime("Cycle complete", `${state.result.run?.profile_id || request.character.profile_id} · Ego trace ${state.result.panels?.ego?.timeline?.length || 1}`, "ok");
+    if (state.shadowEvidence) {
+      setRuntime(
+        "Reviewing frozen shadow evidence",
+        `Deterministic cycle complete · ${state.result.run?.profile_id || request.character.profile_id} · No model call will be made`,
+        "ok"
+      );
+    } else {
+      setRuntime("Cycle complete", `${state.result.run?.profile_id || request.character.profile_id} · Ego trace ${state.result.panels?.ego?.timeline?.length || 1}`, "ok");
+    }
   } catch (error) {
     console.error(error);
     setRuntime("Cycle failed", error.message, "error");
@@ -1456,9 +2029,10 @@ function loadProfiles() {
 }
 
 async function bootstrap() {
-  const [runtimeResult, labResult] = await Promise.allSettled([
+  const [runtimeResult, labResult, shadowRegistryResult] = await Promise.allSettled([
     apiJson("/api/bootstrap"),
     apiJson("/api/semantic-lab"),
+    apiJson("/api/shadow-evidence"),
   ]);
   if (runtimeResult.status === "rejected") {
     console.error(runtimeResult.reason);
@@ -1466,6 +2040,11 @@ async function bootstrap() {
     els.sceneSummary.textContent = runtimeResult.reason.message;
     state.labError = labResult.status === "rejected" ? labResult.reason.message : null;
     if (labResult.status === "fulfilled") state.lab = labResult.value;
+    if (shadowRegistryResult.status === "fulfilled") {
+      state.shadowRegistry = shadowRegistryResult.value;
+    } else {
+      state.shadowRegistryError = shadowRegistryResult.reason.message;
+    }
     renderSemanticPanel();
     renderRuntimePanels();
     return;
@@ -1477,6 +2056,14 @@ async function bootstrap() {
     state.labError = labResult.reason.message;
     console.error(labResult.reason);
   }
+  if (shadowRegistryResult.status === "fulfilled") {
+    state.shadowRegistry = shadowRegistryResult.value;
+    const registeredDefault = state.shadowRegistry?.default_evidence_id;
+    if (registeredDefault) state.selectedShadowEvidenceId = registeredDefault;
+  } else {
+    state.shadowRegistryError = shadowRegistryResult.reason.message;
+    console.error(shadowRegistryResult.reason);
+  }
   const request = templateRequest();
   if (!request) throw new Error("Missing deterministic request fixture.");
   loadProfiles();
@@ -1484,10 +2071,22 @@ async function bootstrap() {
   els.sceneId.textContent = `scene ${compactId(request.scene?.event_id)}`;
   els.runId.textContent = `session ${compactId(state.sessionEgoId)}`;
   els.runCycleBtn.disabled = false;
+  if (!state.shadowRegistryError && shadowRegistryEntries().length) {
+    await loadShadowEvidence(state.selectedShadowEvidenceId, {
+      announce: false,
+      render: false,
+    });
+  }
   renderSemanticPanel();
   renderRuntimePanels();
   const familyCount = semanticFamilies().length;
-  if (state.labError) {
+  if (state.shadowEvidence) {
+    setRuntime(
+      "Reviewing frozen shadow evidence",
+      "No model call will be made",
+      "ok"
+    );
+  } else if (state.labError) {
     setRuntime(
       "Runtime ready · Semantic Lab unavailable",
       `${state.labError} · deterministic cycle idle`,
@@ -1515,9 +2114,17 @@ for (const tab of els.tabs) {
 }
 
 els.runCycleBtn.addEventListener("click", runCycle);
-els.debugToggle.addEventListener("change", () => {
-  if (!els.debugToggle.checked) redactEvaluatorState();
+els.debugToggle.addEventListener("change", async () => {
+  if (!els.debugToggle.checked) {
+    redactEvaluatorState();
+    redactShadowEvaluatorState();
+  }
   renderRuntimePanels();
+  if (state.selectedShadowEvidenceId) {
+    await loadShadowEvidence(state.selectedShadowEvidenceId, {
+      announce: false,
+    });
+  }
 });
 activatePanel("semantic");
 bootstrap().catch((error) => {

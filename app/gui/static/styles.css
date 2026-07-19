@@ -1284,6 +1284,189 @@ pre.raw-json {
   border-color: rgb(255 180 84 / 35%);
 }
 
+.shadow-replay-section {
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.shadow-replay-controls {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+
+.shadow-evidence-field {
+  min-width: min(420px, 100%);
+}
+
+.shadow-boundary-copy {
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.shadow-boundary-copy strong {
+  color: var(--text);
+}
+
+.shadow-no-authority-banner {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgb(105 168 255 / 36%);
+  border-radius: 9px;
+  color: #acd1ff;
+  background: rgb(105 168 255 / 7%);
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.shadow-lane-stack,
+.shadow-observation-list,
+.shadow-claim-list,
+.shadow-option-scope {
+  display: grid;
+  gap: 12px;
+}
+
+.shadow-lane-stack {
+  margin-top: 16px;
+  gap: 18px;
+}
+
+.shadow-lane {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--racio);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 1.5%);
+}
+
+.shadow-lane.emocio {
+  border-left-color: var(--emocio);
+}
+
+.shadow-lane.instinkt {
+  border-left-color: var(--instinkt);
+}
+
+.shadow-interpretation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.shadow-visible-card,
+.shadow-comparison-card,
+.shadow-debug-card {
+  margin-top: 14px;
+}
+
+.shadow-authoritative-card,
+.shadow-model-card {
+  align-self: start;
+}
+
+.shadow-authoritative-card {
+  border-top: 3px solid var(--racio);
+}
+
+.shadow-model-card {
+  border-top: 3px solid #98b9e4;
+}
+
+.shadow-comparison-card {
+  border-top: 3px solid var(--ego);
+}
+
+.shadow-observation,
+.shadow-option-item,
+.shadow-claim {
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 9px;
+  background: rgb(255 255 255 / 2%);
+}
+
+.shadow-observation-list,
+.shadow-option-scope,
+.shadow-claim-list {
+  margin-top: 10px;
+}
+
+.shadow-claim h4 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.shadow-enum-line code,
+.shadow-enum,
+.shadow-replay-section .signal-chip {
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+}
+
+.shadow-enum-line code {
+  max-width: 70%;
+  overflow-wrap: anywhere;
+  color: #d5e8ff;
+  text-align: right;
+}
+
+.shadow-model-card .choice-line strong {
+  flex: 0 0 auto;
+  min-width: max-content;
+}
+
+.shadow-status-notice {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid rgb(105 168 255 / 30%);
+  border-radius: 9px;
+  color: #cbd8e8;
+  background: rgb(105 168 255 / 5%);
+}
+
+.shadow-status-notice strong {
+  color: #dcecff;
+}
+
+.shadow-status-notice p {
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.shadow-status-notice.full_abstention {
+  border-color: rgb(105 168 255 / 40%);
+  background: rgb(105 168 255 / 8%);
+}
+
+.shadow-status-notice.action_only {
+  border-color: rgb(91 214 160 / 35%);
+  background: rgb(91 214 160 / 6%);
+}
+
+.shadow-status-notice.failed {
+  border-color: rgb(255 180 84 / 38%);
+  background: rgb(255 180 84 / 7%);
+}
+
+.shadow-status-notice.failed strong {
+  color: #ffd09a;
+}
+
 .body-comparison-grid > .card {
   border-top: 3px solid var(--instinkt);
 }
@@ -1423,6 +1606,7 @@ pre.raw-json {
   .route-grid,
   .racio-grid,
   .racio-grid.debug,
+  .shadow-interpretation-grid,
   .body-comparison-grid,
   .timeline-event-grid {
     grid-template-columns: 1fr;
@@ -1470,6 +1654,15 @@ pre.raw-json {
   .subsection-title {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .shadow-replay-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .shadow-boundary-copy {
+    text-align: left;
   }
 
   .timeline-event-summary {

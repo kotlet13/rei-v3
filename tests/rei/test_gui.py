@@ -151,6 +151,12 @@ def test_bootstrap_is_fixture_only_and_exposes_all_profile_contracts(
         "history_lookup_window": 64,
         "run_storage_partition": "sha256_ego_id",
     }
+    assert payload["shadow_evidence_replay"] == {
+        "available": True,
+        "live_model_execution": False,
+        "authority": "none",
+        "evidence_ids": ["s1-partial", "s1r-reconciled"],
+    }
     assert len(payload["profile_contracts"]) == 13
     assert [item["profile_id"] for item in payload["profile_contracts"]] == list(
         CHARACTER_PROFILE_ORDER
@@ -1188,6 +1194,8 @@ def test_gui_routes_and_imports_exclude_legacy_dataset_actions() -> None:
     }
     assert "/api/bootstrap" in route_paths
     assert "/api/semantic-lab" in route_paths
+    assert "/api/shadow-evidence" in route_paths
+    assert "/api/shadow-evidence/{evidence_id}" in route_paths
     assert "/api/cycles" in route_paths
     assert "/api/ego-runs/{partition_id}/{run_id}/images/{image_id}" in route_paths
     assert not any(
@@ -1199,6 +1207,7 @@ def test_gui_routes_and_imports_exclude_legacy_dataset_actions() -> None:
     backend_files = (
         ROOT / "app" / "gui" / "__init__.py",
         ROOT / "app" / "gui" / "semantic_lab.py",
+        ROOT / "app" / "gui" / "shadow_view.py",
         ROOT / "app" / "gui" / "storage.py",
         ROOT / "app" / "gui" / "view_model.py",
         ROOT / "app" / "gui" / "server.py",
@@ -1223,3 +1232,16 @@ def test_gui_routes_and_imports_exclude_legacy_dataset_actions() -> None:
     )
     assert "majority.agreeing_minds" in frontend
     assert "majority.support_count" not in frontend
+
+
+def test_shadow_debug_reload_discards_stale_responses() -> None:
+    frontend = (ROOT / "app" / "gui" / "static" / "app.js").read_text(
+        encoding="utf-8"
+    )
+
+    assert "shadowRequestGeneration" in frontend
+    assert "state.shadowAbortController?.abort()" in frontend
+    assert "requestGeneration !== state.shadowRequestGeneration" in frontend
+    assert "requestedDebug !== els.debugToggle.checked" in frontend
+    assert "if (state.selectedShadowEvidenceId)" in frontend
+    assert "if (state.shadowEvidence && state.selectedShadowEvidenceId)" not in frontend
