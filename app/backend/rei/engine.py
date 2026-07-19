@@ -24,6 +24,7 @@ from .communication.text_shadow import (
     RacioInterpreterRuntimeMode,
     ShadowRacioInterpretationExecution,
     ShadowRacioInterpreter,
+    build_shadow_no_authority_ledger,
     execute_racio_text_shadow,
 )
 from .conscious.committer import DeterministicRacioCommitter, RacioCommitter
@@ -2189,6 +2190,11 @@ class ReiNativeEngine:
             if result.comparison is not None:
                 write_json(f"{prefix}_comparison.json", result.comparison)
             write_json(f"{prefix}_result.json", result.result)
+        if shadow_communications:
+            write_json(
+                "communication_shadow/no_authority_ledger.json",
+                build_shadow_no_authority_ledger(shadow_communications),
+            )
         write_json("governance/character.json", request.character)
         write_json("governance/effective_authority.json", effective_authority)
         write_json("governance/mandate.json", governance)

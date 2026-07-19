@@ -17,6 +17,7 @@ from pydantic import model_validator
 from ..ids import content_id, sha256_hex
 from ..models.common import (
     FrozenArtifactModel,
+    FrozenModel,
     HashDigest,
     NonEmptyId,
     NonEmptyText,
@@ -85,6 +86,22 @@ class ShadowPacketConstructionError(ValueError):
         self.summary = summary
 
 
+class ShadowProviderPreflightError(RuntimeError):
+    """Bounded provider discovery failure raised before a call spec exists."""
+
+    def __init__(
+        self,
+        failure_code: ShadowFailureCode,
+        summary: str,
+        *,
+        failure_stage: ShadowFailureStage = "transport",
+    ) -> None:
+        super().__init__(summary)
+        self.failure_stage = failure_stage
+        self.failure_code = failure_code
+        self.summary = summary
+
+
 @dataclass(frozen=True, slots=True)
 class ShadowPacketContext:
     """V3 packet plus transient public-alias mapping, never an acceptance audit."""
@@ -111,6 +128,81 @@ class ShadowPacketContext:
         if len(matches) != 1:
             raise ValueError("Unknown or ambiguous shadow public option alias")
         return matches[0]
+
+
+ShadowArtifactRole = Literal[
+    "packet_v3",
+    "call_spec",
+    "provider_call_record",
+    "interpretation_v3",
+    "response_evidence",
+    "diagnostic_comparison",
+    "shadow_result",
+]
+
+
+class ShadowArtifactNoAuthorityRecord(FrozenModel):
+    """Manifest-local authority marker for one otherwise frozen artifact."""
+
+    relative_path: NonEmptyText
+    role: ShadowArtifactRole
+    artifact_id: NonEmptyId
+    artifact_sha256: HashDigest
+    no_authority: Literal[True] = True
+
+    @model_validator(mode="after")
+    def validate_path(self) -> "ShadowArtifactNoAuthorityRecord":
+        if (
+            not self.relative_path.startswith("communication_shadow/")
+            or "\\" in self.relative_path
+            or ".." in self.relative_path.split("/")
+        ):
+            raise ValueError("Shadow authority records require a safe shadow path")
+        return self
+
+
+class ShadowNoAuthorityLedger(FrozenArtifactModel):
+    """Content-addressed declaration that every shadow role is diagnostic only."""
+
+    schema_version: Literal[
+        "rei-native-shadow-no-authority-ledger-v1"
+    ] = "rei-native-shadow-no-authority-ledger-v1"
+    ledger_id: NonEmptyId
+    artifacts: tuple[ShadowArtifactNoAuthorityRecord, ...]
+    no_authority: Literal[True] = True
+    ledger_sha256: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        artifacts: tuple[ShadowArtifactNoAuthorityRecord, ...],
+    ) -> "ShadowNoAuthorityLedger":
+        ordered = tuple(sorted(artifacts, key=lambda item: item.relative_path))
+        base = {
+            "schema_version": "rei-native-shadow-no-authority-ledger-v1",
+            "artifacts": ordered,
+            "no_authority": True,
+        }
+        ledger_id = content_id("shadow_no_authority_ledger", base)
+        payload = {"ledger_id": ledger_id, **base}
+        return cls(**payload, ledger_sha256=sha256_hex(payload))
+
+    @model_validator(mode="after")
+    def validate_identity(self) -> "ShadowNoAuthorityLedger":
+        paths = tuple(item.relative_path for item in self.artifacts)
+        if not paths or paths != tuple(sorted(set(paths))):
+            raise ValueError("Shadow authority records must be nonempty and canonical")
+        id_payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"ledger_id", "ledger_sha256"},
+        )
+        if self.ledger_id != content_id("shadow_no_authority_ledger", id_payload):
+            raise ValueError("Shadow authority ledger ID differs from its content")
+        hash_payload = {"ledger_id": self.ledger_id, **id_payload}
+        if self.ledger_sha256 != sha256_hex(hash_payload):
+            raise ValueError("Shadow authority ledger hash differs from its content")
+        return self
 
 
 class ShadowRacioInterpretationArtifact(FrozenArtifactModel):
@@ -419,9 +511,12 @@ class ShadowRacioInterpretationResult(FrozenArtifactModel):
                 self.diagnostic_comparison_id,
             )) or any(value is None for value in failure_fields):
                 raise ValueError("Failed shadow receipt has invalid semantic references")
-            if (self.provider_call_record_id is None) != (self.shadow_packet_id is None):
+            if (
+                self.provider_call_record_id is not None
+                and self.shadow_packet_id is None
+            ):
                 raise ValueError(
-                    "An attempted failed shadow lane requires its exact packet"
+                    "A failed provider call requires its exact shadow packet"
                 )
         else:
             if any(value is not None for value in (*success_refs, *failure_fields)):
@@ -590,15 +685,101 @@ class ShadowRacioInterpretationExecution:
             for value in (self.interpretation, self.response_evidence, self.comparison)
         ):
             raise ValueError("Failed shadow execution cannot carry accepted semantics")
-        elif self.call_record is not None and (
-            self.packet is None
-            or self.result.shadow_packet_id != self.packet.packet_id
-            or self.result.shadow_packet_sha256 != self.packet.packet_hash
-            or self.result.provider_call_record_id != self.call_record.call_id
-            or self.result.provider_call_record_sha256
-            != self.call_record.content_hash()
-        ):
-            raise ValueError("Failed shadow receipt differs from its call record")
+        else:
+            if (self.packet is None) != (self.result.shadow_packet_id is None):
+                raise ValueError("Failed shadow receipt differs from its packet")
+            if self.packet is not None and (
+                self.result.shadow_packet_id != self.packet.packet_id
+                or self.result.shadow_packet_sha256 != self.packet.packet_hash
+            ):
+                raise ValueError("Failed shadow receipt differs from its packet")
+            if self.call_record is not None and (
+                self.packet is None
+                or self.result.provider_call_record_id != self.call_record.call_id
+                or self.result.provider_call_record_sha256
+                != self.call_record.content_hash()
+            ):
+                raise ValueError("Failed shadow receipt differs from its call record")
+
+
+def build_shadow_no_authority_ledger(
+    executions: tuple[ShadowRacioInterpretationExecution, ...],
+) -> ShadowNoAuthorityLedger:
+    """Bind every persisted shadow role to an explicit no-authority marker."""
+
+    labels = {"E": "emocio", "I": "instinkt"}
+    records: list[ShadowArtifactNoAuthorityRecord] = []
+
+    def add(
+        *,
+        relative_path: str,
+        role: ShadowArtifactRole,
+        value: FrozenArtifactModel,
+        artifact_id: str,
+    ) -> None:
+        records.append(
+            ShadowArtifactNoAuthorityRecord(
+                relative_path=relative_path,
+                role=role,
+                artifact_id=artifact_id,
+                artifact_sha256=value.content_hash(),
+            )
+        )
+
+    for execution in executions:
+        prefix = f"communication_shadow/{labels[execution.source_mind]}"
+        if execution.packet is not None:
+            add(
+                relative_path=f"{prefix}_packet_v3.json",
+                role="packet_v3",
+                value=execution.packet,
+                artifact_id=execution.packet.packet_id,
+            )
+        if execution.call_spec is not None:
+            add(
+                relative_path=f"{prefix}_call_spec.json",
+                role="call_spec",
+                value=execution.call_spec,
+                artifact_id=execution.call_spec.call_id,
+            )
+        if execution.call_record is not None:
+            add(
+                relative_path=f"{prefix}_provider_call_record.json",
+                role="provider_call_record",
+                value=execution.call_record,
+                artifact_id=execution.call_record.call_id,
+            )
+        if execution.interpretation is not None:
+            add(
+                relative_path=f"{prefix}_interpretation_v3.json",
+                role="interpretation_v3",
+                value=execution.interpretation,
+                artifact_id=execution.interpretation.interpretation_id,
+            )
+        if execution.response_evidence is not None:
+            response_id = getattr(execution.response_evidence, "result_id", None)
+            if not isinstance(response_id, str):
+                raise ValueError("Shadow response evidence requires a result ID")
+            add(
+                relative_path=f"{prefix}_response_evidence.json",
+                role="response_evidence",
+                value=execution.response_evidence,
+                artifact_id=response_id,
+            )
+        if execution.comparison is not None:
+            add(
+                relative_path=f"{prefix}_comparison.json",
+                role="diagnostic_comparison",
+                value=execution.comparison,
+                artifact_id=execution.comparison.comparison_id,
+            )
+        add(
+            relative_path=f"{prefix}_result.json",
+            role="shadow_result",
+            value=execution.result,
+            artifact_id=execution.result.result_id,
+        )
+    return ShadowNoAuthorityLedger.create(tuple(records))
 
 
 def build_racio_epistemic_shadow_packet_v3(
@@ -734,7 +915,28 @@ def execute_racio_text_shadow(
             result=result,
         )
 
-    attempt = interpreter.interpret_shadow(packet_context.packet, clock=clock)
+    try:
+        attempt = interpreter.interpret_shadow(packet_context.packet, clock=clock)
+    except ShadowProviderPreflightError as exc:
+        result = ShadowRacioInterpretationResult.create(
+            request=request,
+            deterministic=deterministic,
+            status="failed",
+            packet=packet_context.packet,
+            failure_stage=exc.failure_stage,
+            failure_code=exc.failure_code,
+            failure_summary=exc.summary,
+        )
+        return ShadowRacioInterpretationExecution(
+            source_mind=request.source_mind,
+            packet=packet_context.packet,
+            call_spec=None,
+            call_record=None,
+            interpretation=None,
+            response_evidence=None,
+            comparison=None,
+            result=result,
+        )
     if attempt.status == "failed":
         result = ShadowRacioInterpretationResult.create(
             request=request,
@@ -798,14 +1000,18 @@ __all__ = [
     "RacioInterpreterRuntimeMode",
     "ShadowFailureCode",
     "ShadowFailureStage",
+    "ShadowArtifactNoAuthorityRecord",
     "ShadowInterpretationComparison",
+    "ShadowNoAuthorityLedger",
     "ShadowPacketConstructionError",
     "ShadowPacketContext",
+    "ShadowProviderPreflightError",
     "ShadowProviderAttempt",
     "ShadowRacioInterpretationArtifact",
     "ShadowRacioInterpretationExecution",
     "ShadowRacioInterpretationResult",
     "ShadowRacioInterpreter",
     "build_racio_epistemic_shadow_packet_v3",
+    "build_shadow_no_authority_ledger",
     "execute_racio_text_shadow",
 ]

@@ -14,11 +14,16 @@ from typing import Mapping
 from ..communication.text_shadow import (
     ShadowFailureCode,
     ShadowProviderAttempt,
+    ShadowProviderPreflightError,
 )
 from ..communication.epistemic_interpreter_v3 import RacioEpistemicPacketV3
 from ..models.provider import ProviderCallRecord, ensure_call_record_contract
 from .native import ExecutionClock
-from .ollama import OllamaApiClient
+from .ollama import (
+    OllamaApiClient,
+    OllamaResponseError,
+    OllamaTransportError,
+)
 from .ollama_gemma4_epistemic import GEMMA4_EPISTEMIC_TIMEOUT_SECONDS
 from .ollama_gemma4_epistemic_v3 import (
     Gemma4EpistemicV3ExecutionError,
@@ -57,14 +62,54 @@ def _bounded_failure_code(
     if error.failure_stage == "draft_v3_validation":
         if error.validation_error == "duplicate_json_key":
             return "duplicate_json_key"
+        if error.validation_error is not None and "json_invalid" in (
+            error.validation_error
+        ):
+            return "invalid_json"
+        return "draft_v3_validation"
+    if error.failure_stage == "canonicalizer_v3_validation":
+        detail = error.validation_error or ""
+        if "outside visible packet scope" in detail or (
+            "cites outside packet scope" in detail
+        ):
+            return "citation_scope_violation"
+        if "outside public option" in detail:
+            return "option_scope_violation"
+        return "canonicalizer_failure"
     return error.failure_code
+
+
+def _discovery_failure(
+    error: OllamaTransportError | OllamaResponseError,
+) -> ShadowProviderPreflightError:
+    if isinstance(error, OllamaTransportError):
+        return ShadowProviderPreflightError(
+            "ollama_unavailable",
+            _FAILURE_SUMMARIES["ollama_unavailable"],
+        )
+    failure_code: ShadowFailureCode = (
+        "wrong_model_digest"
+        if "digest differs" in str(error).casefold()
+        else "runtime_identity_mismatch"
+    )
+    return ShadowProviderPreflightError(
+        failure_code,
+        _FAILURE_SUMMARIES[failure_code],
+    )
 
 
 @dataclass(frozen=True, slots=True)
 class Gemma4TextShadowInterpreter:
     """One-shot shadow adapter over the frozen V3 provider implementation."""
 
-    provider: OllamaGemma4EpistemicV3Provider
+    provider: OllamaGemma4EpistemicV3Provider | None
+    preflight_failure: ShadowProviderPreflightError | None = None
+
+    def __post_init__(self) -> None:
+        if (self.provider is None) == (self.preflight_failure is None):
+            raise ValueError(
+                "Gemma text shadow requires one provider or one preflight failure"
+            )
 
     @classmethod
     def discover(
@@ -74,13 +119,15 @@ class Gemma4TextShadowInterpreter:
         environ: Mapping[str, str] | None = None,
         timeout_seconds: float = GEMMA4_EPISTEMIC_TIMEOUT_SECONDS,
     ) -> "Gemma4TextShadowInterpreter":
-        return cls(
-            provider=OllamaGemma4EpistemicV3Provider.discover(
+        try:
+            provider = OllamaGemma4EpistemicV3Provider.discover(
                 client=client,
                 environ=environ,
                 timeout_seconds=timeout_seconds,
             )
-        )
+        except (OllamaTransportError, OllamaResponseError) as error:
+            return cls(provider=None, preflight_failure=_discovery_failure(error))
+        return cls(provider=provider)
 
     def interpret_shadow(
         self,
@@ -88,6 +135,9 @@ class Gemma4TextShadowInterpreter:
         *,
         clock: ExecutionClock,
     ) -> ShadowProviderAttempt:
+        if self.preflight_failure is not None:
+            raise self.preflight_failure
+        assert self.provider is not None
         call = self.provider.build_call_spec(packet)
         failure_started_at = clock.timestamp("racio_call_started")
         try:

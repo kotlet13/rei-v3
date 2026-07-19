@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Literal
@@ -19,6 +20,7 @@ from app.backend.rei.communication.epistemic_interpreter_v3 import (
 from app.backend.rei.communication.text_shadow import (
     ShadowFailureCode,
     ShadowFailureStage,
+    ShadowNoAuthorityLedger,
     ShadowProviderAttempt,
 )
 from app.backend.rei.engine import (
@@ -243,7 +245,7 @@ def _engine(
     root: Path,
     request: ReiNativeCycleRequest,
     *,
-    shadow: _FakeShadowInterpreter | None = None,
+    shadow: object | None = None,
 ) -> ReiNativeEngine:
     return ReiNativeEngine.with_file_stores(
         runs_root=root / "runs",
@@ -407,6 +409,28 @@ def test_shadow_success_cannot_change_authoritative_cycle_and_cold_verifies(
         assert f"communication_shadow/{label}_response_evidence.json" in relative_paths
         assert f"communication_shadow/{label}_comparison.json" in relative_paths
         assert f"communication_shadow/{label}_result.json" in relative_paths
+    ledger_path = "communication_shadow/no_authority_ledger.json"
+    assert ledger_path in relative_paths
+    ledger = ShadowNoAuthorityLedger.model_validate_json(
+        (
+            tmp_path
+            / "shadow"
+            / "runs"
+            / request.run_id
+            / ledger_path
+        ).read_bytes()
+    )
+    shadow_paths = {
+        path for path in relative_paths if path.startswith("communication_shadow/")
+    }
+    assert {item.relative_path for item in ledger.artifacts} == shadow_paths - {
+        ledger_path
+    }
+    assert ledger.no_authority is True
+    assert all(item.no_authority is True for item in ledger.artifacts)
+    for item in ledger.artifacts:
+        stored = tmp_path / "shadow" / "runs" / request.run_id / item.relative_path
+        assert hashlib.sha256(stored.read_bytes()).hexdigest() == item.artifact_sha256
     assert len(shadow.manifest.provider_calls) == len(control.manifest.provider_calls) + 2
     assert all(
         result.call_record is not None
@@ -475,6 +499,76 @@ def test_english_shadow_input_fails_before_provider_dispatch(tmp_path: Path) -> 
         for item in result.shadow_communications
     )
     assert FileArtifactStore(tmp_path / "runs").verify_run(request.run_id) == result.manifest
+
+
+@pytest.mark.parametrize(
+    ("client_kind", "expected_code"),
+    (("unavailable", "ollama_unavailable"), ("wrong_digest", "wrong_model_digest")),
+)
+def test_concrete_discovery_failure_is_fail_soft_and_manifest_closed(
+    tmp_path: Path,
+    client_kind: str,
+    expected_code: ShadowFailureCode,
+) -> None:
+    from app.backend.rei.providers.gemma4_text_shadow import (
+        Gemma4TextShadowInterpreter,
+    )
+    from app.backend.rei.providers.ollama import OllamaTransportError
+
+    class DiscoveryClient:
+        allow_remote = False
+        base_url = "http://127.0.0.1:11434"
+
+        def version(self):
+            if client_kind == "unavailable":
+                raise OllamaTransportError("sanitized test transport failure")
+            return "0.31.2"
+
+        def model_entry(self, model: str):
+            del model
+            return {"digest": "0" * 64}
+
+        def show(self, model: str):
+            del model
+            return {}
+
+    interpreter = Gemma4TextShadowInterpreter.discover(
+        client=DiscoveryClient(),
+        environ={
+            "REI_OLLAMA_MODEL": "gemma4:31b",
+            "REI_OLLAMA_NUM_CTX": "65536",
+            "REI_OLLAMA_NUM_GPU": "999",
+        },
+    )
+    assert interpreter.provider is None
+    assert interpreter.preflight_failure is not None
+    assert interpreter.preflight_failure.failure_code == expected_code
+
+    request = _sl_request()
+    control = _engine(tmp_path / "control", request).run_cycle(request)
+    result = _engine(
+        tmp_path / client_kind,
+        request,
+        shadow=interpreter,
+    ).run_cycle(request)
+
+    assert _authoritative_projection(control) == _authoritative_projection(result)
+    assert len(result.shadow_communications) == 2
+    assert all(
+        item.packet is not None
+        and item.call_spec is None
+        and item.call_record is None
+        and item.result.status == "failed"
+        and item.result.failure_stage == "transport"
+        and item.result.failure_code == expected_code
+        for item in result.shadow_communications
+    )
+    relative_paths = {item.relative_path for item in result.stored_artifacts}
+    assert "communication_shadow/no_authority_ledger.json" in relative_paths
+    assert not any("provider_call_record" in path for path in relative_paths)
+    assert FileArtifactStore(
+        tmp_path / client_kind / "runs"
+    ).verify_run(request.run_id) == result.manifest
 
 
 def test_shadow_mode_requires_explicit_dependency(tmp_path: Path) -> None:
