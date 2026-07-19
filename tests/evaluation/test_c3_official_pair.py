@@ -1306,6 +1306,7 @@ def test_disk_backed_pair_closure_recomputes_both_suites_without_network(
     )
     provider = _RejectingOfficialProvider(canonical_provider)
     output_target = tmp_path / "official-pair"
+    monkeypatch.setattr(pair_runner, "ROOT", tmp_path)
     monkeypatch.setattr(pair_runner, "OFFICIAL_OUTPUT_ROOT", output_target)
     monkeypatch.setattr(pair_runner, "verify_execution_state", lambda **kwargs: None)
     descriptors = pair_runner._suite_descriptors(holdout, regression)
