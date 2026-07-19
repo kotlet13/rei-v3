@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 from typing import Literal
 
@@ -276,9 +277,13 @@ def _engine(
 
 def _authoritative_projection(result: ReiNativeCycleResult) -> tuple[bytes, ...]:
     values = (
+        result.request.character,
         result.racio_world_input,
         result.emocio_world_input,
         result.instinkt_world_input,
+        result.racio_execution.conclusion,
+        result.emocio_execution.conclusion,
+        result.instinkt_execution.conclusion,
         result.native_bundle,
         result.effective_authority,
         result.governance,
@@ -572,7 +577,22 @@ def test_post_verification_receipt_must_remain_outside_evidence_roots() -> None:
 
 def test_default_and_explicit_none_are_byte_stable_and_create_no_shadow(
     tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    import http.client
+    import socket
+    import urllib.request
+
+    def forbidden_external_call(*args: object, **kwargs: object) -> None:
+        raise AssertionError("default runtime attempted an external call")
+
+    monkeypatch.setattr(socket, "create_connection", forbidden_external_call)
+    monkeypatch.setattr(
+        http.client.HTTPConnection,
+        "connect",
+        forbidden_external_call,
+    )
+    monkeypatch.setattr(urllib.request, "urlopen", forbidden_external_call)
     request = _sl_request()
     default = _engine(tmp_path / "default", request).run_cycle(request)
     explicit = ReiNativeEngine.with_file_stores(
@@ -590,6 +610,53 @@ def test_default_and_explicit_none_are_byte_stable_and_create_no_shadow(
     assert not any(
         "shadow" in artifact.relative_path for artifact in default.stored_artifacts
     )
+
+
+def test_import_rei_does_not_load_gemma_or_ollama_shadow_modules() -> None:
+    script = """
+import http.client
+import json
+import socket
+import sys
+import urllib.request
+
+def forbidden_external_call(*args, **kwargs):
+    raise AssertionError("import rei attempted an external call")
+
+socket.create_connection = forbidden_external_call
+http.client.HTTPConnection.connect = forbidden_external_call
+urllib.request.urlopen = forbidden_external_call
+sys.path.insert(0, sys.argv[1])
+import rei
+
+forbidden = (
+    ".providers.gemma4_text_shadow",
+    ".providers.ollama",
+    ".providers.ollama_gemma4_chat_transport",
+    ".providers.ollama_gemma4_epistemic",
+    ".providers.ollama_gemma4_epistemic_v3",
+)
+print(json.dumps(sorted(
+    name for name in sys.modules if name.endswith(forbidden)
+)))
+"""
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            "-c",
+            script,
+            str(ROOT / "app" / "backend"),
+        ],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    assert json.loads(completed.stdout) == []
 
 
 def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
@@ -722,8 +789,11 @@ def test_bounded_shadow_failures_leave_authoritative_cycle_successful(
         ("transport", "ollama_unavailable"),
         ("transport", "timeout"),
         ("draft_v3_validation", "invalid_json"),
+        ("draft_v3_validation", "draft_v3_validation"),
         ("transport", "wrong_model_digest"),
+        ("canonicalizer_v3_validation", "canonicalizer_failure"),
         ("canonicalizer_v3_validation", "citation_scope_violation"),
+        ("canonicalizer_v3_validation", "option_scope_violation"),
     )
     for index, (stage, code) in enumerate(failures, start=1):
         fake = _FakeShadowInterpreter(
