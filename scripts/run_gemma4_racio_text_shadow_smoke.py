@@ -27,8 +27,10 @@ if str(BACKEND_ROOT) not in sys.path:
 
 
 from rei.communication.epistemic_interpreter_v3 import (  # noqa: E402
+    RacioEpistemicDraftV3,
     RacioEpistemicInterpretationV3,
     RacioEpistemicPacketV3,
+    canonicalize_racio_epistemic_draft_v3,
 )
 from rei.communication.text_shadow import (  # noqa: E402
     ShadowNoAuthorityLedger,
@@ -82,13 +84,14 @@ DEFAULT_OUTPUT_ROOT = (
 EXPECTED_OUTPUT_ROOT = (
     "Docs/evals/semantic_lab_v1/s1r-gemma4-text-shadow-2026-07-19"
 )
-S1R_COLD_VERIFICATION_RECEIPT = (
+S1R_POST_VERIFICATION_RECEIPT = (
     ROOT
     / "Docs"
     / "evals"
     / "research_reset_2026-07"
-    / "gemma4_text_shadow_s1r_cold_verification_receipt.json"
+    / "gemma4_text_shadow_s1r_post_verification_receipt.json"
 )
+S1R_VERIFY_RECEIPT_PREFIX = "s1r_verify_receipt"
 MODEL = "gemma4:31b"
 MODEL_DIGEST = (
     "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7"
@@ -96,7 +99,7 @@ MODEL_DIGEST = (
 PROVIDER_REVISION = "rei-racio-gemma4-epistemic-v3-chat-v1"
 EXPECTED_CALLS = 2
 SMOKE_MANIFEST_NAME = "smoke_evidence_manifest.json"
-COLD_VERIFIER_REVISION = "rei-gemma4-text-shadow-cold-verifier-v2"
+COLD_VERIFIER_REVISION = "rei-gemma4-text-shadow-cold-verifier-v3"
 WINDOWS_ABSOLUTE_PATH = re.compile(
     r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])"
 )
@@ -118,7 +121,7 @@ def _phase_config(output_root: Path) -> dict[str, object]:
             "seal_path": SEAL_PATH,
             "manifest_schema": "rei-gemma4-text-shadow-s1r-evidence-manifest-v1",
             "manifest_namespace": "gemma4_text_shadow_s1r_evidence",
-            "receipt_path": S1R_COLD_VERIFICATION_RECEIPT,
+            "receipt_path": S1R_POST_VERIFICATION_RECEIPT,
         }
     raise ValueError("Unrecognized Gemma text-shadow evidence root")
 
@@ -281,32 +284,213 @@ def _pending_cold_verification_state() -> dict[str, bool]:
     }
 
 
+def _evidence_root_snapshot(
+    output_root: Path,
+) -> tuple[tuple[str, str, int], ...]:
+    return tuple(
+        (
+            path.relative_to(output_root).as_posix(),
+            _sha256_file(path),
+            path.stat().st_size,
+        )
+        for path in sorted(output_root.rglob("*"))
+        if path.is_file()
+    )
+
+
+def _assert_evidence_root_committed_at(
+    output_root: Path,
+    *,
+    verification_head: str,
+) -> None:
+    relative_root = output_root.relative_to(ROOT).as_posix()
+    subprocess.run(
+        ["git", "diff", "--quiet", verification_head, "--", relative_root],
+        cwd=ROOT,
+        check=True,
+    )
+    untracked = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "--",
+            relative_root,
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if untracked:
+        raise ValueError("Evidence root contains uncommitted files")
+
+
+def _semantic_shape(output: RacioEpistemicInterpretationV3) -> str:
+    has_actions = bool(output.action_hypotheses)
+    has_option = output.option_inference is not None
+    has_motives = bool(output.motive_hypotheses)
+    if not has_actions and not has_option and not has_motives:
+        return "full_abstention"
+    if has_actions and not has_option and not has_motives:
+        return "action_only"
+    return "mixed_claims"
+
+
+def _s1r_lane_facts(output_root: Path) -> tuple[dict[str, object], ...]:
+    communication_root = (
+        output_root
+        / "shadow"
+        / "runs"
+        / _build_request().run_id
+        / "communication_shadow"
+    )
+    facts: list[dict[str, object]] = []
+    for label, source_mind, expected_shape in (
+        ("emocio", "E", "full_abstention"),
+        ("instinkt", "I", "action_only"),
+    ):
+        packet = RacioEpistemicPacketV3.model_validate_json(
+            (communication_root / f"{label}_packet_v3.json").read_bytes()
+        )
+        response = json.loads(
+            (communication_root / f"{label}_response_evidence.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        result = json.loads(
+            (communication_root / f"{label}_result.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        interpretation_wrapper = json.loads(
+            (communication_root / f"{label}_interpretation_v3.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        draft = RacioEpistemicDraftV3.model_validate_json(
+            canonical_json_bytes(response["model_draft"])
+        )
+        output = RacioEpistemicInterpretationV3.model_validate_json(
+            canonical_json_bytes(response["structured_output"])
+        )
+        if output != RacioEpistemicInterpretationV3.model_validate_json(
+            canonical_json_bytes(interpretation_wrapper["structured_output"])
+        ):
+            raise ValueError(f"{source_mind} stored interpretations differ")
+        canonical = canonicalize_racio_epistemic_draft_v3(packet, draft)
+        if canonical != output or output.validate_against(packet) is not output:
+            raise ValueError(f"{source_mind} canonicalizer replay differs")
+        shape = _semantic_shape(output)
+        if shape != expected_shape:
+            raise ValueError(f"{source_mind} has unexpected semantic shape {shape}")
+        if result.get("source_mind") != source_mind:
+            raise ValueError(f"{source_mind} result has the wrong source mind")
+        if result.get("status") != "succeeded" or result.get("no_authority") is not True:
+            raise ValueError(f"{source_mind} result is not a no-authority success")
+        facts.append(
+            {
+                "source_mind": source_mind,
+                "status": result["status"],
+                "semantic_shape": shape,
+                "model_calls": response["model_call_count"],
+                "retries": response["retry_count"],
+                "fallbacks": response["fallback_count"],
+            }
+        )
+    return tuple(facts)
+
+
 def _cold_receipt_value(
     output_root: Path,
     *,
     manifest: Mapping[str, object],
-    verifier_head: str,
+    original_manifest: Mapping[str, object],
+    verification_head: str,
+    original_snapshot: tuple[tuple[str, str, int], ...],
+    s1r_snapshot: tuple[tuple[str, str, int], ...],
 ) -> dict[str, object]:
-    manifest_path = output_root / SMOKE_MANIFEST_NAME
+    if output_root.resolve() != DEFAULT_OUTPUT_ROOT.resolve():
+        raise ValueError("Post-verification receipt is only defined for S1R")
+    summary = json.loads(
+        (output_root / "summary.json").read_text(encoding="utf-8")
+    )
+    lane_facts = _s1r_lane_facts(output_root)
+    if summary.get("execution_head") != manifest.get("execution_head"):
+        raise ValueError("S1R summary and manifest execution heads differ")
+    if summary.get("shadow_statuses") != ["succeeded", "succeeded"]:
+        raise ValueError("S1R summary does not contain two successful lanes")
+    calls = sum(int(fact["model_calls"]) for fact in lane_facts)
+    retries = sum(int(fact["retries"]) for fact in lane_facts)
+    fallbacks = sum(int(fact["fallbacks"]) for fact in lane_facts)
+    if (
+        calls != EXPECTED_CALLS
+        or retries != 0
+        or fallbacks != 0
+        or summary.get("api_chat_dispatches") != calls
+        or summary.get("retries") != retries
+        or summary.get("fallbacks") != fallbacks
+    ):
+        raise ValueError("S1R call accounting differs from stored lane evidence")
+    if summary.get("authoritative_cycle_unchanged") is not True:
+        raise ValueError("S1R summary does not preserve the authoritative cycle")
+    if summary.get("no_authority") is not True:
+        raise ValueError("S1R summary lost its no-authority marker")
+    if summary.get("model_promoted") is not False or summary.get("holdout") is not False:
+        raise ValueError("S1R summary overstates promotion or holdout status")
+    if summary.get("thinking_content_persisted") is not False:
+        raise ValueError("S1R summary claims persisted thinking content")
+
     base = {
-        "schema_version": (
-            "rei-gemma4-text-shadow-cold-verification-receipt-v1"
+        "schema_version": "rei-gemma4-text-shadow-s1r-post-verification-receipt-v1",
+        "phase": "S1R-R",
+        "execution_head": manifest["execution_head"],
+        "verification_head": verification_head,
+        "original_s1_evidence_root": ORIGINAL_OUTPUT_ROOT.relative_to(ROOT).as_posix(),
+        "original_s1_execution_head": original_manifest["execution_head"],
+        "original_s1_manifest_id": original_manifest["manifest_id"],
+        "original_s1_manifest_sha256": original_manifest["manifest_sha256"],
+        "original_s1_manifest_file_sha256": _sha256_file(
+            ORIGINAL_OUTPUT_ROOT / SMOKE_MANIFEST_NAME
         ),
-        "phase": manifest["phase"],
-        "evidence_root": output_root.relative_to(ROOT).as_posix(),
-        "evidence_manifest_id": manifest["manifest_id"],
-        "evidence_manifest_sha256": manifest["manifest_sha256"],
-        "evidence_manifest_file_sha256": _sha256_file(manifest_path),
-        "artifact_count": len(manifest["artifacts"]),
+        "original_s1_inventory_sha256": sha256_hex(original_snapshot),
+        "s1r_evidence_root": output_root.relative_to(ROOT).as_posix(),
+        "s1r_execution_head": manifest["execution_head"],
+        "s1r_manifest_id": manifest["manifest_id"],
+        "s1r_manifest_sha256": manifest["manifest_sha256"],
+        "s1r_manifest_file_sha256": _sha256_file(
+            output_root / SMOKE_MANIFEST_NAME
+        ),
+        "s1r_inventory_sha256": sha256_hex(s1r_snapshot),
+        "original_s1_integrity_status": "succeeded",
+        "s1r_integrity_status": "succeeded",
+        "e_status": lane_facts[0]["status"],
+        "i_status": lane_facts[1]["status"],
+        "e_semantic_shape": lane_facts[0]["semantic_shape"],
+        "i_semantic_shape": lane_facts[1]["semantic_shape"],
+        "calls": calls,
+        "retries": retries,
+        "fallbacks": fallbacks,
+        "receipt_generation_model_calls": 0,
+        "draft_v3_validity": "2/2",
+        "canonicalizer_validity": "2/2",
+        "authoritative_cycle_unchanged": True,
+        "world_update_inputs_and_ego_projections_unchanged": summary[
+            "world_update_inputs_and_ego_projections_unchanged"
+        ],
+        "standalone_mindworld_updaters_exercised": summary[
+            "standalone_mindworld_updaters_exercised"
+        ],
         "verifier_revision": COLD_VERIFIER_REVISION,
-        "verifier_head": verifier_head,
-        "native_run_manifests_verified": 2,
-        "shadow_no_authority_ledger_verified": True,
-        "private_content_scan_passed": True,
-        "cold_verification": "succeeded",
+        "thinking_content_persisted": False,
+        "evidence_roots_mutated_during_verification": False,
+        "receipt_status": "succeeded",
         "no_authority": True,
+        "model_promoted": False,
+        "holdout": False,
     }
-    receipt_id = content_id("gemma4_text_shadow_cold_verification", base)
+    receipt_id = content_id(S1R_VERIFY_RECEIPT_PREFIX, base)
     payload = {"receipt_id": receipt_id, **base}
     return {**payload, "receipt_sha256": sha256_hex(payload)}
 
@@ -727,8 +911,8 @@ def execute_smoke(output_root: Path) -> int:
         raise ValueError("S1R execution output root differs from the seal")
     if output_root.exists():
         raise ValueError("S1R output root is create-only and already exists")
-    if S1R_COLD_VERIFICATION_RECEIPT.exists():
-        raise ValueError("S1R cold-verification receipt is create-only")
+    if S1R_POST_VERIFICATION_RECEIPT.exists():
+        raise ValueError("S1R post-verification receipt is create-only")
     output_root.mkdir(parents=True)
     _create_json(
         output_root / "planned_ledger.json",
@@ -878,10 +1062,7 @@ def execute_smoke(output_root: Path) -> int:
         output_root / SMOKE_MANIFEST_NAME,
         _smoke_manifest_value(output_root, execution_head=head),
     )
-    _verify_and_issue_cold_receipt(
-        output_root,
-        receipt_path=S1R_COLD_VERIFICATION_RECEIPT,
-    )
+    _cold_verification_checks(output_root)
     sys.stdout.buffer.write(canonical_json_bytes(summary))
     sys.stdout.buffer.flush()
     return 0 if summary["technical_smoke_succeeded"] else 2
@@ -918,13 +1099,48 @@ def _verify_and_issue_cold_receipt(
 ) -> dict[str, object]:
     if receipt_path.exists():
         raise FileExistsError(receipt_path)
+    if output_root.resolve() != DEFAULT_OUTPUT_ROOT.resolve():
+        raise ValueError("Post-verification receipt is only defined for S1R")
+    resolved_receipt = receipt_path.resolve()
+    if any(
+        resolved_receipt.is_relative_to(root.resolve())
+        for root in (ORIGINAL_OUTPUT_ROOT, output_root)
+    ):
+        raise ValueError("Post-verification receipt must be outside evidence roots")
+    verification_head = _git_text("rev-parse", "HEAD")
+    _assert_evidence_root_committed_at(
+        ORIGINAL_OUTPUT_ROOT,
+        verification_head=verification_head,
+    )
+    _assert_evidence_root_committed_at(
+        output_root,
+        verification_head=verification_head,
+    )
+    original_before = _evidence_root_snapshot(ORIGINAL_OUTPUT_ROOT)
+    s1r_before = _evidence_root_snapshot(output_root)
+    original_manifest = verifier(ORIGINAL_OUTPUT_ROOT)
     manifest = verifier(output_root)
+    if original_before != _evidence_root_snapshot(ORIGINAL_OUTPUT_ROOT):
+        raise ValueError("Original S1 evidence root changed during verification")
+    if s1r_before != _evidence_root_snapshot(output_root):
+        raise ValueError("S1R evidence root changed during verification")
     receipt = _cold_receipt_value(
         output_root,
         manifest=manifest,
-        verifier_head=_git_text("rev-parse", "HEAD"),
+        original_manifest=original_manifest,
+        verification_head=verification_head,
+        original_snapshot=original_before,
+        s1r_snapshot=s1r_before,
     )
+    if original_before != _evidence_root_snapshot(ORIGINAL_OUTPUT_ROOT):
+        raise ValueError("Original S1 evidence root changed before receipt issuance")
+    if s1r_before != _evidence_root_snapshot(output_root):
+        raise ValueError("S1R evidence root changed before receipt issuance")
     _create_json(receipt_path, receipt)
+    if original_before != _evidence_root_snapshot(ORIGINAL_OUTPUT_ROOT):
+        raise ValueError("Original S1 evidence root changed during receipt issuance")
+    if s1r_before != _evidence_root_snapshot(output_root):
+        raise ValueError("S1R evidence root changed during receipt issuance")
     return receipt
 
 
@@ -936,24 +1152,42 @@ def _verify_cold_receipt(
 ) -> dict[str, object]:
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     if not isinstance(receipt, dict):
-        raise ValueError("S1R cold-verification receipt must be one JSON object")
-    verifier_head = receipt.get("verifier_head")
-    if not isinstance(verifier_head, str) or not re.fullmatch(
-        r"[0-9a-f]{40}", verifier_head
+        raise ValueError("S1R post-verification receipt must be one JSON object")
+    verification_head = receipt.get("verification_head")
+    if not isinstance(verification_head, str) or not re.fullmatch(
+        r"[0-9a-f]{40}", verification_head
     ):
-        raise ValueError("S1R cold-verification receipt has an invalid head")
+        raise ValueError("S1R post-verification receipt has an invalid head")
     subprocess.run(
-        ["git", "merge-base", "--is-ancestor", verifier_head, "HEAD"],
+        ["git", "merge-base", "--is-ancestor", verification_head, "HEAD"],
         cwd=ROOT,
         check=True,
     )
+    _assert_evidence_root_committed_at(
+        ORIGINAL_OUTPUT_ROOT,
+        verification_head=verification_head,
+    )
+    _assert_evidence_root_committed_at(
+        output_root,
+        verification_head=verification_head,
+    )
+    original_before = _evidence_root_snapshot(ORIGINAL_OUTPUT_ROOT)
+    s1r_before = _evidence_root_snapshot(output_root)
+    original_manifest = _cold_verification_checks(ORIGINAL_OUTPUT_ROOT)
     expected = _cold_receipt_value(
         output_root,
         manifest=manifest,
-        verifier_head=verifier_head,
+        original_manifest=original_manifest,
+        verification_head=verification_head,
+        original_snapshot=original_before,
+        s1r_snapshot=s1r_before,
     )
     if receipt != expected:
-        raise ValueError("S1R cold-verification receipt differs from its evidence")
+        raise ValueError("S1R post-verification receipt differs from its evidence")
+    if original_before != _evidence_root_snapshot(ORIGINAL_OUTPUT_ROOT):
+        raise ValueError("Original S1 evidence root changed during verification")
+    if s1r_before != _evidence_root_snapshot(output_root):
+        raise ValueError("S1R evidence root changed during verification")
     return receipt
 
 
@@ -977,6 +1211,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     mode.add_argument("--derive-seal", action="store_true")
     mode.add_argument("--execute", action="store_true")
     mode.add_argument("--cold-verify", action="store_true")
+    mode.add_argument("--issue-post-verification-receipt", action="store_true")
     parser.add_argument("--work-root", type=Path)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     return parser.parse_args(argv)
@@ -990,6 +1225,14 @@ def main(argv: list[str] | None = None) -> int:
         return derive_seal(args.work_root.resolve())
     if args.execute:
         return execute_smoke(args.output_root.resolve())
+    if args.issue_post_verification_receipt:
+        receipt = _verify_and_issue_cold_receipt(
+            args.output_root.resolve(),
+            receipt_path=S1R_POST_VERIFICATION_RECEIPT,
+        )
+        sys.stdout.buffer.write(canonical_json_bytes(receipt))
+        sys.stdout.buffer.flush()
+        return 0
     return cold_verify(args.output_root.resolve())
 
 

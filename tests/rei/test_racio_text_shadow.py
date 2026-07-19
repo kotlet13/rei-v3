@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import sys
 from typing import Literal
 
 import pytest
@@ -31,7 +32,7 @@ from app.backend.rei.engine import (
     ReiNativeCycleResult,
     ReiNativeEngine,
 )
-from app.backend.rei.ids import canonical_json_bytes, content_id
+from app.backend.rei.ids import canonical_json_bytes, content_id, sha256_hex
 from app.backend.rei.models.common import FrozenArtifactModel, NonEmptyId
 from app.backend.rei.models.provider import ProviderCallRecord, ProviderIdentity
 from app.backend.rei.persistence import ArtifactIntegrityError, FileArtifactStore
@@ -376,12 +377,15 @@ def test_verifier_failure_cannot_create_a_success_receipt_or_summary_claim(
     receipt_path = tmp_path / "cold-verification-receipt.json"
 
     def fail_verification(output_root: Path) -> dict[str, object]:
-        assert output_root == tmp_path
+        assert output_root in {
+            shadow_smoke.ORIGINAL_OUTPUT_ROOT,
+            shadow_smoke.DEFAULT_OUTPUT_ROOT,
+        }
         raise ValueError("synthetic verifier failure")
 
     with pytest.raises(ValueError, match="synthetic verifier failure"):
         shadow_smoke._verify_and_issue_cold_receipt(
-            tmp_path,
+            shadow_smoke.DEFAULT_OUTPUT_ROOT,
             receipt_path=receipt_path,
             verifier=fail_verification,
         )
@@ -391,6 +395,179 @@ def test_verifier_failure_cannot_create_a_success_receipt_or_summary_claim(
     assert persisted_summary["evidence_root_closed"] is True
     assert "cold_verification" not in persisted_summary
     assert not receipt_path.exists()
+
+
+def test_s1r_receipt_id_is_stable_and_content_addressed() -> None:
+    from scripts import run_gemma4_racio_text_shadow_smoke as shadow_smoke
+
+    original_manifest = json.loads(
+        (
+            shadow_smoke.ORIGINAL_OUTPUT_ROOT
+            / shadow_smoke.SMOKE_MANIFEST_NAME
+        ).read_text(encoding="utf-8")
+    )
+    s1r_manifest = json.loads(
+        (
+            shadow_smoke.DEFAULT_OUTPUT_ROOT
+            / shadow_smoke.SMOKE_MANIFEST_NAME
+        ).read_text(encoding="utf-8")
+    )
+    original_snapshot = shadow_smoke._evidence_root_snapshot(
+        shadow_smoke.ORIGINAL_OUTPUT_ROOT
+    )
+    s1r_snapshot = shadow_smoke._evidence_root_snapshot(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT
+    )
+    head = shadow_smoke._git_text("rev-parse", "HEAD")
+
+    first = shadow_smoke._cold_receipt_value(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT,
+        manifest=s1r_manifest,
+        original_manifest=original_manifest,
+        verification_head=head,
+        original_snapshot=original_snapshot,
+        s1r_snapshot=s1r_snapshot,
+    )
+    repeated = shadow_smoke._cold_receipt_value(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT,
+        manifest=s1r_manifest,
+        original_manifest=original_manifest,
+        verification_head=head,
+        original_snapshot=original_snapshot,
+        s1r_snapshot=s1r_snapshot,
+    )
+    changed = shadow_smoke._cold_receipt_value(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT,
+        manifest=s1r_manifest,
+        original_manifest=original_manifest,
+        verification_head="f" * 40,
+        original_snapshot=original_snapshot,
+        s1r_snapshot=s1r_snapshot,
+    )
+
+    assert shadow_smoke.S1R_VERIFY_RECEIPT_PREFIX == "s1r_verify_receipt"
+    assert first == repeated
+    assert first["receipt_id"].startswith("s1r_verify_receipt_")
+    assert first["verification_head"] == head
+    assert first["original_s1_execution_head"] == (
+        "85030ac9c6f6fd62439c000910d0eb6d0271c524"
+    )
+    assert first["s1r_execution_head"] == (
+        "82b219c17eb62a1afbc807159da05244923998dd"
+    )
+    assert first["execution_head"] == first["s1r_execution_head"]
+    assert first["verification_head"] != first["execution_head"]
+    assert first["receipt_sha256"] == sha256_hex(
+        {key: value for key, value in first.items() if key != "receipt_sha256"}
+    )
+    assert changed["receipt_id"] != first["receipt_id"]
+    assert changed["receipt_sha256"] != first["receipt_sha256"]
+
+
+@pytest.mark.parametrize(
+    "prefix",
+    (
+        "S1r_verify_receipt",
+        "s1r verify receipt",
+        "s1r/verify/receipt",
+        "s1r:verify:receipt",
+        "a" * 33,
+    ),
+)
+def test_global_content_id_prefix_protection_remains_strict(prefix: str) -> None:
+    with pytest.raises(ValueError, match="ID prefix"):
+        content_id(prefix, {"status": "succeeded"})
+
+
+def test_existing_s1r_evidence_issues_create_only_receipt_without_mutation_or_calls(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from scripts import run_gemma4_racio_text_shadow_smoke as shadow_smoke
+
+    def forbidden_model_path(*args: object, **kwargs: object) -> None:
+        raise AssertionError("receipt issuance reached a model/provider path")
+
+    monkeypatch.setattr(
+        shadow_smoke,
+        "_discover_shadow_interpreter",
+        forbidden_model_path,
+    )
+    monkeypatch.setattr(shadow_smoke, "_run_cycle", forbidden_model_path)
+    monkeypatch.setattr(shadow_smoke, "_seal_candidate", forbidden_model_path)
+    concrete_provider_suffixes = (
+        ".providers.gemma4_text_shadow",
+        ".providers.ollama",
+        ".providers.ollama_gemma4_epistemic_v3",
+    )
+    concrete_providers_before = {
+        name
+        for name in sys.modules
+        if name.endswith(concrete_provider_suffixes)
+    }
+    receipt_path = tmp_path / "post-verification-receipt.json"
+    original_before = _all_files(shadow_smoke.ORIGINAL_OUTPUT_ROOT)
+    s1r_before = _all_files(shadow_smoke.DEFAULT_OUTPUT_ROOT)
+
+    receipt = shadow_smoke._verify_and_issue_cold_receipt(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT,
+        receipt_path=receipt_path,
+    )
+
+    assert receipt_path.read_bytes() == canonical_json_bytes(receipt)
+    assert receipt["receipt_generation_model_calls"] == 0
+    assert receipt["execution_head"] == (
+        "82b219c17eb62a1afbc807159da05244923998dd"
+    )
+    assert receipt["e_status"] == receipt["i_status"] == "succeeded"
+    assert receipt["e_semantic_shape"] == "full_abstention"
+    assert receipt["i_semantic_shape"] == "action_only"
+    assert receipt["calls"] == 2
+    assert receipt["retries"] == receipt["fallbacks"] == 0
+    assert receipt["draft_v3_validity"] == "2/2"
+    assert receipt["canonicalizer_validity"] == "2/2"
+    assert receipt["evidence_roots_mutated_during_verification"] is False
+    assert {
+        name
+        for name in sys.modules
+        if name.endswith(concrete_provider_suffixes)
+    } == concrete_providers_before
+    assert _all_files(shadow_smoke.ORIGINAL_OUTPUT_ROOT) == original_before
+    assert _all_files(shadow_smoke.DEFAULT_OUTPUT_ROOT) == s1r_before
+
+    manifest = shadow_smoke._cold_verification_checks(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT
+    )
+    assert shadow_smoke._verify_cold_receipt(
+        shadow_smoke.DEFAULT_OUTPUT_ROOT,
+        manifest=manifest,
+        receipt_path=receipt_path,
+    ) == receipt
+    persisted = receipt_path.read_bytes()
+
+    with pytest.raises(FileExistsError):
+        shadow_smoke._verify_and_issue_cold_receipt(
+            shadow_smoke.DEFAULT_OUTPUT_ROOT,
+            receipt_path=receipt_path,
+            verifier=forbidden_model_path,
+        )
+
+    assert receipt_path.read_bytes() == persisted
+    assert _all_files(shadow_smoke.ORIGINAL_OUTPUT_ROOT) == original_before
+    assert _all_files(shadow_smoke.DEFAULT_OUTPUT_ROOT) == s1r_before
+
+
+def test_post_verification_receipt_must_remain_outside_evidence_roots() -> None:
+    from scripts import run_gemma4_racio_text_shadow_smoke as shadow_smoke
+
+    inside_root = shadow_smoke.DEFAULT_OUTPUT_ROOT / "forbidden-receipt.json"
+    with pytest.raises(ValueError, match="outside evidence roots"):
+        shadow_smoke._verify_and_issue_cold_receipt(
+            shadow_smoke.DEFAULT_OUTPUT_ROOT,
+            receipt_path=inside_root,
+        )
+
+    assert not inside_root.exists()
 
 
 def test_default_and_explicit_none_are_byte_stable_and_create_no_shadow(
