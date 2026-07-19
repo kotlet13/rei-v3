@@ -64,6 +64,23 @@ The focused V3 guard additionally proves that:
   metadata. Successful validated DraftV3 and structured output remain the
   permitted response evidence.
 
+## GitHub CI reconciliation
+
+- Original failing run: `29637069986`; `artifact-smoke` passed, while
+  `unit-and-domain` and `full-discovery` failed during pytest collection.
+- Root causes: the two test jobs did not install the already pinned
+  `Pillow==12.3.0`; pytest did not expose the active `app/backend/rei` source
+  root; the collect-only pipeline masked pytest's exit status; and, once those
+  blockers were removed, one existing C3 disk-closure test placed its synthetic
+  output outside its synthetic repository root.
+- Fixed files: `.github/workflows/rei-native-tests.yml`, `pytest.ini`, and
+  `tests/evaluation/test_c3_official_pair.py`.
+- Reconciliation run `29677311284`: `artifact-smoke`, `unit-and-domain`, and
+  `full-discovery` all succeeded.
+- The fix introduced no skip/xfail suppression, model call, or change to the
+  frozen V3 contract, provider instruction, evaluator, G3C corpus/gold, or
+  frozen G3/G3C results.
+
 ## Known limitations
 
 - G3C is a development rerun, not an untouched holdout; it grants no
