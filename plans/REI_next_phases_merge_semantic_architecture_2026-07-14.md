@@ -1,3 +1,11 @@
+SUPERSEDED FOR FUTURE WORK
+
+M0–C8 remain historical records. The direct-main workflow and automatic
+continuation are no longer active. Future work follows:
+`plans/REI_research_reset_human_signal_plan_2026-07-16.md`.
+
+---
+
 # REI-v3 — načrt integracije na `main` in naslednjih razvojnih faz
 
 **Namen:** neposredno izvedbeno navodilo za Codex

@@ -17,10 +17,28 @@ knowledge/canon_v2/semantic_lab_v1/c3_racio_interpreter_holdout_v1/** text eol=l
 Docs/evals/semantic_lab_v1/c3-racio-interpreter-*/** text eol=lf
 Docs/evals/semantic_lab_v1/c3-racio-official-pair-*/** text eol=lf
 
+# G3 freezes the Gemma 4 development corpus and manifest by raw SHA-256.
+knowledge/canon_v2/semantic_lab_v1/gemma4_epistemic_dev_v1/** text eol=lf
+Docs/evals/semantic_lab_v1/g3-gemma4-racio-epistemic-2026-07-17/** text eol=lf
+app/backend/rei/communication/epistemic_interpreter.py text eol=lf
+app/backend/rei/evaluation/racio_epistemic.py text eol=lf
+app/backend/rei/providers/ollama_gemma4_epistemic.py text eol=lf
+
+# G3C freezes the V3 development rerun corpus and evidence by raw SHA-256.
+knowledge/canon_v2/semantic_lab_v1/gemma4_epistemic_v3_g3c_2026_07_17/** text eol=lf
+Docs/evals/semantic_lab_v1/g3c-gemma4-racio-epistemic-v3-2026-07-17/** text eol=lf
+app/backend/rei/communication/epistemic_interpreter_v3.py text eol=lf
+app/backend/rei/evaluation/racio_epistemic_v3.py text eol=lf
+app/backend/rei/providers/ollama_gemma4_chat_transport.py text eol=lf
+app/backend/rei/providers/ollama_gemma4_epistemic_v3.py text eol=lf
+Docs/evals/research_reset_2026-07/gemma4_racio_epistemic_dev_screen.md text eol=lf
+Docs/evals/research_reset_2026-07/g3_semantic_adjudication.md text eol=lf
+
 # C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
 tests/fixtures/semantic_lab_v1/** text eol=lf
 tests/fixtures/native_bundles/** text eol=lf
 tests/fixtures/native_cycles/** text eol=lf
+Docs/evals/semantic_lab_v1/c4-stage1-preflight-2026-07-15/** text eol=lf
 Docs/evals/semantic_lab_v1/c4_*_2026-07-14.md text eol=lf
 Docs/evals/semantic_lab_v1/c5-body-mapper-v3-2026-07-14/** text eol=lf
 Docs/evals/semantic_lab_v1/c6-longitudinal-2026-07-14/** text eol=lf

@@ -171,6 +171,48 @@ Ne dokazujejo halucinacije, psihološke napačne interpretacije ali značaja
 resnične osebe. Tudi uspešen kandidat ostane eksplicitni benchmark kandidat brez
 default oziroma production avtoritete.
 
+### G1 epistemološka pogodba v2 — 2026-07-17
+
+Status: `implementation_hypothesis`, omejeno na razvojni RacioInterpreter v2;
+ne spreminja zamrznjene C3 v1 sheme, prompta, golda ali rezultatov.
+
+V2 loči neposredno prepoznano akcijsko težnjo, mapiranje javne možnosti in
+hipoteze o motivu. Ime akcije samo po sebi ni dokaz motiva, opis možnosti pa je
+dovoljen samo za mapiranje že vidne smeri. Če signal ne razlikuje dveh
+modalnosti iste akcije, je pravilen `null` option. Če motiv ni vidno podprt, je
+pravilen prazen seznam hipotez z razlogom neznanke.
+
+Za prvi razvojni rez je sprejeta naslednja zamenljiva hierarhija:
+
+```text
+scene
+├── desired_scene_absent
+├── desired_scene_mismatch
+├── broken_scene
+├── recurrent_broken_scene
+├── scene_realization
+└── scene_repair
+
+motor_social
+├── motor_execution
+├── connection
+├── competition
+└── attention_or_status
+
+protection
+├── general_body_alarm
+├── boundary_alarm
+├── attachment_alarm
+├── resource_alarm
+├── trust_alarm
+└── escape_alarm
+```
+
+Ta hierarhija operacionalizira razlike iz kanoničnih virov in človeških
+popravkov H3/H7/H11. Ni neposredna trditev iz knjige, empirično potrjena
+taksonomija ali dovoljenje za sklepanje skritega nativnega motiva. Njena
+ustreznost ostaja odprta in jo mora poznejši untouched holdout oceniti ločeno.
+
 ## OQ-TRANSLATION-001 — zvestoba Racijevega prevoda
 
 Kako evaluator loči uporaben prevod od opustitve, racionalizacije,
@@ -863,6 +905,46 @@ in reparse-pointa; pred ločenim model-backed screenom je potreben nov copy-only
 zunanji runtime. Vzorčeni peak ostaja spodnja meja, display receipt pa ne
 dokazuje reviewerjeve pozornosti ali kognicije. Zato C4 vprašanje in C7 resource
 gate ostajata odprta.
+
+## G2 dopolnitev OQ-PROVIDER-001 — meja izjave in strukture
+
+Kako ohraniti Racijevo lastno poročilo o negotovosti, ne da bi provider iz
+oblike odgovora ustvaril navidezno semantično dejstvo?
+
+### G2 izvedbeni popravek — 2026-07-17
+
+Status: `implementation_hypothesis`, model-free pogodbeni popravek pred novim
+Gemma klicem. Racijeva negotovost je obvezna model-owned struktura z ločenima
+tri-state dimenzijama za preslikavo možnosti in interpretacijo motiva:
+`uncertain`, `not_uncertain` ali `not_reported`. Zadnja vrednost eksplicitno
+ohrani odsotno Racijevo samooceno in ni manjkajoče JSON polje. Noben validator
+poročila ne izpelje iz izbrane možnosti, števila motivnih hipotez ali
+confidencea. Zato so dovoljene in vidne tudi navidezno protislovne kombinacije,
+na primer izbrana možnost ob hkrati poročani negotovosti preslikave.
+
+Provider po popolni validaciji Racijevega izhoda izdela ločen response-evidence
+sidecar. Ta zabeleži samo, ali je `inferred_option_id` prisoten, in število
+elementov `motive_hypotheses`. Sidecar ni Racijeva izjava, ni evaluatorjeva
+ugotovitev, ni semantični dokaz in nima governance učinka. Pri izračunu obeh
+strukturnih vrednosti ne uporablja packeta, thinking sledi, golda ali Racijevega
+poročila o negotovosti. Lineage hash pa namenoma pokriva celoten validirani
+Racijev izhod, tudi njegovo poročilo, ter sidecar veže na policy ID/hash.
+Sanitized response evidence vsebuje tudi tipizirani validirani izhod, zato
+cold validator obe strukturni vrednosti ponovno izračuna brez thinking sledi
+ali raw responsea; content hash sam zase ni dokaz pravilne derivacije.
+
+`inferred_option_id: null` še naprej pomeni samo, da Racio ni podal option
+inferencea. Ne dokazuje, da vidne opazke objektivno določajo ali ne določajo
+možnosti. Določljivost ostaja evaluator-owned presoja. Legacy polje
+`unresolved_ambiguity`, model-poslani providerjevi sidecar podatki in podvojeni
+JSON ključi se zavrnejo fail-closed. Zamrznjena C3 v1 pogodba se s tem ne
+spreminja.
+
+G2 per-case evaluator tega poročila še ne kalibrira in ga ne uporablja v hard
+gateu. Trenutno meri samo njegovo dvojezično skladnost; ali poročilo semantično
+ustreza evaluator-owned določljivosti in podpori, ostaja odprto kalibracijsko
+vprašanje za ločen pregled. Konstanten report zato v tej fazi ne more pomeniti
+semantičnega sprejema modela.
 
 ## Izrecno zaprte smeri, ki niso odprta vprašanja B1
 

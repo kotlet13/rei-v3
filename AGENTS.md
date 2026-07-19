@@ -1,15 +1,22 @@
 # Agent Notes
 
-## Main-Only Development
+## Research Phase Governance
 
-All current and future work in this repository must be performed directly on
-the `main` branch. Do not create, switch to, or publish feature branches unless
-the user explicitly replaces this instruction.
+All new research work must be performed on a dedicated feature branch. Direct
+pushes to `main` are forbidden, and every human-reviewable research phase must
+stop for user review before another phase starts or any merge is proposed.
 
-Before starting a phase, verify that the working branch is `main` and reconcile
-it with `origin/main`. Keep unrelated user-owned working-tree changes unstaged.
-After an approved implementation phase, commit and push the scoped changes
-directly to `main`.
+Project-governance instructions may be changed only by explicit user request.
+An agent may not remove review gates, require direct-main development, or
+authorize itself to continue into another phase.
+
+Exploration must precede validation. Model-free infrastructure, green tests,
+and technical contract compliance are not semantic acceptance by themselves.
+No phase auto-continues. Keep unrelated user-owned working-tree changes
+unstaged, and do not merge a research branch without explicit user review.
+
+Do not generate training datasets or introduce QLoRA, LoRA, SFT, or another
+training workflow without a new explicit user-approved plan.
 
 ## Ollama GPU Offload
 

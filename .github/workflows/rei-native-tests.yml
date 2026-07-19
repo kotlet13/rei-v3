@@ -33,7 +33,7 @@ jobs:
       - name: Install minimal test dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r app/backend/requirements.txt pytest==9.1.1
+          python -m pip install -r app/backend/requirements.txt pytest==9.1.1 Pillow==12.3.0
 
       - name: Run native domain and archive guards
         run: >-
@@ -62,10 +62,11 @@ jobs:
       - name: Install minimal test dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r app/backend/requirements.txt pytest==9.1.1
+          python -m pip install -r app/backend/requirements.txt pytest==9.1.1 Pillow==12.3.0
 
       - name: Report collection and require native tests
         run: |
+          set -o pipefail
           mkdir -p output/ci-artifacts
           python -m pytest --collect-only -q | tee output/ci-artifacts/collection.txt
           grep -q '^tests/rei/' output/ci-artifacts/collection.txt
