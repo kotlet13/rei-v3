@@ -8,9 +8,12 @@ from typing import Literal
 import pytest
 
 from app.backend.rei.communication.epistemic_interpreter import (
+    MOTIVE_UNKNOWN_REASON_SL,
     RacioReportedUncertainty,
 )
 from app.backend.rei.communication.epistemic_interpreter_v3 import (
+    ACTION_UNKNOWN_REASON_SL_V3,
+    OPTION_UNKNOWN_REASON_SL_V3,
     ActionHypothesisDraftV3,
     OptionInferenceDraftV3,
     RacioEpistemicDraftV3,
@@ -41,6 +44,18 @@ from app.backend.rei.providers.native import (
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = ROOT / "tests" / "fixtures" / "native_cycles" / "deterministic_e2e.json"
+S1_E_PACKET = (
+    ROOT
+    / "Docs"
+    / "evals"
+    / "semantic_lab_v1"
+    / "s1-gemma4-text-shadow-2026-07-19"
+    / "shadow"
+    / "runs"
+    / "s1-gemma4-text-shadow-cycle"
+    / "communication_shadow"
+    / "emocio_packet_v3.json"
+)
 
 
 class _FakeShadowEvidence(FrozenArtifactModel):
@@ -295,6 +310,87 @@ def _all_files(root: Path) -> dict[str, bytes]:
         for path in sorted(root.rglob("*"))
         if path.is_file()
     }
+
+
+def test_committed_s1_emocio_packet_permits_exact_full_abstention() -> None:
+    packet = RacioEpistemicPacketV3.model_validate_json(S1_E_PACKET.read_bytes())
+    uncertainty = RacioReportedUncertainty(
+        option_mapping="uncertain",
+        motive_interpretation="not_reported",
+    )
+
+    output = canonicalize_racio_epistemic_draft_v3(
+        packet,
+        RacioEpistemicDraftV3(
+            source_mind="E",
+            action_hypotheses=(),
+            option_inference=None,
+            motive_hypotheses=(),
+            racio_reported_uncertainty=uncertainty,
+        ),
+    )
+
+    assert output.source_mind == "E"
+    assert output.cited_observation_ids == ()
+    assert output.action_hypotheses == ()
+    assert output.action_unknown_reason == ACTION_UNKNOWN_REASON_SL_V3
+    assert output.option_inference is None
+    assert output.option_unknown_reason == OPTION_UNKNOWN_REASON_SL_V3
+    assert output.motive_hypotheses == ()
+    assert output.motive_unknown_reason == MOTIVE_UNKNOWN_REASON_SL
+    assert output.racio_reported_uncertainty == uncertainty
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    (
+        (r"C:\Users\Name\file.json", True),
+        ("D:/tmp/file.json", True),
+        (r"path=C:\private\file", True),
+        ("http://127.0.0.1:11434/api/chat", False),
+        ("https://example.org/path", False),
+        ("ollama://local/model", False),
+        ("status: /ordinary/text", False),
+    ),
+)
+def test_shadow_verifier_distinguishes_windows_paths_from_urls(
+    value: str,
+    expected: bool,
+) -> None:
+    from scripts import run_gemma4_racio_text_shadow_smoke as shadow_smoke
+
+    assert shadow_smoke._contains_windows_absolute_path(value) is expected
+
+
+def test_verifier_failure_cannot_create_a_success_receipt_or_summary_claim(
+    tmp_path: Path,
+) -> None:
+    from scripts import run_gemma4_racio_text_shadow_smoke as shadow_smoke
+
+    summary = {
+        "schema_version": "rei-test-shadow-summary-v1",
+        **shadow_smoke._pending_cold_verification_state(),
+    }
+    summary_path = tmp_path / "summary.json"
+    summary_path.write_bytes(canonical_json_bytes(summary))
+    receipt_path = tmp_path / "cold-verification-receipt.json"
+
+    def fail_verification(output_root: Path) -> dict[str, object]:
+        assert output_root == tmp_path
+        raise ValueError("synthetic verifier failure")
+
+    with pytest.raises(ValueError, match="synthetic verifier failure"):
+        shadow_smoke._verify_and_issue_cold_receipt(
+            tmp_path,
+            receipt_path=receipt_path,
+            verifier=fail_verification,
+        )
+
+    persisted_summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    assert persisted_summary["cold_verification_required"] is True
+    assert persisted_summary["evidence_root_closed"] is True
+    assert "cold_verification" not in persisted_summary
+    assert not receipt_path.exists()
 
 
 def test_default_and_explicit_none_are_byte_stable_and_create_no_shadow(

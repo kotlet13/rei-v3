@@ -67,6 +67,13 @@ G3_ROOT = (
     / "semantic_lab_v1"
     / "g3-gemma4-racio-epistemic-2026-07-17"
 )
+G3C_ROOT = (
+    REPO_ROOT
+    / "Docs"
+    / "evals"
+    / "semantic_lab_v1"
+    / "g3c-gemma4-racio-epistemic-v3-2026-07-17"
+)
 
 
 def _plain_text(canonical_sl: str) -> AuditedBilingualTextV3:
@@ -518,6 +525,116 @@ def test_v3_draft_canonicalizer_inserts_only_bounded_abstention_text() -> None:
     assert output.motive_unknown_reason == MOTIVE_UNKNOWN_REASON_SL
 
 
+def test_v3_full_abstention_allows_an_empty_claim_citation_union() -> None:
+    packet = _packet()
+    uncertainty = RacioReportedUncertainty(
+        option_mapping="uncertain",
+        motive_interpretation="not_reported",
+    )
+    draft = RacioEpistemicDraftV3(
+        source_mind="E",
+        action_hypotheses=(),
+        option_inference=None,
+        motive_hypotheses=(),
+        racio_reported_uncertainty=uncertainty,
+    )
+
+    output = canonicalize_racio_epistemic_draft_v3(packet, draft)
+
+    assert packet.visible_observations
+    assert output.cited_observation_ids == ()
+    assert output.action_hypotheses == ()
+    assert output.action_unknown_reason == ACTION_UNKNOWN_REASON_SL_V3
+    assert output.option_inference is None
+    assert output.option_unknown_reason == OPTION_UNKNOWN_REASON_SL_V3
+    assert output.motive_hypotheses == ()
+    assert output.motive_unknown_reason == MOTIVE_UNKNOWN_REASON_SL
+    assert output.racio_reported_uncertainty == uncertainty
+
+
+@pytest.mark.parametrize(
+    ("claim_model", "payload", "message"),
+    (
+        (
+            ActionHypothesisDraftV3,
+            {
+                "family": "protection_regulation",
+                "subtype": "retreat",
+                "cited_observation_ids": (),
+                "confidence": 0.8,
+                "support_mode": "direct_manifestation",
+            },
+            "action draft requires claim-local citations",
+        ),
+        (
+            OptionInferenceDraftV3,
+            {
+                "option_id": "option_001",
+                "cited_observation_ids": (),
+                "confidence": 0.8,
+            },
+            "option draft requires claim-local citations",
+        ),
+        (
+            MotiveHypothesisDraftV3,
+            {
+                "family": "protection",
+                "subtype": "boundary_alarm",
+                "cited_observation_ids": (),
+                "confidence": 0.8,
+                "support_mode": "directly_supported",
+            },
+            "motive draft requires claim-local citations",
+        ),
+    ),
+)
+def test_v3_semantic_claims_still_require_claim_local_citations(
+    claim_model: type,
+    payload: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(ValidationError, match=message):
+        claim_model.model_validate(payload)
+
+
+def test_v3_interpretation_rejects_global_only_citations() -> None:
+    output = _output(actions=(), motives=(), option_id=None)
+    payload = output.model_copy(
+        update={"cited_observation_ids": ("observation_001",)}
+    ).model_dump(mode="python", round_trip=True)
+
+    with pytest.raises(ValidationError, match="claim-specific citation union"):
+        RacioEpistemicInterpretationV3.model_validate(payload)
+
+
+def test_v3_schema_hashes_and_committed_g3c_outputs_remain_compatible() -> None:
+    assert sha256_hex(RacioEpistemicDraftV3.model_json_schema()) == (
+        "95380155960ceed612373bb4d191c4836051d1aad803f527a7ebc100ca01f0b4"
+    )
+    assert sha256_hex(RacioEpistemicInterpretationV3.model_json_schema()) == (
+        "02eeda6446ff5a304ffb50c791f96da282326bc75d5c334c57784ce719602a50"
+    )
+    assert sha256_hex(RacioEpistemicPacketV3.model_json_schema()) == (
+        "363c59a0334ffe4380eb24038934a460f8e1bf03daca0f6457bcdf8279c5a1fe"
+    )
+
+    case_dirs = sorted((G3C_ROOT / "cases").iterdir())
+    assert len(case_dirs) == 16
+    for case_dir in case_dirs:
+        packet = RacioEpistemicPacketV3.model_validate_json(
+            (case_dir / "sanitized_packet.json").read_bytes()
+        )
+        draft = RacioEpistemicDraftV3.model_validate_json(
+            (case_dir / "model_draft.json").read_bytes()
+        )
+        expected = RacioEpistemicInterpretationV3.model_validate_json(
+            (case_dir / "structured_output.json").read_bytes()
+        )
+        actual = canonicalize_racio_epistemic_draft_v3(packet, draft)
+        assert actual == expected
+        assert expected.validate_against(packet) is expected
+
+
 def test_v3_draft_canonicalizer_fails_closed_without_semantic_repair() -> None:
     packet = _packet()
     uncertainty = RacioReportedUncertainty(
@@ -911,7 +1028,7 @@ def test_option_inference_scope_is_validated_locally_and_globally() -> None:
         option_citations=("observation_002",),
     ).model_dump(mode="python", round_trip=True)
     missing_global["cited_observation_ids"] = ("observation_001",)
-    with pytest.raises(ValidationError, match="included globally"):
+    with pytest.raises(ValidationError, match="claim-specific citation union"):
         RacioEpistemicInterpretationV3.model_validate(missing_global)
 
 

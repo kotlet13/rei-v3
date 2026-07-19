@@ -17,7 +17,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,27 +45,49 @@ from rei.persistence import FileArtifactStore  # noqa: E402
 from rei.providers.native import DeterministicExecutionClock, ExecutionClock  # noqa: E402
 
 
-IMPLEMENTATION_COMMIT = "1511d871a92dd15217899c5b43e1acdcea4c972b"
+CYCLE_SOURCE_COMMIT = "1511d871a92dd15217899c5b43e1acdcea4c972b"
+IMPLEMENTATION_COMMIT = "6130942c7726240773d7298d6583a77d38a82650"
 BRANCH = "codex/racio-gemma4-text-shadow"
 BASE_FIXTURE = (
     ROOT / "tests" / "fixtures" / "native_cycles" / "deterministic_e2e.json"
 )
-SEAL_PATH = (
+ORIGINAL_SEAL_PATH = (
     ROOT
     / "Docs"
     / "evals"
     / "research_reset_2026-07"
     / "gemma4_text_shadow_s1_seal.json"
 )
-DEFAULT_OUTPUT_ROOT = (
+SEAL_PATH = (
+    ROOT
+    / "Docs"
+    / "evals"
+    / "research_reset_2026-07"
+    / "gemma4_text_shadow_s1r_seal.json"
+)
+ORIGINAL_OUTPUT_ROOT = (
     ROOT
     / "Docs"
     / "evals"
     / "semantic_lab_v1"
     / "s1-gemma4-text-shadow-2026-07-19"
 )
+DEFAULT_OUTPUT_ROOT = (
+    ROOT
+    / "Docs"
+    / "evals"
+    / "semantic_lab_v1"
+    / "s1r-gemma4-text-shadow-2026-07-19"
+)
 EXPECTED_OUTPUT_ROOT = (
-    "Docs/evals/semantic_lab_v1/s1-gemma4-text-shadow-2026-07-19"
+    "Docs/evals/semantic_lab_v1/s1r-gemma4-text-shadow-2026-07-19"
+)
+S1R_COLD_VERIFICATION_RECEIPT = (
+    ROOT
+    / "Docs"
+    / "evals"
+    / "research_reset_2026-07"
+    / "gemma4_text_shadow_s1r_cold_verification_receipt.json"
 )
 MODEL = "gemma4:31b"
 MODEL_DIGEST = (
@@ -74,6 +96,31 @@ MODEL_DIGEST = (
 PROVIDER_REVISION = "rei-racio-gemma4-epistemic-v3-chat-v1"
 EXPECTED_CALLS = 2
 SMOKE_MANIFEST_NAME = "smoke_evidence_manifest.json"
+COLD_VERIFIER_REVISION = "rei-gemma4-text-shadow-cold-verifier-v2"
+WINDOWS_ABSOLUTE_PATH = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])"
+)
+
+
+def _phase_config(output_root: Path) -> dict[str, object]:
+    resolved = output_root.resolve()
+    if resolved == ORIGINAL_OUTPUT_ROOT.resolve():
+        return {
+            "phase": "S1",
+            "seal_path": ORIGINAL_SEAL_PATH,
+            "manifest_schema": "rei-gemma4-text-shadow-s1-evidence-manifest-v1",
+            "manifest_namespace": "gemma4_text_shadow_s1_evidence",
+            "receipt_path": None,
+        }
+    if resolved == DEFAULT_OUTPUT_ROOT.resolve():
+        return {
+            "phase": "S1R",
+            "seal_path": SEAL_PATH,
+            "manifest_schema": "rei-gemma4-text-shadow-s1r-evidence-manifest-v1",
+            "manifest_namespace": "gemma4_text_shadow_s1r_evidence",
+            "receipt_path": S1R_COLD_VERIFICATION_RECEIPT,
+        }
+    raise ValueError("Unrecognized Gemma text-shadow evidence root")
 
 
 def _sha256_file(path: Path) -> str:
@@ -118,17 +165,20 @@ def _smoke_manifest_value(
     *,
     execution_head: str,
 ) -> dict[str, object]:
+    config = _phase_config(output_root)
+    seal_path = config["seal_path"]
+    assert isinstance(seal_path, Path)
     base = {
-        "schema_version": "rei-gemma4-text-shadow-s1-evidence-manifest-v1",
-        "phase": "S1",
+        "schema_version": config["manifest_schema"],
+        "phase": config["phase"],
         "execution_head": execution_head,
-        "seal_sha256": _canonical_json_file_sha256(SEAL_PATH),
+        "seal_sha256": _canonical_json_file_sha256(seal_path),
         "artifacts": _smoke_inventory(output_root),
         "development_smoke_only": True,
         "model_promoted": False,
         "no_authority": True,
     }
-    manifest_id = content_id("gemma4_text_shadow_s1_evidence", base)
+    manifest_id = content_id(str(config["manifest_namespace"]), base)
     payload = {"manifest_id": manifest_id, **base}
     return {**payload, "manifest_sha256": sha256_hex(payload)}
 
@@ -141,6 +191,10 @@ def _walk_json(value: object):
     elif isinstance(value, list):
         for child in value:
             yield from _walk_json(child)
+
+
+def _contains_windows_absolute_path(value: str) -> bool:
+    return WINDOWS_ABSOLUTE_PATH.search(value) is not None
 
 
 def _verify_private_content_absent(output_root: Path) -> None:
@@ -176,25 +230,29 @@ def _verify_private_content_absent(output_root: Path) -> None:
                 if unexpected_thinking:
                     raise ValueError("S1 evidence contains an unreviewed thinking field")
             elif isinstance(value, str):
-                if re.search(r"(?i)[a-z]:[\\/]", value):
-                    raise ValueError("S1 evidence contains a local absolute path")
+                if _contains_windows_absolute_path(value):
+                    raise ValueError("Shadow evidence contains a local absolute path")
                 if "Traceback (most recent call last)" in value:
                     raise ValueError("S1 evidence contains a raw traceback")
 
 
 def _verify_smoke_evidence_root(output_root: Path) -> dict[str, object]:
+    config = _phase_config(output_root)
+    phase = str(config["phase"])
+    seal_path = config["seal_path"]
+    assert isinstance(seal_path, Path)
     manifest_path = output_root / SMOKE_MANIFEST_NAME
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if not isinstance(manifest, dict):
-        raise ValueError("S1 evidence manifest must be one JSON object")
+        raise ValueError(f"{phase} evidence manifest must be one JSON object")
     execution_head = manifest.get("execution_head")
     if not isinstance(execution_head, str) or not re.fullmatch(
         r"[0-9a-f]{40}", execution_head
     ):
-        raise ValueError("S1 evidence manifest has an invalid execution head")
+        raise ValueError(f"{phase} evidence manifest has an invalid execution head")
     expected = _smoke_manifest_value(output_root, execution_head=execution_head)
     if manifest != expected:
-        raise ValueError("S1 evidence root differs from its closed inventory")
+        raise ValueError(f"{phase} evidence root differs from its closed inventory")
     subprocess.run(
         ["git", "merge-base", "--is-ancestor", execution_head, "HEAD"],
         cwd=ROOT,
@@ -204,16 +262,53 @@ def _verify_smoke_evidence_root(output_root: Path) -> dict[str, object]:
         [
             "git",
             "show",
-            f"{execution_head}:{SEAL_PATH.relative_to(ROOT).as_posix()}",
+            f"{execution_head}:{seal_path.relative_to(ROOT).as_posix()}",
         ],
         cwd=ROOT,
         check=True,
         capture_output=True,
     ).stdout
     if sha256_hex(json.loads(seal_at_execution)) != manifest["seal_sha256"]:
-        raise ValueError("S1 execution commit does not contain the sealed bytes")
+        raise ValueError(f"{phase} execution commit lacks the sealed bytes")
     _verify_private_content_absent(output_root)
     return manifest
+
+
+def _pending_cold_verification_state() -> dict[str, bool]:
+    return {
+        "cold_verification_required": True,
+        "evidence_root_closed": True,
+    }
+
+
+def _cold_receipt_value(
+    output_root: Path,
+    *,
+    manifest: Mapping[str, object],
+    verifier_head: str,
+) -> dict[str, object]:
+    manifest_path = output_root / SMOKE_MANIFEST_NAME
+    base = {
+        "schema_version": (
+            "rei-gemma4-text-shadow-cold-verification-receipt-v1"
+        ),
+        "phase": manifest["phase"],
+        "evidence_root": output_root.relative_to(ROOT).as_posix(),
+        "evidence_manifest_id": manifest["manifest_id"],
+        "evidence_manifest_sha256": manifest["manifest_sha256"],
+        "evidence_manifest_file_sha256": _sha256_file(manifest_path),
+        "artifact_count": len(manifest["artifacts"]),
+        "verifier_revision": COLD_VERIFIER_REVISION,
+        "verifier_head": verifier_head,
+        "native_run_manifests_verified": 2,
+        "shadow_no_authority_ledger_verified": True,
+        "private_content_scan_passed": True,
+        "cold_verification": "succeeded",
+        "no_authority": True,
+    }
+    receipt_id = content_id("gemma4_text_shadow_cold_verification", base)
+    payload = {"receipt_id": receipt_id, **base}
+    return {**payload, "receipt_sha256": sha256_hex(payload)}
 
 
 def _verify_shadow_no_authority_ledger(
@@ -294,7 +389,7 @@ def _build_request() -> ReiNativeCycleRequest:
             update={
                 "run_id": "s1-gemma4-text-shadow-cycle",
                 "ego_id": "s1-gemma4-text-shadow-ego",
-                "source_commit": IMPLEMENTATION_COMMIT,
+                "source_commit": CYCLE_SOURCE_COMMIT,
                 "scene": scene,
             }
         ).model_dump(mode="python", round_trip=True)
@@ -479,8 +574,8 @@ def _seal_candidate(
         body_state=request.body_state,
     )
     return {
-        "schema_version": "rei-gemma4-text-shadow-s1-seal-v1",
-        "phase": "S1",
+        "schema_version": "rei-gemma4-text-shadow-s1r-seal-v1",
+        "phase": "S1R",
         "main_base_sha": "2da951c4b840dcadd69683b7235616fe4f025f43",
         "implementation_commit": IMPLEMENTATION_COMMIT,
         "branch_head_before_seal": IMPLEMENTATION_COMMIT,
@@ -546,13 +641,13 @@ def _seal_candidate(
 def _load_seal() -> dict[str, object]:
     seal = json.loads(SEAL_PATH.read_text(encoding="utf-8"))
     if not isinstance(seal, dict):
-        raise ValueError("S1 seal must be one JSON object")
+        raise ValueError("S1R seal must be one JSON object")
     return seal
 
 
 def _require_sealed_clean_source() -> str:
     if _git_text("branch", "--show-current") != BRANCH:
-        raise ValueError("S1 execution requires the dedicated shadow branch")
+        raise ValueError("S1R execution requires the dedicated shadow branch")
     head = _git_text("rev-parse", "HEAD")
     subprocess.run(
         ["git", "merge-base", "--is-ancestor", IMPLEMENTATION_COMMIT, head],
@@ -560,7 +655,7 @@ def _require_sealed_clean_source() -> str:
         check=True,
     )
     if _git_text("status", "--porcelain=v1", "--untracked-files=all"):
-        raise ValueError("S1 execution requires a clean committed worktree")
+        raise ValueError("S1R execution requires a clean committed worktree")
     runtime_delta = _git_text(
         "diff",
         "--name-only",
@@ -571,7 +666,7 @@ def _require_sealed_clean_source() -> str:
         "tests/rei/test_racio_text_shadow.py",
     )
     if runtime_delta:
-        raise ValueError("S1 runtime or focused tests changed after implementation seal")
+        raise ValueError("S1R runtime or focused tests changed after implementation seal")
     return head
 
 
@@ -589,9 +684,9 @@ class _SealedShadowInterpreter:
         clock: ExecutionClock,
     ) -> ShadowProviderAttempt:
         if self.index >= EXPECTED_CALLS:
-            raise ValueError("S1 received more than two shadow lanes")
+            raise ValueError("S1R received more than two shadow lanes")
         if packet.packet_hash != self.expected_packet_hashes[self.index]:
-            raise ValueError("S1 runtime packet differs from its pre-call seal")
+            raise ValueError("S1R runtime packet differs from its pre-call seal")
         provider = self.inner.provider
         if provider is not None:
             canonical_spec = provider.build_call_spec(packet)
@@ -599,9 +694,9 @@ class _SealedShadowInterpreter:
                 canonical_spec.content_hash()
                 != self.expected_call_spec_hashes[self.index]
             ):
-                raise ValueError("S1 runtime call spec differs from its pre-call seal")
+                raise ValueError("S1R runtime call spec differs from its pre-call seal")
         elif self.inner.preflight_failure is None:
-            raise ValueError("S1 shadow dependency has no provider or bounded failure")
+            raise ValueError("S1R shadow dependency has no provider or bounded failure")
         self.index += 1
         return self.inner.interpret_shadow(packet, clock=clock)
 
@@ -629,14 +724,17 @@ def execute_smoke(output_root: Path) -> int:
     head = _require_sealed_clean_source()
     seal = _load_seal()
     if output_root.resolve() != DEFAULT_OUTPUT_ROOT.resolve():
-        raise ValueError("S1 execution output root differs from the seal")
+        raise ValueError("S1R execution output root differs from the seal")
     if output_root.exists():
-        raise ValueError("S1 output root is create-only and already exists")
+        raise ValueError("S1R output root is create-only and already exists")
+    if S1R_COLD_VERIFICATION_RECEIPT.exists():
+        raise ValueError("S1R cold-verification receipt is create-only")
     output_root.mkdir(parents=True)
     _create_json(
         output_root / "planned_ledger.json",
         {
-            "schema_version": "rei-gemma4-text-shadow-s1-planned-ledger-v1",
+            "schema_version": "rei-gemma4-text-shadow-s1r-planned-ledger-v1",
+            "phase": "S1R",
             "execution_head": head,
             "packet_order": ["E", "I"],
             "maximum_model_calls": EXPECTED_CALLS,
@@ -659,11 +757,11 @@ def execute_smoke(output_root: Path) -> int:
     if interpreter.provider is None:
         failure = interpreter.preflight_failure
         if failure is None:
-            raise ValueError("S1 provider discovery returned no bounded outcome")
+            raise ValueError("S1R provider discovery returned no bounded outcome")
         provider_preflight_status = "failed"
         provider_preflight_failure_code = failure.failure_code
         if [packet.packet_hash for packet in packets] != seal["packet_hashes"]:
-            raise ValueError("Live S1 packets differ from the committed seal")
+            raise ValueError("Live S1R packets differ from the committed seal")
     else:
         candidate = _seal_candidate(
             control=control,
@@ -671,7 +769,7 @@ def execute_smoke(output_root: Path) -> int:
             interpreter=interpreter,
         )
         if candidate != seal:
-            raise ValueError("Live S1 preflight differs from the committed seal")
+            raise ValueError("Live S1R preflight differs from the committed seal")
         specs = tuple(
             interpreter.provider.build_call_spec(packet) for packet in packets
         )
@@ -681,7 +779,8 @@ def execute_smoke(output_root: Path) -> int:
     _create_json(
         output_root / "preflight" / "seal_receipt.json",
         {
-            "schema_version": "rei-gemma4-text-shadow-s1-seal-receipt-v1",
+            "schema_version": "rei-gemma4-text-shadow-s1r-seal-receipt-v1",
+            "phase": "S1R",
             "execution_head": head,
             "seal_sha256": _canonical_json_file_sha256(SEAL_PATH),
             "chat_dispatch_count_before_execution": client.chat_dispatch_count,
@@ -699,7 +798,7 @@ def execute_smoke(output_root: Path) -> int:
         shadow_interpreter=sealed_interpreter,
     )
     if sealed_interpreter.index != EXPECTED_CALLS:
-        raise ValueError("S1 did not attempt both precommitted E/I lanes")
+        raise ValueError("S1R did not attempt both precommitted E/I lanes")
 
     control_authority = _authority_hashes(control)
     shadow_authority = _authority_hashes(shadow)
@@ -720,8 +819,8 @@ def execute_smoke(output_root: Path) -> int:
     fallbacks = sum(1 for record in call_records if record.fallback is not None)
     successful = statuses == ["succeeded", "succeeded"]
     summary = {
-        "schema_version": "rei-gemma4-text-shadow-s1-summary-v1",
-        "phase": "S1",
+        "schema_version": "rei-gemma4-text-shadow-s1r-summary-v1",
+        "phase": "S1R",
         "execution_head": head,
         "control_run_id": control.request.run_id,
         "shadow_run_id": shadow.request.run_id,
@@ -739,7 +838,7 @@ def execute_smoke(output_root: Path) -> int:
         "standalone_mindworld_updaters_exercised": False,
         "control_manifest_sha256": control.manifest.content_hash(),
         "shadow_manifest_sha256": shadow.manifest.content_hash(),
-        "cold_verification": "succeeded",
+        **_pending_cold_verification_state(),
         "thinking_content_persisted": False,
         "development_smoke_only": True,
         "holdout": False,
@@ -756,7 +855,7 @@ def execute_smoke(output_root: Path) -> int:
     _create_json(output_root / "summary.json", summary)
     report = "\n".join(
         (
-            "# Gemma 4 text shadow S1 smoke",
+            "# Gemma 4 text shadow S1R smoke",
             "",
             "Technical backend integration smoke only; not a holdout, promotion, or authority grant.",
             "",
@@ -768,7 +867,7 @@ def execute_smoke(output_root: Path) -> int:
             "- deterministic interpreter remains authoritative",
             "- governance/decision/behavior/MindWorld authority: `false`",
             "- cycle inputs and Ego projections for deterministic MindWorld updates are unchanged",
-            "- standalone post-cycle MindWorld updaters were not exercised by this S1 smoke",
+            "- standalone post-cycle MindWorld updaters were not exercised by this S1R smoke",
             "- thinking content persisted: `false`",
             f"- technical smoke succeeded: `{summary['technical_smoke_succeeded']}`",
             "",
@@ -779,24 +878,96 @@ def execute_smoke(output_root: Path) -> int:
         output_root / SMOKE_MANIFEST_NAME,
         _smoke_manifest_value(output_root, execution_head=head),
     )
-    _verify_smoke_evidence_root(output_root)
+    _verify_and_issue_cold_receipt(
+        output_root,
+        receipt_path=S1R_COLD_VERIFICATION_RECEIPT,
+    )
     sys.stdout.buffer.write(canonical_json_bytes(summary))
     sys.stdout.buffer.flush()
     return 0 if summary["technical_smoke_succeeded"] else 2
 
 
-def cold_verify(output_root: Path) -> int:
+def _cold_verification_checks(output_root: Path) -> dict[str, object]:
+    config = _phase_config(output_root)
+    phase = str(config["phase"])
     summary = json.loads((output_root / "summary.json").read_text(encoding="utf-8"))
     request = _build_request()
     for lane in ("control", "shadow"):
         FileArtifactStore(output_root / lane / "runs").verify_run(request.run_id)
     _verify_shadow_no_authority_ledger(output_root, run_id=request.run_id)
-    _verify_smoke_evidence_root(output_root)
+    manifest = _verify_smoke_evidence_root(output_root)
     if summary.get("no_authority") is not True:
-        raise ValueError("S1 summary lost its no-authority marker")
+        raise ValueError(f"{phase} summary lost its no-authority marker")
     if summary.get("thinking_content_persisted") is not False:
-        raise ValueError("S1 summary claims persisted thinking content")
-    print("S1 cold verification succeeded")
+        raise ValueError(f"{phase} summary claims persisted thinking content")
+    if phase == "S1R":
+        if summary.get("cold_verification_required") is not True:
+            raise ValueError("S1R summary lost its verification requirement")
+        if summary.get("evidence_root_closed") is not True:
+            raise ValueError("S1R summary does not claim a closed evidence root")
+        if "cold_verification" in summary:
+            raise ValueError("S1R summary prematurely claims cold-verification success")
+    return manifest
+
+
+def _verify_and_issue_cold_receipt(
+    output_root: Path,
+    *,
+    receipt_path: Path,
+    verifier: Callable[[Path], dict[str, object]] = _cold_verification_checks,
+) -> dict[str, object]:
+    if receipt_path.exists():
+        raise FileExistsError(receipt_path)
+    manifest = verifier(output_root)
+    receipt = _cold_receipt_value(
+        output_root,
+        manifest=manifest,
+        verifier_head=_git_text("rev-parse", "HEAD"),
+    )
+    _create_json(receipt_path, receipt)
+    return receipt
+
+
+def _verify_cold_receipt(
+    output_root: Path,
+    *,
+    manifest: Mapping[str, object],
+    receipt_path: Path,
+) -> dict[str, object]:
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    if not isinstance(receipt, dict):
+        raise ValueError("S1R cold-verification receipt must be one JSON object")
+    verifier_head = receipt.get("verifier_head")
+    if not isinstance(verifier_head, str) or not re.fullmatch(
+        r"[0-9a-f]{40}", verifier_head
+    ):
+        raise ValueError("S1R cold-verification receipt has an invalid head")
+    subprocess.run(
+        ["git", "merge-base", "--is-ancestor", verifier_head, "HEAD"],
+        cwd=ROOT,
+        check=True,
+    )
+    expected = _cold_receipt_value(
+        output_root,
+        manifest=manifest,
+        verifier_head=verifier_head,
+    )
+    if receipt != expected:
+        raise ValueError("S1R cold-verification receipt differs from its evidence")
+    return receipt
+
+
+def cold_verify(output_root: Path) -> int:
+    config = _phase_config(output_root)
+    manifest = _cold_verification_checks(output_root)
+    receipt_path = config["receipt_path"]
+    if isinstance(receipt_path, Path):
+        _verify_cold_receipt(
+            output_root,
+            manifest=manifest,
+            receipt_path=receipt_path,
+        )
+    print(f"{config['phase']} cold verification succeeded")
     return 0
 
 
