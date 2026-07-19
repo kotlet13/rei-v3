@@ -20,6 +20,13 @@ from .communication.interpreter import DeterministicRacioInterpreter, RacioInter
 from .communication.manifestations import build_emocio_manifestation
 from .communication.processor import CommunicationProcessResult, process_communication
 from .communication.structured_interpreter import StructuredRacioInterpretationResult
+from .communication.text_shadow import (
+    RacioInterpreterRuntimeMode,
+    ShadowRacioInterpretationExecution,
+    ShadowRacioInterpreter,
+    build_shadow_no_authority_ledger,
+    execute_racio_text_shadow,
+)
 from .conscious.committer import DeterministicRacioCommitter, RacioCommitter
 from .conscious.narrator import DeterministicRacioNarrator, RacioNarrator
 from .diagnostics import InvariantReport, build_cycle_invariant_report, render_diagnostic_report
@@ -352,6 +359,7 @@ class ReiNativeCycleResult:
     instinkt_manifestation: InstinktManifestation
     emocio_communication: CommunicationProcessResult
     instinkt_communication: CommunicationProcessResult
+    shadow_communications: tuple[ShadowRacioInterpretationExecution, ...]
     mandate_view: ConsciousMandateView
     interpretation_inputs: tuple[ConsciousInterpretationInput, ...]
     conscious_decision: ConsciousDecision
@@ -921,6 +929,24 @@ class ReiNativeEngine:
     )
     narrator: RacioNarrator = field(default_factory=DeterministicRacioNarrator)
     embodied_cue_interpreter: EmbodiedCueInterpreter | None = None
+    racio_interpreter_mode: RacioInterpreterRuntimeMode = "deterministic"
+    shadow_racio_interpreter: ShadowRacioInterpreter | None = None
+
+    def __post_init__(self) -> None:
+        if self.racio_interpreter_mode == "deterministic":
+            if self.shadow_racio_interpreter is not None:
+                raise ValueError(
+                    "A shadow dependency requires explicit gemma4_text_shadow mode"
+                )
+            return
+        if self.racio_interpreter_mode != "gemma4_text_shadow":
+            raise ValueError("Unknown Racio interpreter runtime mode")
+        if self.shadow_racio_interpreter is None:
+            raise ValueError("Gemma text shadow mode requires an explicit dependency")
+        if not isinstance(self.interpreter, DeterministicRacioInterpreter):
+            raise ValueError(
+                "Gemma text shadow requires the deterministic authoritative interpreter"
+            )
 
     @classmethod
     def with_file_stores(
@@ -930,6 +956,8 @@ class ReiNativeEngine:
         ego_traces_root: str | Path = "output/ego_traces",
         clock: ExecutionClock | None = None,
         emocio_processor: DeterministicEmocioProcessor | None = None,
+        racio_interpreter_mode: RacioInterpreterRuntimeMode = "deterministic",
+        shadow_racio_interpreter: ShadowRacioInterpreter | None = None,
     ) -> ReiNativeEngine:
         return cls(
             artifact_store=FileArtifactStore(runs_root),
@@ -938,6 +966,8 @@ class ReiNativeEngine:
                 emocio_processor=emocio_processor,
             ),
             clock=clock or SystemExecutionClock(),
+            racio_interpreter_mode=racio_interpreter_mode,
+            shadow_racio_interpreter=shadow_racio_interpreter,
         )
 
     def run_cycle(self, request: ReiNativeCycleRequest) -> ReiNativeCycleResult:
@@ -1615,6 +1645,20 @@ class ReiNativeEngine:
         )
         communications = (emocio_communication, instinkt_communication)
         c3_results = _validated_c3_results(communications)
+        shadow_communications: tuple[ShadowRacioInterpretationExecution, ...] = ()
+        if self.racio_interpreter_mode == "gemma4_text_shadow":
+            assert self.shadow_racio_interpreter is not None
+            shadow_communications = tuple(
+                execute_racio_text_shadow(
+                    request=item.request,
+                    deterministic=item.interpretation,
+                    language=request.scene.language,
+                    option_descriptions=scene_option_descriptions,
+                    interpreter=self.shadow_racio_interpreter,
+                    clock=self.clock,
+                )
+                for item in communications
+            )
         mandate_view = ConsciousMandateView.create_b10(
             governance=governance,
             bundle=bundle,
@@ -1687,6 +1731,11 @@ class ReiNativeEngine:
             instinkt_execution.call_spec,
             *nested_specs,
             *(result.execution.call_spec for result in c3_results),
+            *(
+                result.call_spec
+                for result in shadow_communications
+                if result.call_spec is not None
+            ),
         )
         call_records: tuple[ProviderCallRecord, ...] = (
             racio_execution.call_record,
@@ -1694,6 +1743,11 @@ class ReiNativeEngine:
             instinkt_execution.call_record,
             *nested_records,
             *(result.execution.call_record for result in c3_results),
+            *(
+                result.call_record
+                for result in shadow_communications
+                if result.call_record is not None
+            ),
         )
         base_provider_identities = (
             *self.providers.identities,
@@ -1703,10 +1757,20 @@ class ReiNativeEngine:
         additional_specs = (
             *nested_specs,
             *(result.execution.call_spec for result in c3_results),
+            *(
+                result.call_spec
+                for result in shadow_communications
+                if result.call_spec is not None
+            ),
         )
         additional_records = (
             *nested_records,
             *(result.execution.call_record for result in c3_results),
+            *(
+                result.call_record
+                for result in shadow_communications
+                if result.call_record is not None
+            ),
         )
         additional_provider_identities = _provider_identities_from_calls(
             additional_specs,
@@ -1790,6 +1854,7 @@ class ReiNativeEngine:
             manifestations=manifestations,
             communications=communications,
             c3_results=c3_results,
+            shadow_communications=shadow_communications,
             mandate_view=mandate_view,
             conscious_decision=conscious_decision,
             behavior_resultant=behavior_resultant,
@@ -1889,6 +1954,7 @@ class ReiNativeEngine:
             instinkt_manifestation=instinkt_manifestation,
             emocio_communication=emocio_communication,
             instinkt_communication=instinkt_communication,
+            shadow_communications=shadow_communications,
             mandate_view=mandate_view,
             interpretation_inputs=interpretation_inputs,
             conscious_decision=conscious_decision,
@@ -1925,6 +1991,7 @@ class ReiNativeEngine:
         manifestations: tuple[EmocioManifestation, InstinktManifestation],
         communications: tuple[CommunicationProcessResult, CommunicationProcessResult],
         c3_results: tuple[StructuredRacioInterpretationResult, ...],
+        shadow_communications: tuple[ShadowRacioInterpretationExecution, ...],
         mandate_view: ConsciousMandateView,
         conscious_decision: ConsciousDecision,
         behavior_resultant: BehaviorResultant,
@@ -2099,6 +2166,34 @@ class ReiNativeEngine:
             write_json(
                 f"{prefix}_response_evidence.json",
                 _c3_response_evidence(result),
+            )
+        shadow_labels = {"E": "emocio", "I": "instinkt"}
+        for result in shadow_communications:
+            label = shadow_labels[result.source_mind]
+            prefix = f"communication_shadow/{label}"
+            if result.packet is not None:
+                write_json(f"{prefix}_packet_v3.json", result.packet)
+            if result.call_spec is not None:
+                write_json(f"{prefix}_call_spec.json", result.call_spec)
+            if result.call_record is not None:
+                write_json(f"{prefix}_provider_call_record.json", result.call_record)
+            if result.interpretation is not None:
+                write_json(
+                    f"{prefix}_interpretation_v3.json",
+                    result.interpretation,
+                )
+            if result.response_evidence is not None:
+                write_json(
+                    f"{prefix}_response_evidence.json",
+                    result.response_evidence,
+                )
+            if result.comparison is not None:
+                write_json(f"{prefix}_comparison.json", result.comparison)
+            write_json(f"{prefix}_result.json", result.result)
+        if shadow_communications:
+            write_json(
+                "communication_shadow/no_authority_ledger.json",
+                build_shadow_no_authority_ledger(shadow_communications),
             )
         write_json("governance/character.json", request.character)
         write_json("governance/effective_authority.json", effective_authority)

@@ -1078,11 +1078,15 @@ class RacioEpistemicInterpretationV3(FrozenModel):
             *((self.option_inference,) if self.option_inference is not None else ()),
             *self.motive_hypotheses,
         )
-        if any(
-            not set(item.cited_observation_ids).issubset(global_citations)
+        claim_citations = {
+            citation
             for item in scoped_claims
-        ):
-            raise ValueError("Claim-specific citations must be included globally")
+            for citation in item.cited_observation_ids
+        }
+        if global_citations != claim_citations:
+            raise ValueError(
+                "Global citations must equal the claim-specific citation union"
+            )
         if self.action_hypotheses:
             if self.action_unknown_reason is not None:
                 raise ValueError("Populated actions cannot claim action unknown")
@@ -1111,8 +1115,6 @@ class RacioEpistemicInterpretationV3(FrozenModel):
         visible_ids = set(packet.visible_observation_ids)
         if not set(self.cited_observation_ids).issubset(visible_ids):
             raise ValueError("Epistemic v3 output cites outside packet scope")
-        if packet.visible_observations and not self.cited_observation_ids:
-            raise ValueError("An epistemic v3 interpretation requires citations")
         if not packet.visible_observations:
             if self.cited_observation_ids:
                 raise ValueError("An empty packet cannot have citations")

@@ -38,9 +38,13 @@ RUN_TREE_DIRECTORIES: tuple[str, ...] = (
 )
 OPTIONAL_RUN_TREE_DIRECTORIES: tuple[str, ...] = (
     "emocio/embeddings",
+    "communication_shadow",
 )
 
-_RUN_TOP_LEVEL = frozenset(path.split("/", 1)[0] for path in RUN_TREE_DIRECTORIES)
+_RUN_TOP_LEVEL = frozenset(
+    path.split("/", 1)[0]
+    for path in (*RUN_TREE_DIRECTORIES, *OPTIONAL_RUN_TREE_DIRECTORIES)
+)
 _ALLOWED_RUN_TREE_DIRECTORIES = frozenset(
     (*RUN_TREE_DIRECTORIES, *OPTIONAL_RUN_TREE_DIRECTORIES)
 )

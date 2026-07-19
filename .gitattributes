@@ -34,6 +34,15 @@ app/backend/rei/providers/ollama_gemma4_epistemic_v3.py text eol=lf
 Docs/evals/research_reset_2026-07/gemma4_racio_epistemic_dev_screen.md text eol=lf
 Docs/evals/research_reset_2026-07/g3_semantic_adjudication.md text eol=lf
 
+# S1/S1R freeze text evidence by raw SHA-256; lock sentinels remain binary.
+Docs/evals/semantic_lab_v1/s1-gemma4-text-shadow-2026-07-19/** text eol=lf
+Docs/evals/semantic_lab_v1/s1r-gemma4-text-shadow-2026-07-19/** text eol=lf
+Docs/evals/semantic_lab_v1/s1-gemma4-text-shadow-2026-07-19/**/*.lock -text -whitespace
+Docs/evals/semantic_lab_v1/s1r-gemma4-text-shadow-2026-07-19/**/*.lock -text -whitespace
+Docs/evals/research_reset_2026-07/gemma4_text_shadow_s1_seal.json text eol=lf
+Docs/evals/research_reset_2026-07/gemma4_text_shadow_s1r_seal.json text eol=lf
+Docs/evals/research_reset_2026-07/gemma4_text_shadow_s1r_post_verification_receipt.json text eol=lf
+
 # C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
 tests/fixtures/semantic_lab_v1/** text eol=lf
 tests/fixtures/native_bundles/** text eol=lf

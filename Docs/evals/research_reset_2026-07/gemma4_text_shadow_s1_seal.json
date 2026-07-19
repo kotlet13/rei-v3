@@ -1,0 +1,84 @@
+{
+  "acceptance_state_sha256": "756e14d8271968464f21adf67b6b4b4e8bdb967237343239765b63bd1dd7c8b7",
+  "base_fixture": "tests/fixtures/native_cycles/deterministic_e2e.json",
+  "base_fixture_sha256": "3905fccb4be7ddaa13c650defb786a44f8cf48c9006a9d44476e7d891088ae7d",
+  "behavior_authority": false,
+  "body_state_sha256": "937b397cb6716144cb608de87b6266511a5183f16b0429c48c3a257a58bb9363",
+  "branch": "codex/racio-gemma4-text-shadow",
+  "branch_head_before_seal": "1511d871a92dd15217899c5b43e1acdcea4c972b",
+  "call_spec_hashes": [
+    "6c296551fe7ca3d4b56a6161c434a1f883ccf913333e9a060b17b0d3c99470d6",
+    "84aaa9bb282edf035cafeb1bbac45f3b1e7265241df6ea8fdd57f0af12a415d0"
+  ],
+  "call_spec_ids": [
+    "provider_call_938018a5a9040b2611ae4c2c1119d246",
+    "provider_call_edd03c0ef98fdb56517d0305017214ac"
+  ],
+  "canonical_interpretation_v3_schema_sha256": "02eeda6446ff5a304ffb50c791f96da282326bc75d5c334c57784ce719602a50",
+  "character_authority_sha256": "80fd02956a43f287802592d704ae688a13ebee016587c3ef62954037a460ca55",
+  "context": 65536,
+  "cycle_request_sha256": "6ae69cd904a81d33860aa38b5c1bac2dcec67dc2e6f254cb7d178034e20c238b",
+  "decision_authority": false,
+  "development_smoke_only": true,
+  "draft_model_schema_sha256": "95380155960ceed612373bb4d191c4836051d1aad803f527a7ebc100ca01f0b4",
+  "draft_v3_schema_sha256": "321cecc980ec82346260b6ef3910a69a5f9b91233f101526254ff3e392704d6a",
+  "emocio_world_sha256": "917b0dedead1a94751d57f8c181f11e910edba4b0e40f9729ee6400625b10e15",
+  "endpoint": "/api/chat",
+  "expected_model_calls": 2,
+  "fallback_count": 0,
+  "governance_authority": false,
+  "holdout": false,
+  "implementation_commit": "1511d871a92dd15217899c5b43e1acdcea4c972b",
+  "instinkt_world_sha256": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+  "instruction_sha256": "470bb45de824a438aafdbb3efeae924c71d2bfce844eddf69597443b06bfc30d",
+  "main_base_sha": "2da951c4b840dcadd69683b7235616fe4f025f43",
+  "mind_world_authority": false,
+  "model": "gemma4:31b",
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "model_promoted": false,
+  "num_gpu": 999,
+  "num_predict": 16384,
+  "output_root": "Docs/evals/semantic_lab_v1/s1-gemma4-text-shadow-2026-07-19",
+  "packet_hashes": [
+    "be8c43405f20349a22b077201e46e393213861a4c1c634668a46c424f5477832",
+    "7bd9463c57b0ae8654ee948a551dfc904dcf17bcb3dcebf3d66803bbc33d8b0d"
+  ],
+  "packet_ids": [
+    "racio_epistemic_packet_v3_7b3185d8ec0c24ad3d6ba5b78684e413",
+    "racio_epistemic_packet_v3_6384499f67e8134be66cfe754ac62060"
+  ],
+  "packet_order": [
+    "E",
+    "I"
+  ],
+  "packet_v3_schema_sha256": "363c59a0334ffe4380eb24038934a460f8e1bf03daca0f6457bcdf8279c5a1fe",
+  "person_state_id": "person_state_5767486bf173fef0b8509e47210d1796",
+  "person_state_sha256": "17c18b2d77abfdc5fcded70a73baa719f763e0b5c42e93622cf749fb14d80389",
+  "phase": "S1",
+  "presentation_mode": "canonical_sl_only",
+  "provider_identity": {
+    "implementation": "rei.providers.ollama_gemma4_epistemic_v3.OllamaGemma4EpistemicV3Provider",
+    "implementation_revision": "rei-racio-gemma4-epistemic-v3-chat-v1;ollama=0.31.2",
+    "kind": "text_reasoner",
+    "model": "gemma4:31b",
+    "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "provider_id": "provider_17dcc6c0b72e73c3edb665e03bcb7baa",
+    "schema_version": "rei-native-provider-identity-v1",
+    "uses_model": true
+  },
+  "provider_payload_hashes": [
+    "cbcd389a2b9781f5990991da3658cc88f72f033672c1d9a91ba827d88b4fd082",
+    "f353143c69c6cacc1e423d1353a7bbab4d456b579f3e6cccaf905e03b4c6c703"
+  ],
+  "provider_revision": "rei-racio-gemma4-epistemic-v3-chat-v1",
+  "racio_world_sha256": "187ebb96faaef1330baebc836b23204bbd1367f2b723cd20172429cd22b1373a",
+  "request_builder_sha256": "c0b3148af3209fc705c1620bb41b4faa44ad157805534abc09975753adb84577",
+  "require_full_gpu": true,
+  "retry_count": 0,
+  "schema_version": "rei-gemma4-text-shadow-s1-seal-v1",
+  "seed": 314159,
+  "temperature": 0.0,
+  "thinking_channel": "separate_private_not_persisted",
+  "top_k": 64,
+  "top_p": 0.95
+}

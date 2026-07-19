@@ -590,3 +590,30 @@
   a separate feature branch before any promotion decision.
 - next allowed step: M-G3C PR preparation only. This phase permits no model
   call, G4 execution, shadow integration, or provider/prompt tuning.
+
+## S1R-R accepted - 2026-07-19
+
+- human decision: S1 backend text-shadow architecture and the reconciled S1R
+  technical smoke are accepted as ready for integration.
+- execution head: `82b219c17eb62a1afbc807159da05244923998dd`;
+  verification head: `e5bbaf3d8da29f2e5474bc49e6f9931bc7c55a34`;
+  accepted S1R-R final branch head:
+  `0d4e2d127bd435b0fb3d7e91774330af2e8e1b45`.
+- external receipt: ID
+  `s1r_verify_receipt_f589ffd26f095f610ff27688f727b1d0`; SHA-256
+  `f8338d63a1cc12a1e133ff289630acde13c3fbebdb1dd97069e827519366f843`.
+- call accounting remained exactly `2/0/0` calls/retries/fallbacks; receipt
+  reconciliation made zero provider or model calls.
+- E produced valid full abstention; I produced a bounded action-only
+  interpretation. DraftV3 and canonicalizer validity were `2/2`.
+- authoritative invariance: the deterministic interpretation and
+  authoritative governance, conscious-decision, behavior, MindWorld-input,
+  and Ego-composition paths remained unchanged.
+- authority boundary: Gemma remains explicit-opt-in, shadow-only, and has no
+  governance, conscious-decision, behavior, MindWorld, or Ego-composition
+  authority.
+- promotion boundary: Gemma is not promoted, and S1R is not an untouched
+  holdout or a generalization claim.
+- integration decision: the backend is ready for M-S1 integration preparation
+  and draft-PR review. S2 and G4 require separate future feature branches and
+  their own review gates.

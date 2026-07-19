@@ -205,6 +205,9 @@ def test_frozen_v2_provider_and_precommitted_p3_packet_are_unchanged() -> None:
     assert GEMMA4_EPISTEMIC_V3_PROVIDER_REVISION != (
         GEMMA4_EPISTEMIC_PROVIDER_REVISION
     )
+    assert GEMMA4_EPISTEMIC_V3_SCHEMA_SHA256 == (
+        "321cecc980ec82346260b6ef3910a69a5f9b91233f101526254ff3e392704d6a"
+    )
     assert P3_TECHNICAL_PACKET_V3.presentation_mode == "canonical_sl_only"
     assert P3_TECHNICAL_PACKET_V3.packet_hash == P3_TECHNICAL_PACKET_HASH
     assert len(P3_TECHNICAL_PACKET_V3.visible_observations) == 1
@@ -213,6 +216,28 @@ def test_frozen_v2_provider_and_precommitted_p3_packet_are_unchanged() -> None:
         P3_TECHNICAL_PACKET_V3.provider_payload_bytes()
     ).hexdigest() == (
         "45d123f7b1c1e1d1c9d24dc2d7199685cb49a8421e4dde140aed0963867a1d66"
+    )
+
+
+def test_recorded_p3_output_hashes_remain_valid() -> None:
+    payload = _draft_payload()
+    payload["action_hypotheses"][0]["confidence"] = 0.9
+    payload["option_inference"]["confidence"] = 0.9
+    transport = FakeV3OllamaTransport(_response(json.dumps(payload)))
+    provider = _provider(transport)
+
+    execution = provider.execute(
+        P3_TECHNICAL_PACKET_V3,
+        call=provider.build_call_spec(P3_TECHNICAL_PACKET_V3),
+        clock=_clock(),
+    )
+
+    assert transport.chat_count == 1
+    assert sha256_hex(execution.draft) == (
+        "42fd718cefa995a7637e7acf53e8f15655f5abfe5db3b64b5a0fc949456ab2ba"
+    )
+    assert sha256_hex(execution.output) == (
+        "286cb5b4e27874cb083b1a2dbaed811d9763d17956b5ec424f085d77a5cad505"
     )
 
 

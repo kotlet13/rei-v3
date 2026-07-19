@@ -130,6 +130,12 @@ FROZEN_G3A_REPORT_SHA256 = (
 EXPECTED_MANIFEST_SHA256 = (
     "6933e919a48af7a2de6aff1490e745bc13e4ae7742e2c1e1e8a049ddc4aa9298"
 )
+FROZEN_G3C_CONTRACT_SHA256 = (
+    "b038009f24d8f83d2ea764790889a5bc583d7f2e09122971009f93fd2ac16866"
+)
+S1R_FULL_ABSTENTION_CONTRACT_SHA256 = (
+    "c2e70ddccccb8b2d3fe865d2a97a89fa3b5fe4d25f135b501e53f479347f24af"
+)
 SUITE_ID = "rei-racio-gemma4-epistemic-v3-g3c-2026-07-17"
 MANIFEST_SCHEMA_VERSION = "rei-racio-g3c-v3-manifest-v1"
 PACKET_RECORD_SCHEMA_VERSION = "rei-racio-g3c-v3-packet-record-v1"
@@ -453,6 +459,18 @@ def _current_frozen_profile() -> dict[str, Any]:
     }
 
 
+def _sealed_frozen_profile() -> dict[str, Any]:
+    """Retain G3C's historical seal across one reviewed validator-only fix."""
+
+    profile = _current_frozen_profile()
+    if profile["contract_sha256"] not in {
+        FROZEN_G3C_CONTRACT_SHA256,
+        S1R_FULL_ABSTENTION_CONTRACT_SHA256,
+    }:
+        raise ValueError("Current V3 contract is not G3C-compatible")
+    return {**profile, "contract_sha256": FROZEN_G3C_CONTRACT_SHA256}
+
+
 def _canonical_evidence_sha256(packet: RacioEpistemicPacketV3) -> str:
     payload = packet.model_dump(
         mode="python",
@@ -688,7 +706,7 @@ def _validate_manifest_shape(manifest: Mapping[str, Any]) -> None:
     }:
         raise ValueError("G3C manifest counts differ from 8 x 2")
     _manifest_file_map(manifest)
-    if manifest["frozen_profile"] != _current_frozen_profile():
+    if manifest["frozen_profile"] != _sealed_frozen_profile():
         raise ValueError("G3C manifest differs from the current frozen V3 profile")
 
 
@@ -2114,7 +2132,7 @@ def execute_g3c_screen(
     target.mkdir(parents=True, exist_ok=False)
     ledger_dir = target / "attempt_ledger"
     ledger_dir.mkdir()
-    profile = _current_frozen_profile()
+    profile = _sealed_frozen_profile()
     _write_new_json(
         ledger_dir / "000_planned.json",
         {
@@ -2499,7 +2517,7 @@ def cold_validate_g3c_output(
         preflight["manifest_sha256"] != suite.manifest_sha256
         or preflight["case_order"] != [case.case_id for case in suite.cases]
         or preflight["pair_order"] != [pair.bilingual_pair_id for pair in suite.pairs]
-        or preflight["frozen_profile"] != _current_frozen_profile()
+        or preflight["frozen_profile"] != _sealed_frozen_profile()
         or preflight["chat_dispatch_count"] != 0
     ):
         raise ValueError("G3C preflight seal differs from the frozen suite")
@@ -2692,7 +2710,7 @@ def cold_validate_g3c_output(
         "chat_dispatch_count": 0,
         "retry_count": 0,
         "fallback": "none",
-        "frozen_profile": _current_frozen_profile(),
+        "frozen_profile": _sealed_frozen_profile(),
     }
     if planned != expected_planned:
         raise ValueError("G3C planned attempt ledger differs")
