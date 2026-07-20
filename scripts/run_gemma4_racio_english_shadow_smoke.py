@@ -93,6 +93,8 @@ MODEL_DIGEST = (
 PROVIDER_REVISION = "rei-racio-gemma4-epistemic-v3-en-chat-v1"
 EXPECTED_CALLS = 2
 MANIFEST_NAME = "smoke_evidence_manifest.json"
+MANIFEST_ID_PREFIX = "gemma4_en_shadow_manifest"
+RECEIPT_ID_PREFIX = "gemma4_english_shadow_receipt"
 WINDOWS_ABSOLUTE_PATH = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])")
 
 
@@ -397,7 +399,7 @@ def _manifest_value(output_root: Path, *, execution_head: str) -> dict[str, obje
         "model_promoted": False,
         "no_authority": True,
     }
-    manifest_id = content_id("gemma4_english_shadow_smoke_manifest", base)
+    manifest_id = content_id(MANIFEST_ID_PREFIX, base)
     payload = {"manifest_id": manifest_id, **base}
     return {**payload, "manifest_sha256": sha256_hex(payload)}
 
@@ -457,7 +459,7 @@ def _receipt_value(
         "no_authority": True,
         "receipt_status": "succeeded",
     }
-    receipt_id = content_id("gemma4_english_shadow_receipt", base)
+    receipt_id = content_id(RECEIPT_ID_PREFIX, base)
     payload = {"receipt_id": receipt_id, **base}
     return {**payload, "receipt_sha256": sha256_hex(payload)}
 
@@ -684,11 +686,74 @@ def cold_verify(output_root: Path) -> int:
     return 0
 
 
+def _assert_only_manifest_added(
+    before: tuple[tuple[str, str, int], ...],
+    after: tuple[tuple[str, str, int], ...],
+) -> None:
+    before_by_path = {entry[0]: entry[1:] for entry in before}
+    after_by_path = {entry[0]: entry[1:] for entry in after}
+    if after_by_path.get(MANIFEST_NAME) is None:
+        raise ValueError("Offline completion did not create the evidence manifest")
+    without_manifest = {
+        path: value for path, value in after_by_path.items() if path != MANIFEST_NAME
+    }
+    if without_manifest != before_by_path:
+        raise ValueError("Offline completion changed existing model evidence")
+
+
+def complete_offline(output_root: Path) -> int:
+    """Close already-created smoke evidence without contacting a provider."""
+
+    if _git_text("branch", "--show-current") != BRANCH:
+        raise ValueError("Offline completion requires the dedicated smoke branch")
+    if not output_root.is_dir():
+        raise ValueError("Offline completion requires the existing evidence root")
+    if (output_root / MANIFEST_NAME).exists() or RECEIPT_PATH.exists():
+        raise FileExistsError("English smoke manifest or receipt already exists")
+    summary = json.loads((output_root / "summary.json").read_text(encoding="utf-8"))
+    execution_head = summary.get("execution_head")
+    if not isinstance(execution_head, str) or not re.fullmatch(
+        r"[0-9a-f]{40}", execution_head
+    ):
+        raise ValueError("English smoke summary has an invalid execution head")
+    if summary.get("api_chat_dispatches") != EXPECTED_CALLS:
+        raise ValueError("Offline completion requires exactly two recorded dispatches")
+
+    evidence_before = _evidence_root_snapshot(output_root)
+    _create_json(
+        output_root / MANIFEST_NAME,
+        _manifest_value(output_root, execution_head=execution_head),
+    )
+    evidence_with_manifest = _evidence_root_snapshot(output_root)
+    _assert_only_manifest_added(evidence_before, evidence_with_manifest)
+
+    manifest = _verify_root(output_root)
+    if evidence_with_manifest != _evidence_root_snapshot(output_root):
+        raise ValueError("Evidence root changed during offline cold verification")
+    receipt = _receipt_value(output_root, manifest=manifest)
+    _create_json(RECEIPT_PATH, receipt)
+    if receipt != _receipt_value(output_root, manifest=manifest):
+        raise ValueError("External receipt is not reproducible")
+    result = {
+        "schema_version": "rei-gemma4-english-shadow-offline-completion-v1",
+        "execution_head": execution_head,
+        "model_calls_during_offline_completion": 0,
+        "existing_evidence_files_changed": 0,
+        "manifest_id": manifest["manifest_id"],
+        "receipt_id": receipt["receipt_id"],
+        "status": "succeeded",
+    }
+    sys.stdout.buffer.write(canonical_json_bytes(result))
+    sys.stdout.buffer.flush()
+    return 0
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--derive-seal", action="store_true")
     mode.add_argument("--execute", action="store_true")
+    mode.add_argument("--complete-offline", action="store_true")
     mode.add_argument("--cold-verify", action="store_true")
     parser.add_argument("--work-root", type=Path)
     parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
@@ -703,6 +768,8 @@ def main(argv: list[str] | None = None) -> int:
         return derive_seal(args.work_root.resolve())
     if args.execute:
         return execute_smoke(args.output_root.resolve())
+    if args.complete_offline:
+        return complete_offline(args.output_root.resolve())
     return cold_verify(args.output_root.resolve())
 
 
