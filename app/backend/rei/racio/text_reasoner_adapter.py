@@ -10,6 +10,7 @@ from ..ids import canonical_json_bytes, content_id, sha256_hex
 from ..models.common import LanguageCode
 from ..models.provider import ProviderCallSpec, ensure_call_contract
 from ..models.racio import RacioInputPacket, RacioNativeConclusion
+from ..providers.language_policy import require_english_local_model_payload
 from ..providers.protocols import TextReasoner, TextReasoningRequest
 from .contracts import RacioStructuredOutput
 
@@ -28,6 +29,11 @@ steps: never copy a fact or unknown string verbatim into causal_sequence, and ke
 three fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,
 commit behavior, or infer character authority. Return raw JSON without markdown fences
 or additional keys."""
+
+RACIO_STRUCTURED_INSTRUCTION_EN = (
+    "The packet and every free-text response field must be in English.\n"
+    + RACIO_STRUCTURED_INSTRUCTION
+)
 
 
 def _unique_artifact_ids(values: tuple[str, ...]) -> tuple[str, ...]:
@@ -58,16 +64,16 @@ class TextReasonerRacioAdapter:
         request_id = content_id(
             "racio_request",
             {
-                "adapter_revision": "rei-native-racio-text-adapter-v1",
+                "adapter_revision": "rei-native-racio-text-adapter-v2",
                 "packet_id": packet.packet_id,
                 "packet_hash": packet.content_hash(),
-                "instruction_hash": sha256_hex(RACIO_STRUCTURED_INSTRUCTION),
+                "instruction_hash": sha256_hex(RACIO_STRUCTURED_INSTRUCTION_EN),
                 "language": request_language,
             },
         )
         return TextReasoningRequest(
             request_id=request_id,
-            instruction=RACIO_STRUCTURED_INSTRUCTION,
+            instruction=RACIO_STRUCTURED_INSTRUCTION_EN,
             input_text=canonical_json_bytes(packet).decode("utf-8"),
             language=request_language,
             evidence_ids=packet.evidence_ids,
@@ -94,6 +100,14 @@ class TextReasonerRacioAdapter:
         language: LanguageCode | None = None,
     ) -> RacioNativeConclusion:
         request = self.build_request(packet, language=language)
+        if self.reasoner.identity.uses_model:
+            require_english_local_model_payload(
+                declared_language=request.language,
+                provider_payload={
+                    "request": request.model_dump(mode="json", round_trip=True),
+                    "packet": packet.model_dump(mode="json", round_trip=True),
+                },
+            )
         ensure_call_contract(
             self.reasoner.identity,
             call,
@@ -121,4 +135,8 @@ class TextReasonerRacioAdapter:
         )
 
 
-__all__ = ["RACIO_STRUCTURED_INSTRUCTION", "TextReasonerRacioAdapter"]
+__all__ = [
+    "RACIO_STRUCTURED_INSTRUCTION",
+    "RACIO_STRUCTURED_INSTRUCTION_EN",
+    "TextReasonerRacioAdapter",
+]

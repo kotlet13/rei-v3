@@ -26,6 +26,7 @@ from app.backend.rei.providers.protocols import (
     TextReasoningRequest,
     TextReasoningResult,
 )
+from app.backend.rei.providers.language_policy import LocalModelLanguagePolicyError
 from app.backend.rei.racio import (
     DeterministicRacioProvider,
     RacioNativeProcessor,
@@ -38,7 +39,7 @@ from app.backend.rei.racio import (
 NOW = datetime(2026, 7, 13, 12, 0, tzinfo=timezone.utc)
 
 
-def _scene(*, with_options: bool = True) -> SceneEvent:
+def _scene(*, with_options: bool = True, language: str = "en") -> SceneEvent:
     options = (
         (
             DecisionOption(
@@ -56,7 +57,7 @@ def _scene(*, with_options: bool = True) -> SceneEvent:
     return SceneEvent(
         event_id="racio_event",
         raw_input="Two explicitly ordered options are presented.",
-        language="en",
+        language=language,
         evidence=(
             EvidenceItem(
                 evidence_id="evidence_grounded",
@@ -95,8 +96,12 @@ def _world() -> RacioWorld:
     )
 
 
-def _packet(*, with_options: bool = True) -> RacioInputPacket:
-    scene = _scene(with_options=with_options)
+def _packet(
+    *,
+    with_options: bool = True,
+    language: str = "en",
+) -> RacioInputPacket:
+    scene = _scene(with_options=with_options, language=language)
     consequences = (
         tuple(
             RacioConsequence(
@@ -419,6 +424,52 @@ def test_text_reasoner_adapter_uses_strict_structured_fake_output() -> None:
     assert conclusion.reasoning_provider_result_hash is not None
     assert conclusion.source_packet_hash == packet.content_hash()
     assert conclusion.evidence_ids_used == packet.evidence_ids
+
+
+@pytest.mark.parametrize(
+    ("packet_language", "request_language"),
+    (("en", "sl"), ("sl", "en")),
+)
+def test_model_backed_text_reasoner_rejects_slovenian_before_provider_call(
+    packet_language: str,
+    request_language: str,
+) -> None:
+    packet = _packet(language=packet_language)
+
+    class ModelBackedReasoner(FakeTextReasoner):
+        def __init__(self) -> None:
+            super().__init__(json.dumps(_structured_payload(packet)))
+            self._identity = ProviderIdentity(
+                provider_id="model_backed_text_reasoner",
+                kind="text_reasoner",
+                implementation="tests.rei.test_racio.ModelBackedReasoner",
+                implementation_revision="1",
+                uses_model=True,
+                model="test/text-model",
+                model_revision="test-text-model-v1",
+            )
+
+    reasoner = ModelBackedReasoner()
+    adapter = TextReasonerRacioAdapter(reasoner)
+    request = adapter.build_request(packet, language=request_language)
+    call = ProviderCallSpec(
+        call_id="model_backed_racio_call",
+        request_id=request.request_id,
+        input_artifact_ids=adapter.required_input_artifact_ids(packet),
+        provider=reasoner.identity,
+        seed=17,
+        timeout_seconds=1.0,
+        fallback_policy=ProviderFallbackPolicy(
+            mode="none",
+            no_fallback_reason="The language-policy test permits no fallback.",
+        ),
+    )
+
+    with pytest.raises(LocalModelLanguagePolicyError) as caught:
+        adapter.process(packet, call=call, language=request_language)
+
+    assert caught.value.failure_code == "non_english_language"
+    assert reasoner.invocations == 0
 
 
 @pytest.mark.parametrize(

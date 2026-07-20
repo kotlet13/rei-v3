@@ -1,4 +1,4 @@
-const RACIO_GROUND_TRUTH_WARNING = "Racio ground trutha ni prejel.";
+const RACIO_GROUND_TRUTH_WARNING = "Racio did not receive evaluator ground truth.";
 
 const BODY_DIMENSIONS = [
   "energy",
@@ -90,6 +90,15 @@ function humanize(value) {
   return String(value || "")
     .replaceAll("_", " ")
     .replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function englishRuntimeValue(value) {
+  if (Array.isArray(value)) return value.map(englishRuntimeValue);
+  if (typeof value !== "string") return value;
+  return value
+    .replaceAll("simulated_spoznanje", "simulated realization")
+    .replaceAll("no_spoznanje", "no realization")
+    .replaceAll("spoznanje", "realization");
 }
 
 function display(value) {
@@ -289,6 +298,34 @@ function familyId(family) {
   return family?.family_id || family?.id || "unknown-family";
 }
 
+function semanticFamilyLabel(family) {
+  return humanize(
+    String(familyId(family))
+      .replace(/^sf_/, "")
+      .replace(/spoznanje/g, "realization")
+  );
+}
+
+function semanticLanguageLabel(language) {
+  if (language === "sl") return "Slovenian";
+  if (language === "en") return "English";
+  return humanize(language || "language not recorded");
+}
+
+function selectedVariantInputLabel(variant) {
+  const language = semanticLanguageLabel(variant?.language);
+  return `Selected research input — ${language}${variant?.language === "sl" ? " source evidence" : ""}`;
+}
+
+function semanticModeLabel(mode) {
+  const labels = {
+    sl_canonical: "Canonical source",
+    sl_paraphrase: "Source paraphrase",
+    en_operational_gloss: "Operational English gloss",
+  };
+  return labels[mode] || humanize(mode);
+}
+
 function familyVariants(family) {
   return asArray(family?.variants || family?.semantic_variants);
 }
@@ -299,12 +336,12 @@ function sourceLocatorCard(locator, index) {
   append(
     item,
     keyValues([
-      ["File", source.source_file || source.path],
-      ["Section", source.section],
+      ["Original source file", source.source_file || source.path],
+      ["Source section title — original language", source.section],
       ["Page", source.page],
     ]),
     fieldGroup("Claim IDs", source.claim_ids, { asChips: true }),
-    fieldGroup("Slovene source summary", source.excerpt_summary_sl || source.summary_sl),
+    fieldGroup("Source excerpt summary — Slovenian", source.excerpt_summary_sl || source.summary_sl),
     rawDetails("Inspect source locator", source)
   );
   return item;
@@ -331,7 +368,12 @@ function routeCard(title, routes, emptyText) {
       choiceLine("Option", route.option_id || route.interpreted_option_id),
       fieldGroup("Route tags", route.route_tags || route.tags, { asChips: true }),
       fieldGroup("Evidence", route.evidence_ids || route.evidence_artifact_ids, { asChips: true }),
-      fieldGroup("Decision bridge", route.short_decision_bridge_sl || route.decisive_representation),
+      fieldGroup(
+        route.short_decision_bridge_sl
+          ? "Source decision bridge — Slovenian"
+          : "Source decisive representation — original language",
+        route.short_decision_bridge_sl || route.decisive_representation
+      ),
       rawDetails("Inspect route", route)
     );
     append(wrapper, item);
@@ -481,11 +523,15 @@ function renderSemanticFamily(family) {
 
   const controls = element("div", "lab-controls");
   const variantField = element("label", "field lab-field");
-  append(variantField, element("span", "", "Variant"));
+  append(variantField, element("span", "", "Test variant"));
   const variantSelect = element("select", "lab-select");
   variantSelect.setAttribute("aria-label", "Semantic variant");
   for (const item of variants) {
-    const option = element("option", "", `${humanize(item.mode || item.language)} · ${compactId(item.variant_id)}`);
+    const option = element(
+      "option",
+      "",
+      `${semanticModeLabel(item.mode || item.language)} · ${semanticLanguageLabel(item.language)}`
+    );
     option.value = item.variant_id;
     option.selected = item.variant_id === state.selectedVariantId;
     append(variantSelect, option);
@@ -503,12 +549,28 @@ function renderSemanticFamily(family) {
   );
   append(section, controls);
 
+  const selectedVariantCard = card("Selected test variant", null, "selected-variant-card");
+  selectedVariantCard.dataset.variantId = variant.variant_id || "unknown-variant";
+  append(
+    selectedVariantCard,
+    keyValues([
+      ["Mode", semanticModeLabel(variant.mode || variant.language)],
+      ["Language", semanticLanguageLabel(variant.language)],
+      ["Variant ID", variant.variant_id],
+    ]),
+    fieldGroup(selectedVariantInputLabel(variant), variant.input_text),
+    fieldGroup("Recorded perturbation", variant.perturbation),
+    rawDetails("Inspect selected research variant", variant)
+  );
+  append(section, selectedVariantCard);
+
   const overview = element("div", "panel-grid two");
-  const sourceCard = card(family.title_sl || family.title || familyId(family));
+  const sourceCard = card(`Research family · ${semanticFamilyLabel(family)}`);
   append(
     sourceCard,
-    fieldGroup("Purpose", family.purpose),
-    fieldGroup("Family", familyId(family)),
+    fieldGroup("Source family title — Slovenian", family.title_sl || family.title),
+    fieldGroup("Source research purpose — Slovenian", family.purpose),
+    fieldGroup("Family ID", familyId(family)),
     fieldGroup("Source hash", family.fixture?.source_hash),
     fieldGroup("Fixture SHA-256", family.fixture?.sha256),
     rawDetails("Inspect family metadata", {
@@ -519,12 +581,15 @@ function renderSemanticFamily(family) {
     })
   );
   const scene = asObject(family.grounded_scene || family.scene);
-  const sceneCard = card("Grounded scene");
+  const sceneCard = card("Grounded source scene");
   append(
     sceneCard,
-    fieldGroup("Source text", scene.raw_input || variant.input_text),
+    fieldGroup(
+      `Source scene input — ${semanticLanguageLabel(scene.language || "sl")}`,
+      scene.raw_input || variant.input_text
+    ),
     fieldGroup("Grounded evidence", asArray(scene.evidence).map((item) => item.evidence_id || item.source_ref || display(item)), { asChips: true }),
-    fieldGroup("Unknowns", scene.unknowns, { asChips: true }),
+    fieldGroup(`Source unknowns — ${semanticLanguageLabel(scene.language || "sl")}`, scene.unknowns, { asChips: true }),
     fieldGroup("Allowed options", asArray(scene.options).map((item) => item.option_id || item), { asChips: true }),
     rawDetails("Inspect grounded SceneEvent", scene)
   );
@@ -533,7 +598,7 @@ function renderSemanticFamily(family) {
 
   const sourceLocators = asArray(family.source_locators);
   const sourceSection = element("div", "subsection");
-  append(sourceSection, subsectionTitle("Source traceability", `${sourceLocators.length} locator${sourceLocators.length === 1 ? "" : "s"}`));
+  append(sourceSection, subsectionTitle("Source traceability", `${sourceLocators.length} original-document locator${sourceLocators.length === 1 ? "" : "s"}`));
   const sourceGrid = element("div", "source-grid");
   sourceLocators.forEach((locator, index) => append(sourceGrid, sourceLocatorCard(locator, index)));
   if (!sourceLocators.length) append(sourceGrid, emptyNotice("No source locator", "This family cannot be treated as source-grounded."));
@@ -541,9 +606,9 @@ function renderSemanticFamily(family) {
   append(section, sourceSection);
 
   const bilingualSection = element("div", "subsection");
-  append(bilingualSection, subsectionTitle("Slovene / English", "canonical meaning beside operational gloss"));
+  append(bilingualSection, subsectionTitle("Slovenian / English source pair", "canonical source evidence beside its operational research gloss"));
   const bilingualGrid = element("div", "bilingual-grid");
-  for (const [language, label] of [["sl", "Slovenščina · canonical"], ["en", "English · operational gloss"]]) {
+  for (const [language, label] of [["sl", "Slovenian · canonical source evidence"], ["en", "English · operational research gloss"]]) {
     const item = bilingualText(family, variant, language);
     const languageCard = card(label, null, "language-card");
     append(
@@ -558,7 +623,13 @@ function renderSemanticFamily(family) {
   append(section, bilingualSection);
 
   const routeSection = element("div", "subsection");
-  append(routeSection, subsectionTitle("Expected route / actual evaluated route", humanize(variant.mode || variant.language)));
+  append(
+    routeSection,
+    subsectionTitle(
+      "Expected route / actual evaluated route",
+      semanticModeLabel(variant.mode || variant.language)
+    )
+  );
   const routeGrid = element("div", "route-grid");
   append(
     routeGrid,
@@ -578,7 +649,7 @@ function renderSemanticFamily(family) {
         choiceLine("Source mind", truth.source_mind),
         choiceLine("Interpretation", truth.interpretation_id),
         choiceLine("Native option", truth.native_option_id || truth.option_id),
-        fieldGroup("Native motive", truth.native_motive_summary || truth.motive_summary),
+        fieldGroup("Source native motive — original language", truth.native_motive_summary || truth.motive_summary),
         rawDetails("Inspect expected interpretation", truth)
       );
       append(truthCard, truthItem);
@@ -614,8 +685,8 @@ function renderSemanticPanel({ focusControl = null } = {}) {
   append(
     panel,
     panelHeading(
-      "Semantic Lab",
-      "Source-grounded families, reviewed routes, bilingual variants, and benchmark readiness remain auditable without model calls.",
+      "Semantic Lab · Research Corpus",
+      "Read-only historical research families, test variants, reviewed routes, and benchmark evidence. Browsing this corpus never calls a model.",
       state.lab?.schema_version || "read-only"
     )
   );
@@ -635,13 +706,13 @@ function renderSemanticPanel({ focusControl = null } = {}) {
   }
   const selected = families.find((item) => familyId(item) === state.selectedFamilyId);
   const picker = element("section", "subsection family-picker");
-  append(picker, subsectionTitle("Scenario family", `${families.length} source-grounded families`));
+  append(picker, subsectionTitle("Research scenario family", `${families.length} source-grounded families`));
   const field = element("label", "field lab-field");
-  append(field, element("span", "", "Family"));
+  append(field, element("span", "", "Scenario family"));
   const select = element("select", "lab-select");
   select.setAttribute("aria-label", "Semantic scenario family");
   for (const family of families) {
-    const option = element("option", "", family.title_sl || familyId(family));
+    const option = element("option", "", semanticFamilyLabel(family));
     option.value = familyId(family);
     option.selected = familyId(family) === state.selectedFamilyId;
     append(select, option);
@@ -686,9 +757,9 @@ function shadowRegistryEntries() {
 function shadowEvidenceLabel(record) {
   const source = asObject(record);
   if (source.label) return source.label;
-  if (source.evidence_id === "s1-partial") return "S1 delni neuspeh";
-  if (source.evidence_id === "s1r-reconciled") return "S1R usklajen uspeh";
-  return source.evidence_id || "Zamrznjena shadow evidenca";
+  if (source.evidence_id === "s1-partial") return "S1 · partial shadow failure";
+  if (source.evidence_id === "s1r-reconciled") return "S1R · reconciled shadow success";
+  return source.evidence_id || "Frozen shadow evidence";
 }
 
 function redactShadowEvaluatorState() {
@@ -769,7 +840,7 @@ async function loadShadowEvidence(
 function shadowEnumValue(label, value) {
   const line = element("div", "choice-line shadow-enum-line");
   append(line, element("span", "", label));
-  const code = element("code", "shadow-enum", value === null || value === undefined || value === "" ? "ni na voljo" : value);
+  const code = element("code", "shadow-enum", value === null || value === undefined || value === "" ? "not available" : value);
   append(line, code);
   return line;
 }
@@ -777,7 +848,7 @@ function shadowEnumValue(label, value) {
 function shadowCitations(label, values) {
   return fieldGroup(label, values, {
     asChips: true,
-    emptyText: "Brez citatov",
+    emptyText: "No citations",
   });
 }
 
@@ -792,8 +863,8 @@ function shadowObservationCard(observation, index) {
     item,
     shadowEnumValue("Observation ID", source.observation_id),
     fieldGroup(
-      "Kanonizirani slovenski signal",
-      canonicalSl || "Vidni signal je bil degradiran in nima besedilne vsebine."
+      "Historical exact model input — Slovenian",
+      canonicalSl || "The visible signal was degraded and contains no textual content."
     )
   );
   const metadata = [
@@ -804,7 +875,7 @@ function shadowObservationCard(observation, index) {
   ].filter(([, value]) => value !== null && value !== undefined && value !== "");
   if (metadata.length) append(item, keyValues(metadata));
   if (operationalEn) {
-    append(item, rawDetails("Operational English gloss (ista evidence enota)", operationalEn));
+    append(item, rawDetails("Historical operational English gloss — same evidence unit", operationalEn));
   }
   return item;
 }
@@ -813,29 +884,29 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null) {
   const visible = asObject(visibleInput);
   const observations = asArray(visible.observations || visible.visible_observations);
   const options = asArray(visible.public_options || visible.public_option_scope);
-  const result = card("Visible conscious input", null, "shadow-visible-card");
+  const result = card("Historical visible conscious input", null, "shadow-visible-card");
   result.dataset.shadowKind = "visible-input";
   append(
     result,
     keyValues([
       ["Source mind", visible.source_mind || sourceMind],
       ["Channel quality", visible.channel_quality],
-      ["Presentation mode", visible.presentation_mode],
+      ["Historical presentation mode", visible.presentation_mode],
     ]),
     fieldGroup("Degraded observations", visible.degraded_observation_ids, {
       asChips: true,
-      emptyText: "Nobena",
+      emptyText: "None",
     }),
     fieldGroup("Omitted observations", visible.omitted_observation_ids, {
       asChips: true,
-      emptyText: "Nobena",
+      emptyText: "None",
     })
   );
   const observationList = element("div", "shadow-observation-list");
   observations.forEach((observation, index) => append(observationList, shadowObservationCard(observation, index)));
   append(
     result,
-    fieldGroup("Vidne observation enote", observations.length ? `${observations.length}` : "Ni vidnih observations"),
+    fieldGroup("Visible observation units", observations.length ? `${observations.length}` : "No visible observations"),
     observationList
   );
   const optionList = element("div", "shadow-option-scope");
@@ -846,15 +917,15 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null) {
     append(
       optionItem,
       shadowEnumValue("Option ID", record.option_id),
-      fieldGroup("Javni opis", record.canonical_sl ?? text.canonical_sl)
+      fieldGroup("Historical public option text — Slovenian exact model input", record.canonical_sl ?? text.canonical_sl)
     );
     const english = record.operational_en ?? text.operational_en;
-    if (english) append(optionItem, rawDetails("Operational English gloss", english));
+    if (english) append(optionItem, rawDetails("Historical operational English gloss", english));
     append(optionList, optionItem);
   }
   append(
     result,
-    fieldGroup("Public option scope", options.length ? `${options.length} možnosti` : "Prazen javni scope"),
+    fieldGroup("Public option scope", options.length ? `${options.length} options` : "Empty public scope"),
     optionList,
     rawDetails("Inspect safe visible-input artifact", visible.raw_details || visible)
   );
@@ -935,26 +1006,26 @@ function shadowStatusNotice(shadow, presentationShape) {
   if (shape === "full_abstention") {
     append(
       notice,
-      element("strong", "", "Epistemološko omejena abstinenca"),
-      element("p", "", "Racio ni imel dovolj vidne evidence za utemeljeno trditev.")
+      element("strong", "", "Epistemically bounded abstention"),
+      element("p", "", "Racio did not have enough visible evidence to support a claim.")
     );
   } else if (shape === "action_only") {
     append(
       notice,
-      element("strong", "", "Omejena action-only interpretacija"),
-      element("p", "", "Akcijska trditev obstaja; možnost in motiv ostajata neznana.")
+      element("strong", "", "Bounded action-only interpretation"),
+      element("p", "", "An action claim is present; the option and motive remain unknown.")
     );
   } else if (shape === "failed") {
     append(
       notice,
-      element("strong", "", "Gemma shadow veja ni uspela"),
-      element("p", "", "Avtoritativni deterministični cikel je kljub temu uspel; sprejeta shadow interpretacija ni bila objavljena.")
+      element("strong", "", "Gemma shadow branch failed"),
+      element("p", "", "The authoritative deterministic cycle still succeeded; no accepted shadow interpretation was published.")
     );
   } else {
     append(
       notice,
-      element("strong", "", "Omejene epistemološke trditve"),
-      element("p", "", "Prikazane trditve so diagnostični shadow rezultat brez avtoritete.")
+      element("strong", "", "Bounded epistemic claims"),
+      element("p", "", "The displayed claims are a diagnostic shadow result with no authority.")
     );
   }
   return notice;
@@ -1000,10 +1071,10 @@ function shadowInterpretationCard(shadow, presentationShape) {
     actions.forEach((claim, index) => append(actionClaims, shadowActionClaim(claim, index)));
     append(
       result,
-      fieldGroup("Action hypotheses", actions.length ? `${actions.length}` : "Brez action claima"),
+      fieldGroup("Action hypotheses", actions.length ? `${actions.length}` : "No action claim"),
       actionClaims,
       fieldGroup(
-        "Action unknown reason",
+        "Historical action unknown reason — Slovenian exact accepted output",
         unknownReasons.action ?? source.action_unknown_reason ?? output.action_unknown_reason
       )
     );
@@ -1020,9 +1091,9 @@ function shadowInterpretationCard(shadow, presentationShape) {
     } else {
       append(
         optionSection,
-        fieldGroup("Status", "Ni option claima"),
+        fieldGroup("Status", "No option claim"),
         fieldGroup(
-          "Bounded unknown reason",
+          "Historical option unknown reason — Slovenian exact accepted output",
           unknownReasons.option ?? source.option_unknown_reason ?? output.option_unknown_reason
         )
       );
@@ -1033,10 +1104,10 @@ function shadowInterpretationCard(shadow, presentationShape) {
     motives.forEach((claim, index) => append(motiveClaims, shadowMotiveClaim(claim, index)));
     append(
       result,
-      fieldGroup("Motive hypotheses", motives.length ? `${motives.length}` : "Brez motive claima"),
+      fieldGroup("Motive hypotheses", motives.length ? `${motives.length}` : "No motive claim"),
       motiveClaims,
       fieldGroup(
-        "Motive unknown reason",
+        "Historical motive unknown reason — Slovenian exact accepted output",
         unknownReasons.motive ?? source.motive_unknown_reason ?? output.motive_unknown_reason
       ),
       keyValues([
@@ -1052,12 +1123,12 @@ function shadowInterpretationCard(shadow, presentationShape) {
 function comparisonValue(value) {
   if (value && typeof value === "object" && !Array.isArray(value)) {
     if (value.comparable === false) {
-      return value.reason ? `ni na voljo · ${value.reason}` : "ni na voljo";
+      return value.reason ? `not available · ${value.reason}` : "not available";
     }
     if (value.comparable === true) return comparisonValue(value.value);
   }
   return value === null || value === undefined || value === ""
-    ? "ni na voljo"
+    ? "not available"
     : value;
 }
 
@@ -1106,7 +1177,7 @@ function shadowDebugCard(debugTruth) {
     element(
       "p",
       "debug-boundary-copy",
-      "Gemma shadow in avtoritativni Racio teh vrednosti nista prejela; prikazane so samo skozi lokalno evaluator-debug mejo."
+      "Neither the Gemma shadow nor authoritative Racio received these values; they are visible only through the local evaluator-debug boundary."
     ),
     keyValues([
       ["Native option", source.native_option_id],
@@ -1155,12 +1226,12 @@ function renderShadowReplaySection() {
     section,
     subsectionTitle(
       "Gemma Text Shadow",
-      "zamrznjena read-only evidenca · brez avtoritete"
+      "frozen read-only evidence · no authority"
     )
   );
   const entries = shadowRegistryEntries();
   if (state.shadowRegistryError) {
-    append(section, emptyNotice("Shadow evidence registry ni na voljo", state.shadowRegistryError));
+    append(section, emptyNotice("Shadow evidence registry unavailable", state.shadowRegistryError));
     return section;
   }
   const controls = element("div", "shadow-replay-controls");
@@ -1183,17 +1254,17 @@ function renderShadowReplaySection() {
   append(
     boundary,
     element("strong", "", "Reviewing frozen shadow evidence"),
-    element("span", "", "No model call will be made")
+    element("span", "", "No model call will be made. Historical Slovenian model inputs and outputs remain verbatim; the active runtime language policy is English.")
   );
   append(controls, field, boundary);
   append(section, controls);
   if (state.shadowEvidenceError) {
-    append(section, emptyNotice("Evidence ni bilo mogoče prikazati", state.shadowEvidenceError));
+    append(section, emptyNotice("Evidence could not be displayed", state.shadowEvidenceError));
     return section;
   }
   const replay = asObject(state.shadowEvidence);
   if (!Object.keys(replay).length) {
-    append(section, emptyNotice("Evidence se nalaga", "Izberi registrirano S1 ali S1R evidenco."));
+    append(section, emptyNotice("Evidence is loading", "Select registered S1 or S1R evidence."));
     return section;
   }
   append(
@@ -1208,7 +1279,7 @@ function renderShadowReplaySection() {
       ["Live model execution", replay.live_model_execution],
       ["Cold verification", asObject(replay.integrity).status || asObject(replay.integrity).cold_verified],
     ]),
-    fieldGroup("Povzetek zamrznjene evidence", replay.summary)
+    fieldGroup("Frozen evidence summary", replay.summary)
   );
   const lanes = replay.lanes;
   const laneStack = element("div", "shadow-lane-stack");
@@ -1272,7 +1343,7 @@ function renderRacioPanel(payload) {
     const row = element("section", `racio-case ${mind === "E" ? "emocio" : "instinkt"}`);
     append(row, subsectionTitle(`${label} → Racio`, truth ? "evaluator comparison enabled" : "ground truth withheld"));
     const grid = element("div", `racio-grid ${truth ? "debug" : ""}`.trim());
-    const seen = card("Kar je Racio dejansko videl", null, "racio-visible-card");
+    const seen = card("What Racio actually saw", null, "racio-visible-card");
     append(
       seen,
       keyValues([
@@ -1832,7 +1903,7 @@ function renderEgoEvent(event, index, total) {
       overview,
       fieldGroup("Translation gaps", asArray(payload.translation_gaps).map((gap) => `${gap.source_mind}: ${humanize(gap.distortion_type || gap.gap_status)}`), { asChips: true }),
       fieldGroup("Unresolved tensions", payload.unresolved_tensions, { asChips: true }),
-      fieldGroup("Spoznanje", payload.spoznanje_status),
+      fieldGroup("Realization", englishRuntimeValue(payload.spoznanje_status)),
       rawDetails("Inspect complete EgoMeasure", payload)
     );
   } else {
@@ -1867,7 +1938,7 @@ function renderEgoPanel(payload) {
     panel,
     panelHeading(
       "Ego Timeline",
-      "Ordered measures preserve decisions, outcomes, translation errors, tensions, spoznanja, self-narrative, and modality projections.",
+      "Ordered measures preserve decisions, outcomes, translation errors, tensions, realizations, self-narrative, and modality projections.",
       `${timelineEvents.length} event${timelineEvents.length === 1 ? "" : "s"}`
     )
   );
@@ -1891,7 +1962,7 @@ function renderEgoPanel(payload) {
     fieldGroup("Translation errors", snapshot.recurring_translation_errors, { asChips: true }),
     fieldGroup("Unresolved tensions", snapshot.unresolved_tensions, { asChips: true }),
     fieldGroup("Resolved tensions", snapshot.resolved_tensions, { asChips: true }),
-    fieldGroup("Spoznanja", snapshot.spoznanja, { asChips: true }),
+    fieldGroup("Realizations", englishRuntimeValue(snapshot.spoznanja), { asChips: true }),
     rawDetails("Inspect composition snapshot", snapshot),
     rawDetails("Inspect sourced claims", snapshot.sourced_claims)
   );

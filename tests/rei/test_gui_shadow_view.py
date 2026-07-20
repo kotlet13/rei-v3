@@ -168,6 +168,8 @@ def test_visible_projection_is_allowlisted_and_private_by_default(
     assert visible["observations"]
     assert visible["public_options"]
     assert visible["observations"][0]["canonical_sl"]
+    assert visible["presentation_mode"] == "canonical_sl_only"
+    assert visible["public_options"][0]["operational_en"] is None
     assert visible["observations"][0]["visibility"] in {"clear", "degraded"}
     assert visible["channel_quality"] == pytest.approx(0.6408628125)
 
@@ -193,7 +195,7 @@ def test_debug_projection_uses_control_gap_and_warns_racio_never_saw_truth() -> 
     )
     truth = payload["lanes"]["instinkt"]["debug_evaluator_ground_truth"]
     assert truth["label"] == "DEBUG / EVALUATOR GROUND TRUTH"
-    assert truth["warning"] == "Racio ground trutha ni prejel."
+    assert truth["warning"] == "Racio did not receive evaluator ground truth."
     assert truth["native_option_id"] == "option_restore"
     assert truth["native_action_tendency"] == "maintain"
     assert truth["native_motive_summary"] == "The shared exit stays clear."
@@ -383,6 +385,15 @@ def test_verified_index_is_read_only_and_model_free() -> None:
         "s1-partial",
         "s1r-reconciled",
     ]
+    assert [item["label"] for item in payload["evidence"]] == [
+        "S1 · partial shadow failure",
+        "S1R · reconciled shadow success",
+    ]
+    assert all(
+        "authoritative deterministic cycle" in item["summary"]
+        or "action-only hypothesis" in item["summary"]
+        for item in payload["evidence"]
+    )
     assert payload["read_only"] is True
     assert payload["live_model_execution"] is False
     assert payload["authority"] == "none"

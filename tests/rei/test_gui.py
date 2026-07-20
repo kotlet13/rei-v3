@@ -22,6 +22,7 @@ from app.backend.rei.models.character import (
     CHARACTER_PROFILE_CONTRACTS,
     CHARACTER_PROFILE_ORDER,
 )
+from app.backend.rei.models.common import PUBLIC_SAFETY_CAVEAT_EN
 from app.backend.rei.models.emocio import ImageArtifact
 from app.backend.rei.persistence import (
     ArtifactIntegrityError,
@@ -157,6 +158,7 @@ def test_bootstrap_is_fixture_only_and_exposes_all_profile_contracts(
         "authority": "none",
         "evidence_ids": ["s1-partial", "s1r-reconciled"],
     }
+    assert payload["safety_caveat"] == PUBLIC_SAFETY_CAVEAT_EN
     assert len(payload["profile_contracts"]) == 13
     assert [item["profile_id"] for item in payload["profile_contracts"]] == list(
         CHARACTER_PROFILE_ORDER
@@ -243,7 +245,9 @@ def test_workbench_envelope_redacts_evaluator_truth_by_default(
     racio = normal["panels"]["racio"]
     assert racio["ground_truth_visible"] is False
     assert "evaluator_ground_truth" not in racio
-    assert racio["warning"].startswith("Racio ground trutha ni prejel.")
+    assert racio["warning"].startswith(
+        "Racio did not receive evaluator ground truth."
+    )
     assert racio["visible_inputs"]["emocio"] == (
         completed_views["result"]
         .emocio_communication.request.model_dump(mode="json")
@@ -289,7 +293,9 @@ def test_workbench_envelope_redacts_evaluator_truth_by_default(
     }
     ground_truth = debug_racio["evaluator_ground_truth"]
     assert ground_truth["label"] == "DEBUG / EVALUATOR GROUND TRUTH"
-    assert ground_truth["warning"].startswith("Racio ground trutha ni prejel.")
+    assert ground_truth["warning"].startswith(
+        "Racio did not receive evaluator ground truth."
+    )
     assert "Racio did not see" in ground_truth["warning"]
     assert ground_truth["emocio"]["native_option_id"] is not None
     assert ground_truth["instinkt"]["native_action_tendency"] is not None
@@ -1245,3 +1251,30 @@ def test_shadow_debug_reload_discards_stale_responses() -> None:
     assert "requestedDebug !== els.debugToggle.checked" in frontend
     assert "if (state.selectedShadowEvidenceId)" in frontend
     assert "if (state.shadowEvidence && state.selectedShadowEvidenceId)" not in frontend
+
+
+def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> None:
+    frontend = (ROOT / "app" / "gui" / "static" / "app.js").read_text(
+        encoding="utf-8"
+    )
+
+    assert '"Semantic Lab · Research Corpus"' in frontend
+    assert 'element("span", "", "Test variant")' in frontend
+    assert "fieldGroup(selectedVariantInputLabel(variant), variant.input_text)" in frontend
+    assert "Selected research input — ${language}" in frontend
+    assert '"Source family title — Slovenian"' in frontend
+    assert '"Historical exact model input — Slovenian"' in frontend
+    assert '"Historical action unknown reason — Slovenian exact accepted output"' in frontend
+    assert 'card("What Racio actually saw"' in frontend
+
+    for forbidden_chrome in (
+        "Racio ground trutha ni prejel.",
+        "Slovenščina · canonical",
+        "ni na voljo",
+        "Brez citatov",
+        "Kanonizirani slovenski signal",
+        "Kar je Racio dejansko videl",
+        'fieldGroup("Spoznanje"',
+        'fieldGroup("Spoznanja"',
+    ):
+        assert forbidden_chrome not in frontend

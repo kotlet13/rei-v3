@@ -7,7 +7,8 @@ archive snapshot.
 The workbench exposes six inspection views:
 
 - **Semantic Lab** — the read-only C1/C2 source-grounded catalogue, expected
-  and actual routes, reviewer state, failure tags, and Slovenian/English text.
+  and actual routes, reviewer state, failure tags, and explicitly labelled
+  Slovenian source evidence beside its English research gloss.
 - **Racio** — the exact manifestations and communication requests available to
   Racio. Native comparison truth appears only behind the explicitly labelled
   evaluator-debug switch, together with `TranslationGap` records.
@@ -20,8 +21,9 @@ The workbench exposes six inspection views:
   governance, conscious decision, and behavior resultant. It is an inspection
   view, not a diagnostic surface.
 - **Ego** — append-only measures and corrections, decisions, outcomes,
-  translation gaps, recurring motifs, unresolved tensions, spoznanja, Racio
-  self-narrative, and three modality-specific projections.
+  translation gaps, recurring motifs, unresolved tensions, realizations
+  (`spoznanja` in the stable backend contract), Racio self-narrative, and three
+  modality-specific projections.
 
 The C7 benchmark statuses remain separate: the model-free technical contract
 gate is not presented as evidence that the research-quality gate passed.
@@ -77,8 +79,8 @@ must explicitly set `REI_GUI_ALLOW_REMOTE=true`. Evaluator ground truth
 requested with `debug=true` remains separately protected and remote access to
 it requires both `REI_GUI_ALLOW_REMOTE=true` and
 `REI_GUI_ALLOW_REMOTE_DEBUG=true`. The warning
-`Racio ground trutha ni prejel.` remains visible because debug truth is an
-evaluator comparison, never an interpreter input.
+`Racio did not receive evaluator ground truth.` remains visible because debug
+truth is an evaluator comparison, never an interpreter input.
 
 Remote opt-in is an unauthenticated, trusted-single-user mode. `ego_id` is a
 namespace, not an authorization token or secret: a remote caller that knows an

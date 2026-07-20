@@ -48,6 +48,7 @@ from app.backend.rei.models.provider import ProviderIdentity
 from app.backend.rei.models.rendering import ImageRenderRequest
 from app.backend.rei.models.rendering import ImageSourceReference
 from app.backend.rei.models.scene import DecisionOption, EvidenceItem, SceneEvent
+from app.backend.rei.providers.language_policy import LocalModelLanguagePolicyError
 from scripts.run_rei_emocio_editor_screen import (
     _matrix_cells,
     _prompt_compiler,
@@ -509,14 +510,16 @@ def test_matrix_definition_and_compact_prompt_contract_are_complete() -> None:
     cells = tuple(_matrix_cells(compiled))
     token_audit = _verify_pinned_prompt_token_audit(compiled)
 
-    assert len(cells) == 24
+    assert len(cells) == 12
     assert len(token_audit) == 8
     assert max(item["token_count"] for item in token_audit) == 494
     assert all(item["token_count"] <= 512 for item in token_audit)
-    assert len(cells) * 2 == 48
-    assert len({cell[0] for cell in cells}) == 24
+    assert len(cells) * 2 == 24
+    assert len(compiled.option_rollouts) == 2
+    assert len(cells) * 2 * len(compiled.option_rollouts) == 48
+    assert {cell[2] for cell in cells} == {"en"}
+    assert len({cell[0] for cell in cells}) == 12
     assert {cell[1] for cell in cells} == {424240, 424241, 424242}
-    assert {cell[2] for cell in cells} == {"sl", "en"}
     assert {cell[3] for cell in cells} == {
         "documentary_cinematic_v1",
         "graphic_novel_v1",
@@ -652,6 +655,7 @@ def test_flux_runtime_opt_in_cpu_offload_uses_cpu_generator(
         seed=424239,
         prompt="Generate the frozen current scene.",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=2,
@@ -722,7 +726,7 @@ def test_runner_defaults_to_one_preflight_cell_without_inference(tmp_path: Path)
     evidence = json.loads((output / "preflight.json").read_text(encoding="utf-8"))
     assert evidence["execution_requested"] is False
     assert evidence["execution_cell_count"] == 1
-    assert evidence["full_robustness_matrix_required_cells"] == 48
+    assert evidence["full_robustness_matrix_required_cells"] == 24
     assert evidence["full_robustness_matrix_executed"] is False
     assert evidence["model_cpu_offload_required"] is True
     assert len(evidence["pinned_longcat_prompt_token_audit"]) == 8
@@ -901,6 +905,7 @@ def test_lazy_backend_fake_runtime_enforces_offload_and_call_contract(
         seed=73,
         prompt="Perform the exact test-only option edit.",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=2,
@@ -931,3 +936,51 @@ def test_lazy_backend_fake_runtime_enforces_offload_and_call_contract(
         passes_dimensions,
         passes_dimensions,
     )
+
+
+@pytest.mark.parametrize("prompt_language", (None, "sl"))
+def test_composite_editor_rejects_non_english_prompt_before_snapshot_or_model(
+    tmp_path: Path,
+    prompt_language: str | None,
+) -> None:
+    config = longcat_editor_runtime_config(
+        snapshot_path=tmp_path / "unused-model-snapshot",
+        snapshot_manifest_sha256="0" * 64,
+    )
+    compiled = _compiled_scenes()
+    source_png = _png()
+    source = ImageSourceReference(
+        image_id="language_gate_source",
+        content_sha256=hashlib.sha256(source_png).hexdigest(),
+        media_type="image/png",
+        path="emocio/sources/language_gate_source.png",
+        width=4,
+        height=3,
+        grounded=False,
+        originating_scene_spec_id=compiled.current_scene.scene_id,
+        originating_scene_spec_hash=compiled.current_scene.content_hash(),
+    )
+    request = ImageRenderRequest.create(
+        mode="image_to_image",
+        source_spec=compiled.option_rollouts[0],
+        provider=config.provider_identity(),
+        pipeline=config.pipeline_spec("image_to_image"),
+        seed=73,
+        prompt="A bounded test-only option edit.",
+        negative_prompt="",
+        prompt_language=prompt_language,
+        width=4,
+        height=3,
+        num_inference_steps=2,
+        guidance_scale=4.5,
+        source_image=source,
+        strength=None,
+        conditioning_method="reference_image",
+    )
+    backend = LazyLocalCompositeEditorBackend(config)
+
+    with pytest.raises(LocalModelLanguagePolicyError):
+        backend.render(request, source_png=source_png)
+
+    assert backend._snapshot is None
+    assert backend._pipeline is None

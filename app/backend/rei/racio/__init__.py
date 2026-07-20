@@ -9,6 +9,7 @@ from .processor import (
 )
 from .text_reasoner_adapter import (
     RACIO_STRUCTURED_INSTRUCTION,
+    RACIO_STRUCTURED_INSTRUCTION_EN,
     TextReasonerRacioAdapter,
 )
 
@@ -18,6 +19,7 @@ __all__ = [
     "DeterministicRacioProvider",
     "RACIO_PACKET_CAVEAT",
     "RACIO_STRUCTURED_INSTRUCTION",
+    "RACIO_STRUCTURED_INSTRUCTION_EN",
     "RacioNativeProcessor",
     "RacioStructuredOutput",
     "TextReasonerRacioAdapter",

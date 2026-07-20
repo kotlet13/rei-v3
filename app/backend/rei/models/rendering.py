@@ -234,19 +234,17 @@ class ImageRenderRequest(FrozenArtifactModel):
         }
         if resolved_conditioning_method == "reference_image":
             payload["conditioning_method"] = resolved_conditioning_method
-        prompt_provenance = (prompt_language, style_id, profile_hash)
-        if any(value is not None for value in prompt_provenance):
-            if not all(value is not None for value in prompt_provenance):
-                raise ValueError(
-                    "Prompt language, style ID, and profile hash must be recorded together"
-                )
-            payload.update(
-                {
-                    "prompt_language": prompt_language,
-                    "style_id": style_id,
-                    "profile_hash": profile_hash,
-                }
-            )
+        style_provenance = (style_id, profile_hash)
+        if any(value is not None for value in style_provenance) and not all(
+            value is not None for value in style_provenance
+        ):
+            raise ValueError("Prompt style ID and profile hash must be recorded together")
+        if any(value is not None for value in style_provenance) and prompt_language is None:
+            raise ValueError("Prompt style provenance requires a prompt language")
+        if prompt_language is not None:
+            payload["prompt_language"] = prompt_language
+        if style_id is not None:
+            payload.update({"style_id": style_id, "profile_hash": profile_hash})
         constructor_payload = dict(payload)
         constructor_payload["conditioning_method"] = resolved_conditioning_method
         return cls(
@@ -283,12 +281,10 @@ class ImageRenderRequest(FrozenArtifactModel):
         if self.conditioning_method == "reference_image":
             values["conditioning_method"] = self.conditioning_method
         if self.prompt_language is not None:
+            values["prompt_language"] = self.prompt_language
+        if self.style_id is not None:
             values.update(
-                {
-                    "prompt_language": self.prompt_language,
-                    "profile_hash": self.profile_hash,
-                    "style_id": self.style_id,
-                }
+                {"profile_hash": self.profile_hash, "style_id": self.style_id}
             )
         parameters = [
             ProviderParameter(
@@ -310,17 +306,13 @@ class ImageRenderRequest(FrozenArtifactModel):
     def validate_request(self) -> Self:
         if self.provider.kind != "image_renderer":
             raise ValueError("Image render requests require an image_renderer provider")
-        prompt_provenance = (
-            self.prompt_language,
-            self.style_id,
-            self.profile_hash,
-        )
-        if any(value is not None for value in prompt_provenance) and not all(
-            value is not None for value in prompt_provenance
+        style_provenance = (self.style_id, self.profile_hash)
+        if any(value is not None for value in style_provenance) and not all(
+            value is not None for value in style_provenance
         ):
-            raise ValueError(
-                "Prompt language, style ID, and profile hash must be recorded together"
-            )
+            raise ValueError("Prompt style ID and profile hash must be recorded together")
+        if self.style_id is not None and self.prompt_language is None:
+            raise ValueError("Prompt style provenance requires a prompt language")
         if self.mode == "text_to_image":
             if (
                 self.source_image is not None

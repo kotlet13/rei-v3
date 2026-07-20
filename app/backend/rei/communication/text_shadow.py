@@ -1,10 +1,11 @@
 """Non-authoritative text-shadow boundary for conscious Racio interpretation.
 
 This module contains no concrete model provider.  It converts the same trusted
-``RacioInterpreterRequest`` used by the authoritative communication path into a
-packet-local V3 view, records a diagnostic-only comparison, and keeps every
-shadow artifact terminal.  Nothing defined here can commit a decision, resolve
-governance, update a world, or replace ``CommunicationProcessResult.interpretation``.
+``RacioInterpreterRequest`` used by the authoritative communication path into
+an English-primary packet-local V3 view, records a diagnostic-only comparison,
+and keeps every shadow artifact terminal. Nothing defined here can commit a
+decision, resolve governance, update a world, or replace
+``CommunicationProcessResult.interpretation``.
 """
 
 from __future__ import annotations
@@ -31,13 +32,15 @@ from ..models.provider import (
 from ..providers.native import ExecutionClock
 from .conscious_access import ConsciousAccessFilter
 from .epistemic_interpreter import RacioReportedUncertainty
+from .epistemic_interpreter_en import (
+    EnglishObservationV3,
+    EnglishOptionV3,
+    RacioEpistemicInterpretationEnV3,
+    RacioEpistemicPacketEnV3,
+)
 from .epistemic_interpreter_v3 import (
     LEGACY_ACTION_RESOLUTION_V3,
     ActionHypothesisV3,
-    AuditedBilingualTextV3,
-    BilingualObservationV3,
-    BilingualOptionV3,
-    BilingualUncertaintyV3,
     MotiveHypothesisV3,
     RacioEpistemicInterpretationV3,
     RacioEpistemicPacketV3,
@@ -104,9 +107,9 @@ class ShadowProviderPreflightError(RuntimeError):
 
 @dataclass(frozen=True, slots=True)
 class ShadowPacketContext:
-    """V3 packet plus transient public-alias mapping, never an acceptance audit."""
+    """English V3 packet plus a transient public-alias mapping."""
 
-    packet: RacioEpistemicPacketV3
+    packet: RacioEpistemicPacketEnV3
     option_alias_bindings: tuple[tuple[str, str], ...]
 
     def __post_init__(self) -> None:
@@ -117,7 +120,7 @@ class ShadowPacketContext:
         if len(source_ids) != len(set(source_ids)):
             raise ValueError("Shadow source option IDs must be unique")
         if public_ids != self.packet.public_option_ids:
-            raise ValueError("Shadow option bindings must close the V3 public scope")
+            raise ValueError("Shadow option bindings must close the public scope")
 
     def source_option_id(self, public_option_id: str) -> str:
         matches = tuple(
@@ -259,6 +262,60 @@ class ShadowRacioInterpretationArtifact(FrozenArtifactModel):
         return self
 
 
+class ShadowRacioInterpretationArtifactV2(FrozenArtifactModel):
+    """English-only shadow wrapper without changing the frozen V1 schema."""
+
+    schema_version: Literal[
+        "rei-native-shadow-racio-interpretation-v2"
+    ] = "rei-native-shadow-racio-interpretation-v2"
+    interpretation_id: NonEmptyId
+    packet_id: NonEmptyId
+    packet_sha256: HashDigest
+    structured_output: RacioEpistemicInterpretationEnV3
+    no_authority: Literal[True] = True
+    interpretation_sha256: HashDigest
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        packet: RacioEpistemicPacketEnV3,
+        output: RacioEpistemicInterpretationEnV3,
+    ) -> "ShadowRacioInterpretationArtifactV2":
+        output.validate_against(packet)
+        base = {
+            "schema_version": "rei-native-shadow-racio-interpretation-v2",
+            "packet_id": packet.packet_id,
+            "packet_sha256": packet.packet_hash,
+            "structured_output": output,
+            "no_authority": True,
+        }
+        interpretation_id = content_id("shadow_racio_interpretation", base)
+        payload = {"interpretation_id": interpretation_id, **base}
+        return cls(
+            **payload,
+            interpretation_sha256=sha256_hex(payload),
+        )
+
+    @model_validator(mode="after")
+    def validate_identity(self) -> "ShadowRacioInterpretationArtifactV2":
+        id_payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"interpretation_id", "interpretation_sha256"},
+        )
+        if self.interpretation_id != content_id(
+            "shadow_racio_interpretation", id_payload
+        ):
+            raise ValueError("Shadow interpretation ID differs from its content")
+        hash_payload = {"interpretation_id": self.interpretation_id, **id_payload}
+        if self.interpretation_sha256 != sha256_hex(hash_payload):
+            raise ValueError("Shadow interpretation hash differs from its content")
+        if self.structured_output.source_mind not in {"E", "I"}:
+            raise ValueError("Shadow interpretation has an invalid source mind")
+        return self
+
+
 class ShadowInterpretationComparison(FrozenArtifactModel):
     """Terminal diagnostic comparison with no authoritative interpretation role."""
 
@@ -299,7 +356,10 @@ class ShadowInterpretationComparison(FrozenArtifactModel):
         *,
         request: RacioInterpreterRequest,
         deterministic: RacioInterpretation,
-        shadow: ShadowRacioInterpretationArtifact,
+        shadow: (
+            ShadowRacioInterpretationArtifact
+            | ShadowRacioInterpretationArtifactV2
+        ),
         packet_context: ShadowPacketContext,
     ) -> "ShadowInterpretationComparison":
         deterministic.validate_against_request(request)
@@ -426,8 +486,12 @@ class ShadowRacioInterpretationResult(FrozenArtifactModel):
         request: RacioInterpreterRequest,
         deterministic: RacioInterpretation,
         status: ShadowStatus,
-        packet: RacioEpistemicPacketV3 | None = None,
-        shadow: ShadowRacioInterpretationArtifact | None = None,
+        packet: RacioEpistemicPacketEnV3 | RacioEpistemicPacketV3 | None = None,
+        shadow: (
+            ShadowRacioInterpretationArtifact
+            | ShadowRacioInterpretationArtifactV2
+            | None
+        ) = None,
         call_record: ProviderCallRecord | None = None,
         response_evidence_id: str | None = None,
         response_evidence_sha256: str | None = None,
@@ -541,7 +605,7 @@ class ShadowProviderAttempt:
     status: Literal["succeeded", "failed"]
     call_spec: ProviderCallSpec
     call_record: ProviderCallRecord
-    output: RacioEpistemicInterpretationV3 | None = None
+    output: RacioEpistemicInterpretationEnV3 | None = None
     response_evidence: FrozenArtifactModel | None = None
     response_evidence_id: str | None = None
     response_evidence_sha256: str | None = None
@@ -593,7 +657,7 @@ class ShadowRacioInterpreter(Protocol):
 
     def interpret_shadow(
         self,
-        packet: RacioEpistemicPacketV3,
+        packet: RacioEpistemicPacketEnV3,
         *,
         clock: ExecutionClock,
     ) -> ShadowProviderAttempt: ...
@@ -604,10 +668,14 @@ class ShadowRacioInterpretationExecution:
     """All terminal artifacts for one E or I shadow lane."""
 
     source_mind: Literal["E", "I"]
-    packet: RacioEpistemicPacketV3 | None
+    packet: RacioEpistemicPacketEnV3 | RacioEpistemicPacketV3 | None
     call_spec: ProviderCallSpec | None
     call_record: ProviderCallRecord | None
-    interpretation: ShadowRacioInterpretationArtifact | None
+    interpretation: (
+        ShadowRacioInterpretationArtifact
+        | ShadowRacioInterpretationArtifactV2
+        | None
+    )
     response_evidence: FrozenArtifactModel | None
     comparison: ShadowInterpretationComparison | None
     result: ShadowRacioInterpretationResult
@@ -782,23 +850,23 @@ def build_shadow_no_authority_ledger(
     return ShadowNoAuthorityLedger.create(tuple(records))
 
 
-def build_racio_epistemic_shadow_packet_v3(
+def build_racio_epistemic_shadow_packet_en_v3(
     request: RacioInterpreterRequest,
     *,
     language: Literal["sl", "en"],
     option_descriptions: Mapping[str, str],
 ) -> ShadowPacketContext:
-    """Adapt one trusted request through the existing conscious-access filter.
+    """Adapt one English trusted request through conscious access.
 
-    The returned V3 packet contains only packet-local aliases and public text.
-    The acceptance audit is deliberately discarded after extracting the public
-    option alias mapping needed for diagnostic comparison.
+    The returned packet contains only packet-local aliases and public English
+    text. The acceptance audit is deliberately discarded after extracting the
+    public option alias mapping needed for diagnostic comparison.
     """
 
-    if language != "sl":
+    if language != "en":
         raise ShadowPacketConstructionError(
             "unsupported_language",
-            "Gemma text shadow currently requires a canonical Slovene request.",
+            "Local-model text shadow requires an explicit English request.",
         )
     if set(option_descriptions) != set(request.allowed_option_ids):
         raise ShadowPacketConstructionError(
@@ -808,12 +876,12 @@ def build_racio_epistemic_shadow_packet_v3(
     try:
         access = ConsciousAccessFilter(seed=0).apply(
             request,
-            language="sl",
+            language="en",
             ablation_mode="structured_only",
             option_descriptions=option_descriptions,
         )
         observations = tuple(
-            BilingualObservationV3(
+            EnglishObservationV3(
                 observation_id=item.observation_id,
                 atomic_evidence_unit_id=f"atomic_{index:03d}",
                 perceptual_unit_count=1,
@@ -822,11 +890,7 @@ def build_racio_epistemic_shadow_packet_v3(
                 text=(
                     None
                     if item.perceived_value_json is None
-                    else AuditedBilingualTextV3(
-                        canonical_sl=(
-                            f"{item.signal_name}={item.perceived_value_json}"
-                        )
-                    )
+                    else f"{item.signal_name}={item.perceived_value_json}"
                 ),
                 provenance=item.provenance,
             )
@@ -836,24 +900,19 @@ def build_racio_epistemic_shadow_packet_v3(
             )
         )
         options = tuple(
-            BilingualOptionV3(
+            EnglishOptionV3(
                 option_id=item.option_id,
-                text=AuditedBilingualTextV3(canonical_sl=item.description),
+                description=item.description,
             )
             for item in access.packet.public_option_scope
         )
-        packet = RacioEpistemicPacketV3.create(
+        packet = RacioEpistemicPacketEnV3.create(
             source_mind=request.source_mind,
-            presentation_mode="canonical_sl_only",
             visible_observations=observations,
             omitted_observation_ids=access.packet.omitted_observation_ids,
             public_option_scope=options,
             channel_quality=access.packet.channel_quality,
-            uncertainty=BilingualUncertaintyV3(
-                text=AuditedBilingualTextV3(
-                    canonical_sl=access.packet.uncertainty,
-                )
-            ),
+            uncertainty=access.packet.uncertainty,
         )
         bindings = tuple(
             sorted(
@@ -873,8 +932,23 @@ def build_racio_epistemic_shadow_packet_v3(
     except (TypeError, ValueError) as exc:
         raise ShadowPacketConstructionError(
             "packet_construction_failure",
-            "The trusted request could not be adapted to the frozen V3 packet.",
+            "The trusted request could not be adapted to the English V3 packet.",
         ) from exc
+
+
+def build_racio_epistemic_shadow_packet_v3(
+    request: RacioInterpreterRequest,
+    *,
+    language: Literal["sl", "en"],
+    option_descriptions: Mapping[str, str],
+) -> ShadowPacketContext:
+    """Compatibility name for the active English-only V3 packet builder."""
+
+    return build_racio_epistemic_shadow_packet_en_v3(
+        request,
+        language=language,
+        option_descriptions=option_descriptions,
+    )
 
 
 def execute_racio_text_shadow(
@@ -890,7 +964,7 @@ def execute_racio_text_shadow(
 
     deterministic.validate_against_request(request)
     try:
-        packet_context = build_racio_epistemic_shadow_packet_v3(
+        packet_context = build_racio_epistemic_shadow_packet_en_v3(
             request,
             language=language,
             option_descriptions=option_descriptions,
@@ -963,7 +1037,7 @@ def execute_racio_text_shadow(
     assert attempt.response_evidence is not None
     assert attempt.response_evidence_id is not None
     assert attempt.response_evidence_sha256 is not None
-    shadow = ShadowRacioInterpretationArtifact.create(
+    shadow = ShadowRacioInterpretationArtifactV2.create(
         packet=packet_context.packet,
         output=attempt.output,
     )
@@ -1008,9 +1082,11 @@ __all__ = [
     "ShadowProviderPreflightError",
     "ShadowProviderAttempt",
     "ShadowRacioInterpretationArtifact",
+    "ShadowRacioInterpretationArtifactV2",
     "ShadowRacioInterpretationExecution",
     "ShadowRacioInterpretationResult",
     "ShadowRacioInterpreter",
+    "build_racio_epistemic_shadow_packet_en_v3",
     "build_racio_epistemic_shadow_packet_v3",
     "build_shadow_no_authority_ledger",
     "execute_racio_text_shadow",

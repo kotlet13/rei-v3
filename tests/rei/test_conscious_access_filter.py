@@ -23,6 +23,8 @@ from app.backend.rei.communication.structured_interpreter import (
     StructuredLLMRacioInterpreter,
     StructuredRacioInterpreterOutput,
 )
+from app.backend.rei.models.provider import ProviderIdentity
+from app.backend.rei.providers.language_policy import LocalModelLanguagePolicyError
 from app.backend.rei.providers.native import DeterministicExecutionClock
 from app.backend.rei.ids import sha256_hex
 from tests.rei.test_communication import (
@@ -93,6 +95,7 @@ def test_visible_and_omitted_aliases_form_complete_disjoint_partition() -> None:
         acceptance_state=_acceptance(r_to_e_visibility=0.4)
     )
     result = ConsciousAccessFilter(seed=17).apply(request)
+    assert result.packet.language == "en"
     visible = {item.observation_id for item in result.packet.visible_observations}
     omitted = set(result.packet.omitted_observation_ids)
     source_scope = {
@@ -467,6 +470,59 @@ def test_high_level_structured_adapter_closes_aliases_to_trusted_lineage() -> No
         result.access.audit.source_observation_id(public_citation),
     )
     interpretation.validate_against_request(request)
+
+
+def test_model_backed_structured_adapter_rejects_slovenian_before_dispatch() -> None:
+    _, _, request = _emocio_request()
+
+    class NeverCalledModelProvider:
+        def __init__(self) -> None:
+            self.build_calls = 0
+            self.execute_calls = 0
+            self._identity = ProviderIdentity(
+                provider_id="never_called_structured_model",
+                kind="text_reasoner",
+                implementation=(
+                    "tests.rei.test_conscious_access_filter."
+                    "NeverCalledModelProvider"
+                ),
+                implementation_revision="1",
+                uses_model=True,
+                model="test/structured-model",
+                model_revision="test-structured-model-v1",
+            )
+
+        @property
+        def identity(self) -> ProviderIdentity:
+            return self._identity
+
+        def required_input_artifact_ids(self, packet):
+            return (packet.packet_id,)
+
+        def build_call_spec(self, packet):
+            self.build_calls += 1
+            raise AssertionError("language rejection reached call construction")
+
+        def execute(self, packet, *, call, clock):
+            del packet, call, clock
+            self.execute_calls += 1
+            raise AssertionError("language rejection reached provider execution")
+
+    provider = NeverCalledModelProvider()
+    interpreter = StructuredLLMRacioInterpreter(
+        provider=provider,
+        language="sl",
+        option_descriptions={
+            "option_native": "Nadaljuj",
+            "option_wrong": "Ustavi se",
+        },
+    )
+
+    with pytest.raises(LocalModelLanguagePolicyError) as caught:
+        interpreter.interpret_with_evidence(request)
+
+    assert caught.value.failure_code == "non_english_language"
+    assert provider.build_calls == provider.execute_calls == 0
 
 
 def test_high_level_adapter_omits_inference_when_filter_exposes_nothing() -> None:

@@ -25,6 +25,7 @@ from ..models.rendering import (
     ImageSourceReference,
 )
 from ..providers.protocols import ImageRenderer, validate_image_render_outcome
+from ..providers.language_policy import require_english_local_model_payload
 from .prompting import VisualPromptProfile
 
 
@@ -45,7 +46,9 @@ class ScenePromptCompiler(Protocol):
 
 
 class StructuredScenePromptCompiler:
-    """Deterministically expose structured scene fields without semantic scoring."""
+    """Deterministically expose structured English fields without scoring."""
+
+    prompt_language = "en"
 
     def compile(self, scene: VisualSceneSpec) -> str:
         def joined(values: tuple[str, ...]) -> str:
@@ -322,6 +325,11 @@ class LocalEmocioRenderer:
                 "A provenanced scene prompt compiler must expose VisualPromptProfile"
             )
         self._prompt_profile = prompt_profile
+        self._prompt_language = (
+            prompt_profile.language
+            if prompt_profile is not None
+            else getattr(self._prompt_compiler, "prompt_language", None)
+        )
         self._sources = dict(image_to_image_sources or {})
         self._strengths = dict(image_to_image_strengths or {})
         requested_conditioning = dict(image_to_image_conditioning or {})
@@ -349,6 +357,12 @@ class LocalEmocioRenderer:
                     "reference_image conditioning cannot carry classic strength"
                 )
             self._conditioning[scene_id] = method
+
+    @property
+    def requires_english_source(self) -> bool:
+        """Declare when this coordinator can dispatch to a local model."""
+
+        return self._provider.identity.uses_model
 
     def render(
         self,
@@ -395,9 +409,7 @@ class LocalEmocioRenderer:
                         else "none"
                     ),
                     prompt_language=(
-                        self._prompt_profile.language
-                        if self._prompt_profile is not None
-                        else None
+                        self._prompt_language
                     ),
                     style_id=(
                         self._prompt_profile.style_id
@@ -410,6 +422,14 @@ class LocalEmocioRenderer:
                         else None
                     ),
                 )
+                if request.provider.uses_model:
+                    require_english_local_model_payload(
+                        declared_language=request.prompt_language,
+                        provider_payload=request.model_dump(
+                            mode="json",
+                            round_trip=True,
+                        ),
+                    )
                 call = build_render_call_spec(
                     request,
                     timeout_seconds=self._settings.timeout_seconds,

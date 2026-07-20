@@ -617,3 +617,30 @@
 - integration decision: the backend is ready for M-S1 integration preparation
   and draft-PR review. S2 and G4 require separate future feature branches and
   their own review gates.
+
+## Active runtime language decision - 2026-07-20
+
+- human decision: every active local-model instruction, prompt, query, packet,
+  and structured response boundary must operate in English.
+- preserved Slovene scope: original source documents, project goals and plans,
+  and exact frozen historical research evidence remain unchanged. They are not
+  active model inputs merely because they are present in the repository.
+- dispatch behavior: model-backed text and image boundaries require explicit
+  `language=en` metadata. Undeclared or explicitly non-English requests fail
+  before provider dispatch, with no automatic translation, retry, or fallback.
+  The structural gate deliberately does not infer a language from vocabulary;
+  trusted active producers carry the obligation to supply English prose.
+- response behavior: active provider instructions require English output. The
+  gate validates the declared contract and bounded schema, not prose through a
+  heuristic language detector; any free-text language quality remains subject
+  to explicit evidence review before a later promotion decision.
+- Gemma runtime projection: active text shadow uses an English-primary packet,
+  English bounded abstention reasons, and provider revision
+  `rei-racio-gemma4-epistemic-v3-en-chat-v1`. The frozen historical V3 provider
+  revision and S1/S1R/G3C evidence remain byte-stable.
+- presentation behavior: active GUI chrome is English. Verbatim Slovene source
+  material and historical model evidence remain visible only under explicit
+  source/history labels.
+- research status: this implementation made zero model calls, grants no
+  semantic acceptance, no promotion, and no authority. A later model smoke or
+  holdout requires a separately approved phase.

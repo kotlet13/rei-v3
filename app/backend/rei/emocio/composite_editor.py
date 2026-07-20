@@ -39,6 +39,7 @@ from ..models.rendering import (
     ImageRenderRequest,
     ImageSourceReference,
 )
+from ..providers.language_policy import require_english_local_model_payload
 from ..providers.protocols import ImageRenderer
 from .artifacts import LocalPngArtifactStore, inspect_png
 from .diffusers_renderer import (
@@ -356,6 +357,10 @@ class LazyLocalCompositeEditorBackend:
         source_png: bytes | None,
         timeout_seconds: float,
     ) -> bytes:
+        require_english_local_model_payload(
+            declared_language=request.prompt_language,
+            provider_payload=request.model_dump(mode="json", round_trip=True),
+        )
         if request.mode != "image_to_image" or source_png is None:
             raise ValueError("Composite editor accepts image-to-image requests only")
         if request.provider != self.config.provider_identity():

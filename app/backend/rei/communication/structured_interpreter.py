@@ -38,6 +38,7 @@ from ..providers.native import (
     SystemExecutionClock,
     build_provider_call_spec,
 )
+from ..providers.language_policy import require_english_local_model_payload
 from .conscious_access import (
     CONSCIOUS_ACCESS_CALIBRATION_POLICY_ID,
     ConsciousAccessFilter,
@@ -550,7 +551,7 @@ class StructuredLLMRacioInterpreter:
     """Legacy-protocol adapter that puts conscious access before one provider call."""
 
     provider: RacioInterpreterProvider
-    language: LanguageCode = "sl"
+    language: LanguageCode = "en"
     ablation_mode: InterpreterAblationMode = "structured_only"
     option_descriptions: Mapping[str, str] | None = None
     supplemental_artifacts: tuple[TrustedVisibleArtifact, ...] = ()
@@ -594,6 +595,11 @@ class StructuredLLMRacioInterpreter:
             option_descriptions=active_option_descriptions,
             supplemental_artifacts=self.supplemental_artifacts,
         )
+        if self.provider.identity.uses_model:
+            require_english_local_model_payload(
+                declared_language=access.packet.language,
+                provider_payload=access.packet.provider_payload(),
+            )
         call = self.provider.build_call_spec(access.packet)
         execution = self.provider.execute(
             access.packet,

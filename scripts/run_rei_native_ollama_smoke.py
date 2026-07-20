@@ -29,10 +29,12 @@ from rei.providers.native import SystemExecutionClock  # noqa: E402
 from rei.providers.ollama import (  # noqa: E402
     DEFAULT_OLLAMA_BASE_URL,
     OllamaApiClient,
-    OllamaRacioNativeProvider,
     OllamaRacioResponseEvidence,
     OllamaRacioSettings,
-    build_ollama_racio_native_providers,
+)
+from rei.providers.ollama_en import (  # noqa: E402
+    OllamaRacioNativeEnProvider,
+    build_ollama_racio_native_en_providers,
 )
 
 
@@ -171,7 +173,7 @@ def main(argv: list[str] | None = None) -> int:
         base_url=args.base_url,
         allow_remote=args.allow_remote,
     )
-    provider = OllamaRacioNativeProvider.discover(
+    provider = OllamaRacioNativeEnProvider.discover(
         client=client,
         settings=settings,
         expected_digest=args.expected_model_digest,
@@ -193,7 +195,7 @@ def main(argv: list[str] | None = None) -> int:
     engine = ReiNativeEngine(
         artifact_store=artifact_store,
         ego_trace_store=FileEgoTraceStore(ego_traces_root),
-        providers=build_ollama_racio_native_providers(provider),
+        providers=build_ollama_racio_native_en_providers(provider),
         clock=SystemExecutionClock(),
     )
     result = engine.run_cycle(cycle_request)

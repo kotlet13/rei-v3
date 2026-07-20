@@ -1,8 +1,8 @@
-"""Run the frozen C3 Racio-interpreter benchmark without touching native matrix runs.
+"""Run the frozen C3 benchmark in model-free deterministic replay mode.
 
-Deterministic mode is model-free.  Ollama mode requires an explicit registry
-model ID plus full digest and runs the paired deterministic baseline first.
-Official artifact creation refuses dirty scoped runtime or benchmark sources.
+The historical bilingual Ollama mode is retired on current source. Exact model
+replay remains attached to its accepted historical commit; active local-model
+work must use a separately reviewed English-only runner and provider revision.
 """
 
 from __future__ import annotations
@@ -143,7 +143,7 @@ def _default_run_id(mode: str) -> str:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     environment = OllamaRacioSettings.from_environment()
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("deterministic", "ollama"), default="deterministic")
+    parser.add_argument("--mode", choices=("deterministic",), default="deterministic")
     parser.add_argument("--manifest", type=Path, default=MANIFEST_PATH)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id")
@@ -344,6 +344,11 @@ def deterministic_results(
 def _ollama_provider(
     args: argparse.Namespace,
 ) -> tuple[OllamaStructuredRacioInterpreterProvider, RacioInterpreterModelCandidate]:
+    raise RuntimeError(
+        "Historical bilingual C3 Ollama execution is retired on current source"
+    )
+
+    # Retained below only to preserve the historical implementation for audit.
     registry = load_racio_interpreter_model_registry(args.registry)
     candidate = registry.require_candidate(
         model_id=args.model_id,

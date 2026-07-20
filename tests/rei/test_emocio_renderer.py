@@ -28,6 +28,10 @@ from app.backend.rei.emocio.diffusers_renderer import (
     build_diffusers_snapshot_manifest,
     canonical_snapshot_manifest_bytes,
 )
+from app.backend.rei.emocio.prompting import (
+    BilingualStructuredScenePromptCompiler,
+    VisualPromptProfile,
+)
 from app.backend.rei.ids import content_id, utc_now
 from app.backend.rei.models.emocio import EmocioWorld, ImageArtifact
 from app.backend.rei.models.provider import (
@@ -55,6 +59,7 @@ from app.backend.rei.providers.protocols import (
     VisionLanguageResult,
     validate_image_render_outcome,
 )
+from app.backend.rei.providers.language_policy import LocalModelLanguagePolicyError
 
 
 def _png(
@@ -146,6 +151,16 @@ def _settings() -> RenderSettings:
         guidance_scale=1.0,
         negative_prompt="test-only negative prompt",
         timeout_seconds=1.0,
+    )
+
+
+def _english_prompt_compiler() -> BilingualStructuredScenePromptCompiler:
+    return BilingualStructuredScenePromptCompiler(
+        VisualPromptProfile.create(
+            language="en",
+            style_id="renderer-test-style-v1",
+            style_directive="Use a bounded deterministic test composition.",
+        )
     )
 
 
@@ -257,6 +272,7 @@ def test_t2i_and_img2img_requests_are_content_addressed_and_strict() -> None:
         "seed": 17,
         "prompt": "structured test scene",
         "negative_prompt": "none",
+        "prompt_language": "en",
         "width": 4,
         "height": 3,
         "num_inference_steps": 2,
@@ -423,6 +439,7 @@ def test_unapproved_call_is_rejected_before_fake_backend(tmp_path: Path) -> None
         seed=17,
         prompt="approved prompt",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=2,
@@ -439,12 +456,67 @@ def test_unapproved_call_is_rejected_before_fake_backend(tmp_path: Path) -> None
     assert list(store.root.rglob("*.png")) == []
 
 
+@pytest.mark.parametrize("prompt_language", (None, "sl"))
+def test_direct_provider_rejects_non_english_prompt_before_backend(
+    tmp_path: Path,
+    prompt_language: str | None,
+) -> None:
+    backend = DeterministicPngBackend()
+    provider, store = _provider(tmp_path, backend)
+    request = ImageRenderRequest.create(
+        mode="text_to_image",
+        source_spec=_source_spec(),
+        provider=provider.identity,
+        pipeline=provider.pipeline_spec("text_to_image"),
+        seed=17,
+        prompt="A test prompt.",
+        negative_prompt="",
+        prompt_language=prompt_language,
+        width=4,
+        height=3,
+        num_inference_steps=2,
+        guidance_scale=1.0,
+    )
+
+    with pytest.raises(LocalModelLanguagePolicyError):
+        provider.render(request, call=_call_for(request))
+
+    assert backend.calls == []
+    assert list(store.root.rglob("*.png")) == []
+
+
+def test_model_backed_renderer_rejects_non_english_source_before_dispatch(
+    tmp_path: Path,
+) -> None:
+    backend = DeterministicPngBackend()
+    provider, _ = _provider(tmp_path, backend)
+    renderer = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
+    )
+    scene = _scene().model_copy(update={"language": "sl"})
+    native_only = process_emocio(scene, _world())
+
+    rendered = process_emocio(scene, _world(), renderer=renderer, render_seed=17)
+
+    assert backend.calls == []
+    assert rendered.native_conclusion == native_only.native_conclusion
+    assert rendered.rendered_images == ()
+    assert rendered.render_batch is None
+    assert rendered.cognition_trace.fallback_reason == "renderer_failed"
+
+
 def test_fake_png_success_closes_bytes_path_dimensions_and_call_provenance(
     tmp_path: Path,
 ) -> None:
     backend = DeterministicPngBackend()
     provider, store = _provider(tmp_path, backend)
-    renderer = LocalEmocioRenderer(provider=provider, settings=_settings())
+    renderer = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
+    )
     spec = _source_spec()
 
     batch = renderer.render((spec,), seed=17)
@@ -501,6 +573,7 @@ def test_img2img_source_bytes_and_hash_are_closed_before_backend(
     renderer = LocalEmocioRenderer(
         provider=provider,
         settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
         image_to_image_sources={spec.scene_id: source},
         image_to_image_strengths={spec.scene_id: 0.35},
     )
@@ -550,6 +623,7 @@ def test_reference_image_conditioning_does_not_invent_classic_strength(
     renderer = LocalEmocioRenderer(
         provider=provider,
         settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
         image_to_image_sources={spec.scene_id: source},
         image_to_image_conditioning={spec.scene_id: "reference_image"},
     )
@@ -569,7 +643,11 @@ def test_backend_failure_is_structured_and_cannot_change_native_result(
 ) -> None:
     backend = ExplodingBackend()
     provider, _ = _provider(tmp_path, backend)
-    renderer = LocalEmocioRenderer(provider=provider, settings=_settings())
+    renderer = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
+    )
     native_only = process_emocio(_scene(), _world())
 
     failed = process_emocio(
@@ -640,6 +718,7 @@ def test_provider_warnings_are_redacted_before_batch_persistence(
     batch = LocalEmocioRenderer(
         provider=WarningProvider(),
         settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
     ).render((_source_spec(),), seed=25)
 
     assert batch.status == "succeeded"
@@ -691,6 +770,7 @@ def test_invalid_provider_outcome_is_quarantined(tmp_path: Path) -> None:
     renderer = LocalEmocioRenderer(
         provider=TamperingProvider(),
         settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
     )
     batch = renderer.render((_source_spec(),), seed=29)
 
@@ -710,7 +790,11 @@ def test_adversarial_caption_cannot_mutate_native_conclusion_or_scene_facts(
     rendered = process_emocio(
         _scene(),
         _world(),
-        renderer=LocalEmocioRenderer(provider=provider, settings=_settings()),
+        renderer=LocalEmocioRenderer(
+            provider=provider,
+            settings=_settings(),
+            prompt_compiler=_english_prompt_compiler(),
+        ),
         render_seed=31,
     )
     image = rendered.rendered_images[0]
@@ -931,6 +1015,7 @@ def test_flux2_klein_backend_uses_one_unified_local_only_pipeline_without_classi
         "seed": 53,
         "prompt": "structured reference edit",
         "negative_prompt": "",
+        "prompt_language": "en",
         "width": 4,
         "height": 3,
         "num_inference_steps": 4,
@@ -1016,6 +1101,7 @@ def test_flux2_klein_rejects_unsupported_settings_before_loading_weights() -> No
         seed=59,
         prompt="structured scene",
         negative_prompt="unsupported negative prompt",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=4,
@@ -1024,6 +1110,41 @@ def test_flux2_klein_rejects_unsupported_settings_before_loading_weights() -> No
 
     with pytest.raises(ValueError, match="does not accept a negative_prompt"):
         backend.render(request, source_png=None)
+    assert backend._pipelines == {}
+
+
+@pytest.mark.parametrize("prompt_language", (None, "sl"))
+def test_diffusers_backend_rejects_non_english_prompt_before_model_loading(
+    prompt_language: str | None,
+) -> None:
+    config = DiffusersRuntimeConfig(
+        device="cuda",
+        torch_dtype="bfloat16",
+        local_files_only=True,
+        enable_attention_slicing=False,
+        pipeline_family="flux2_klein",
+    )
+    backend = importlib.import_module(
+        "app.backend.rei.emocio.diffusers_renderer"
+    ).LazyDiffusersBackend(config)
+    request = ImageRenderRequest.create(
+        mode="text_to_image",
+        source_spec=_source_spec(),
+        provider=_identity(),
+        pipeline=backend.pipeline_spec("text_to_image"),
+        seed=59,
+        prompt="A bounded test scene.",
+        negative_prompt="",
+        prompt_language=prompt_language,
+        width=4,
+        height=3,
+        num_inference_steps=4,
+        guidance_scale=1.0,
+    )
+
+    with pytest.raises(LocalModelLanguagePolicyError):
+        backend.render(request, source_png=None)
+
     assert backend._pipelines == {}
 
 
@@ -1087,6 +1208,7 @@ def test_local_snapshot_tampering_fails_before_diffusers_import(tmp_path: Path) 
         seed=61,
         prompt="closed local snapshot",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=4,
@@ -1135,6 +1257,7 @@ def test_local_snapshot_rejects_symlinked_component_directory_before_import(
         seed=63,
         prompt="reject linked snapshot component",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=4,
@@ -1181,6 +1304,7 @@ def test_local_snapshot_manifest_must_match_provider_identity_and_config(
         seed=67,
         prompt="identity-closed snapshot",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=4,
@@ -1205,6 +1329,7 @@ def test_local_snapshot_manifest_must_match_provider_identity_and_config(
         seed=67,
         prompt="identity-closed snapshot",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=4,
@@ -1219,7 +1344,11 @@ def test_scene_seeds_are_distinct_deterministic_derivations(tmp_path: Path) -> N
     provider, _ = _provider(tmp_path, backend)
     visual_state = process_emocio(_scene(), _world()).visual_state
     scenes = (visual_state.current_scene, visual_state.desired_scene)
-    renderer = LocalEmocioRenderer(provider=provider, settings=_settings())
+    renderer = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=_english_prompt_compiler(),
+    )
 
     first = renderer.render(scenes, seed=41)
     replay = renderer.render(scenes, seed=41)
@@ -1254,6 +1383,7 @@ def test_pipeline_runtime_provenance_changes_request_identity() -> None:
         "seed": 43,
         "prompt": "structured scene",
         "negative_prompt": "",
+        "prompt_language": "en",
         "width": 4,
         "height": 3,
         "num_inference_steps": 2,
@@ -1279,6 +1409,8 @@ def test_preparation_failure_is_recorded_without_losing_prior_artifact(
     scenes = (visual_state.current_scene, visual_state.desired_scene)
 
     class FailingSecondPromptCompiler:
+        prompt_profile = _english_prompt_compiler().prompt_profile
+
         def compile(self, scene):
             if scene.scene_id == scenes[1].scene_id:
                 raise RuntimeError("synthetic prompt preparation failure")
@@ -1337,6 +1469,7 @@ def test_provider_neutral_fallback_uses_actual_provider_and_seed() -> None:
         seed=17,
         prompt="fallback scene",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=2,

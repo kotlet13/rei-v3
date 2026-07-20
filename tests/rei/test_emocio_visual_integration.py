@@ -342,7 +342,7 @@ def _visual_dependencies():
     runtime_profile = next(
         profile
         for profile in visual_profiles
-        if profile.language == "sl" and profile.style_id == "style_a"
+        if profile.language == "en" and profile.style_id == "style_a"
     )
     renderer = CurrentFirstEmocioRenderer(
         provider=renderer_provider,
@@ -418,7 +418,7 @@ def _visual_dependencies():
             runtime_hashes[scope] = (
                 actual_runtime_hash
                 if renderer_identity == renderer_identities[0]
-                and profile.language == "sl"
+                and profile.language == "en"
                 and profile.style_id == "style_a"
                 else _digest("synthetic-runtime-profile", *scope)
             )
@@ -438,7 +438,7 @@ def _visual_dependencies():
                 actual_prompt_batch_hash
                 if seed == 41
                 and renderer_identity == renderer_identities[0]
-                and profile.language == "sl"
+                and profile.language == "en"
                 and profile.style_id == "style_a"
                 else _digest(
                     "synthetic-prompt-batch",

@@ -45,11 +45,21 @@ from ..models.rendering import (
     ImageRenderMode,
     ImageRenderRequest,
 )
+from ..providers.language_policy import require_english_local_model_payload
 from .artifacts import LocalPngArtifactStore, inspect_png
 
 
 DIFFUSERS_SNAPSHOT_MANIFEST_FILENAME = ".rei_snapshot_manifest.json"
 RENDERER_TIMEOUT_FAILURE_CODE = "renderer_timeout"
+
+
+def _require_english_image_request(request: ImageRenderRequest) -> None:
+    """Fail before cache, backend, model loading, or pipeline invocation."""
+
+    require_english_local_model_payload(
+        declared_language=request.prompt_language,
+        provider_payload=request.model_dump(mode="json", round_trip=True),
+    )
 
 
 class _CooperativeDeadline:
@@ -634,6 +644,7 @@ class LazyDiffusersBackend:
         source_png: bytes | None,
         deadline: _CooperativeDeadline | None,
     ) -> bytes:
+        _require_english_image_request(request)
         with self._lock:
             if deadline is not None:
                 deadline.check("renderer_lock_acquired")
@@ -850,6 +861,7 @@ class DiffusersImageRenderer:
         *,
         call: ProviderCallSpec,
     ) -> ImageRenderItemOutcome:
+        _require_english_image_request(request)
         self._validate_call(request, call)
         started_at = utc_now()
         try:

@@ -1,4 +1,4 @@
-"""Explicit opt-in adapter for the frozen Gemma 4 epistemic V3 provider.
+"""Explicit opt-in adapter for the English Gemma 4 epistemic V3 provider.
 
 Importing the default REI engine never imports this module.  The adapter keeps
 the provider's exact identity, revision, call specification and one-shot
@@ -16,7 +16,7 @@ from ..communication.text_shadow import (
     ShadowProviderAttempt,
     ShadowProviderPreflightError,
 )
-from ..communication.epistemic_interpreter_v3 import RacioEpistemicPacketV3
+from ..communication.epistemic_interpreter_en import RacioEpistemicPacketEnV3
 from ..models.provider import ProviderCallRecord, ensure_call_record_contract
 from .native import ExecutionClock
 from .ollama import (
@@ -25,9 +25,11 @@ from .ollama import (
     OllamaTransportError,
 )
 from .ollama_gemma4_epistemic import GEMMA4_EPISTEMIC_TIMEOUT_SECONDS
+from .ollama_gemma4_epistemic_en import (
+    OllamaGemma4EpistemicEnProvider,
+)
 from .ollama_gemma4_epistemic_v3 import (
     Gemma4EpistemicV3ExecutionError,
-    OllamaGemma4EpistemicV3Provider,
 )
 
 
@@ -50,7 +52,7 @@ _FAILURE_SUMMARIES: Mapping[ShadowFailureCode, str] = {
     "canonicalizer_failure": "DraftV3 failed the non-semantic V3 canonicalizer.",
     "citation_scope_violation": "DraftV3 cited outside the visible observation scope.",
     "option_scope_violation": "DraftV3 selected outside the public option scope.",
-    "unsupported_language": "The request is outside canonical Slovene shadow scope.",
+    "unsupported_language": "The request is outside English-only shadow scope.",
     "packet_construction_failure": "The trusted request could not form a V3 packet.",
     "provider_failure": "The one-shot text-shadow provider contract failed.",
 }
@@ -100,12 +102,19 @@ def _discovery_failure(
 
 @dataclass(frozen=True, slots=True)
 class Gemma4TextShadowInterpreter:
-    """One-shot shadow adapter over the frozen V3 provider implementation."""
+    """One-shot shadow adapter over the English-primary V3 provider."""
 
-    provider: OllamaGemma4EpistemicV3Provider | None
+    provider: OllamaGemma4EpistemicEnProvider | None
     preflight_failure: ShadowProviderPreflightError | None = None
 
     def __post_init__(self) -> None:
+        if self.provider is not None and not isinstance(
+            self.provider,
+            OllamaGemma4EpistemicEnProvider,
+        ):
+            raise TypeError(
+                "Gemma text shadow requires the active English provider wrapper"
+            )
         if (self.provider is None) == (self.preflight_failure is None):
             raise ValueError(
                 "Gemma text shadow requires one provider or one preflight failure"
@@ -120,7 +129,7 @@ class Gemma4TextShadowInterpreter:
         timeout_seconds: float = GEMMA4_EPISTEMIC_TIMEOUT_SECONDS,
     ) -> "Gemma4TextShadowInterpreter":
         try:
-            provider = OllamaGemma4EpistemicV3Provider.discover(
+            provider = OllamaGemma4EpistemicEnProvider.discover(
                 client=client,
                 environ=environ,
                 timeout_seconds=timeout_seconds,
@@ -131,7 +140,7 @@ class Gemma4TextShadowInterpreter:
 
     def interpret_shadow(
         self,
-        packet: RacioEpistemicPacketV3,
+        packet: RacioEpistemicPacketEnV3,
         *,
         clock: ExecutionClock,
     ) -> ShadowProviderAttempt:

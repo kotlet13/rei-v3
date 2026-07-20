@@ -4,7 +4,7 @@ import hashlib
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
-from typing import Any, Mapping
+from typing import Any, Literal, Mapping
 
 import pytest
 from pydantic import ValidationError
@@ -19,6 +19,7 @@ from app.backend.rei.communication.structured_interpreter import (
 )
 from app.backend.rei.ids import canonical_json_bytes, content_id, sha256_hex
 from app.backend.rei.providers.native import DeterministicExecutionClock
+from app.backend.rei.providers.language_policy import LocalModelLanguagePolicyError
 from app.backend.rei.providers.ollama import (
     OllamaApiClient,
     OllamaRacioSettings,
@@ -31,6 +32,10 @@ from app.backend.rei.providers.ollama_interpreter import (
     RACIO_INTERPRETER_STRUCTURED_INSTRUCTION,
     StructuredRacioInterpreterOutput,
 )
+from app.backend.rei.providers.ollama_interpreter_en import (
+    OllamaStructuredRacioInterpreterEnProvider,
+    RACIO_INTERPRETER_STRUCTURED_INSTRUCTION_EN,
+)
 from tests.rei.test_communication import _emocio_request
 
 
@@ -38,10 +43,13 @@ DIGEST = "3f3e5df8a021439fd6f867a0e526bdc303cac79c811201cb6bac193298cb9fcd"
 STARTED_AT = datetime(2026, 7, 14, 12, 0, tzinfo=timezone.utc)
 
 
-def _packet() -> ConsciousAccessPacket:
+def _packet(
+    *,
+    language: Literal["sl", "en"] = "sl",
+) -> ConsciousAccessPacket:
     return ConsciousAccessPacket.create(
         source_mind="E",
-        language="sl",
+        language=language,
         ablation_mode="structured_only",
         visible_observations=(
             ConsciousAccessObservation(
@@ -237,6 +245,21 @@ def _provider(
     return provider, transport
 
 
+def _english_provider(
+    *,
+    response_text: str | None = None,
+) -> tuple[OllamaStructuredRacioInterpreterEnProvider, FakeOllamaTransport]:
+    transport = FakeOllamaTransport(
+        response_text if response_text is not None else json.dumps(_structured_payload())
+    )
+    provider = OllamaStructuredRacioInterpreterEnProvider.discover(
+        client=OllamaApiClient(transport=transport),
+        settings=OllamaRacioSettings(require_full_gpu=True),
+        expected_digest=DIGEST,
+    )
+    return provider, transport
+
+
 def _execute(
     provider: OllamaStructuredRacioInterpreterProvider,
     packet: ConsciousAccessPacket,
@@ -384,6 +407,32 @@ def test_ollama_interpreter_closes_packet_model_and_gpu_provenance() -> None:
     assert sum(
         item["url"].endswith("/api/generate") for item in transport.calls
     ) == 1
+
+
+def test_ollama_interpreter_rejects_slovenian_before_generation() -> None:
+    english_packet = _packet(language="en")
+    provider, transport = _english_provider()
+    payload = provider.request_payload(english_packet)
+    recorded = {
+        item.name: json.loads(item.canonical_json_value)
+        for item in provider.parameters
+    }
+    assert json.loads(payload["prompt"])["language"] == "en"
+    assert payload["system"] == RACIO_INTERPRETER_STRUCTURED_INSTRUCTION_EN
+    assert "respond only in English" in payload["system"]
+    assert recorded["local_model_language_policy_id"] == (
+        "rei-local-model-english-only-v1"
+    )
+
+    packet = _packet(language="sl")
+
+    with pytest.raises(LocalModelLanguagePolicyError) as exc_info:
+        _execute(provider, packet)
+
+    assert exc_info.value.failure_code == "non_english_language"
+    assert not any(
+        item["url"].endswith("/api/generate") for item in transport.calls
+    )
 
 
 @pytest.mark.parametrize(
@@ -610,13 +659,13 @@ def test_response_evidence_binds_raw_text_to_structured_output() -> None:
 
 def test_ollama_high_level_adapter_resolves_only_trusted_public_aliases() -> None:
     _, _, request = _emocio_request()
-    provider, transport = _provider()
+    provider, transport = _english_provider()
     interpreter = StructuredLLMRacioInterpreter(
         provider=provider,
-        language="sl",
+        language="en",
         option_descriptions={
-            "option_native": "A - nadaljuj proti omejenemu prizoru",
-            "option_wrong": "B - ustavi se in preveri",
+            "option_native": "A - continue toward the bounded scene",
+            "option_wrong": "B - stop and verify",
         },
         clock=DeterministicExecutionClock(STARTED_AT),
     )

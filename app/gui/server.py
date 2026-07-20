@@ -29,7 +29,7 @@ from app.backend.rei.models.character import (
     CHARACTER_PROFILE_CONTRACTS,
     CHARACTER_PROFILE_ORDER,
 )
-from app.backend.rei.models.common import PUBLIC_SAFETY_CAVEAT_SL
+from app.backend.rei.models.common import PUBLIC_SAFETY_CAVEAT_EN
 from app.backend.rei.models.emocio import ImageArtifact
 from app.backend.rei.models.run import NativeMindBundle
 from app.backend.rei.persistence import (
@@ -799,7 +799,7 @@ def bootstrap() -> dict[str, Any]:
         "schema_version": "rei-semantic-native-workbench-bootstrap-v2",
         "default_request": _default_request().model_dump(mode="json"),
         "profile_contracts": _profile_contracts(),
-        "safety_caveat": PUBLIC_SAFETY_CAVEAT_SL,
+        "safety_caveat": PUBLIC_SAFETY_CAVEAT_EN,
         "communication_warning": COMMUNICATION_WARNING,
         "shadow_evidence_replay": {
             "available": True,

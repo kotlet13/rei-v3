@@ -98,7 +98,7 @@ class EmptyResponseRejectingModelProvider(RejectingModelProvider):
         )
 
 
-def test_ollama_cli_requires_explicit_identity_and_full_gpu(
+def test_historical_bilingual_ollama_cli_is_retired_on_current_source(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -121,22 +121,20 @@ def test_ollama_cli_requires_explicit_identity_and_full_gpu(
             ]
         )
 
-    args = parse_args(
-        [
-            "--mode",
-            "ollama",
-            "--output-dir",
-            str(tmp_path / "c"),
-            "--model-id",
-            "granite4.1:30b",
-            "--model-digest",
-            DIGEST,
-            "--require-full-gpu",
-        ]
-    )
-    assert args.num_ctx == 65536
-    assert args.num_gpu == 999
-    assert args.require_full_gpu is True
+    with pytest.raises(SystemExit):
+        parse_args(
+            [
+                "--mode",
+                "ollama",
+                "--output-dir",
+                str(tmp_path / "c"),
+                "--model-id",
+                "granite4.1:30b",
+                "--model-digest",
+                DIGEST,
+                "--require-full-gpu",
+            ]
+        )
 
 
 def test_runner_scope_is_c3_specific_and_excludes_native_matrix_runner() -> None:

@@ -120,6 +120,16 @@ def _settings() -> RenderSettings:
     )
 
 
+def _english_prompt_compiler() -> BilingualStructuredScenePromptCompiler:
+    return BilingualStructuredScenePromptCompiler(
+        VisualPromptProfile.create(
+            language="en",
+            style_id="current-first-test-style-v1",
+            style_directive="Use the exact bounded current-first test composition.",
+        )
+    )
+
+
 class RecordingBackend:
     def __init__(self, *, fail_scene_id: str | None = None) -> None:
         self.fail_scene_id = fail_scene_id
@@ -155,7 +165,7 @@ def _renderer(
             provider=provider,
             settings=_settings(),
             rollout=rollout,
-            prompt_compiler=prompt_compiler,
+            prompt_compiler=prompt_compiler or _english_prompt_compiler(),
         ),
         store,
     )
@@ -239,8 +249,9 @@ def test_current_first_runtime_binding_closes_every_runtime_input(
     assert binding.provider_identity == _identity()
     assert binding.render_settings == _settings()
     assert binding.rollout_config == CurrentFirstRolloutConfig()
-    assert binding.prompt_compiler_binding.prompt_profile_id is None
-    assert binding.prompt_compiler_binding.prompt_profile is None
+    assert binding.prompt_compiler_binding.prompt_profile_id is not None
+    assert binding.prompt_compiler_binding.prompt_profile is not None
+    assert binding.prompt_compiler_binding.prompt_profile.language == "en"
     assert binding.text_to_image_pipeline == ImagePipelineSpec(
         implementation=_identity().implementation,
         implementation_revision=_identity().implementation_revision,
@@ -354,7 +365,7 @@ def test_current_first_materialization_rejects_tampered_or_unreadable_bytes(
         unmaterialized.read_artifact_bytes(artifact)
 
 
-def test_current_first_propagates_slovenian_prompt_profile_to_every_request(
+def test_current_first_rejects_slovenian_prompt_profile_before_provider_call(
     tmp_path: Path,
 ) -> None:
     profile = VisualPromptProfile.create(
@@ -363,34 +374,19 @@ def test_current_first_propagates_slovenian_prompt_profile_to_every_request(
         style_directive="Ohrani dokumentarno kompozicijo.",
     )
     compiler = BilingualStructuredScenePromptCompiler(profile)
+    backend = RecordingBackend()
     renderer, _ = _renderer(
         tmp_path,
-        RecordingBackend(),
+        backend,
         prompt_compiler=compiler,
     )
 
     batch = renderer.render(_scenes(), seed=73)
 
-    assert batch.status == "succeeded"
-    assert len(batch.items) == len(_scenes())
-    assert all(
-        item.request.prompt_language == profile.language
-        and item.request.style_id == profile.style_id
-        and item.request.profile_hash == profile.content_hash()
-        and "language_gloss=sl" in item.request.prompt
-        for item in batch.items
-    )
-    rollout_prompts = tuple(
-        item.request.prompt
-        for item in batch.items
-        if item.request.mode == "image_to_image"
-    )
-    assert rollout_prompts
-    assert all(
-        "Primarni slikovni popravek vidno uporabi na isti osrednji osebi" in prompt
-        and "Želenega prizora ne uresniči" in prompt
-        for prompt in rollout_prompts
-    )
+    assert batch.status == "failed"
+    assert batch.artifacts == ()
+    assert backend.calls == []
+    assert batch.preparation_failures
 
 
 def test_current_failure_keeps_context_and_structurally_blocks_rollouts(

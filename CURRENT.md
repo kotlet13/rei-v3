@@ -15,6 +15,11 @@
 - Authoritative cycle: unchanged.
 - Default active interpreter: deterministic.
 - Shadow activation: explicit opt-in only.
+- Active backend/model language contract: English only; undeclared or explicitly
+  non-English model requests fail before provider dispatch.
+- Slovene remains permitted only as source material, planning documentation,
+  and exact frozen historical evidence; it is never silently translated at a
+  model boundary.
 - Gemma authority: none over governance, conscious decision, behavior,
   MindWorld, or Ego composition.
 - Gemma status: shadow-only, not promoted.
@@ -37,6 +42,15 @@ EffectiveAuthority, create a GovernanceMandate, alter the authoritative
 RacioInterpretation, commit a ConsciousDecision, change a RacioSelfNarrative
 or BehaviorResultant, participate in Ego composition, or update MindWorld.
 Shadow success and bounded failure both leave the authoritative cycle intact.
+
+The active local-model dispatch boundary requires explicit `en` metadata and
+an English-primary provider payload. Trusted active producers are responsible
+for supplying English prose: the boundary does not guess language or silently
+translate text. The active Gemma text-shadow path uses a separate English
+packet and canonical interpretation projection; historical V3 Slovene packets
+and S1/S1R evidence remain immutable validation artifacts, not active runtime
+inputs. The GUI chrome is English and labels any verbatim Slovene source or
+historical evidence explicitly.
 
 S1R is a real backend integration smoke, not an untouched holdout. It provides
 no generalization claim and no basis for model promotion. G4 remains required

@@ -97,6 +97,7 @@ def _request(
         seed=23,
         prompt="timeout test structured scene",
         negative_prompt="",
+        prompt_language="en",
         width=4,
         height=3,
         num_inference_steps=4,

@@ -283,23 +283,32 @@ def test_reflector_is_read_only_sourced_and_has_no_decision_surface() -> None:
         assert set(hypothesis.supporting_measure_ids).issubset(allowed_measure_ids)
         assert hypothesis.source_trace_hash == trace.trace_hash
         assert hypothesis.source_snapshot_id == snapshot.snapshot_id
+        assert hypothesis.statement.startswith("Hypothesis about ")
         assert "jaz, ego" not in hypothesis.statement.casefold()
+        assert "i, ego" not in hypothesis.statement.casefold()
         assert EgoReflectionHypothesis.model_validate_json(
             hypothesis.model_dump_json()
         ) == hypothesis
 
 
-def test_reflection_contract_rejects_first_person_ego_voice() -> None:
+@pytest.mark.parametrize(
+    "statement",
+    (
+        "Jaz, Ego odločam o naslednjem koraku.",
+        "I, Ego decide the next step.",
+    ),
+)
+def test_reflection_contract_rejects_first_person_ego_voice(statement: str) -> None:
     trace, _ = _trace(1)
     snapshot = derive_composition_snapshot(trace)
-    with pytest.raises(ValidationError, match="jaz, Ego"):
+    with pytest.raises(ValidationError, match="first-person"):
         EgoReflectionHypothesis.create(
             ego_id=trace.ego_id,
             source_trace_hash=trace.trace_hash,
             source_snapshot_id=snapshot.snapshot_id,
             source_snapshot_hash=snapshot.composition_hash,
             source_claim_ids=(snapshot.sourced_claims[0].claim_id,),
-            statement="Jaz, Ego odločam o naslednjem koraku.",
+            statement=statement,
             confidence=0.7,
             supporting_measure_ids=(trace.measures[0].measure_id,),
         )

@@ -2,7 +2,7 @@
 
 The default mode is preflight-only and never imports Torch or Diffusers.  Real
 GPU inference requires the explicit ``--execute`` flag.  The caller must also
-select ``cell``, single-editor ``smoke`` or the explicit 48-editor-cell
+select ``cell``, single-editor ``smoke`` or the explicit 24-editor-cell
 ``matrix`` mode.  No mode can grant semantic or production authority.
 """
 
@@ -84,7 +84,7 @@ _STYLE_DIRECTIVES = {
     ),
 }
 _MATRIX_SEEDS = (424240, 424241, 424242)
-_MATRIX_LANGUAGES = ("sl", "en")
+_MATRIX_LANGUAGES = ("en",)
 _MATRIX_OPTION_ORDERS = ("canonical", "reversed")
 _COMPACT_PROMPT_POLICY = "c4_editor_compact_v1"
 _COMPACT_PROMPT_PREFIXES = (
@@ -495,8 +495,8 @@ def _execute_matrix(
     settings: RenderSettings,
 ) -> int:
     cells = tuple(_matrix_cells(compiled))
-    if len(cells) * 2 != 48:
-        raise RuntimeError("Pinned C4 matrix definition does not contain 48 editor cells")
+    if len(cells) * 2 != 24:
+        raise RuntimeError("Active English C4 matrix does not contain 24 editor cells")
     editor_results: dict[str, dict[str, CompositeEditorMemberResult]] = {}
     cell_evidence: list[dict[str, object]] = []
     editor_definitions = (
@@ -663,7 +663,7 @@ def _execute_matrix(
         "editor_cell_count": sum(
             len(results) for results in editor_results.values()
         ),
-        "required_editor_cell_count": 48,
+        "required_editor_cell_count": 24,
         "model_call_count": sum(
             len(result.batch.items)
             for results in editor_results.values()
@@ -710,7 +710,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--firered-snapshot-directory", type=Path, required=True)
     parser.add_argument("--firered-snapshot-manifest-sha256", required=True)
     parser.add_argument("--output-directory", type=Path, required=True)
-    parser.add_argument("--language", choices=("sl", "en"), default="en")
+    parser.add_argument("--language", choices=("en",), default="en")
     parser.add_argument(
         "--style-id",
         choices=tuple(_STYLE_DIRECTIVES),
@@ -741,7 +741,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default="cell",
         help=(
             "Run one ordinary composite cell, one single-editor/one-option smoke, "
-            "or the pinned 48-editor-cell matrix."
+            "or the active English-only 24-editor-cell matrix."
         ),
     )
     parser.add_argument(
@@ -833,7 +833,12 @@ def main(argv: list[str] | None = None) -> int:
     rollouts = _ordered_rollouts(compiled, args.option_order)
     profile, compiler = _prompt_compiler(args.language, args.style_id)
     preflight_rollouts = rollouts[:1] if args.screen_mode == "smoke" else rollouts
-    execution_cell_count = 48 if args.screen_mode == "matrix" else 1
+    matrix_composite_cell_count = len(tuple(_matrix_cells(compiled)))
+    matrix_editor_cell_count = matrix_composite_cell_count * 2
+    matrix_model_call_count = matrix_editor_cell_count * len(rollouts)
+    execution_cell_count = (
+        matrix_editor_cell_count if args.screen_mode == "matrix" else 1
+    )
 
     preflight = {
         "schema_version": "rei-c4-composite-editor-preflight-v1",
@@ -842,7 +847,7 @@ def main(argv: list[str] | None = None) -> int:
         "smoke_editor": args.smoke_editor,
         "execution_requested": args.execute,
         "execution_cell_count": execution_cell_count,
-        "full_robustness_matrix_required_cells": 48,
+        "full_robustness_matrix_required_cells": matrix_editor_cell_count,
         "full_robustness_matrix_executed": False,
         "source": {
             "artifact": source_artifact,
@@ -898,9 +903,9 @@ def main(argv: list[str] | None = None) -> int:
         ),
         "matrix": (
             {
-                "editor_cell_count": 48,
-                "composite_cell_count": 24,
-                "model_call_count": 96,
+                "editor_cell_count": matrix_editor_cell_count,
+                "composite_cell_count": matrix_composite_cell_count,
+                "model_call_count": matrix_model_call_count,
                 "seeds": _MATRIX_SEEDS,
                 "languages": _MATRIX_LANGUAGES,
                 "styles": tuple(_STYLE_DIRECTIVES),

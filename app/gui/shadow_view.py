@@ -86,11 +86,12 @@ _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
                 "Docs/evals/semantic_lab_v1/"
                 "s1-gemma4-text-shadow-2026-07-19"
             ),
-            label="S1 · delni shadow neuspeh",
+            label="S1 · partial shadow failure",
             phase="S1",
             summary=(
-                "Emocio shadow je omejeno odpovedal, Instinkt shadow pa je uspel; "
-                "avtoritativni deterministični cikel je uspel v celoti."
+                "The Emocio shadow failed within its bounded lane while the Instinkt "
+                "shadow succeeded; the authoritative deterministic cycle succeeded "
+                "in full."
             ),
             receipt_required=False,
         ),
@@ -100,11 +101,11 @@ _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
                 "Docs/evals/semantic_lab_v1/"
                 "s1r-gemma4-text-shadow-2026-07-19"
             ),
-            label="S1R · usklajeni shadow uspeh",
+            label="S1R · reconciled shadow success",
             phase="S1R",
             summary=(
-                "Emocio je polno epistemološko abstiniral, Instinkt pa je vrnil "
-                "omejeno action-only hipotezo."
+                "Emocio fully abstained on epistemic grounds, while Instinkt returned "
+                "one bounded action-only hypothesis."
             ),
             receipt_required=True,
         ),
@@ -759,7 +760,7 @@ def _diagnostic_view(
 def _debug_ground_truth(gap: dict[str, Any]) -> dict[str, Any]:
     return {
         "label": "DEBUG / EVALUATOR GROUND TRUTH",
-        "warning": "Racio ground trutha ni prejel.",
+        "warning": "Racio did not receive evaluator ground truth.",
         "source_mind": gap.get("source_mind"),
         "native_option_id": gap.get("native_option_id"),
         "native_action_tendency": gap.get("native_action_tendency"),

@@ -16,9 +16,9 @@ from .storage import ego_partition_id
 
 
 WORKBENCH_SCHEMA_VERSION = "rei-semantic-native-workbench-v2"
-RACIO_GROUND_TRUTH_WARNING_SL = "Racio ground trutha ni prejel."
+RACIO_GROUND_TRUTH_WARNING = "Racio did not receive evaluator ground truth."
 COMMUNICATION_WARNING = (
-    f"{RACIO_GROUND_TRUTH_WARNING_SL} Racio receives only observable "
+    f"{RACIO_GROUND_TRUTH_WARNING} Racio receives only observable "
     "manifestations; native Emocio/Instinkt meaning and evaluator comparisons "
     "are not interpreter inputs."
 )
@@ -273,7 +273,7 @@ def _racio_panel(
         },
         "ground_truth_visible": debug,
         "warning": (
-            f"{RACIO_GROUND_TRUTH_WARNING_SL} {DEBUG_GROUND_TRUTH_WARNING}"
+            f"{RACIO_GROUND_TRUTH_WARNING} {DEBUG_GROUND_TRUTH_WARNING}"
             if debug
             else COMMUNICATION_WARNING
         ),
@@ -290,7 +290,7 @@ def _racio_panel(
         panel["evaluator_ground_truth"] = {
             "label": DEBUG_GROUND_TRUTH_LABEL,
             "warning": (
-                f"{RACIO_GROUND_TRUTH_WARNING_SL} {DEBUG_GROUND_TRUTH_WARNING}"
+                f"{RACIO_GROUND_TRUTH_WARNING} {DEBUG_GROUND_TRUTH_WARNING}"
             ),
             "emocio": _evaluator_ground_truth(emocio_gap),
             "instinkt": _evaluator_ground_truth(instinkt_gap),
@@ -541,7 +541,7 @@ __all__ = [
     "DEBUG_GROUND_TRUTH_LABEL",
     "DEBUG_GROUND_TRUTH_WARNING",
     "IMAGE_NOT_RENDERED_MESSAGE",
-    "RACIO_GROUND_TRUTH_WARNING_SL",
+    "RACIO_GROUND_TRUTH_WARNING",
     "WORKBENCH_SCHEMA_VERSION",
     "build_workbench_view",
 ]

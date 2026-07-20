@@ -486,7 +486,7 @@ class ConsciousAccessFilter:
         self,
         request: RacioInterpreterRequest,
         *,
-        language: LanguageCode = "sl",
+        language: LanguageCode = "en",
         ablation_mode: InterpreterAblationMode = "structured_only",
         option_descriptions: Mapping[str, str] | None = None,
         supplemental_artifacts: tuple[TrustedVisibleArtifact, ...] = (),

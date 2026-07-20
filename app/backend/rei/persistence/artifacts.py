@@ -1295,7 +1295,7 @@ class FileArtifactStore:
                         if profile is None:
                             prompt_compiler = StructuredScenePromptCompiler()
                             prompt_provenance_matches = (
-                                request.prompt_language is None
+                                request.prompt_language in (None, "en")
                                 and request.style_id is None
                                 and request.profile_hash is None
                             )

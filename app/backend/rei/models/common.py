@@ -113,6 +113,12 @@ PUBLIC_SAFETY_CAVEAT_SL = (
 )
 
 
+PUBLIC_SAFETY_CAVEAT_EN = (
+    "REI-v3 is a conceptual simulator of REI theory; it is not a diagnostic "
+    "tool, empirically validated psychology, or a model of a real person."
+)
+
+
 class StrictModel(BaseModel):
     model_config = ConfigDict(
         extra="forbid",

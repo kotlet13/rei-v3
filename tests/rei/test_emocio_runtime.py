@@ -93,7 +93,17 @@ def _renderer(
         provider=provider,
         settings=settings or _settings(),
         rollout=rollout,
-        prompt_compiler=prompt_compiler,
+        prompt_compiler=(
+            prompt_compiler
+            if prompt_compiler is not None
+            else BilingualStructuredScenePromptCompiler(
+                VisualPromptProfile.create(
+                    language="en",
+                    style_id="runtime-test-default-style-v1",
+                    style_directive="Use the bounded runtime test composition.",
+                )
+            )
+        ),
     )
 
 

@@ -216,7 +216,7 @@ def test_prompt_compiler_runtime_binding_rejects_unknown_compilers() -> None:
 
 
 def test_local_renderer_records_exact_prompt_profile_provenance() -> None:
-    profile = _profile(language="sl")
+    profile = _profile(language="en")
     compiler = BilingualStructuredScenePromptCompiler(profile)
     provider = _CapturingFailingProvider()
 
@@ -238,6 +238,54 @@ def test_local_renderer_records_exact_prompt_profile_provenance() -> None:
     assert parameters["prompt_language"] == profile.language
     assert parameters["style_id"] == profile.style_id
     assert parameters["profile_hash"] == profile.content_hash()
+
+
+@pytest.mark.parametrize(
+    "compiler",
+    (
+        BilingualStructuredScenePromptCompiler(_profile(language="sl")),
+        type(
+            "MissingLanguagePromptCompiler",
+            (),
+            {"compile": lambda self, scene: scene.scene_id},
+        )(),
+    ),
+)
+def test_model_backed_renderer_rejects_missing_or_slovenian_prompt_language_before_call(
+    compiler: object,
+) -> None:
+    provider = _CapturingFailingProvider()
+
+    batch = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=compiler,  # type: ignore[arg-type]
+    ).render((_scene(),), seed=39)
+
+    assert batch.status == "failed"
+    assert provider.requests == []
+    assert batch.items == ()
+    assert len(batch.preparation_failures) == 1
+    assert batch.preparation_failures[0].failure_code == "RenderPreparationFailure"
+
+
+def test_structured_prompt_compiler_records_english_without_style_rewrite() -> None:
+    provider = _CapturingFailingProvider()
+    compiler = StructuredScenePromptCompiler()
+
+    batch = LocalEmocioRenderer(
+        provider=provider,
+        settings=_settings(),
+        prompt_compiler=compiler,
+    ).render((_scene(),), seed=41)
+
+    assert batch.status == "failed"
+    assert len(provider.requests) == 1
+    request = provider.requests[0]
+    assert request.prompt_language == "en"
+    assert request.style_id is None
+    assert request.profile_hash is None
+    assert request.prompt == compiler.compile(_scene())
 
 
 def test_bilingual_prompt_is_deterministic_complete_and_ungrounded() -> None:
@@ -368,7 +416,26 @@ def test_legacy_unprovenanced_prompt_and_request_identity_are_unchanged() -> Non
     assert "style_id" not in dumped
     assert "profile_hash" not in dumped
 
-    invalid_payload = dict(dumped)
-    invalid_payload["prompt_language"] = "en"
-    with pytest.raises(ValidationError, match="must be recorded together"):
+    language_only = ImageRenderRequest.create(
+        mode="text_to_image",
+        source_spec=scene,
+        provider=_identity(),
+        pipeline=_pipeline(),
+        seed=31,
+        prompt=prompt,
+        negative_prompt="",
+        width=64,
+        height=64,
+        num_inference_steps=4,
+        guidance_scale=1.0,
+        prompt_language="en",
+    )
+    assert language_only.prompt_language == "en"
+    assert language_only.style_id is None
+    assert language_only.profile_hash is None
+    assert language_only.request_id != request.request_id
+
+    invalid_payload = language_only.model_dump(mode="python", round_trip=True)
+    invalid_payload["style_id"] = "missing_profile"
+    with pytest.raises(ValidationError, match="style ID and profile hash"):
         ImageRenderRequest.model_validate(invalid_payload)

@@ -16,6 +16,7 @@ from app.backend.rei.ego.trace_store import FileEgoTraceStore
 from app.backend.rei.engine import ReiNativeCycleRequest, ReiNativeEngine
 from app.backend.rei.persistence import FileArtifactStore, validate_run_id
 from app.backend.rei.providers.native import DeterministicExecutionClock
+from app.backend.rei.providers.language_policy import LocalModelLanguagePolicyError
 from app.backend.rei.providers.ollama import (
     OllamaApiClient,
     OllamaRacioNativeProvider,
@@ -24,6 +25,10 @@ from app.backend.rei.providers.ollama import (
     OllamaTransportError,
     UrllibOllamaTransport,
     build_ollama_racio_native_providers,
+)
+from app.backend.rei.providers.ollama_en import (
+    OllamaRacioNativeEnProvider,
+    build_ollama_racio_native_en_providers,
 )
 from app.backend.rei.racio.packets import build_racio_packet
 
@@ -192,6 +197,18 @@ def _provider(
     return provider, transport
 
 
+def _english_provider(
+    packet,
+) -> tuple[OllamaRacioNativeEnProvider, FakeOllamaTransport]:
+    transport = FakeOllamaTransport(json.dumps(_structured_payload(packet)))
+    provider = OllamaRacioNativeEnProvider.discover(
+        client=OllamaApiClient(transport=transport),
+        settings=OllamaRacioSettings(require_full_gpu=True),
+        expected_digest=DIGEST,
+    )
+    return provider, transport
+
+
 def test_settings_map_explicit_gpu_environment() -> None:
     settings = OllamaRacioSettings.from_environment(
         {
@@ -320,6 +337,47 @@ def test_ollama_native_racio_closes_model_and_response_provenance() -> None:
     assert execution.reasoning_artifact.model_revision == DIGEST
     assert execution.reasoning_artifact.active_context_length == 65536
     assert execution.reasoning_artifact.active_gpu_percent_rounded == 100
+
+
+def test_ollama_native_racio_rejects_slovenian_before_generation() -> None:
+    english_packet = _packet()
+    provider, transport = _english_provider(english_packet)
+    payload = provider.request_payload(english_packet)
+    recorded = {
+        item.name: json.loads(item.canonical_json_value)
+        for item in provider.parameters
+    }
+    assert json.loads(payload["prompt"])["language"] == "en"
+    assert "must be in English" in payload["system"]
+    assert recorded["local_model_language_policy_id"] == (
+        "rei-local-model-english-only-v1"
+    )
+
+    packet = english_packet.model_copy(update={"language": "sl"})
+
+    with pytest.raises(LocalModelLanguagePolicyError) as exc_info:
+        provider.execute(
+            packet,
+            call=provider.build_call_spec(packet),
+            clock=DeterministicExecutionClock(_cycle_request().started_at),
+        )
+
+    assert exc_info.value.failure_code == "non_english_language"
+    assert not any(
+        item["url"].endswith("/api/generate") for item in transport.calls
+    )
+
+
+def test_active_native_builder_rejects_frozen_provider_wrapper() -> None:
+    packet = _packet()
+    frozen_provider, transport = _provider(packet)
+
+    with pytest.raises(TypeError, match="English wrapper"):
+        build_ollama_racio_native_en_providers(frozen_provider)  # type: ignore[arg-type]
+
+    assert not any(
+        item["url"].endswith("/api/generate") for item in transport.calls
+    )
 
 
 @pytest.mark.parametrize(

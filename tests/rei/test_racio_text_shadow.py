@@ -13,6 +13,11 @@ from app.backend.rei.communication.epistemic_interpreter import (
     MOTIVE_UNKNOWN_REASON_SL,
     RacioReportedUncertainty,
 )
+from app.backend.rei.communication.epistemic_interpreter_en import (
+    RacioEpistemicInterpretationEnV3,
+    RacioEpistemicPacketEnV3,
+    canonicalize_racio_epistemic_draft_en_v3,
+)
 from app.backend.rei.communication.epistemic_interpreter_v3 import (
     ACTION_UNKNOWN_REASON_SL_V3,
     OPTION_UNKNOWN_REASON_SL_V3,
@@ -71,7 +76,7 @@ class _FakeShadowEvidence(FrozenArtifactModel):
     no_authority: Literal[True] = True
 
     @classmethod
-    def create(cls, packet: RacioEpistemicPacketV3) -> "_FakeShadowEvidence":
+    def create(cls, packet: RacioEpistemicPacketEnV3) -> "_FakeShadowEvidence":
         base = {
             "schema_version": "rei-test-shadow-response-evidence-v1",
             "packet_id": packet.packet_id,
@@ -91,7 +96,7 @@ class _FakeShadowInterpreter:
     ) -> None:
         self.failure_stage = failure_stage
         self.failure_code = failure_code
-        self.packets: list[RacioEpistemicPacketV3] = []
+        self.packets: list[RacioEpistemicPacketEnV3] = []
         identity_payload = {
             "kind": "text_reasoner",
             "implementation": "tests.FakeShadowInterpreter",
@@ -105,7 +110,7 @@ class _FakeShadowInterpreter:
             **identity_payload,
         )
 
-    def _call_spec(self, packet: RacioEpistemicPacketV3):
+    def _call_spec(self, packet: RacioEpistemicPacketEnV3):
         return build_provider_call_spec(
             identity=self.identity,
             request_id=packet.packet_id,
@@ -116,7 +121,7 @@ class _FakeShadowInterpreter:
 
     def interpret_shadow(
         self,
-        packet: RacioEpistemicPacketV3,
+        packet: RacioEpistemicPacketEnV3,
         *,
         clock: ExecutionClock,
     ) -> ShadowProviderAttempt:
@@ -182,18 +187,20 @@ class _FakeShadowInterpreter:
                 confidence=0.53,
             )
         )
-        output = canonicalize_racio_epistemic_draft_v3(
-            packet,
-            RacioEpistemicDraftV3(
-                source_mind=packet.source_mind,
-                action_hypotheses=(action,),
-                option_inference=option,
-                motive_hypotheses=(),
-                racio_reported_uncertainty=RacioReportedUncertainty(
-                    option_mapping="uncertain",
-                    motive_interpretation="not_reported",
+        output: RacioEpistemicInterpretationEnV3 = (
+            canonicalize_racio_epistemic_draft_en_v3(
+                packet,
+                RacioEpistemicDraftV3(
+                    source_mind=packet.source_mind,
+                    action_hypotheses=(action,),
+                    option_inference=option,
+                    motive_hypotheses=(),
+                    racio_reported_uncertainty=RacioReportedUncertainty(
+                        option_mapping="uncertain",
+                        motive_interpretation="not_reported",
+                    ),
                 ),
-            ),
+            )
         )
         evidence = _FakeShadowEvidence.create(packet)
         record = ProviderCallRecord(
@@ -256,6 +263,10 @@ def _sl_request() -> ReiNativeCycleRequest:
             round_trip=True,
         )
     )
+
+
+def _en_request() -> ReiNativeCycleRequest:
+    return ReiNativeCycleRequest.model_validate_json(FIXTURE.read_bytes())
 
 
 def _engine(
@@ -662,7 +673,7 @@ print(json.dumps(sorted(
 def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
     tmp_path: Path,
 ) -> None:
-    request = _sl_request()
+    request = _en_request()
     fake = _FakeShadowInterpreter()
     result = _engine(tmp_path, request, shadow=fake).run_cycle(request)
 
@@ -670,6 +681,16 @@ def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
     assert len(result.shadow_communications) == 2
     assert all(item.result.status == "succeeded" for item in result.shadow_communications)
     assert all(item.result.no_authority for item in result.shadow_communications)
+    assert all(
+        item.interpretation is not None
+        and item.interpretation.schema_version
+        == "rei-native-shadow-racio-interpretation-v2"
+        and isinstance(
+            item.interpretation.structured_output,
+            RacioEpistemicInterpretationEnV3,
+        )
+        for item in result.shadow_communications
+    )
     forbidden_keys = {
         "native_mind_bundle",
         "native_option",
@@ -684,6 +705,9 @@ def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
         "ego_composition_history",
     }
     source_option_ids = set(result.emocio_communication.request.allowed_option_ids)
+    source_option_descriptions = {
+        option.description for option in request.scene.options
+    }
     source_observation_ids = {
         observation.observation_id
         for communication in (
@@ -694,6 +718,7 @@ def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
         for observation in view.observations
     }
     for packet in fake.packets:
+        assert isinstance(packet, RacioEpistemicPacketEnV3)
         serialized = packet.model_dump(mode="json")
 
         def keys(value):
@@ -706,8 +731,29 @@ def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
                     yield from keys(child)
 
         assert forbidden_keys.isdisjoint(set(keys(serialized)))
+        payload = packet.provider_payload()
         payload_text = packet.provider_payload_bytes().decode("utf-8")
-        assert packet.presentation_mode == "canonical_sl_only"
+        assert packet.language == payload["language"] == "en"
+        assert all(
+            observation["text"] is None
+            or (
+                isinstance(observation["text"], str)
+                and bool(observation["text"].strip())
+            )
+            for observation in payload["visible_observations"]
+        )
+        assert {
+            option["description"] for option in payload["public_option_scope"]
+        }.issubset(source_option_descriptions)
+        assert payload["public_option_scope"]
+        assert all(
+            isinstance(option["description"], str)
+            and bool(option["description"].strip())
+            for option in payload["public_option_scope"]
+        )
+        assert "canonical_sl" not in payload_text
+        assert "operational_en" not in payload_text
+        assert "gloss_audit" not in payload_text
         assert all(option.startswith("option_") for option in packet.public_option_ids)
         assert all(
             observation.startswith("observation_")
@@ -726,7 +772,7 @@ def test_fake_shadow_runs_e_then_i_with_visible_request_scope_only(
 def test_shadow_success_cannot_change_authoritative_cycle_and_cold_verifies(
     tmp_path: Path,
 ) -> None:
-    request = _sl_request()
+    request = _en_request()
     control = _engine(tmp_path / "control", request).run_cycle(request)
     fake = _FakeShadowInterpreter()
     shadow = _engine(tmp_path / "shadow", request, shadow=fake).run_cycle(request)
@@ -783,7 +829,7 @@ def test_shadow_success_cannot_change_authoritative_cycle_and_cold_verifies(
 def test_bounded_shadow_failures_leave_authoritative_cycle_successful(
     tmp_path: Path,
 ) -> None:
-    request = _sl_request()
+    request = _en_request()
     control = _engine(tmp_path / "control", request).run_cycle(request)
     failures: tuple[tuple[ShadowFailureStage, ShadowFailureCode], ...] = (
         ("transport", "ollama_unavailable"),
@@ -826,22 +872,60 @@ def test_bounded_shadow_failures_leave_authoritative_cycle_successful(
         ).verify_run(request.run_id) == result.manifest
 
 
-def test_english_shadow_input_fails_before_provider_dispatch(tmp_path: Path) -> None:
-    request = ReiNativeCycleRequest.model_validate_json(FIXTURE.read_bytes())
-    fake = _FakeShadowInterpreter()
-    result = _engine(tmp_path, request, shadow=fake).run_cycle(request)
+def test_english_shadow_input_succeeds_and_slovenian_fails_before_dispatch(
+    tmp_path: Path,
+) -> None:
+    english_request = _en_request()
+    english_fake = _FakeShadowInterpreter()
+    english_result = _engine(
+        tmp_path / "english",
+        english_request,
+        shadow=english_fake,
+    ).run_cycle(english_request)
 
-    assert fake.packets == []
-    assert tuple(item.source_mind for item in result.shadow_communications) == ("E", "I")
+    assert tuple(packet.source_mind for packet in english_fake.packets) == ("E", "I")
+    assert all(
+        item.result.status == "succeeded"
+        and item.packet is not None
+        and item.packet.language == "en"
+        for item in english_result.shadow_communications
+    )
+
+    slovenian_request = _sl_request()
+    slovenian_fake = _FakeShadowInterpreter()
+    slovenian_result = _engine(
+        tmp_path / "slovenian",
+        slovenian_request,
+        shadow=slovenian_fake,
+    ).run_cycle(slovenian_request)
+
+    assert slovenian_fake.packets == []
+    assert tuple(
+        item.source_mind for item in slovenian_result.shadow_communications
+    ) == ("E", "I")
     assert all(
         item.result.status == "failed"
         and item.result.failure_stage == "packet_construction"
         and item.result.failure_code == "unsupported_language"
         and item.call_spec is None
         and item.call_record is None
-        for item in result.shadow_communications
+        for item in slovenian_result.shadow_communications
     )
-    assert FileArtifactStore(tmp_path / "runs").verify_run(request.run_id) == result.manifest
+    assert FileArtifactStore(tmp_path / "english" / "runs").verify_run(
+        english_request.run_id
+    ) == english_result.manifest
+    assert FileArtifactStore(tmp_path / "slovenian" / "runs").verify_run(
+        slovenian_request.run_id
+    ) == slovenian_result.manifest
+
+
+def test_concrete_shadow_adapter_rejects_non_english_provider_injection() -> None:
+    from app.backend.rei.providers.gemma4_text_shadow import (
+        Gemma4TextShadowInterpreter,
+    )
+
+    with pytest.raises(TypeError, match="English provider wrapper"):
+        Gemma4TextShadowInterpreter(provider=object())  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize(
@@ -887,7 +971,7 @@ def test_concrete_discovery_failure_is_fail_soft_and_manifest_closed(
     assert interpreter.preflight_failure is not None
     assert interpreter.preflight_failure.failure_code == expected_code
 
-    request = _sl_request()
+    request = _en_request()
     control = _engine(tmp_path / "control", request).run_cycle(request)
     result = _engine(
         tmp_path / client_kind,
@@ -933,7 +1017,7 @@ def test_shadow_mode_requires_explicit_dependency(tmp_path: Path) -> None:
 def test_shadow_inventory_rejects_tampering_and_contains_no_private_content(
     tmp_path: Path,
 ) -> None:
-    request = _sl_request()
+    request = _en_request()
     result = _engine(
         tmp_path,
         request,

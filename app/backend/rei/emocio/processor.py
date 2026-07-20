@@ -18,6 +18,7 @@ from ..models.emocio import (
 )
 from ..models.scene import SceneEvent
 from ..models.rendering import ImageRenderBatchOutcome
+from ..providers.language_policy import require_english_local_model_payload
 from ..providers.protocols import VerifiedImageEncoder
 from .packets import build_emocio_packet
 from .policy import EmocioPolicyDecision, choose_native_option
@@ -707,6 +708,11 @@ def process_emocio(
         fallback_reason = "renderer_not_configured"
     elif should_render and renderer is not None:
         try:
+            if getattr(renderer, "requires_english_source", False):
+                require_english_local_model_payload(
+                    declared_language=scene.language,
+                    provider_payload=scene.model_dump(mode="json", round_trip=True),
+                )
             rendered = renderer.render(compiled.all_scenes, seed=render_seed)
             if isinstance(rendered, ImageRenderBatchOutcome):
                 render_batch = redact_render_batch_diagnostics(rendered)

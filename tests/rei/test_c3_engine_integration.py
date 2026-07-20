@@ -97,7 +97,7 @@ def test_engine_persists_both_model_c3_calls_and_scene_public_scope(
     )
     interpreter = StructuredLLMRacioInterpreter(
         provider=provider,
-        language="sl",
+        language="en",
         option_descriptions={"wrong_static_option": "Wrong static description."},
         clock=clock,
     )

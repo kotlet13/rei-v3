@@ -20,7 +20,10 @@ from ..models.common import (
 from ..models.ego import EgoCompositionSnapshot, EgoTrace, SourcedEgoClaim
 
 
-_FIRST_PERSON_EGO = re.compile(r"\bjaz\s*,?\s*ego\b", re.IGNORECASE)
+_FIRST_PERSON_EGO = re.compile(
+    r"(?:\bjaz\s*,?\s*ego\b|\bi\s*,?\s*ego\b)",
+    re.IGNORECASE,
+)
 _REFLECTABLE_KINDS = frozenset(
     {
         "identity_motif",
@@ -34,14 +37,14 @@ _REFLECTABLE_KINDS = frozenset(
     }
 )
 _KIND_LABELS = {
-    "identity_motif": "identitetnem motivu",
-    "recurring_conflict": "ponavljajočem se konfliktu",
-    "recurring_translation_error": "ponavljajoči se prevodni vrzeli",
-    "unresolved_tension": "odprti napetosti",
-    "resolved_tension": "razrešeni napetosti",
-    "spoznanje": "zabeleženem spoznanju",
-    "commitment": "zabeleženi zavezi",
-    "relationship_pattern": "odnosnem vzorcu",
+    "identity_motif": "an identity motif",
+    "recurring_conflict": "a recurring conflict",
+    "recurring_translation_error": "a recurring translation gap",
+    "unresolved_tension": "an unresolved tension",
+    "resolved_tension": "a resolved tension",
+    "spoznanje": "a recorded realization",
+    "commitment": "a recorded commitment",
+    "relationship_pattern": "a relationship pattern",
 }
 
 
@@ -109,7 +112,7 @@ class EgoReflectionHypothesis(FrozenArtifactModel):
         ):
             raise ValueError("Reflection measure citations must be sorted and unique")
         if _FIRST_PERSON_EGO.search(self.statement):
-            raise ValueError("Reflection cannot speak as 'jaz, Ego'")
+            raise ValueError("Reflection cannot use first-person Ego voice")
         base = self.model_dump(
             mode="python",
             round_trip=True,
@@ -160,7 +163,7 @@ def _statement_for(claim: SourcedEgoClaim) -> str:
     if _FIRST_PERSON_EGO.search(claim.text):
         raise ValueError("Reflection source claim uses forbidden first-person Ego voice")
     label = _KIND_LABELS[claim.kind]
-    return f"Hipoteza o {label}: {claim.text}."
+    return f"Hypothesis about {label}: {claim.text}."
 
 
 @dataclass(frozen=True, slots=True)
