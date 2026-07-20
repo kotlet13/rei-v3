@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
 
 import pytest
 
@@ -169,3 +170,19 @@ def test_offline_completion_does_not_discover_or_call_model(
     assert (output_root / smoke.MANIFEST_NAME).is_file()
     with pytest.raises(FileExistsError):
         smoke.complete_offline(output_root)
+
+
+def test_english_smoke_evidence_checkout_is_byte_stable() -> None:
+    report_path = (
+        "Docs/evals/semantic_lab_v1/en1-gemma4-text-shadow-2026-07-20/report.md"
+    )
+    attributes = subprocess.run(
+        ["git", "check-attr", "text", "eol", "--", report_path],
+        cwd=smoke.ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+
+    assert f"{report_path}: text: set" in attributes
+    assert f"{report_path}: eol: lf" in attributes
