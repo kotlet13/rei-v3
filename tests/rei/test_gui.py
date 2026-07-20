@@ -156,7 +156,7 @@ def test_bootstrap_is_fixture_only_and_exposes_all_profile_contracts(
         "available": True,
         "live_model_execution": False,
         "authority": "none",
-        "evidence_ids": ["s1-partial", "s1r-reconciled"],
+        "evidence_ids": ["en1-runtime", "s1-partial", "s1r-reconciled"],
     }
     assert payload["safety_caveat"] == PUBLIC_SAFETY_CAVEAT_EN
     assert len(payload["profile_contracts"]) == 13
@@ -1264,6 +1264,13 @@ def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> Non
     assert "Selected research input — ${language}" in frontend
     assert '"Source family title — Slovenian"' in frontend
     assert '"Historical exact model input — Slovenian"' in frontend
+    assert 'selectedShadowEvidenceId: "en1-runtime"' in frontend
+    assert '"CURRENT RUNTIME EVIDENCE"' in frontend
+    assert '"HISTORICAL EVIDENCE"' in frontend
+    assert '"Current English model input"' in frontend
+    assert '"Current English Gemma output · NO AUTHORITY"' in frontend
+    assert '"Current English option unknown reason"' in frontend
+    assert '"Historical · Slovene model boundary · retained for provenance · not the active runtime language contract."' in frontend
     assert '"Historical action unknown reason — Slovenian exact accepted output"' in frontend
     assert 'card("What Racio actually saw"' in frontend
 

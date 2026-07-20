@@ -24,7 +24,7 @@ const state = {
   shadowRegistryError: null,
   shadowEvidence: null,
   shadowEvidenceError: null,
-  selectedShadowEvidenceId: "s1r-reconciled",
+  selectedShadowEvidenceId: "en1-runtime",
   shadowBusy: false,
   shadowRequestGeneration: 0,
   shadowAbortController: null,
@@ -756,10 +756,17 @@ function shadowRegistryEntries() {
 
 function shadowEvidenceLabel(record) {
   const source = asObject(record);
+  if (source.selector_label) return source.selector_label;
   if (source.label) return source.label;
-  if (source.evidence_id === "s1-partial") return "S1 · partial shadow failure";
-  if (source.evidence_id === "s1r-reconciled") return "S1R · reconciled shadow success";
+  if (source.evidence_id === "en1-runtime") return "EN1 · English runtime shadow";
+  if (source.evidence_id === "s1-partial") return "S1 · historical Slovene partial failure";
+  if (source.evidence_id === "s1r-reconciled") return "S1R · historical Slovene reconciled success";
   return source.evidence_id || "Frozen shadow evidence";
+}
+
+function isCurrentEnglishShadowReplay(replay) {
+  const source = asObject(replay);
+  return source.kind === "current_runtime" && source.language === "en";
 }
 
 function redactShadowEvaluatorState() {
@@ -852,19 +859,23 @@ function shadowCitations(label, values) {
   });
 }
 
-function shadowObservationCard(observation, index) {
+function shadowObservationCard(observation, index, replay) {
   const source = asObject(observation);
   const text = asObject(source.text);
+  const currentEnglish = isCurrentEnglishShadowReplay(replay);
   const canonicalSl = source.canonical_sl ?? text.canonical_sl;
   const operationalEn = source.operational_en ?? text.operational_en;
+  const modelText = source.model_text ?? (currentEnglish ? source.text : canonicalSl);
   const item = element("article", "shadow-observation");
   item.dataset.observationId = source.observation_id || `observation-${index + 1}`;
   append(
     item,
     shadowEnumValue("Observation ID", source.observation_id),
     fieldGroup(
-      "Historical exact model input — Slovenian",
-      canonicalSl || "The visible signal was degraded and contains no textual content."
+      currentEnglish
+        ? "Current English model input"
+        : "Historical exact model input — Slovenian",
+      modelText || "The visible signal was degraded and contains no textual content."
     )
   );
   const metadata = [
@@ -880,18 +891,26 @@ function shadowObservationCard(observation, index) {
   return item;
 }
 
-function shadowVisibleInputCard(visibleInput, sourceMind = null) {
+function shadowVisibleInputCard(visibleInput, sourceMind = null, replay = null) {
   const visible = asObject(visibleInput);
+  const currentEnglish = isCurrentEnglishShadowReplay(replay);
   const observations = asArray(visible.observations || visible.visible_observations);
   const options = asArray(visible.public_options || visible.public_option_scope);
-  const result = card("Historical visible conscious input", null, "shadow-visible-card");
+  const result = card(
+    currentEnglish
+      ? "Current English model input"
+      : "Historical visible conscious input · Slovene model boundary",
+    null,
+    "shadow-visible-card"
+  );
   result.dataset.shadowKind = "visible-input";
   append(
     result,
     keyValues([
       ["Source mind", visible.source_mind || sourceMind],
+      ["Language", visible.language],
       ["Channel quality", visible.channel_quality],
-      ["Historical presentation mode", visible.presentation_mode],
+      [currentEnglish ? "Presentation mode" : "Historical presentation mode", visible.presentation_mode],
     ]),
     fieldGroup("Degraded observations", visible.degraded_observation_ids, {
       asChips: true,
@@ -902,8 +921,14 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null) {
       emptyText: "None",
     })
   );
+  if (currentEnglish) {
+    append(result, fieldGroup("Model-facing uncertainty", visible.uncertainty));
+  }
   const observationList = element("div", "shadow-observation-list");
-  observations.forEach((observation, index) => append(observationList, shadowObservationCard(observation, index)));
+  observations.forEach((observation, index) => append(
+    observationList,
+    shadowObservationCard(observation, index, replay)
+  ));
   append(
     result,
     fieldGroup("Visible observation units", observations.length ? `${observations.length}` : "No visible observations"),
@@ -917,7 +942,14 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null) {
     append(
       optionItem,
       shadowEnumValue("Option ID", record.option_id),
-      fieldGroup("Historical public option text — Slovenian exact model input", record.canonical_sl ?? text.canonical_sl)
+      fieldGroup(
+        currentEnglish
+          ? "Current English public option"
+          : "Historical public option text — Slovenian exact model input",
+        currentEnglish
+          ? record.model_text
+          : record.canonical_sl ?? text.canonical_sl
+      )
     );
     const english = record.operational_en ?? text.operational_en;
     if (english) append(optionItem, rawDetails("Historical operational English gloss", english));
@@ -1031,8 +1063,9 @@ function shadowStatusNotice(shadow, presentationShape) {
   return notice;
 }
 
-function shadowInterpretationCard(shadow, presentationShape) {
+function shadowInterpretationCard(shadow, presentationShape, replay = null) {
   const source = asObject(shadow);
+  const currentEnglish = isCurrentEnglishShadowReplay(replay);
   const output = asObject(source.structured_output || source.interpretation);
   const actions = asArray(source.action_hypotheses || output.action_hypotheses);
   const option = asObject(source.option_inference || output.option_inference);
@@ -1044,7 +1077,13 @@ function shadowInterpretationCard(shadow, presentationShape) {
   );
   const unknownReasons = asObject(source.unknown_reasons);
   const failure = asObject(source.failure);
-  const result = card("Gemma V3 shadow · NO AUTHORITY", null, "shadow-model-card");
+  const result = card(
+    currentEnglish
+      ? "Current English Gemma output · NO AUTHORITY"
+      : "Historical Gemma V3 shadow · NO AUTHORITY",
+    null,
+    "shadow-model-card"
+  );
   result.dataset.shadowKind = "shadow";
   append(
     result,
@@ -1074,7 +1113,9 @@ function shadowInterpretationCard(shadow, presentationShape) {
       fieldGroup("Action hypotheses", actions.length ? `${actions.length}` : "No action claim"),
       actionClaims,
       fieldGroup(
-        "Historical action unknown reason — Slovenian exact accepted output",
+        currentEnglish
+          ? "Current English action unknown reason"
+          : "Historical action unknown reason — Slovenian exact accepted output",
         unknownReasons.action ?? source.action_unknown_reason ?? output.action_unknown_reason
       )
     );
@@ -1093,7 +1134,9 @@ function shadowInterpretationCard(shadow, presentationShape) {
         optionSection,
         fieldGroup("Status", "No option claim"),
         fieldGroup(
-          "Historical option unknown reason — Slovenian exact accepted output",
+          currentEnglish
+            ? "Current English option unknown reason"
+            : "Historical option unknown reason — Slovenian exact accepted output",
           unknownReasons.option ?? source.option_unknown_reason ?? output.option_unknown_reason
         )
       );
@@ -1107,7 +1150,9 @@ function shadowInterpretationCard(shadow, presentationShape) {
       fieldGroup("Motive hypotheses", motives.length ? `${motives.length}` : "No motive claim"),
       motiveClaims,
       fieldGroup(
-        "Historical motive unknown reason — Slovenian exact accepted output",
+        currentEnglish
+          ? "Current English motive unknown reason"
+          : "Historical motive unknown reason — Slovenian exact accepted output",
         unknownReasons.motive ?? source.motive_unknown_reason ?? output.motive_unknown_reason
       ),
       keyValues([
@@ -1193,7 +1238,7 @@ function shadowDebugCard(debugTruth) {
   return result;
 }
 
-function shadowLaneSection(lane, mind, index) {
+function shadowLaneSection(lane, mind, index, replay = null) {
   const source = asObject(lane);
   const label = source.mind_label || (mind === "E" ? "Emocio" : "Instinkt");
   const section = element("section", `shadow-lane ${mind === "E" ? "emocio" : "instinkt"}`);
@@ -1201,13 +1246,13 @@ function shadowLaneSection(lane, mind, index) {
   append(
     section,
     subsectionTitle(`${label} → Racio`, `source mind ${source.source_mind || mind}`),
-    shadowVisibleInputCard(source.visible_input, source.source_mind || mind)
+    shadowVisibleInputCard(source.visible_input, source.source_mind || mind, replay)
   );
   const pair = element("div", "shadow-interpretation-grid");
   append(
     pair,
     shadowAuthoritativeCard(source.authoritative),
-    shadowInterpretationCard(source.shadow, source.presentation_shape)
+    shadowInterpretationCard(source.shadow, source.presentation_shape, replay)
   );
   append(
     section,
@@ -1241,20 +1286,40 @@ function renderShadowReplaySection() {
   select.id = "shadowEvidenceSelect";
   select.setAttribute("aria-label", "Frozen Gemma shadow evidence");
   select.disabled = state.shadowBusy || !entries.length;
-  for (const record of entries) {
-    const source = asObject(record);
-    const option = element("option", "", shadowEvidenceLabel(source));
-    option.value = source.evidence_id;
-    option.selected = source.evidence_id === state.selectedShadowEvidenceId;
-    append(select, option);
+  const evidenceGroups = [
+    ["CURRENT RUNTIME EVIDENCE", entries.filter((record) => asObject(record).kind === "current_runtime")],
+    ["HISTORICAL EVIDENCE", entries.filter((record) => asObject(record).kind !== "current_runtime")],
+  ];
+  for (const [groupLabel, records] of evidenceGroups) {
+    if (!records.length) continue;
+    const group = element("optgroup");
+    group.label = groupLabel;
+    for (const record of records) {
+      const source = asObject(record);
+      const option = element("option", "", shadowEvidenceLabel(source));
+      option.value = source.evidence_id;
+      option.selected = source.evidence_id === state.selectedShadowEvidenceId;
+      append(group, option);
+    }
+    append(select, group);
   }
   select.addEventListener("change", () => loadShadowEvidence(select.value));
   append(field, select);
   const boundary = element("div", "shadow-boundary-copy");
+  const selectedRecord = asObject(
+    entries.find((record) => asObject(record).evidence_id === state.selectedShadowEvidenceId)
+  );
+  const currentEnglishSelection = isCurrentEnglishShadowReplay(selectedRecord);
   append(
     boundary,
     element("strong", "", "Reviewing frozen shadow evidence"),
-    element("span", "", "No model call will be made. Historical Slovenian model inputs and outputs remain verbatim; the active runtime language policy is English.")
+    element(
+      "span",
+      "",
+      currentEnglishSelection
+        ? "Current English runtime replay. No model call will be made."
+        : "Historical · Slovene model boundary · retained for provenance · not the active runtime language contract."
+    )
   );
   append(controls, field, boundary);
   append(section, controls);
@@ -1264,8 +1329,18 @@ function renderShadowReplaySection() {
   }
   const replay = asObject(state.shadowEvidence);
   if (!Object.keys(replay).length) {
-    append(section, emptyNotice("Evidence is loading", "Select registered S1 or S1R evidence."));
+    append(section, emptyNotice("Evidence is loading", "Select registered current or historical evidence."));
     return section;
+  }
+  if (replay.historical) {
+    append(
+      section,
+      element(
+        "div",
+        "shadow-history-banner",
+        "HISTORICAL · SLOVENE MODEL BOUNDARY · RETAINED FOR PROVENANCE · NOT THE ACTIVE RUNTIME LANGUAGE CONTRACT"
+      )
+    );
   }
   append(
     section,
@@ -1275,6 +1350,8 @@ function renderShadowReplaySection() {
       ["Evidence", replay.label],
       ["Evidence ID", replay.evidence_id],
       ["Phase", replay.phase],
+      ["Evidence kind", replay.kind],
+      ["Model boundary language", replay.language],
       ["Authority", replay.authority],
       ["Live model execution", replay.live_model_execution],
       ["Cold verification", asObject(replay.integrity).status || asObject(replay.integrity).cold_verified],
@@ -1284,7 +1361,10 @@ function renderShadowReplaySection() {
   const lanes = replay.lanes;
   const laneStack = element("div", "shadow-lane-stack");
   for (const [mind, index] of [["E", 0], ["I", 1]]) {
-    append(laneStack, shadowLaneSection(byMind(lanes, mind, index), mind, index));
+    append(
+      laneStack,
+      shadowLaneSection(byMind(lanes, mind, index), mind, index, replay)
+    );
   }
   append(
     section,

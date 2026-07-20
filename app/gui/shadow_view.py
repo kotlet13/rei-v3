@@ -1,10 +1,10 @@
-"""Read-only presentation adapter for frozen S1/S1R text-shadow evidence.
+"""Read-only presentation adapter for frozen text-shadow evidence.
 
-The adapter has no runtime provider dependency.  It accepts only two compiled-in
-evidence IDs, verifies their closed inventories and privacy boundary, invokes the
-committed cold verifier lazily, and returns an allowlisted GUI projection.  It
+The adapter has no runtime provider dependency.  It accepts only compiled-in
+evidence IDs, verifies their closed inventories and privacy boundary, invokes a
+bounded cold verifier lazily, and returns an allowlisted GUI projection.  It
 never executes a REI processor, imports a concrete Gemma/Ollama provider, or
-writes into either evidence root.
+writes into an evidence root.
 """
 
 from __future__ import annotations
@@ -20,21 +20,25 @@ import stat
 from types import MappingProxyType
 from typing import Any, Callable, Mapping
 
+from app.backend.rei.ids import content_id, sha256_hex
+
 
 SHADOW_EVIDENCE_SCHEMA_VERSION = "rei-gemma4-shadow-evidence-view-v1"
 SHADOW_EVIDENCE_INDEX_SCHEMA_VERSION = "rei-gemma4-shadow-evidence-index-v1"
-DEFAULT_SHADOW_EVIDENCE_ID = "s1r-reconciled"
+DEFAULT_SHADOW_EVIDENCE_ID = "en1-runtime"
 MAX_EVIDENCE_FILES = 128
 MAX_EVIDENCE_TOTAL_BYTES = 1024 * 1024
 MAX_EVIDENCE_FILE_BYTES = 128 * 1024
 MAX_EXTERNAL_RECEIPT_BYTES = 4 * 1024
 
 _SMOKE_MANIFEST_NAME = "smoke_evidence_manifest.json"
-_RUN_ID = "s1-gemma4-text-shadow-cycle"
-_RUN_RELATIVE = PurePosixPath("runs") / _RUN_ID
-_RECEIPT_RELATIVE = PurePosixPath(
+_S1R_RECEIPT_RELATIVE = PurePosixPath(
     "Docs/evals/research_reset_2026-07/"
     "gemma4_text_shadow_s1r_post_verification_receipt.json"
+)
+_EN1_RECEIPT_RELATIVE = PurePosixPath(
+    "Docs/evals/research_reset_2026-07/"
+    "gemma4_english_runtime_shadow_smoke_receipt.json"
 )
 _WINDOWS_ABSOLUTE_PATH = re.compile(
     r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])"
@@ -73,27 +77,63 @@ class _EvidenceRegistration:
     evidence_id: str
     relative_root: PurePosixPath
     label: str
+    selector_label: str
     phase: str
     summary: str
+    kind: str
+    language: str
+    run_id: str
     receipt_required: bool
+    receipt_relative: PurePosixPath | None
+    verification_profile: str
+    manifest_id_prefix: str | None = None
+    receipt_id_prefix: str | None = None
 
 
 _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
     {
+        "en1-runtime": _EvidenceRegistration(
+            evidence_id="en1-runtime",
+            relative_root=PurePosixPath(
+                "Docs/evals/semantic_lab_v1/"
+                "en1-gemma4-text-shadow-2026-07-20"
+            ),
+            label="EN1 · current English runtime shadow",
+            selector_label="EN1 · English runtime shadow",
+            phase="EN1",
+            summary=(
+                "Current English local-model boundary: Emocio fully abstained, "
+                "while Instinkt returned one bounded action-only hypothesis."
+            ),
+            kind="current_runtime",
+            language="en",
+            run_id="en1-gemma4-text-shadow-cycle",
+            receipt_required=True,
+            receipt_relative=_EN1_RECEIPT_RELATIVE,
+            verification_profile="en1",
+            manifest_id_prefix="gemma4_en_shadow_manifest",
+            receipt_id_prefix="gemma4_english_shadow_receipt",
+        ),
         "s1-partial": _EvidenceRegistration(
             evidence_id="s1-partial",
             relative_root=PurePosixPath(
                 "Docs/evals/semantic_lab_v1/"
                 "s1-gemma4-text-shadow-2026-07-19"
             ),
-            label="S1 · partial shadow failure",
+            label="S1 · historical Slovene partial failure",
+            selector_label="S1 · historical Slovene partial failure",
             phase="S1",
             summary=(
                 "The Emocio shadow failed within its bounded lane while the Instinkt "
                 "shadow succeeded; the authoritative deterministic cycle succeeded "
                 "in full."
             ),
+            kind="historical",
+            language="sl",
+            run_id="s1-gemma4-text-shadow-cycle",
             receipt_required=False,
+            receipt_relative=None,
+            verification_profile="s1",
         ),
         "s1r-reconciled": _EvidenceRegistration(
             evidence_id="s1r-reconciled",
@@ -101,13 +141,19 @@ _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
                 "Docs/evals/semantic_lab_v1/"
                 "s1r-gemma4-text-shadow-2026-07-19"
             ),
-            label="S1R · reconciled shadow success",
+            label="S1R · historical Slovene reconciled success",
+            selector_label="S1R · historical Slovene reconciled success",
             phase="S1R",
             summary=(
                 "Emocio fully abstained on epistemic grounds, while Instinkt returned "
                 "one bounded action-only hypothesis."
             ),
+            kind="historical",
+            language="sl",
+            run_id="s1-gemma4-text-shadow-cycle",
             receipt_required=True,
+            receipt_relative=_S1R_RECEIPT_RELATIVE,
+            verification_profile="s1",
         ),
     }
 )
@@ -190,11 +236,18 @@ def _registered_root(repository_root: str | Path, registration: _EvidenceRegistr
     return root
 
 
-def _registered_receipt(repository_root: str | Path) -> Path:
+def _registered_receipt(
+    repository_root: str | Path,
+    registration: _EvidenceRegistration,
+) -> Path:
+    if registration.receipt_relative is None:
+        raise ShadowEvidenceIntegrityError(
+            "Shadow evidence registration has no external receipt"
+        )
     repository = _regular_directory(
         Path(repository_root), label="Shadow evidence repository root"
     )
-    candidate = repository.joinpath(*_RECEIPT_RELATIVE.parts)
+    candidate = repository.joinpath(*registration.receipt_relative.parts)
     _reject_reparse_components(candidate, label="Shadow verification receipt")
     try:
         resolved = candidate.resolve(strict=True)
@@ -456,14 +509,18 @@ def _preflight_evidence_root(
     )
 
 
-def _preflight_external_receipt(repository_root: str | Path) -> tuple[dict[str, Any], bytes]:
-    path = _registered_receipt(repository_root)
+def _preflight_external_receipt(
+    repository_root: str | Path,
+    registration: _EvidenceRegistration,
+) -> tuple[dict[str, Any], bytes]:
+    path = _registered_receipt(repository_root, registration)
     payload = _read_bounded(
         path,
         maximum_bytes=MAX_EXTERNAL_RECEIPT_BYTES,
         label="Shadow verification receipt",
     )
-    _verify_private_content_absent(_RECEIPT_RELATIVE.as_posix(), payload)
+    assert registration.receipt_relative is not None
+    _verify_private_content_absent(registration.receipt_relative.as_posix(), payload)
     receipt = _strict_json(payload, label="Shadow verification receipt")
     if not isinstance(receipt, dict):
         raise ShadowEvidenceIntegrityError(
@@ -492,17 +549,20 @@ def _committed_cold_verify(
 
     before = _concrete_provider_modules_loaded()
     try:
-        verifier = importlib.import_module(
-            "scripts.run_gemma4_racio_text_shadow_smoke"
-        )
-        manifest = verifier._cold_verification_checks(output_root)
-        receipt: Mapping[str, Any] | None = None
-        if registration.receipt_required:
-            receipt = verifier._verify_cold_receipt(
-                output_root,
-                manifest=manifest,
-                receipt_path=verifier.S1R_POST_VERIFICATION_RECEIPT,
+        if registration.verification_profile == "en1":
+            manifest, receipt = _cold_verify_en1(output_root, registration)
+        else:
+            verifier = importlib.import_module(
+                "scripts.run_gemma4_racio_text_shadow_smoke"
             )
+            manifest = verifier._cold_verification_checks(output_root)
+            receipt = None
+            if registration.receipt_required:
+                receipt = verifier._verify_cold_receipt(
+                    output_root,
+                    manifest=manifest,
+                    receipt_path=verifier.S1R_POST_VERIFICATION_RECEIPT,
+                )
     except Exception as exc:
         raise ShadowEvidenceIntegrityError(
             "Committed shadow evidence failed cold verification"
@@ -517,6 +577,79 @@ def _committed_cold_verify(
     ):
         raise ShadowEvidenceIntegrityError(
             "Committed shadow verifier returned an invalid receipt"
+        )
+    return manifest, receipt
+
+
+def _repository_from_registered_root(
+    output_root: Path,
+    registration: _EvidenceRegistration,
+) -> Path:
+    repository = output_root
+    for _part in registration.relative_root.parts:
+        repository = repository.parent
+    return repository
+
+
+def _cold_verify_en1(
+    output_root: Path,
+    registration: _EvidenceRegistration,
+) -> tuple[Mapping[str, Any], Mapping[str, Any]]:
+    """Verify EN1 locally without importing a provider-bearing smoke runner."""
+
+    manifest_payload = _read_bounded(
+        output_root / _SMOKE_MANIFEST_NAME,
+        maximum_bytes=MAX_EVIDENCE_FILE_BYTES,
+        label="EN1 evidence manifest",
+    )
+    manifest = _strict_json(manifest_payload, label="EN1 evidence manifest")
+    if not isinstance(manifest, dict):
+        raise ShadowEvidenceIntegrityError("EN1 evidence manifest must be an object")
+    manifest_base = {
+        key: value
+        for key, value in manifest.items()
+        if key not in {"manifest_id", "manifest_sha256"}
+    }
+    manifest_payload_for_hash = {
+        key: value for key, value in manifest.items() if key != "manifest_sha256"
+    }
+    if (
+        registration.manifest_id_prefix is None
+        or manifest.get("manifest_id")
+        != content_id(registration.manifest_id_prefix, manifest_base)
+        or manifest.get("manifest_sha256") != sha256_hex(manifest_payload_for_hash)
+    ):
+        raise ShadowEvidenceIntegrityError(
+            "EN1 manifest is not valid content-addressed evidence"
+        )
+
+    repository = _repository_from_registered_root(output_root, registration)
+    receipt, _receipt_bytes = _preflight_external_receipt(repository, registration)
+    receipt_base = {
+        key: value
+        for key, value in receipt.items()
+        if key not in {"receipt_id", "receipt_sha256"}
+    }
+    receipt_payload_for_hash = {
+        key: value for key, value in receipt.items() if key != "receipt_sha256"
+    }
+    if (
+        registration.receipt_id_prefix is None
+        or receipt.get("receipt_id")
+        != content_id(registration.receipt_id_prefix, receipt_base)
+        or receipt.get("receipt_sha256") != sha256_hex(receipt_payload_for_hash)
+        or receipt.get("manifest_id") != manifest.get("manifest_id")
+        or receipt.get("manifest_sha256") != manifest.get("manifest_sha256")
+        or receipt.get("execution_head") != manifest.get("execution_head")
+        or receipt.get("evidence_root_integrity_status") != "succeeded"
+        or receipt.get("receipt_status") != "succeeded"
+        or receipt.get("no_authority") is not True
+        or receipt.get("model_promoted") is not False
+        or receipt.get("holdout") is not False
+        or receipt.get("thinking_content_persisted") is not False
+    ):
+        raise ShadowEvidenceIntegrityError(
+            "EN1 external receipt does not close the verified evidence"
         )
     return manifest, receipt
 
@@ -566,6 +699,63 @@ def _text_projection(value: Any) -> dict[str, str | None]:
 
 
 def _visible_input(packet: dict[str, Any]) -> dict[str, Any]:
+    language = packet.get("language")
+    if language == "en":
+        observations: list[dict[str, Any]] = []
+        for item in packet.get("visible_observations", []):
+            if not isinstance(item, dict):
+                raise ShadowEvidenceIntegrityError(
+                    "Shadow packet observations are invalid"
+                )
+            model_text = item.get("text")
+            if model_text is not None and not isinstance(model_text, str):
+                raise ShadowEvidenceIntegrityError(
+                    "English shadow observation text is invalid"
+                )
+            observations.append(
+                {
+                    "observation_id": item.get("observation_id"),
+                    "model_text": model_text,
+                    "channel": item.get("provenance"),
+                    "provenance": item.get("provenance"),
+                    "visibility": item.get("perception_status"),
+                    "perception_status": item.get("perception_status"),
+                    "signal_alias": item.get("signal_alias"),
+                    "atomic_evidence_unit_id": item.get(
+                        "atomic_evidence_unit_id"
+                    ),
+                }
+            )
+        public_options: list[dict[str, Any]] = []
+        for item in packet.get("public_option_scope", []):
+            if not isinstance(item, dict) or not isinstance(
+                item.get("description"), str
+            ):
+                raise ShadowEvidenceIntegrityError(
+                    "English shadow packet options are invalid"
+                )
+            public_options.append(
+                {
+                    "option_id": item.get("option_id"),
+                    "model_text": item.get("description"),
+                }
+            )
+        return {
+            "language": "en",
+            "observations": observations,
+            "public_options": public_options,
+            "uncertainty": packet.get("uncertainty"),
+            "channel_quality": packet.get("channel_quality"),
+            "degraded_observation_ids": list(
+                packet.get("degraded_observation_ids", [])
+            ),
+            "omitted_observation_ids": list(
+                packet.get("omitted_observation_ids", [])
+            ),
+            "presentation_mode": "english_only",
+            "raw_details": packet,
+        }
+
     observations: list[dict[str, Any]] = []
     for item in packet.get("visible_observations", []):
         if not isinstance(item, dict):
@@ -597,6 +787,7 @@ def _visible_input(packet: dict[str, Any]) -> dict[str, Any]:
             }
         )
     return {
+        "language": "sl",
         "observations": observations,
         "public_options": public_options,
         "channel_quality": packet.get("channel_quality"),
@@ -782,10 +973,12 @@ def _lane_view(
     interpretations: list[Any],
     gaps: list[Any] | None,
     debug: bool,
+    registration: _EvidenceRegistration,
 ) -> dict[str, Any]:
-    control = PurePosixPath("control") / _RUN_RELATIVE / "communication"
+    run_relative = PurePosixPath("runs") / registration.run_id
+    control = PurePosixPath("control") / run_relative / "communication"
     shadow_root = (
-        PurePosixPath("shadow") / _RUN_RELATIVE / "communication_shadow"
+        PurePosixPath("shadow") / run_relative / "communication_shadow"
     )
     authoritative = _authoritative_view(
         _one_by_mind(interpretations, source_mind, label="Authoritative interpretations")
@@ -871,7 +1064,7 @@ def build_shadow_evidence_view(
         raise KeyError(evidence_id)
     before = _preflight_evidence_root(repository_root, registration)
     receipt_before = (
-        _preflight_external_receipt(repository_root)
+        _preflight_external_receipt(repository_root, registration)
         if registration.receipt_required
         else None
     )
@@ -894,20 +1087,25 @@ def build_shadow_evidence_view(
             "Cold verifier returned a different evidence manifest"
         )
     if registration.receipt_required and receipt is None:
-        raise ShadowEvidenceIntegrityError("S1R external receipt was not verified")
+        raise ShadowEvidenceIntegrityError("External receipt was not verified")
     if registration.receipt_required:
-        receipt_after = _preflight_external_receipt(repository_root)
+        receipt_after = _preflight_external_receipt(
+            repository_root, registration
+        )
         if receipt_before is None or receipt_before[1] != receipt_after[1]:
             raise ShadowEvidenceIntegrityError(
-                "S1R external receipt changed during verification"
+                "External receipt changed during verification"
             )
         if dict(receipt or {}) != receipt_after[0]:
             raise ShadowEvidenceIntegrityError(
-                "Cold verifier returned a different S1R receipt"
+                "Cold verifier returned a different external receipt"
             )
 
     control_communication = (
-        PurePosixPath("control") / _RUN_RELATIVE / "communication"
+        PurePosixPath("control")
+        / PurePosixPath("runs")
+        / registration.run_id
+        / "communication"
     )
     interpretations = _artifact_json(
         after,
@@ -932,6 +1130,7 @@ def build_shadow_evidence_view(
             interpretations=interpretations,
             gaps=gaps,
             debug=debug,
+            registration=registration,
         ),
         "instinkt": _lane_view(
             after,
@@ -941,6 +1140,7 @@ def build_shadow_evidence_view(
             interpretations=interpretations,
             gaps=gaps,
             debug=debug,
+            registration=registration,
         ),
     }
     receipt_id = None if receipt is None else receipt.get("receipt_id")
@@ -951,6 +1151,14 @@ def build_shadow_evidence_view(
         "label": registration.label,
         "phase": registration.phase,
         "summary": registration.summary,
+        "kind": registration.kind,
+        "language": registration.language,
+        "historical": registration.kind == "historical",
+        "language_boundary": (
+            "current_english_model_boundary"
+            if registration.kind == "current_runtime"
+            else "historical_slovene_model_boundary"
+        ),
         "integrity": {
             "status": "cold_verified",
             "manifest_id": after.manifest.get("manifest_id"),
@@ -978,10 +1186,11 @@ def build_shadow_evidence_index(
     *,
     cold_verifier: ColdVerifier | None = None,
 ) -> dict[str, Any]:
-    """Return a verified two-item replay index with no execution authority."""
+    """Return the verified replay index with no execution authority."""
 
     evidence: list[dict[str, Any]] = []
     for evidence_id in SHADOW_EVIDENCE_IDS:
+        registration = _EVIDENCE_REGISTRY[evidence_id]
         detail = build_shadow_evidence_view(
             repository_root,
             evidence_id,
@@ -991,8 +1200,13 @@ def build_shadow_evidence_index(
             {
                 "evidence_id": detail["evidence_id"],
                 "label": detail["label"],
+                "selector_label": registration.selector_label,
                 "phase": detail["phase"],
                 "summary": detail["summary"],
+                "kind": detail["kind"],
+                "language": detail["language"],
+                "historical": detail["historical"],
+                "language_boundary": detail["language_boundary"],
                 "presentation_shapes": {
                     key: lane["presentation_shape"]
                     for key, lane in detail["lanes"].items()

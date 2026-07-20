@@ -1330,6 +1330,20 @@ pre.raw-json {
   text-align: center;
 }
 
+.shadow-history-banner {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgb(255 180 84 / 38%);
+  border-radius: 9px;
+  color: #ffd09a;
+  background: rgb(255 180 84 / 7%);
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
 .shadow-lane-stack,
 .shadow-observation-list,
 .shadow-claim-list,

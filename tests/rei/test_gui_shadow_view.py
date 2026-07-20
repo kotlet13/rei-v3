@@ -56,9 +56,19 @@ def frozen_views() -> dict[str, dict[str, Any]]:
 def test_registered_roots_and_external_receipt_cold_verify(
     frozen_views: dict[str, dict[str, Any]],
 ) -> None:
+    current = frozen_views["en1-runtime"]
     partial = frozen_views["s1-partial"]
     reconciled = frozen_views["s1r-reconciled"]
 
+    assert current["integrity"]["status"] == "cold_verified"
+    assert current["integrity"]["receipt_required"] is True
+    assert current["integrity"]["receipt_verified"] is True
+    assert current["integrity"]["receipt_id"] == (
+        "gemma4_english_shadow_receipt_9faebda91fa84456a33a4306161e69a6"
+    )
+    assert current["integrity"]["receipt_sha256"] == (
+        "4d759822a325e38a1015b26c4e74460988d01005f03eab69e121e271be23af47"
+    )
     assert partial["integrity"]["status"] == "cold_verified"
     assert partial["integrity"]["receipt_required"] is False
     assert partial["integrity"]["receipt_verified"] is False
@@ -71,11 +81,76 @@ def test_registered_roots_and_external_receipt_cold_verify(
     assert reconciled["integrity"]["receipt_sha256"] == (
         "f8338d63a1cc12a1e133ff289630acde13c3fbebdb1dd97069e827519366f843"
     )
-    assert partial["integrity"]["file_count"] <= 128
-    assert reconciled["integrity"]["file_count"] <= 128
-    assert partial["integrity"]["total_bytes"] <= 1024 * 1024
-    assert reconciled["integrity"]["total_bytes"] <= 1024 * 1024
-    assert partial["model_calls"] == reconciled["model_calls"] == 0
+    assert all(
+        view["integrity"]["file_count"] <= 128
+        and view["integrity"]["total_bytes"] <= 1024 * 1024
+        and view["model_calls"] == 0
+        for view in frozen_views.values()
+    )
+
+
+def test_en1_current_runtime_projection_is_english_and_epistemically_bounded(
+    frozen_views: dict[str, dict[str, Any]],
+) -> None:
+    current = frozen_views["en1-runtime"]
+    emocio = current["lanes"]["emocio"]
+    instinkt = current["lanes"]["instinkt"]
+
+    assert current["kind"] == "current_runtime"
+    assert current["language"] == "en"
+    assert current["historical"] is False
+    assert current["language_boundary"] == "current_english_model_boundary"
+    assert emocio["presentation_shape"] == "full_abstention"
+    assert emocio["shadow"]["action_hypotheses"] == []
+    assert emocio["shadow"]["option_inference"] is None
+    assert emocio["shadow"]["motive_hypotheses"] == []
+    assert instinkt["presentation_shape"] == "action_only"
+    assert len(instinkt["shadow"]["action_hypotheses"]) == 1
+    assert instinkt["shadow"]["option_inference"] is None
+    assert instinkt["shadow"]["motive_hypotheses"] == []
+    assert all(
+        observation["model_text"] is None
+        or isinstance(observation["model_text"], str)
+        for lane in (emocio, instinkt)
+        for observation in lane["visible_input"]["observations"]
+    )
+    assert all(
+        option["model_text"]
+        for lane in (emocio, instinkt)
+        for option in lane["visible_input"]["public_options"]
+    )
+    assert all(
+        not reason or reason.startswith("Racio did not derive")
+        for lane in (emocio, instinkt)
+        for reason in lane["shadow"]["unknown_reasons"].values()
+    )
+    serialized = json.dumps(current, ensure_ascii=False, sort_keys=True)
+    for forbidden in ('"canonical_sl"', '"notes_sl"', '"prompt_sl"'):
+        assert forbidden not in serialized
+
+
+def test_en1_api_detail_uses_the_current_english_boundary() -> None:
+    payload = server.shadow_evidence_detail(
+        "en1-runtime",
+        _http_request(path="/api/shadow-evidence/en1-runtime"),
+    )
+
+    assert payload["evidence_id"] == "en1-runtime"
+    assert payload["kind"] == "current_runtime"
+    assert payload["language"] == "en"
+    assert payload["model_calls"] == 0
+
+
+def test_s1_and_s1r_remain_historical_slovene_evidence(
+    frozen_views: dict[str, dict[str, Any]],
+) -> None:
+    for evidence_id in ("s1-partial", "s1r-reconciled"):
+        view = frozen_views[evidence_id]
+        assert view["kind"] == "historical"
+        assert view["language"] == "sl"
+        assert view["historical"] is True
+        assert view["language_boundary"] == "historical_slovene_model_boundary"
+        assert "historical Slovene" in view["label"]
 
 
 def test_s1r_receipt_is_bounded_and_not_mutated_by_replay() -> None:
@@ -225,6 +300,30 @@ def test_manifest_tamper_fails_before_lazy_cold_verifier(tmp_path: Path) -> None
     assert calls == 0
 
 
+def test_tampered_en1_route_returns_409(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    relative = Path(
+        "Docs/evals/semantic_lab_v1/en1-gemma4-text-shadow-2026-07-20"
+    )
+    copied = tmp_path / relative
+    shutil.copytree(ROOT / relative, copied)
+    summary = copied / "summary.json"
+    summary.write_bytes(summary.read_bytes() + b"\n")
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+
+    with pytest.raises(HTTPException) as raised:
+        server.shadow_evidence_detail(
+            "en1-runtime",
+            _http_request(path="/api/shadow-evidence/en1-runtime"),
+        )
+    assert raised.value.status_code == 409
+    assert raised.value.detail == (
+        "Frozen shadow evidence failed integrity verification."
+    )
+
+
 def test_scan_enforces_file_count_limit(tmp_path: Path) -> None:
     root = tmp_path / "bounded-root"
     root.mkdir()
@@ -360,7 +459,8 @@ import sys
 from app.gui import server
 from app.gui.shadow_view import build_shadow_evidence_view
 server.bootstrap()
-build_shadow_evidence_view(Path.cwd(), 's1-partial')
+for evidence_id in ('en1-runtime', 's1-partial', 's1r-reconciled'):
+    build_shadow_evidence_view(Path.cwd(), evidence_id)
 for name in sorted(sys.modules):
     lowered = name.lower()
     if '.providers.ollama' in lowered or '.providers.gemma4_text_shadow' in lowered:
@@ -380,17 +480,30 @@ for name in sorted(sys.modules):
 
 def test_verified_index_is_read_only_and_model_free() -> None:
     payload = shadow_view.build_shadow_evidence_index(ROOT)
-    assert payload["default_evidence_id"] == "s1r-reconciled"
+    assert payload["default_evidence_id"] == "en1-runtime"
     assert [item["evidence_id"] for item in payload["evidence"]] == [
+        "en1-runtime",
         "s1-partial",
         "s1r-reconciled",
     ]
     assert [item["label"] for item in payload["evidence"]] == [
-        "S1 · partial shadow failure",
-        "S1R · reconciled shadow success",
+        "EN1 · current English runtime shadow",
+        "S1 · historical Slovene partial failure",
+        "S1R · historical Slovene reconciled success",
+    ]
+    assert [item["kind"] for item in payload["evidence"]] == [
+        "current_runtime",
+        "historical",
+        "historical",
+    ]
+    assert [item["language"] for item in payload["evidence"]] == [
+        "en",
+        "sl",
+        "sl",
     ]
     assert all(
-        "authoritative deterministic cycle" in item["summary"]
+        "English local-model boundary" in item["summary"]
+        or "authoritative deterministic cycle" in item["summary"]
         or "action-only hypothesis" in item["summary"]
         for item in payload["evidence"]
     )
@@ -398,6 +511,37 @@ def test_verified_index_is_read_only_and_model_free() -> None:
     assert payload["live_model_execution"] is False
     assert payload["authority"] == "none"
     assert payload["model_calls"] == 0
+
+
+def test_all_registered_roots_and_receipts_are_read_only_during_replay() -> None:
+    paths = (
+        ROOT / "Docs/evals/semantic_lab_v1/s1-gemma4-text-shadow-2026-07-19",
+        ROOT / "Docs/evals/semantic_lab_v1/s1r-gemma4-text-shadow-2026-07-19",
+        ROOT / "Docs/evals/semantic_lab_v1/en1-gemma4-text-shadow-2026-07-20",
+    )
+    receipts = (
+        ROOT
+        / "Docs/evals/research_reset_2026-07/"
+        "gemma4_text_shadow_s1r_post_verification_receipt.json",
+        ROOT
+        / "Docs/evals/research_reset_2026-07/"
+        "gemma4_english_runtime_shadow_smoke_receipt.json",
+    )
+
+    def snapshot() -> dict[str, bytes]:
+        return {
+            path.relative_to(ROOT).as_posix(): path.read_bytes()
+            for root in paths
+            for path in sorted(root.rglob("*"))
+            if path.is_file()
+        } | {
+            path.relative_to(ROOT).as_posix(): path.read_bytes()
+            for path in receipts
+        }
+
+    before = snapshot()
+    shadow_view.build_shadow_evidence_index(ROOT)
+    assert snapshot() == before
 
 
 def test_api_middleware_applies_existing_loopback_boundary_to_replay() -> None:
