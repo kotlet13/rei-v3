@@ -20,12 +20,12 @@ import stat
 from types import MappingProxyType
 from typing import Any, Callable, Mapping
 
-from app.backend.rei.ids import content_id, sha256_hex
+from app.backend.rei.ids import canonical_json_bytes, content_id, sha256_hex
 
 
 SHADOW_EVIDENCE_SCHEMA_VERSION = "rei-gemma4-shadow-evidence-view-v1"
 SHADOW_EVIDENCE_INDEX_SCHEMA_VERSION = "rei-gemma4-shadow-evidence-index-v1"
-DEFAULT_SHADOW_EVIDENCE_ID = "en1-runtime"
+DEFAULT_SHADOW_EVIDENCE_ID = "en2-explained"
 MAX_EVIDENCE_FILES = 128
 MAX_EVIDENCE_TOTAL_BYTES = 1024 * 1024
 MAX_EVIDENCE_FILE_BYTES = 128 * 1024
@@ -39,6 +39,10 @@ _S1R_RECEIPT_RELATIVE = PurePosixPath(
 _EN1_RECEIPT_RELATIVE = PurePosixPath(
     "Docs/evals/research_reset_2026-07/"
     "gemma4_english_runtime_shadow_smoke_receipt.json"
+)
+_EN2_RECEIPT_RELATIVE = PurePosixPath(
+    "Docs/evals/research_reset_2026-07/"
+    "gemma4_english_explained_shadow_smoke_receipt.json"
 )
 _WINDOWS_ABSOLUTE_PATH = re.compile(
     r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])"
@@ -92,20 +96,44 @@ class _EvidenceRegistration:
 
 _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
     {
+        "en2-explained": _EvidenceRegistration(
+            evidence_id="en2-explained",
+            relative_root=PurePosixPath(
+                "Docs/evals/semantic_lab_v1/"
+                "en2-gemma4-explained-shadow-2026-07-21"
+            ),
+            label="EN2 · current explained English shadow",
+            selector_label="EN2 · explained English shadow",
+            phase="EN2",
+            summary=(
+                "Current explained English boundary: the Emocio response failed "
+                "the closed Draft schema, while Instinkt returned bounded action, "
+                "option, and motive claims. The authoritative cycle still succeeded."
+            ),
+            kind="current_runtime",
+            language="en",
+            run_id="en2-gemma4-explained-shadow-cycle",
+            receipt_required=True,
+            receipt_relative=_EN2_RECEIPT_RELATIVE,
+            verification_profile="en1",
+            manifest_id_prefix="gemma4_en2_shadow_manifest",
+            receipt_id_prefix="gemma4_en2_shadow_receipt",
+        ),
         "en1-runtime": _EvidenceRegistration(
             evidence_id="en1-runtime",
             relative_root=PurePosixPath(
                 "Docs/evals/semantic_lab_v1/"
                 "en1-gemma4-text-shadow-2026-07-20"
             ),
-            label="EN1 · current English runtime shadow",
-            selector_label="EN1 · English runtime shadow",
+            label="EN1 · historical English runtime shadow",
+            selector_label="EN1 · historical English runtime shadow",
             phase="EN1",
             summary=(
-                "Current English local-model boundary: Emocio fully abstained, "
-                "while Instinkt returned one bounded action-only hypothesis."
+                "Previous English boundary: Emocio made no claims and Instinkt "
+                "returned one action-only hypothesis, but that revision did not "
+                "require Gemma to explain absent claims."
             ),
-            kind="current_runtime",
+            kind="historical",
             language="en",
             run_id="en1-gemma4-text-shadow-cycle",
             receipt_required=True,
@@ -145,8 +173,8 @@ _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
             selector_label="S1R · historical Slovene reconciled success",
             phase="S1R",
             summary=(
-                "Emocio fully abstained on epistemic grounds, while Instinkt returned "
-                "one bounded action-only hypothesis."
+                "Emocio made no claim because Racio lacked enough visible evidence, "
+                "while Instinkt returned one bounded action-only hypothesis."
             ),
             kind="historical",
             language="sl",
@@ -944,6 +972,7 @@ def _exact_model_input_view(
     packet: dict[str, Any],
     call_spec: dict[str, Any] | None,
     response_evidence: dict[str, Any] | None,
+    exact_request_template: dict[str, Any] | None,
 ) -> dict[str, Any]:
     exact_request = (
         None
@@ -952,6 +981,44 @@ def _exact_model_input_view(
     )
     if exact_request is not None and not isinstance(exact_request, dict):
         raise ShadowEvidenceIntegrityError("Exact model request must be an object")
+    request_source = "persisted_exact" if exact_request is not None else None
+    expected_request_hash = _call_parameter_value(
+        call_spec, "request_payload_sha256"
+    )
+    if exact_request is None and exact_request_template is not None:
+        exact_request = json.loads(canonical_json_bytes(exact_request_template))
+        messages = exact_request.get("messages")
+        if not isinstance(messages, list):
+            raise ShadowEvidenceIntegrityError(
+                "Exact model request template messages are invalid"
+            )
+        user_count = 0
+        for message in messages:
+            if not isinstance(message, dict):
+                raise ShadowEvidenceIntegrityError(
+                    "Exact model request template message is invalid"
+                )
+            if message.get("role") == "user":
+                message["content"] = canonical_json_bytes(
+                    _provider_payload_from_packet(packet)
+                ).decode("utf-8")
+                user_count += 1
+        if user_count != 1:
+            raise ShadowEvidenceIntegrityError(
+                "Exact model request template must contain one user message"
+            )
+        request_source = "hash_verified_reconstruction"
+    if exact_request is not None:
+        actual_request_hash = sha256_hex(exact_request)
+        if (
+            not isinstance(expected_request_hash, str)
+            or actual_request_hash != expected_request_hash
+        ):
+            raise ShadowEvidenceIntegrityError(
+                "Exact model request differs from the dispatched request hash"
+            )
+    else:
+        actual_request_hash = None
     messages = [] if exact_request is None else exact_request.get("messages", [])
     if not isinstance(messages, list):
         raise ShadowEvidenceIntegrityError("Exact model request messages are invalid")
@@ -973,6 +1040,8 @@ def _exact_model_input_view(
         }
     return {
         "availability": "complete" if exact_request is not None else "packet_only",
+        "source": request_source,
+        "request_payload_sha256": actual_request_hash,
         "system_instruction": system_instruction,
         "user_packet_json": user_packet_json,
         "output_schema": (
@@ -986,6 +1055,101 @@ def _exact_model_input_view(
         "call_spec": safe_call_spec,
         "exact_request": exact_request,
     }
+
+
+def _call_parameter_value(
+    call_spec: dict[str, Any] | None,
+    name: str,
+) -> Any:
+    if call_spec is None:
+        return None
+    parameters = call_spec.get("parameters", [])
+    if not isinstance(parameters, list):
+        raise ShadowEvidenceIntegrityError("ProviderCallSpec parameters are invalid")
+    matches = [
+        item
+        for item in parameters
+        if isinstance(item, dict) and item.get("name") == name
+    ]
+    if len(matches) != 1:
+        return None
+    encoded = matches[0].get("canonical_json_value")
+    if not isinstance(encoded, str):
+        raise ShadowEvidenceIntegrityError("ProviderCallSpec parameter is invalid")
+    try:
+        return json.loads(encoded)
+    except json.JSONDecodeError as exc:
+        raise ShadowEvidenceIntegrityError(
+            "ProviderCallSpec parameter is not canonical JSON"
+        ) from exc
+
+
+def _provider_payload_from_packet(packet: dict[str, Any]) -> dict[str, Any]:
+    """Reproduce the frozen allowlisted provider view, excluding artifact lineage."""
+
+    payload = {
+        key: packet.get(key)
+        for key in (
+            "schema_version",
+            "source_mind",
+            "language",
+            "visible_observations",
+            "degraded_observation_ids",
+            "omitted_observation_ids",
+            "public_option_scope",
+            "channel_quality",
+            "uncertainty",
+        )
+    }
+    observations = payload.get("visible_observations")
+    if not isinstance(observations, list):
+        raise ShadowEvidenceIntegrityError("English packet observations are invalid")
+    payload["visible_observations"] = [
+        {
+            key: observation.get(key)
+            for key in (
+                "observation_id",
+                "signal_alias",
+                "text",
+                "perception_status",
+                "provenance",
+            )
+        }
+        for observation in observations
+        if isinstance(observation, dict)
+    ]
+    if len(payload["visible_observations"]) != len(observations):
+        raise ShadowEvidenceIntegrityError("English packet observation is invalid")
+    return payload
+
+
+def _exact_request_template(
+    snapshot: _EvidenceSnapshot,
+    registration: _EvidenceRegistration,
+) -> dict[str, Any] | None:
+    shadow_root = (
+        PurePosixPath("shadow")
+        / "runs"
+        / registration.run_id
+        / "communication_shadow"
+    )
+    for stem in ("emocio", "instinkt"):
+        response = _artifact_json(
+            snapshot,
+            shadow_root / f"{stem}_response_evidence.json",
+            expected=dict,
+            required=False,
+        )
+        if response is None:
+            continue
+        candidate = response.get("exact_model_request")
+        if candidate is not None:
+            if not isinstance(candidate, dict):
+                raise ShadowEvidenceIntegrityError(
+                    "Exact model request template must be an object"
+                )
+            return candidate
+    return None
 
 
 def _diagnostic_view(
@@ -1073,6 +1237,7 @@ def _lane_view(
     gaps: list[Any] | None,
     debug: bool,
     registration: _EvidenceRegistration,
+    exact_request_template: dict[str, Any] | None,
 ) -> dict[str, Any]:
     run_relative = PurePosixPath("runs") / registration.run_id
     control = PurePosixPath("control") / run_relative / "communication"
@@ -1125,7 +1290,7 @@ def _lane_view(
         "presentation_shape": shape,
         "visible_input": _visible_input(packet),
         "exact_model_input": _exact_model_input_view(
-            packet, call_spec, response_evidence
+            packet, call_spec, response_evidence, exact_request_template
         ),
         "authoritative": authoritative,
         "shadow": shadow,
@@ -1245,6 +1410,7 @@ def build_shadow_evidence_view(
             gaps=gaps,
             debug=debug,
             registration=registration,
+            exact_request_template=_exact_request_template(after, registration),
         ),
         "instinkt": _lane_view(
             after,
@@ -1255,6 +1421,7 @@ def build_shadow_evidence_view(
             gaps=gaps,
             debug=debug,
             registration=registration,
+            exact_request_template=_exact_request_template(after, registration),
         ),
     }
     receipt_id = None if receipt is None else receipt.get("receipt_id")
@@ -1271,7 +1438,7 @@ def build_shadow_evidence_view(
         "language_boundary": (
             "current_english_model_boundary"
             if registration.kind == "current_runtime"
-            else "historical_slovene_model_boundary"
+            else f"historical_{'english' if registration.language == 'en' else 'slovene'}_model_boundary"
         ),
         "integrity": {
             "status": "cold_verified",

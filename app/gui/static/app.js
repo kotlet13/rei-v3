@@ -24,7 +24,7 @@ const state = {
   shadowRegistryError: null,
   shadowEvidence: null,
   shadowEvidenceError: null,
-  selectedShadowEvidenceId: "en1-runtime",
+  selectedShadowEvidenceId: "en2-explained",
   selectedShadowMind: "E",
   shadowBusy: false,
   shadowRequestGeneration: 0,
@@ -759,7 +759,8 @@ function shadowEvidenceLabel(record) {
   const source = asObject(record);
   if (source.selector_label) return source.selector_label;
   if (source.label) return source.label;
-  if (source.evidence_id === "en1-runtime") return "EN1 · English runtime shadow";
+  if (source.evidence_id === "en2-explained") return "EN2 · explained English shadow";
+  if (source.evidence_id === "en1-runtime") return "EN1 · historical English runtime shadow";
   if (source.evidence_id === "s1-partial") return "S1 · historical Slovene partial failure";
   if (source.evidence_id === "s1r-reconciled") return "S1R · historical Slovene reconciled success";
   return source.evidence_id || "Frozen shadow evidence";
@@ -768,6 +769,10 @@ function shadowEvidenceLabel(record) {
 function isCurrentEnglishShadowReplay(replay) {
   const source = asObject(replay);
   return source.kind === "current_runtime" && source.language === "en";
+}
+
+function isEnglishShadowReplay(replay) {
+  return asObject(replay).language === "en";
 }
 
 function redactShadowEvaluatorState() {
@@ -864,6 +869,7 @@ function shadowObservationCard(observation, index, replay) {
   const source = asObject(observation);
   const text = asObject(source.text);
   const currentEnglish = isCurrentEnglishShadowReplay(replay);
+  const englishBoundary = isEnglishShadowReplay(replay);
   const canonicalSl = source.canonical_sl ?? text.canonical_sl;
   const operationalEn = source.operational_en ?? text.operational_en;
   const modelText = source.model_text ?? (currentEnglish ? source.text : canonicalSl);
@@ -875,7 +881,9 @@ function shadowObservationCard(observation, index, replay) {
     fieldGroup(
       currentEnglish
         ? "Current English model input"
-        : "Historical exact model input — Slovenian",
+        : englishBoundary
+          ? "Historical exact model input — English"
+          : "Historical exact model input — Slovenian",
       modelText || "The visible signal was degraded and contains no textual content."
     )
   );
@@ -886,7 +894,7 @@ function shadowObservationCard(observation, index, replay) {
     ["Provenance", source.provenance],
   ].filter(([, value]) => value !== null && value !== undefined && value !== "");
   if (metadata.length) append(item, keyValues(metadata));
-  if (operationalEn) {
+  if (operationalEn && !englishBoundary) {
     append(item, rawDetails("Historical operational English gloss — same evidence unit", operationalEn));
   }
   return item;
@@ -895,12 +903,13 @@ function shadowObservationCard(observation, index, replay) {
 function shadowVisibleInputCard(visibleInput, sourceMind = null, replay = null) {
   const visible = asObject(visibleInput);
   const currentEnglish = isCurrentEnglishShadowReplay(replay);
+  const englishBoundary = isEnglishShadowReplay(replay);
   const observations = asArray(visible.observations || visible.visible_observations);
   const options = asArray(visible.public_options || visible.public_option_scope);
   const result = card(
     currentEnglish
       ? "1 · What Racio received"
-      : "1 · Historical input received by Racio · Slovene model boundary",
+      : `1 · Historical input received by Racio · ${englishBoundary ? "English" : "Slovene"} model boundary`,
     null,
     "shadow-visible-card"
   );
@@ -946,14 +955,14 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null, replay = null) 
       fieldGroup(
         currentEnglish
           ? "Current English public option"
-          : "Historical public option text — Slovenian exact model input",
-        currentEnglish
+          : `Historical public option text — ${englishBoundary ? "English" : "Slovenian"} exact model input`,
+        englishBoundary
           ? record.model_text
           : record.canonical_sl ?? text.canonical_sl
       )
     );
     const english = record.operational_en ?? text.operational_en;
-    if (english) append(optionItem, rawDetails("Historical operational English gloss", english));
+    if (english && !englishBoundary) append(optionItem, rawDetails("Historical operational English gloss", english));
     append(optionList, optionItem);
   }
   append(
@@ -977,7 +986,9 @@ function shadowExactModelInputCard(exactInput) {
       "p",
       "shadow-source-note",
       complete
-        ? "This is the exact system instruction, user packet, output schema, and call configuration used for this result."
+        ? exact.source === "hash_verified_reconstruction"
+          ? "This exact request was reconstructed from the frozen packet and its identical request envelope, then verified against the dispatched request hash."
+          : "This is the exact persisted system instruction, user packet, output schema, and call configuration used for this result."
         : "This historical evidence preserved the packet but not a complete replayable provider request."
     )
   );
@@ -985,6 +996,8 @@ function shadowExactModelInputCard(exactInput) {
     append(
       result,
       keyValues([
+        ["Input evidence", exact.source],
+        ["Dispatched request SHA-256", exact.request_payload_sha256],
         ["Model", exact.model],
         ["Streaming", exact.stream],
         ["Separate private thinking requested", exact.think],
@@ -1062,13 +1075,34 @@ function shadowPlainSummaryCard(lane) {
       element("p", "", "Gemma did not select an option or claim a motive.")
     );
   } else if (shape === "failed") {
+    const failure = asObject(shadow.failure);
     append(
       result,
       element("strong", "", "The Gemma comparison failed; REI still completed normally."),
-      element("p", "", "No accepted Gemma interpretation was published.")
+      element("p", "", "No accepted Gemma interpretation was published."),
+      keyValues([
+        ["Failure stage", failure.stage],
+        ["Failure code", failure.code],
+        ["What this means", failure.summary],
+      ])
     );
   } else {
-    append(result, element("strong", "", "Gemma returned bounded review-only claims."));
+    const actions = asArray(shadow.action_hypotheses);
+    const option = asObject(shadow.option_inference);
+    const motives = asArray(shadow.motive_hypotheses);
+    append(
+      result,
+      element(
+        "strong",
+        "",
+        "Gemma made one or more review-only claims."
+      ),
+      element(
+        "p",
+        "",
+        `${actions.length} action claim · option ${option.option_id || "not selected"} · ${motives.length} motive claim`
+      )
+    );
   }
   if (shadow.status === "succeeded") {
     const actionClaims = asArray(shadow.action_hypotheses);
@@ -1480,6 +1514,7 @@ function renderShadowReplaySection() {
     entries.find((record) => asObject(record).evidence_id === state.selectedShadowEvidenceId)
   );
   const currentEnglishSelection = isCurrentEnglishShadowReplay(selectedRecord);
+  const historicalLanguage = selectedRecord.language === "en" ? "English" : "Slovene";
   append(
     boundary,
     element("strong", "", "Reviewing frozen shadow evidence"),
@@ -1488,7 +1523,7 @@ function renderShadowReplaySection() {
       "",
       currentEnglishSelection
         ? "Current English runtime replay. No model call will be made."
-        : "Historical · Slovene model boundary · retained for provenance · not the active runtime language contract."
+        : `Historical · ${historicalLanguage} model boundary · retained for provenance · not the active runtime language contract.`
     )
   );
   append(controls, field, boundary);
@@ -1503,12 +1538,13 @@ function renderShadowReplaySection() {
     return section;
   }
   if (replay.historical) {
+    const historyLanguage = replay.language === "en" ? "ENGLISH" : "SLOVENE";
     append(
       section,
       element(
         "div",
         "shadow-history-banner",
-        "HISTORICAL · SLOVENE MODEL BOUNDARY · RETAINED FOR PROVENANCE · NOT THE ACTIVE RUNTIME LANGUAGE CONTRACT"
+        `HISTORICAL · ${historyLanguage} MODEL BOUNDARY · RETAINED FOR PROVENANCE · NOT THE ACTIVE RUNTIME LANGUAGE CONTRACT`
       )
     );
   }

@@ -56,7 +56,8 @@ def frozen_views() -> dict[str, dict[str, Any]]:
 def test_registered_roots_and_external_receipt_cold_verify(
     frozen_views: dict[str, dict[str, Any]],
 ) -> None:
-    current = frozen_views["en1-runtime"]
+    current = frozen_views["en2-explained"]
+    previous_english = frozen_views["en1-runtime"]
     partial = frozen_views["s1-partial"]
     reconciled = frozen_views["s1r-reconciled"]
 
@@ -64,11 +65,13 @@ def test_registered_roots_and_external_receipt_cold_verify(
     assert current["integrity"]["receipt_required"] is True
     assert current["integrity"]["receipt_verified"] is True
     assert current["integrity"]["receipt_id"] == (
-        "gemma4_english_shadow_receipt_9faebda91fa84456a33a4306161e69a6"
+        "gemma4_en2_shadow_receipt_a2bc1cea5b615e2c9da81d1c83cfe2b3"
     )
     assert current["integrity"]["receipt_sha256"] == (
-        "4d759822a325e38a1015b26c4e74460988d01005f03eab69e121e271be23af47"
+        "702d149703a21fa3e4160522f0f26025248e97638e17d219df74847b704c8f20"
     )
+    assert previous_english["integrity"]["status"] == "cold_verified"
+    assert previous_english["integrity"]["receipt_verified"] is True
     assert partial["integrity"]["status"] == "cold_verified"
     assert partial["integrity"]["receipt_required"] is False
     assert partial["integrity"]["receipt_verified"] is False
@@ -89,10 +92,10 @@ def test_registered_roots_and_external_receipt_cold_verify(
     )
 
 
-def test_en1_current_runtime_projection_is_english_and_epistemically_bounded(
+def test_en2_current_runtime_projection_is_english_exact_and_honest(
     frozen_views: dict[str, dict[str, Any]],
 ) -> None:
-    current = frozen_views["en1-runtime"]
+    current = frozen_views["en2-explained"]
     emocio = current["lanes"]["emocio"]
     instinkt = current["lanes"]["instinkt"]
 
@@ -100,14 +103,27 @@ def test_en1_current_runtime_projection_is_english_and_epistemically_bounded(
     assert current["language"] == "en"
     assert current["historical"] is False
     assert current["language_boundary"] == "current_english_model_boundary"
-    assert emocio["presentation_shape"] == "full_abstention"
+    assert emocio["presentation_shape"] == "failed"
+    assert emocio["authoritative"]["status"] == "succeeded"
+    assert emocio["shadow"]["failure"] == {
+        "stage": "draft_v3_validation",
+        "code": "draft_v3_validation",
+        "summary": "The text-shadow final JSON failed explained-draft validation.",
+    }
+    assert emocio["exact_model_input"]["source"] == (
+        "hash_verified_reconstruction"
+    )
+    assert emocio["exact_model_input"]["request_payload_sha256"] == (
+        "241f08323136a88ab79e1c33687c5e2967dac17a8da429e40ef6a856f51e93aa"
+    )
     assert emocio["shadow"]["action_hypotheses"] == []
     assert emocio["shadow"]["option_inference"] is None
     assert emocio["shadow"]["motive_hypotheses"] == []
-    assert instinkt["presentation_shape"] == "action_only"
+    assert instinkt["presentation_shape"] == "bounded_claims"
+    assert instinkt["exact_model_input"]["source"] == "persisted_exact"
     assert len(instinkt["shadow"]["action_hypotheses"]) == 1
-    assert instinkt["shadow"]["option_inference"] is None
-    assert instinkt["shadow"]["motive_hypotheses"] == []
+    assert instinkt["shadow"]["option_inference"]["option_id"] == "option_001"
+    assert len(instinkt["shadow"]["motive_hypotheses"]) == 1
     assert all(
         observation["model_text"] is None
         or isinstance(observation["model_text"], str)
@@ -119,23 +135,30 @@ def test_en1_current_runtime_projection_is_english_and_epistemically_bounded(
         for lane in (emocio, instinkt)
         for option in lane["visible_input"]["public_options"]
     )
-    assert all(
-        not reason or reason.startswith("Racio did not derive")
-        for lane in (emocio, instinkt)
-        for reason in lane["shadow"]["unknown_reasons"].values()
-    )
+    assert instinkt["shadow"]["unknown_reasons"] == {
+        "action": None,
+        "option": None,
+        "motive": None,
+    }
+    for lane in (emocio, instinkt):
+        exact = lane["exact_model_input"]
+        assert exact["availability"] == "complete"
+        assert "Use the names Emocio, Instinkt, and Racio exactly." in (
+            exact["system_instruction"]
+        )
+        assert json.loads(exact["user_packet_json"])["language"] == "en"
     serialized = json.dumps(current, ensure_ascii=False, sort_keys=True)
     for forbidden in ('"canonical_sl"', '"notes_sl"', '"prompt_sl"'):
         assert forbidden not in serialized
 
 
-def test_en1_api_detail_uses_the_current_english_boundary() -> None:
+def test_en2_api_detail_uses_the_current_english_boundary() -> None:
     payload = server.shadow_evidence_detail(
-        "en1-runtime",
-        _http_request(path="/api/shadow-evidence/en1-runtime"),
+        "en2-explained",
+        _http_request(path="/api/shadow-evidence/en2-explained"),
     )
 
-    assert payload["evidence_id"] == "en1-runtime"
+    assert payload["evidence_id"] == "en2-explained"
     assert payload["kind"] == "current_runtime"
     assert payload["language"] == "en"
     assert payload["model_calls"] == 0
@@ -151,6 +174,17 @@ def test_s1_and_s1r_remain_historical_slovene_evidence(
         assert view["historical"] is True
         assert view["language_boundary"] == "historical_slovene_model_boundary"
         assert "historical Slovene" in view["label"]
+
+
+def test_en1_remains_historical_english_evidence(
+    frozen_views: dict[str, dict[str, Any]],
+) -> None:
+    view = frozen_views["en1-runtime"]
+    assert view["kind"] == "historical"
+    assert view["language"] == "en"
+    assert view["historical"] is True
+    assert view["language_boundary"] == "historical_english_model_boundary"
+    assert "historical English" in view["label"]
 
 
 def test_explained_projection_separates_gemma_text_from_canonicalizer_text() -> None:
@@ -239,14 +273,40 @@ def test_exact_model_input_projection_exposes_request_without_safety_notice() ->
     }
     projected = shadow_view._exact_model_input_view(  # noqa: SLF001
         {"language": "en"},
-        {"call_id": "call_001", "safety_notice": {"canonical_sl": "hidden"}},
+        {
+            "call_id": "call_001",
+            "parameters": [
+                {
+                    "name": "request_payload_sha256",
+                    "canonical_json_value": json.dumps(
+                        shadow_view.sha256_hex(exact_request)
+                    ),
+                }
+            ],
+            "safety_notice": {"canonical_sl": "hidden"},
+        },
         {"exact_model_request": exact_request},
+        None,
     )
 
     assert projected["availability"] == "complete"
     assert projected["system_instruction"] == "Use Emocio, Instinkt, and Racio."
     assert projected["user_packet_json"] == '{"language":"en"}'
-    assert projected["call_spec"] == {"call_id": "call_001"}
+    assert projected["source"] == "persisted_exact"
+    assert projected["request_payload_sha256"] == shadow_view.sha256_hex(
+        exact_request
+    )
+    assert projected["call_spec"] == {
+        "call_id": "call_001",
+        "parameters": [
+            {
+                "name": "request_payload_sha256",
+                "canonical_json_value": json.dumps(
+                    shadow_view.sha256_hex(exact_request)
+                ),
+            }
+        ],
+    }
     assert "canonical_sl" not in json.dumps(projected, sort_keys=True)
 
 
@@ -421,6 +481,30 @@ def test_tampered_en1_route_returns_409(
     )
 
 
+def test_tampered_en2_route_returns_409(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    relative = Path(
+        "Docs/evals/semantic_lab_v1/en2-gemma4-explained-shadow-2026-07-21"
+    )
+    copied = tmp_path / relative
+    shutil.copytree(ROOT / relative, copied)
+    summary = copied / "summary.json"
+    summary.write_bytes(summary.read_bytes() + b"\n")
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+
+    with pytest.raises(HTTPException) as raised:
+        server.shadow_evidence_detail(
+            "en2-explained",
+            _http_request(path="/api/shadow-evidence/en2-explained"),
+        )
+    assert raised.value.status_code == 409
+    assert raised.value.detail == (
+        "Frozen shadow evidence failed integrity verification."
+    )
+
+
 def test_scan_enforces_file_count_limit(tmp_path: Path) -> None:
     root = tmp_path / "bounded-root"
     root.mkdir()
@@ -556,7 +640,7 @@ import sys
 from app.gui import server
 from app.gui.shadow_view import build_shadow_evidence_view
 server.bootstrap()
-for evidence_id in ('en1-runtime', 's1-partial', 's1r-reconciled'):
+for evidence_id in ('en2-explained', 'en1-runtime', 's1-partial', 's1r-reconciled'):
     build_shadow_evidence_view(Path.cwd(), evidence_id)
 for name in sorted(sys.modules):
     lowered = name.lower()
@@ -577,14 +661,16 @@ for name in sorted(sys.modules):
 
 def test_verified_index_is_read_only_and_model_free() -> None:
     payload = shadow_view.build_shadow_evidence_index(ROOT)
-    assert payload["default_evidence_id"] == "en1-runtime"
+    assert payload["default_evidence_id"] == "en2-explained"
     assert [item["evidence_id"] for item in payload["evidence"]] == [
+        "en2-explained",
         "en1-runtime",
         "s1-partial",
         "s1r-reconciled",
     ]
     assert [item["label"] for item in payload["evidence"]] == [
-        "EN1 · current English runtime shadow",
+        "EN2 · current explained English shadow",
+        "EN1 · historical English runtime shadow",
         "S1 · historical Slovene partial failure",
         "S1R · historical Slovene reconciled success",
     ]
@@ -592,14 +678,17 @@ def test_verified_index_is_read_only_and_model_free() -> None:
         "current_runtime",
         "historical",
         "historical",
+        "historical",
     ]
     assert [item["language"] for item in payload["evidence"]] == [
+        "en",
         "en",
         "sl",
         "sl",
     ]
     assert all(
-        "English local-model boundary" in item["summary"]
+        "Current explained English boundary" in item["summary"]
+        or "Previous English boundary" in item["summary"]
         or "authoritative deterministic cycle" in item["summary"]
         or "action-only hypothesis" in item["summary"]
         for item in payload["evidence"]
@@ -615,6 +704,9 @@ def test_all_registered_roots_and_receipts_are_read_only_during_replay() -> None
         ROOT / "Docs/evals/semantic_lab_v1/s1-gemma4-text-shadow-2026-07-19",
         ROOT / "Docs/evals/semantic_lab_v1/s1r-gemma4-text-shadow-2026-07-19",
         ROOT / "Docs/evals/semantic_lab_v1/en1-gemma4-text-shadow-2026-07-20",
+        ROOT
+        / "Docs/evals/semantic_lab_v1/"
+        "en2-gemma4-explained-shadow-2026-07-21",
     )
     receipts = (
         ROOT
@@ -623,6 +715,9 @@ def test_all_registered_roots_and_receipts_are_read_only_during_replay() -> None
         ROOT
         / "Docs/evals/research_reset_2026-07/"
         "gemma4_english_runtime_shadow_smoke_receipt.json",
+        ROOT
+        / "Docs/evals/research_reset_2026-07/"
+        "gemma4_english_explained_shadow_smoke_receipt.json",
     )
 
     def snapshot() -> dict[str, bytes]:

@@ -156,7 +156,12 @@ def test_bootstrap_is_fixture_only_and_exposes_all_profile_contracts(
         "available": True,
         "live_model_execution": False,
         "authority": "none",
-        "evidence_ids": ["en1-runtime", "s1-partial", "s1r-reconciled"],
+        "evidence_ids": [
+            "en2-explained",
+            "en1-runtime",
+            "s1-partial",
+            "s1r-reconciled",
+        ],
     }
     assert payload["safety_caveat"] == PUBLIC_SAFETY_CAVEAT_EN
     assert len(payload["profile_contracts"]) == 13
@@ -1264,18 +1269,19 @@ def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> Non
     assert "Selected research input — ${language}" in frontend
     assert '"Source family title — Slovenian"' in frontend
     assert '"Historical exact model input — Slovenian"' in frontend
-    assert 'selectedShadowEvidenceId: "en1-runtime"' in frontend
+    assert 'selectedShadowEvidenceId: "en2-explained"' in frontend
     assert '"CURRENT RUNTIME EVIDENCE"' in frontend
     assert '"HISTORICAL EVIDENCE"' in frontend
     assert '"Current English model input"' in frontend
+    assert '"Historical exact model input — English"' in frontend
     assert '"3 · Exact Gemma result — for review only"' in frontend
     assert '"4 · System-added text — not written by Gemma"' in frontend
     assert '"Gemma did not explain why.' in frontend
     assert '"Exact input sent to Gemma"' in frontend
     assert 'selectedShadowMind: "E"' in frontend
     assert '[["E", "Emocio"], ["I", "Instinkt"]]' in frontend
-    assert '"Historical · Slovene model boundary · retained for provenance · not the active runtime language contract."' in frontend
-    assert '"1 · Historical input received by Racio · Slovene model boundary"' in frontend
+    assert 'selectedRecord.language === "en" ? "English" : "Slovene"' in frontend
+    assert 'englishBoundary ? "English" : "Slovene"' in frontend
     assert 'card("What Racio actually saw"' in frontend
 
 
