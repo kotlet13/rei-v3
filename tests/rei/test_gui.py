@@ -1268,11 +1268,31 @@ def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> Non
     assert '"CURRENT RUNTIME EVIDENCE"' in frontend
     assert '"HISTORICAL EVIDENCE"' in frontend
     assert '"Current English model input"' in frontend
-    assert '"Current English Gemma output · NO AUTHORITY"' in frontend
-    assert '"Current English option unknown reason"' in frontend
+    assert '"3 · Exact Gemma result — for review only"' in frontend
+    assert '"4 · System-added text — not written by Gemma"' in frontend
+    assert '"Gemma did not explain why.' in frontend
+    assert '"Exact input sent to Gemma"' in frontend
+    assert 'selectedShadowMind: "E"' in frontend
+    assert '[["E", "Emocio"], ["I", "Instinkt"]]' in frontend
     assert '"Historical · Slovene model boundary · retained for provenance · not the active runtime language contract."' in frontend
-    assert '"Historical action unknown reason — Slovenian exact accepted output"' in frontend
+    assert '"1 · Historical input received by Racio · Slovene model boundary"' in frontend
     assert 'card("What Racio actually saw"' in frontend
+
+
+def test_racio_emocio_and_instinkt_names_are_never_translated_in_shadow_gui() -> None:
+    frontend = (ROOT / "app" / "gui" / "static" / "app.js").read_text(
+        encoding="utf-8"
+    )
+    shadow_start = frontend.index("function shadowRegistryEntries")
+    shadow_end = frontend.index("function renderSceneSlot")
+    shadow_source = frontend[shadow_start:shadow_end]
+
+    assert '"Emocio"' in shadow_source
+    assert '"Instinkt"' in shadow_source
+    assert "Racio" in shadow_source
+    assert "Emotion → Racio" not in shadow_source
+    assert "Instinct → Racio" not in shadow_source
+    assert "Reason" not in shadow_source
 
     for forbidden_chrome in (
         "Racio ground trutha ni prejel.",

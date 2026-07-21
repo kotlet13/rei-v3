@@ -35,6 +35,14 @@ from app.backend.rei.providers.ollama_gemma4_epistemic_en import (
     GEMMA4_EPISTEMIC_EN_PROVIDER_REVISION,
     OllamaGemma4EpistemicEnProvider,
 )
+from app.backend.rei.providers.ollama_gemma4_epistemic_en_explained import (
+    GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION,
+    GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION_SHA256,
+    GEMMA4_EPISTEMIC_EN_EXPLAINED_PROVIDER_REVISION,
+    GEMMA4_EPISTEMIC_EN_EXPLAINED_SCHEMA_SHA256,
+    OllamaGemma4EpistemicExplainedEnProvider,
+    gemma4_epistemic_en_explained_output_schema,
+)
 from app.backend.rei.providers.ollama_gemma4_epistemic_v3 import (
     GEMMA4_EPISTEMIC_V3_INSTRUCTION,
     GEMMA4_EPISTEMIC_V3_INSTRUCTION_SHA256,
@@ -447,3 +455,175 @@ def test_frozen_v3_instruction_schema_packet_and_source_files_are_unchanged() ->
     for relative_path, expected in frozen_hashes.items():
         actual = hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest()
         assert actual == expected
+
+
+def _explained_provider(
+    transport: FakeEnglishOllamaTransport,
+) -> OllamaGemma4EpistemicExplainedEnProvider:
+    provider = OllamaGemma4EpistemicExplainedEnProvider.discover(
+        client=OllamaApiClient(transport=transport),
+        environ=ENVIRONMENT,
+    )
+    assert isinstance(provider, OllamaGemma4EpistemicExplainedEnProvider)
+    return provider
+
+
+def _explained_draft_payload(*, full_abstention: bool = False) -> dict[str, Any]:
+    semantic = _draft_payload()
+    if full_abstention:
+        semantic["action_hypotheses"] = []
+        semantic["option_inference"] = None
+    semantic.update(
+        {
+            "action_abstention_explanation": (
+                {
+                    "explanation": (
+                        "The visible observation does not display a supported action."
+                    ),
+                    "cited_observation_ids": ["observation_001"],
+                }
+                if full_abstention
+                else None
+            ),
+            "option_abstention_explanation": (
+                {
+                    "explanation": (
+                        "The visible observation does not distinguish a public option."
+                    ),
+                    "cited_observation_ids": ["observation_001"],
+                }
+                if full_abstention
+                else None
+            ),
+            "motive_abstention_explanation": {
+                "explanation": (
+                    "The visible movement supplies no independent evidence of a motive."
+                ),
+                "cited_observation_ids": ["observation_001"],
+            },
+        }
+    )
+    return semantic
+
+
+def test_explained_provider_is_additive_and_uses_exact_names() -> None:
+    provider = _explained_provider(FakeEnglishOllamaTransport())
+    parameters = _parameter_values(provider.build_call_spec(_packet()))
+
+    assert GEMMA4_EPISTEMIC_EN_EXPLAINED_PROVIDER_REVISION == (
+        "rei-racio-gemma4-epistemic-v3-en-explained-chat-v1"
+    )
+    assert GEMMA4_EPISTEMIC_EN_PROVIDER_REVISION == (
+        "rei-racio-gemma4-epistemic-v3-en-chat-v1"
+    )
+    assert parameters["instruction_sha256"] == (
+        GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION_SHA256
+    )
+    assert parameters["draft_schema_sha256"] == (
+        GEMMA4_EPISTEMIC_EN_EXPLAINED_SCHEMA_SHA256
+    )
+    assert "Emocio, Instinkt, and Racio exactly" in (
+        GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION
+    )
+    assert "Emotion" not in GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION
+    assert "Instinct" not in GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION
+
+
+def test_explained_request_is_exact_english_and_closed() -> None:
+    provider = _explained_provider(FakeEnglishOllamaTransport())
+    packet = _packet()
+    payload = provider.request_payload(packet)
+
+    assert payload["messages"] == [
+        {
+            "role": "system",
+            "content": GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION,
+        },
+        {
+            "role": "user",
+            "content": packet.provider_payload_bytes().decode("utf-8"),
+        },
+    ]
+    assert payload["format"] == gemma4_epistemic_en_explained_output_schema()
+    serialized = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+    assert "canonical_sl" not in serialized
+    assert "native_truth" not in serialized
+    assert "GovernanceMandate" not in serialized
+
+
+def test_explained_success_persists_exact_request_and_model_explanation() -> None:
+    final_json = json.dumps(_explained_draft_payload())
+    transport = FakeEnglishOllamaTransport(_response(final_json))
+    provider = _explained_provider(transport)
+    packet = _packet()
+
+    execution = provider.execute(
+        packet,
+        call=provider.build_call_spec(packet),
+        clock=_clock(),
+    )
+
+    assert transport.chat_count == 1
+    assert execution.output.action_hypotheses[0].subtype == "retreat"
+    assert execution.output.option_inference is not None
+    assert execution.output.motive_hypotheses == ()
+    explanation = execution.draft.motive_abstention_explanation
+    assert explanation is not None
+    assert explanation.cited_observation_ids == ("observation_001",)
+    evidence = execution.response_evidence
+    assert evidence.exact_model_request == provider.request_payload(packet)
+    assert evidence.exact_model_request_hash == evidence.request_payload_hash
+    assert evidence.abstention_explanations_authority is False
+    assert evidence.abstention_explanations_semantic_claim_evidence is False
+    serialized = evidence.canonical_json_bytes().decode("utf-8")
+    assert "Private model reasoning" not in serialized
+
+
+def test_explained_full_abstention_requires_concrete_scoped_explanations() -> None:
+    final_json = json.dumps(_explained_draft_payload(full_abstention=True))
+    transport = FakeEnglishOllamaTransport(_response(final_json))
+    provider = _explained_provider(transport)
+    packet = _packet()
+
+    execution = provider.execute(
+        packet,
+        call=provider.build_call_spec(packet),
+        clock=_clock(),
+    )
+
+    assert execution.output.action_hypotheses == ()
+    assert execution.output.option_inference is None
+    assert execution.output.motive_hypotheses == ()
+    assert execution.draft.action_abstention_explanation is not None
+    assert execution.draft.option_abstention_explanation is not None
+    assert execution.draft.motive_abstention_explanation is not None
+
+
+@pytest.mark.parametrize("failure", ("missing", "outside_scope"))
+def test_invalid_explanation_fails_closed_after_one_attempt(failure: str) -> None:
+    payload = _explained_draft_payload(full_abstention=True)
+    if failure == "missing":
+        payload["action_abstention_explanation"] = None
+    else:
+        payload["action_abstention_explanation"]["cited_observation_ids"] = [
+            "observation_outside"
+        ]
+    transport = FakeEnglishOllamaTransport(_response(json.dumps(payload)))
+    provider = _explained_provider(transport)
+    packet = _packet()
+
+    with pytest.raises(Gemma4EpistemicV3ExecutionError) as caught:
+        provider.execute(
+            packet,
+            call=provider.build_call_spec(packet),
+            clock=_clock(),
+        )
+
+    assert transport.chat_count == 1
+    if failure == "missing":
+        assert caught.value.failure_stage == "draft_v3_validation"
+    else:
+        assert caught.value.failure_stage == "canonicalizer_v3_validation"
+        assert "outside visible English packet scope" in str(
+            caught.value.validation_error
+        )

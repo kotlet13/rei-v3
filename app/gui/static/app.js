@@ -25,6 +25,7 @@ const state = {
   shadowEvidence: null,
   shadowEvidenceError: null,
   selectedShadowEvidenceId: "en1-runtime",
+  selectedShadowMind: "E",
   shadowBusy: false,
   shadowRequestGeneration: 0,
   shadowAbortController: null,
@@ -898,8 +899,8 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null, replay = null) 
   const options = asArray(visible.public_options || visible.public_option_scope);
   const result = card(
     currentEnglish
-      ? "Current English model input"
-      : "Historical visible conscious input · Slovene model boundary",
+      ? "1 · What Racio received"
+      : "1 · Historical input received by Racio · Slovene model boundary",
     null,
     "shadow-visible-card"
   );
@@ -959,15 +960,186 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null, replay = null) 
     result,
     fieldGroup("Public option scope", options.length ? `${options.length} options` : "Empty public scope"),
     optionList,
-    rawDetails("Inspect safe visible-input artifact", visible.raw_details || visible)
+    rawDetails("Inspect the stored packet artifact", visible.raw_details || visible)
   );
+  return result;
+}
+
+function shadowExactModelInputCard(exactInput) {
+  const exact = asObject(exactInput);
+  const complete = exact.availability === "complete";
+  const result = card("Exact input sent to Gemma", null, "shadow-exact-input-card");
+  result.dataset.shadowKind = "exact-model-input";
+  append(
+    result,
+    statusPill("exact request", complete ? "available" : "not preserved"),
+    element(
+      "p",
+      "shadow-source-note",
+      complete
+        ? "This is the exact system instruction, user packet, output schema, and call configuration used for this result."
+        : "This historical evidence preserved the packet but not a complete replayable provider request."
+    )
+  );
+  if (complete) {
+    append(
+      result,
+      keyValues([
+        ["Model", exact.model],
+        ["Streaming", exact.stream],
+        ["Separate private thinking requested", exact.think],
+      ]),
+      rawDetails("Exact system instruction", exact.system_instruction),
+      rawDetails("Exact user packet JSON", exact.user_packet_json),
+      rawDetails("Exact output schema", exact.output_schema),
+      rawDetails("Exact generation settings", exact.options),
+      rawDetails("Exact ProviderCallSpec", exact.call_spec),
+      rawDetails("Complete sanitized request payload", exact.exact_request)
+    );
+  } else {
+    append(
+      result,
+      rawDetails("Stored packet artifact", exact.packet_artifact),
+      rawDetails("Stored ProviderCallSpec", exact.call_spec)
+    );
+  }
+  return result;
+}
+
+function uncertaintyPlainText(value) {
+  if (value === "not_reported") return "Gemma did not say whether Racio was uncertain.";
+  if (value === "uncertain") return "Gemma reported that Racio was uncertain.";
+  if (value === "not_uncertain") return "Gemma reported that Racio was not uncertain.";
+  return value || "Not available";
+}
+
+function shadowExplanationBlock(label, explanation) {
+  const source = asObject(explanation);
+  const block = element("div", "shadow-explanation-block");
+  append(
+    block,
+    element("h4", "", label),
+    fieldGroup(
+      "Gemma's explanation",
+      source.explanation || "Gemma did not provide an explanation."
+    )
+  );
+  if (source.explanation) {
+    append(
+      block,
+      shadowCitations(
+        "Observations cited by Gemma",
+        source.cited_observation_ids
+      )
+    );
+  }
+  return block;
+}
+
+function shadowPlainSummaryCard(lane) {
+  const source = asObject(lane);
+  const shadow = asObject(source.shadow);
+  const explanations = asObject(shadow.model_authored_abstention_explanations);
+  const shape = source.presentation_shape;
+  const result = card("Result in plain language", null, "shadow-plain-summary-card");
+  result.dataset.shadowKind = "plain-summary";
+  if (shape === "full_abstention") {
+    append(
+      result,
+      element("strong", "", "Gemma made no action, option, or motive claim."),
+      element(
+        "p",
+        "",
+        shadow.model_explanation_status === "provided"
+          ? "Gemma supplied the cited explanations shown below."
+          : "Gemma did not explain why. Any standard unknown text shown elsewhere was added by deterministic code."
+      )
+    );
+  } else if (shape === "action_only") {
+    append(
+      result,
+      element("strong", "", "Gemma made an action claim only."),
+      element("p", "", "Gemma did not select an option or claim a motive.")
+    );
+  } else if (shape === "failed") {
+    append(
+      result,
+      element("strong", "", "The Gemma comparison failed; REI still completed normally."),
+      element("p", "", "No accepted Gemma interpretation was published.")
+    );
+  } else {
+    append(result, element("strong", "", "Gemma returned bounded review-only claims."));
+  }
+  if (shadow.status === "succeeded") {
+    const actionClaims = asArray(shadow.action_hypotheses);
+    const optionClaim = asObject(shadow.option_inference);
+    const motiveClaims = asArray(shadow.motive_hypotheses);
+    const absenceExplanations = [];
+    if (actionClaims.length === 0) {
+      absenceExplanations.push(
+        shadowExplanationBlock("Why no action claim?", explanations.action)
+      );
+    }
+    if (Object.keys(optionClaim).length === 0) {
+      absenceExplanations.push(
+        shadowExplanationBlock("Why no option claim?", explanations.option)
+      );
+    }
+    if (motiveClaims.length === 0) {
+      absenceExplanations.push(
+        shadowExplanationBlock("Why no motive claim?", explanations.motive)
+      );
+    }
+    append(
+      result,
+      ...absenceExplanations,
+      keyValues([
+        ["Option uncertainty", uncertaintyPlainText(asObject(shadow.uncertainty).option_mapping)],
+        ["Motive uncertainty", uncertaintyPlainText(asObject(shadow.uncertainty).motive_interpretation)],
+      ])
+    );
+  }
+  return result;
+}
+
+function shadowCanonicalizerCard(shadow) {
+  const source = asObject(shadow);
+  const additions = asArray(source.canonicalizer_additions);
+  const result = card(
+    "4 · System-added text — not written by Gemma",
+    null,
+    "shadow-canonicalizer-card"
+  );
+  result.dataset.shadowKind = "canonicalizer-additions";
+  append(
+    result,
+    element(
+      "p",
+      "shadow-source-note",
+      "The deterministic canonicalizer added these standard placeholders so the stored result satisfies the frozen V3 structure. They are not Gemma explanations."
+    )
+  );
+  if (!additions.length) {
+    append(result, fieldGroup("Added fields", "None"));
+    return result;
+  }
+  const list = element("div", "shadow-canonicalizer-list");
+  additions.forEach((addition) => {
+    const item = asObject(addition);
+    append(
+      list,
+      fieldGroup(`${item.claim_kind || "Claim"} placeholder`, item.value),
+      shadowEnumValue("Stored field", item.field)
+    );
+  });
+  append(result, list);
   return result;
 }
 
 function shadowAuthoritativeCard(authoritative) {
   const source = asObject(authoritative);
   const result = card(
-    "Authoritative Racio · deterministic",
+    "2 · Authoritative Racio — used by REI",
     null,
     "shadow-authoritative-card"
   );
@@ -1038,14 +1210,14 @@ function shadowStatusNotice(shadow, presentationShape) {
   if (shape === "full_abstention") {
     append(
       notice,
-      element("strong", "", "Epistemically bounded abstention"),
-      element("p", "", "Racio did not have enough visible evidence to support a claim.")
+      element("strong", "", "Gemma made no claim"),
+      element("p", "", "No action, option, or motive claim was returned.")
     );
   } else if (shape === "action_only") {
     append(
       notice,
-      element("strong", "", "Bounded action-only interpretation"),
-      element("p", "", "An action claim is present; the option and motive remain unknown.")
+      element("strong", "", "Gemma made an action claim only"),
+      element("p", "", "The option and motive remained unresolved.")
     );
   } else if (shape === "failed") {
     append(
@@ -1056,8 +1228,8 @@ function shadowStatusNotice(shadow, presentationShape) {
   } else {
     append(
       notice,
-      element("strong", "", "Bounded epistemic claims"),
-      element("p", "", "The displayed claims are a diagnostic shadow result with no authority.")
+      element("strong", "", "Gemma returned review-only claims"),
+      element("p", "", "The displayed claims did not affect REI.")
     );
   }
   return notice;
@@ -1075,12 +1247,11 @@ function shadowInterpretationCard(shadow, presentationShape, replay = null) {
       || source.racio_reported_uncertainty
       || output.racio_reported_uncertainty
   );
-  const unknownReasons = asObject(source.unknown_reasons);
   const failure = asObject(source.failure);
   const result = card(
     currentEnglish
-      ? "Current English Gemma output · NO AUTHORITY"
-      : "Historical Gemma V3 shadow · NO AUTHORITY",
+      ? "3 · Exact Gemma result — for review only"
+      : "3 · Historical Gemma result — for review only",
     null,
     "shadow-model-card"
   );
@@ -1111,13 +1282,7 @@ function shadowInterpretationCard(shadow, presentationShape, replay = null) {
     append(
       result,
       fieldGroup("Action hypotheses", actions.length ? `${actions.length}` : "No action claim"),
-      actionClaims,
-      fieldGroup(
-        currentEnglish
-          ? "Current English action unknown reason"
-          : "Historical action unknown reason — Slovenian exact accepted output",
-        unknownReasons.action ?? source.action_unknown_reason ?? output.action_unknown_reason
-      )
+      actionClaims
     );
 
     const optionSection = element("div", "shadow-claim shadow-option-claim");
@@ -1132,13 +1297,7 @@ function shadowInterpretationCard(shadow, presentationShape, replay = null) {
     } else {
       append(
         optionSection,
-        fieldGroup("Status", "No option claim"),
-        fieldGroup(
-          currentEnglish
-            ? "Current English option unknown reason"
-            : "Historical option unknown reason — Slovenian exact accepted output",
-          unknownReasons.option ?? source.option_unknown_reason ?? output.option_unknown_reason
-        )
+        fieldGroup("Status", "No option claim")
       );
     }
     append(result, optionSection);
@@ -1149,19 +1308,18 @@ function shadowInterpretationCard(shadow, presentationShape, replay = null) {
       result,
       fieldGroup("Motive hypotheses", motives.length ? `${motives.length}` : "No motive claim"),
       motiveClaims,
-      fieldGroup(
-        currentEnglish
-          ? "Current English motive unknown reason"
-          : "Historical motive unknown reason — Slovenian exact accepted output",
-        unknownReasons.motive ?? source.motive_unknown_reason ?? output.motive_unknown_reason
-      ),
       keyValues([
-        ["Option uncertainty", uncertainty.option_mapping],
-        ["Motive uncertainty", uncertainty.motive_interpretation],
+        ["Option uncertainty", uncertaintyPlainText(uncertainty.option_mapping)],
+        ["Motive uncertainty", uncertaintyPlainText(uncertainty.motive_interpretation)],
       ])
     );
   }
-  append(result, rawDetails("Inspect safe shadow artifact", source.raw_details || source));
+  append(
+    result,
+    rawDetails("Exact JSON returned by Gemma", source.model_draft),
+    rawDetails("Canonical accepted interpretation", asObject(source.raw_details).interpretation),
+    rawDetails("Inspect complete safe shadow artifact", source.raw_details || source)
+  );
   return result;
 }
 
@@ -1238,6 +1396,12 @@ function shadowDebugCard(debugTruth) {
   return result;
 }
 
+function shadowAdvancedDetails(title, child) {
+  const details = element("details", "shadow-advanced-details");
+  append(details, element("summary", "", title), child);
+  return details;
+}
+
 function shadowLaneSection(lane, mind, index, replay = null) {
   const source = asObject(lane);
   const label = source.mind_label || (mind === "E" ? "Emocio" : "Instinkt");
@@ -1246,7 +1410,9 @@ function shadowLaneSection(lane, mind, index, replay = null) {
   append(
     section,
     subsectionTitle(`${label} → Racio`, `source mind ${source.source_mind || mind}`),
-    shadowVisibleInputCard(source.visible_input, source.source_mind || mind, replay)
+    shadowPlainSummaryCard(source),
+    shadowVisibleInputCard(source.visible_input, source.source_mind || mind, replay),
+    shadowExactModelInputCard(source.exact_model_input)
   );
   const pair = element("div", "shadow-interpretation-grid");
   append(
@@ -1257,7 +1423,11 @@ function shadowLaneSection(lane, mind, index, replay = null) {
   append(
     section,
     pair,
-    shadowComparisonCard(source.diagnostic_comparison),
+    shadowCanonicalizerCard(source.shadow),
+    shadowAdvancedDetails(
+      "Advanced diagnostic comparison",
+      shadowComparisonCard(source.diagnostic_comparison)
+    ),
     shadowDebugCard(source.debug_evaluator_ground_truth),
     rawDetails(`Inspect complete safe ${label} replay lane`, source.raw_details || source)
   );
@@ -1359,15 +1529,36 @@ function renderShadowReplaySection() {
     fieldGroup("Frozen evidence summary", replay.summary)
   );
   const lanes = replay.lanes;
-  const laneStack = element("div", "shadow-lane-stack");
-  for (const [mind, index] of [["E", 0], ["I", 1]]) {
-    append(
-      laneStack,
-      shadowLaneSection(byMind(lanes, mind, index), mind, index, replay)
-    );
+  const laneTabs = element("div", "shadow-mind-tabs");
+  laneTabs.setAttribute("role", "tablist");
+  laneTabs.setAttribute("aria-label", "Racio shadow source mind");
+  for (const [mind, label] of [["E", "Emocio"], ["I", "Instinkt"]]) {
+    const button = element("button", "shadow-mind-tab", label);
+    button.type = "button";
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-selected", String(state.selectedShadowMind === mind));
+    button.dataset.shadowMind = mind;
+    button.addEventListener("click", () => {
+      state.selectedShadowMind = mind;
+      renderRacioPanel(state.result?.panels?.racio);
+    });
+    append(laneTabs, button);
   }
+  const laneStack = element("div", "shadow-lane-stack");
+  const selectedMind = state.selectedShadowMind === "I" ? "I" : "E";
+  const selectedIndex = selectedMind === "E" ? 0 : 1;
+  append(
+    laneStack,
+    shadowLaneSection(
+      byMind(lanes, selectedMind, selectedIndex),
+      selectedMind,
+      selectedIndex,
+      replay
+    )
+  );
   append(
     section,
+    laneTabs,
     laneStack,
     rawDetails("Inspect complete safe frozen replay", replay.raw_details || replay)
   );

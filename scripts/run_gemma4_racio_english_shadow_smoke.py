@@ -59,6 +59,17 @@ from scripts.run_gemma4_racio_text_shadow_smoke import (  # noqa: E402
 
 IMPLEMENTATION_COMMIT = "e607993baafa2ebe743251d3baaee38e2e9c190d"
 BRANCH = "codex/rei-english-runtime-smoke"
+PHASE = "EN1"
+EVENT_ID = "en1_gemma4_text_shadow_event"
+RUN_ID = "en1-gemma4-text-shadow-cycle"
+EGO_ID = "en1-gemma4-text-shadow-ego"
+RUNNER_PATH = Path(__file__).resolve()
+RUNNER_RELATIVE_PATH = "scripts/run_gemma4_racio_english_shadow_smoke.py"
+FOCUSED_TEST_RELATIVE_PATH = "tests/rei/test_english_runtime_shadow_smoke.py"
+SEALED_SOURCE_PATHS = (
+    RUNNER_RELATIVE_PATH,
+    FOCUSED_TEST_RELATIVE_PATH,
+)
 BASE_FIXTURE = (
     ROOT / "tests" / "fixtures" / "native_cycles" / "deterministic_e2e.json"
 )
@@ -91,6 +102,9 @@ MODEL_DIGEST = (
     "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7"
 )
 PROVIDER_REVISION = "rei-racio-gemma4-epistemic-v3-en-chat-v1"
+INSTRUCTION_SHA256 = GEMMA4_EPISTEMIC_V3_INSTRUCTION_SHA256
+DRAFT_SCHEMA_SHA256 = GEMMA4_EPISTEMIC_V3_SCHEMA_SHA256
+DRAFT_MODEL_SCHEMA_SHA256 = sha256_hex(RacioEpistemicDraftV3.model_json_schema())
 EXPECTED_CALLS = 2
 MANIFEST_NAME = "smoke_evidence_manifest.json"
 MANIFEST_ID_PREFIX = "gemma4_en_shadow_manifest"
@@ -149,7 +163,7 @@ def _build_request() -> ReiNativeCycleRequest:
     )
     scene = request.scene.model_copy(
         update={
-            "event_id": "en1_gemma4_text_shadow_event",
+            "event_id": EVENT_ID,
             "raw_input": (
                 "Decide whether to restore the shared workshop or leave it closed."
             ),
@@ -164,8 +178,8 @@ def _build_request() -> ReiNativeCycleRequest:
     return ReiNativeCycleRequest.model_validate(
         request.model_copy(
             update={
-                "run_id": "en1-gemma4-text-shadow-cycle",
-                "ego_id": "en1-gemma4-text-shadow-ego",
+                "run_id": RUN_ID,
+                "ego_id": EGO_ID,
                 "source_commit": IMPLEMENTATION_COMMIT,
                 "scene": scene,
             }
@@ -282,7 +296,7 @@ def _seal_candidate(
     )
     return {
         "schema_version": "rei-gemma4-english-shadow-smoke-seal-v1",
-        "phase": "EN1",
+        "phase": PHASE,
         "implementation_commit": IMPLEMENTATION_COMMIT,
         "branch_head_before_seal": branch_head_before_seal,
         "branch": BRANCH,
@@ -297,7 +311,10 @@ def _seal_candidate(
         "instinkt_world_sha256": request.instinkt_world.content_hash(),
         "base_fixture": BASE_FIXTURE.relative_to(ROOT).as_posix(),
         "base_fixture_sha256": _sha256_file(BASE_FIXTURE),
-        "runner_sha256": _sha256_file(Path(__file__).resolve()),
+        "runner_sha256": _sha256_file(RUNNER_PATH),
+        "sealed_source_sha256": {
+            path: _sha256_file(ROOT / path) for path in SEALED_SOURCE_PATHS
+        },
         "language": "en",
         "packet_order": ["E", "I"],
         "packet_ids": [packet.packet_id for packet in packets],
@@ -307,17 +324,15 @@ def _seal_candidate(
         "call_spec_hashes": [spec.content_hash() for spec in specs],
         "provider_identity": provider.identity.model_dump(mode="json"),
         "provider_revision": PROVIDER_REVISION,
-        "instruction_sha256": GEMMA4_EPISTEMIC_V3_INSTRUCTION_SHA256,
-        "draft_v3_schema_sha256": GEMMA4_EPISTEMIC_V3_SCHEMA_SHA256,
+        "instruction_sha256": INSTRUCTION_SHA256,
+        "draft_v3_schema_sha256": DRAFT_SCHEMA_SHA256,
         "canonical_interpretation_schema_sha256": sha256_hex(
             RacioEpistemicInterpretationEnV3.model_json_schema()
         ),
         "packet_schema_sha256": sha256_hex(
             RacioEpistemicPacketEnV3.model_json_schema()
         ),
-        "draft_model_schema_sha256": sha256_hex(
-            RacioEpistemicDraftV3.model_json_schema()
-        ),
+        "draft_model_schema_sha256": DRAFT_MODEL_SCHEMA_SHA256,
         "model": MODEL,
         "model_digest": MODEL_DIGEST,
         "endpoint": "/api/chat",
@@ -391,7 +406,7 @@ def _inventory(output_root: Path) -> list[dict[str, object]]:
 def _manifest_value(output_root: Path, *, execution_head: str) -> dict[str, object]:
     base = {
         "schema_version": "rei-gemma4-english-shadow-smoke-manifest-v1",
-        "phase": "EN1",
+        "phase": PHASE,
         "execution_head": execution_head,
         "seal_sha256": _canonical_json_file_sha256(SEAL_PATH),
         "artifacts": _inventory(output_root),
@@ -440,7 +455,7 @@ def _receipt_value(
     summary = json.loads((output_root / "summary.json").read_text(encoding="utf-8"))
     base = {
         "schema_version": "rei-gemma4-english-shadow-smoke-receipt-v1",
-        "phase": "EN1",
+        "phase": PHASE,
         "execution_head": manifest["execution_head"],
         "manifest_id": manifest["manifest_id"],
         "manifest_sha256": manifest["manifest_sha256"],
@@ -512,8 +527,7 @@ def _require_sealed_clean_source(seal: Mapping[str, object]) -> str:
         head,
         "--",
         "app/backend/rei",
-        "scripts/run_gemma4_racio_english_shadow_smoke.py",
-        "tests/rei/test_english_runtime_shadow_smoke.py",
+        *SEALED_SOURCE_PATHS,
     )
     if runtime_delta:
         raise ValueError("Runtime, runner, or focused tests changed after sealing")
@@ -532,7 +546,7 @@ def execute_smoke(output_root: Path) -> int:
         output_root / "planned_ledger.json",
         {
             "schema_version": "rei-gemma4-english-shadow-planned-ledger-v1",
-            "phase": "EN1",
+            "phase": PHASE,
             "execution_head": head,
             "language": "en",
             "packet_order": ["E", "I"],
@@ -569,7 +583,7 @@ def execute_smoke(output_root: Path) -> int:
         output_root / "preflight" / "seal_receipt.json",
         {
             "schema_version": "rei-gemma4-english-shadow-seal-receipt-v1",
-            "phase": "EN1",
+            "phase": PHASE,
             "execution_head": head,
             "seal_sha256": _canonical_json_file_sha256(SEAL_PATH),
             "chat_dispatch_count_before_execution": client.chat_dispatch_count,
@@ -609,7 +623,7 @@ def execute_smoke(output_root: Path) -> int:
     successful = statuses == ["succeeded", "succeeded"]
     summary = {
         "schema_version": "rei-gemma4-english-shadow-smoke-summary-v1",
-        "phase": "EN1",
+        "phase": PHASE,
         "execution_head": head,
         "language": "en",
         "control_run_id": control.request.run_id,

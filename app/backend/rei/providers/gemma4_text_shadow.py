@@ -25,8 +25,8 @@ from .ollama import (
     OllamaTransportError,
 )
 from .ollama_gemma4_epistemic import GEMMA4_EPISTEMIC_TIMEOUT_SECONDS
-from .ollama_gemma4_epistemic_en import (
-    OllamaGemma4EpistemicEnProvider,
+from .ollama_gemma4_epistemic_en_explained import (
+    OllamaGemma4EpistemicExplainedEnProvider,
 )
 from .ollama_gemma4_epistemic_v3 import (
     Gemma4EpistemicV3ExecutionError,
@@ -40,18 +40,18 @@ _FAILURE_SUMMARIES: Mapping[ShadowFailureCode, str] = {
     "generation_contract_failure": "The one-shot text-shadow generation contract failed.",
     "thinking_separation_failure": "The text-shadow thinking/final separation failed.",
     "structured_output_invalid": "The text-shadow final content failed structured validation.",
-    "conscious_access_rejected": "DraftV3 failed frozen packet-scope validation.",
+    "conscious_access_rejected": "The explained draft failed frozen packet-scope validation.",
     "ollama_unavailable": "The local Ollama runtime was unavailable to text shadow.",
     "wrong_model_digest": "The text-shadow model identity did not match the frozen digest.",
     "timeout": "The text-shadow provider attempt timed out.",
     "wrong_context": "The active text-shadow context differed from the frozen profile.",
     "partial_gpu_placement": "The text-shadow model was not fully placed on the GPU.",
-    "invalid_json": "The text-shadow final content was not valid DraftV3 JSON.",
+    "invalid_json": "The text-shadow final content was not valid explained-draft JSON.",
     "duplicate_json_key": "The text-shadow final JSON contained a duplicate key.",
-    "draft_v3_validation": "The text-shadow final JSON failed DraftV3 validation.",
-    "canonicalizer_failure": "DraftV3 failed the non-semantic V3 canonicalizer.",
-    "citation_scope_violation": "DraftV3 cited outside the visible observation scope.",
-    "option_scope_violation": "DraftV3 selected outside the public option scope.",
+    "draft_v3_validation": "The text-shadow final JSON failed explained-draft validation.",
+    "canonicalizer_failure": "The explained draft failed the non-semantic V3 canonicalizer.",
+    "citation_scope_violation": "The explained draft cited outside the visible observation scope.",
+    "option_scope_violation": "The explained draft selected outside the public option scope.",
     "unsupported_language": "The request is outside English-only shadow scope.",
     "packet_construction_failure": "The trusted request could not form a V3 packet.",
     "provider_failure": "The one-shot text-shadow provider contract failed.",
@@ -104,13 +104,13 @@ def _discovery_failure(
 class Gemma4TextShadowInterpreter:
     """One-shot shadow adapter over the English-primary V3 provider."""
 
-    provider: OllamaGemma4EpistemicEnProvider | None
+    provider: OllamaGemma4EpistemicExplainedEnProvider | None
     preflight_failure: ShadowProviderPreflightError | None = None
 
     def __post_init__(self) -> None:
         if self.provider is not None and not isinstance(
             self.provider,
-            OllamaGemma4EpistemicEnProvider,
+            OllamaGemma4EpistemicExplainedEnProvider,
         ):
             raise TypeError(
                 "Gemma text shadow requires the active English provider wrapper"
@@ -129,7 +129,7 @@ class Gemma4TextShadowInterpreter:
         timeout_seconds: float = GEMMA4_EPISTEMIC_TIMEOUT_SECONDS,
     ) -> "Gemma4TextShadowInterpreter":
         try:
-            provider = OllamaGemma4EpistemicEnProvider.discover(
+            provider = OllamaGemma4EpistemicExplainedEnProvider.discover(
                 client=client,
                 environ=environ,
                 timeout_seconds=timeout_seconds,

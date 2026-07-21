@@ -838,6 +838,7 @@ def _presentation_shape(
 def _shadow_view(
     result: dict[str, Any],
     interpretation: dict[str, Any] | None,
+    response_evidence: dict[str, Any] | None,
 ) -> tuple[str, dict[str, Any]]:
     structured = None
     if interpretation is not None:
@@ -862,6 +863,49 @@ def _shadow_view(
         else dict(structured.get("racio_reported_uncertainty", {}))
     )
     accepted = status == "succeeded" and interpretation is not None
+    model_draft = (
+        None
+        if response_evidence is None
+        else response_evidence.get("model_draft")
+    )
+    if model_draft is not None and not isinstance(model_draft, dict):
+        raise ShadowEvidenceIntegrityError("Model draft evidence must be an object")
+    explanations = {
+        "action": (
+            None
+            if model_draft is None
+            else model_draft.get("action_abstention_explanation")
+        ),
+        "option": (
+            None
+            if model_draft is None
+            else model_draft.get("option_abstention_explanation")
+        ),
+        "motive": (
+            None
+            if model_draft is None
+            else model_draft.get("motive_abstention_explanation")
+        ),
+    }
+    explanation_count = sum(value is not None for value in explanations.values())
+    canonicalizer_additions = []
+    if structured is not None:
+        for claim_kind, field_name in (
+            ("action", "action_unknown_reason"),
+            ("option", "option_unknown_reason"),
+            ("motive", "motive_unknown_reason"),
+        ):
+            value = structured.get(field_name)
+            if value is not None:
+                canonicalizer_additions.append(
+                    {
+                        "claim_kind": claim_kind,
+                        "field": field_name,
+                        "value": value,
+                        "source": "deterministic_canonicalizer",
+                        "model_authored": False,
+                    }
+                )
     return shape, {
         "status": status,
         "no_authority": result.get("no_authority"),
@@ -880,12 +924,67 @@ def _shadow_view(
             "motive": None if structured is None else structured.get("motive_unknown_reason"),
         },
         "uncertainty": uncertainty,
+        "model_draft": model_draft,
+        "model_authored_abstention_explanations": explanations,
+        "model_explanation_status": (
+            "provided" if explanation_count else "not_provided"
+        ),
+        "canonicalizer_additions": canonicalizer_additions,
         "failure": failure,
         "accepted_interpretation_published": accepted,
         "raw_details": {
             "result": result,
             "interpretation": interpretation,
+            "response_evidence": response_evidence,
         },
+    }
+
+
+def _exact_model_input_view(
+    packet: dict[str, Any],
+    call_spec: dict[str, Any] | None,
+    response_evidence: dict[str, Any] | None,
+) -> dict[str, Any]:
+    exact_request = (
+        None
+        if response_evidence is None
+        else response_evidence.get("exact_model_request")
+    )
+    if exact_request is not None and not isinstance(exact_request, dict):
+        raise ShadowEvidenceIntegrityError("Exact model request must be an object")
+    messages = [] if exact_request is None else exact_request.get("messages", [])
+    if not isinstance(messages, list):
+        raise ShadowEvidenceIntegrityError("Exact model request messages are invalid")
+    system_instruction = None
+    user_packet_json = None
+    for message in messages:
+        if not isinstance(message, dict):
+            raise ShadowEvidenceIntegrityError("Exact model request message is invalid")
+        if message.get("role") == "system":
+            system_instruction = message.get("content")
+        elif message.get("role") == "user":
+            user_packet_json = message.get("content")
+    safe_call_spec = None
+    if call_spec is not None:
+        safe_call_spec = {
+            key: value
+            for key, value in call_spec.items()
+            if key != "safety_notice"
+        }
+    return {
+        "availability": "complete" if exact_request is not None else "packet_only",
+        "system_instruction": system_instruction,
+        "user_packet_json": user_packet_json,
+        "output_schema": (
+            None if exact_request is None else exact_request.get("format")
+        ),
+        "model": None if exact_request is None else exact_request.get("model"),
+        "options": None if exact_request is None else exact_request.get("options"),
+        "stream": None if exact_request is None else exact_request.get("stream"),
+        "think": None if exact_request is None else exact_request.get("think"),
+        "packet_artifact": packet,
+        "call_spec": safe_call_spec,
+        "exact_request": exact_request,
     }
 
 
@@ -1007,12 +1106,27 @@ def _lane_view(
         expected=dict,
         required=result.get("status") == "succeeded",
     )
-    shape, shadow = _shadow_view(result, interpretation)
+    response_evidence = _artifact_json(
+        snapshot,
+        shadow_root / f"{stem}_response_evidence.json",
+        expected=dict,
+        required=result.get("status") == "succeeded",
+    )
+    call_spec = _artifact_json(
+        snapshot,
+        shadow_root / f"{stem}_call_spec.json",
+        expected=dict,
+        required=result.get("status") in {"succeeded", "failed"},
+    )
+    shape, shadow = _shadow_view(result, interpretation, response_evidence)
     lane: dict[str, Any] = {
         "source_mind": source_mind,
         "mind_label": mind_label,
         "presentation_shape": shape,
         "visible_input": _visible_input(packet),
+        "exact_model_input": _exact_model_input_view(
+            packet, call_spec, response_evidence
+        ),
         "authoritative": authoritative,
         "shadow": shadow,
         "diagnostic_comparison": _diagnostic_view(

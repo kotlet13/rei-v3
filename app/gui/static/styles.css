@@ -1344,6 +1344,63 @@ pre.raw-json {
   text-align: center;
 }
 
+.shadow-mind-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 2%);
+}
+
+.shadow-mind-tab {
+  flex: 1;
+  min-height: 42px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.shadow-mind-tab[aria-selected="true"] {
+  border-color: rgb(99 196 255 / 48%);
+  color: var(--text);
+  background: rgb(99 196 255 / 12%);
+}
+
+.shadow-source-note {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.shadow-explanation-block,
+.shadow-canonicalizer-list {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.shadow-advanced-details {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 2%);
+}
+
+.shadow-advanced-details > summary {
+  padding: 12px 14px;
+  color: var(--muted);
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.shadow-advanced-details > article {
+  margin: 0 12px 12px;
+}
+
 .shadow-lane-stack,
 .shadow-observation-list,
 .shadow-claim-list,

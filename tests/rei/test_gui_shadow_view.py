@@ -153,6 +153,103 @@ def test_s1_and_s1r_remain_historical_slovene_evidence(
         assert "historical Slovene" in view["label"]
 
 
+def test_explained_projection_separates_gemma_text_from_canonicalizer_text() -> None:
+    result = {"status": "succeeded", "no_authority": True}
+    structured = {
+        "action_hypotheses": [],
+        "action_unknown_reason": "canonical action placeholder",
+        "option_inference": None,
+        "option_unknown_reason": "canonical option placeholder",
+        "motive_hypotheses": [],
+        "motive_unknown_reason": "canonical motive placeholder",
+        "racio_reported_uncertainty": {
+            "option_mapping": "not_reported",
+            "motive_interpretation": "not_reported",
+        },
+    }
+    interpretation = {"structured_output": structured}
+    draft = {
+        "source_mind": "E",
+        "action_hypotheses": [],
+        "action_abstention_explanation": {
+            "explanation": "One signal is unavailable and the others do not display an action.",
+            "cited_observation_ids": ["observation_004"],
+        },
+        "option_inference": None,
+        "option_abstention_explanation": {
+            "explanation": "No visible observation distinguishes the two public options.",
+            "cited_observation_ids": ["observation_004"],
+        },
+        "motive_hypotheses": [],
+        "motive_abstention_explanation": {
+            "explanation": "No visible observation independently supports a motive.",
+            "cited_observation_ids": ["observation_004"],
+        },
+        "racio_reported_uncertainty": structured["racio_reported_uncertainty"],
+    }
+    response = {
+        "model_draft": draft,
+        "exact_model_request": {
+            "model": "gemma4:31b",
+            "messages": [
+                {"role": "system", "content": "Use Emocio, Instinkt, and Racio."},
+                {"role": "user", "content": '{"language":"en"}'},
+            ],
+            "format": {"type": "object"},
+            "options": {"seed": 314159},
+            "stream": False,
+            "think": True,
+        },
+    }
+
+    shape, projected = shadow_view._shadow_view(  # noqa: SLF001
+        result, interpretation, response
+    )
+
+    assert shape == "full_abstention"
+    assert projected["model_explanation_status"] == "provided"
+    assert projected["model_authored_abstention_explanations"]["action"] == (
+        draft["action_abstention_explanation"]
+    )
+    assert all(
+        item["source"] == "deterministic_canonicalizer"
+        and item["model_authored"] is False
+        for item in projected["canonicalizer_additions"]
+    )
+    assert {
+        item["value"] for item in projected["canonicalizer_additions"]
+    } == {
+        "canonical action placeholder",
+        "canonical option placeholder",
+        "canonical motive placeholder",
+    }
+
+
+def test_exact_model_input_projection_exposes_request_without_safety_notice() -> None:
+    exact_request = {
+        "model": "gemma4:31b",
+        "messages": [
+            {"role": "system", "content": "Use Emocio, Instinkt, and Racio."},
+            {"role": "user", "content": '{"language":"en"}'},
+        ],
+        "format": {"type": "object"},
+        "options": {"seed": 314159},
+        "stream": False,
+        "think": True,
+    }
+    projected = shadow_view._exact_model_input_view(  # noqa: SLF001
+        {"language": "en"},
+        {"call_id": "call_001", "safety_notice": {"canonical_sl": "hidden"}},
+        {"exact_model_request": exact_request},
+    )
+
+    assert projected["availability"] == "complete"
+    assert projected["system_instruction"] == "Use Emocio, Instinkt, and Racio."
+    assert projected["user_packet_json"] == '{"language":"en"}'
+    assert projected["call_spec"] == {"call_id": "call_001"}
+    assert "canonical_sl" not in json.dumps(projected, sort_keys=True)
+
+
 def test_s1r_receipt_is_bounded_and_not_mutated_by_replay() -> None:
     receipt_path = (
         ROOT
