@@ -46,6 +46,9 @@ def _restore(values: dict[str, object]) -> None:
 def test_importing_en3_runner_does_not_mutate_historical_profile() -> None:
     assert base.PHASE == "EN1"
     assert base.ALLOW_PRESERVED_VALIDATION_FAILURE is False
+    assert smoke.IMPLEMENTATION_COMMIT == (
+        "97c9f499e81422769d67760e23390c5fd83f6301"
+    )
 
 
 def test_en3_configuration_builds_same_two_english_packets_without_model_calls(

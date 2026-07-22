@@ -26,7 +26,7 @@ from scripts import run_gemma4_racio_english_shadow_smoke as base  # noqa: E402
 
 
 # Replaced with the exact model-free implementation commit before seal derivation.
-IMPLEMENTATION_COMMIT = "0000000000000000000000000000000000000000"
+IMPLEMENTATION_COMMIT = "97c9f499e81422769d67760e23390c5fd83f6301"
 PHASE = "EN3"
 EVENT_ID = "en3_gemma4_observable_shadow_event"
 RUN_ID = "en3-gemma4-observable-shadow-cycle"
