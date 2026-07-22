@@ -1439,9 +1439,122 @@ pre.raw-json {
 }
 
 .shadow-visible-card,
+.shadow-provider-exchange-card,
 .shadow-comparison-card,
 .shadow-debug-card {
   margin-top: 14px;
+}
+
+.shadow-provider-exchange-card {
+  border-top: 3px solid #78b7ff;
+}
+
+.shadow-exchange-headline {
+  display: block;
+  margin: 12px 0 4px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.shadow-exchange-steps {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.shadow-exchange-step {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 5px 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgb(255 255 255 / 2%);
+}
+
+.shadow-exchange-step p {
+  grid-column: 2 / -1;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.shadow-exchange-marker {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  grid-row: 1 / span 2;
+  place-items: center;
+  border-radius: 50%;
+  color: #dcecff;
+  background: rgb(105 168 255 / 18%);
+  font-weight: 900;
+}
+
+.shadow-exchange-status {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.shadow-exchange-step.passed .shadow-exchange-marker,
+.shadow-exchange-step.published .shadow-exchange-marker {
+  color: #10251b;
+  background: var(--ok);
+}
+
+.shadow-exchange-step.failed .shadow-exchange-marker,
+.shadow-exchange-step.blocked .shadow-exchange-marker {
+  color: #2b1605;
+  background: #ffb454;
+}
+
+.shadow-rejected-response-note {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid rgb(255 180 84 / 42%);
+  border-radius: 9px;
+  color: #ffd7aa;
+  background: rgb(255 180 84 / 8%);
+  line-height: 1.5;
+}
+
+.shadow-structured-summary {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.shadow-structured-summary-item {
+  padding: 12px;
+  border: 1px solid rgb(99 196 255 / 22%);
+  border-radius: 9px;
+  background: rgb(99 196 255 / 5%);
+}
+
+.shadow-structured-summary-item > p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+
+.shadow-cited-input-block {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.shadow-cited-input-row {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 8px 10px;
+  border-left: 2px solid rgb(99 196 255 / 55%);
+  background: rgb(0 0 0 / 12%);
+}
+
+.shadow-cited-input-row span {
+  overflow-wrap: anywhere;
 }
 
 .shadow-authoritative-card,
@@ -1680,6 +1793,19 @@ pre.raw-json {
   .shadow-interpretation-grid,
   .body-comparison-grid,
   .timeline-event-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shadow-exchange-step {
+    grid-template-columns: 26px minmax(0, 1fr);
+  }
+
+  .shadow-exchange-status,
+  .shadow-exchange-step p {
+    grid-column: 2;
+  }
+
+  .shadow-cited-input-row {
     grid-template-columns: 1fr;
   }
 

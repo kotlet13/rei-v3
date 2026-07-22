@@ -1084,6 +1084,210 @@ def _call_parameter_value(
         ) from exc
 
 
+def _provider_exchange_view(
+    result: dict[str, Any],
+    call_spec: dict[str, Any] | None,
+    call_record: dict[str, Any] | None,
+    response_evidence: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Project the preserved request/response lifecycle without inventing data."""
+
+    status = result.get("status")
+    failure_stage = result.get("failure_stage")
+    response_received = response_evidence is not None or failure_stage in {
+        "draft_v3_validation",
+        "canonicalizer_v3_validation",
+    }
+    final_json = None
+    if response_evidence is not None:
+        candidate = response_evidence.get("model_draft")
+        if candidate is not None and not isinstance(candidate, dict):
+            raise ShadowEvidenceIntegrityError(
+                "Preserved model response must be a parsed JSON object"
+            )
+        final_json = candidate
+
+    if status == "succeeded":
+        draft_validation = "passed"
+        canonicalizer_validation = "passed"
+        publication = "published"
+    elif failure_stage == "draft_v3_validation":
+        draft_validation = "failed"
+        canonicalizer_validation = "not_run"
+        publication = "blocked"
+    elif failure_stage == "canonicalizer_v3_validation":
+        draft_validation = "passed"
+        canonicalizer_validation = "failed"
+        publication = "blocked"
+    else:
+        draft_validation = "not_reached"
+        canonicalizer_validation = "not_run"
+        publication = "blocked" if status == "failed" else "not_attempted"
+
+    response_status = (
+        "accepted_and_persisted"
+        if response_evidence is not None
+        else "rejected_not_persisted"
+        if response_received
+        else "not_available"
+    )
+    provider = (
+        {}
+        if call_record is None
+        else call_record.get("provider", {})
+    )
+    if not isinstance(provider, dict):
+        raise ShadowEvidenceIntegrityError("ProviderCallRecord provider is invalid")
+    safe_call_record = None
+    if call_record is not None:
+        safe_call_record = {
+            key: value
+            for key, value in call_record.items()
+            if key != "safety_notice"
+        }
+
+    model_call_count = (
+        response_evidence.get("model_call_count")
+        if response_evidence is not None
+        else 1
+        if response_received
+        else 0
+        if status == "not_attempted"
+        else None
+    )
+    retry_count = (
+        response_evidence.get("retry_count")
+        if response_evidence is not None
+        else _call_parameter_value(call_spec, "retry_count")
+    )
+    fallback_count = (
+        response_evidence.get("fallback_count")
+        if response_evidence is not None
+        else 0
+        if call_record is not None and call_record.get("fallback") is None
+        else None
+    )
+    response_note = (
+        "The accepted final JSON content is preserved below as a parsed object; "
+        "its original whitespace and key order were not retained."
+        if response_evidence is not None
+        else "Gemma returned final content, but the rejected body and field-level "
+        "validation detail were intentionally not persisted. Only bounded failure "
+        "metadata remains, so the exact rejected response cannot be reconstructed."
+        if response_received
+        else "The frozen evidence does not prove that a final model response was received."
+    )
+    return {
+        "call": {
+            "call_id": None if call_record is None else call_record.get("call_id"),
+            "status": None if call_record is None else call_record.get("status"),
+            "model": provider.get("model"),
+            "model_digest": provider.get("model_revision"),
+            "provider_revision": provider.get("implementation_revision"),
+            "endpoint": _call_parameter_value(call_spec, "endpoint"),
+            "seed": None if call_record is None else call_record.get("seed"),
+            "timeout_seconds": (
+                None if call_record is None else call_record.get("timeout_seconds")
+            ),
+            "request_payload_sha256": _call_parameter_value(
+                call_spec, "request_payload_sha256"
+            ),
+            "model_calls": model_call_count,
+            "retries": retry_count,
+            "fallbacks": fallback_count,
+        },
+        "response": {
+            "received": response_received,
+            "status": response_status,
+            "exact_rejected_body_available": False,
+            "parsed_final_json": final_json,
+            "final_response_sha256": (
+                None
+                if response_evidence is None
+                else response_evidence.get("final_response_hash")
+            ),
+            "final_response_byte_count": (
+                None
+                if response_evidence is None
+                else response_evidence.get("final_response_byte_count")
+            ),
+            "response_envelope_sha256": (
+                None
+                if response_evidence is None
+                else response_evidence.get("response_envelope_hash")
+            ),
+            "response_envelope_byte_count": (
+                None
+                if response_evidence is None
+                else response_evidence.get("response_envelope_byte_count")
+            ),
+            "note": response_note,
+            "thinking_received": (
+                None
+                if response_evidence is None
+                else response_evidence.get("thinking_present")
+            ),
+            "thinking_content_persisted": False,
+        },
+        "validation": {
+            "failure_stage": failure_stage,
+            "failure_code": result.get("failure_code"),
+            "failure_summary": result.get("failure_summary"),
+            "field_level_error_available": False if status == "failed" else None,
+            "steps": [
+                {
+                    "name": "Request dispatched",
+                    "status": (
+                        "passed" if call_record is not None else "not_attempted"
+                    ),
+                    "detail": "The sealed /api/chat request was issued once.",
+                },
+                {
+                    "name": "Final response received",
+                    "status": "passed" if response_received else "not_confirmed",
+                    "detail": (
+                        "The provider reached final response processing."
+                        if response_received
+                        else "No preserved evidence confirms a final response."
+                    ),
+                },
+                {
+                    "name": "Explained Draft JSON validation",
+                    "status": draft_validation,
+                    "detail": (
+                        "The final JSON matched the explained Draft contract."
+                        if draft_validation == "passed"
+                        else "The final JSON did not match the explained Draft contract."
+                        if draft_validation == "failed"
+                        else "This step was not reached."
+                    ),
+                },
+                {
+                    "name": "Deterministic canonicalizer",
+                    "status": canonicalizer_validation,
+                    "detail": (
+                        "The validated Draft was converted without semantic repair."
+                        if canonicalizer_validation == "passed"
+                        else "The validated Draft failed canonical packet-scope checks."
+                        if canonicalizer_validation == "failed"
+                        else "Not run because an earlier step did not pass."
+                    ),
+                },
+                {
+                    "name": "Shadow interpretation",
+                    "status": publication,
+                    "detail": (
+                        "A review-only, no-authority interpretation was published."
+                        if publication == "published"
+                        else "No accepted shadow interpretation was published."
+                    ),
+                },
+            ],
+        },
+        "safe_provider_call_record": safe_call_record,
+    }
+
+
 def _provider_payload_from_packet(packet: dict[str, Any]) -> dict[str, Any]:
     """Reproduce the frozen allowlisted provider view, excluding artifact lineage."""
 
@@ -1283,14 +1487,24 @@ def _lane_view(
         expected=dict,
         required=result.get("status") in {"succeeded", "failed"},
     )
+    call_record = _artifact_json(
+        snapshot,
+        shadow_root / f"{stem}_provider_call_record.json",
+        expected=dict,
+        required=result.get("status") in {"succeeded", "failed"},
+    )
     shape, shadow = _shadow_view(result, interpretation, response_evidence)
+    exact_model_input = _exact_model_input_view(
+        packet, call_spec, response_evidence, exact_request_template
+    )
     lane: dict[str, Any] = {
         "source_mind": source_mind,
         "mind_label": mind_label,
         "presentation_shape": shape,
         "visible_input": _visible_input(packet),
-        "exact_model_input": _exact_model_input_view(
-            packet, call_spec, response_evidence, exact_request_template
+        "exact_model_input": exact_model_input,
+        "provider_exchange": _provider_exchange_view(
+            result, call_spec, call_record, response_evidence
         ),
         "authoritative": authoritative,
         "shadow": shadow,

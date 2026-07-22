@@ -116,11 +116,55 @@ def test_en2_current_runtime_projection_is_english_exact_and_honest(
     assert emocio["exact_model_input"]["request_payload_sha256"] == (
         "241f08323136a88ab79e1c33687c5e2967dac17a8da429e40ef6a856f51e93aa"
     )
+    emocio_exchange = emocio["provider_exchange"]
+    assert emocio_exchange["call"]["status"] == "failed"
+    assert emocio_exchange["call"]["model_calls"] == 1
+    assert emocio_exchange["call"]["retries"] == 0
+    assert emocio_exchange["call"]["fallbacks"] == 0
+    assert emocio_exchange["response"] == {
+        "received": True,
+        "status": "rejected_not_persisted",
+        "exact_rejected_body_available": False,
+        "parsed_final_json": None,
+        "final_response_sha256": None,
+        "final_response_byte_count": None,
+        "response_envelope_sha256": None,
+        "response_envelope_byte_count": None,
+        "note": (
+            "Gemma returned final content, but the rejected body and field-level "
+            "validation detail were intentionally not persisted. Only bounded failure "
+            "metadata remains, so the exact rejected response cannot be reconstructed."
+        ),
+        "thinking_received": None,
+        "thinking_content_persisted": False,
+    }
+    assert [
+        step["status"] for step in emocio_exchange["validation"]["steps"]
+    ] == ["passed", "passed", "failed", "not_run", "blocked"]
+    assert emocio_exchange["validation"]["field_level_error_available"] is False
     assert emocio["shadow"]["action_hypotheses"] == []
     assert emocio["shadow"]["option_inference"] is None
     assert emocio["shadow"]["motive_hypotheses"] == []
     assert instinkt["presentation_shape"] == "bounded_claims"
     assert instinkt["exact_model_input"]["source"] == "persisted_exact"
+    instinkt_exchange = instinkt["provider_exchange"]
+    assert instinkt_exchange["call"]["status"] == "succeeded"
+    assert instinkt_exchange["call"]["model_calls"] == 1
+    assert instinkt_exchange["call"]["retries"] == 0
+    assert instinkt_exchange["call"]["fallbacks"] == 0
+    assert instinkt_exchange["response"]["status"] == "accepted_and_persisted"
+    assert instinkt_exchange["response"]["received"] is True
+    assert instinkt_exchange["response"]["parsed_final_json"] == (
+        instinkt["shadow"]["model_draft"]
+    )
+    assert instinkt_exchange["response"]["final_response_sha256"] == (
+        "87a2ff5facf2197f1cda763d6d8ea98e568a3cd25c1b415792ab9e956ae4bc51"
+    )
+    assert instinkt_exchange["response"]["thinking_received"] is True
+    assert instinkt_exchange["response"]["thinking_content_persisted"] is False
+    assert [
+        step["status"] for step in instinkt_exchange["validation"]["steps"]
+    ] == ["passed", "passed", "passed", "passed", "published"]
     assert len(instinkt["shadow"]["action_hypotheses"]) == 1
     assert instinkt["shadow"]["option_inference"]["option_id"] == "option_001"
     assert len(instinkt["shadow"]["motive_hypotheses"]) == 1

@@ -977,7 +977,7 @@ function shadowVisibleInputCard(visibleInput, sourceMind = null, replay = null) 
 function shadowExactModelInputCard(exactInput) {
   const exact = asObject(exactInput);
   const complete = exact.availability === "complete";
-  const result = card("Exact input sent to Gemma", null, "shadow-exact-input-card");
+  const result = card("2 · Actual request sent to Gemma", null, "shadow-exact-input-card");
   result.dataset.shadowKind = "exact-model-input";
   append(
     result,
@@ -1019,11 +1019,199 @@ function shadowExactModelInputCard(exactInput) {
   return result;
 }
 
+function shadowExchangeStep(step) {
+  const source = asObject(step);
+  const status = source.status || "not_available";
+  const row = element("div", `shadow-exchange-step ${status}`);
+  append(
+    row,
+    element("span", "shadow-exchange-marker", status === "passed" || status === "published" ? "✓" : status === "failed" || status === "blocked" ? "×" : "—"),
+    element("strong", "", source.name || "Unknown step"),
+    element("code", "shadow-exchange-status", status),
+    element("p", "", source.detail || "No additional detail was preserved.")
+  );
+  return row;
+}
+
+function shadowProviderExchangeCard(exchange) {
+  const source = asObject(exchange);
+  const call = asObject(source.call);
+  const response = asObject(source.response);
+  const validation = asObject(source.validation);
+  const result = card(
+    "3 · Actual Gemma response and validation",
+    null,
+    "shadow-provider-exchange-card"
+  );
+  result.dataset.shadowKind = "provider-exchange";
+  const responseReceived = response.received === true;
+  const persistedResponse = response.status === "accepted_and_persisted";
+  append(
+    result,
+    statusPill("provider call", call.status || "not available"),
+    element(
+      "strong",
+      "shadow-exchange-headline",
+      persistedResponse
+        ? "Gemma returned JSON and the system accepted it."
+        : responseReceived
+          ? "Gemma returned final content, but the system rejected it."
+          : "No accepted Gemma response is available."
+    ),
+    element("p", "shadow-source-note", response.note),
+    keyValues([
+      ["Call ID", call.call_id],
+      ["Model", call.model],
+      ["Provider revision", call.provider_revision],
+      ["Request SHA-256", call.request_payload_sha256],
+      ["Calls / retries / fallbacks", `${call.model_calls ?? "?"} / ${call.retries ?? "?"} / ${call.fallbacks ?? "?"}`],
+      ["Seed", call.seed],
+      ["Timeout", call.timeout_seconds === null || call.timeout_seconds === undefined ? null : `${call.timeout_seconds} s`],
+    ])
+  );
+  const steps = element("div", "shadow-exchange-steps");
+  asArray(validation.steps).forEach((step) => append(steps, shadowExchangeStep(step)));
+  append(result, steps);
+  if (persistedResponse) {
+    append(
+      result,
+      fieldGroup(
+        "What is shown below",
+        "The parsed content of Gemma's accepted final JSON. Original whitespace and key order were not retained; the response hash binds the original bytes."
+      ),
+      keyValues([
+        ["Final response SHA-256", response.final_response_sha256],
+        ["Final response bytes", response.final_response_byte_count],
+        ["Response envelope SHA-256", response.response_envelope_sha256],
+        ["Private thinking received", response.thinking_received],
+        ["Private thinking content persisted", response.thinking_content_persisted],
+      ]),
+      rawDetails("Actual accepted final JSON from Gemma (parsed)", response.parsed_final_json)
+    );
+  } else if (responseReceived) {
+    append(
+      result,
+      element(
+        "div",
+        "shadow-rejected-response-note",
+        "The exact rejected JSON cannot be displayed because the failure policy did not persist its body or field-level validation details. No retry was made."
+      ),
+      keyValues([
+        ["Failure stage", validation.failure_stage],
+        ["Failure code", validation.failure_code],
+        ["Field-level validation error preserved", validation.field_level_error_available],
+      ]),
+      fieldGroup("Preserved failure summary", validation.failure_summary)
+    );
+  }
+  append(
+    result,
+    rawDetails("Sanitized ProviderCallRecord", source.safe_provider_call_record)
+  );
+  return result;
+}
+
 function uncertaintyPlainText(value) {
   if (value === "not_reported") return "Gemma did not say whether Racio was uncertain.";
   if (value === "uncertain") return "Gemma reported that Racio was uncertain.";
   if (value === "not_uncertain") return "Gemma reported that Racio was not uncertain.";
   return value || "Not available";
+}
+
+function shadowSupportPlainText(mode) {
+  if (mode === "direct_manifestation") return "The cited input directly displayed the action.";
+  if (mode === "functional_inference") return "Gemma inferred the action's function from the input; the action was not directly displayed.";
+  if (mode === "directly_supported") return "Gemma marked the cited input as direct support.";
+  if (mode === "contextually_supported") return "Gemma marked this as contextual support, not direct proof.";
+  if (mode === "speculative") return "Gemma marked this as a tentative possibility.";
+  return mode ? `Support mode: ${mode}.` : "No support mode was returned.";
+}
+
+function shadowObservationLookup(visibleInput) {
+  const lookup = new Map();
+  asArray(asObject(visibleInput).observations || asObject(visibleInput).visible_observations).forEach((item) => {
+    const observation = asObject(item);
+    if (observation.observation_id) lookup.set(observation.observation_id, observation);
+  });
+  return lookup;
+}
+
+function shadowCitedInputBlock(citationIds, visibleInput) {
+  const ids = asArray(citationIds);
+  const lookup = shadowObservationLookup(visibleInput);
+  const block = element("div", "shadow-cited-input-block");
+  if (!ids.length) {
+    append(block, fieldGroup("Cited input", "No citations"));
+    return block;
+  }
+  ids.forEach((id) => {
+    const observation = asObject(lookup.get(id));
+    const row = element("div", "shadow-cited-input-row");
+    append(
+      row,
+      element("code", "shadow-enum", id),
+      element(
+        "span",
+        "",
+        observation.model_text ?? observation.text ?? "The cited observation had no visible text."
+      )
+    );
+    append(block, row);
+  });
+  return block;
+}
+
+function shadowOptionDescription(optionId, visibleInput) {
+  const options = asArray(asObject(visibleInput).public_options || asObject(visibleInput).public_option_scope);
+  const match = options.find((item) => asObject(item).option_id === optionId);
+  if (!match) return null;
+  const option = asObject(match);
+  return option.model_text ?? option.description ?? null;
+}
+
+function shadowStructuredClaimSummary(shadow, visibleInput) {
+  const source = asObject(shadow);
+  const actions = asArray(source.action_hypotheses);
+  const option = asObject(source.option_inference);
+  const motives = asArray(source.motive_hypotheses);
+  const summary = element("div", "shadow-structured-summary");
+  actions.forEach((claim, index) => {
+    const item = asObject(claim);
+    const block = element("div", "shadow-structured-summary-item");
+    append(
+      block,
+      element("strong", "", `Action ${index + 1}: ${item.family || "unknown"} / ${item.subtype ?? item.family_fallback ?? "unknown"}`),
+      element("p", "", shadowSupportPlainText(item.support_mode)),
+      choiceLine("Confidence", item.confidence),
+      shadowCitedInputBlock(item.citations || item.cited_observation_ids, visibleInput)
+    );
+    append(summary, block);
+  });
+  if (Object.keys(option).length) {
+    const block = element("div", "shadow-structured-summary-item");
+    const description = shadowOptionDescription(option.option_id, visibleInput);
+    append(
+      block,
+      element("strong", "", `Selected option: ${option.option_id || "unknown"}`),
+      description ? element("p", "", description) : null,
+      choiceLine("Confidence", option.confidence),
+      shadowCitedInputBlock(option.citations || option.cited_observation_ids, visibleInput)
+    );
+    append(summary, block);
+  }
+  motives.forEach((claim, index) => {
+    const item = asObject(claim);
+    const block = element("div", "shadow-structured-summary-item");
+    append(
+      block,
+      element("strong", "", `Motive hypothesis ${index + 1}: ${item.family || "unknown"} / ${item.subtype || "unknown"}`),
+      element("p", "", shadowSupportPlainText(item.support_mode)),
+      choiceLine("Confidence", item.confidence),
+      shadowCitedInputBlock(item.citations || item.cited_observation_ids, visibleInput)
+    );
+    append(summary, block);
+  });
+  return summary;
 }
 
 function shadowExplanationBlock(label, explanation) {
@@ -1052,6 +1240,7 @@ function shadowExplanationBlock(label, explanation) {
 function shadowPlainSummaryCard(lane) {
   const source = asObject(lane);
   const shadow = asObject(source.shadow);
+  const visibleInput = asObject(source.visible_input);
   const explanations = asObject(shadow.model_authored_abstention_explanations);
   const shape = source.presentation_shape;
   const result = card("Result in plain language", null, "shadow-plain-summary-card");
@@ -1076,15 +1265,30 @@ function shadowPlainSummaryCard(lane) {
     );
   } else if (shape === "failed") {
     const failure = asObject(shadow.failure);
+    const exchange = asObject(source.provider_exchange);
+    const response = asObject(exchange.response);
     append(
       result,
-      element("strong", "", "The Gemma comparison failed; REI still completed normally."),
-      element("p", "", "No accepted Gemma interpretation was published."),
+      element("strong", "", "Gemma returned final content, but REI rejected it before it became an interpretation."),
+      element(
+        "p",
+        "",
+        response.received
+          ? "The request reached Gemma and a final response came back. It failed the explained Draft JSON contract, so the canonicalizer did not run and no shadow interpretation was published."
+          : "The frozen evidence does not confirm that a final response reached validation."
+      ),
       keyValues([
         ["Failure stage", failure.stage],
         ["Failure code", failure.code],
         ["What this means", failure.summary],
-      ])
+      ]),
+      element(
+        "p",
+        "shadow-source-note",
+        response.received
+          ? "The exact rejected JSON and field-level error were not retained by the failure policy, so this evidence cannot tell us which exact field was wrong. The authoritative REI cycle still succeeded."
+          : "The authoritative REI cycle still succeeded."
+      )
     );
   } else {
     const actions = asArray(shadow.action_hypotheses);
@@ -1101,7 +1305,13 @@ function shadowPlainSummaryCard(lane) {
         "p",
         "",
         `${actions.length} action claim · option ${option.option_id || "not selected"} · ${motives.length} motive claim`
-      )
+      ),
+      element(
+        "p",
+        "shadow-source-note",
+        "The readable text below is a GUI rendering of Gemma's structured JSON. The exact parsed JSON is shown in the response card."
+      ),
+      shadowStructuredClaimSummary(shadow, visibleInput)
     );
   }
   if (shadow.status === "succeeded") {
@@ -1140,7 +1350,7 @@ function shadowCanonicalizerCard(shadow) {
   const source = asObject(shadow);
   const additions = asArray(source.canonicalizer_additions);
   const result = card(
-    "4 · System-added text — not written by Gemma",
+    "6 · System-added text — not written by Gemma",
     null,
     "shadow-canonicalizer-card"
   );
@@ -1150,7 +1360,11 @@ function shadowCanonicalizerCard(shadow) {
     element(
       "p",
       "shadow-source-note",
-      "The deterministic canonicalizer added these standard placeholders so the stored result satisfies the frozen V3 structure. They are not Gemma explanations."
+      source.status === "failed"
+        ? "The canonicalizer did not publish an interpretation for this failed lane, so it added no text."
+        : additions.length
+          ? "The deterministic canonicalizer added the standard placeholders listed below. They are not Gemma explanations."
+          : "The canonicalizer accepted the Draft without adding any standard unknown-reason text."
     )
   );
   if (!additions.length) {
@@ -1173,7 +1387,7 @@ function shadowCanonicalizerCard(shadow) {
 function shadowAuthoritativeCard(authoritative) {
   const source = asObject(authoritative);
   const result = card(
-    "2 · Authoritative Racio — used by REI",
+    "4 · Authoritative Racio — used by REI",
     null,
     "shadow-authoritative-card"
   );
@@ -1284,8 +1498,8 @@ function shadowInterpretationCard(shadow, presentationShape, replay = null) {
   const failure = asObject(source.failure);
   const result = card(
     currentEnglish
-      ? "3 · Exact Gemma result — for review only"
-      : "3 · Historical Gemma result — for review only",
+      ? "5 · Gemma interpretation status — for review only"
+      : "5 · Historical Gemma interpretation status — for review only",
     null,
     "shadow-model-card"
   );
@@ -1348,12 +1562,14 @@ function shadowInterpretationCard(shadow, presentationShape, replay = null) {
       ])
     );
   }
-  append(
-    result,
-    rawDetails("Exact JSON returned by Gemma", source.model_draft),
-    rawDetails("Canonical accepted interpretation", asObject(source.raw_details).interpretation),
-    rawDetails("Inspect complete safe shadow artifact", source.raw_details || source)
-  );
+  if (source.status === "succeeded") {
+    append(
+      result,
+      rawDetails("Parsed accepted model JSON", source.model_draft),
+      rawDetails("Canonical accepted interpretation", asObject(source.raw_details).interpretation)
+    );
+  }
+  append(result, rawDetails("Inspect complete safe shadow artifact", source.raw_details || source));
   return result;
 }
 
@@ -1446,7 +1662,8 @@ function shadowLaneSection(lane, mind, index, replay = null) {
     subsectionTitle(`${label} → Racio`, `source mind ${source.source_mind || mind}`),
     shadowPlainSummaryCard(source),
     shadowVisibleInputCard(source.visible_input, source.source_mind || mind, replay),
-    shadowExactModelInputCard(source.exact_model_input)
+    shadowExactModelInputCard(source.exact_model_input),
+    shadowProviderExchangeCard(source.provider_exchange)
   );
   const pair = element("div", "shadow-interpretation-grid");
   append(

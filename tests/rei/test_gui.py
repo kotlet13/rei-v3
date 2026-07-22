@@ -1274,10 +1274,16 @@ def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> Non
     assert '"HISTORICAL EVIDENCE"' in frontend
     assert '"Current English model input"' in frontend
     assert '"Historical exact model input — English"' in frontend
-    assert '"3 · Exact Gemma result — for review only"' in frontend
-    assert '"4 · System-added text — not written by Gemma"' in frontend
+    assert '"2 · Actual request sent to Gemma"' in frontend
+    assert '"3 · Actual Gemma response and validation"' in frontend
+    assert '"4 · Authoritative Racio — used by REI"' in frontend
+    assert '"5 · Gemma interpretation status — for review only"' in frontend
+    assert '"6 · System-added text — not written by Gemma"' in frontend
     assert '"Gemma did not explain why.' in frontend
-    assert '"Exact input sent to Gemma"' in frontend
+    assert '"Actual accepted final JSON from Gemma (parsed)"' in frontend
+    assert '"The exact rejected JSON cannot be displayed' in frontend
+    assert '"Gemma returned final content, but REI rejected it' in frontend
+    assert '"Gemma marked this as contextual support, not direct proof."' in frontend
     assert 'selectedShadowMind: "E"' in frontend
     assert '[["E", "Emocio"], ["I", "Instinkt"]]' in frontend
     assert 'selectedRecord.language === "en" ? "English" : "Slovene"' in frontend
