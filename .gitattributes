@@ -51,6 +51,10 @@ Docs/evals/semantic_lab_v1/en1-gemma4-text-shadow-2026-07-20/**/*.lock -text -wh
 Docs/evals/semantic_lab_v1/en2-gemma4-explained-shadow-2026-07-21/** text eol=lf
 Docs/evals/semantic_lab_v1/en2-gemma4-explained-shadow-2026-07-21/**/*.lock -text -whitespace
 
+# EN3 freezes observable English shadow evidence by raw SHA-256.
+Docs/evals/semantic_lab_v1/en3-gemma4-observable-shadow-2026-07-22/** text eol=lf
+Docs/evals/semantic_lab_v1/en3-gemma4-observable-shadow-2026-07-22/**/*.lock -text -whitespace
+
 # C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
 tests/fixtures/semantic_lab_v1/** text eol=lf
 tests/fixtures/native_bundles/** text eol=lf
