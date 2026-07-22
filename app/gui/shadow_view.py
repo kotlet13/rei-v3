@@ -25,7 +25,7 @@ from app.backend.rei.ids import canonical_json_bytes, content_id, sha256_hex
 
 SHADOW_EVIDENCE_SCHEMA_VERSION = "rei-gemma4-shadow-evidence-view-v1"
 SHADOW_EVIDENCE_INDEX_SCHEMA_VERSION = "rei-gemma4-shadow-evidence-index-v1"
-DEFAULT_SHADOW_EVIDENCE_ID = "en2-explained"
+DEFAULT_SHADOW_EVIDENCE_ID = "en3-observable"
 MAX_EVIDENCE_FILES = 128
 MAX_EVIDENCE_TOTAL_BYTES = 1024 * 1024
 MAX_EVIDENCE_FILE_BYTES = 128 * 1024
@@ -43,6 +43,10 @@ _EN1_RECEIPT_RELATIVE = PurePosixPath(
 _EN2_RECEIPT_RELATIVE = PurePosixPath(
     "Docs/evals/research_reset_2026-07/"
     "gemma4_english_explained_shadow_smoke_receipt.json"
+)
+_EN3_RECEIPT_RELATIVE = PurePosixPath(
+    "Docs/evals/research_reset_2026-07/"
+    "gemma4_observable_shadow_smoke_receipt.json"
 )
 _WINDOWS_ABSOLUTE_PATH = re.compile(
     r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])"
@@ -96,21 +100,45 @@ class _EvidenceRegistration:
 
 _EVIDENCE_REGISTRY: Mapping[str, _EvidenceRegistration] = MappingProxyType(
     {
+        "en3-observable": _EvidenceRegistration(
+            evidence_id="en3-observable",
+            relative_root=PurePosixPath(
+                "Docs/evals/semantic_lab_v1/"
+                "en3-gemma4-observable-shadow-2026-07-22"
+            ),
+            label="EN3 · current observable English shadow",
+            selector_label="EN3 · current observable English shadow",
+            phase="EN3",
+            summary=(
+                "Current English boundary: Emocio returned a final response that "
+                "failed Draft validation, and the exact rejected content and exact "
+                "validation error are preserved for review. Instinkt succeeded. "
+                "The authoritative cycle still succeeded."
+            ),
+            kind="current_runtime",
+            language="en",
+            run_id="en3-gemma4-observable-shadow-cycle",
+            receipt_required=True,
+            receipt_relative=_EN3_RECEIPT_RELATIVE,
+            verification_profile="en1",
+            manifest_id_prefix="gemma4_en3_shadow_manifest",
+            receipt_id_prefix="gemma4_en3_shadow_receipt",
+        ),
         "en2-explained": _EvidenceRegistration(
             evidence_id="en2-explained",
             relative_root=PurePosixPath(
                 "Docs/evals/semantic_lab_v1/"
                 "en2-gemma4-explained-shadow-2026-07-21"
             ),
-            label="EN2 · current explained English shadow",
-            selector_label="EN2 · explained English shadow",
+            label="EN2 · historical explained English shadow",
+            selector_label="EN2 · historical explained English shadow",
             phase="EN2",
             summary=(
-                "Current explained English boundary: the Emocio response failed "
+                "Previous explained English boundary: the Emocio response failed "
                 "the closed Draft schema, while Instinkt returned bounded action, "
                 "option, and motive claims. The authoritative cycle still succeeded."
             ),
-            kind="current_runtime",
+            kind="historical",
             language="en",
             run_id="en2-gemma4-explained-shadow-cycle",
             receipt_required=True,

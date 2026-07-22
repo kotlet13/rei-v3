@@ -157,6 +157,7 @@ def test_bootstrap_is_fixture_only_and_exposes_all_profile_contracts(
         "live_model_execution": False,
         "authority": "none",
         "evidence_ids": [
+            "en3-observable",
             "en2-explained",
             "en1-runtime",
             "s1-partial",
@@ -1269,7 +1270,7 @@ def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> Non
     assert "Selected research input — ${language}" in frontend
     assert '"Source family title — Slovenian"' in frontend
     assert '"Historical exact model input — Slovenian"' in frontend
-    assert 'selectedShadowEvidenceId: "en2-explained"' in frontend
+    assert 'selectedShadowEvidenceId: "en3-observable"' in frontend
     assert '"CURRENT RUNTIME EVIDENCE"' in frontend
     assert '"HISTORICAL EVIDENCE"' in frontend
     assert '"Current English model input"' in frontend
@@ -1281,6 +1282,8 @@ def test_gui_chrome_is_english_and_source_language_evidence_is_explicit() -> Non
     assert '"6 · System-added text — not written by Gemma"' in frontend
     assert '"Gemma did not explain why.' in frontend
     assert '"Actual accepted final JSON from Gemma (parsed)"' in frontend
+    assert '"Actual rejected final content from Gemma"' in frontend
+    assert '"Exact validation error"' in frontend
     assert '"The exact rejected JSON cannot be displayed' in frontend
     assert '"Gemma returned final content, but REI rejected it' in frontend
     assert '"Gemma marked this as contextual support, not direct proof."' in frontend

@@ -24,7 +24,7 @@ const state = {
   shadowRegistryError: null,
   shadowEvidence: null,
   shadowEvidenceError: null,
-  selectedShadowEvidenceId: "en2-explained",
+  selectedShadowEvidenceId: "en3-observable",
   selectedShadowMind: "E",
   shadowBusy: false,
   shadowRequestGeneration: 0,
@@ -765,7 +765,8 @@ function shadowEvidenceLabel(record) {
   const source = asObject(record);
   if (source.selector_label) return source.selector_label;
   if (source.label) return source.label;
-  if (source.evidence_id === "en2-explained") return "EN2 · explained English shadow";
+  if (source.evidence_id === "en3-observable") return "EN3 · current observable English shadow";
+  if (source.evidence_id === "en2-explained") return "EN2 · historical explained English shadow";
   if (source.evidence_id === "en1-runtime") return "EN1 · historical English runtime shadow";
   if (source.evidence_id === "s1-partial") return "S1 · historical Slovene partial failure";
   if (source.evidence_id === "s1r-reconciled") return "S1R · historical Slovene reconciled success";
