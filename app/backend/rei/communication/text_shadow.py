@@ -139,6 +139,7 @@ ShadowArtifactRole = Literal[
     "provider_call_record",
     "interpretation_v3",
     "response_evidence",
+    "failure_response_evidence",
     "diagnostic_comparison",
     "shadow_result",
 ]
@@ -609,6 +610,9 @@ class ShadowProviderAttempt:
     response_evidence: FrozenArtifactModel | None = None
     response_evidence_id: str | None = None
     response_evidence_sha256: str | None = None
+    failure_evidence: FrozenArtifactModel | None = None
+    failure_evidence_id: str | None = None
+    failure_evidence_sha256: str | None = None
     failure_stage: ShadowFailureStage | None = None
     failure_code: ShadowFailureCode | None = None
     failure_summary: str | None = None
@@ -627,6 +631,20 @@ class ShadowProviderAttempt:
                 raise ValueError("Shadow response evidence hash differs from its object")
             if self.call_record.output_artifact_ids != (self.response_evidence_id,):
                 raise ValueError("Successful shadow call must publish response evidence")
+        failure_evidence_presence = (
+            self.failure_evidence is not None,
+            self.failure_evidence_id is not None,
+            self.failure_evidence_sha256 is not None,
+        )
+        if any(failure_evidence_presence) and not all(failure_evidence_presence):
+            raise ValueError("Shadow failure evidence requires object, ID and hash")
+        if self.failure_evidence is not None:
+            if self.failure_evidence.content_hash() != self.failure_evidence_sha256:
+                raise ValueError("Shadow failure evidence hash differs from its object")
+            if getattr(self.failure_evidence, "result_id", None) != (
+                self.failure_evidence_id
+            ):
+                raise ValueError("Shadow failure evidence ID differs from its object")
         failure_fields = (
             self.failure_stage,
             self.failure_code,
@@ -637,6 +655,9 @@ class ShadowProviderAttempt:
                 self.call_record.status != "succeeded"
                 or self.output is None
                 or self.response_evidence is None
+                or self.failure_evidence is not None
+                or self.failure_evidence_id is not None
+                or self.failure_evidence_sha256 is not None
                 or any(value is not None for value in failure_fields)
             ):
                 raise ValueError("Successful shadow attempt is incomplete")
@@ -677,6 +698,7 @@ class ShadowRacioInterpretationExecution:
         | None
     )
     response_evidence: FrozenArtifactModel | None
+    failure_evidence: FrozenArtifactModel | None
     comparison: ShadowInterpretationComparison | None
     result: ShadowRacioInterpretationResult
 
@@ -704,7 +726,7 @@ class ShadowRacioInterpretationExecution:
                     self.response_evidence,
                     self.comparison,
                 )
-            ):
+            ) or self.failure_evidence is not None:
                 raise ValueError("Successful shadow execution is incomplete")
             assert self.packet is not None
             assert self.interpretation is not None
@@ -768,6 +790,17 @@ class ShadowRacioInterpretationExecution:
                 != self.call_record.content_hash()
             ):
                 raise ValueError("Failed shadow receipt differs from its call record")
+            if self.failure_evidence is not None:
+                if self.call_record is None or self.packet is None:
+                    raise ValueError("Failure evidence requires a completed provider call")
+                if (
+                    getattr(self.failure_evidence, "packet_id", None)
+                    != self.packet.packet_id
+                    or getattr(self.failure_evidence, "call_id", None)
+                    != self.call_record.call_id
+                    or getattr(self.failure_evidence, "no_authority", None) is not True
+                ):
+                    raise ValueError("Failure evidence differs from its failed lane")
 
 
 def build_shadow_no_authority_ledger(
@@ -833,6 +866,16 @@ def build_shadow_no_authority_ledger(
                 role="response_evidence",
                 value=execution.response_evidence,
                 artifact_id=response_id,
+            )
+        if execution.failure_evidence is not None:
+            failure_id = getattr(execution.failure_evidence, "result_id", None)
+            if not isinstance(failure_id, str):
+                raise ValueError("Shadow failure evidence requires a result ID")
+            add(
+                relative_path=f"{prefix}_failure_response_evidence.json",
+                role="failure_response_evidence",
+                value=execution.failure_evidence,
+                artifact_id=failure_id,
             )
         if execution.comparison is not None:
             add(
@@ -985,6 +1028,7 @@ def execute_racio_text_shadow(
             call_record=None,
             interpretation=None,
             response_evidence=None,
+            failure_evidence=None,
             comparison=None,
             result=result,
         )
@@ -1008,6 +1052,7 @@ def execute_racio_text_shadow(
             call_record=None,
             interpretation=None,
             response_evidence=None,
+            failure_evidence=None,
             comparison=None,
             result=result,
         )
@@ -1029,6 +1074,7 @@ def execute_racio_text_shadow(
             call_record=attempt.call_record,
             interpretation=None,
             response_evidence=None,
+            failure_evidence=attempt.failure_evidence,
             comparison=None,
             result=result,
         )
@@ -1065,6 +1111,7 @@ def execute_racio_text_shadow(
         call_record=attempt.call_record,
         interpretation=shadow,
         response_evidence=attempt.response_evidence,
+        failure_evidence=None,
         comparison=comparison,
         result=result,
     )

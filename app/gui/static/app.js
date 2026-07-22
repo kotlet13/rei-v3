@@ -299,6 +299,12 @@ function familyId(family) {
   return family?.family_id || family?.id || "unknown-family";
 }
 
+function textDetails(label, text) {
+  const details = element("details", "raw-details");
+  append(details, element("summary", "", label), element("pre", "raw-json", text || ""));
+  return details;
+}
+
 function semanticFamilyLabel(family) {
   return humanize(
     String(familyId(family))
@@ -1046,6 +1052,7 @@ function shadowProviderExchangeCard(exchange) {
   result.dataset.shadowKind = "provider-exchange";
   const responseReceived = response.received === true;
   const persistedResponse = response.status === "accepted_and_persisted";
+  const persistedRejection = response.status === "rejected_and_persisted";
   append(
     result,
     statusPill("provider call", call.status || "not available"),
@@ -1087,6 +1094,28 @@ function shadowProviderExchangeCard(exchange) {
         ["Private thinking content persisted", response.thinking_content_persisted],
       ]),
       rawDetails("Actual accepted final JSON from Gemma (parsed)", response.parsed_final_json)
+    );
+  } else if (persistedRejection) {
+    append(
+      result,
+      element(
+        "div",
+        "shadow-rejected-response-note",
+        "The rejected final content and exact validation detail were preserved. No retry was made and no accepted interpretation was published."
+      ),
+      keyValues([
+        ["Failure stage", validation.failure_stage],
+        ["Failure code", validation.failure_code],
+        ["Field-level validation error preserved", validation.field_level_error_available],
+        ["Final response SHA-256", response.final_response_sha256],
+        ["Final response bytes", response.final_response_byte_count],
+        ["Response envelope SHA-256", response.response_envelope_sha256],
+        ["Private thinking received", response.thinking_received],
+        ["Private thinking content persisted", response.thinking_content_persisted],
+      ]),
+      textDetails("Actual rejected final content from Gemma", response.rejected_final_content),
+      textDetails("Exact validation error", validation.validation_error),
+      rawDetails("Complete no-authority failure evidence", source.safe_failure_response_evidence)
     );
   } else if (responseReceived) {
     append(
@@ -1274,7 +1303,9 @@ function shadowPlainSummaryCard(lane) {
         "p",
         "",
         response.received
-          ? "The request reached Gemma and a final response came back. It failed the explained Draft JSON contract, so the canonicalizer did not run and no shadow interpretation was published."
+          ? failure.stage === "canonicalizer_v3_validation"
+            ? "The request reached Gemma and its Draft passed the JSON contract, but packet-scope canonicalization failed. No shadow interpretation was published."
+            : "The request reached Gemma and a final response came back. It failed the explained Draft JSON contract, so the canonicalizer did not run and no shadow interpretation was published."
           : "The frozen evidence does not confirm that a final response reached validation."
       ),
       keyValues([
@@ -1286,7 +1317,9 @@ function shadowPlainSummaryCard(lane) {
         "p",
         "shadow-source-note",
         response.received
-          ? "The exact rejected JSON and field-level error were not retained by the failure policy, so this evidence cannot tell us which exact field was wrong. The authoritative REI cycle still succeeded."
+          ? response.exact_rejected_body_available
+            ? "The exact rejected final content and validation detail are available in the response card below. The authoritative REI cycle still succeeded."
+            : "The exact rejected JSON and field-level error were not retained by the historical failure policy, so this evidence cannot tell us which exact field was wrong. The authoritative REI cycle still succeeded."
           : "The authoritative REI cycle still succeeded."
       )
     );

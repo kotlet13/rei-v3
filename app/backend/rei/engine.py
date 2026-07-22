@@ -2187,6 +2187,11 @@ class ReiNativeEngine:
                     f"{prefix}_response_evidence.json",
                     result.response_evidence,
                 )
+            if result.failure_evidence is not None:
+                write_json(
+                    f"{prefix}_failure_response_evidence.json",
+                    result.failure_evidence,
+                )
             if result.comparison is not None:
                 write_json(f"{prefix}_comparison.json", result.comparison)
             write_json(f"{prefix}_result.json", result.result)

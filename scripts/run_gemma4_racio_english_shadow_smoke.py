@@ -109,6 +109,7 @@ EXPECTED_CALLS = 2
 MANIFEST_NAME = "smoke_evidence_manifest.json"
 MANIFEST_ID_PREFIX = "gemma4_en_shadow_manifest"
 RECEIPT_ID_PREFIX = "gemma4_english_shadow_receipt"
+ALLOW_PRESERVED_VALIDATION_FAILURE = False
 WINDOWS_ABSOLUTE_PATH = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])")
 
 
@@ -348,6 +349,9 @@ def _seal_candidate(
         "require_full_gpu": True,
         "thinking_channel": "separate_private_not_persisted",
         "expected_model_calls": EXPECTED_CALLS,
+        "allow_preserved_validation_failure": (
+            ALLOW_PRESERVED_VALIDATION_FAILURE
+        ),
         "output_root": EXPECTED_OUTPUT_ROOT,
         "development_smoke_only": True,
         "holdout": False,
@@ -461,6 +465,12 @@ def _receipt_value(
         "manifest_sha256": manifest["manifest_sha256"],
         "evidence_root_integrity_status": "succeeded",
         "shadow_statuses": summary["shadow_statuses"],
+        "failure_response_evidence_count": summary.get(
+            "failure_response_evidence_count", 0
+        ),
+        "all_attempted_lanes_observable": summary.get(
+            "all_attempted_lanes_observable", False
+        ),
         "calls": summary["api_chat_dispatches"],
         "retries": summary["retries"],
         "fallbacks": summary["fallbacks"],
@@ -477,6 +487,32 @@ def _receipt_value(
     receipt_id = content_id(RECEIPT_ID_PREFIX, base)
     payload = {"receipt_id": receipt_id, **base}
     return {**payload, "receipt_sha256": sha256_hex(payload)}
+
+
+def _shadow_observability(
+    communications: tuple[object, ...],
+) -> tuple[int, bool]:
+    failure_evidence_count = sum(
+        1
+        for item in communications
+        if getattr(item, "failure_evidence", None) is not None
+    )
+    observable_lanes = all(
+        (
+            item.result.status == "succeeded"
+            and item.response_evidence is not None
+            and item.failure_evidence is None
+        )
+        or (
+            item.result.status == "failed"
+            and item.result.failure_stage
+            in {"draft_v3_validation", "canonicalizer_v3_validation"}
+            and item.response_evidence is None
+            and item.failure_evidence is not None
+        )
+        for item in communications
+    )
+    return failure_evidence_count, observable_lanes
 
 
 def derive_seal(work_root: Path) -> int:
@@ -621,6 +657,12 @@ def execute_smoke(output_root: Path) -> int:
     retries = 0
     fallbacks = sum(1 for record in call_records if record.fallback is not None)
     successful = statuses == ["succeeded", "succeeded"]
+    failure_evidence_count, observable_lanes = _shadow_observability(
+        shadow.shadow_communications
+    )
+    accepted_status_shape = successful or (
+        ALLOW_PRESERVED_VALIDATION_FAILURE and observable_lanes
+    )
     summary = {
         "schema_version": "rei-gemma4-english-shadow-smoke-summary-v1",
         "phase": PHASE,
@@ -634,6 +676,8 @@ def execute_smoke(output_root: Path) -> int:
         "api_chat_dispatches": client.chat_dispatch_count,
         "retries": retries,
         "fallbacks": fallbacks,
+        "failure_response_evidence_count": failure_evidence_count,
+        "all_attempted_lanes_observable": observable_lanes,
         "authoritative_hashes": control_authority,
         "authoritative_cycle_unchanged": authority_unchanged,
         "control_manifest_sha256": control.manifest.content_hash(),
@@ -646,7 +690,7 @@ def execute_smoke(output_root: Path) -> int:
         "model_promoted": False,
         "no_authority": True,
         "technical_smoke_succeeded": (
-            successful
+            accepted_status_shape
             and len(call_records) == EXPECTED_CALLS
             and client.chat_dispatch_count == EXPECTED_CALLS
             and retries == 0
@@ -664,6 +708,8 @@ def execute_smoke(output_root: Path) -> int:
             f"- E/I shadow statuses: `{statuses}`",
             f"- `/api/chat` dispatches: `{client.chat_dispatch_count}`",
             f"- retries/fallbacks: `{retries}/{fallbacks}`",
+            f"- preserved failure-response evidence: `{failure_evidence_count}`",
+            f"- all attempted lanes observable: `{observable_lanes}`",
             f"- authoritative cycle unchanged: `{authority_unchanged}`",
             "- deterministic interpreter remains authoritative",
             "- governance/decision/behavior/MindWorld/Ego authority: `false`",

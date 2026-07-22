@@ -9,7 +9,11 @@ attempt with no rejected content or private thinking text.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping
+import hashlib
+import re
+from typing import Any, Literal, Mapping, Self
+
+from pydantic import Field, model_validator
 
 from ..communication.text_shadow import (
     ShadowFailureCode,
@@ -17,7 +21,13 @@ from ..communication.text_shadow import (
     ShadowProviderPreflightError,
 )
 from ..communication.epistemic_interpreter_en import RacioEpistemicPacketEnV3
-from ..models.provider import ProviderCallRecord, ensure_call_record_contract
+from ..ids import content_id, sha256_hex
+from ..models.common import FrozenArtifactModel, HashDigest, NonEmptyId, NonEmptyText
+from ..models.provider import (
+    ProviderCallRecord,
+    ProviderCallSpec,
+    ensure_call_record_contract,
+)
 from .native import ExecutionClock
 from .ollama import (
     OllamaApiClient,
@@ -56,6 +66,167 @@ _FAILURE_SUMMARIES: Mapping[ShadowFailureCode, str] = {
     "packet_construction_failure": "The trusted request could not form a V3 packet.",
     "provider_failure": "The one-shot text-shadow provider contract failed.",
 }
+
+
+_WINDOWS_ABSOLUTE_PATH = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])"
+)
+_MAX_REJECTED_FINAL_BYTES = 1024 * 1024
+
+
+class Gemma4TextShadowFailureEvidence(FrozenArtifactModel):
+    """Exact rejected final content with private thinking excluded.
+
+    This artifact is diagnostic evidence only.  It is never an accepted
+    interpretation and a failed ProviderCallRecord still publishes no final
+    output artifacts.
+    """
+
+    schema_version: Literal[
+        "rei-gemma4-text-shadow-failure-evidence-v1"
+    ] = "rei-gemma4-text-shadow-failure-evidence-v1"
+    result_id: NonEmptyId
+    packet_id: NonEmptyId
+    packet_hash: HashDigest
+    call_id: NonEmptyId
+    call_spec_hash: HashDigest
+    provider_id: NonEmptyId
+    provider_revision: Literal[
+        "rei-racio-gemma4-epistemic-v3-en-explained-chat-v1"
+    ]
+    provider_implementation_revision: NonEmptyText
+    model: Literal["gemma4:31b"]
+    model_revision: HashDigest
+    exact_model_request: dict[str, Any]
+    exact_model_request_hash: HashDigest
+    failure_stage: Literal[
+        "draft_v3_validation",
+        "canonicalizer_v3_validation",
+    ]
+    provider_failure_code: NonEmptyText
+    shadow_failure_code: ShadowFailureCode
+    validation_error: NonEmptyText
+    final_content: NonEmptyText
+    final_content_sha256: HashDigest
+    final_content_byte_count: int = Field(gt=0, le=_MAX_REJECTED_FINAL_BYTES)
+    response_envelope_sha256: HashDigest
+    response_envelope_byte_count: int = Field(gt=0)
+    thinking_present: Literal[True] = True
+    thinking_sha256: HashDigest
+    thinking_byte_count: int = Field(gt=0)
+    thinking_content_persisted: Literal[False] = False
+    final_content_sanitized: Literal[True] = True
+    transport_profile_validated: Literal[True] = True
+    model_call_count: Literal[1] = 1
+    retry_count: Literal[0] = 0
+    fallback_count: Literal[0] = 0
+    accepted_interpretation_published: Literal[False] = False
+    no_authority: Literal[True] = True
+
+    @model_validator(mode="after")
+    def validate_failure_evidence(self) -> Self:
+        final_bytes = self.final_content.encode("utf-8")
+        if len(final_bytes) != self.final_content_byte_count:
+            raise ValueError("Rejected final content byte count differs")
+        if hashlib.sha256(final_bytes).hexdigest() != self.final_content_sha256:
+            raise ValueError("Rejected final content hash differs")
+        if self.exact_model_request_hash != sha256_hex(self.exact_model_request):
+            raise ValueError("Rejected request differs from its hash")
+        for value in (self.final_content, self.validation_error):
+            if _WINDOWS_ABSOLUTE_PATH.search(value.replace("\\\\", "\\")):
+                raise ValueError("Failure evidence cannot retain a local absolute path")
+            if "Traceback (most recent call last)" in value:
+                raise ValueError("Failure evidence cannot retain a raw traceback")
+        folded = self.final_content.casefold()
+        if "<think" in folded or "</think>" in folded:
+            raise ValueError("Failure evidence cannot retain inline thinking")
+        payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"result_id"},
+        )
+        if self.result_id != content_id("gemma_shadow_failure", payload):
+            raise ValueError("Failure evidence is not content-addressed")
+        return self
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        packet: RacioEpistemicPacketEnV3,
+        call: ProviderCallSpec,
+        provider: OllamaGemma4EpistemicExplainedEnProvider,
+        error: Gemma4EpistemicV3ExecutionError,
+        shadow_failure_code: ShadowFailureCode,
+    ) -> "Gemma4TextShadowFailureEvidence":
+        if error.failure_stage not in {
+            "draft_v3_validation",
+            "canonicalizer_v3_validation",
+        }:
+            raise ValueError("Failure evidence requires a validation-stage failure")
+        if error.final_json is None or error.validation_error is None:
+            raise ValueError("Validation failure evidence requires final content and detail")
+        response_hash = error.rejected_response_sha256
+        response_bytes = error.rejected_response_byte_count
+        final_hash = error.rejected_final_response_sha256
+        final_bytes = error.rejected_final_response_byte_count
+        thinking_hash = error.thinking_sha256
+        thinking_bytes = error.thinking_byte_count
+        if any(
+            value is None
+            for value in (
+                response_hash,
+                response_bytes,
+                final_hash,
+                final_bytes,
+                thinking_hash,
+                thinking_bytes,
+            )
+        ):
+            raise ValueError("Validation failure lacks closed transport fingerprints")
+        exact_request = dict(provider.request_payload(packet))
+        base = {
+            "schema_version": "rei-gemma4-text-shadow-failure-evidence-v1",
+            "packet_id": packet.packet_id,
+            "packet_hash": packet.packet_hash,
+            "call_id": call.call_id,
+            "call_spec_hash": call.content_hash(),
+            "provider_id": call.provider.provider_id,
+            "provider_revision": (
+                "rei-racio-gemma4-epistemic-v3-en-explained-chat-v1"
+            ),
+            "provider_implementation_revision": (
+                call.provider.implementation_revision
+            ),
+            "model": call.provider.model,
+            "model_revision": call.provider.model_revision,
+            "exact_model_request": exact_request,
+            "exact_model_request_hash": sha256_hex(exact_request),
+            "failure_stage": error.failure_stage,
+            "provider_failure_code": error.failure_code,
+            "shadow_failure_code": shadow_failure_code,
+            "validation_error": error.validation_error,
+            "final_content": error.final_json,
+            "final_content_sha256": final_hash,
+            "final_content_byte_count": final_bytes,
+            "response_envelope_sha256": response_hash,
+            "response_envelope_byte_count": response_bytes,
+            "thinking_present": True,
+            "thinking_sha256": thinking_hash,
+            "thinking_byte_count": thinking_bytes,
+            "thinking_content_persisted": False,
+            "final_content_sanitized": True,
+            "transport_profile_validated": True,
+            "model_call_count": 1,
+            "retry_count": 0,
+            "fallback_count": 0,
+            "accepted_interpretation_published": False,
+            "no_authority": True,
+        }
+        return cls(
+            result_id=content_id("gemma_shadow_failure", base),
+            **base,
+        )
 
 
 def _bounded_failure_code(
@@ -158,6 +329,26 @@ class Gemma4TextShadowInterpreter:
         except Gemma4EpistemicV3ExecutionError as error:
             failure_finished_at = clock.timestamp("racio_call_finished")
             failure_code = _bounded_failure_code(error)
+            failure_evidence = None
+            failure_evidence_warning: tuple[str, ...] = ()
+            if (
+                error.failure_stage
+                in {"draft_v3_validation", "canonicalizer_v3_validation"}
+                and error.final_json is not None
+                and error.validation_error is not None
+            ):
+                try:
+                    failure_evidence = Gemma4TextShadowFailureEvidence.create(
+                        packet=packet,
+                        call=call,
+                        provider=self.provider,
+                        error=error,
+                        shadow_failure_code=failure_code,
+                    )
+                except (TypeError, ValueError):
+                    failure_evidence_warning = (
+                        "sanitized_failure_evidence_status:not_persisted",
+                    )
             record = ProviderCallRecord(
                 call_id=call.call_id,
                 spec_hash=call.content_hash(),
@@ -176,6 +367,7 @@ class Gemma4TextShadowInterpreter:
                 warnings=(
                     f"sanitized_provider_failure_code:{error.failure_code}",
                     f"sanitized_shadow_failure_code:{failure_code}",
+                    *failure_evidence_warning,
                 ),
                 safety_notice=call.safety_notice,
             )
@@ -187,6 +379,15 @@ class Gemma4TextShadowInterpreter:
                 failure_stage=error.failure_stage,
                 failure_code=failure_code,
                 failure_summary=_FAILURE_SUMMARIES[failure_code],
+                failure_evidence=failure_evidence,
+                failure_evidence_id=(
+                    None if failure_evidence is None else failure_evidence.result_id
+                ),
+                failure_evidence_sha256=(
+                    None
+                    if failure_evidence is None
+                    else failure_evidence.content_hash()
+                ),
             )
 
         evidence = execution.response_evidence
@@ -201,4 +402,7 @@ class Gemma4TextShadowInterpreter:
         )
 
 
-__all__ = ["Gemma4TextShadowInterpreter"]
+__all__ = [
+    "Gemma4TextShadowFailureEvidence",
+    "Gemma4TextShadowInterpreter",
+]

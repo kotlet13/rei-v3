@@ -123,9 +123,10 @@ def test_en2_current_runtime_projection_is_english_exact_and_honest(
     assert emocio_exchange["call"]["fallbacks"] == 0
     assert emocio_exchange["response"] == {
         "received": True,
-        "status": "rejected_not_persisted",
-        "exact_rejected_body_available": False,
-        "parsed_final_json": None,
+            "status": "rejected_not_persisted",
+            "exact_rejected_body_available": False,
+            "rejected_final_content": None,
+            "parsed_final_json": None,
         "final_response_sha256": None,
         "final_response_byte_count": None,
         "response_envelope_sha256": None,

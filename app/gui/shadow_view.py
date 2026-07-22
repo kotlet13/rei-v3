@@ -1089,15 +1089,20 @@ def _provider_exchange_view(
     call_spec: dict[str, Any] | None,
     call_record: dict[str, Any] | None,
     response_evidence: dict[str, Any] | None,
+    failure_response_evidence: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """Project the preserved request/response lifecycle without inventing data."""
 
     status = result.get("status")
     failure_stage = result.get("failure_stage")
-    response_received = response_evidence is not None or failure_stage in {
-        "draft_v3_validation",
-        "canonicalizer_v3_validation",
-    }
+    response_received = (
+        response_evidence is not None
+        or failure_response_evidence is not None
+        or failure_stage in {
+            "draft_v3_validation",
+            "canonicalizer_v3_validation",
+        }
+    )
     final_json = None
     if response_evidence is not None:
         candidate = response_evidence.get("model_draft")
@@ -1127,6 +1132,8 @@ def _provider_exchange_view(
     response_status = (
         "accepted_and_persisted"
         if response_evidence is not None
+        else "rejected_and_persisted"
+        if failure_response_evidence is not None
         else "rejected_not_persisted"
         if response_received
         else "not_available"
@@ -1149,6 +1156,8 @@ def _provider_exchange_view(
     model_call_count = (
         response_evidence.get("model_call_count")
         if response_evidence is not None
+        else failure_response_evidence.get("model_call_count")
+        if failure_response_evidence is not None
         else 1
         if response_received
         else 0
@@ -1158,11 +1167,15 @@ def _provider_exchange_view(
     retry_count = (
         response_evidence.get("retry_count")
         if response_evidence is not None
+        else failure_response_evidence.get("retry_count")
+        if failure_response_evidence is not None
         else _call_parameter_value(call_spec, "retry_count")
     )
     fallback_count = (
         response_evidence.get("fallback_count")
         if response_evidence is not None
+        else failure_response_evidence.get("fallback_count")
+        if failure_response_evidence is not None
         else 0
         if call_record is not None and call_record.get("fallback") is None
         else None
@@ -1171,6 +1184,9 @@ def _provider_exchange_view(
         "The accepted final JSON content is preserved below as a parsed object; "
         "its original whitespace and key order were not retained."
         if response_evidence is not None
+        else "The exact rejected final content and its validation error were "
+        "preserved as no-authority failure evidence."
+        if failure_response_evidence is not None
         else "Gemma returned final content, but the rejected body and field-level "
         "validation detail were intentionally not persisted. Only bounded failure "
         "metadata remains, so the exact rejected response cannot be reconstructed."
@@ -1199,33 +1215,50 @@ def _provider_exchange_view(
         "response": {
             "received": response_received,
             "status": response_status,
-            "exact_rejected_body_available": False,
+            "exact_rejected_body_available": (
+                failure_response_evidence is not None
+            ),
+            "rejected_final_content": (
+                None
+                if failure_response_evidence is None
+                else failure_response_evidence.get("final_content")
+            ),
             "parsed_final_json": final_json,
             "final_response_sha256": (
-                None
-                if response_evidence is None
-                else response_evidence.get("final_response_hash")
+                response_evidence.get("final_response_hash")
+                if response_evidence is not None
+                else failure_response_evidence.get("final_content_sha256")
+                if failure_response_evidence is not None
+                else None
             ),
             "final_response_byte_count": (
-                None
-                if response_evidence is None
-                else response_evidence.get("final_response_byte_count")
+                response_evidence.get("final_response_byte_count")
+                if response_evidence is not None
+                else failure_response_evidence.get("final_content_byte_count")
+                if failure_response_evidence is not None
+                else None
             ),
             "response_envelope_sha256": (
-                None
-                if response_evidence is None
-                else response_evidence.get("response_envelope_hash")
+                response_evidence.get("response_envelope_hash")
+                if response_evidence is not None
+                else failure_response_evidence.get("response_envelope_sha256")
+                if failure_response_evidence is not None
+                else None
             ),
             "response_envelope_byte_count": (
-                None
-                if response_evidence is None
-                else response_evidence.get("response_envelope_byte_count")
+                response_evidence.get("response_envelope_byte_count")
+                if response_evidence is not None
+                else failure_response_evidence.get("response_envelope_byte_count")
+                if failure_response_evidence is not None
+                else None
             ),
             "note": response_note,
             "thinking_received": (
-                None
-                if response_evidence is None
-                else response_evidence.get("thinking_present")
+                response_evidence.get("thinking_present")
+                if response_evidence is not None
+                else failure_response_evidence.get("thinking_present")
+                if failure_response_evidence is not None
+                else None
             ),
             "thinking_content_persisted": False,
         },
@@ -1233,7 +1266,16 @@ def _provider_exchange_view(
             "failure_stage": failure_stage,
             "failure_code": result.get("failure_code"),
             "failure_summary": result.get("failure_summary"),
-            "field_level_error_available": False if status == "failed" else None,
+            "field_level_error_available": (
+                failure_response_evidence is not None
+                if status == "failed"
+                else None
+            ),
+            "validation_error": (
+                None
+                if failure_response_evidence is None
+                else failure_response_evidence.get("validation_error")
+            ),
             "steps": [
                 {
                     "name": "Request dispatched",
@@ -1285,6 +1327,7 @@ def _provider_exchange_view(
             ],
         },
         "safe_provider_call_record": safe_call_record,
+        "safe_failure_response_evidence": failure_response_evidence,
     }
 
 
@@ -1481,6 +1524,19 @@ def _lane_view(
         expected=dict,
         required=result.get("status") == "succeeded",
     )
+    failure_response_evidence = _artifact_json(
+        snapshot,
+        shadow_root / f"{stem}_failure_response_evidence.json",
+        expected=dict,
+        required=False,
+    )
+    if (
+        result.get("status") == "succeeded"
+        and failure_response_evidence is not None
+    ):
+        raise ShadowEvidenceIntegrityError(
+            "Successful shadow lane cannot carry failure-response evidence"
+        )
     call_spec = _artifact_json(
         snapshot,
         shadow_root / f"{stem}_call_spec.json",
@@ -1495,7 +1551,10 @@ def _lane_view(
     )
     shape, shadow = _shadow_view(result, interpretation, response_evidence)
     exact_model_input = _exact_model_input_view(
-        packet, call_spec, response_evidence, exact_request_template
+        packet,
+        call_spec,
+        response_evidence or failure_response_evidence,
+        exact_request_template,
     )
     lane: dict[str, Any] = {
         "source_mind": source_mind,
@@ -1504,7 +1563,11 @@ def _lane_view(
         "visible_input": _visible_input(packet),
         "exact_model_input": exact_model_input,
         "provider_exchange": _provider_exchange_view(
-            result, call_spec, call_record, response_evidence
+            result,
+            call_spec,
+            call_record,
+            response_evidence,
+            failure_response_evidence,
         ),
         "authoritative": authoritative,
         "shadow": shadow,

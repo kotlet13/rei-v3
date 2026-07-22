@@ -1,4 +1,4 @@
-"""Run the sealed EN2 Gemma shadow smoke with cited abstention explanations."""
+"""Run sealed EN3 shadow calls with preserved validation-failure evidence."""
 
 from __future__ import annotations
 
@@ -25,42 +25,42 @@ from rei.communication.epistemic_interpreter_en_explained import (  # noqa: E402
 from scripts import run_gemma4_racio_english_shadow_smoke as base  # noqa: E402
 
 
-# Updated to the final model-free implementation commit before the pre-call seal.
-IMPLEMENTATION_COMMIT = "1f118c0d64cfb1ac02357dcf1a299d2c16041041"
-PHASE = "EN2"
-EVENT_ID = "en2_gemma4_explained_shadow_event"
-RUN_ID = "en2-gemma4-explained-shadow-cycle"
-EGO_ID = "en2-gemma4-explained-shadow-ego"
+# Replaced with the exact model-free implementation commit before seal derivation.
+IMPLEMENTATION_COMMIT = "0000000000000000000000000000000000000000"
+PHASE = "EN3"
+EVENT_ID = "en3_gemma4_observable_shadow_event"
+RUN_ID = "en3-gemma4-observable-shadow-cycle"
+EGO_ID = "en3-gemma4-observable-shadow-ego"
 SEAL_PATH = (
     ROOT
     / "Docs"
     / "evals"
     / "research_reset_2026-07"
-    / "gemma4_english_explained_shadow_smoke_seal.json"
+    / "gemma4_observable_shadow_smoke_seal.json"
 )
 OUTPUT_ROOT = (
     ROOT
     / "Docs"
     / "evals"
     / "semantic_lab_v1"
-    / "en2-gemma4-explained-shadow-2026-07-21"
+    / "en3-gemma4-observable-shadow-2026-07-22"
 )
 RECEIPT_PATH = (
     ROOT
     / "Docs"
     / "evals"
     / "research_reset_2026-07"
-    / "gemma4_english_explained_shadow_smoke_receipt.json"
+    / "gemma4_observable_shadow_smoke_receipt.json"
 )
 EXPECTED_OUTPUT_ROOT = (
-    "Docs/evals/semantic_lab_v1/en2-gemma4-explained-shadow-2026-07-21"
+    "Docs/evals/semantic_lab_v1/en3-gemma4-observable-shadow-2026-07-22"
 )
-RUNNER_RELATIVE_PATH = "scripts/run_gemma4_racio_explained_shadow_smoke.py"
+RUNNER_RELATIVE_PATH = "scripts/run_gemma4_racio_observable_shadow_smoke.py"
 FOCUSED_TEST_RELATIVE_PATH = (
-    "tests/rei/test_english_explained_shadow_smoke.py"
+    "tests/rei/test_english_observable_shadow_smoke.py"
 )
-MANIFEST_ID_PREFIX = "gemma4_en2_shadow_manifest"
-RECEIPT_ID_PREFIX = "gemma4_en2_shadow_receipt"
+MANIFEST_ID_PREFIX = "gemma4_en3_shadow_manifest"
+RECEIPT_ID_PREFIX = "gemma4_en3_shadow_receipt"
 
 
 def _configure_base() -> None:
@@ -74,9 +74,7 @@ def _configure_base() -> None:
     base.RECEIPT_PATH = RECEIPT_PATH
     base.EXPECTED_OUTPUT_ROOT = EXPECTED_OUTPUT_ROOT
     base.PROVIDER_REVISION = GEMMA4_EPISTEMIC_EN_EXPLAINED_PROVIDER_REVISION
-    base.INSTRUCTION_SHA256 = (
-        GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION_SHA256
-    )
+    base.INSTRUCTION_SHA256 = GEMMA4_EPISTEMIC_EN_EXPLAINED_INSTRUCTION_SHA256
     base.DRAFT_SCHEMA_SHA256 = GEMMA4_EPISTEMIC_EN_EXPLAINED_SCHEMA_SHA256
     base.DRAFT_MODEL_SCHEMA_SHA256 = sha256_hex(
         RacioEpistemicExplainedDraftEnV1.model_json_schema()
@@ -91,7 +89,7 @@ def _configure_base() -> None:
     )
     base.MANIFEST_ID_PREFIX = MANIFEST_ID_PREFIX
     base.RECEIPT_ID_PREFIX = RECEIPT_ID_PREFIX
-    base.ALLOW_PRESERVED_VALIDATION_FAILURE = False
+    base.ALLOW_PRESERVED_VALIDATION_FAILURE = True
 
 
 def main(argv: list[str] | None = None) -> int:

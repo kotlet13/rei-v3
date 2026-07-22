@@ -23,6 +23,10 @@ from app.backend.rei.providers.language_policy import (
     LOCAL_MODEL_LANGUAGE_POLICY_ID,
     LocalModelLanguagePolicyError,
 )
+from app.backend.rei.providers.gemma4_text_shadow import (
+    Gemma4TextShadowFailureEvidence,
+    Gemma4TextShadowInterpreter,
+)
 from app.backend.rei.providers.native import DeterministicExecutionClock
 from app.backend.rei.providers.ollama import OllamaApiClient, OllamaTransportError
 from app.backend.rei.providers.ollama_gemma4_epistemic import (
@@ -627,3 +631,65 @@ def test_invalid_explanation_fails_closed_after_one_attempt(failure: str) -> Non
         assert "outside visible English packet scope" in str(
             caught.value.validation_error
         )
+
+
+def test_shadow_adapter_preserves_exact_rejected_final_and_validation_detail() -> None:
+    payload = _explained_draft_payload(full_abstention=True)
+    payload["action_abstention_explanation"] = None
+    final_content = json.dumps(payload, separators=(",", ":"))
+    transport = FakeEnglishOllamaTransport(_response(final_content))
+    provider = _explained_provider(transport)
+    packet = _packet()
+    interpreter = Gemma4TextShadowInterpreter(provider=provider)
+
+    attempt = interpreter.interpret_shadow(packet, clock=_clock())
+
+    assert transport.chat_count == 1
+    assert attempt.status == "failed"
+    assert attempt.failure_stage == "draft_v3_validation"
+    assert attempt.failure_code == "draft_v3_validation"
+    assert attempt.response_evidence is None
+    assert attempt.call_record.output_artifact_ids == ()
+    evidence = attempt.failure_evidence
+    assert isinstance(evidence, Gemma4TextShadowFailureEvidence)
+    assert evidence.final_content == final_content
+    assert evidence.final_content_sha256 == hashlib.sha256(
+        final_content.encode("utf-8")
+    ).hexdigest()
+    assert "absent action claim requires" in evidence.validation_error
+    assert evidence.exact_model_request == provider.request_payload(packet)
+    assert evidence.thinking_content_persisted is False
+    assert evidence.accepted_interpretation_published is False
+    assert evidence.no_authority is True
+    assert attempt.failure_evidence_id == evidence.result_id
+    assert attempt.failure_evidence_sha256 == evidence.content_hash()
+    serialized = evidence.canonical_json_bytes().decode("utf-8")
+    assert "Private model reasoning" not in serialized
+    assert "thinking\":\"" not in serialized
+
+    tampered = evidence.model_dump(mode="python", round_trip=True)
+    tampered["validation_error"] = "changed"
+    with pytest.raises(ValueError, match="content-addressed"):
+        Gemma4TextShadowFailureEvidence.model_validate(tampered)
+
+
+def test_shadow_adapter_drops_unsafe_rejected_body_without_breaking_failure() -> None:
+    payload = _explained_draft_payload(full_abstention=True)
+    payload["unexpected_local_path"] = "C:\\private\\model-output.json"
+    transport = FakeEnglishOllamaTransport(_response(json.dumps(payload)))
+    provider = _explained_provider(transport)
+
+    attempt = Gemma4TextShadowInterpreter(provider=provider).interpret_shadow(
+        _packet(),
+        clock=_clock(),
+    )
+
+    assert transport.chat_count == 1
+    assert attempt.status == "failed"
+    assert attempt.failure_evidence is None
+    assert attempt.failure_evidence_id is None
+    assert attempt.failure_evidence_sha256 is None
+    assert attempt.call_record.output_artifact_ids == ()
+    assert "sanitized_failure_evidence_status:not_persisted" in (
+        attempt.call_record.warnings
+    )

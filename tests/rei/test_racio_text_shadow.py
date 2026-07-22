@@ -87,15 +87,52 @@ class _FakeShadowEvidence(FrozenArtifactModel):
         return cls(result_id=content_id("test_shadow_evidence", base), **base)
 
 
+class _FakeShadowFailureEvidence(FrozenArtifactModel):
+    schema_version: Literal[
+        "rei-test-shadow-failure-evidence-v1"
+    ] = "rei-test-shadow-failure-evidence-v1"
+    result_id: NonEmptyId
+    packet_id: NonEmptyId
+    call_id: NonEmptyId
+    final_content: str
+    validation_error: str
+    thinking_content_persisted: Literal[False] = False
+    accepted_interpretation_published: Literal[False] = False
+    no_authority: Literal[True] = True
+
+    @classmethod
+    def create(
+        cls,
+        packet: RacioEpistemicPacketEnV3,
+        call_id: str,
+    ) -> "_FakeShadowFailureEvidence":
+        base = {
+            "schema_version": "rei-test-shadow-failure-evidence-v1",
+            "packet_id": packet.packet_id,
+            "call_id": call_id,
+            "final_content": '{"source_mind":"E","unexpected":true}',
+            "validation_error": '[{"loc":["unexpected"],"type":"extra_forbidden"}]',
+            "thinking_content_persisted": False,
+            "accepted_interpretation_published": False,
+            "no_authority": True,
+        }
+        return cls(
+            result_id=content_id("test_shadow_failure", base),
+            **base,
+        )
+
+
 class _FakeShadowInterpreter:
     def __init__(
         self,
         *,
         failure_stage: ShadowFailureStage | None = None,
         failure_code: ShadowFailureCode | None = None,
+        preserve_failure_evidence: bool = False,
     ) -> None:
         self.failure_stage = failure_stage
         self.failure_code = failure_code
+        self.preserve_failure_evidence = preserve_failure_evidence
         self.packets: list[RacioEpistemicPacketEnV3] = []
         identity_payload = {
             "kind": "text_reasoner",
@@ -150,6 +187,11 @@ class _FakeShadowInterpreter:
                 safety_notice=call.safety_notice,
             )
             assert self.failure_stage is not None
+            failure_evidence = (
+                _FakeShadowFailureEvidence.create(packet, call.call_id)
+                if self.preserve_failure_evidence
+                else None
+            )
             return ShadowProviderAttempt(
                 status="failed",
                 call_spec=call,
@@ -157,6 +199,15 @@ class _FakeShadowInterpreter:
                 failure_stage=self.failure_stage,
                 failure_code=self.failure_code,
                 failure_summary="The bounded fake shadow attempt failed.",
+                failure_evidence=failure_evidence,
+                failure_evidence_id=(
+                    None if failure_evidence is None else failure_evidence.result_id
+                ),
+                failure_evidence_sha256=(
+                    None
+                    if failure_evidence is None
+                    else failure_evidence.content_hash()
+                ),
             )
 
         assert packet.visible_observation_ids
@@ -870,6 +921,67 @@ def test_bounded_shadow_failures_leave_authoritative_cycle_successful(
         assert FileArtifactStore(
             tmp_path / f"failure_{index}" / "runs"
         ).verify_run(request.run_id) == result.manifest
+
+
+def test_validation_failure_evidence_is_terminal_no_authority_and_manifest_closed(
+    tmp_path: Path,
+) -> None:
+    request = _en_request()
+    control = _engine(tmp_path / "control", request).run_cycle(request)
+    fake = _FakeShadowInterpreter(
+        failure_stage="draft_v3_validation",
+        failure_code="draft_v3_validation",
+        preserve_failure_evidence=True,
+    )
+
+    result = _engine(
+        tmp_path / "failed_with_evidence",
+        request,
+        shadow=fake,
+    ).run_cycle(request)
+
+    assert _authoritative_projection(control) == _authoritative_projection(result)
+    assert tuple(packet.source_mind for packet in fake.packets) == ("E", "I")
+    assert all(
+        item.result.status == "failed"
+        and item.interpretation is None
+        and item.response_evidence is None
+        and isinstance(item.failure_evidence, _FakeShadowFailureEvidence)
+        and item.failure_evidence.no_authority is True
+        and item.failure_evidence.accepted_interpretation_published is False
+        and item.call_record is not None
+        and item.call_record.output_artifact_ids == ()
+        for item in result.shadow_communications
+    )
+    run_root = (
+        tmp_path
+        / "failed_with_evidence"
+        / "runs"
+        / request.run_id
+        / "communication_shadow"
+    )
+    for label in ("emocio", "instinkt"):
+        failure_path = run_root / f"{label}_failure_response_evidence.json"
+        assert failure_path.is_file()
+        failure = _FakeShadowFailureEvidence.model_validate_json(
+            failure_path.read_bytes()
+        )
+        assert failure.thinking_content_persisted is False
+        assert not (run_root / f"{label}_interpretation_v3.json").exists()
+        assert not (run_root / f"{label}_response_evidence.json").exists()
+    ledger = ShadowNoAuthorityLedger.model_validate_json(
+        (run_root / "no_authority_ledger.json").read_bytes()
+    )
+    failure_roles = tuple(
+        item
+        for item in ledger.artifacts
+        if item.role == "failure_response_evidence"
+    )
+    assert len(failure_roles) == 2
+    assert all(item.no_authority is True for item in failure_roles)
+    assert FileArtifactStore(
+        tmp_path / "failed_with_evidence" / "runs"
+    ).verify_run(request.run_id) == result.manifest
 
 
 def test_english_shadow_input_succeeds_and_slovenian_fails_before_dispatch(
