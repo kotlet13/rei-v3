@@ -2676,8 +2676,8 @@ def _validate_judgments(
 class C4Stage1HumanReviewUnsignedClaim(FrozenArtifactModel):
     """Canonical Stage 1 claim whose HMAC includes the display receipt."""
 
-    schema_version: Literal["rei-c4-stage1-human-review-unsigned-claim-v1"] = (
-        "rei-c4-stage1-human-review-unsigned-claim-v1"
+    schema_version: Literal["rei-c4-stage1-human-review-unsigned-claim-v2"] = (
+        "rei-c4-stage1-human-review-unsigned-claim-v2"
     )
     claim_id: NonEmptyId
     claim_sha256: HashDigest
@@ -2711,12 +2711,16 @@ class C4Stage1HumanReviewUnsignedClaim(FrozenArtifactModel):
         min_length=2, max_length=2
     )
     pair_judgment: C4PairHumanJudgment
-    external_one_time_operator_ledger_lease_sha256: HashDigest
-    operator_claims_ledger_lease_preissued: Literal[True] = True
+    submission_receipt_id: NonEmptyId
+    submission_receipt_sha256: HashDigest
+    operator_signing_lease_id: NonEmptyId
+    operator_signing_lease_sha256: HashDigest
+    authenticated_presenter_submission_required: Literal[True] = True
+    operator_signing_lease_preissued: Literal[True] = True
     separately_keyed_display_attestation_in_operator_hmac: Literal[True] = True
     display_receipt_cold_reverification_required_before_seal: Literal[True] = True
     live_external_display_receipt_reverification_required: Literal[True] = True
-    live_external_operator_ledger_reverification_required: Literal[True] = True
+    live_external_operator_signing_lease_reverification_required: Literal[True] = True
     direct_operator_secret_material_stored_in_artifact: Literal[False] = False
     external_text_identifiers_trusted_caller_boundary: Literal[True] = True
     absence_of_covert_secret_encoding_proven: Literal[False] = False
@@ -2742,11 +2746,13 @@ class C4Stage1HumanReviewUnsignedClaim(FrozenArtifactModel):
         if (
             self.receipt_domain != C4_STAGE1_OPERATOR_RECEIPT_DOMAIN
             or self.operator_attestation_claim != C4_OPERATOR_ATTESTATION_CLAIM
-            or self.operator_claims_ledger_lease_preissued is not True
+            or self.authenticated_presenter_submission_required is not True
+            or self.operator_signing_lease_preissued is not True
             or self.separately_keyed_display_attestation_in_operator_hmac is not True
             or self.display_receipt_cold_reverification_required_before_seal is not True
             or self.live_external_display_receipt_reverification_required is not True
-            or self.live_external_operator_ledger_reverification_required is not True
+            or self.live_external_operator_signing_lease_reverification_required
+            is not True
             or self.direct_operator_secret_material_stored_in_artifact is not False
             or self.external_text_identifiers_trusted_caller_boundary is not True
             or self.absence_of_covert_secret_encoding_proven is not False
@@ -2784,7 +2790,10 @@ def build_c4_stage1_operator_unsigned_claim(
     review_timestamp: datetime,
     output_judgments: tuple[C4OutputHumanJudgment, C4OutputHumanJudgment],
     pair_judgment: C4PairHumanJudgment,
-    external_one_time_operator_ledger_lease_sha256: str,
+    submission_receipt_id: str,
+    submission_receipt_sha256: str,
+    operator_signing_lease_id: str,
+    operator_signing_lease_sha256: str,
 ) -> C4Stage1HumanReviewUnsignedClaim:
     schema, packet, operator_policy, presentation_manifest = _validate_display_inputs(
         schema, packet, operator_policy, presentation_manifest
@@ -2831,7 +2840,7 @@ def build_c4_stage1_operator_unsigned_claim(
     if review_timestamp < display_receipt.display_completed_at:
         raise ValueError("C4 Stage 1 review predates completed display execution")
     base = {
-        "schema_version": "rei-c4-stage1-human-review-unsigned-claim-v1",
+        "schema_version": "rei-c4-stage1-human-review-unsigned-claim-v2",
         "receipt_domain": C4_STAGE1_OPERATOR_RECEIPT_DOMAIN,
         "operator_attestation_claim": C4_OPERATOR_ATTESTATION_CLAIM,
         "operator_policy_id": operator_policy.policy_id,
@@ -2870,14 +2879,16 @@ def build_c4_stage1_operator_unsigned_claim(
         "review_timestamp": review_timestamp,
         "output_judgments": output_judgments,
         "pair_judgment": pair_judgment,
-        "external_one_time_operator_ledger_lease_sha256": (
-            external_one_time_operator_ledger_lease_sha256
-        ),
-        "operator_claims_ledger_lease_preissued": True,
+        "submission_receipt_id": submission_receipt_id,
+        "submission_receipt_sha256": submission_receipt_sha256,
+        "operator_signing_lease_id": operator_signing_lease_id,
+        "operator_signing_lease_sha256": operator_signing_lease_sha256,
+        "authenticated_presenter_submission_required": True,
+        "operator_signing_lease_preissued": True,
         "separately_keyed_display_attestation_in_operator_hmac": True,
         "display_receipt_cold_reverification_required_before_seal": True,
         "live_external_display_receipt_reverification_required": True,
-        "live_external_operator_ledger_reverification_required": True,
+        "live_external_operator_signing_lease_reverification_required": True,
         "direct_operator_secret_material_stored_in_artifact": False,
         "external_text_identifiers_trusted_caller_boundary": True,
         "absence_of_covert_secret_encoding_proven": False,
@@ -2910,8 +2921,8 @@ def c4_stage1_operator_attestation_message(
 
 
 class C4Stage1HumanReviewOperatorAttestation(FrozenArtifactModel):
-    schema_version: Literal["rei-c4-stage1-human-review-attestation-v1"] = (
-        "rei-c4-stage1-human-review-attestation-v1"
+    schema_version: Literal["rei-c4-stage1-human-review-attestation-v2"] = (
+        "rei-c4-stage1-human-review-attestation-v2"
     )
     attestation_id: NonEmptyId
     attestation_sha256: HashDigest
@@ -2976,7 +2987,7 @@ def build_c4_stage1_operator_attestation(
         label="C4 Stage 1 operator claim",
     )
     base = {
-        "schema_version": "rei-c4-stage1-human-review-attestation-v1",
+        "schema_version": "rei-c4-stage1-human-review-attestation-v2",
         "claim": claim,
         "hmac_algorithm": "HMAC-SHA256",
         "hmac_sha256": external_hmac_sha256,
@@ -3000,11 +3011,25 @@ def build_c4_stage1_operator_attestation(
     )
 
 
+class C4Stage1ExternalOperatorAttestationVerifierPort(Protocol):
+    """Separate keyed operator verifier; callers never receive its key."""
+
+    def verify_attestation(
+        self,
+        *,
+        operator_policy: C4HumanReviewOperatorPolicy,
+        attestation: C4Stage1HumanReviewOperatorAttestation,
+    ) -> bool: ...
+
+
 def verify_c4_stage1_operator_attestation(
     operator_policy: C4HumanReviewOperatorPolicy,
     attestation: C4Stage1HumanReviewOperatorAttestation,
     *,
-    operator_secret: bytes,
+    operator_secret: bytes | None = None,
+    operator_attestation_verifier: (
+        C4Stage1ExternalOperatorAttestationVerifierPort | None
+    ) = None,
 ) -> C4Stage1HumanReviewOperatorAttestation:
     operator_policy = _cold_validate(
         operator_policy, C4HumanReviewOperatorPolicy, label="C4 operator policy"
@@ -3021,28 +3046,44 @@ def verify_c4_stage1_operator_attestation(
         or attestation.claim.review_schema_id != operator_policy.review_schema_id
     ):
         raise ValueError("C4 Stage 1 attestation differs from operator policy")
-    _validate_operator_secret(operator_policy, operator_secret)
-    _reject_operator_secret_material(attestation, operator_secret)
-    expected_hmac = hmac.digest(
-        operator_secret,
-        c4_stage1_operator_attestation_message(attestation.claim),
-        "sha256",
-    ).hex()
-    if not hmac.compare_digest(expected_hmac, attestation.hmac_sha256):
+    if (operator_secret is None) == (operator_attestation_verifier is None):
+        raise TypeError(
+            "C4 Stage 1 operator verification requires exactly one keyed boundary"
+        )
+    if operator_secret is not None:
+        _validate_operator_secret(operator_policy, operator_secret)
+        _reject_operator_secret_material(attestation, operator_secret)
+        expected_hmac = hmac.digest(
+            operator_secret,
+            c4_stage1_operator_attestation_message(attestation.claim),
+            "sha256",
+        ).hex()
+        verified = hmac.compare_digest(expected_hmac, attestation.hmac_sha256)
+    else:
+        verify = getattr(operator_attestation_verifier, "verify_attestation", None)
+        if not callable(verify):
+            raise TypeError(
+                "C4 Stage 1 operator verification requires a live external verifier"
+            )
+        verified = (
+            verify(operator_policy=operator_policy, attestation=attestation) is True
+        )
+    if not verified:
         raise ValueError("C4 Stage 1 operator HMAC verification failed")
     return attestation
 
 
 class C4Stage1ConsumedOperatorPolicyReceipt(FrozenArtifactModel):
-    schema_version: Literal["rei-c4-stage1-consumed-operator-policy-v1"] = (
-        "rei-c4-stage1-consumed-operator-policy-v1"
+    schema_version: Literal["rei-c4-stage1-consumed-operator-policy-v2"] = (
+        "rei-c4-stage1-consumed-operator-policy-v2"
     )
     consumed_operator_receipt_id: NonEmptyId
     consumed_operator_receipt_sha256: HashDigest
     operator_policy_id: NonEmptyId
     operator_policy_sha256: HashDigest
     one_time_ledger_key_policy_id: NonEmptyId
-    external_one_time_operator_ledger_lease_sha256: HashDigest
+    operator_signing_lease_id: NonEmptyId
+    operator_signing_lease_sha256: HashDigest
     claim_id: NonEmptyId
     claim_sha256: HashDigest
     attestation_id: NonEmptyId
@@ -3123,13 +3164,12 @@ def record_c4_stage1_consumed_operator_policy_receipt(
     if transaction_timestamp < claim.review_timestamp:
         raise ValueError("C4 Stage 1 operator receipt predates signed review")
     base = {
-        "schema_version": "rei-c4-stage1-consumed-operator-policy-v1",
+        "schema_version": "rei-c4-stage1-consumed-operator-policy-v2",
         "operator_policy_id": operator_policy.policy_id,
         "operator_policy_sha256": operator_policy.operator_policy_sha256,
         "one_time_ledger_key_policy_id": operator_policy.policy_id,
-        "external_one_time_operator_ledger_lease_sha256": (
-            claim.external_one_time_operator_ledger_lease_sha256
-        ),
+        "operator_signing_lease_id": claim.operator_signing_lease_id,
+        "operator_signing_lease_sha256": claim.operator_signing_lease_sha256,
         "claim_id": claim.claim_id,
         "claim_sha256": claim.claim_sha256,
         "attestation_id": attestation.attestation_id,
@@ -3193,8 +3233,9 @@ def _validate_consumed_operator_binding(
         or consumed_receipt.one_time_ledger_key_policy_id != operator_policy.policy_id
         or consumed_receipt.operator_policy_sha256
         != operator_policy.operator_policy_sha256
-        or consumed_receipt.external_one_time_operator_ledger_lease_sha256
-        != claim.external_one_time_operator_ledger_lease_sha256
+        or consumed_receipt.operator_signing_lease_id != claim.operator_signing_lease_id
+        or consumed_receipt.operator_signing_lease_sha256
+        != claim.operator_signing_lease_sha256
         or consumed_receipt.claim_id != claim.claim_id
         or consumed_receipt.claim_sha256 != claim.claim_sha256
         or consumed_receipt.attestation_id != attestation.attestation_id
@@ -3242,8 +3283,8 @@ def _reverify_consumed_operator_policy(
 
 
 class C4Stage1SealedHumanReviewSubmission(FrozenArtifactModel):
-    schema_version: Literal["rei-c4-stage1-sealed-human-review-v1"] = (
-        "rei-c4-stage1-sealed-human-review-v1"
+    schema_version: Literal["rei-c4-stage1-sealed-human-review-v2"] = (
+        "rei-c4-stage1-sealed-human-review-v2"
     )
     submission_id: NonEmptyId
     packet: C4BlindReviewPacket
@@ -3307,15 +3348,58 @@ class C4Stage1SealedHumanReviewSubmission(FrozenArtifactModel):
             packet, self.output_judgments, self.pair_judgment
         )
         claim = attestation.claim
+        packet_output_records = tuple(
+            (item.blind_code, item.blind_order_sha256, item.output_sha256)
+            for item in packet.outputs
+        )
+        presentation_output_records = tuple(
+            (item.blind_code, item.blind_order_sha256, item.image_sha256)
+            for item in presentation.outputs
+        )
         if (
-            presentation.packet_id != packet.packet_id
+            packet.operator_policy_id != operator_policy.policy_id
+            or packet.operator_policy_sha256 != operator_policy.operator_policy_sha256
+            or packet.review_schema_id != operator_policy.review_schema_id
+            or packet.source_image_sha256 != operator_policy.source_image_sha256
+            or presentation.review_schema_id != packet.review_schema_id
+            or presentation.operator_policy_id != packet.operator_policy_id
+            or presentation.operator_policy_sha256 != packet.operator_policy_sha256
+            or presentation.packet_id != packet.packet_id
+            or presentation.packet_sha256 != packet.packet_sha256
+            or presentation.material_commitment_id != packet.material_commitment_id
+            or presentation.material_commitment_sha256
+            != packet.material_commitment_sha256
+            or presentation.source.image_sha256 != packet.source_image_sha256
+            or presentation_output_records != packet_output_records
             or display_receipt.context.packet_id != packet.packet_id
+            or display_receipt.context.packet_sha256 != packet.packet_sha256
+            or display_receipt.context.presentation_manifest_id
+            != presentation.presentation_manifest_id
+            or display_receipt.context.presentation_manifest_sha256
+            != presentation.presentation_manifest_sha256
+            or display_receipt.context.material_commitment_id
+            != packet.material_commitment_id
+            or display_receipt.context.material_commitment_sha256
+            != packet.material_commitment_sha256
+            or display_receipt.context.review_schema_id != packet.review_schema_id
+            or display_receipt.context.rubric_version != packet.rubric_version
+            or display_receipt.context.operator_policy_id != packet.operator_policy_id
+            or display_receipt.context.operator_policy_sha256
+            != packet.operator_policy_sha256
+            or display_receipt.context.source_image_sha256 != packet.source_image_sha256
+            or display_receipt.context.outputs != packet.outputs
             or display_receipt.context.screen_contract_id != self.screen_contract_id
             or display_receipt.context.screen_contract_sha256
             != self.screen_contract_sha256
             or display_receipt.display_attester_policy != display_attester_policy
+            or claim.operator_policy_id != operator_policy.policy_id
+            or claim.operator_policy_sha256 != operator_policy.operator_policy_sha256
+            or claim.review_schema_id != packet.review_schema_id
             or claim.packet_id != packet.packet_id
+            or claim.packet_sha256 != packet.packet_sha256
             or claim.presentation_manifest_id != presentation.presentation_manifest_id
+            or claim.presentation_manifest_sha256
+            != presentation.presentation_manifest_sha256
             or claim.screen_contract_id != self.screen_contract_id
             or claim.screen_contract_sha256 != self.screen_contract_sha256
             or claim.display_policy_id != display_attester_policy.display_policy_id
@@ -3387,10 +3471,13 @@ def seal_c4_stage1_human_review(
     display_receipt: C4Stage1DisplayExecutionReceipt,
     consumed_display_receipt: C4Stage1ConsumedDisplayReceipt,
     operator_attestation: C4Stage1HumanReviewOperatorAttestation,
-    operator_secret: bytes,
+    operator_secret: bytes | None,
     display_attestation_verifier: C4Stage1ExternalDisplayAttestationVerifierPort,
     display_receipt_ledger: C4Stage1ExternalDisplayReceiptLedgerPort,
     used_policy_ledger: C4Stage1ExternalUsedPolicyLedgerPort,
+    operator_attestation_verifier: (
+        C4Stage1ExternalOperatorAttestationVerifierPort | None
+    ) = None,
     source_png_path: str | Path | None = None,
     output_png_paths: tuple[str | Path, str | Path] | None = None,
 ) -> C4Stage1SealedHumanReviewSubmission:
@@ -3421,7 +3508,10 @@ def seal_c4_stage1_human_review(
         display_receipt_ledger, display_receipt, consumed_display_receipt
     )
     operator_attestation = verify_c4_stage1_operator_attestation(
-        operator_policy, operator_attestation, operator_secret=operator_secret
+        operator_policy,
+        operator_attestation,
+        operator_secret=operator_secret,
+        operator_attestation_verifier=operator_attestation_verifier,
     )
     for artifact in (
         packet,
@@ -3431,7 +3521,8 @@ def seal_c4_stage1_human_review(
         consumed_display_receipt,
         operator_attestation,
     ):
-        _reject_operator_secret_material(artifact, operator_secret)
+        if operator_secret is not None:
+            _reject_operator_secret_material(artifact, operator_secret)
     claim = operator_attestation.claim
     judgments, pair_judgment = _validate_judgments(
         packet, claim.output_judgments, claim.pair_judgment
@@ -3471,10 +3562,11 @@ def seal_c4_stage1_human_review(
     consumed_operator_receipt = _consume_operator_policy_once(
         used_policy_ledger, operator_policy, operator_attestation
     )
-    _reject_operator_secret_material(consumed_operator_receipt, operator_secret)
+    if operator_secret is not None:
+        _reject_operator_secret_material(consumed_operator_receipt, operator_secret)
     passed = all(item.passed for item in judgments) and pair_judgment.passed
     base = {
-        "schema_version": "rei-c4-stage1-sealed-human-review-v1",
+        "schema_version": "rei-c4-stage1-sealed-human-review-v2",
         "packet": packet,
         "operator_policy": operator_policy,
         "screen_contract_id": screen_contract.screen_contract_id,
@@ -3510,8 +3602,8 @@ def seal_c4_stage1_human_review(
 
 
 class C4Stage1HumanReviewGateResult(FrozenArtifactModel):
-    schema_version: Literal["rei-c4-stage1-human-review-gate-v1"] = (
-        "rei-c4-stage1-human-review-gate-v1"
+    schema_version: Literal["rei-c4-stage1-human-review-gate-v2"] = (
+        "rei-c4-stage1-human-review-gate-v2"
     )
     gate_result_id: NonEmptyId
     packet: C4BlindReviewPacket
@@ -3619,10 +3711,13 @@ def evaluate_c4_stage1_human_review(
     operator_policy: C4HumanReviewOperatorPolicy,
     screen_contract: C4Stage1ScreenContract,
     display_attester_policy: C4Stage1DisplayAttesterPolicy,
-    operator_secret: bytes,
+    operator_secret: bytes | None,
     display_attestation_verifier: C4Stage1ExternalDisplayAttestationVerifierPort,
     display_receipt_ledger: C4Stage1ExternalDisplayReceiptLedgerPort,
     used_policy_ledger: C4Stage1ExternalUsedPolicyLedgerPort,
+    operator_attestation_verifier: (
+        C4Stage1ExternalOperatorAttestationVerifierPort | None
+    ) = None,
     submission: C4Stage1SealedHumanReviewSubmission | None = None,
     source_png_path: str | Path | None = None,
     output_png_paths: tuple[str | Path, str | Path] | None = None,
@@ -3650,8 +3745,13 @@ def evaluate_c4_stage1_human_review(
         C4Stage1DisplayAttesterPolicy,
         label="C4 Stage 1 display policy",
     )
-    _validate_operator_secret(operator_policy, operator_secret)
-    _reject_operator_secret_material(packet, operator_secret)
+    if (operator_secret is None) == (operator_attestation_verifier is None):
+        raise TypeError(
+            "C4 Stage 1 review gate requires exactly one operator keyed boundary"
+        )
+    if operator_secret is not None:
+        _validate_operator_secret(operator_policy, operator_secret)
+        _reject_operator_secret_material(packet, operator_secret)
     if type(skipped) is not bool:
         raise TypeError("C4 Stage 1 skipped flag must be boolean")
     if skipped and submission is not None:
@@ -3680,8 +3780,10 @@ def evaluate_c4_stage1_human_review(
             operator_policy,
             submission.operator_attestation,
             operator_secret=operator_secret,
+            operator_attestation_verifier=operator_attestation_verifier,
         )
-        _reject_operator_secret_material(submission, operator_secret)
+        if operator_secret is not None:
+            _reject_operator_secret_material(submission, operator_secret)
         cold_verify_c4_stage1_display_execution_receipt(
             submission.display_receipt,
             schema,
@@ -3726,7 +3828,7 @@ def evaluate_c4_stage1_human_review(
         display_status = "not_applicable_missing"
         operator_status = "not_applicable_missing"
     base = {
-        "schema_version": "rei-c4-stage1-human-review-gate-v1",
+        "schema_version": "rei-c4-stage1-human-review-gate-v2",
         "packet": packet,
         "operator_policy": operator_policy,
         "screen_contract_id": screen_contract.screen_contract_id,
@@ -3772,6 +3874,7 @@ __all__ = [
     "C4Stage1DisplayPublicationBinding",
     "C4Stage1ExternalDisplayAttestationVerifierPort",
     "C4Stage1ExternalDisplayReceiptLedgerPort",
+    "C4Stage1ExternalOperatorAttestationVerifierPort",
     "C4Stage1ExternalUsedPolicyLedgerPort",
     "C4Stage1HumanReviewGateResult",
     "C4Stage1HumanReviewOperatorAttestation",

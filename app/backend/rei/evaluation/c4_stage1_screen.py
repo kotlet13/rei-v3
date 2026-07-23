@@ -201,6 +201,8 @@ class C4Stage1ContentPin(FrozenModel):
         "review_schema",
         "review_operator_policy",
         "display_policy",
+        "review_runtime",
+        "review_service_readiness",
         "telemetry_policy",
     ]
     artifact_id: NonEmptyId
@@ -527,8 +529,8 @@ class C4Stage1DinoPolicy(FrozenArtifactModel):
 class C4Stage1ScreenContract(FrozenArtifactModel):
     """Complete pre-output contract for exactly the bounded two-family screen."""
 
-    schema_version: Literal["rei-c4-stage1-screen-contract-v1"] = (
-        "rei-c4-stage1-screen-contract-v1"
+    schema_version: Literal["rei-c4-stage1-screen-contract-v2"] = (
+        "rei-c4-stage1-screen-contract-v2"
     )
     screen_contract_id: NonEmptyId
     protocol: C4Stage1DocumentPin
@@ -544,6 +546,8 @@ class C4Stage1ScreenContract(FrozenArtifactModel):
     review_schema: C4Stage1ContentPin
     review_operator_policies: tuple[C4Stage1ContentPin, C4Stage1ContentPin]
     display_policy: C4Stage1ContentPin
+    review_runtime: C4Stage1ContentPin
+    review_service_readiness: C4Stage1ContentPin
     telemetry_policy: C4Stage1ContentPin
     dino_policy: C4Stage1DinoPolicy
     per_option_hard_timeout_seconds: Literal[180.0] = 180.0
@@ -576,11 +580,13 @@ class C4Stage1ScreenContract(FrozenArtifactModel):
             C4Stage1ContentPin,
         ],
         display_policy: C4Stage1ContentPin,
+        review_runtime: C4Stage1ContentPin,
+        review_service_readiness: C4Stage1ContentPin,
         telemetry_policy: C4Stage1ContentPin,
         dino_policy: C4Stage1DinoPolicy,
     ) -> C4Stage1ScreenContract:
         body: dict[str, Any] = {
-            "schema_version": "rei-c4-stage1-screen-contract-v1",
+            "schema_version": "rei-c4-stage1-screen-contract-v2",
             "protocol": protocol,
             "model_free_addendum": model_free_addendum,
             "fixture": fixture,
@@ -596,6 +602,8 @@ class C4Stage1ScreenContract(FrozenArtifactModel):
             "review_schema": review_schema,
             "review_operator_policies": review_operator_policies,
             "display_policy": display_policy,
+            "review_runtime": review_runtime,
+            "review_service_readiness": review_service_readiness,
             "telemetry_policy": telemetry_policy,
             "dino_policy": dino_policy,
             "per_option_hard_timeout_seconds": 180.0,
@@ -661,6 +669,11 @@ class C4Stage1ScreenContract(FrozenArtifactModel):
                 for policy in self.review_operator_policies
             ),
             (self.display_policy.kind, "display_policy"),
+            (self.review_runtime.kind, "review_runtime"),
+            (
+                self.review_service_readiness.kind,
+                "review_service_readiness",
+            ),
             (self.telemetry_policy.kind, "telemetry_policy"),
         )
         if any(actual != expected for actual, expected in expected_policy_kinds):

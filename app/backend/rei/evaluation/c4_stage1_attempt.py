@@ -15,7 +15,7 @@ import os
 from pathlib import Path
 import stat
 import subprocess
-from typing import Annotated, Callable, Literal, Mapping, Self
+from typing import Annotated, Callable, Literal, Mapping, Protocol, Self
 
 from pydantic import Field, model_validator
 
@@ -68,6 +68,11 @@ from .c4_stage1_review import (
     build_c4_stage1_display_attester_policy,
     c4_stage1_display_policy_content_pin,
 )
+from .c4_stage1_review_runtime import (
+    C4Stage1ReviewRuntimeManifest,
+    verify_c4_stage1_review_runtime_manifest,
+)
+from .c4_stage1_review_service import C4Stage1ReviewServiceReadiness
 from .c4_stage1_screen import (
     C4_STAGE1_ADDENDUM_PATH,
     C4_STAGE1_ALTERNATE_SNAPSHOT_MANIFEST_PATH,
@@ -95,6 +100,10 @@ C4_STAGE1_CUDA_STOP_BYTES = C4_STAGE1_SAMPLED_WHOLE_DEVICE_CUDA_STOP_BYTES
 C4_STAGE1_PREPARED_ANCHOR_PATH = "diagnostics/c4_stage1_prepared_attempt.json"
 C4_STAGE1_BOOTSTRAP_SCRIPT_PATH = "scripts/run_rei_c4_stage1_bootstrap.py"
 C4_STAGE1_WORKER_SCRIPT_PATH = "scripts/run_rei_c4_stage1_worker.py"
+C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH = (
+    "scripts/run_rei_c4_stage1_dino_bootstrap.py"
+)
+C4_STAGE1_DINO_WORKER_SCRIPT_PATH = "scripts/run_rei_c4_stage1_dino_worker.py"
 C4_STAGE1_ORIGIN_URL = "https://github.com/kotlet13/rei-v3.git"
 C4_STAGE1_GIT_SCOPE_PATHS = (
     "app/backend/rei",
@@ -143,6 +152,8 @@ _WINDOWS_REPARSE_ATTRIBUTE = 0x0400
 _WORKER_RUNTIME_PROBE_POLICY = "isolated-no-site-explicit-distribution-path-v2"
 _WORKER_RUNTIME_INVENTORY_POLICY = "complete-venv-and-base-runtime-streaming-sha256-v1"
 _STAGING_PARENT_POLICY = "unlinked-ancestry-fresh-child-root-v1"
+_DINO_GIT_SCOPE_PATHSPEC = ":(glob)scripts/run_rei_c4_stage1*.py"
+_MODULE_REPOSITORY_ROOT = Path(__file__).resolve().parents[4]
 _WORKER_RUNTIME_DISTRIBUTIONS = (
     ("torch", "torch"),
     ("diffusers", "diffusers"),
@@ -324,6 +335,142 @@ class C4Stage1RepositoryGate(FrozenArtifactModel):
             "c4_stage1_repository_gate", body
         ) or self.repository_gate_sha256 != _canonical_sha256(body):
             raise ValueError("Stage 1 repository gate differs from canonical content")
+        return self
+
+
+class C4Stage1DinoEntrypointScriptPin(FrozenModel):
+    """One exact committed DINO entrypoint copied into pre-output evidence."""
+
+    role: Literal["dino-bootstrap", "dino-worker"]
+    repository_relative_path: Literal[
+        "scripts/run_rei_c4_stage1_dino_bootstrap.py",
+        "scripts/run_rei_c4_stage1_dino_worker.py",
+    ]
+    content_sha256: HashDigest
+    size_bytes: Annotated[int, Field(gt=0, le=_MAX_WORKER_SCRIPT_BYTES)]
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        role: Literal["dino-bootstrap", "dino-worker"],
+        payload: bytes,
+    ) -> C4Stage1DinoEntrypointScriptPin:
+        if type(payload) is not bytes or not payload:
+            raise TypeError("Stage 1 DINO entrypoint must be non-empty exact bytes")
+        if len(payload) > _MAX_WORKER_SCRIPT_BYTES:
+            raise ValueError("Stage 1 DINO entrypoint exceeds its fixed byte bound")
+        relative_path = (
+            C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH
+            if role == "dino-bootstrap"
+            else C4_STAGE1_DINO_WORKER_SCRIPT_PATH
+        )
+        return cls(
+            role=role,
+            repository_relative_path=relative_path,
+            content_sha256=hashlib.sha256(payload).hexdigest(),
+            size_bytes=len(payload),
+        )
+
+    @model_validator(mode="after")
+    def validate_script_pin(self) -> Self:
+        expected_path = (
+            C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH
+            if self.role == "dino-bootstrap"
+            else C4_STAGE1_DINO_WORKER_SCRIPT_PATH
+        )
+        if self.repository_relative_path != expected_path:
+            raise ValueError("Stage 1 DINO entrypoint role differs from its path")
+        return self
+
+
+class C4Stage1DinoEntrypointPin(FrozenArtifactModel):
+    """Path-free Git-gate binding for the exact DINO bootstrap and worker."""
+
+    schema_version: Literal["rei-c4-stage1-dino-entrypoint-pin-v1"] = (
+        "rei-c4-stage1-dino-entrypoint-pin-v1"
+    )
+    dino_entrypoint_pin_id: NonEmptyId
+    dino_entrypoint_pin_sha256: HashDigest
+    repository_gate_id: NonEmptyId
+    repository_gate_sha256: HashDigest
+    repository_head_commit: CommitDigest
+    git_scope_pathspec: Literal[":(glob)scripts/run_rei_c4_stage1*.py"] = (
+        _DINO_GIT_SCOPE_PATHSPEC
+    )
+    scripts: tuple[
+        C4Stage1DinoEntrypointScriptPin,
+        C4Stage1DinoEntrypointScriptPin,
+    ]
+    exact_committed_worktree_bytes_pinned: Literal[True] = True
+    create_only_prepared_copies_required: Literal[True] = True
+    local_paths_stored: Literal[False] = False
+
+    @classmethod
+    def create(
+        cls,
+        *,
+        repository_gate: C4Stage1RepositoryGate,
+        bootstrap_script: bytes,
+        worker_script: bytes,
+    ) -> C4Stage1DinoEntrypointPin:
+        repository_gate = C4Stage1RepositoryGate.model_validate(
+            repository_gate.model_dump(mode="python", round_trip=True)
+        )
+        if _DINO_GIT_SCOPE_PATHSPEC not in repository_gate.scoped_paths:
+            raise ValueError("Stage 1 repository gate omits DINO entrypoints")
+        scripts = (
+            C4Stage1DinoEntrypointScriptPin.create(
+                role="dino-bootstrap",
+                payload=bootstrap_script,
+            ),
+            C4Stage1DinoEntrypointScriptPin.create(
+                role="dino-worker",
+                payload=worker_script,
+            ),
+        )
+        body = {
+            "schema_version": "rei-c4-stage1-dino-entrypoint-pin-v1",
+            "repository_gate_id": repository_gate.repository_gate_id,
+            "repository_gate_sha256": repository_gate.repository_gate_sha256,
+            "repository_head_commit": repository_gate.head_commit,
+            "git_scope_pathspec": _DINO_GIT_SCOPE_PATHSPEC,
+            "scripts": scripts,
+            "exact_committed_worktree_bytes_pinned": True,
+            "create_only_prepared_copies_required": True,
+            "local_paths_stored": False,
+        }
+        return cls(
+            dino_entrypoint_pin_id=content_id("c4_stage1_dino_entrypoint", body),
+            dino_entrypoint_pin_sha256=_canonical_sha256(body),
+            **body,
+        )
+
+    @model_validator(mode="after")
+    def validate_entrypoint_pin(self) -> Self:
+        if (
+            tuple(item.role for item in self.scripts)
+            != ("dino-bootstrap", "dino-worker")
+            or tuple(item.repository_relative_path for item in self.scripts)
+            != (
+                C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH,
+                C4_STAGE1_DINO_WORKER_SCRIPT_PATH,
+            )
+        ):
+            raise ValueError("Stage 1 DINO entrypoint inventory is not exact")
+        for script in self.scripts:
+            C4Stage1DinoEntrypointScriptPin.model_validate(
+                script.model_dump(mode="python", round_trip=True)
+            )
+        body = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"dino_entrypoint_pin_id", "dino_entrypoint_pin_sha256"},
+        )
+        if self.dino_entrypoint_pin_id != content_id(
+            "c4_stage1_dino_entrypoint", body
+        ) or self.dino_entrypoint_pin_sha256 != _canonical_sha256(body):
+            raise ValueError("Stage 1 DINO entrypoint pin differs from content")
         return self
 
 
@@ -764,9 +911,39 @@ def _telemetry_content_pin(
     )
 
 
+def _review_runtime_content_pin(
+    runtime: C4Stage1ReviewRuntimeManifest,
+) -> C4Stage1ContentPin:
+    runtime = C4Stage1ReviewRuntimeManifest.model_validate(
+        runtime.model_dump(mode="python", round_trip=True)
+    )
+    return C4Stage1ContentPin(
+        kind="review_runtime",
+        artifact_id=runtime.runtime_manifest_id,
+        artifact_hash=runtime.content_hash(),
+        schema_version=runtime.schema_version,
+    )
+
+
+def _review_service_readiness_content_pin(
+    readiness: C4Stage1ReviewServiceReadiness,
+) -> C4Stage1ContentPin:
+    readiness = C4Stage1ReviewServiceReadiness.model_validate(
+        readiness.model_dump(mode="python", round_trip=True)
+    )
+    return C4Stage1ContentPin(
+        kind="review_service_readiness",
+        artifact_id=readiness.readiness_receipt_id,
+        artifact_hash=readiness.content_hash(),
+        schema_version=readiness.schema_version,
+    )
+
+
 class C4Stage1ReviewCommitments(FrozenModel):
     """Public commitments only; neither operator nor display secret is accepted."""
 
+    review_runtime_manifest: C4Stage1ReviewRuntimeManifest
+    review_service_readiness: C4Stage1ReviewServiceReadiness
     operator_hmac_key_commitments_sha256: tuple[HashDigest, HashDigest]
     display_policy_nonce: HashDigest
     ui_bundle_sha256: HashDigest
@@ -777,8 +954,46 @@ class C4Stage1ReviewCommitments(FrozenModel):
     display_signing_key_commitment_sha256: HashDigest
     direct_secret_material_present: Literal[False] = False
 
+    @classmethod
+    def create(
+        cls,
+        *,
+        review_runtime_manifest: C4Stage1ReviewRuntimeManifest,
+        review_service_readiness: C4Stage1ReviewServiceReadiness,
+        display_policy_nonce: str,
+    ) -> C4Stage1ReviewCommitments:
+        runtime = C4Stage1ReviewRuntimeManifest.model_validate(
+            review_runtime_manifest.model_dump(mode="python", round_trip=True)
+        )
+        readiness = C4Stage1ReviewServiceReadiness.model_validate(
+            review_service_readiness.model_dump(mode="python", round_trip=True)
+        )
+        return cls(
+            review_runtime_manifest=runtime,
+            review_service_readiness=readiness,
+            operator_hmac_key_commitments_sha256=(
+                readiness.operator_signing_key_commitment_sha256s
+            ),
+            display_policy_nonce=display_policy_nonce,
+            ui_bundle_sha256=runtime.ui_bundle_sha256,
+            content_security_policy=runtime.content_security_policy,
+            presenter_implementation_id=runtime.presenter_implementation_id,
+            presenter_revision=runtime.presenter_revision,
+            display_attester_id=readiness.readiness_receipt_id,
+            display_signing_key_commitment_sha256=(
+                readiness.display_signing_key_commitment_sha256
+            ),
+            direct_secret_material_present=False,
+        )
+
     @model_validator(mode="after")
     def validate_commitments(self) -> Self:
+        runtime = C4Stage1ReviewRuntimeManifest.model_validate(
+            self.review_runtime_manifest.model_dump(mode="python", round_trip=True)
+        )
+        readiness = C4Stage1ReviewServiceReadiness.model_validate(
+            self.review_service_readiness.model_dump(mode="python", round_trip=True)
+        )
         values = (
             *self.operator_hmac_key_commitments_sha256,
             self.display_policy_nonce,
@@ -787,7 +1002,157 @@ class C4Stage1ReviewCommitments(FrozenModel):
         )
         if len(set(values)) != len(values):
             raise ValueError("Stage 1 review commitments must be independent")
+        if (
+            self.operator_hmac_key_commitments_sha256
+            != readiness.operator_signing_key_commitment_sha256s
+            or self.ui_bundle_sha256 != runtime.ui_bundle_sha256
+            or self.content_security_policy != runtime.content_security_policy
+            or self.presenter_implementation_id != runtime.presenter_implementation_id
+            or self.presenter_revision != runtime.presenter_revision
+            or self.display_attester_id != readiness.readiness_receipt_id
+            or self.display_signing_key_commitment_sha256
+            != readiness.display_signing_key_commitment_sha256
+            or readiness.presenter_implementation_id
+            != runtime.presenter_implementation_id
+            or readiness.presenter_revision != runtime.presenter_revision
+            or readiness.ui_bundle_sha256 != runtime.ui_bundle_sha256
+            or readiness.content_security_policy_sha256
+            != runtime.content_security_policy_sha256
+            or readiness.ipc_schema != runtime.ipc_protocol
+            or readiness.ledger_schema != runtime.ledger_schema_revision
+            or readiness.schema_version != runtime.service_schema_revision
+        ):
+            raise ValueError(
+                "Stage 1 review commitments differ from the pinned runtime service"
+            )
         return self
+
+
+class C4Stage1ReviewServicePreflightPort(Protocol):
+    """Live public service boundary used before preparation and every spawn."""
+
+    @property
+    def readiness(self) -> C4Stage1ReviewServiceReadiness: ...
+
+    def health(self) -> Mapping[str, object]: ...
+
+
+def verify_c4_stage1_live_review_boundary(
+    *,
+    repository_root: str | Path,
+    repository_gate: C4Stage1RepositoryGate,
+    review_runtime_manifest: C4Stage1ReviewRuntimeManifest,
+    review_service_readiness: C4Stage1ReviewServiceReadiness,
+    review_service: C4Stage1ReviewServicePreflightPort,
+    expected_completed_review_count: Literal[0, 2],
+) -> tuple[C4Stage1ReviewRuntimeManifest, C4Stage1ReviewServiceReadiness]:
+    """Re-hash the UI and require one exact live service cohort state."""
+
+    if type(expected_completed_review_count) is not int or (
+        expected_completed_review_count not in (0, 2)
+    ):
+        raise ValueError("Stage 1 completed review count must be zero or two")
+    runtime = verify_c4_stage1_review_runtime_manifest(
+        Path(repository_root), review_runtime_manifest
+    )
+    repository_gate = C4Stage1RepositoryGate.model_validate(
+        repository_gate.model_dump(mode="python", round_trip=True)
+    )
+    expected = C4Stage1ReviewServiceReadiness.model_validate(
+        review_service_readiness.model_dump(mode="python", round_trip=True)
+    )
+    try:
+        actual = C4Stage1ReviewServiceReadiness.model_validate(
+            review_service.readiness.model_dump(mode="python", round_trip=True)
+        )
+        health = review_service.health()
+    except Exception as exc:
+        raise C4Stage1PreparationError(
+            "Stage 1 live review service is unavailable"
+        ) from exc
+    if actual != expected:
+        raise C4Stage1PreparationError(
+            "Stage 1 live review service differs from its public commitment"
+        )
+    try:
+        live_repository_gate = C4Stage1RepositoryGate.model_validate_json(
+            actual.repository_gate.repository_gate_canonical_json
+        )
+    except Exception as exc:
+        raise C4Stage1PreparationError(
+            "Stage 1 review service repository gate is invalid"
+        ) from exc
+    if live_repository_gate != repository_gate:
+        raise C4Stage1PreparationError(
+            "Stage 1 review service was not started from the prepared checkout gate"
+        )
+    if not isinstance(health, Mapping):
+        raise C4Stage1PreparationError("Stage 1 review health is not a mapping")
+    ledger_counts = health.get("ledger_counts")
+    operator_signing_cohort_complete = health.get("operator_signing_cohort_complete")
+    operator_signing_cohort_id = health.get("operator_signing_cohort_id")
+    operator_signing_cohort_sha256 = health.get("operator_signing_cohort_sha256")
+    expected_ledger_names = {
+        "display_attestation_uses",
+        "display_receipt_uses",
+        "operator_policy_uses",
+        "presenter_submissions",
+        "operator_signing_leases",
+    }
+    if (
+        health.get("schema_version") != expected.schema_version
+        or health.get("ready") is not True
+        or health.get("sqlite_integrity") != "ok"
+        or health.get("sqlite_journal_mode") != "wal"
+        or health.get("sqlite_synchronous") != "FULL"
+        or health.get("secret_commitments_match_state") is not True
+        or health.get("display_presenter_attached") is not True
+        or health.get("repository_gate_matches_startup") is not True
+        or health.get("presenter_boundary_roots_match_startup") is not True
+        or health.get("browser_runtime_matches_readiness") is not True
+        or health.get("ipc_response_auth_required") is not True
+        or health.get("presenter_submission_auth_required") is not True
+        or health.get("operator_signing_lease_required") is not True
+        or type(operator_signing_cohort_complete) is not bool
+        or health.get("service_is_model_free") is not True
+        or health.get("semantic_quality_gate_passed") is not False
+        or health.get("production_authority_granted") is not False
+        or health.get("model_judge_calls") != 0
+        or not isinstance(ledger_counts, Mapping)
+        or set(ledger_counts) != expected_ledger_names
+        or any(type(value) is not int or value < 0 for value in ledger_counts.values())
+        or (
+            any(
+                value != expected_completed_review_count
+                for value in ledger_counts.values()
+            )
+        )
+        or (operator_signing_cohort_complete != (expected_completed_review_count == 2))
+        or (
+            expected_completed_review_count == 0
+            and (
+                operator_signing_cohort_id is not None
+                or operator_signing_cohort_sha256 is not None
+            )
+        )
+        or (
+            expected_completed_review_count == 2
+            and (
+                type(operator_signing_cohort_id) is not str
+                or not operator_signing_cohort_id
+                or type(operator_signing_cohort_sha256) is not str
+                or len(operator_signing_cohort_sha256) != 64
+                or any(
+                    character not in "0123456789abcdef"
+                    for character in operator_signing_cohort_sha256
+                )
+            )
+        )
+    ):
+        raise C4Stage1PreparationError(
+            "Stage 1 live review service health is not fresh and exact"
+        )
+    return runtime, actual
 
 
 @dataclass(frozen=True, slots=True)
@@ -893,14 +1258,15 @@ class C4Stage1PreparedWorker(FrozenArtifactModel):
 class C4Stage1PreparedAttempt(FrozenArtifactModel):
     """Durable exact-inventory anchor written before the first worker spawn."""
 
-    schema_version: Literal["rei-c4-stage1-prepared-attempt-v1"] = (
-        "rei-c4-stage1-prepared-attempt-v1"
+    schema_version: Literal["rei-c4-stage1-prepared-attempt-v2"] = (
+        "rei-c4-stage1-prepared-attempt-v2"
     )
     prepared_attempt_id: NonEmptyId
     prepared_attempt_sha256: HashDigest
     run_id: NonEmptyId
     attempt_id: NonEmptyId
     repository_gate: C4Stage1RepositoryGate
+    dino_entrypoint_pin: C4Stage1DinoEntrypointPin
     launch_policy: C4Stage1LaunchPolicy
     worker_runtime: C4Stage1WorkerRuntimePin
     cuda_device: ResourceTelemetryCudaDeviceIdentity
@@ -922,6 +1288,8 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
         C4HumanReviewOperatorPolicy,
     ]
     display_policy: C4Stage1DisplayAttesterPolicy
+    review_runtime_manifest: C4Stage1ReviewRuntimeManifest
+    review_service_readiness: C4Stage1ReviewServiceReadiness
     screen_contract: C4Stage1ScreenContract
     workers: tuple[
         C4Stage1PreparedWorker,
@@ -957,6 +1325,8 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
             C4HumanReviewOperatorPolicy,
         ],
         display_policy: C4Stage1DisplayAttesterPolicy,
+        review_runtime_manifest: C4Stage1ReviewRuntimeManifest,
+        review_service_readiness: C4Stage1ReviewServiceReadiness,
         screen_contract: C4Stage1ScreenContract,
         workers: tuple[
             C4Stage1PreparedWorker,
@@ -965,13 +1335,28 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
             C4Stage1PreparedWorker,
         ],
         artifact_inventory_before_anchor: tuple[StoredArtifact, ...],
+        dino_entrypoint_pin: C4Stage1DinoEntrypointPin | None = None,
     ) -> C4Stage1PreparedAttempt:
+        if dino_entrypoint_pin is None:
+            dino_entrypoint_pin = _default_dino_entrypoint_pin(repository_gate)
+        dino_entrypoint_pin = C4Stage1DinoEntrypointPin.model_validate(
+            dino_entrypoint_pin.model_dump(mode="python", round_trip=True)
+        )
         attempt_id = content_id(
             "c4_stage1_attempt",
             {
                 "run_id": run_id,
                 "repository_gate_id": repository_gate.repository_gate_id,
+                "dino_entrypoint_pin_id": (
+                    dino_entrypoint_pin.dino_entrypoint_pin_id
+                ),
                 "screen_contract_id": screen_contract.screen_contract_id,
+                "review_runtime_manifest_id": (
+                    review_runtime_manifest.runtime_manifest_id
+                ),
+                "review_service_readiness_id": (
+                    review_service_readiness.readiness_receipt_id
+                ),
                 "launch_policy_id": launch_policy.launch_policy_id,
                 "worker_runtime_id": worker_runtime.worker_runtime_id,
                 "cuda_measurement_subject_id": cuda_device.measurement_subject_id,
@@ -980,10 +1365,11 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
             },
         )
         body = {
-            "schema_version": "rei-c4-stage1-prepared-attempt-v1",
+            "schema_version": "rei-c4-stage1-prepared-attempt-v2",
             "run_id": run_id,
             "attempt_id": attempt_id,
             "repository_gate": repository_gate,
+            "dino_entrypoint_pin": dino_entrypoint_pin,
             "launch_policy": launch_policy,
             "worker_runtime": worker_runtime,
             "cuda_device": cuda_device,
@@ -998,6 +1384,8 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
             "review_schema": review_schema,
             "review_operator_policies": review_operator_policies,
             "display_policy": display_policy,
+            "review_runtime_manifest": review_runtime_manifest,
+            "review_service_readiness": review_service_readiness,
             "screen_contract": screen_contract,
             "workers": workers,
             "artifact_inventory_before_anchor": artifact_inventory_before_anchor,
@@ -1019,6 +1407,9 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
 
     @model_validator(mode="after")
     def validate_prepared_attempt(self) -> Self:
+        dino_entrypoint_pin = C4Stage1DinoEntrypointPin.model_validate(
+            self.dino_entrypoint_pin.model_dump(mode="python", round_trip=True)
+        )
         worker_runtime = C4Stage1WorkerRuntimePin.model_validate(
             self.worker_runtime.model_dump(mode="python", round_trip=True)
         )
@@ -1032,7 +1423,16 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
             {
                 "run_id": self.run_id,
                 "repository_gate_id": self.repository_gate.repository_gate_id,
+                "dino_entrypoint_pin_id": (
+                    dino_entrypoint_pin.dino_entrypoint_pin_id
+                ),
                 "screen_contract_id": self.screen_contract.screen_contract_id,
+                "review_runtime_manifest_id": (
+                    self.review_runtime_manifest.runtime_manifest_id
+                ),
+                "review_service_readiness_id": (
+                    self.review_service_readiness.readiness_receipt_id
+                ),
                 "launch_policy_id": self.launch_policy.launch_policy_id,
                 "worker_runtime_id": worker_runtime.worker_runtime_id,
                 "cuda_measurement_subject_id": (
@@ -1044,6 +1444,12 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
         )
         if (
             self.attempt_id != expected_attempt_id
+            or dino_entrypoint_pin.repository_gate_id
+            != self.repository_gate.repository_gate_id
+            or dino_entrypoint_pin.repository_gate_sha256
+            != self.repository_gate.repository_gate_sha256
+            or dino_entrypoint_pin.repository_head_commit
+            != self.repository_gate.head_commit
             or self.cuda_device.logical_device_index != 0
             or self.cuda_device != self.launch_policy.cuda_device
             or worker_runtime != self.launch_policy.worker_runtime
@@ -1054,8 +1460,43 @@ class C4Stage1PreparedAttempt(FrozenArtifactModel):
             or self.screen_contract.review_operator_policies != operator_pins
             or self.screen_contract.display_policy
             != c4_stage1_display_policy_content_pin(self.display_policy)
+            or self.screen_contract.review_runtime
+            != _review_runtime_content_pin(self.review_runtime_manifest)
+            or self.screen_contract.review_service_readiness
+            != _review_service_readiness_content_pin(self.review_service_readiness)
             or self.screen_contract.telemetry_policy
             != _telemetry_content_pin(self.telemetry_policy)
+            or tuple(
+                policy.hmac_key_commitment_sha256
+                for policy in self.review_operator_policies
+            )
+            != self.review_service_readiness.operator_signing_key_commitment_sha256s
+            or self.display_policy.ui_bundle_sha256
+            != self.review_runtime_manifest.ui_bundle_sha256
+            or self.display_policy.content_security_policy
+            != self.review_runtime_manifest.content_security_policy
+            or self.display_policy.presenter_implementation_id
+            != self.review_runtime_manifest.presenter_implementation_id
+            or self.display_policy.presenter_revision
+            != self.review_runtime_manifest.presenter_revision
+            or self.display_policy.display_attester_id
+            != self.review_service_readiness.readiness_receipt_id
+            or self.display_policy.display_signing_key_commitment_sha256
+            != self.review_service_readiness.display_signing_key_commitment_sha256
+            or self.review_service_readiness.ui_bundle_sha256
+            != self.review_runtime_manifest.ui_bundle_sha256
+            or self.review_service_readiness.content_security_policy_sha256
+            != self.review_runtime_manifest.content_security_policy_sha256
+            or self.review_service_readiness.presenter_implementation_id
+            != self.review_runtime_manifest.presenter_implementation_id
+            or self.review_service_readiness.presenter_revision
+            != self.review_runtime_manifest.presenter_revision
+            or self.review_service_readiness.ipc_schema
+            != self.review_runtime_manifest.ipc_protocol
+            or self.review_service_readiness.ledger_schema
+            != self.review_runtime_manifest.ledger_schema_revision
+            or self.review_service_readiness.schema_version
+            != self.review_runtime_manifest.service_schema_revision
         ):
             raise ValueError("Prepared Stage 1 policies differ from screen contract")
         if any(
@@ -1416,6 +1857,24 @@ def _stable_read_regular(path: Path, *, maximum_bytes: int) -> bytes:
     ):
         raise C4Stage1PreparationError("Stage 1 input changed while reading")
     return bytes(value)
+
+
+def _default_dino_entrypoint_pin(
+    repository_gate: C4Stage1RepositoryGate,
+) -> C4Stage1DinoEntrypointPin:
+    """Build the exact pin for synthetic callers that omit an explicit pin."""
+
+    return C4Stage1DinoEntrypointPin.create(
+        repository_gate=repository_gate,
+        bootstrap_script=_stable_read_regular(
+            _MODULE_REPOSITORY_ROOT / C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH,
+            maximum_bytes=_MAX_WORKER_SCRIPT_BYTES,
+        ),
+        worker_script=_stable_read_regular(
+            _MODULE_REPOSITORY_ROOT / C4_STAGE1_DINO_WORKER_SCRIPT_PATH,
+            maximum_bytes=_MAX_WORKER_SCRIPT_BYTES,
+        ),
+    )
 
 
 def _stable_hash_runtime_file(path: Path) -> tuple[str, int]:
@@ -2190,9 +2649,18 @@ def _bootstrap_script_copy_path(policy: C4Stage1LaunchPolicy) -> str:
     return f"diagnostics/{policy.launch_policy_id}.bootstrap.py"
 
 
+def _dino_script_copy_path(
+    pin: C4Stage1DinoEntrypointPin,
+    role: Literal["dino-bootstrap", "dino-worker"],
+) -> str:
+    suffix = "bootstrap.py" if role == "dino-bootstrap" else "worker.py"
+    return f"diagnostics/{pin.dino_entrypoint_pin_id}.{suffix}"
+
+
 def _prepared_json_payloads(
     *,
     repository_gate: C4Stage1RepositoryGate,
+    dino_entrypoint_pin: C4Stage1DinoEntrypointPin,
     launch_policy: C4Stage1LaunchPolicy,
     worker_runtime: C4Stage1WorkerRuntimePin,
     telemetry_policy: C4Stage1TelemetryPolicy,
@@ -2202,6 +2670,8 @@ def _prepared_json_payloads(
         C4HumanReviewOperatorPolicy,
     ],
     display_policy: C4Stage1DisplayAttesterPolicy,
+    review_runtime_manifest: C4Stage1ReviewRuntimeManifest,
+    review_service_readiness: C4Stage1ReviewServiceReadiness,
     screen_contract: C4Stage1ScreenContract,
     workers: tuple[
         C4Stage1PreparedWorker,
@@ -2214,6 +2684,12 @@ def _prepared_json_payloads(
         (
             _artifact_json_path("repository-gate", repository_gate.repository_gate_id),
             repository_gate,
+        ),
+        (
+            _artifact_json_path(
+                "dino-entrypoint-pin", dino_entrypoint_pin.dino_entrypoint_pin_id
+            ),
+            dino_entrypoint_pin,
         ),
         (
             _artifact_json_path("launch-policy", launch_policy.launch_policy_id),
@@ -2245,6 +2721,19 @@ def _prepared_json_payloads(
             display_policy,
         ),
         (
+            _artifact_json_path(
+                "review-runtime", review_runtime_manifest.runtime_manifest_id
+            ),
+            review_runtime_manifest,
+        ),
+        (
+            _artifact_json_path(
+                "review-service-readiness",
+                review_service_readiness.readiness_receipt_id,
+            ),
+            review_service_readiness,
+        ),
+        (
             _artifact_json_path("screen-contract", screen_contract.screen_contract_id),
             screen_contract,
         ),
@@ -2271,6 +2760,7 @@ def prepare_c4_stage1_attempt(
     review_commitments: C4Stage1ReviewCommitments,
     cuda_device: ResourceTelemetryCudaDeviceIdentity,
     artifact_store: FileArtifactStore,
+    review_service: C4Stage1ReviewServicePreflightPort,
     git_command_runner: GitCommandRunner = _default_git_command_runner,
     injected_git_runtime: C4Stage1GitRuntimePin | None = None,
     worker_metadata_runner: WorkerRuntimeMetadataRunner = (
@@ -2298,6 +2788,16 @@ def prepare_c4_stage1_attempt(
         paths.repository_root,
         command_runner=git_command_runner,
         injected_git_runtime=injected_git_runtime,
+    )
+    review_runtime_manifest, review_service_readiness = (
+        verify_c4_stage1_live_review_boundary(
+            repository_root=paths.repository_root,
+            repository_gate=repository_gate,
+            review_runtime_manifest=(review_commitments.review_runtime_manifest),
+            review_service_readiness=(review_commitments.review_service_readiness),
+            review_service=review_service,
+            expected_completed_review_count=0,
+        )
     )
     verify_c4_stage1_staging_parent(paths.staging_parent)
     worker_runtime = capture_c4_stage1_worker_runtime(
@@ -2407,6 +2907,10 @@ def prepare_c4_stage1_attempt(
             for policy in operator_policies
         ),
         display_policy=c4_stage1_display_policy_content_pin(display_policy),
+        review_runtime=_review_runtime_content_pin(review_runtime_manifest),
+        review_service_readiness=_review_service_readiness_content_pin(
+            review_service_readiness
+        ),
         telemetry_policy=_telemetry_content_pin(telemetry_policy),
         dino_policy=C4Stage1DinoPolicy.create(dinov2_base_provider_identity()),
     )
@@ -2417,6 +2921,19 @@ def prepare_c4_stage1_attempt(
     worker_script = _stable_read_regular(
         paths.repository_root / C4_STAGE1_WORKER_SCRIPT_PATH,
         maximum_bytes=_MAX_WORKER_SCRIPT_BYTES,
+    )
+    dino_bootstrap_script = _stable_read_regular(
+        paths.repository_root / C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH,
+        maximum_bytes=_MAX_WORKER_SCRIPT_BYTES,
+    )
+    dino_worker_script = _stable_read_regular(
+        paths.repository_root / C4_STAGE1_DINO_WORKER_SCRIPT_PATH,
+        maximum_bytes=_MAX_WORKER_SCRIPT_BYTES,
+    )
+    dino_entrypoint_pin = C4Stage1DinoEntrypointPin.create(
+        repository_gate=repository_gate,
+        bootstrap_script=dino_bootstrap_script,
+        worker_script=dino_worker_script,
     )
     launch_policy = C4Stage1LaunchPolicy.create(
         worker_script,
@@ -2433,12 +2950,15 @@ def prepare_c4_stage1_attempt(
 
     json_payloads = _prepared_json_payloads(
         repository_gate=repository_gate,
+        dino_entrypoint_pin=dino_entrypoint_pin,
         launch_policy=launch_policy,
         worker_runtime=worker_runtime,
         telemetry_policy=telemetry_policy,
         review_schema=schema,
         operator_policies=operator_policies,  # type: ignore[arg-type]
         display_policy=display_policy,
+        review_runtime_manifest=review_runtime_manifest,
+        review_service_readiness=review_service_readiness,
         screen_contract=screen_contract,
         workers=workers,
     )
@@ -2450,6 +2970,12 @@ def prepare_c4_stage1_attempt(
         _manifest_copy_path("alternate"): alternate_manifest_bytes,
         _bootstrap_script_copy_path(launch_policy): bootstrap_script,
         _worker_script_copy_path(launch_policy): worker_script,
+        _dino_script_copy_path(
+            dino_entrypoint_pin, "dino-bootstrap"
+        ): dino_bootstrap_script,
+        _dino_script_copy_path(
+            dino_entrypoint_pin, "dino-worker"
+        ): dino_worker_script,
     }
     payloads = {**json_payloads, **binary_payloads}
     if len(payloads) != len(json_payloads) + len(binary_payloads):
@@ -2473,6 +2999,7 @@ def prepare_c4_stage1_attempt(
     prepared = C4Stage1PreparedAttempt.create(
         run_id=run_id,
         repository_gate=repository_gate,
+        dino_entrypoint_pin=dino_entrypoint_pin,
         launch_policy=launch_policy,
         worker_runtime=worker_runtime,
         cuda_device=cuda_device,
@@ -2481,6 +3008,8 @@ def prepare_c4_stage1_attempt(
         review_schema=schema,
         review_operator_policies=operator_policies,  # type: ignore[arg-type]
         display_policy=display_policy,
+        review_runtime_manifest=review_runtime_manifest,
+        review_service_readiness=review_service_readiness,
         screen_contract=screen_contract,
         workers=workers,
         artifact_inventory_before_anchor=tuple(
@@ -2533,6 +3062,42 @@ def _require_descriptor_payload(
         )
 
 
+def _cold_verify_dino_entrypoint_copies(
+    artifact_store: FileArtifactStore,
+    prepared: C4Stage1PreparedAttempt,
+    descriptor_by_path: Mapping[str, StoredArtifact],
+) -> None:
+    """Cold-read both prepared DINO entrypoint copies against their Git-byte pin."""
+
+    for script_pin in prepared.dino_entrypoint_pin.scripts:
+        relative_path = _dino_script_copy_path(
+            prepared.dino_entrypoint_pin,
+            script_pin.role,
+        )
+        descriptor = descriptor_by_path.get(relative_path)
+        if descriptor is None:
+            raise C4Stage1ColdVerificationError(
+                "Stage 1 prepared DINO entrypoint copy is absent"
+            )
+        try:
+            script = artifact_store.read_bytes(descriptor.storage_id)
+        except Exception as exc:
+            raise C4Stage1ColdVerificationError(
+                f"Stage 1 prepared {script_pin.role} script is not cold-readable"
+            ) from exc
+        if (
+            hashlib.sha256(script).hexdigest() != script_pin.content_sha256
+            or len(script) != script_pin.size_bytes
+            or descriptor.run_id != prepared.run_id
+            or descriptor.relative_path != relative_path
+            or descriptor.content_sha256 != script_pin.content_sha256
+            or descriptor.size_bytes != script_pin.size_bytes
+        ):
+            raise C4Stage1ColdVerificationError(
+                f"Stage 1 prepared {script_pin.role} script differs from its exact pin"
+            )
+
+
 def cold_verify_c4_stage1_prepared_attempt(
     artifact_store: FileArtifactStore,
     prepared_anchor_storage: StoredArtifact,
@@ -2571,12 +3136,15 @@ def cold_verify_c4_stage1_prepared_attempt(
 
     json_payloads = _prepared_json_payloads(
         repository_gate=prepared.repository_gate,
+        dino_entrypoint_pin=prepared.dino_entrypoint_pin,
         launch_policy=prepared.launch_policy,
         worker_runtime=prepared.worker_runtime,
         telemetry_policy=prepared.telemetry_policy,
         review_schema=prepared.review_schema,
         operator_policies=prepared.review_operator_policies,
         display_policy=prepared.display_policy,
+        review_runtime_manifest=prepared.review_runtime_manifest,
+        review_service_readiness=prepared.review_service_readiness,
         screen_contract=prepared.screen_contract,
         workers=prepared.workers,
     )
@@ -2589,6 +3157,10 @@ def cold_verify_c4_stage1_prepared_attempt(
         _manifest_copy_path("alternate"),
         _bootstrap_script_copy_path(prepared.launch_policy),
         _worker_script_copy_path(prepared.launch_policy),
+        *(
+            _dino_script_copy_path(prepared.dino_entrypoint_pin, script.role)
+            for script in prepared.dino_entrypoint_pin.scripts
+        ),
     }
     descriptor_by_path = {
         item.relative_path: item for item in prepared.artifact_inventory_before_anchor
@@ -2603,6 +3175,11 @@ def cold_verify_c4_stage1_prepared_attempt(
             descriptor_by_path[relative_path],
             payload,
         )
+    _cold_verify_dino_entrypoint_copies(
+        artifact_store,
+        prepared,
+        descriptor_by_path,
+    )
 
     source_descriptor = descriptor_by_path[
         prepared.screen_contract.fixture.source_image.path
@@ -2702,7 +3279,7 @@ def cold_verify_c4_stage1_prepared_attempt(
             or descriptor.size_bytes != expected_size
         ):
             raise C4Stage1ColdVerificationError(
-                f"Stage 1 prepared {label} script differs from launch policy"
+                f"Stage 1 prepared {label} script differs from its exact pin"
             )
 
     if require_exact_pre_spawn_inventory:
@@ -2733,6 +3310,8 @@ def cold_verify_c4_stage1_prepared_attempt(
 __all__ = [
     "C4_STAGE1_BOOTSTRAP_SCRIPT_PATH",
     "C4_STAGE1_CUDA_STOP_BYTES",
+    "C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH",
+    "C4_STAGE1_DINO_WORKER_SCRIPT_PATH",
     "C4_STAGE1_GIT_SCOPE_PATHS",
     "C4_STAGE1_ORIGIN_URL",
     "C4_STAGE1_PREPARED_ANCHOR_PATH",
@@ -2741,6 +3320,8 @@ __all__ = [
     "C4_STAGE1_TELEMETRY_MAX_SAMPLES",
     "C4_STAGE1_WORKER_SCRIPT_PATH",
     "C4Stage1ColdVerificationError",
+    "C4Stage1DinoEntrypointPin",
+    "C4Stage1DinoEntrypointScriptPin",
     "C4Stage1GitRuntimePin",
     "C4Stage1LaunchPolicy",
     "C4Stage1PreparationError",
@@ -2749,6 +3330,7 @@ __all__ = [
     "C4Stage1PreparedWorker",
     "C4Stage1RepositoryGate",
     "C4Stage1ReviewCommitments",
+    "C4Stage1ReviewServicePreflightPort",
     "C4Stage1RuntimePaths",
     "C4Stage1RuntimeTreeInventoryPin",
     "C4Stage1WorkerRuntimePin",
@@ -2758,6 +3340,7 @@ __all__ = [
     "capture_c4_stage1_worker_runtime",
     "cold_verify_c4_stage1_prepared_attempt",
     "prepare_c4_stage1_attempt",
+    "verify_c4_stage1_live_review_boundary",
     "verify_c4_stage1_pre_spawn_runtime_bindings",
     "verify_c4_stage1_staging_parent",
 ]
