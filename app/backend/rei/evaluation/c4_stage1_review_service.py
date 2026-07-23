@@ -7217,8 +7217,10 @@ class C4Stage1ReviewServiceClient:
                     connection.settimeout(self._timeout_seconds)
                     connection.sendall(header)
                     connection.sendall(body)
-                    reader = connection.makefile("rb")
-                    response_bytes = reader.readline(C4_STAGE1_REVIEW_MAX_IPC_BYTES + 1)
+                    with connection.makefile("rb") as reader:
+                        response_bytes = reader.readline(
+                            C4_STAGE1_REVIEW_MAX_IPC_BYTES + 1
+                        )
             except OSError:
                 if attempt + 1 < attempts:
                     continue

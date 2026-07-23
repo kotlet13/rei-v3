@@ -2667,6 +2667,7 @@ def test_second_display_is_rejected_without_cancelling_or_orphaning_the_first(
             assert not server_thread.is_alive()
 
 
+@pytest.mark.filterwarnings("error")
 def test_non_display_response_reset_does_not_cancel_an_active_display(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

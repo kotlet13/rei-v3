@@ -2,6 +2,8 @@
 
 Status: model-free bootstrap protocol. This document and its focused tests do
 not install packages, download Chromium, launch a browser, or call a model.
+The implementation is inactive evaluation infrastructure. No C4 Stage 1 human
+review artifact was issued under either the v1 or v2 review-service contract.
 
 ## Frozen runtime
 
@@ -59,6 +61,23 @@ The Windows executable layout
 `chromium-1228/chrome-win64/chrome.exe` follows the same release's official
 [registry implementation](https://raw.githubusercontent.com/microsoft/playwright/v1.61.0/packages/playwright-core/src/server/registry/index.ts).
 
+### Chromium trust boundary
+
+Chromium is the offline headed renderer for the local human-review UI. It does
+not browse project data on the internet, call a model, or participate in the
+authoritative REI runtime.
+
+The current bootstrap does not carry a precommitted SHA-256 for the upstream
+Chromium download archive. On first execution it trusts the Playwright 1.61.0
+revision mapping and transport, then captures and cold-verifies the complete
+installed browser tree and executable hashes. This is an explicit
+trust-on-first-use (TOFU) boundary.
+
+The TOFU boundary is accepted for merging this inactive evaluation code. It
+does not authorize a sealed human review: such a review remains blocked until
+the browser archive is pinned before download or a separate human decision
+explicitly accepts that concrete first-use acquisition.
+
 ## Operation
 
 `plan` validates the base interpreter and all path boundaries, then prints a
@@ -71,7 +90,10 @@ steps are:
    verify its actual `sys.prefix`, `sys.base_prefix`, and `pyvenv.cfg` binding;
 3. download the eight direct PyPI wheel URLs into an external wheelhouse;
 4. verify every wheel's exact filename, size, and SHA-256;
-5. install only that wheelhouse with `--no-index --no-deps --require-hashes`;
+5. use the stdlib-only verified ZIP installer to extract exactly the eight
+   hash- and size-checked wheels into the pip-free copied environment, rejecting
+   duplicate members, links, unsafe paths, undeclared files, and unexpected
+   installed distributions;
 6. verify installed package versions, exact dist-info identity files, and the
    installed `browsers.json` pin;
 7. use the sealed interpreter to import every pinned third-party module plus
