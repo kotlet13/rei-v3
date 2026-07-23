@@ -1,5 +1,11 @@
 # Codex kickoff — REI raziskovalni reset in štirislikovni Emocio screen
 
+> **STATUS: HISTORICAL — EXECUTED / DO NOT EXECUTE**
+>
+> Raziskovalni reset in pripadajoči exploratory koraki so bili izvedeni,
+> poznejše delo pa jih je nadomestilo. Dokument je ohranjen samo kot
+> zgodovinska sled in ne spreminja veljavnega `AGENTS.md`.
+
 Repozitorij: `kotlet13/rei-v3`
 
 Ta uporabnikova zahteva izrecno nadomešča trenutno `AGENTS.md` pravilo, ki zahteva
@@ -7,7 +13,7 @@ neposredno delo na `main`.
 
 Najprej preberi:
 
-`plans/REI_research_reset_human_signal_2026-07-16.md`
+`plans/REI_research_reset_human_signal_plan_2026-07-16.md`
 
 Izvedi samo:
 
@@ -62,7 +68,7 @@ Ne pushaj neposredno na main.
    `plans/REI_next_phases_merge_semantic_architecture_2026-07-14.md`
 
 3. Dodaj glavni reset plan v:
-   `plans/REI_research_reset_human_signal_2026-07-16.md`
+`plans/REI_research_reset_human_signal_plan_2026-07-16.md`
 
 4. Posodobi `CURRENT.md` z realnim stanjem:
    - architecture stable;

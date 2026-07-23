@@ -4,6 +4,24 @@ runtime_effect: none
 canon_language: sl
 operational_gloss_language: en
 
+historical_version_notice:
+  canonical_sl: >-
+    Ta datoteka je zgodovinski posnetek kanona v2 iz Faze 1. Njeni kratki
+    identifikatorji profilov in spodnja izjava o takrat še neimplementirani
+    deterministični arbitraži niso trenutna runtime pogodba.
+  en_gloss: >-
+    This file is a historical Phase 1 canon-v2 snapshot. Its shorthand profile
+    identifiers and the statement below about then-unimplemented deterministic
+    arbitration are not the current runtime contract.
+  current_runtime_profile_id_mapping:
+    R: "R>(E=I)"
+    E: "E>(R=I)"
+    I: "I>(R=E)"
+    RE: "(R=E)>I"
+    RI: "(R=I)>E"
+    EI: "(E=I)>R"
+    REI: "R=E=I"
+
 authority_semantics:
   canonical_sl: >-
     Značaj je stabilna ordinalna razporeditev avtoritete med Raciom, Emociem

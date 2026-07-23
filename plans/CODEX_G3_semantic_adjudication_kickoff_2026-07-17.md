@@ -1,5 +1,10 @@
 # Codex kickoff — G3 semantična adjudikacija brez novih modelnih klicev
 
+> **STATUS: HISTORICAL — COMPLETED / DO NOT EXECUTE**
+>
+> G3A adjudikacija je bila izvedena. Ta dokument ostaja samo kot provenance
+> opravljenega pregleda in ne določa trenutne veje ali naslednje faze.
+
 Repozitorij: `kotlet13/rei-v3`
 
 Aktivna veja:

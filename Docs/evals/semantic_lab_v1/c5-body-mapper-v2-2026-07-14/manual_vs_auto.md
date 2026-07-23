@@ -1,6 +1,13 @@
 # C5 Instinkt body-mapper manual-vs-auto report
 
-Gate: **PASS**
+**Status:** Historical v2 internal development evaluation, superseded by the
+reviewed v3 evaluation.
+
+Gate: **PASS within this frozen, non-blind v2 development evaluation only**
+
+This PASS is not an untouched-holdout, external-validity, or model-promotion
+claim. The v2 artifact remains unchanged as historical provenance; current C5
+interpretation must use the later v3 report.
 
 This deterministic evaluation uses independent human-authored cue/evidence cells, replays explicit numeric manual effects through B8, and compares the result with the rule mapper and compiler. Mapper abstentions remain visible.
 

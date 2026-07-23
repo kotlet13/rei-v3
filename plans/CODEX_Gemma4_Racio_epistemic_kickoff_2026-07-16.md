@@ -1,5 +1,10 @@
 # Codex kickoff — Gemma 4 31B Racio epistemic development screen
 
+> **STATUS: HISTORICAL — COMPLETED / DO NOT EXECUTE**
+>
+> Ta Gemma razvojni kickoff je bil izveden. Njegovi rezultati so ohranjeni v
+> eval poročilih; dokument ni več aktivno navodilo za modelne klice ali Git tok.
+
 Repozitorij: `kotlet13/rei-v3`
 
 Najprej preberi:

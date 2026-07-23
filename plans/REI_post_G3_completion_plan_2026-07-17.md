@@ -1,5 +1,11 @@
 # REI-v3 — nadaljevanje po G3: od semantičnega audita do dokončane infrastrukture
 
+> **STATUS: CLOSED / SUPERSEDED — DO NOT EXECUTE**
+>
+> Izvedene faze tega načrta so ohranjene kot zgodovina. Njegov zapis
+> »naslednjega koraka«, stare veje in preostale neizvedene faze niso več
+> operativno navodilo; vsako nadaljevanje zahteva nov, izrecno potrjen načrt.
+
 **Namen:** izvedbeni načrt za Codex po zaključenem Gemma 4 G3 razvojnem screenu
 **Repozitorij:** `kotlet13/rei-v3`
 **Aktivna veja:** `codex/racio-gemma4-epistemic-interpreter`

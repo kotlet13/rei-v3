@@ -1,5 +1,11 @@
 # REI-v3 — Gemma 4 31B: nadaljevalni načrt za epistemološko pravilnega RacioInterpreterja
 
+> **STATUS: HISTORICAL — EXECUTED AND SUPERSEDED / DO NOT EXECUTE**
+>
+> Dokument beleži izvedeno razvojno smer, ki so jo poznejše V3, G3C in shadow
+> faze nadomestile. Stare veje, modeli in neposredna navodila spodaj so
+> zgodovinski podatki, ne trenutni projektni ukazi.
+
 **Namen:** neposredno izvedbeno navodilo za Codex
 **Repozitorij:** `kotlet13/rei-v3`
 **Trenutna raziskovalna veja:** `codex/racio-failure-audit`

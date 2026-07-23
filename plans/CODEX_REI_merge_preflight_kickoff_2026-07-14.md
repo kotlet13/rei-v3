@@ -1,5 +1,11 @@
 # Codex kickoff — REI native-composition merge preflight
 
+> **STATUS: HISTORICAL — COMPLETED / DO NOT EXECUTE**
+>
+> Ta kickoff je bil izveden in je ohranjen samo kot sled opravljenega
+> merge-preflight dela. Za novo delo uporabi trenutno stanje projekta in nov,
+> izrecno potrjen načrt.
+
 Repozitorij: `kotlet13/rei-v3`
 
 Najprej preberi:
