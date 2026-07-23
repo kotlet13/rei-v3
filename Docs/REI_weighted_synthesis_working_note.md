@@ -1,5 +1,13 @@
 # REI weighted synthesis working note
 
+> [!WARNING]
+> **Canonical status: `deprecated_hypothesis`.**
+>
+> This implementation hypothesis is partially superseded by the direct source
+> review dated 2026-07-10. In particular, its claim that final synthesis is
+> always a smooth weighted compromise must not be treated as canonical-v2
+> truth. The original note is retained unchanged below as historical context.
+
 Status: working clarification from the 2026-05-16 model-eval discussion.
 
 Purpose: record the current project direction for Ego synthesis, character weights, and future evals. This note does not replace `rei_kanon.md` or `rei_app_spec.md`; it clarifies how to interpret them when building and testing LLM synthesis.

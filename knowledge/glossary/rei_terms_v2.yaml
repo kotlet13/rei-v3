@@ -1,0 +1,187 @@
+schema_version: rei-terms-v2
+canon_language: sl
+operational_gloss_language: en
+translation_direction:
+  - slovenska_kanonicna_trditev
+  - angleski_operativni_gloss
+  - povratni_pregled_v_slovenscini
+
+terms:
+  - term_id: REI_RACIO
+    canonical_sl: Racio
+    definition_sl: >-
+      Najmlajši REI razum, ki je neposredno zavedni, besedni, številčni in
+      analitični procesor.
+    en_gloss: directly conscious verbal-analytical REI mind
+    do_not_translate_as:
+      - ordinary reason
+      - objective rationality
+      - the whole self
+    usage_example_sl: Racio je sklep ubesedil in ločil znana dejstva od neznank.
+    everyday_usage_note_sl: >-
+      Ime ni sopomenka za razumnost ali zagotovilo pravilnega sklepa.
+    source_claim_ids: [C-RACIO-001, C-CONSC-002]
+
+  - term_id: REI_EMOCIO
+    canonical_sl: Emocio
+    definition_sl: >-
+      Nezavedni REI razum, ki procesira slike, prizore, želene in porušene
+      podobe, pozornost, pripadnost, tekmovalnost in neposredno izkušnjo.
+    en_gloss: image- and experience-oriented unconscious REI mind
+    do_not_translate_as:
+      - emotion
+      - generic empathy
+      - mood
+    usage_example_sl: Emocio je isti dogodek presodil skozi želeno in porušeno sliko.
+    everyday_usage_note_sl: >-
+      Izraz ni splošno ime za čustva; v REI označuje celovit način procesiranja.
+    source_claim_ids: [C-EMOCIO-001, C-CONSC-001]
+
+  - term_id: REI_INSTINKT
+    canonical_sl: Instinkt
+    definition_sl: >-
+      Najstarejši nezavedni REI razum, usmerjen v varovanje, nevarnost, izgubo,
+      mejo, zaupanje, navezanost in pomanjkanje.
+    en_gloss: oldest protective unconscious REI mind
+    do_not_translate_as:
+      - reflex
+      - impulse
+      - automatic panic
+    usage_example_sl: Instinkt je opozoril na izgubo in nejasno mejo.
+    everyday_usage_note_sl: >-
+      Izraz ni sopomenka za biološki refleks ali vsako spontano reakcijo.
+    source_claim_ids: [C-INSTINKT-001, C-CONSC-001]
+
+  - term_id: REI_RAZUM
+    canonical_sl: razum
+    definition_sl: >-
+      Eden od treh neodvisnih REI sistemov procesiranja: Racio, Emocio ali
+      Instinkt.
+    en_gloss: REI mind or processor
+    do_not_translate_as:
+      - ordinary reason
+      - rational faculty
+      - intelligence score
+    usage_example_sl: Vsak razum je isti prizor obdelal po svoji poti.
+    everyday_usage_note_sl: >-
+      Kanonični pomen je širši in drugačen od vsakdanjega pomena besede razum.
+    source_claim_ids: [C-CHAR-001, C-MINDS-001]
+
+  - term_id: REI_ZNACAJ
+    canonical_sl: značaj
+    definition_sl: >-
+      Stabilna ordinalna razporeditev avtoritete med tremi razumi in s tem
+      stabilen ključ poti procesiranja.
+    en_gloss: stable ordinal REI character hierarchy
+    do_not_translate_as:
+      - personality trait list
+      - current mood
+      - behavior stereotype
+    usage_example_sl: Značaj je ostal isti, čeprav je bil vodilni razum začasno manj aktiven.
+    everyday_usage_note_sl: >-
+      V REI značaj ni seznam opaženih lastnosti in se ne sklepa iz enega dejanja.
+    source_claim_ids: [C-CHAR-001, C-CHAR-002, C-STATE-001]
+
+  - term_id: REI_SVET
+    canonical_sl: svet
+    definition_sl: >-
+      Notranji model, ki ga človek gradi iz zaznav, spominov in procesiranja
+      svojih treh razumov ter ga doživlja kot resničnost.
+    en_gloss: processor-built internal world model
+    do_not_translate_as:
+      - objective reality
+      - physical world alone
+      - fantasy
+    usage_example_sl: Dva človeka sta isti dogodek vključila v različna svetova.
+    everyday_usage_note_sl: >-
+      Beseda ne označuje samo zunanjega sveta in ne zanika obstoja fizične resničnosti.
+    source_claim_ids: [C-WORLD-001]
+
+  - term_id: REI_SPREJEMANJE
+    canonical_sl: sprejemanje
+    definition_sl: >-
+      Odnos med razumi, v katerem se ti medsebojno priznavajo, bolje sodelujejo
+      in lahko kompetentnemu razumu prepustijo omejeno nalogo.
+    en_gloss: cooperative mutual recognition among the three REI minds
+    do_not_translate_as:
+      - resignation
+      - passive compliance
+      - happiness
+      - risk avoidance
+    usage_example_sl: Sprejemanje je omogočilo, da je vodilni razum nalogo prepustil drugemu.
+    everyday_usage_note_sl: >-
+      Ne pomeni, da je človeku vse všeč, da je vedno miren ali da izbere določeno vedenje.
+    source_claim_ids: [C-ACCEPT-001, C-DELEG-001]
+
+  - term_id: REI_NESPREJEMANJE
+    canonical_sl: nesprejemanje
+    definition_sl: >-
+      Konflikten odnos med razumi, v katerem se njihovi signali popačijo,
+      zatirajo ali si medsebojno preprečujejo sodelovanje.
+    en_gloss: conflictual non-cooperation among the three REI minds
+    do_not_translate_as:
+      - simple refusal
+      - disagreement alone
+      - sadness
+    usage_example_sl: Nesprejemanje je preprečilo sodelovanje, čeprav je bila naloga jasna.
+    everyday_usage_note_sl: >-
+      Izraz ni navaden ne določeni možnosti in se ne dokazuje z enim čustvom.
+    source_claim_ids: [C-ACCEPT-001]
+
+  - term_id: REI_SPOZNANJE
+    canonical_sl: spoznanje
+    definition_sl: >-
+      Stanje, v katerem vsi trije razumi po svojih poteh sprejmejo isti sklep.
+    en_gloss: all-three internal convergence on the same conclusion
+    do_not_translate_as:
+      - realization
+      - insight
+      - revelation
+      - objective truth
+    usage_example_sl: Ker so se vsi trije razumi strinjali z istim sklepom, je nastalo spoznanje.
+    everyday_usage_note_sl: >-
+      Navaden močan uvid ali Racijeva odločitev sama še nista spoznanje v kanoničnem pomenu.
+    source_claim_ids: [C-SPOZ-001]
+
+  - term_id: REI_KULISA
+    canonical_sl: kulisa
+    definition_sl: >-
+      Priučena predstava ali vedenjski vzorec, ki lahko navzven prikrije
+      notranje neskladje oziroma podpira predstavo, ki je razumi niso uskladili.
+    en_gloss: learned façade pattern masking unresolved internal misalignment
+    do_not_translate_as:
+      - every habit
+      - deliberate lie
+      - visual scenery only
+    usage_example_sl: Zunanja samozavest je bila lahko kulisa, ne dokaz usklajenosti razumov.
+    everyday_usage_note_sl: >-
+      Definicija je namenoma konservativna; natančnejša strojna klasifikacija ostaja odprta.
+    source_claim_ids: [C-KULISA-001]
+
+  - term_id: REI_VODILNI_RAZUM
+    canonical_sl: vodilni razum
+    definition_sl: >-
+      Razum oziroma razum v najvišjem tieru stabilne značajske hierarhije.
+    en_gloss: mind in the highest character-authority tier
+    do_not_translate_as:
+      - currently loudest signal
+      - temporary controller
+      - universally best mind
+    usage_example_sl: Vodilni razum je ostal isti tudi ob močnem ugovoru podrejenega.
+    everyday_usage_note_sl: >-
+      Vodilni pomeni strukturno avtoriteto, ne trenutne aktivnosti ali glasnosti.
+    source_claim_ids: [C-CHAR-003, C-ARB-001, C-STATE-001]
+
+  - term_id: REI_VZPOREDNA_RAZUMA
+    canonical_sl: vzporedna razuma
+    definition_sl: >-
+      Dva razuma z enakim položajem v istem tieru značajske hierarhije.
+    en_gloss: two minds of equal rank in the same authority tier
+    do_not_translate_as:
+      - independent background threads
+      - identical minds
+      - automatic agreement
+    usage_example_sl: Vzporedna razuma sta bila enako visoko uvrščena, vendar se nista strinjala.
+    everyday_usage_note_sl: >-
+      Vzporednost pomeni enak rang, ne enake vsebine, sposobnosti ali sklepa.
+    source_claim_ids: [C-CHAR-003, C-PAIR-001]

@@ -17,6 +17,8 @@ app/frontend/.vite/
 app/backend/.venv/
 
 .playwright-cli/
+.claude/
+/tmp/
 
 output/
 *.zip
