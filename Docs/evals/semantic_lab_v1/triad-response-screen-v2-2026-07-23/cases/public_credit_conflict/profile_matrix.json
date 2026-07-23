@@ -1,0 +1,1304 @@
+{
+  "case_id": "public_credit_conflict",
+  "model_calls_during_replay": 0,
+  "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+  "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+  "native_processor_executions_during_replay": 0,
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "6d69d4085152d66509b8be953c59f33fea2cb2467e4b6bb05bcd06180a3f2a56",
+        "character_id": "triad_character_9621adfa96453300931a406ae7fb3405",
+        "effective_authority_hash": "56836a864de6e3d9e4512f74d1c23dedd9cd82f5b45f317f98fc74e410b7039d",
+        "effective_authority_id": "effective_authority_ae738024953ae9d45ce617f3ede6493a",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_242cf312ef50d6854564f6cbd1e71433",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "c87a606c142cf033e4672e7ed29fc0c51c591596c7d9b95c487f9fe439d51fae",
+        "resolution_id": "governance_7ac4ab4ff2147d4d6089697c808ff72a",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_7ac4ab4ff2147d4d6089697c808ff72a",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>(E=I)",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "50b00c852aee9aa3554cdf94ad2457d45b5b02504a7150d77cdb2e4ed74a69ad",
+        "character_id": "triad_character_77d4a941fc5fec2220b3f86dfe567ccb",
+        "effective_authority_hash": "eff09ea6552017a24d94cd769f3f2705a125ff9618e5b6babc4d97d68546271c",
+        "effective_authority_id": "effective_authority_4fa6f6030a5693d4ee446a8f221ab7fe",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_111958a2472b885c96c5999dc197e8c2",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "47b17111818e0e569238a3fc7fa55b3cc4e06e6ac8efdaf58b39bd9462a53d15",
+        "resolution_id": "governance_f19d8014a5b2bc807d6c01bfdb44aab1",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_f19d8014a5b2bc807d6c01bfdb44aab1",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>(R=I)",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "9fe6dd2da748cff541444136dc0e7097ce6047524e0fcbd50b5c99bdcbd32a39",
+        "character_id": "triad_character_dc2ae70468a8fe8c43df8dccedf30357",
+        "effective_authority_hash": "4d2f8fe678b3a64a6fa82981d6d4adcecbf46336132102db2964a2a454fa3f22",
+        "effective_authority_id": "effective_authority_5c4843eb368b5430abeadb81a989f1fc",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eb10148e5ea59c105f64f2b3332df8e7",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "00b7c19ef1b9dc18e4346dce9a20ef15aed4f7143d904122c3e7e932cff45370",
+        "resolution_id": "governance_be5ea00090b3ff020650f9b750536a78",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_be5ea00090b3ff020650f9b750536a78",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>(R=E)",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "1f6a647a26713053962d6677193fe3ad444cab10469aa5b132017d9823daa339",
+        "character_id": "triad_character_ba3cdd146209859fdfc6b329951c681a",
+        "effective_authority_hash": "d7c6062e3486f9bb6be752780efb4072a04547f5268d8f1e7d96951aa5273ef3",
+        "effective_authority_id": "effective_authority_c5e803dce45b454e9a515db37f5d47ff",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_39484dac629a906516aaa6cab3acfb13",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_4b5f0d0446d6d50bd1a29d1a3e9d61df",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "a7e96a5922088fff9073a96fa125b351c4b1e14b09a37dde7bfbf5d1ce1f12f6",
+        "resolution_id": "governance_1d64a133e79192758f1ad438575172ad",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_1d64a133e79192758f1ad438575172ad",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(R=E)>I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "d234e67c22e1768f32b64e75b2a8a354bb97532e6b86881aaf885974c22b75e4",
+        "character_id": "triad_character_df1b91301a7ae164db11220ee4b28daa",
+        "effective_authority_hash": "824d5305d48ab7e230c44fc721067e3fa621bee01ed9eb10b4e919b4def0249a",
+        "effective_authority_id": "effective_authority_ec1504e9dcecda71132b3b0c638aa8c7",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_37c3e6d947bf0954200eefb643bf5f1c",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_47b5c049e24a0984b0049a9706607772",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "6cbf38d237c8b6199aea0a6da451674cfe4062107840b623b8c4cb9d27e5db7f",
+        "resolution_id": "governance_80d6398bacfabef2cf0508c1b6d7e7f4",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_80d6398bacfabef2cf0508c1b6d7e7f4",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(R=I)>E",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "f41e11d841c0f6ea6e541edfc2384c08c41461b2889eeb49e06e43e6efb44687",
+        "character_id": "triad_character_3b1574c3b8655ecf5ccc38f1a2a67d17",
+        "effective_authority_hash": "a3c9c4ad707b39fdc55e0e28c0f8967a6282ad9ad01aeddd4c38cda7b15f5718",
+        "effective_authority_id": "effective_authority_79c843b1c510778293abfa195bdc9c2b",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_977570a8d23c4729493ba0488a12162b",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_e5bd390acc6134ce2e947910125379dd",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "a35a35d668c57a8a87b7f80c8824b147cfb8a11a854fdeaed251c184f7777a6b",
+        "resolution_id": "governance_37c24f8ff11c0326e711391bb1646eec",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_37c24f8ff11c0326e711391bb1646eec",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(E=I)>R",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "d98a72651dd69cf57ba969e75c5eb13d31cc02d60d9ca8bec698a9a9ba3640bb",
+        "character_id": "triad_character_deabd37d6096d6a316c50ff0b193a42b",
+        "effective_authority_hash": "14186efc103f7f108b901858138b2bdd540a4e1042af0b3e3b1a83c4fd1599ee",
+        "effective_authority_id": "effective_authority_e87e4001a7a53805f1a8bcaae014d60f",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_242cf312ef50d6854564f6cbd1e71433",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "661ceb757ce390db2ed5e7cb3db55af9b7dc72bc2f7e568deb946c64989e6db9",
+        "resolution_id": "governance_87e2dee930f9fce310ee07c2300f0844",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_87e2dee930f9fce310ee07c2300f0844",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>E>I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "3e1a6a944e2265556d328446b44b7b473b44cc5e83aad9be3831f0cb2c2bdce0",
+        "character_id": "triad_character_13c53baffab8e825db49fd040163a0ba",
+        "effective_authority_hash": "b9396fefa348e8b044d674784a199647f69c52b000534a4e9ac3de27332a1491",
+        "effective_authority_id": "effective_authority_0e810cae4992dacaaee17f739307d4c5",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_242cf312ef50d6854564f6cbd1e71433",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "bc07b9bd32afab182942f354ac63de74e415e31fd1c901390b0ac238579a4865",
+        "resolution_id": "governance_9623b4af1489f56977c614ce62ae2193",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_9623b4af1489f56977c614ce62ae2193",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>I>E",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "8ecbff196877d9c670dd5430fc22f8b506cb9dd08bd025ae203f2cbcee867218",
+        "character_id": "triad_character_e50c5bfb77847cfb83b7181a252902bf",
+        "effective_authority_hash": "a71233b90f3f9c5220233c4205c2876e070b4aec496f741b3450f43fef866069",
+        "effective_authority_id": "effective_authority_6c634cab32945ae54bb3a8e539efe036",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_111958a2472b885c96c5999dc197e8c2",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "b9c841eaeb0f77a594a382518f7e5b6c33d8596f8ce73404d42b82d01b880a3d",
+        "resolution_id": "governance_fdb8d66679634653760b552861d9f2a1",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_fdb8d66679634653760b552861d9f2a1",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>R>I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "f1bffb96f6f8694e96dedec8bb0c101649f08ce169f2cc1a0504ef945e39eb35",
+        "character_id": "triad_character_822500424c84e994231e46e42104072b",
+        "effective_authority_hash": "3dbcbc5c41e7bcb94560da598ff57e68e73cbfc17a661de41985b39fb252c250",
+        "effective_authority_id": "effective_authority_556e7d5fe0a122a5b272918c92991589",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_111958a2472b885c96c5999dc197e8c2",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "c1a3449db5340c4e9a3637c92e90e11f13e231ff3ae2e4aaf15f95d6ea7d9623",
+        "resolution_id": "governance_4a2a6b49d39ec547c7fef3901646b400",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_4a2a6b49d39ec547c7fef3901646b400",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>I>R",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "d7f24228a45c74c7edace27999bcd9179192d45a765ee6b9fd3a34466a30e63f",
+        "character_id": "triad_character_51586ff4dc8bed2843bfbf4b7860d72c",
+        "effective_authority_hash": "ab8bff1c816c4d13ead004438bdf1cb647098d49ce87ce8de91a27dde92b5810",
+        "effective_authority_id": "effective_authority_e7efcae1da416162add483b65d6a6af1",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eb10148e5ea59c105f64f2b3332df8e7",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "e042779f482146a9ae42d35e5d6b363201d3e0836a3de78ca6ff4b50a04d88e4",
+        "resolution_id": "governance_ffabc10d917a48c4b103e640dc7a802e",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_ffabc10d917a48c4b103e640dc7a802e",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>R>E",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "96f139768a6dae30c95e8688338e5cdab98f2f87b836f180cde97aae0aec9c8a",
+        "character_id": "triad_character_cf0a4ec30f943007a55581135b171004",
+        "effective_authority_hash": "9f5cc5a46ed33a67f4228e1e6c0d4c5d1cecc0f1d5fc3a661a4bebc169068ccf",
+        "effective_authority_id": "effective_authority_a3ac092a576d518101a0550cc854eb6d",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eb10148e5ea59c105f64f2b3332df8e7",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "7720aef20018149aee6af956cc1c9c1bacf3bbc3aaa9757017ce201d6838555d",
+        "resolution_id": "governance_b08be160cf57a50e2be6ff12b83f5d48",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_b08be160cf57a50e2be6ff12b83f5d48",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>E>R",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+          "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+          "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+              "mind": "R",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+              "mind": "E",
+              "option_id": "credit_private_evidence"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+              "mind": "I",
+              "option_id": "credit_private_evidence"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "credit_private_evidence"
+        },
+        "character_hash": "ae49c59b2ec3eec9a5cfb2969eca177ca4e8f7607438b8c11d32a0c189ebd918",
+        "character_id": "triad_character_15c873b1629c0ce8ad9a4592fb85aaa1",
+        "effective_authority_hash": "cb0bc433831b3e0e11bb3689dd71d8084670a13aeb61e91bd9881aceb7ae0d1b",
+        "effective_authority_id": "effective_authority_82680c6540bab2540daab0eb86e5c1b0",
+        "effective_source_minds": [
+          "R",
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "authorship record visible with balanced positions at the table"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_e49f33e433963532f0fc39a3e58f8964",
+          "objections": [],
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+        "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "11c257d0a2c1b08e1c9a241faba6380435c020caad1381d44036a1270d45f162",
+        "resolution_id": "governance_89bf4868a93b1b4aca161d2f8f44cbdd",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_89bf4868a93b1b4aca161d2f8f44cbdd",
+      "mandate_option_id": "credit_private_evidence",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R=E=I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "two_of_three": "credit_private_evidence"
+    }
+  ],
+  "schema_version": "triad-s2-profile-matrix-v1",
+  "status": "complete"
+}

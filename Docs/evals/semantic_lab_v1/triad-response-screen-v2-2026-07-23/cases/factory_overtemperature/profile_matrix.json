@@ -1,0 +1,8 @@
+{
+  "case_id": "factory_overtemperature",
+  "model_calls_during_replay": 0,
+  "native_processor_executions_during_replay": 0,
+  "rows": [],
+  "schema_version": "triad-s2-profile-matrix-v1",
+  "status": "not_run_without_complete_bundle"
+}

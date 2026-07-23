@@ -1,0 +1,2639 @@
+{
+  "agreement_pattern": {
+    "agreeing_minds": [
+      "R",
+      "E",
+      "I"
+    ],
+    "agreement_hash": "29a8375450af3f90b72c24f7a109d1db7377d2d37b49190a1fa49d29a5bad269",
+    "agreement_kind": "unanimous",
+    "agreement_pattern_id": "agreement_b0a240bb530ad41124aaae99f0f2df85",
+    "native_bundle_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+    "native_bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+    "positions": [
+      {
+        "abstains": false,
+        "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+        "mind": "R",
+        "option_id": "credit_private_evidence"
+      },
+      {
+        "abstains": false,
+        "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+        "mind": "E",
+        "option_id": "credit_private_evidence"
+      },
+      {
+        "abstains": false,
+        "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+        "mind": "I",
+        "option_id": "credit_private_evidence"
+      }
+    ],
+    "schema_version": "rei-native-agreement-pattern-v1",
+    "spoznanje_status": "simulated_spoznanje",
+    "winning_option_id": "credit_private_evidence"
+  },
+  "bundle": {
+    "allowed_option_ids": [
+      "credit_no_response",
+      "credit_private_evidence",
+      "credit_public_confront"
+    ],
+    "bundle_id": "bundle_af7c1004fb99c03190db8d078029a23f",
+    "created_at": "2026-07-23T16:55:58.326881Z",
+    "emocio": {
+      "abstains": false,
+      "action_tendency": "approach",
+      "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+      "current_scene_id": "visual_scene_92bf7479bf6fe382f327f0a7acb31b59",
+      "decisive_rollout_scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed",
+      "desired_scene_id": "visual_scene_8015c5652ed483486fe85a2e6f6deba2",
+      "desired_transformation": "authorship record visible with balanced positions at the table",
+      "intensity": 0.560606,
+      "main_obstacle": "one figure erased from the shared-work composition",
+      "mind": "E",
+      "option_id": "credit_private_evidence",
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_c40ca425ac7b4b89d2f93f8f4911fb91",
+      "source_scene_id": "triad_public_credit_conflict",
+      "uncertainty": "Enolično najvišje transparentno strukturno vrednotenje.",
+      "valuation_dimensions": [
+        {
+          "name": "desired_scene_match",
+          "score": 0.0
+        },
+        {
+          "name": "distance_from_broken_scene",
+          "score": 1.0
+        },
+        {
+          "name": "self_visibility",
+          "score": 1.0
+        },
+        {
+          "name": "belonging",
+          "score": 0.0
+        },
+        {
+          "name": "attention",
+          "score": 1.0
+        },
+        {
+          "name": "attraction",
+          "score": 1.0
+        },
+        {
+          "name": "novelty",
+          "score": 0.625
+        },
+        {
+          "name": "movement",
+          "score": 0.0
+        },
+        {
+          "name": "status",
+          "score": 0.0
+        },
+        {
+          "name": "competitive_success",
+          "score": 1.0
+        },
+        {
+          "name": "attack_or_breakthrough_affordance",
+          "score": 0.541667
+        }
+      ]
+    },
+    "emocio_packet_hash": "313a40f58e196c9b9de0ca846ee920c606e29d3abe2100ebabc6b749938bae82",
+    "emocio_visual_state_hash": "059180a6a6c66d46ad21439552fb3b93632d22adb594771ed9ba99cfe9dcfc63",
+    "emocio_visual_state_id": "emocio_state_5ab9fedcce97ed5aeb96bc4ac4e8ffe4",
+    "immutable_hash": "3e163dc1b512ef91bc4fefa3713f3da080c6bb935283d1d6d3115e747627d48f",
+    "instinkt": {
+      "abstains": false,
+      "action_tendency": "maintain",
+      "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+      "danger_claims": [
+        "predicted_loss=0.341",
+        "recoverability=0.598"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_ec450150ff88659adc19079d63335503",
+      "decisive_rollout_option_id": "credit_private_evidence",
+      "dominant_alarm": "sealed_option_consequence:boundary_added+private_social_exposure",
+      "intensity": 0.43709999999999993,
+      "mind": "I",
+      "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+      "option_id": "credit_private_evidence",
+      "protected_targets": [
+        "tension",
+        "boundary_integrity",
+        "predictability"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+      "source_scene_id": "triad_public_credit_conflict",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "instinkt_body_state_hash": "499e15bacf4dd99edab4afea5a23aace273fa1cce3c29248016ecf5e50a547a6",
+    "instinkt_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+    "instinkt_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "instinkt_rollout_29814cbec6cb90348446eb88851cde0f",
+        "sha256": "564bcec3d367b6799d323f419825f8e7e0484419d3a9daeaea687e141cc7699e"
+      },
+      {
+        "artifact_id": "instinkt_rollout_af80581d8bfc904849f527ec1b058184",
+        "sha256": "2d64c8608fd858acc4878b7f7983bfa80122715247f9750c71a06427bca86574"
+      },
+      {
+        "artifact_id": "instinkt_rollout_ec450150ff88659adc19079d63335503",
+        "sha256": "877f60eb94b0a2f393c1fdfcd2e3dfce05aae2c15d75087df845827d98f0a39f"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "A colleague claims sole authorship of a solution during an active meeting.",
+        "Existing digital records contradict this claim by showing prior authorship by another person.",
+        "The leader is present to witness either the claim or the evidence.",
+        "Publicly challenging the claim immediately exposes the contradiction but carries unknown social risks.",
+        "Presenting evidence privately avoids immediate public conflict while still informing the leader."
+      ],
+      "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+      "confidence": 0.8,
+      "evidence_ids_used": [
+        "credit_ev_statement",
+        "credit_ev_record",
+        "credit_ev_leader"
+      ],
+      "explicit_goal": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence.",
+      "facts_used": [
+        "During the meeting, the colleague said that they alone designed the presented solution.",
+        "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+        "The leader is present and the meeting is still in progress."
+      ],
+      "main_objection": "Public confrontation may lead to unpredictable social consequences, whereas private verification avoids this risk but delays the correction of the record.",
+      "mind": "R",
+      "option_id": "credit_private_evidence",
+      "reasoning_provider_result_hash": "5a51bae4115a9b7e470a0948433694622740c31fe1cb72fe0544262876092639",
+      "reasoning_provider_result_id": "ollama_racio_response_95646f853fe690ac1c151d531e93946e",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "757a9c6ed85b25ef840e0a86327ca96ad4f093457819b2eef252598e12ced4a2",
+      "source_packet_id": "racio_packet_1cf6dd6ad16079502520783f7b144766",
+      "source_scene_id": "triad_public_credit_conflict",
+      "uncertainty": "The decision balances the immediate correction of a false claim against unknown social repercussions and the leader's eventual assessment of the evidence.",
+      "unknowns": [
+        "The social consequences of public confrontation are unknown.",
+        "How the leader would assess the evidence is unknown."
+      ],
+      "utility_structure": [
+        "Immediate public confrontation: High visibility, high risk of negative social outcomes.",
+        "Private presentation of evidence: Controlled visibility, lower immediate social risk, ensures leader's awareness.",
+        "No response: Zero risk, allows false claim to persist."
+      ]
+    },
+    "racio_packet_hash": "757a9c6ed85b25ef840e0a86327ca96ad4f093457819b2eef252598e12ced4a2",
+    "scene_hash": "099cf87431463822cbb8c3f95362f40bc347737ba9815eaf5ac406d29d4557ae",
+    "scene_id": "triad_public_credit_conflict",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "case_id": "public_credit_conflict",
+  "emocio": {
+    "abstains": false,
+    "aggregate_scores": {
+      "credit_no_response": 0.463204,
+      "credit_private_evidence": 0.560606,
+      "credit_public_confront": 0.5
+    },
+    "broken_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "one figure erased from the shared-work composition"
+      ],
+      "entities": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ],
+      "grounded_evidence_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement",
+        "credit_ev_visual"
+      ],
+      "group_belonging": "unspecified",
+      "inferred_elements": [
+        "one figure erased from the shared-work composition"
+      ],
+      "movement": [],
+      "obstacle_markers": [
+        "one figure erased from the shared-work composition"
+      ],
+      "option_id": null,
+      "scene_id": "visual_scene_5f72a48ed68007ae9d11aac98e710b58",
+      "scene_kind": "broken",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": []
+    },
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "approach",
+      "conclusion_id": "emocio_conclusion_6e717a46f0266ad185a1b727a46118b4",
+      "current_scene_id": "visual_scene_92bf7479bf6fe382f327f0a7acb31b59",
+      "decisive_rollout_scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed",
+      "desired_scene_id": "visual_scene_8015c5652ed483486fe85a2e6f6deba2",
+      "desired_transformation": "authorship record visible with balanced positions at the table",
+      "intensity": 0.560606,
+      "main_obstacle": "one figure erased from the shared-work composition",
+      "mind": "E",
+      "option_id": "credit_private_evidence",
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_c40ca425ac7b4b89d2f93f8f4911fb91",
+      "source_scene_id": "triad_public_credit_conflict",
+      "uncertainty": "Enolično najvišje transparentno strukturno vrednotenje.",
+      "valuation_dimensions": [
+        {
+          "name": "desired_scene_match",
+          "score": 0.0
+        },
+        {
+          "name": "distance_from_broken_scene",
+          "score": 1.0
+        },
+        {
+          "name": "self_visibility",
+          "score": 1.0
+        },
+        {
+          "name": "belonging",
+          "score": 0.0
+        },
+        {
+          "name": "attention",
+          "score": 1.0
+        },
+        {
+          "name": "attraction",
+          "score": 1.0
+        },
+        {
+          "name": "novelty",
+          "score": 0.625
+        },
+        {
+          "name": "movement",
+          "score": 0.0
+        },
+        {
+          "name": "status",
+          "score": 0.0
+        },
+        {
+          "name": "competitive_success",
+          "score": 1.0
+        },
+        {
+          "name": "attack_or_breakthrough_affordance",
+          "score": 0.541667
+        }
+      ]
+    },
+    "counterfactual_lineage": [
+      {
+        "actual_scene_signature": "18d2fa43860d59c25103a58549dfa66c7786c7e0db8d157ed699505d64eada4d",
+        "candidate_counterfactual_signature": "9ceb9cce53f01d801478d5bb9f0087ee8a39919d69b6d4028e5f291d1988868c",
+        "delta": {
+          "attention": [
+            "meeting proceeds without authorship evidence"
+          ],
+          "attraction_markers": [],
+          "belonging": "author remains in the observing group",
+          "composition_changes": [
+            "colleague remains centered beside shared work",
+            "timestamped record stays on the laptop"
+          ],
+          "entities_added": [],
+          "entities_removed": [],
+          "movement": [
+            "author remains seated with no follow-up"
+          ],
+          "obstacle_persistence": [
+            "authorship record remains unseen",
+            "leader's assessment remains unknown"
+          ],
+          "obstacle_removal": [],
+          "self_position": "away from the shared projection",
+          "status_relations": "colleague's public authorship claim remains"
+        },
+        "evidence_basis_ids": [
+          "credit_ev_statement",
+          "credit_ev_record"
+        ],
+        "option_id": "credit_no_response"
+      },
+      {
+        "actual_scene_signature": "2f221f153c28926e45bc36a6b81e9bf353024f733f5b17a66beb336d64394f16",
+        "candidate_counterfactual_signature": "08cc1932cef256cf1b8b4d7da671a13d990dafbe05b7113886583c7a79149ea5",
+        "delta": {
+          "attention": [
+            "timestamped authorship record"
+          ],
+          "attraction_markers": [
+            "visible authorship record",
+            "balanced positions"
+          ],
+          "belonging": "author and leader share a private evidence review",
+          "composition_changes": [
+            "meeting ends before record is shown privately to leader"
+          ],
+          "entities_added": [
+            "private authorship record review"
+          ],
+          "entities_removed": [],
+          "movement": [
+            "author moves beside leader after the meeting"
+          ],
+          "obstacle_persistence": [
+            "leader's assessment remains unknown",
+            "public statement remains uncorrected during the meeting"
+          ],
+          "obstacle_removal": [
+            "record hidden from leader"
+          ],
+          "self_position": "beside leader in private review",
+          "status_relations": [
+            "leader receives authorship evidence outside the group"
+          ]
+        },
+        "evidence_basis_ids": [
+          "credit_ev_record",
+          "credit_ev_leader"
+        ],
+        "option_id": "credit_private_evidence"
+      },
+      {
+        "actual_scene_signature": "ef23412e056063f4401083934e3659235b993bdb075e5db330f286ce94d536c0",
+        "candidate_counterfactual_signature": "7bcf4615e8e2093d65ee6b6a40b4b7d3eccceb8ecf554311cba39a5f03c141e3",
+        "delta": {
+          "attention": [
+            "authorship record",
+            "colleague's statement"
+          ],
+          "attraction_markers": [
+            "visible authorship record"
+          ],
+          "belonging": "author, colleague, leader, and group remain in one meeting",
+          "composition_changes": [
+            "authorship record becomes public while meeting continues"
+          ],
+          "entities_added": [
+            "timestamped record on meeting projection"
+          ],
+          "entities_removed": [],
+          "movement": [
+            "author stands and displays the record"
+          ],
+          "obstacle_persistence": [
+            "social consequences remain unknown"
+          ],
+          "obstacle_removal": [
+            "record hidden from the meeting"
+          ],
+          "self_position": "beside the shared projection",
+          "status_relations": [
+            "authorship claim is contested before leader and group"
+          ]
+        },
+        "evidence_basis_ids": [
+          "credit_ev_statement",
+          "credit_ev_record",
+          "credit_ev_leader",
+          "credit_ev_social_unknown"
+        ],
+        "option_id": "credit_public_confront"
+      }
+    ],
+    "counterfactual_scenes": [
+      {
+        "attention_structure": [
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_c3b785f21fcb1c27ab4a21a493183434"
+          }
+        ],
+        "attraction_markers": [],
+        "composition": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "authorship record remains unseen",
+          "colleague remains centered beside shared work",
+          "leader's assessment remains unknown",
+          "one speaker centered beside shared work",
+          "timestamped record stays on the laptop"
+        ],
+        "entities": [
+          "away from the shared projection",
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_record",
+          "credit_ev_statement"
+        ],
+        "group_belonging": "author remains in the observing group",
+        "inferred_elements": [
+          " ",
+          "'",
+          "a",
+          "author remains in the observing group",
+          "author remains seated with no follow-up",
+          "authorship record remains unseen",
+          "away from the shared projection",
+          "b",
+          "c",
+          "colleague remains centered beside shared work",
+          "e",
+          "g",
+          "h",
+          "i",
+          "l",
+          "leader's assessment remains unknown",
+          "m",
+          "meeting proceeds without authorship evidence",
+          "n",
+          "o",
+          "p",
+          "r",
+          "s",
+          "t",
+          "timestamped record stays on the laptop",
+          "u"
+        ],
+        "movement": [
+          "author remains seated with no follow-up"
+        ],
+        "obstacle_markers": [
+          "authorship record remains unseen",
+          "leader's assessment remains unknown"
+        ],
+        "option_id": "credit_no_response",
+        "scene_id": "visual_scene_923c5d1d9f10f44c7e5aa340c7b73e7d",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "away from the shared projection",
+        "status_relations": [
+          " ",
+          "'",
+          "a",
+          "b",
+          "c",
+          "e",
+          "g",
+          "h",
+          "i",
+          "l",
+          "m",
+          "n",
+          "o",
+          "p",
+          "r",
+          "s",
+          "t",
+          "u"
+        ]
+      },
+      {
+        "attention_structure": [
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_344aed7955306e4b78b1b07b914fa870"
+          }
+        ],
+        "attraction_markers": [
+          "balanced positions",
+          "visible authorship record"
+        ],
+        "composition": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "balanced positions",
+          "leader's assessment remains unknown",
+          "meeting ends before record is shown privately to leader",
+          "one speaker centered beside shared work",
+          "public statement remains uncorrected during the meeting",
+          "visible authorship record"
+        ],
+        "entities": [
+          "beside leader in private review",
+          "colleague",
+          "leader",
+          "meeting_group",
+          "private authorship record review",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record"
+        ],
+        "group_belonging": "author and leader share a private evidence review",
+        "inferred_elements": [
+          "author and leader share a private evidence review",
+          "author moves beside leader after the meeting",
+          "balanced positions",
+          "beside leader in private review",
+          "leader receives authorship evidence outside the group",
+          "leader's assessment remains unknown",
+          "meeting ends before record is shown privately to leader",
+          "private authorship record review",
+          "public statement remains uncorrected during the meeting",
+          "record hidden from leader",
+          "timestamped authorship record",
+          "visible authorship record"
+        ],
+        "movement": [
+          "author moves beside leader after the meeting"
+        ],
+        "obstacle_markers": [
+          "leader's assessment remains unknown",
+          "public statement remains uncorrected during the meeting"
+        ],
+        "option_id": "credit_private_evidence",
+        "scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "beside leader in private review",
+        "status_relations": [
+          "leader receives authorship evidence outside the group"
+        ]
+      },
+      {
+        "attention_structure": [
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_3f20cc84ff828b06964936a894cb9c79"
+          },
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_492faf534c7f3d8c60533859c47e5c9a"
+          }
+        ],
+        "attraction_markers": [
+          "visible authorship record"
+        ],
+        "composition": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "authorship record becomes public while meeting continues",
+          "one speaker centered beside shared work",
+          "social consequences remain unknown",
+          "visible authorship record"
+        ],
+        "entities": [
+          "beside the shared projection",
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self",
+          "timestamped record on meeting projection"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement"
+        ],
+        "group_belonging": "author, colleague, leader, and group remain in one meeting",
+        "inferred_elements": [
+          "author stands and displays the record",
+          "author, colleague, leader, and group remain in one meeting",
+          "authorship claim is contested before leader and group",
+          "authorship record",
+          "authorship record becomes public while meeting continues",
+          "beside the shared projection",
+          "colleague's statement",
+          "record hidden from the meeting",
+          "social consequences remain unknown",
+          "timestamped record on meeting projection",
+          "visible authorship record"
+        ],
+        "movement": [
+          "author stands and displays the record"
+        ],
+        "obstacle_markers": [
+          "social consequences remain unknown"
+        ],
+        "option_id": "credit_public_confront",
+        "scene_id": "visual_scene_3f81595fe4f0ea5112c5a274e882efff",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "beside the shared projection",
+        "status_relations": [
+          "authorship claim is contested before leader and group"
+        ]
+      }
+    ],
+    "current_scene": {
+      "attention_structure": [],
+      "attraction_markers": [
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+      ],
+      "composition": [
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+        "one speaker centered beside shared work"
+      ],
+      "entities": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ],
+      "grounded_evidence_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement",
+        "credit_ev_visual"
+      ],
+      "group_belonging": "unspecified",
+      "inferred_elements": [
+        "one speaker centered beside shared work"
+      ],
+      "movement": [
+        "The leader is present and the meeting is still in progress."
+      ],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "visual_scene_92bf7479bf6fe382f327f0a7acb31b59",
+      "scene_kind": "current",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ]
+    },
+    "desired_scene": {
+      "attention_structure": [],
+      "attraction_markers": [
+        "balanced positions",
+        "visible authorship record"
+      ],
+      "composition": [
+        "authorship record visible with balanced positions at the table"
+      ],
+      "entities": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ],
+      "grounded_evidence_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement",
+        "credit_ev_visual"
+      ],
+      "group_belonging": "author, colleague, leader, and observing group",
+      "inferred_elements": [
+        "authorship record visible with balanced positions at the table"
+      ],
+      "movement": [
+        "move beside the leader",
+        "remain seated",
+        "stand and display"
+      ],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "visual_scene_8015c5652ed483486fe85a2e6f6deba2",
+      "scene_kind": "desired",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": [
+        "author, colleague, leader, and observing group"
+      ]
+    },
+    "failure_marker": null,
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "credit_no_response",
+          "score": 0.463204
+        },
+        {
+          "option_id": "credit_private_evidence",
+          "score": 0.560606
+        },
+        {
+          "option_id": "credit_public_confront",
+          "score": 0.5
+        }
+      ],
+      "selected": {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.0
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 1.0
+          },
+          {
+            "name": "self_visibility",
+            "score": 1.0
+          },
+          {
+            "name": "belonging",
+            "score": 0.0
+          },
+          {
+            "name": "attention",
+            "score": 1.0
+          },
+          {
+            "name": "attraction",
+            "score": 1.0
+          },
+          {
+            "name": "novelty",
+            "score": 0.625
+          },
+          {
+            "name": "movement",
+            "score": 0.0
+          },
+          {
+            "name": "status",
+            "score": 0.0
+          },
+          {
+            "name": "competitive_success",
+            "score": 1.0
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.541667
+          }
+        ],
+        "option_id": "credit_private_evidence",
+        "rollout_scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed"
+      },
+      "tied_option_ids": []
+    },
+    "policy_distinction": true,
+    "scene_routes": [
+      {
+        "option_id": "credit_no_response",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      },
+      {
+        "option_id": "credit_private_evidence",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [
+            "balanced positions",
+            "visible authorship record"
+          ],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      },
+      {
+        "option_id": "credit_public_confront",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [
+            "visible authorship record"
+          ],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      }
+    ],
+    "selected_option_id": "credit_private_evidence",
+    "signature_distinction": true,
+    "tied_option_ids": [],
+    "valuation_distinction": true,
+    "valuation_vector_signatures": {
+      "credit_no_response": "c09247ed925cfa77a9841655fc6273c201dce322693c09f929da59b3385cc582",
+      "credit_private_evidence": "5411a7ba87d2f69e0fb6fea334ea5764557bf22337e1f2cd6457de23dae6d9cb",
+      "credit_public_confront": "af54088744c80b7e2371dc0b1660e09b44cfb9c1044d95d9fe99dae53b31f41e"
+    },
+    "valuation_vectors": {
+      "credit_no_response": {
+        "attack_or_breakthrough_affordance": 0.52381,
+        "attention": 1.0,
+        "attraction": 0.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.571429,
+        "self_visibility": 1.0,
+        "status": 0.0
+      },
+      "credit_private_evidence": {
+        "attack_or_breakthrough_affordance": 0.541667,
+        "attention": 1.0,
+        "attraction": 1.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.625,
+        "self_visibility": 1.0,
+        "status": 0.0
+      },
+      "credit_public_confront": {
+        "attack_or_breakthrough_affordance": 0.5,
+        "attention": 1.0,
+        "attraction": 0.5,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.5,
+        "self_visibility": 1.0,
+        "status": 0.0
+      }
+    },
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "one figure erased from the shared-work composition"
+        ],
+        "entities": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement",
+          "credit_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "one figure erased from the shared-work composition"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "one figure erased from the shared-work composition"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_5f72a48ed68007ae9d11aac98e710b58",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+        ],
+        "composition": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "one speaker centered beside shared work"
+        ],
+        "entities": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement",
+          "credit_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "one speaker centered beside shared work"
+        ],
+        "movement": [
+          "The leader is present and the meeting is still in progress."
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_92bf7479bf6fe382f327f0a7acb31b59",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "balanced positions",
+          "visible authorship record"
+        ],
+        "composition": [
+          "authorship record visible with balanced positions at the table"
+        ],
+        "entities": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement",
+          "credit_ev_visual"
+        ],
+        "group_belonging": "author, colleague, leader, and observing group",
+        "inferred_elements": [
+          "authorship record visible with balanced positions at the table"
+        ],
+        "movement": [
+          "move beside the leader",
+          "remain seated",
+          "stand and display"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_8015c5652ed483486fe85a2e6f6deba2",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "author, colleague, leader, and observing group"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_c3b785f21fcb1c27ab4a21a493183434"
+            }
+          ],
+          "attraction_markers": [],
+          "composition": [
+            "The leader is present and the meeting is still in progress.",
+            "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "authorship record remains unseen",
+            "colleague remains centered beside shared work",
+            "leader's assessment remains unknown",
+            "one speaker centered beside shared work",
+            "timestamped record stays on the laptop"
+          ],
+          "entities": [
+            "away from the shared projection",
+            "colleague",
+            "leader",
+            "meeting_group",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "credit_ev_record",
+            "credit_ev_statement"
+          ],
+          "group_belonging": "author remains in the observing group",
+          "inferred_elements": [
+            " ",
+            "'",
+            "a",
+            "author remains in the observing group",
+            "author remains seated with no follow-up",
+            "authorship record remains unseen",
+            "away from the shared projection",
+            "b",
+            "c",
+            "colleague remains centered beside shared work",
+            "e",
+            "g",
+            "h",
+            "i",
+            "l",
+            "leader's assessment remains unknown",
+            "m",
+            "meeting proceeds without authorship evidence",
+            "n",
+            "o",
+            "p",
+            "r",
+            "s",
+            "t",
+            "timestamped record stays on the laptop",
+            "u"
+          ],
+          "movement": [
+            "author remains seated with no follow-up"
+          ],
+          "obstacle_markers": [
+            "authorship record remains unseen",
+            "leader's assessment remains unknown"
+          ],
+          "option_id": "credit_no_response",
+          "scene_id": "visual_scene_923c5d1d9f10f44c7e5aa340c7b73e7d",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "away from the shared projection",
+          "status_relations": [
+            " ",
+            "'",
+            "a",
+            "b",
+            "c",
+            "e",
+            "g",
+            "h",
+            "i",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "r",
+            "s",
+            "t",
+            "u"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_344aed7955306e4b78b1b07b914fa870"
+            }
+          ],
+          "attraction_markers": [
+            "balanced positions",
+            "visible authorship record"
+          ],
+          "composition": [
+            "The leader is present and the meeting is still in progress.",
+            "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "balanced positions",
+            "leader's assessment remains unknown",
+            "meeting ends before record is shown privately to leader",
+            "one speaker centered beside shared work",
+            "public statement remains uncorrected during the meeting",
+            "visible authorship record"
+          ],
+          "entities": [
+            "beside leader in private review",
+            "colleague",
+            "leader",
+            "meeting_group",
+            "private authorship record review",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "credit_ev_leader",
+            "credit_ev_record"
+          ],
+          "group_belonging": "author and leader share a private evidence review",
+          "inferred_elements": [
+            "author and leader share a private evidence review",
+            "author moves beside leader after the meeting",
+            "balanced positions",
+            "beside leader in private review",
+            "leader receives authorship evidence outside the group",
+            "leader's assessment remains unknown",
+            "meeting ends before record is shown privately to leader",
+            "private authorship record review",
+            "public statement remains uncorrected during the meeting",
+            "record hidden from leader",
+            "timestamped authorship record",
+            "visible authorship record"
+          ],
+          "movement": [
+            "author moves beside leader after the meeting"
+          ],
+          "obstacle_markers": [
+            "leader's assessment remains unknown",
+            "public statement remains uncorrected during the meeting"
+          ],
+          "option_id": "credit_private_evidence",
+          "scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "beside leader in private review",
+          "status_relations": [
+            "leader receives authorship evidence outside the group"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_3f20cc84ff828b06964936a894cb9c79"
+            },
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_492faf534c7f3d8c60533859c47e5c9a"
+            }
+          ],
+          "attraction_markers": [
+            "visible authorship record"
+          ],
+          "composition": [
+            "The leader is present and the meeting is still in progress.",
+            "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "authorship record becomes public while meeting continues",
+            "one speaker centered beside shared work",
+            "social consequences remain unknown",
+            "visible authorship record"
+          ],
+          "entities": [
+            "beside the shared projection",
+            "colleague",
+            "leader",
+            "meeting_group",
+            "self",
+            "timestamped record on meeting projection"
+          ],
+          "grounded_evidence_ids": [
+            "credit_ev_leader",
+            "credit_ev_record",
+            "credit_ev_social_unknown",
+            "credit_ev_statement"
+          ],
+          "group_belonging": "author, colleague, leader, and group remain in one meeting",
+          "inferred_elements": [
+            "author stands and displays the record",
+            "author, colleague, leader, and group remain in one meeting",
+            "authorship claim is contested before leader and group",
+            "authorship record",
+            "authorship record becomes public while meeting continues",
+            "beside the shared projection",
+            "colleague's statement",
+            "record hidden from the meeting",
+            "social consequences remain unknown",
+            "timestamped record on meeting projection",
+            "visible authorship record"
+          ],
+          "movement": [
+            "author stands and displays the record"
+          ],
+          "obstacle_markers": [
+            "social consequences remain unknown"
+          ],
+          "option_id": "credit_public_confront",
+          "scene_id": "visual_scene_3f81595fe4f0ea5112c5a274e882efff",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "beside the shared projection",
+          "status_relations": [
+            "authorship claim is contested before leader and group"
+          ]
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 1.0
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.571429
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.52381
+            }
+          ],
+          "option_id": "credit_no_response",
+          "rollout_scene_id": "visual_scene_923c5d1d9f10f44c7e5aa340c7b73e7d"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 1.0
+            },
+            {
+              "name": "attraction",
+              "score": 1.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.625
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.541667
+            }
+          ],
+          "option_id": "credit_private_evidence",
+          "rollout_scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 1.0
+            },
+            {
+              "name": "attraction",
+              "score": 0.5
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.5
+            }
+          ],
+          "option_id": "credit_public_confront",
+          "rollout_scene_id": "visual_scene_3f81595fe4f0ea5112c5a274e882efff"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_c40ca425ac7b4b89d2f93f8f4911fb91",
+      "source_scene_id": "triad_public_credit_conflict",
+      "visual_state_id": "emocio_state_5ab9fedcce97ed5aeb96bc4ac4e8ffe4"
+    }
+  },
+  "instinkt": {
+    "abstains": false,
+    "body_state": {
+      "arousal": 0.6,
+      "attachment_security": 0.65,
+      "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "boundary_integrity": 0.72,
+      "energy": 0.7,
+      "escape_availability": 0.82,
+      "fatigue": 0.22,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.45,
+      "resource_security": 0.75,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.62,
+      "trust": 0.42,
+      "uncertainty": 0.65
+    },
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "maintain",
+      "conclusion_id": "instinkt_conclusion_868e684ecee738953cf36a2aca9b09dd",
+      "danger_claims": [
+        "predicted_loss=0.341",
+        "recoverability=0.598"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_ec450150ff88659adc19079d63335503",
+      "decisive_rollout_option_id": "credit_private_evidence",
+      "dominant_alarm": "sealed_option_consequence:boundary_added+private_social_exposure",
+      "intensity": 0.43709999999999993,
+      "mind": "I",
+      "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+      "option_id": "credit_private_evidence",
+      "protected_targets": [
+        "tension",
+        "boundary_integrity",
+        "predictability"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+      "source_scene_id": "triad_public_credit_conflict",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "effect_distinction": true,
+    "every_effect_has_option_specific_evidence": true,
+    "failure_marker": null,
+    "option_paths": [
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "credit_no_response_boundary",
+            "effect_categories": [
+              "authorship_boundary_unaddressed"
+            ],
+            "source_evidence_ids": [
+              "credit_ev_statement",
+              "credit_ev_record"
+            ],
+            "statement": "No response leaves the public authorship claim unaddressed."
+          }
+        ],
+        "derived_body_deltas": {
+          "boundary_integrity": -0.15
+        },
+        "effect": {
+          "action_tendency": "set_boundary",
+          "association_cue_tokens": [
+            "authorship_boundary_unaddressed",
+            "credit_no_response_boundary"
+          ],
+          "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "boundary_integrity"
+            }
+          ],
+          "boundary_outcome": "sealed_consequence_delta:boundary_integrity:-0.150000",
+          "dominant_alarm": "sealed_option_consequence:authorship_boundary_unaddressed",
+          "effect_hash": "9c17cd6fb8e52066337c0fdce93d0a46e7e3dd072ccdfd445b89a9f6b4072f7f",
+          "effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+          "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+          "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+          "option_id": "credit_no_response",
+          "protected_targets": [
+            "boundary_integrity"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+          "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+          "triggering_evidence_ids": [
+            "credit_ev_record",
+            "credit_ev_statement"
+          ],
+          "trust_outcome": "not_changed_by_sealed_consequence:trust"
+        },
+        "effect_categories": [
+          "authorship_boundary_unaddressed"
+        ],
+        "effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+        "effect_signature": "e8d3429b20ae394a864268377374dda83769e2fb9fcdbdea60234c5811cfad91",
+        "option_id": "credit_no_response",
+        "predicted_loss": 0.36350000000000005,
+        "protective_cost": 0.62825,
+        "recoverability": 0.573,
+        "source_evidence_ids": [
+          "credit_ev_record",
+          "credit_ev_statement"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "credit_private_review",
+            "effect_categories": [
+              "private_social_exposure",
+              "boundary_added"
+            ],
+            "source_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_leader"
+            ],
+            "statement": "Showing the timestamped record privately limits exposure to the leader and preserves a later authorship boundary."
+          }
+        ],
+        "derived_body_deltas": {
+          "boundary_integrity": 0.2,
+          "predictability": 0.25,
+          "tension": -0.05
+        },
+        "effect": {
+          "action_tendency": "maintain",
+          "association_cue_tokens": [
+            "boundary_added",
+            "credit_private_review",
+            "private_social_exposure"
+          ],
+          "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": -0.05,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "boundary_integrity"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "sealed_consequence_delta:boundary_integrity:+0.200000",
+          "dominant_alarm": "sealed_option_consequence:boundary_added+private_social_exposure",
+          "effect_hash": "eed43068d9669421c2c10cc4f3da4e95c986788f8227574c4372554a320b19e3",
+          "effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+          "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+          "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+          "option_id": "credit_private_evidence",
+          "protected_targets": [
+            "tension",
+            "boundary_integrity",
+            "predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+          "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+          "triggering_evidence_ids": [
+            "credit_ev_leader",
+            "credit_ev_record"
+          ],
+          "trust_outcome": "not_changed_by_sealed_consequence:trust"
+        },
+        "effect_categories": [
+          "boundary_added",
+          "private_social_exposure"
+        ],
+        "effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+        "effect_signature": "b74243f76d2302d56d79ba4b257a067e0eb8222b2bc2b69f8393606ece693105",
+        "option_id": "credit_private_evidence",
+        "predicted_loss": 0.341,
+        "protective_cost": 0.5920000000000001,
+        "recoverability": 0.598,
+        "source_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "credit_public_exposure",
+            "effect_categories": [
+              "public_social_exposure",
+              "boundary_added"
+            ],
+            "source_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_leader",
+              "credit_ev_social_unknown"
+            ],
+            "statement": "Displaying the record during the meeting creates public social exposure whose consequences remain unknown."
+          }
+        ],
+        "derived_body_deltas": {
+          "boundary_integrity": 0.2,
+          "predictability": 0.15,
+          "tension": 0.2,
+          "uncertainty": 0.1
+        },
+        "effect": {
+          "action_tendency": "maintain",
+          "association_cue_tokens": [
+            "boundary_added",
+            "credit_public_exposure",
+            "public_social_exposure"
+          ],
+          "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.1,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "boundary_integrity"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "sealed_consequence_delta:boundary_integrity:+0.200000",
+          "dominant_alarm": "sealed_option_consequence:boundary_added+public_social_exposure",
+          "effect_hash": "ca875759ce995d4299363aec2eeb4f160081e76a44c4501abe21bd9c21140aaf",
+          "effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+          "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+          "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+          "option_id": "credit_public_confront",
+          "protected_targets": [
+            "tension",
+            "uncertainty",
+            "boundary_integrity",
+            "predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+          "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+          "triggering_evidence_ids": [
+            "credit_ev_leader",
+            "credit_ev_record",
+            "credit_ev_social_unknown"
+          ],
+          "trust_outcome": "not_changed_by_sealed_consequence:trust"
+        },
+        "effect_categories": [
+          "boundary_added",
+          "public_social_exposure"
+        ],
+        "effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+        "effect_signature": "33c01cbfc5fbe965238886f929f8b6f04fef06d2ea34c85137b959d0c6b457c2",
+        "option_id": "credit_public_confront",
+        "predicted_loss": 0.36600000000000005,
+        "protective_cost": 0.667,
+        "recoverability": 0.588,
+        "source_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown"
+        ]
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": "instinkt_rollout_ec450150ff88659adc19079d63335503",
+      "option_scores": [
+        {
+          "option_id": "credit_no_response",
+          "protective_cost": 0.62825,
+          "rollout_hash": "469edad93796a743aebded5dca2e2a2d30479e6f9a96ec51d99a3bf7d345d914",
+          "rollout_id": "instinkt_rollout_29814cbec6cb90348446eb88851cde0f"
+        },
+        {
+          "option_id": "credit_private_evidence",
+          "protective_cost": 0.5920000000000001,
+          "rollout_hash": "a8deb965d24ee8b5b7d9ce21f20887e527e00ab63d71208c11607c9944250842",
+          "rollout_id": "instinkt_rollout_ec450150ff88659adc19079d63335503"
+        },
+        {
+          "option_id": "credit_public_confront",
+          "protective_cost": 0.667,
+          "rollout_hash": "a76f2442ba8be1380201f396e6866da74f3abb5600a4edece7a4310ad4fbf3b7",
+          "rollout_id": "instinkt_rollout_af80581d8bfc904849f527ec1b058184"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_e42c7bb4da6921386daf0983c2a7ef8d",
+      "policy_hash": "88304435d0541affbbb36d1672914c0d28b9d8557621f6a0d4a0860f18812a60",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": "credit_private_evidence",
+      "source_body_state_hash": "499e15bacf4dd99edab4afea5a23aace273fa1cce3c29248016ecf5e50a547a6",
+      "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+      "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+      "status": "selected",
+      "tied_option_ids": []
+    },
+    "rollouts": [
+      {
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "boundary_outcome": "sealed_consequence_delta:boundary_integrity:-0.150000",
+        "dominant_alarm": "sealed_option_consequence:authorship_boundary_unaddressed",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "option_id": "credit_no_response",
+        "predicted_loss": 0.36350000000000005,
+        "protected_targets": [
+          "boundary_integrity"
+        ],
+        "recoverability": 0.573,
+        "rollout_hash": "469edad93796a743aebded5dca2e2a2d30479e6f9a96ec51d99a3bf7d345d914",
+        "rollout_id": "instinkt_rollout_29814cbec6cb90348446eb88851cde0f",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "499e15bacf4dd99edab4afea5a23aace273fa1cce3c29248016ecf5e50a547a6",
+        "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "9c17cd6fb8e52066337c0fdce93d0a46e7e3dd072ccdfd445b89a9f6b4072f7f",
+        "source_effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+        "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+        "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "trajectory": [
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+            "boundary_integrity": 0.72,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.62,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_f8f4741df19e2feecc57225b3f3cd205",
+            "boundary_integrity": 0.6699999999999999,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.62,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_ebb97acd0ac5584dee55cd72aa5477ac",
+            "boundary_integrity": 0.6199999999999999,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.62,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_26f098b99ba366828486b1661d241d4a",
+            "boundary_integrity": 0.5699999999999998,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.62,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.050000000000000044,
+                "dimension": "boundary_integrity"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+              "boundary_integrity": 0.72,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9c17cd6fb8e52066337c0fdce93d0a46e7e3dd072ccdfd445b89a9f6b4072f7f",
+            "source_effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_f8f4741df19e2feecc57225b3f3cd205",
+              "boundary_integrity": 0.6699999999999999,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "transition_hash": "4a5b464451e26f955150f729f3cf13bf1ea64a2832b9b2905ddd90abb5a60337",
+            "transition_id": "body_transition_78962ae6b71af936a38b5938a9dfbdc2",
+            "triggering_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_statement"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.050000000000000044,
+                "dimension": "boundary_integrity"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_f8f4741df19e2feecc57225b3f3cd205",
+              "boundary_integrity": 0.6699999999999999,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9c17cd6fb8e52066337c0fdce93d0a46e7e3dd072ccdfd445b89a9f6b4072f7f",
+            "source_effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_ebb97acd0ac5584dee55cd72aa5477ac",
+              "boundary_integrity": 0.6199999999999999,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "transition_hash": "e80fc18c2ceacb500ef1d781a648f75a2a6d30124f7376db9f8a0bb73c771034",
+            "transition_id": "body_transition_d90e90a2d0a38547228e5bd6090e9534",
+            "triggering_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_statement"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.050000000000000044,
+                "dimension": "boundary_integrity"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_ebb97acd0ac5584dee55cd72aa5477ac",
+              "boundary_integrity": 0.6199999999999999,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9c17cd6fb8e52066337c0fdce93d0a46e7e3dd072ccdfd445b89a9f6b4072f7f",
+            "source_effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_26f098b99ba366828486b1661d241d4a",
+              "boundary_integrity": 0.5699999999999998,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "transition_hash": "9f75475c49bd151e3ee008bab0e36959861b319087937268f9922a012dc8b419",
+            "transition_id": "body_transition_8512c4b2b0ca69895b643dbc530e1c80",
+            "triggering_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_statement"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "boundary_outcome": "sealed_consequence_delta:boundary_integrity:+0.200000",
+        "dominant_alarm": "sealed_option_consequence:boundary_added+private_social_exposure",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "option_id": "credit_private_evidence",
+        "predicted_loss": 0.341,
+        "protected_targets": [
+          "tension",
+          "boundary_integrity",
+          "predictability"
+        ],
+        "recoverability": 0.598,
+        "rollout_hash": "a8deb965d24ee8b5b7d9ce21f20887e527e00ab63d71208c11607c9944250842",
+        "rollout_id": "instinkt_rollout_ec450150ff88659adc19079d63335503",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "499e15bacf4dd99edab4afea5a23aace273fa1cce3c29248016ecf5e50a547a6",
+        "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "eed43068d9669421c2c10cc4f3da4e95c986788f8227574c4372554a320b19e3",
+        "source_effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+        "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+        "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "trajectory": [
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+            "boundary_integrity": 0.72,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.62,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_4f5a8bafb0c2088d7dae8a202165ef72",
+            "boundary_integrity": 0.7866666666666666,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5333333333333333,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6033333333333333,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_ea4c0d587be20588b6da064adb7aadbb",
+            "boundary_integrity": 0.8533333333333333,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.6166666666666667,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5866666666666666,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_6c227405cc60ca2b7bf18a14eb166e6c",
+            "boundary_integrity": 0.9199999999999999,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.7000000000000001,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5699999999999998,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.01666666666666672,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "boundary_integrity"
+              },
+              {
+                "delta": 0.08333333333333331,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+              "boundary_integrity": 0.72,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "eed43068d9669421c2c10cc4f3da4e95c986788f8227574c4372554a320b19e3",
+            "source_effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_4f5a8bafb0c2088d7dae8a202165ef72",
+              "boundary_integrity": 0.7866666666666666,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5333333333333333,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6033333333333333,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "transition_hash": "8093624f6f068804e23cdbe3d50207ef903cbb29501c122fc474df34023c5699",
+            "transition_id": "body_transition_bd85fa7183eae9ca323110256f00631f",
+            "triggering_evidence_ids": [
+              "credit_ev_leader",
+              "credit_ev_record"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.01666666666666672,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "boundary_integrity"
+              },
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_4f5a8bafb0c2088d7dae8a202165ef72",
+              "boundary_integrity": 0.7866666666666666,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5333333333333333,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6033333333333333,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "eed43068d9669421c2c10cc4f3da4e95c986788f8227574c4372554a320b19e3",
+            "source_effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_ea4c0d587be20588b6da064adb7aadbb",
+              "boundary_integrity": 0.8533333333333333,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.6166666666666667,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5866666666666666,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "transition_hash": "9eaf71027d8c18b9ba817074b06a59550a13f9d415a91ffcf516a7f9c95ac8b1",
+            "transition_id": "body_transition_b8937d3c740fb96379827ec18c81bb79",
+            "triggering_evidence_ids": [
+              "credit_ev_leader",
+              "credit_ev_record"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.01666666666666672,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "boundary_integrity"
+              },
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_ea4c0d587be20588b6da064adb7aadbb",
+              "boundary_integrity": 0.8533333333333333,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.6166666666666667,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5866666666666666,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "eed43068d9669421c2c10cc4f3da4e95c986788f8227574c4372554a320b19e3",
+            "source_effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_6c227405cc60ca2b7bf18a14eb166e6c",
+              "boundary_integrity": 0.9199999999999999,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.7000000000000001,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5699999999999998,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "transition_hash": "e928ab2558f46a199ba6bee929267b689269955612642cbc1011bb98402e898b",
+            "transition_id": "body_transition_fd3284ba66f5d47a9cd8221b224d617e",
+            "triggering_evidence_ids": [
+              "credit_ev_leader",
+              "credit_ev_record"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "boundary_outcome": "sealed_consequence_delta:boundary_integrity:+0.200000",
+        "dominant_alarm": "sealed_option_consequence:boundary_added+public_social_exposure",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "option_id": "credit_public_confront",
+        "predicted_loss": 0.36600000000000005,
+        "protected_targets": [
+          "tension",
+          "uncertainty",
+          "boundary_integrity",
+          "predictability"
+        ],
+        "recoverability": 0.588,
+        "rollout_hash": "a76f2442ba8be1380201f396e6866da74f3abb5600a4edece7a4310ad4fbf3b7",
+        "rollout_id": "instinkt_rollout_af80581d8bfc904849f527ec1b058184",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "499e15bacf4dd99edab4afea5a23aace273fa1cce3c29248016ecf5e50a547a6",
+        "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "ca875759ce995d4299363aec2eeb4f160081e76a44c4501abe21bd9c21140aaf",
+        "source_effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+        "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+        "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "trajectory": [
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+            "boundary_integrity": 0.72,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.62,
+            "trust": 0.42,
+            "uncertainty": 0.65
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_daa1543e81be829d202583e10e50dfae",
+            "boundary_integrity": 0.7866666666666666,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6866666666666666,
+            "trust": 0.42,
+            "uncertainty": 0.6833333333333333
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_67499f26e19bb0553dc6173bb2a3abbb",
+            "boundary_integrity": 0.8533333333333333,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.55,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.7533333333333333,
+            "trust": 0.42,
+            "uncertainty": 0.7166666666666667
+          },
+          {
+            "arousal": 0.6,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_bc9a27e3a8c6dbb314db31970e442aad",
+            "boundary_integrity": 0.9199999999999999,
+            "energy": 0.7,
+            "escape_availability": 0.82,
+            "fatigue": 0.22,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.6000000000000001,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.82,
+            "trust": 0.42,
+            "uncertainty": 0.75
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.033333333333333326,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "boundary_integrity"
+              },
+              {
+                "delta": 0.04999999999999999,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+              "boundary_integrity": 0.72,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.62,
+              "trust": 0.42,
+              "uncertainty": 0.65
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ca875759ce995d4299363aec2eeb4f160081e76a44c4501abe21bd9c21140aaf",
+            "source_effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_daa1543e81be829d202583e10e50dfae",
+              "boundary_integrity": 0.7866666666666666,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6866666666666666,
+              "trust": 0.42,
+              "uncertainty": 0.6833333333333333
+            },
+            "transition_hash": "988af49dcb6e080df4b2fa521b58b92c3ad641b597471f911c471bcf1f55ae7e",
+            "transition_id": "body_transition_e542a63e4c8c317000781e1e75ef43ba",
+            "triggering_evidence_ids": [
+              "credit_ev_leader",
+              "credit_ev_record",
+              "credit_ev_social_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.033333333333333326,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "boundary_integrity"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_daa1543e81be829d202583e10e50dfae",
+              "boundary_integrity": 0.7866666666666666,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6866666666666666,
+              "trust": 0.42,
+              "uncertainty": 0.6833333333333333
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ca875759ce995d4299363aec2eeb4f160081e76a44c4501abe21bd9c21140aaf",
+            "source_effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_67499f26e19bb0553dc6173bb2a3abbb",
+              "boundary_integrity": 0.8533333333333333,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.55,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.7533333333333333,
+              "trust": 0.42,
+              "uncertainty": 0.7166666666666667
+            },
+            "transition_hash": "08c7036354907d28d7d0e8930a3376c231132bfa3051f5e940900485ba3b1b40",
+            "transition_id": "body_transition_de6cb263ab022d23678b13b3b3dfc04f",
+            "triggering_evidence_ids": [
+              "credit_ev_leader",
+              "credit_ev_record",
+              "credit_ev_social_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.033333333333333326,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "boundary_integrity"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_67499f26e19bb0553dc6173bb2a3abbb",
+              "boundary_integrity": 0.8533333333333333,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.55,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.7533333333333333,
+              "trust": 0.42,
+              "uncertainty": 0.7166666666666667
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ca875759ce995d4299363aec2eeb4f160081e76a44c4501abe21bd9c21140aaf",
+            "source_effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+            "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+            "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.6,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_bc9a27e3a8c6dbb314db31970e442aad",
+              "boundary_integrity": 0.9199999999999999,
+              "energy": 0.7,
+              "escape_availability": 0.82,
+              "fatigue": 0.22,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.6000000000000001,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.82,
+              "trust": 0.42,
+              "uncertainty": 0.75
+            },
+            "transition_hash": "b97935b92d017f653dae82c687c16d30762c3f5a077bdef296289e4435414523",
+            "transition_id": "body_transition_fa37dd2969a22fc3101d6d07ec5427c2",
+            "triggering_evidence_ids": [
+              "credit_ev_leader",
+              "credit_ev_record",
+              "credit_ev_social_unknown"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      }
+    ],
+    "selected_option_id": "credit_private_evidence",
+    "tied_option_ids": []
+  },
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": {
+      "abstains": false,
+      "causal_sequence": [
+        "A colleague claims sole authorship of a solution during an active meeting.",
+        "Existing digital records contradict this claim by showing prior authorship by another person.",
+        "The leader is present to witness either the claim or the evidence.",
+        "Publicly challenging the claim immediately exposes the contradiction but carries unknown social risks.",
+        "Presenting evidence privately avoids immediate public conflict while still informing the leader."
+      ],
+      "conclusion_id": "racio_conclusion_f5d8dbff92c5f72f56dbca46b7259de1",
+      "confidence": 0.8,
+      "evidence_ids_used": [
+        "credit_ev_statement",
+        "credit_ev_record",
+        "credit_ev_leader"
+      ],
+      "explicit_goal": "Determine the appropriate response to a colleague claiming sole credit for a solution in the presence of contradictory evidence.",
+      "facts_used": [
+        "During the meeting, the colleague said that they alone designed the presented solution.",
+        "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+        "The leader is present and the meeting is still in progress."
+      ],
+      "main_objection": "Public confrontation may lead to unpredictable social consequences, whereas private verification avoids this risk but delays the correction of the record.",
+      "mind": "R",
+      "option_id": "credit_private_evidence",
+      "reasoning_provider_result_hash": "5a51bae4115a9b7e470a0948433694622740c31fe1cb72fe0544262876092639",
+      "reasoning_provider_result_id": "ollama_racio_response_95646f853fe690ac1c151d531e93946e",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "757a9c6ed85b25ef840e0a86327ca96ad4f093457819b2eef252598e12ced4a2",
+      "source_packet_id": "racio_packet_1cf6dd6ad16079502520783f7b144766",
+      "source_scene_id": "triad_public_credit_conflict",
+      "uncertainty": "The decision balances the immediate correction of a false claim against unknown social repercussions and the leader's eventual assessment of the evidence.",
+      "unknowns": [
+        "The social consequences of public confrontation are unknown.",
+        "How the leader would assess the evidence is unknown."
+      ],
+      "utility_structure": [
+        "Immediate public confrontation: High visibility, high risk of negative social outcomes.",
+        "Private presentation of evidence: Controlled visibility, lower immediate social risk, ensures leader's awareness.",
+        "No response: Zero risk, allows false claim to persist."
+      ]
+    },
+    "status": "accepted"
+  },
+  "schema_version": "triad-s2-native-outputs-v1"
+}

@@ -1,0 +1,55 @@
+{
+  "abstentions": {
+    "E": 0,
+    "I": 0,
+    "R": 0
+  },
+  "agreement_patterns": {
+    "all_different": 0,
+    "incomplete": 0,
+    "majority": 1,
+    "unanimous": 2
+  },
+  "calls": 4,
+  "character_replay_rows": 39,
+  "complete_frozen_bundles": 3,
+  "emocio_valuation_distinguishable": 4,
+  "failure_categories": {
+    "fact_evidence_mismatch": 1
+  },
+  "failures": [
+    {
+      "accepted": false,
+      "case_id": "factory_overtemperature",
+      "failure_code": "fact_evidence_mismatch",
+      "failure_type": "OllamaStructuredOutputValidationError",
+      "final_json_sha256": "0bded31125970f755c9eb65e079ee5578c621cc91790f95d38d0432a42df4aa7",
+      "message": "Ollama structured output failed racio_structured_output_packet_contract:fact_evidence_mismatch",
+      "validation_stage": "racio_structured_output_packet_contract"
+    }
+  ],
+  "fallbacks": 0,
+  "gemma_emocio_shadow_calls": 0,
+  "gemma_instinkt_shadow_calls": 0,
+  "global_rei_score": null,
+  "holdout": false,
+  "image_generation_calls": 0,
+  "instinkt_effect_distinguishable": 4,
+  "model": "gemma4:31b",
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "phase": "TRIAD-S2",
+  "pre_call_seal_sha256": "ce64ce5b8a8a98d03c0fe2795f30fe60fc29b7ec28d416e0425feb2ee41cd376",
+  "processor_execution_counts": {
+    "E": 4,
+    "I": 4,
+    "R": 4
+  },
+  "promotion_evidence": false,
+  "provider_revision": "rei-native-ollama-racio-en-triad-screen-v1",
+  "racio": {
+    "accepted": 3,
+    "rejected": 1
+  },
+  "retries": 0,
+  "schema_version": "triad-s2-summary-v1"
+}

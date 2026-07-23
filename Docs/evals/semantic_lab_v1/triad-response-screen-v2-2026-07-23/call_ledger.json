@@ -1,0 +1,50 @@
+{
+  "actual": {
+    "fallbacks": 0,
+    "model_calls": 4,
+    "retries": 0
+  },
+  "entries": [
+    {
+      "case_id": "factory_overtemperature",
+      "failure_code": "fact_evidence_mismatch",
+      "final_json_sha256": "0bded31125970f755c9eb65e079ee5578c621cc91790f95d38d0432a42df4aa7",
+      "ordinal": 1,
+      "racio_call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "racio_status": "rejected",
+      "status": "racio_rejected_ei_completed"
+    },
+    {
+      "case_id": "loan_to_friend",
+      "ordinal": 2,
+      "racio_call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "racio_status": "accepted",
+      "status": "complete"
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "ordinal": 3,
+      "racio_call_id": "provider_call_f19aa3bbb48ef499bdb34dd708c87f4e",
+      "racio_status": "accepted",
+      "status": "complete"
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "ordinal": 4,
+      "racio_call_id": "provider_call_802ab0641df77092582cc340967af9dc",
+      "racio_status": "accepted",
+      "status": "complete"
+    }
+  ],
+  "expected": {
+    "fallbacks": 0,
+    "maximum_character_replay_rows": 52,
+    "maximum_native_bundles": 4,
+    "model_calls": 4,
+    "retries": 0
+  },
+  "phase": "TRIAD-S2",
+  "pre_call_seal_sha256": "ce64ce5b8a8a98d03c0fe2795f30fe60fc29b7ec28d416e0425feb2ee41cd376",
+  "schema_version": "triad-s2-call-ledger-v1",
+  "state": "complete"
+}

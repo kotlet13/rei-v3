@@ -1,0 +1,1381 @@
+{
+  "case_id": "spontaneous_trip",
+  "model_calls_during_replay": 0,
+  "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+  "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+  "native_processor_executions_during_replay": 0,
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "e8fe101ecb6b9023b9628903428ef95eaad832b5cbea414e70cc30f60f769d04",
+        "character_id": "triad_character_de7855d0515286944f6794294e57f814",
+        "effective_authority_hash": "d407afbebb920b5f57fe1bb27566a1087b818f33f7b76137005a1885c57d8b79",
+        "effective_authority_id": "effective_authority_4a407d0dd4db0fdaaf5db352116f9f2a",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_8ff26351d5a94629e1fd482ba8a930d9",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "714c4df686147ae3872ec479256d8d1ff86d4f15c7bd618cca413a4c88f7a63e",
+        "resolution_id": "governance_3c77831aa244539c0a3ea948838178cb",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_3c77831aa244539c0a3ea948838178cb",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>(E=I)",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "aeeb6641c382c3d6d52f66748627c02435e3e11d0518f78f91c548e35e897217",
+        "character_id": "triad_character_3fea0ff0b3def85a717b8dd4c40eb33f",
+        "effective_authority_hash": "2bdc575c85a4bf98a67095994150393fcb09618afb67c606f286c67530914d47",
+        "effective_authority_id": "effective_authority_5a6ae1b9244a5edb4862601382d19880",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_1553d59877ec2978bd4d6d87a0b2f171",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "c90a22d38731f0b7abc45e7e6e649a4462c86ce05ef31c74a21eeafc3abfb27e",
+        "resolution_id": "governance_b180673c6d41bae41db242f4b552fd29",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_b180673c6d41bae41db242f4b552fd29",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>(R=I)",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "98ff999b1207bb81ac45280c0f13260305efc7710ec820665bdfc86ba4ddf62a",
+        "character_id": "triad_character_a14f4cec3efcfddbdb835123864d9c42",
+        "effective_authority_hash": "a473a9e017c7526d9ad18047813f761c3cecdb918833ba7d87cddab9f6bcfe32",
+        "effective_authority_id": "effective_authority_a14e47b7f2be57609f89d4daf2d5d069",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_06f36ee16082fd2c42bebc89bdc690ca",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "The high cost relative to the budget combined with unknown future expenses makes a non-refundable commitment risky."
+            },
+            {
+              "mind": "E",
+              "statement": "closed horizon beside an emptied budget marker"
+            }
+          ],
+          "option_id": "trip_home",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "5ba9b025b96af0fe26ea1f9f3b3948cecbf6e35e4b8e897e297aa8746fa905c8",
+        "resolution_id": "governance_90f122cd676c31be666b66b73daad348",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_90f122cd676c31be666b66b73daad348",
+      "mandate_option_id": "trip_home",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>(R=E)",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "53d3dea4a307fc244f86ed87b316d6f094dbd605e1b1a0b203da28e98ed904a2",
+        "character_id": "triad_character_0e1f46805813bf6bf639447e76372ff9",
+        "effective_authority_hash": "5bfa6639be8e6a135512267fb01ed0cb69424f3f39c7644b1279fafae9f2dc37",
+        "effective_authority_id": "effective_authority_6b3f78a188aba637b37df7356e9ee15b",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_3da9c254ce38f27a4f1536ce1571f627",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "mind": "E",
+              "option_id": "trip_book"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "mind": "E",
+              "option_id": "trip_book"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_802b63bc786d86164ad0bc3644de692a",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "b9f1234b6223b94351f699967afdd1fcc72755d3e2bf41e2fe54eff955461652",
+        "resolution_id": "governance_549b9f8387cda8c4b25489525e5f2135",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_549b9f8387cda8c4b25489525e5f2135",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(R=E)>I",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "f72f01406ab472b0fb42f06d5f2eea3b23c5b262067e0f35b70c179fc3f1c021",
+        "character_id": "triad_character_1df1566f1fb3c6874312e7f4d8016f1c",
+        "effective_authority_hash": "6ed8354905519d4246ad9dfeae6156b5c3f8e8202443a8d0062264db3c04859b",
+        "effective_authority_id": "effective_authority_4bc9e1f5be73be91a0be035f07568669",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_06ad1095fbc376be3f9050265a7a96f2",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "The high cost relative to the budget combined with unknown future expenses makes a non-refundable commitment risky."
+            },
+            {
+              "mind": "E",
+              "statement": "closed horizon beside an emptied budget marker"
+            },
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_cbc0c5ce11c5f134024f80df77ef7683",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "unresolved",
+          "top_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "9bd1f5c847e9064556da7fd68948796f9636dbb0c7fcb77998cc846ad1bd2023",
+        "resolution_id": "governance_8ebfa216f57b7f6fdc0a034b26685e7a",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_8ebfa216f57b7f6fdc0a034b26685e7a",
+      "mandate_option_id": null,
+      "mandate_status": "unresolved",
+      "pair_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "94926a601b9bb01ce13ac4182e7447ddbe39abd8a28fb6e09e03dbcdc1110808",
+        "character_id": "triad_character_2fadf9020e1d63ffc5fccb1c2e2095cd",
+        "effective_authority_hash": "d88704f7f1dad35167f957e636e1101a5940d00f2b9405ed78d615c97accb2b5",
+        "effective_authority_id": "effective_authority_876391ea61fdd55d3a63c507ff725502",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_c9148ebc1026f0c46cb39ba0c2b5d79e",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "The high cost relative to the budget combined with unknown future expenses makes a non-refundable commitment risky."
+            },
+            {
+              "mind": "E",
+              "statement": "closed horizon beside an emptied budget marker"
+            },
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_3029520ac007cae965a9da531a42c10e",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "unresolved",
+          "top_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "87e1d1759fbc864e05b37943743ef02f382c2cfc5f06f1a529f1cc7795c5bb03",
+        "resolution_id": "governance_c9b75c051c8b113cb1e400a003ce7e6d",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_c9b75c051c8b113cb1e400a003ce7e6d",
+      "mandate_option_id": null,
+      "mandate_status": "unresolved",
+      "pair_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "5ffbb89ce518cfd136cf0b66ea1f092342adb0e872b38bb5ce7deee431e15f93",
+        "character_id": "triad_character_acb13753962c766555146ad42cead785",
+        "effective_authority_hash": "f3a166b4ba416924c4c57930b913c44e56a929cc27d93627761f30e878e4d58d",
+        "effective_authority_id": "effective_authority_0cb24dff62f6e58f823938f29c12c502",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_8ff26351d5a94629e1fd482ba8a930d9",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "3e7ca896ee112d93cbd63ddc1c63d246d54c8b7d6fd235f2263e6f5aca44eb79",
+        "resolution_id": "governance_ca0eaba686419906bcfa4c1adae51fe2",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_ca0eaba686419906bcfa4c1adae51fe2",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>E>I",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "68718eaf64e6ceb6060c0ac1710216f0903177f709f938171f5783f61f3cefca",
+        "character_id": "triad_character_619a32f1657a7c0335e2c53e0c7250d6",
+        "effective_authority_hash": "641c4dd4b2878f065483070689a8bc4b75271428003a13e06dd86722c49376a2",
+        "effective_authority_id": "effective_authority_7ccbf65b2b18ff6ada83b506b4527ed8",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_8ff26351d5a94629e1fd482ba8a930d9",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "e66a065457a35da129dfaf0d4017c34fa582ce54009365995997efa9db6575f4",
+        "resolution_id": "governance_5f30742fcef091f38799e8d66e2e6f06",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_5f30742fcef091f38799e8d66e2e6f06",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>I>E",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "b86f1e1fc48363af1d5823b8351f459e22caae291825e76d7d97daa9fd771226",
+        "character_id": "triad_character_d178d9c798b59f928fe5c1630ec0e578",
+        "effective_authority_hash": "d0b3914a40904a97da5a91ad8022c5b4dab0227954b207b8b459697e457bc44d",
+        "effective_authority_id": "effective_authority_d343265b493d1a6928a53a18b232a3a4",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_1553d59877ec2978bd4d6d87a0b2f171",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "3c6b5aaa3017ab0159cc902f3ec886132f54d8e5074fc37cc21f535c245d1629",
+        "resolution_id": "governance_4a7851c2fe37a7446e702571f1d27ecb",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_4a7851c2fe37a7446e702571f1d27ecb",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>R>I",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "9b6a29e059e60f0259d363550fea25be3ab7f0b53dff971dea26640c8d43d256",
+        "character_id": "triad_character_83ee06c5d1f235a88254fdbce1bf4475",
+        "effective_authority_hash": "c02e21e76ae97c6ca1bda0731cf190c75ca936272cd8c5ea555e6aec78257581",
+        "effective_authority_id": "effective_authority_0db8e6c43cabea1718fe3fe8649c8ae6",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_1553d59877ec2978bd4d6d87a0b2f171",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "0bfc93f18cde1c472b1d007bfee8302018442a9adf6910c834d5527bc2e228d2",
+        "resolution_id": "governance_5a4f3a5cde83c7f28d1d3ff9ffef1e10",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_5a4f3a5cde83c7f28d1d3ff9ffef1e10",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>I>R",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "cd2cc0573f15170f580db6173270ed048542436ae42a8e7c45e51a21426c8fcd",
+        "character_id": "triad_character_104a16cdd9eb6702d8441fe91f76b9c0",
+        "effective_authority_hash": "3fa3e1a4522174672d7232fc06950fbd1dc6d2547d9d64bfc11b880ac011088f",
+        "effective_authority_id": "effective_authority_772991682714594980dd776ac8fedac2",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_06f36ee16082fd2c42bebc89bdc690ca",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "The high cost relative to the budget combined with unknown future expenses makes a non-refundable commitment risky."
+            },
+            {
+              "mind": "E",
+              "statement": "closed horizon beside an emptied budget marker"
+            }
+          ],
+          "option_id": "trip_home",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "66ea6eeec3c05aa205388a17a5c445facdae6e17992fb3d341f10e8e8a8cbfd5",
+        "resolution_id": "governance_6c76a8c835ed0dede7559786c128f915",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_6c76a8c835ed0dede7559786c128f915",
+      "mandate_option_id": "trip_home",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>R>E",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "bb9e38b138201b256bb71cee2d322c2e4b372de0d35c64b395a4ae79ec43ff30",
+        "character_id": "triad_character_48085ab581c01d0cba6a9424ff40f49f",
+        "effective_authority_hash": "ef019dde34de4617077a408e9c10aa7020274f7543de177097d010caace168df",
+        "effective_authority_id": "effective_authority_925423d8efa64a699344768e44787136",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_06f36ee16082fd2c42bebc89bdc690ca",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "The high cost relative to the budget combined with unknown future expenses makes a non-refundable commitment risky."
+            },
+            {
+              "mind": "E",
+              "statement": "closed horizon beside an emptied budget marker"
+            }
+          ],
+          "option_id": "trip_home",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "0ea8a9bc7edb588d1a6952a577255b7f7df3f75c37412f7ee534eb90cd685ed2",
+        "resolution_id": "governance_3dbb3a52b08d7ce9730826cf70696a3f",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_3dbb3a52b08d7ce9730826cf70696a3f",
+      "mandate_option_id": "trip_home",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>E>R",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E"
+          ],
+          "agreement_hash": "55a22a32d8da6cf25328f9e5a5528e966d1d11aa63a82e21af729e5ecebb163f",
+          "agreement_kind": "majority",
+          "agreement_pattern_id": "agreement_e7ba2d42766e1f90d8aa6b25fc466ace",
+          "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+          "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_3e471d8143c37eacbe243b76804e897a",
+              "mind": "R",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_1d2ea0b692882422e5a5b42d281ccc37",
+              "mind": "E",
+              "option_id": "trip_book"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_d4688db70e844e0d6eab9e9fc6a1d875",
+              "mind": "I",
+              "option_id": "trip_home"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "partial_agreement",
+          "winning_option_id": "trip_book"
+        },
+        "character_hash": "ab2c6e21a19b8ecef95977edd60847c18d48e238b2a8ff74fa0814defe66488d",
+        "character_id": "triad_character_29bb52cb3d84d9602733433514e7a060",
+        "effective_authority_hash": "8de6b12bcf95c4a1ab2ab2b499c4a2171afd50b290820d13922aa9169a325e7f",
+        "effective_authority_id": "effective_authority_ef0d44964240b13049868ba88ea98c3d",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home."
+            },
+            {
+              "mind": "E",
+              "statement": "expanded horizon with vivid movement and retained footing"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_3da9c254ce38f27a4f1536ce1571f627",
+          "objections": [
+            {
+              "mind": "I",
+              "statement": "sealed_option_consequence:movement_absent+resource_preserved"
+            }
+          ],
+          "option_id": "trip_book",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "6af28193e5f8fe42d09641ba4aa9927a6b835cd7200315e25036a67fdf8031de",
+        "native_bundle_id": "bundle_35ef0956fceb8d7b50b01793081aaa83",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "a6b3c851d79175c7c4ccd2602dda51acdcdad761b7c21a0eec62d13dce870e96",
+        "resolution_id": "governance_ee2d9c6468b9e2ff6ac310c60da5305f",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_ee2d9c6468b9e2ff6ac310c60da5305f",
+      "mandate_option_id": "trip_book",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R=E=I",
+      "spoznanje_status": "partial_agreement",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three": "trip_book"
+    }
+  ],
+  "schema_version": "triad-s2-profile-matrix-v1",
+  "status": "complete"
+}

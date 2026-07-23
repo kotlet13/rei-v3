@@ -1,0 +1,1304 @@
+{
+  "case_id": "loan_to_friend",
+  "model_calls_during_replay": 0,
+  "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+  "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+  "native_processor_executions_during_replay": 0,
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "5f68d0e61de1efb250a1305be954118327b3c707452a401fe275add9a8dc2f40",
+        "character_id": "triad_character_032a571acfc28e7065cc4669911ecf66",
+        "effective_authority_hash": "222c330dd88f2f6215631fee23af219ff0bee41e571e5b1c8db3d8fdd172a86f",
+        "effective_authority_id": "effective_authority_ebbfe0d6b22ced1ea4ff4efc2e674fc7",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eaf2daf32144d02f42a514fe082bad19",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "072bce49bb136687f04eb41df2ccec0cabdd7dfe7a40a496214cf2bcc11fb8b9",
+        "resolution_id": "governance_d1b8108b153e8e5b5f2873a60f72c49a",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_d1b8108b153e8e5b5f2873a60f72c49a",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>(E=I)",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "a4593bb17a799e96e08c8c41d4341f6738088c4a682f5527b1c6b8fa101ff92c",
+        "character_id": "triad_character_b21b9fbc98caa56ab222c649336c2e96",
+        "effective_authority_hash": "f2bbd3c5bcb3204a3ee9310cceac443c79149d2bbfa3711375003ec99224b8ed",
+        "effective_authority_id": "effective_authority_cca655f43010304b3774a41a56c0724a",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_2a11458d78c5a1802a89d7f310f4adeb",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "c8ea39a3c3119e4e358c232ac983587a006aaea8dc79c3d2a8f2370e9343dbaa",
+        "resolution_id": "governance_312c1d3e2eba4e217684d965fb3751e0",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_312c1d3e2eba4e217684d965fb3751e0",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>(R=I)",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "ed93acf7aac7408beb07c352c9e4c78f203b841d972bdf83adfaaf6e8a8c651d",
+        "character_id": "triad_character_d19fec427dccd6dff42a1dd978be546d",
+        "effective_authority_hash": "d19f509a6ade966eecc0608a131bf0c157e51e190a6855cb4993d296804632ef",
+        "effective_authority_id": "effective_authority_c04a880c767966d9b821a1a11ed318ed",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eea46877a1d7782dfce904f7334d3c92",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "f5e353cdfe2ccfe1dc43a09359316d1c1882b0b55f9b2c203b0cfe19a6cad20f",
+        "resolution_id": "governance_3402b24225997d3b3cfbec0f88b1a907",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_3402b24225997d3b3cfbec0f88b1a907",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>(R=E)",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "32c9cf2b8b9fbc3db6204ff55da0f1684c1a3e45b5e5799f94d6b8e64b28a3ab",
+        "character_id": "triad_character_7f2938b76a6c01ecd640db2f3c7991af",
+        "effective_authority_hash": "3586cc47f449bfad5b060e8f18841b377c734b6dbb6c9a5590e3a6ab0c934fe8",
+        "effective_authority_id": "effective_authority_b01d0c9e2ce365c9948b669d975b09bc",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_e99bfb0b391cef21b6930b54785800b9",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_c7eaaf19d85e94be32ea56b7b7cff6eb",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "cc2a9c90c42f3bb9cd1068e8bd6c2e794c94179f573459fd59f2d73ba295e621",
+        "resolution_id": "governance_25e1cfdcc9b4124b0e05c2f8be6bc3b9",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_25e1cfdcc9b4124b0e05c2f8be6bc3b9",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(R=E)>I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "50a16ea5723042965a705764c3446f064504fda99f202118bd28e88d641c5eb2",
+        "character_id": "triad_character_284a667767a9016ee6fc21e310b03f79",
+        "effective_authority_hash": "f8f7ac170dccf2db8aeb5fc98fdc428fb29653acda1ae9f5dcc064d9135a0298",
+        "effective_authority_id": "effective_authority_d0e4598f442561aa326c63b6cc7fc047",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eafd0bdda2479da529e8d6ce64bd83c0",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_6afc21176b23e6249055d367c369afcb",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "10ddd1a43addcd6abb195f78be7567f762eae6206bf080fd8913552ac08ef853",
+        "resolution_id": "governance_dbf482f051561ca786c4a5ebb391c875",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_dbf482f051561ca786c4a5ebb391c875",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(R=I)>E",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "41e02b4643d67de6a723cdde530647268df01d0acba1b2f806b2178db58e9a77",
+        "character_id": "triad_character_a0e8c1a982d14eff48344fc0f9fe7954",
+        "effective_authority_hash": "021858eec2faab17290cf549f1381e607306694b1ea63eb3151923cf118b677a",
+        "effective_authority_id": "effective_authority_0683af1b63b8a09f1945c9af03b346ea",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_20c0e0320f032579173d8f83400f15e1",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_aecd45f2232c214751ed3301d0f5c44e",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "resolved",
+          "top_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "e11311f45db46caf0094ef147a5c43a3ee5b56f70f04f488e4b4f64fb0c35f10",
+        "resolution_id": "governance_0405b069a075ac3b9e434b6cf4aaa4ef",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_0405b069a075ac3b9e434b6cf4aaa4ef",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": "resolved",
+      "profile_id": "(E=I)>R",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "c82f58e38d0c3147f96177922fc9039e9b5a04d05ce816f002079b79faedd156",
+        "character_id": "triad_character_2ad7bf3f23c0ff911f1ae1baa4e9a5c7",
+        "effective_authority_hash": "a613ffcb513cdeda1b9382593eb9694162e59742b9960ad500ddd65ff790e7f8",
+        "effective_authority_id": "effective_authority_b0048c6a653fce0f05d2223847a26887",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eaf2daf32144d02f42a514fe082bad19",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "dfe1cd5ad1d5b64fe0d09cb42143bb92ce2b7f7f06e58c1f0f19fe7dfd3cf76b",
+        "resolution_id": "governance_54a0b7d46d8750f14eb31a923857bf93",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_54a0b7d46d8750f14eb31a923857bf93",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>E>I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "56498025f6a3b52a138813b3f22618ee35a841995f31f09bd99da6ec0e7afd43",
+        "character_id": "triad_character_c567534ae08fd9a11453f267bf9f8480",
+        "effective_authority_hash": "a6ec6a9ec564c003ead4a9a2ba6c6889b85e82bf3434a6987170193c41cfe4ce",
+        "effective_authority_id": "effective_authority_182380b7695a89d35989356dd07dd3d5",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eaf2daf32144d02f42a514fe082bad19",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "43edc61bc4f2cd5cad1ffc13c838798f59cb5f49e269017e258800bdc5bd482b",
+        "resolution_id": "governance_270b5faba05d7645f98c15c93ec38869",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_resolution_id": "governance_270b5faba05d7645f98c15c93ec38869",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R>I>E",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "be0a9b3bfe056f3515cc2777b36f3fa8c77e4dd484d65eed2b588a6972dc89c3",
+        "character_id": "triad_character_7bea71b5df2b39e3b35263063f068925",
+        "effective_authority_hash": "4f06f32454eaf1fe76324f5d419306553ed33587ae83742496e9eb02b0d93a9c",
+        "effective_authority_id": "effective_authority_40f5ff205bbfd2fa857331d271732d80",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_2a11458d78c5a1802a89d7f310f4adeb",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "cf181e246b57a6816b77bbf9e8c9822558848c6d08058211ae26813ad9bb5c64",
+        "resolution_id": "governance_8abaf6f23c1726921f43878415705e52",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_8abaf6f23c1726921f43878415705e52",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>R>I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "abf2195409816dde56b7f95fc129f670c8d2f55109d819235e146983bd965151",
+        "character_id": "triad_character_9c923a7d78285e636bbb3366b4ee4e72",
+        "effective_authority_hash": "74577ca1c2c259cac98dbc71424bd164f3b872c5cf9cf78df8005fa812c80f55",
+        "effective_authority_id": "effective_authority_b3cdaf1ec0ecfeb7ec06e4f3f74e69d9",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_2a11458d78c5a1802a89d7f310f4adeb",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "02f2430f0d802f2d1c559878ae9165095924009a453537f5df2144d7344dfa81",
+        "resolution_id": "governance_70283720d21b6b8dcd8fbf9382f52c10",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_resolution_id": "governance_70283720d21b6b8dcd8fbf9382f52c10",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "E>I>R",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "12d653ffccc4903d444c7dd706c97a820a67c0cf1e0cb393add11c000e8691e8",
+        "character_id": "triad_character_e3025948481ec68123ab2b0440d2b40a",
+        "effective_authority_hash": "e3e8482a6db2ac7d8d5a88df221f04547a8d962e1bc1a09448e29a667c70d131",
+        "effective_authority_id": "effective_authority_3d23f5b81b0455ee25215a91be21a5fe",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eea46877a1d7782dfce904f7334d3c92",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "c618e084bf45aa01441f76d7dae53371eee06f65318d4452827161d94405d39c",
+        "resolution_id": "governance_b1f79d93a3a717ce48b8ce35da39f204",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_b1f79d93a3a717ce48b8ce35da39f204",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>R>E",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "0f44a8cb4b5ec52416f051c22d553c0eee66c206992ced85140eaf67f3376879",
+        "character_id": "triad_character_879e444897886cb406b71c2fb7e424ee",
+        "effective_authority_hash": "7b1d3a20b24bec6ff3e6d80f9b7e2e2e89dc958ad34fccc5143e95ef3f49a6ff",
+        "effective_authority_id": "effective_authority_2a89e2fd3fcc36c99d8f9db3096efea5",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_eea46877a1d7782dfce904f7334d3c92",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "2d49dfa38cd3f6e9ad97743623daca85d8a8ae983028623e76ec63e32e56c005",
+        "resolution_id": "governance_41edeb1f7be72fb20ebda3c1c21f3f13",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_41edeb1f7be72fb20ebda3c1c21f3f13",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "I>E>R",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three": null
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [
+            "R",
+            "E",
+            "I"
+          ],
+          "agreement_hash": "279e9f8f66d5900d5a64bc5fe7ed52d14ae6756d7ea111989340bb7f74e01156",
+          "agreement_kind": "unanimous",
+          "agreement_pattern_id": "agreement_061551a95ee31d8ba7bd67bfce4b6a0d",
+          "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+          "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "emocio_conclusion_04168eeaecc3c976c810923713fda3ec",
+              "mind": "E",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83",
+              "mind": "I",
+              "option_id": "loan_limited_contract"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "simulated_spoznanje",
+          "winning_option_id": "loan_limited_contract"
+        },
+        "character_hash": "4fff9f7e5111c259584afcfa029dbe6666a0f50f7ebd4fa4aa151f9b8006503e",
+        "character_id": "triad_character_f4e948648b58ecd96143dffe42dac866",
+        "effective_authority_hash": "f9ff9c2ae1232d6a698f089417458e1281e6d9829c036ccdc3d95a14b0abcbd1",
+        "effective_authority_id": "effective_authority_c4e7ff99abf69b2371cc1c93a794f0a0",
+        "effective_source_minds": [
+          "R",
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "option-specific consequence evidence remains within the sealed packet scope"
+            }
+          ],
+          "mandate_id": "mandate_79aae37611719c311df7d87d4eff134a",
+          "objections": [],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R",
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1530f01ab1c015d5146e428bb91a5b18a14b143996cf78740c3b6f6bbb802cb8",
+        "native_bundle_id": "bundle_37e9f1388f4f17ccc682c445c8b9a003",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "b22765fd67c94323bb913129261d71abdaec501da995f19f3936c2f88e5fce47",
+        "resolution_id": "governance_09dda5188b03dc0cbad20aa75c9eb7d9",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_resolution_id": "governance_09dda5188b03dc0cbad20aa75c9eb7d9",
+      "mandate_option_id": "loan_limited_contract",
+      "mandate_status": "resolved",
+      "pair_status": null,
+      "profile_id": "R=E=I",
+      "spoznanje_status": "simulated_spoznanje",
+      "structural_source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "two_of_three": "loan_limited_contract"
+    }
+  ],
+  "schema_version": "triad-s2-profile-matrix-v1",
+  "status": "complete"
+}

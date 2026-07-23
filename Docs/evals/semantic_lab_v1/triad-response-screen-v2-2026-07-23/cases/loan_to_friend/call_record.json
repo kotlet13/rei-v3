@@ -1,0 +1,475 @@
+{
+  "case_id": "loan_to_friend",
+  "emocio": {
+    "call_record": {
+      "call_id": "provider_call_5908afdf7ef99c1322904f35e1c20f40",
+      "fallback": null,
+      "finished_at": "2026-07-23T16:55:49.729165Z",
+      "input_artifact_ids": [
+        "emocio_packet_7d923a4885ded39b2ac4f0534631b4f2",
+        "emocio_world_input_e5639fac278bb6c7b5ac72ccca538026",
+        "triad_loan_to_friend",
+        "triad_s2_emocio_counterfactuals_536b17e70cc65966a3d6330050666daa"
+      ],
+      "output_artifact_ids": [
+        "emocio_state_52fc456235b99882a8668eb4491da521",
+        "emocio_conclusion_04168eeaecc3c976c810923713fda3ec"
+      ],
+      "parameters": [],
+      "primary_finished_at": "2026-07-23T16:55:49.729165Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_7d923a4885ded39b2ac4f0534631b4f2",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": null,
+      "spec_hash": "6744e2dd243b0981eaebae118bb96d6b7db9356bf3d62f39561e2a7e490c0176",
+      "started_at": "2026-07-23T16:55:49.728166Z",
+      "status": "succeeded",
+      "timeout_seconds": 30.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_5908afdf7ef99c1322904f35e1c20f40",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "emocio_packet_7d923a4885ded39b2ac4f0534631b4f2",
+        "emocio_world_input_e5639fac278bb6c7b5ac72ccca538026",
+        "triad_loan_to_friend",
+        "triad_s2_emocio_counterfactuals_536b17e70cc65966a3d6330050666daa"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_7d923a4885ded39b2ac4f0534631b4f2",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "uses_model": false
+  },
+  "instinkt": {
+    "call_record": {
+      "call_id": "provider_call_f800ac311d0583786f60bd351e2bc482",
+      "fallback": null,
+      "finished_at": "2026-07-23T16:55:49.742275Z",
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_4b005e0bf928293bb3c599f6419f7ba7",
+        "option_effect_2e5a5e53deb265eda881d0cb4c0ade98",
+        "option_effect_99766b178a9bd934b833be47f3a10fd7",
+        "option_effect_f4d5b471e41a70e67f2f3cbe7ce68c0d",
+        "s2_body_loan_to_frie_ca256e5f0a4367710f6c132273094083",
+        "triad_loan_to_friend"
+      ],
+      "output_artifact_ids": [
+        "instinkt_conclusion_bab75310d5bdfa79551f8995a7fa5f83"
+      ],
+      "parameters": [],
+      "primary_finished_at": "2026-07-23T16:55:49.742275Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_4b005e0bf928293bb3c599f6419f7ba7",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": null,
+      "spec_hash": "7b3a68e202f49b412f067ac04732fa9a5a81dbafffe66850b3eb777231c8242c",
+      "started_at": "2026-07-23T16:55:49.729165Z",
+      "status": "succeeded",
+      "timeout_seconds": 30.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_f800ac311d0583786f60bd351e2bc482",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_4b005e0bf928293bb3c599f6419f7ba7",
+        "option_effect_2e5a5e53deb265eda881d0cb4c0ade98",
+        "option_effect_99766b178a9bd934b833be47f3a10fd7",
+        "option_effect_f4d5b471e41a70e67f2f3cbe7ce68c0d",
+        "s2_body_loan_to_frie_ca256e5f0a4367710f6c132273094083",
+        "triad_loan_to_friend"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_4b005e0bf928293bb3c599f6419f7ba7",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "uses_model": false
+  },
+  "private_thinking_persisted": false,
+  "racio": {
+    "call_record": {
+      "call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "fallback": null,
+      "finished_at": "2026-07-23T16:55:49.727164Z",
+      "input_artifact_ids": [
+        "loan_ev_budget",
+        "loan_ev_history",
+        "loan_ev_need",
+        "loan_ev_visual",
+        "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+        "s2_racio_loan_to_fri_8b49ec405d6ca3aea22caca97816e19f"
+      ],
+      "output_artifact_ids": [
+        "ollama_racio_response_8d23801cf8756bf3c0606b6bdc02b4e4",
+        "racio_conclusion_70ff0d14b7c44a2f4958a41e06933a09"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "primary_finished_at": "2026-07-23T16:55:49.727164Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": 314159,
+      "spec_hash": "a1b333764ec293cb1573f0b6acd2d69e3cafcdd48cdd0b3496a03e95ce692097",
+      "started_at": "2026-07-23T16:55:41.822495Z",
+      "status": "succeeded",
+      "timeout_seconds": 600.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "loan_ev_budget",
+        "loan_ev_history",
+        "loan_ev_need",
+        "loan_ev_visual",
+        "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+        "s2_racio_loan_to_fri_8b49ec405d6ca3aea22caca97816e19f"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "failed_output_diagnostic": null,
+    "failure": null,
+    "fallbacks": 0,
+    "result_evidence": {
+      "active_context_length": 65536,
+      "active_gpu_percent_rounded": 100,
+      "active_size_bytes": 20166119259,
+      "active_size_vram_bytes": 20166119259,
+      "call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "call_spec_hash": "a1b333764ec293cb1573f0b6acd2d69e3cafcdd48cdd0b3496a03e95ce692097",
+      "done_reason": "stop",
+      "eval_count": 393,
+      "eval_duration_ns": 6771820000,
+      "evidence_ids_used": [
+        "loan_ev_need",
+        "loan_ev_history",
+        "loan_ev_budget"
+      ],
+      "load_duration_ns": 253009987,
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "ollama_server_version": "0.31.2",
+      "packet_hash": "012b3e179599126422c9588be64295231a6cbe38096302cf0aae25a6dc8b2783",
+      "packet_id": "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+      "prompt_eval_count": 909,
+      "prompt_eval_duration_ns": 337975000,
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "request_payload_hash": "343589aee03a05b9f435d14fb64f820bc78c05382b02f896dc0a71da3dda2bce",
+      "response_created_at": "2026-07-23T16:55:49.696680598Z",
+      "response_envelope_hash": "b93ba2af4003122f7d8a39d74f87af9ce155627ce6f44e3eb7c01804c2a746e4",
+      "response_text": "{\n  \"abstains\": false,\n  \"causal_sequence\": [\n    \"The friend has a documented urgent need for home repair.\",\n    \"Past repayment behavior indicates a pattern of significant delays.\",\n    \"Providing the full amount would create high exposure by depleting nearly half of the available cash reserve.\",\n    \"A limited loan with a written contract mitigates risk compared to an unsecured full loan while still addressing the need.\"\n  ],\n  \"confidence\": 0.9,\n  \"evidence_ids_used\": [\n    \"loan_ev_need\",\n    \"loan_ev_history\",\n    \"loan_ev_budget\"\n  ],\n  \"explicit_goal\": \"Determine the most appropriate loan option based on need, history, and reserve exposure.\",\n  \"facts_used\": [\n    \"The friend provided an invoice for an urgent home repair.\",\n    \"Two previous repayments were more than three months late.\",\n    \"The full requested sum is 45 percent of the lender's cash reserve.\"\n  ],\n  \"main_objection\": \"Past repayment delays and high reserve exposure make a full unsecured loan risky.\",\n  \"option_id\": \"loan_limited_contract\",\n  \"uncertainty\": \"It is unknown if the friend will adhere to a new contract or how these choices impact the relationship.\",\n  \"unknowns\": [\n    \"Whether the friend would repay a new loan on time is unknown.\",\n    \"How each option would affect the relationship is unknown.\"\n  ],\n  \"utility_structure\": [\n    \"Full loan: High risk due to history and reserve depletion.\",\n    \"Limited loan with contract: Balanced approach reducing exposure and adding formal accountability.\",\n    \"Decline: Zero financial risk but ignores the urgent repair need.\"\n  ]\n}",
+      "result_id": "ollama_racio_response_8d23801cf8756bf3c0606b6bdc02b4e4",
+      "schema_version": "rei-native-ollama-racio-response-v1",
+      "total_duration_ns": 7841296657
+    },
+    "retries": 0
+  },
+  "schema_version": "triad-s2-call-record-v1"
+}

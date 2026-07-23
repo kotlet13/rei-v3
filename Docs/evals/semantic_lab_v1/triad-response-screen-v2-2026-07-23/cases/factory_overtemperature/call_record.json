@@ -1,0 +1,460 @@
+{
+  "case_id": "factory_overtemperature",
+  "emocio": {
+    "call_record": {
+      "call_id": "provider_call_007578d9520a263b3fa86a74c9cea330",
+      "fallback": null,
+      "finished_at": "2026-07-23T16:55:41.804636Z",
+      "input_artifact_ids": [
+        "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+        "emocio_world_input_18ad22bcde30e5d740eac8083590c3dc",
+        "triad_factory_overtemperature",
+        "triad_s2_emocio_counterfactuals_2ad2ba1ad2ec818b47ff69fb06e7e8f7"
+      ],
+      "output_artifact_ids": [
+        "emocio_state_7c9bab16f84176c8ce2aade403040c8a",
+        "emocio_conclusion_fe73e9e5885b103277fdfb4ef43a0288"
+      ],
+      "parameters": [],
+      "primary_finished_at": "2026-07-23T16:55:41.804636Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": null,
+      "spec_hash": "8b07642e5973f62d4d0f9c37ad46f177a364daa6b9dbec149225715714c6e33c",
+      "started_at": "2026-07-23T16:55:41.802509Z",
+      "status": "succeeded",
+      "timeout_seconds": 30.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_007578d9520a263b3fa86a74c9cea330",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+        "emocio_world_input_18ad22bcde30e5d740eac8083590c3dc",
+        "triad_factory_overtemperature",
+        "triad_s2_emocio_counterfactuals_2ad2ba1ad2ec818b47ff69fb06e7e8f7"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "uses_model": false
+  },
+  "instinkt": {
+    "call_record": {
+      "call_id": "provider_call_c6ff0055d64f1bda1df1cf0b35530a16",
+      "fallback": null,
+      "finished_at": "2026-07-23T16:55:41.816711Z",
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "s2_body_factory_over_22abf98cbb645183461367143be40718",
+        "triad_factory_overtemperature"
+      ],
+      "output_artifact_ids": [
+        "instinkt_conclusion_57d8a4f207c971b942152318a493639c"
+      ],
+      "parameters": [],
+      "primary_finished_at": "2026-07-23T16:55:41.816711Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": null,
+      "spec_hash": "89f9f79d313e1db12ec81bf94eaa67eb0d312d1ff9e34b3e32fc611cb7ebbd48",
+      "started_at": "2026-07-23T16:55:41.804636Z",
+      "status": "succeeded",
+      "timeout_seconds": 30.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_c6ff0055d64f1bda1df1cf0b35530a16",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "s2_body_factory_over_22abf98cbb645183461367143be40718",
+        "triad_factory_overtemperature"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "uses_model": false
+  },
+  "private_thinking_persisted": false,
+  "racio": {
+    "call_record": {
+      "call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "fallback": null,
+      "finished_at": "2026-07-23T16:55:41.802509Z",
+      "input_artifact_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual",
+        "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+        "s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37"
+      ],
+      "output_artifact_ids": [],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "primary_finished_at": "2026-07-23T16:55:41.802509Z",
+      "primary_status": "failed",
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": 314159,
+      "spec_hash": "6d88a9264c65658edbfe51477a1c0260ca3216b64d44c9b1c4ee5720e457b68b",
+      "started_at": "2026-07-23T16:55:18.434366Z",
+      "status": "failed",
+      "timeout_seconds": 600.0,
+      "warnings": [
+        "racio_structured_output_packet_contract:fact_evidence_mismatch:0bded31125970f755c9eb65e079ee5578c621cc91790f95d38d0432a42df4aa7"
+      ]
+    },
+    "call_spec": {
+      "call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual",
+        "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+        "s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "failed_output_diagnostic": {
+      "accepted": false,
+      "canonical_json_projection": "{\"abstains\":false,\"causal_sequence\":[\"Temperature increase is detected but sensor readings are contradictory.\",\"Continuing production risks equipment damage due to rising heat.\",\"Immediate shutdown prevents damage but incurs financial loss.\",\"Brief verification allows for resolving the sensor discrepancy within the time limit before committing to a costly or risky action.\"],\"confidence\":0.8,\"evidence_ids_used\":[\"factory_ev_temperature\",\"factory_ev_sensor\",\"factory_ev_visual\"],\"explicit_goal\":\"Prevent equipment damage while minimizing unnecessary financial loss under a tight time constraint.\",\"facts_used\":[\"Process temperature rose by 11 C during the last six minutes.\",\"A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown.\",\"Further heating can damage equipment, while a controlled shutdown causes financial loss.\",\"The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.\"],\"main_objection\":\"Verification takes time that may lead to irreversible equipment damage if the primary sensor is correct.\",\"option_id\":\"factory_verify\",\"uncertainty\":\"The reliability of the sensors is unknown, making it unclear if the temperature rise is a real threat or a sensor error.\",\"unknowns\":[\"Which sensor is correct is unknown.\",\"Whether equipment damage has already occurred is unknown.\"],\"utility_structure\":[\"Verification: Low immediate cost, potential to avoid both damage and unnecessary shutdown loss.\",\"Shutdown: High financial cost, zero risk of further heat damage.\",\"Continue: Zero immediate cost, high risk of equipment damage.\"]}",
+      "diagnostic_id": "racio_failed_output_b39fadea5829d90d5a01f55daa81ee14",
+      "failure_code": "fact_evidence_mismatch",
+      "final_json_sha256": "0bded31125970f755c9eb65e079ee5578c621cc91790f95d38d0432a42df4aa7",
+      "packet_hash": "13d319eecbfd100e1f2badc7bdc6cf3b5f20371a34c652b661590f952853d8db",
+      "packet_id": "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+      "schema_version": "rei-native-ollama-racio-failed-output-v1",
+      "validation_stage": "racio_structured_output_packet_contract"
+    },
+    "failure": {
+      "accepted": false,
+      "failure_code": "fact_evidence_mismatch",
+      "failure_type": "OllamaStructuredOutputValidationError",
+      "final_json_sha256": "0bded31125970f755c9eb65e079ee5578c621cc91790f95d38d0432a42df4aa7",
+      "message": "Ollama structured output failed racio_structured_output_packet_contract:fact_evidence_mismatch",
+      "validation_stage": "racio_structured_output_packet_contract"
+    },
+    "fallbacks": 0,
+    "result_evidence": null,
+    "retries": 0
+  },
+  "schema_version": "triad-s2-call-record-v1"
+}

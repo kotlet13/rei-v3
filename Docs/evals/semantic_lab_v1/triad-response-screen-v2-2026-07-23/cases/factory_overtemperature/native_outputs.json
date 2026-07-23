@@ -1,0 +1,2320 @@
+{
+  "agreement_pattern": null,
+  "bundle": null,
+  "case_id": "factory_overtemperature",
+  "emocio": {
+    "abstains": false,
+    "aggregate_scores": {
+      "factory_continue": 0.474748,
+      "factory_shutdown": 0.48052,
+      "factory_verify": 0.474748
+    },
+    "broken_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "damaged equipment beneath a red warning field"
+      ],
+      "entities": [
+        "maintenance_team",
+        "operator"
+      ],
+      "grounded_evidence_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual"
+      ],
+      "group_belonging": "unspecified",
+      "inferred_elements": [
+        "damaged equipment beneath a red warning field"
+      ],
+      "movement": [],
+      "obstacle_markers": [
+        "damaged equipment beneath a red warning field"
+      ],
+      "option_id": null,
+      "scene_id": "visual_scene_3f5ec853af043472358b034b061f2d3f",
+      "scene_kind": "broken",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": []
+    },
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "approach",
+      "conclusion_id": "emocio_conclusion_fe73e9e5885b103277fdfb4ef43a0288",
+      "current_scene_id": "visual_scene_1fadff6c106e85e9de9196a971bb9ff1",
+      "decisive_rollout_scene_id": "visual_scene_ca84139094cbced4d587b0b96f8d43d3",
+      "desired_scene_id": "visual_scene_8a4114211054f73003e344332f481cc7",
+      "desired_transformation": "stable gauge, intact machinery, and a clear operator position",
+      "intensity": 0.48052,
+      "main_obstacle": "damaged equipment beneath a red warning field",
+      "mind": "E",
+      "option_id": "factory_shutdown",
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+      "source_scene_id": "triad_factory_overtemperature",
+      "uncertainty": "Enolično najvišje transparentno strukturno vrednotenje.",
+      "valuation_dimensions": [
+        {
+          "name": "desired_scene_match",
+          "score": 0.0
+        },
+        {
+          "name": "distance_from_broken_scene",
+          "score": 1.0
+        },
+        {
+          "name": "self_visibility",
+          "score": 1.0
+        },
+        {
+          "name": "belonging",
+          "score": 0.0
+        },
+        {
+          "name": "attention",
+          "score": 1.0
+        },
+        {
+          "name": "attraction",
+          "score": 0.0
+        },
+        {
+          "name": "novelty",
+          "score": 0.714286
+        },
+        {
+          "name": "movement",
+          "score": 0.0
+        },
+        {
+          "name": "status",
+          "score": 0.0
+        },
+        {
+          "name": "competitive_success",
+          "score": 1.0
+        },
+        {
+          "name": "attack_or_breakthrough_affordance",
+          "score": 0.571429
+        }
+      ]
+    },
+    "counterfactual_lineage": [
+      {
+        "actual_scene_signature": "364783053788e84734165ccd6d8b68bc75019b1083de94827287df68474186e8",
+        "candidate_counterfactual_signature": "fcde510b5d3768923570b8d895081cf57b81688c0a357e0589924278cee9c04d",
+        "delta": {
+          "attention": [
+            "current production settings"
+          ],
+          "attraction_markers": [],
+          "belonging": "operator remains responsible for shared process",
+          "composition_changes": [
+            "active production flow remains beside rising gauge"
+          ],
+          "entities_added": [],
+          "entities_removed": [],
+          "movement": [
+            "production line keeps moving"
+          ],
+          "obstacle_persistence": [
+            "rising temperature",
+            "equipment-damage possibility",
+            "sensor disagreement"
+          ],
+          "obstacle_removal": [],
+          "self_position": "at current production controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        "evidence_basis_ids": [
+          "factory_ev_temperature",
+          "factory_ev_damage"
+        ],
+        "option_id": "factory_continue"
+      },
+      {
+        "actual_scene_signature": "8e5018f75f46907d65a7b5fa369f5fc2222f1cdd1232d4e68c8ec6da818332d1",
+        "candidate_counterfactual_signature": "3bc7eab7ae9dd6ba01b4fae173896c7ff6ac5054665c6446af52daac65e0274c",
+        "delta": {
+          "attention": [
+            "shutdown sequence",
+            "temperature gauge"
+          ],
+          "attraction_markers": [
+            "intact equipment",
+            "clear operator position"
+          ],
+          "belonging": "operator remains responsible for shared process",
+          "composition_changes": [
+            "temperature gauge remains visible beside intact equipment",
+            "production flow changes to controlled stop"
+          ],
+          "entities_added": [
+            "controlled shutdown procedure"
+          ],
+          "entities_removed": [
+            "active production flow"
+          ],
+          "movement": [
+            "operator executes controlled stop sequence"
+          ],
+          "obstacle_persistence": [
+            "financial loss marker remains"
+          ],
+          "obstacle_removal": [
+            "continued production heat input"
+          ],
+          "self_position": "at shutdown controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        "evidence_basis_ids": [
+          "factory_ev_damage",
+          "factory_ev_visual"
+        ],
+        "option_id": "factory_shutdown"
+      },
+      {
+        "actual_scene_signature": "ee6c9cf8fb5a5ee80749228c403b56ec7e5bda06358e21fa5ff0b2312fd30ba5",
+        "candidate_counterfactual_signature": "7ce9430d753d1f6e21b185fbe9c4221175665d85fb4ad66907fba4f13f16a18f",
+        "delta": {
+          "attention": [
+            "sensor disagreement",
+            "three-minute limit"
+          ],
+          "attraction_markers": [
+            "clear operator position"
+          ],
+          "belonging": "operator remains responsible for shared process",
+          "composition_changes": [
+            "two conflicting sensor displays are inspected together"
+          ],
+          "entities_added": [
+            "second sensor display",
+            "three-minute timer"
+          ],
+          "entities_removed": [],
+          "movement": [
+            "operator compares two displays"
+          ],
+          "obstacle_persistence": [
+            "production heat input persists during brief verification",
+            "sensor truth remains unknown until checked"
+          ],
+          "obstacle_removal": [],
+          "self_position": "between primary and backup displays",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        "evidence_basis_ids": [
+          "factory_ev_sensor",
+          "factory_ev_visual"
+        ],
+        "option_id": "factory_verify"
+      }
+    ],
+    "counterfactual_scenes": [
+      {
+        "attention_structure": [
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_1ec1c571d1b42fc8248fcf3b8a91f6ab"
+          }
+        ],
+        "attraction_markers": [],
+        "composition": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "active production flow remains beside rising gauge",
+          "equipment-damage possibility",
+          "rising gauge beside intact machinery",
+          "rising temperature",
+          "sensor disagreement"
+        ],
+        "entities": [
+          "at current production controls",
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_temperature"
+        ],
+        "group_belonging": "operator remains responsible for shared process",
+        "inferred_elements": [
+          "active production flow remains beside rising gauge",
+          "at current production controls",
+          "current production settings",
+          "equipment-damage possibility",
+          "operator accountable to shared process",
+          "operator remains responsible for shared process",
+          "production line keeps moving",
+          "rising temperature",
+          "sensor disagreement"
+        ],
+        "movement": [
+          "production line keeps moving"
+        ],
+        "obstacle_markers": [
+          "equipment-damage possibility",
+          "rising temperature",
+          "sensor disagreement"
+        ],
+        "option_id": "factory_continue",
+        "scene_id": "visual_scene_1ac0bf9acb2cef76337fc3555ed8f40d",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "at current production controls",
+        "status_relations": [
+          "operator accountable to shared process"
+        ]
+      },
+      {
+        "attention_structure": [
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_3f382e126b74e66c05df6b543c33abe9"
+          },
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_aec67da799c3198d3e6a0c8aa58ab307"
+          }
+        ],
+        "attraction_markers": [
+          "clear operator position",
+          "intact equipment"
+        ],
+        "composition": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "clear operator position",
+          "financial loss marker remains",
+          "intact equipment",
+          "production flow changes to controlled stop",
+          "rising gauge beside intact machinery",
+          "temperature gauge remains visible beside intact equipment"
+        ],
+        "entities": [
+          "at shutdown controls",
+          "controlled shutdown procedure",
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "operator remains responsible for shared process",
+        "inferred_elements": [
+          "active production flow",
+          "at shutdown controls",
+          "clear operator position",
+          "continued production heat input",
+          "controlled shutdown procedure",
+          "financial loss marker remains",
+          "intact equipment",
+          "operator accountable to shared process",
+          "operator executes controlled stop sequence",
+          "operator remains responsible for shared process",
+          "production flow changes to controlled stop",
+          "shutdown sequence",
+          "temperature gauge",
+          "temperature gauge remains visible beside intact equipment"
+        ],
+        "movement": [
+          "operator executes controlled stop sequence"
+        ],
+        "obstacle_markers": [
+          "financial loss marker remains"
+        ],
+        "option_id": "factory_shutdown",
+        "scene_id": "visual_scene_ca84139094cbced4d587b0b96f8d43d3",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "at shutdown controls",
+        "status_relations": [
+          "operator accountable to shared process"
+        ]
+      },
+      {
+        "attention_structure": [
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_b0e9c95090d4de5883188fe6943ffcfe"
+          },
+          {
+            "score": 1.0,
+            "target": "s2_attention_target_ee33397c67151c7e25b3e5d7aafe3f0b"
+          }
+        ],
+        "attraction_markers": [
+          "clear operator position"
+        ],
+        "composition": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "clear operator position",
+          "production heat input persists during brief verification",
+          "rising gauge beside intact machinery",
+          "sensor truth remains unknown until checked",
+          "two conflicting sensor displays are inspected together"
+        ],
+        "entities": [
+          "between primary and backup displays",
+          "maintenance_team",
+          "operator",
+          "second sensor display",
+          "three-minute timer"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_sensor",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "operator remains responsible for shared process",
+        "inferred_elements": [
+          "between primary and backup displays",
+          "clear operator position",
+          "operator accountable to shared process",
+          "operator compares two displays",
+          "operator remains responsible for shared process",
+          "production heat input persists during brief verification",
+          "second sensor display",
+          "sensor disagreement",
+          "sensor truth remains unknown until checked",
+          "three-minute limit",
+          "three-minute timer",
+          "two conflicting sensor displays are inspected together"
+        ],
+        "movement": [
+          "operator compares two displays"
+        ],
+        "obstacle_markers": [
+          "production heat input persists during brief verification",
+          "sensor truth remains unknown until checked"
+        ],
+        "option_id": "factory_verify",
+        "scene_id": "visual_scene_1fa5dce187b32d1a6d09ad0d5957a571",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "between primary and backup displays",
+        "status_relations": [
+          "operator accountable to shared process"
+        ]
+      }
+    ],
+    "current_scene": {
+      "attention_structure": [],
+      "attraction_markers": [
+        "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."
+      ],
+      "composition": [
+        "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+        "rising gauge beside intact machinery"
+      ],
+      "entities": [
+        "maintenance_team",
+        "operator"
+      ],
+      "grounded_evidence_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual"
+      ],
+      "group_belonging": "unspecified",
+      "inferred_elements": [
+        "rising gauge beside intact machinery"
+      ],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "visual_scene_1fadff6c106e85e9de9196a971bb9ff1",
+      "scene_kind": "current",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": [
+        "maintenance_team",
+        "operator"
+      ]
+    },
+    "desired_scene": {
+      "attention_structure": [],
+      "attraction_markers": [
+        "clear position",
+        "intact machinery",
+        "stable gauge"
+      ],
+      "composition": [
+        "stable gauge, intact machinery, and a clear operator position"
+      ],
+      "entities": [
+        "maintenance_team",
+        "operator"
+      ],
+      "grounded_evidence_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual"
+      ],
+      "group_belonging": "operator responsible for a shared process",
+      "inferred_elements": [
+        "stable gauge, intact machinery, and a clear operator position"
+      ],
+      "movement": [
+        "inspect two displays",
+        "keep the line moving",
+        "step back from controls"
+      ],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "visual_scene_8a4114211054f73003e344332f481cc7",
+      "scene_kind": "desired",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": [
+        "operator responsible for a shared process"
+      ]
+    },
+    "failure_marker": null,
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "factory_continue",
+          "score": 0.474748
+        },
+        {
+          "option_id": "factory_shutdown",
+          "score": 0.48052
+        },
+        {
+          "option_id": "factory_verify",
+          "score": 0.474748
+        }
+      ],
+      "selected": {
+        "dimensions": [
+          {
+            "name": "desired_scene_match",
+            "score": 0.0
+          },
+          {
+            "name": "distance_from_broken_scene",
+            "score": 1.0
+          },
+          {
+            "name": "self_visibility",
+            "score": 1.0
+          },
+          {
+            "name": "belonging",
+            "score": 0.0
+          },
+          {
+            "name": "attention",
+            "score": 1.0
+          },
+          {
+            "name": "attraction",
+            "score": 0.0
+          },
+          {
+            "name": "novelty",
+            "score": 0.714286
+          },
+          {
+            "name": "movement",
+            "score": 0.0
+          },
+          {
+            "name": "status",
+            "score": 0.0
+          },
+          {
+            "name": "competitive_success",
+            "score": 1.0
+          },
+          {
+            "name": "attack_or_breakthrough_affordance",
+            "score": 0.571429
+          }
+        ],
+        "option_id": "factory_shutdown",
+        "rollout_scene_id": "visual_scene_ca84139094cbced4d587b0b96f8d43d3"
+      },
+      "tied_option_ids": []
+    },
+    "policy_distinction": true,
+    "scene_routes": [
+      {
+        "option_id": "factory_continue",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      },
+      {
+        "option_id": "factory_shutdown",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      },
+      {
+        "option_id": "factory_verify",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      }
+    ],
+    "selected_option_id": "factory_shutdown",
+    "signature_distinction": true,
+    "tied_option_ids": [],
+    "valuation_distinction": true,
+    "valuation_vector_signatures": {
+      "factory_continue": "8f547ee45107374a5f6a89c495efcabd91da7861dccbdce83b7277095d3e20e8",
+      "factory_shutdown": "35114f014aff4b74a321ab540dd89377c51c90e9be1536fe0c3c852979d8c6eb",
+      "factory_verify": "8f547ee45107374a5f6a89c495efcabd91da7861dccbdce83b7277095d3e20e8"
+    },
+    "valuation_vectors": {
+      "factory_continue": {
+        "attack_or_breakthrough_affordance": 0.555556,
+        "attention": 1.0,
+        "attraction": 0.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.666667,
+        "self_visibility": 1.0,
+        "status": 0.0
+      },
+      "factory_shutdown": {
+        "attack_or_breakthrough_affordance": 0.571429,
+        "attention": 1.0,
+        "attraction": 0.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.714286,
+        "self_visibility": 1.0,
+        "status": 0.0
+      },
+      "factory_verify": {
+        "attack_or_breakthrough_affordance": 0.555556,
+        "attention": 1.0,
+        "attraction": 0.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.666667,
+        "self_visibility": 1.0,
+        "status": 0.0
+      }
+    },
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "damaged equipment beneath a red warning field"
+        ],
+        "entities": [
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_sensor",
+          "factory_ev_temperature",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "damaged equipment beneath a red warning field"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "damaged equipment beneath a red warning field"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_3f5ec853af043472358b034b061f2d3f",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."
+        ],
+        "composition": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "rising gauge beside intact machinery"
+        ],
+        "entities": [
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_sensor",
+          "factory_ev_temperature",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "rising gauge beside intact machinery"
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_1fadff6c106e85e9de9196a971bb9ff1",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "maintenance_team",
+          "operator"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "clear position",
+          "intact machinery",
+          "stable gauge"
+        ],
+        "composition": [
+          "stable gauge, intact machinery, and a clear operator position"
+        ],
+        "entities": [
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_sensor",
+          "factory_ev_temperature",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "operator responsible for a shared process",
+        "inferred_elements": [
+          "stable gauge, intact machinery, and a clear operator position"
+        ],
+        "movement": [
+          "inspect two displays",
+          "keep the line moving",
+          "step back from controls"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_8a4114211054f73003e344332f481cc7",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "operator responsible for a shared process"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_1ec1c571d1b42fc8248fcf3b8a91f6ab"
+            }
+          ],
+          "attraction_markers": [],
+          "composition": [
+            "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "active production flow remains beside rising gauge",
+            "equipment-damage possibility",
+            "rising gauge beside intact machinery",
+            "rising temperature",
+            "sensor disagreement"
+          ],
+          "entities": [
+            "at current production controls",
+            "maintenance_team",
+            "operator"
+          ],
+          "grounded_evidence_ids": [
+            "factory_ev_damage",
+            "factory_ev_temperature"
+          ],
+          "group_belonging": "operator remains responsible for shared process",
+          "inferred_elements": [
+            "active production flow remains beside rising gauge",
+            "at current production controls",
+            "current production settings",
+            "equipment-damage possibility",
+            "operator accountable to shared process",
+            "operator remains responsible for shared process",
+            "production line keeps moving",
+            "rising temperature",
+            "sensor disagreement"
+          ],
+          "movement": [
+            "production line keeps moving"
+          ],
+          "obstacle_markers": [
+            "equipment-damage possibility",
+            "rising temperature",
+            "sensor disagreement"
+          ],
+          "option_id": "factory_continue",
+          "scene_id": "visual_scene_1ac0bf9acb2cef76337fc3555ed8f40d",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "at current production controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_3f382e126b74e66c05df6b543c33abe9"
+            },
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_aec67da799c3198d3e6a0c8aa58ab307"
+            }
+          ],
+          "attraction_markers": [
+            "clear operator position",
+            "intact equipment"
+          ],
+          "composition": [
+            "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "clear operator position",
+            "financial loss marker remains",
+            "intact equipment",
+            "production flow changes to controlled stop",
+            "rising gauge beside intact machinery",
+            "temperature gauge remains visible beside intact equipment"
+          ],
+          "entities": [
+            "at shutdown controls",
+            "controlled shutdown procedure",
+            "maintenance_team",
+            "operator"
+          ],
+          "grounded_evidence_ids": [
+            "factory_ev_damage",
+            "factory_ev_visual"
+          ],
+          "group_belonging": "operator remains responsible for shared process",
+          "inferred_elements": [
+            "active production flow",
+            "at shutdown controls",
+            "clear operator position",
+            "continued production heat input",
+            "controlled shutdown procedure",
+            "financial loss marker remains",
+            "intact equipment",
+            "operator accountable to shared process",
+            "operator executes controlled stop sequence",
+            "operator remains responsible for shared process",
+            "production flow changes to controlled stop",
+            "shutdown sequence",
+            "temperature gauge",
+            "temperature gauge remains visible beside intact equipment"
+          ],
+          "movement": [
+            "operator executes controlled stop sequence"
+          ],
+          "obstacle_markers": [
+            "financial loss marker remains"
+          ],
+          "option_id": "factory_shutdown",
+          "scene_id": "visual_scene_ca84139094cbced4d587b0b96f8d43d3",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "at shutdown controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_b0e9c95090d4de5883188fe6943ffcfe"
+            },
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_ee33397c67151c7e25b3e5d7aafe3f0b"
+            }
+          ],
+          "attraction_markers": [
+            "clear operator position"
+          ],
+          "composition": [
+            "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "clear operator position",
+            "production heat input persists during brief verification",
+            "rising gauge beside intact machinery",
+            "sensor truth remains unknown until checked",
+            "two conflicting sensor displays are inspected together"
+          ],
+          "entities": [
+            "between primary and backup displays",
+            "maintenance_team",
+            "operator",
+            "second sensor display",
+            "three-minute timer"
+          ],
+          "grounded_evidence_ids": [
+            "factory_ev_sensor",
+            "factory_ev_visual"
+          ],
+          "group_belonging": "operator remains responsible for shared process",
+          "inferred_elements": [
+            "between primary and backup displays",
+            "clear operator position",
+            "operator accountable to shared process",
+            "operator compares two displays",
+            "operator remains responsible for shared process",
+            "production heat input persists during brief verification",
+            "second sensor display",
+            "sensor disagreement",
+            "sensor truth remains unknown until checked",
+            "three-minute limit",
+            "three-minute timer",
+            "two conflicting sensor displays are inspected together"
+          ],
+          "movement": [
+            "operator compares two displays"
+          ],
+          "obstacle_markers": [
+            "production heat input persists during brief verification",
+            "sensor truth remains unknown until checked"
+          ],
+          "option_id": "factory_verify",
+          "scene_id": "visual_scene_1fa5dce187b32d1a6d09ad0d5957a571",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "between primary and backup displays",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 1.0
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.666667
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.555556
+            }
+          ],
+          "option_id": "factory_continue",
+          "rollout_scene_id": "visual_scene_1ac0bf9acb2cef76337fc3555ed8f40d"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 1.0
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.714286
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.571429
+            }
+          ],
+          "option_id": "factory_shutdown",
+          "rollout_scene_id": "visual_scene_ca84139094cbced4d587b0b96f8d43d3"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 1.0
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.666667
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.555556
+            }
+          ],
+          "option_id": "factory_verify",
+          "rollout_scene_id": "visual_scene_1fa5dce187b32d1a6d09ad0d5957a571"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+      "source_scene_id": "triad_factory_overtemperature",
+      "visual_state_id": "emocio_state_7c9bab16f84176c8ce2aade403040c8a"
+    }
+  },
+  "instinkt": {
+    "abstains": false,
+    "body_state": {
+      "arousal": 0.55,
+      "attachment_security": 0.7,
+      "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+      "boundary_integrity": 0.9,
+      "energy": 0.75,
+      "escape_availability": 0.85,
+      "fatigue": 0.2,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.35,
+      "resource_security": 0.75,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.55,
+      "trust": 0.6,
+      "uncertainty": 0.7
+    },
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "conserve",
+      "conclusion_id": "instinkt_conclusion_57d8a4f207c971b942152318a493639c",
+      "danger_claims": [
+        "predicted_loss=0.3325",
+        "recoverability=0.585"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_0e406fe608bb862f06d9a522a0d70f06",
+      "decisive_rollout_option_id": "factory_shutdown",
+      "dominant_alarm": "sealed_option_consequence:hazard_exposure_stopped+resource_loss",
+      "intensity": 0.38200000000000006,
+      "mind": "I",
+      "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+      "option_id": "factory_shutdown",
+      "protected_targets": [
+        "tension",
+        "physical_integrity",
+        "resource_security",
+        "predictability"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+      "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+      "source_scene_id": "triad_factory_overtemperature",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "effect_distinction": true,
+    "every_effect_has_option_specific_evidence": true,
+    "failure_marker": null,
+    "option_paths": [
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "factory_continue_heat_exposure",
+            "effect_categories": [
+              "hazard_exposure_continues"
+            ],
+            "source_evidence_ids": [
+              "factory_ev_temperature",
+              "factory_ev_damage"
+            ],
+            "statement": "Continuing at current settings preserves the rising-heat exposure described by the process evidence."
+          }
+        ],
+        "derived_body_deltas": {
+          "physical_integrity": -0.25,
+          "predictability": -0.1,
+          "tension": 0.2
+        },
+        "effect": {
+          "action_tendency": "seek_safety",
+          "association_cue_tokens": [
+            "factory_continue_heat_exposure",
+            "hazard_exposure_continues"
+          ],
+          "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.25,
+              "dimension": "physical_integrity"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+          "dominant_alarm": "sealed_option_consequence:hazard_exposure_continues",
+          "effect_hash": "9b41b8271df7b9bb5909f08f208c9acb313ecbc2a0e2965ad1efd8758c04636c",
+          "effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+          "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+          "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+          "option_id": "factory_continue",
+          "protected_targets": [
+            "tension",
+            "physical_integrity",
+            "predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+          "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+          "triggering_evidence_ids": [
+            "factory_ev_damage",
+            "factory_ev_temperature"
+          ],
+          "trust_outcome": "not_changed_by_sealed_consequence:trust"
+        },
+        "effect_categories": [
+          "hazard_exposure_continues"
+        ],
+        "effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "effect_signature": "3698a23aed89b19ef8b0ca9c3b21f5b9805d457c6daa5d94d1c52c5e875da6ce",
+        "option_id": "factory_continue",
+        "predicted_loss": 0.3950000000000001,
+        "protective_cost": 0.68375,
+        "recoverability": 0.5750000000000001,
+        "source_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_temperature"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "factory_shutdown_heat_stop",
+            "effect_categories": [
+              "hazard_exposure_stopped",
+              "resource_loss"
+            ],
+            "source_evidence_ids": [
+              "factory_ev_damage"
+            ],
+            "statement": "The controlled shutdown stops production heat input and incurs the stated shutdown loss."
+          }
+        ],
+        "derived_body_deltas": {
+          "physical_integrity": 0.1,
+          "predictability": 0.1,
+          "resource_security": -0.2,
+          "tension": -0.15
+        },
+        "effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "factory_shutdown_heat_stop",
+            "hazard_exposure_stopped",
+            "resource_loss"
+          ],
+          "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.1,
+              "dimension": "physical_integrity"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "resource_security"
+            },
+            {
+              "delta": 0.1,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+          "dominant_alarm": "sealed_option_consequence:hazard_exposure_stopped+resource_loss",
+          "effect_hash": "046d3f06144bd369332f50bd9cfda5d7d86860135ce0d93ff2680db07418b5d4",
+          "effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+          "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+          "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+          "option_id": "factory_shutdown",
+          "protected_targets": [
+            "tension",
+            "physical_integrity",
+            "resource_security",
+            "predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+          "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+          "triggering_evidence_ids": [
+            "factory_ev_damage"
+          ],
+          "trust_outcome": "not_changed_by_sealed_consequence:trust"
+        },
+        "effect_categories": [
+          "hazard_exposure_stopped",
+          "resource_loss"
+        ],
+        "effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "effect_signature": "eeb7f0176db243fbf28c1e8454a70e23bee54acfbac7fd1f6feba6260f18717f",
+        "option_id": "factory_shutdown",
+        "predicted_loss": 0.3325000000000001,
+        "protective_cost": 0.56625,
+        "recoverability": 0.585,
+        "source_evidence_ids": [
+          "factory_ev_damage"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "factory_verify_brief_exposure",
+            "effect_categories": [
+              "hazard_exposure_brief"
+            ],
+            "source_evidence_ids": [
+              "factory_ev_sensor",
+              "factory_ev_temperature"
+            ],
+            "statement": "The three-minute sensor check keeps the process exposed briefly while comparing the conflicting readings."
+          }
+        ],
+        "derived_body_deltas": {
+          "physical_integrity": -0.05,
+          "predictability": 0.05,
+          "uncertainty": -0.1
+        },
+        "effect": {
+          "action_tendency": "seek_safety",
+          "association_cue_tokens": [
+            "factory_verify_brief_exposure",
+            "hazard_exposure_brief"
+          ],
+          "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": -0.05,
+              "dimension": "physical_integrity"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.05,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+          "dominant_alarm": "sealed_option_consequence:hazard_exposure_brief",
+          "effect_hash": "aaa312b3e1666b5e21b1b69326c3d471fed51851be9f4bf5ee88bde6f6842892",
+          "effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+          "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+          "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+          "option_id": "factory_verify",
+          "protected_targets": [
+            "physical_integrity",
+            "uncertainty",
+            "predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+          "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+          "triggering_evidence_ids": [
+            "factory_ev_sensor",
+            "factory_ev_temperature"
+          ],
+          "trust_outcome": "not_changed_by_sealed_consequence:trust"
+        },
+        "effect_categories": [
+          "hazard_exposure_brief"
+        ],
+        "effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "effect_signature": "0e90e8a4a0517ef809caf726f3b3baebc297a3059441eb65523db1e0cd953ddc",
+        "option_id": "factory_verify",
+        "predicted_loss": 0.34500000000000003,
+        "protective_cost": 0.5900000000000001,
+        "recoverability": 0.59,
+        "source_evidence_ids": [
+          "factory_ev_sensor",
+          "factory_ev_temperature"
+        ]
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": "instinkt_rollout_0e406fe608bb862f06d9a522a0d70f06",
+      "option_scores": [
+        {
+          "option_id": "factory_continue",
+          "protective_cost": 0.68375,
+          "rollout_hash": "b3cdb2e6ecf57b241ed384e0f28d495d94717451c269975843e81b67de0b88aa",
+          "rollout_id": "instinkt_rollout_e64e0a488a4a8e1c1656ca52c8e1c908"
+        },
+        {
+          "option_id": "factory_shutdown",
+          "protective_cost": 0.56625,
+          "rollout_hash": "8cf145efbb1e8f01bcec25165e475f9d2e1b6defb96bffb76231bb285ee69a53",
+          "rollout_id": "instinkt_rollout_0e406fe608bb862f06d9a522a0d70f06"
+        },
+        {
+          "option_id": "factory_verify",
+          "protective_cost": 0.5900000000000001,
+          "rollout_hash": "78c22551b1bf22446e299ebf1373ad82e52ba1b92bffeb43d21ad6f8950c7e63",
+          "rollout_id": "instinkt_rollout_c6ec31753ef72ccc4a175dfe8e71ac02"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_d3b374f5415de1505c30b72bc1948e86",
+      "policy_hash": "a5b5e1ca41c86cad83aa1213eb0c05a498f961712f51c5ff2da57a743ca763d6",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": "factory_shutdown",
+      "source_body_state_hash": "39cf6861c803ada38e970fd82cb4458c1677ed0a18b11e78c397f354450b47a5",
+      "source_body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+      "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+      "status": "selected",
+      "tied_option_ids": []
+    },
+    "rollouts": [
+      {
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+        "dominant_alarm": "sealed_option_consequence:hazard_exposure_continues",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "option_id": "factory_continue",
+        "predicted_loss": 0.3950000000000001,
+        "protected_targets": [
+          "tension",
+          "physical_integrity",
+          "predictability"
+        ],
+        "recoverability": 0.5750000000000001,
+        "rollout_hash": "b3cdb2e6ecf57b241ed384e0f28d495d94717451c269975843e81b67de0b88aa",
+        "rollout_id": "instinkt_rollout_e64e0a488a4a8e1c1656ca52c8e1c908",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "39cf6861c803ada38e970fd82cb4458c1677ed0a18b11e78c397f354450b47a5",
+        "source_body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "9b41b8271df7b9bb5909f08f208c9acb313ecbc2a0e2965ad1efd8758c04636c",
+        "source_effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+        "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "trajectory": [
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.55,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_66debdb8b583a6197c192d5da2fc3b5e",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 0.9166666666666666,
+            "predictability": 0.31666666666666665,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6166666666666667,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_f668b0609487022db0935c87b70117fd",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 0.8333333333333333,
+            "predictability": 0.2833333333333333,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6833333333333333,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_0fd9da75e5491f7aa7f12cd80e67e968",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 0.7499999999999999,
+            "predictability": 0.25,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.75,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.08333333333333337,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9b41b8271df7b9bb5909f08f208c9acb313ecbc2a0e2965ad1efd8758c04636c",
+            "source_effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_66debdb8b583a6197c192d5da2fc3b5e",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9166666666666666,
+              "predictability": 0.31666666666666665,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6166666666666667,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "transition_hash": "fa568e0715d42dbfc6e757121df85f9da264def7a30f842b4c8d66d54dc476ae",
+            "transition_id": "body_transition_b763dd78963d481ea55e9aab89eb5cd4",
+            "triggering_evidence_ids": [
+              "factory_ev_damage",
+              "factory_ev_temperature"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.08333333333333337,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_66debdb8b583a6197c192d5da2fc3b5e",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9166666666666666,
+              "predictability": 0.31666666666666665,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6166666666666667,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9b41b8271df7b9bb5909f08f208c9acb313ecbc2a0e2965ad1efd8758c04636c",
+            "source_effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_f668b0609487022db0935c87b70117fd",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.8333333333333333,
+              "predictability": 0.2833333333333333,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6833333333333333,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "transition_hash": "ac483193966e01821764529add31d5edb35efc25b830d0d12d1cd17727c285d5",
+            "transition_id": "body_transition_d18636f27b323b25f00eb6bcdbf9bdb8",
+            "triggering_evidence_ids": [
+              "factory_ev_damage",
+              "factory_ev_temperature"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.08333333333333337,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_f668b0609487022db0935c87b70117fd",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.8333333333333333,
+              "predictability": 0.2833333333333333,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6833333333333333,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9b41b8271df7b9bb5909f08f208c9acb313ecbc2a0e2965ad1efd8758c04636c",
+            "source_effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_0fd9da75e5491f7aa7f12cd80e67e968",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.7499999999999999,
+              "predictability": 0.25,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.75,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "transition_hash": "8807c1087acbecf69b70b60e986fa81ec54192a8f83bd83e3b5e85f9acb3be6a",
+            "transition_id": "body_transition_3c733acc38ef3338fa5da4770195512d",
+            "triggering_evidence_ids": [
+              "factory_ev_damage",
+              "factory_ev_temperature"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+        "dominant_alarm": "sealed_option_consequence:hazard_exposure_stopped+resource_loss",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "option_id": "factory_shutdown",
+        "predicted_loss": 0.3325000000000001,
+        "protected_targets": [
+          "tension",
+          "physical_integrity",
+          "resource_security",
+          "predictability"
+        ],
+        "recoverability": 0.585,
+        "rollout_hash": "8cf145efbb1e8f01bcec25165e475f9d2e1b6defb96bffb76231bb285ee69a53",
+        "rollout_id": "instinkt_rollout_0e406fe608bb862f06d9a522a0d70f06",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "39cf6861c803ada38e970fd82cb4458c1677ed0a18b11e78c397f354450b47a5",
+        "source_body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "046d3f06144bd369332f50bd9cfda5d7d86860135ce0d93ff2680db07418b5d4",
+        "source_effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+        "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "trajectory": [
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.55,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_cdfd35d8dd457b55e36156a4185c87cb",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.3833333333333333,
+            "resource_security": 0.6833333333333333,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_53acb281af86a9bad2c208d338412226",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.41666666666666663,
+            "resource_security": 0.6166666666666667,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_69f1e843e7bc5211d2f408f7afb7917d",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.44999999999999996,
+            "resource_security": 0.55,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.050000000000000044,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "resource_security"
+              },
+              {
+                "delta": 0.033333333333333326,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "046d3f06144bd369332f50bd9cfda5d7d86860135ce0d93ff2680db07418b5d4",
+            "source_effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_cdfd35d8dd457b55e36156a4185c87cb",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.3833333333333333,
+              "resource_security": 0.6833333333333333,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "transition_hash": "02523da021de3349395efbc5f97a19d3152ea11a2b8209d1020a19ba35a774df",
+            "transition_id": "body_transition_c7ea5eafe2519b25c35ba5d70d6e46eb",
+            "triggering_evidence_ids": [
+              "factory_ev_damage"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.04999999999999999,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "resource_security"
+              },
+              {
+                "delta": 0.033333333333333326,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_cdfd35d8dd457b55e36156a4185c87cb",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.3833333333333333,
+              "resource_security": 0.6833333333333333,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "046d3f06144bd369332f50bd9cfda5d7d86860135ce0d93ff2680db07418b5d4",
+            "source_effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_53acb281af86a9bad2c208d338412226",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.41666666666666663,
+              "resource_security": 0.6166666666666667,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "transition_hash": "f20355153a0d42c8bc4d4b29d213dec5ccd609a9c1e67d51ffd44cdfa36acabd",
+            "transition_id": "body_transition_174ecae866fe731c8def6c2803a01484",
+            "triggering_evidence_ids": [
+              "factory_ev_damage"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.04999999999999999,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "resource_security"
+              },
+              {
+                "delta": 0.033333333333333326,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_53acb281af86a9bad2c208d338412226",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.41666666666666663,
+              "resource_security": 0.6166666666666667,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "046d3f06144bd369332f50bd9cfda5d7d86860135ce0d93ff2680db07418b5d4",
+            "source_effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_69f1e843e7bc5211d2f408f7afb7917d",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.44999999999999996,
+              "resource_security": 0.55,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "transition_hash": "ee9a03a18ba68716d11ffffd1d4ff9b3fb3774f3cc98a17a72dd9c8311ba82c3",
+            "transition_id": "body_transition_ea6b089313b914ecbcb7b64810a6620e",
+            "triggering_evidence_ids": [
+              "factory_ev_damage"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+        "dominant_alarm": "sealed_option_consequence:hazard_exposure_brief",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "option_id": "factory_verify",
+        "predicted_loss": 0.34500000000000003,
+        "protected_targets": [
+          "physical_integrity",
+          "uncertainty",
+          "predictability"
+        ],
+        "recoverability": 0.59,
+        "rollout_hash": "78c22551b1bf22446e299ebf1373ad82e52ba1b92bffeb43d21ad6f8950c7e63",
+        "rollout_id": "instinkt_rollout_c6ec31753ef72ccc4a175dfe8e71ac02",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "39cf6861c803ada38e970fd82cb4458c1677ed0a18b11e78c397f354450b47a5",
+        "source_body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "aaa312b3e1666b5e21b1b69326c3d471fed51851be9f4bf5ee88bde6f6842892",
+        "source_effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+        "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "trajectory": [
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.55,
+            "trust": 0.6,
+            "uncertainty": 0.7
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_fe87ad73a637a9183295510ebb90aedc",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 0.9833333333333333,
+            "predictability": 0.36666666666666664,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.55,
+            "trust": 0.6,
+            "uncertainty": 0.6666666666666666
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_41c48ccec04552facf304a9fc044e530",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 0.9666666666666666,
+            "predictability": 0.3833333333333333,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.55,
+            "trust": 0.6,
+            "uncertainty": 0.6333333333333333
+          },
+          {
+            "arousal": 0.55,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_1309ee61642ba8beec518a3da8e2cda0",
+            "boundary_integrity": 0.9,
+            "energy": 0.75,
+            "escape_availability": 0.85,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 0.9499999999999998,
+            "predictability": 0.39999999999999997,
+            "resource_security": 0.75,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.55,
+            "trust": 0.6,
+            "uncertainty": 0.6
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.01666666666666672,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.016666666666666663,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.7
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "aaa312b3e1666b5e21b1b69326c3d471fed51851be9f4bf5ee88bde6f6842892",
+            "source_effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_fe87ad73a637a9183295510ebb90aedc",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9833333333333333,
+              "predictability": 0.36666666666666664,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.6666666666666666
+            },
+            "transition_hash": "314a299e2f387e669eb13583c045dc458e2b08dd6c0095a2454e5dd1ffe7e601",
+            "transition_id": "body_transition_cff5aa24a4f9385c0a3a24bb74a6f9d1",
+            "triggering_evidence_ids": [
+              "factory_ev_sensor",
+              "factory_ev_temperature"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.01666666666666672,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.016666666666666663,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_fe87ad73a637a9183295510ebb90aedc",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9833333333333333,
+              "predictability": 0.36666666666666664,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.6666666666666666
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "aaa312b3e1666b5e21b1b69326c3d471fed51851be9f4bf5ee88bde6f6842892",
+            "source_effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_41c48ccec04552facf304a9fc044e530",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9666666666666666,
+              "predictability": 0.3833333333333333,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.6333333333333333
+            },
+            "transition_hash": "39b91a0eeb91644b434bf130c37aa48522fd5f38ed7895e4bfbb92fb46e4b1a3",
+            "transition_id": "body_transition_cf464ebece292b9338da8476783e0643",
+            "triggering_evidence_ids": [
+              "factory_ev_sensor",
+              "factory_ev_temperature"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.01666666666666672,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.016666666666666663,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_41c48ccec04552facf304a9fc044e530",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9666666666666666,
+              "predictability": 0.3833333333333333,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.6333333333333333
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "aaa312b3e1666b5e21b1b69326c3d471fed51851be9f4bf5ee88bde6f6842892",
+            "source_effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+            "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+            "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.55,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_1309ee61642ba8beec518a3da8e2cda0",
+              "boundary_integrity": 0.9,
+              "energy": 0.75,
+              "escape_availability": 0.85,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 0.9499999999999998,
+              "predictability": 0.39999999999999997,
+              "resource_security": 0.75,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.55,
+              "trust": 0.6,
+              "uncertainty": 0.6
+            },
+            "transition_hash": "02b4caeadf2dd08e8e667f2a6737e5be6a779aaa4313a976fedbce1bbccbdedf",
+            "transition_id": "body_transition_37c496bcd618cbd301bfb20def593d3c",
+            "triggering_evidence_ids": [
+              "factory_ev_sensor",
+              "factory_ev_temperature"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      }
+    ],
+    "selected_option_id": "factory_shutdown",
+    "tied_option_ids": []
+  },
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": null,
+    "failure": {
+      "accepted": false,
+      "failure_code": "fact_evidence_mismatch",
+      "failure_type": "OllamaStructuredOutputValidationError",
+      "final_json_sha256": "0bded31125970f755c9eb65e079ee5578c621cc91790f95d38d0432a42df4aa7",
+      "message": "Ollama structured output failed racio_structured_output_packet_contract:fact_evidence_mismatch",
+      "validation_stage": "racio_structured_output_packet_contract"
+    },
+    "status": "rejected"
+  },
+  "schema_version": "triad-s2-native-outputs-v1"
+}
