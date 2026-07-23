@@ -1040,6 +1040,7 @@ def build_expected_call_ledger() -> Mapping[str, Any]:
             "character_replay_rows": 52,
         },
         "triad_d1_actual": {
+            "scope": "s2_candidate_preparation_and_preflight_only",
             "model_calls": 0,
             "retries": 0,
             "fallbacks": 0,

@@ -43,6 +43,7 @@
     "fallbacks": 0,
     "model_calls": 0,
     "native_processor_calls": 0,
-    "retries": 0
+    "retries": 0,
+    "scope": "s2_candidate_preparation_and_preflight_only"
   }
 }

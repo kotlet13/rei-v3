@@ -276,6 +276,7 @@ def test_precommitted_s2_projection_is_model_free_and_unsealed() -> None:
     assert candidate["execution_seal_created"] is False
     assert candidate["model_calls_performed"] == 0
     assert ledger["triad_d1_actual"] == {
+        "scope": "s2_candidate_preparation_and_preflight_only",
         "model_calls": 0,
         "retries": 0,
         "fallbacks": 0,
