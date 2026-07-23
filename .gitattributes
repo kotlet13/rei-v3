@@ -43,6 +43,9 @@ Docs/evals/research_reset_2026-07/gemma4_text_shadow_s1_seal.json text eol=lf
 Docs/evals/research_reset_2026-07/gemma4_text_shadow_s1r_seal.json text eol=lf
 Docs/evals/research_reset_2026-07/gemma4_text_shadow_s1r_post_verification_receipt.json text eol=lf
 
+# TRIAD-S1 freezes the bilingual corpus, seal, and compact evidence by raw SHA-256.
+Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/** text eol=lf
+
 # C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
 tests/fixtures/semantic_lab_v1/** text eol=lf
 tests/fixtures/native_bundles/** text eol=lf
