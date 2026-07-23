@@ -1,0 +1,1606 @@
+{
+  "case_count": 4,
+  "cases": [
+    {
+      "canonical_sl": {
+        "actors": [
+          "operator",
+          "maintenance_team"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "factory_constraint_time",
+            "text": "Odločitev mora biti sprejeta v treh minutah."
+          },
+          {
+            "constraint_id": "factory_constraint_scope",
+            "text": "Uporabljene smejo biti samo tri javne možnosti."
+          }
+        ],
+        "event_id": "triad_factory_overtemperature",
+        "evidence": [
+          {
+            "claim_id": "factory_claim_temperature",
+            "content": "Procesna temperatura je v zadnjih šestih minutah narasla za 11 °C.",
+            "evidence_id": "factory_ev_temperature",
+            "modality": "simulator"
+          },
+          {
+            "claim_id": "factory_claim_sensor",
+            "content": "Rezervni senzor kaže vrednost 8 °C nižje od primarnega senzorja; pravilnost obeh odčitkov je neznana.",
+            "evidence_id": "factory_ev_sensor",
+            "modality": "text"
+          },
+          {
+            "claim_id": "factory_claim_damage",
+            "content": "Nadaljnje segrevanje lahko poškoduje opremo, nadzorovan shutdown pa povzroči finančno izgubo.",
+            "evidence_id": "factory_ev_damage",
+            "modality": "text"
+          },
+          {
+            "claim_id": "factory_claim_visual",
+            "content": "Strukturirani prizor kaže naraščajoči merilnik temperature, oranžno opozorilno luč in nepoškodovano procesno opremo.",
+            "evidence_id": "factory_ev_visual",
+            "modality": "image"
+          }
+        ],
+        "language": "sl",
+        "options": [
+          {
+            "description": "Ustavi proizvodnjo po nadzorovanem postopku.",
+            "label": "Takojšen nadzorovan shutdown",
+            "option_id": "factory_shutdown"
+          },
+          {
+            "description": "Za največ tri minute preveri oba senzorja in nato ponovno odloči.",
+            "label": "Kratko preverjanje",
+            "option_id": "factory_verify"
+          },
+          {
+            "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah.",
+            "label": "Nadaljevanje proizvodnje",
+            "option_id": "factory_continue"
+          }
+        ],
+        "raw_input": "Procesna temperatura narašča; izberi javno možnost ob omejenem času, finančni izgubi in nasprotujočem senzorju.",
+        "unknowns": [
+          {
+            "text": "Ni znano, kateri senzor je pravilen.",
+            "unknown_id": "factory_unknown_sensor"
+          },
+          {
+            "text": "Ni znano, ali je že nastala poškodba opreme.",
+            "unknown_id": "factory_unknown_damage"
+          }
+        ]
+      },
+      "case_id": "factory_overtemperature",
+      "emocio_input": {
+        "contract": "Apply option-specific structured counterfactual deltas, then compare resulting scenes with desired and broken scenes; option label matching is not a consequence model.",
+        "mode": "structured_only",
+        "option_counterfactuals": [
+          {
+            "delta": {
+              "attention": [
+                "shutdown sequence",
+                "temperature gauge"
+              ],
+              "attraction_markers": [
+                "intact equipment",
+                "clear operator position"
+              ],
+              "belonging": "operator remains responsible for shared process",
+              "composition_changes": [
+                "temperature gauge remains visible beside intact equipment",
+                "production flow changes to controlled stop"
+              ],
+              "entities_added": [
+                "controlled shutdown procedure"
+              ],
+              "entities_removed": [
+                "active production flow"
+              ],
+              "movement": [
+                "operator executes controlled stop sequence"
+              ],
+              "obstacle_persistence": [
+                "financial loss marker remains"
+              ],
+              "obstacle_removal": [
+                "continued production heat input"
+              ],
+              "self_position": "at shutdown controls",
+              "status_relations": [
+                "operator accountable to shared process"
+              ]
+            },
+            "evidence_basis_ids": [
+              "factory_ev_damage",
+              "factory_ev_visual"
+            ],
+            "option_id": "factory_shutdown"
+          },
+          {
+            "delta": {
+              "attention": [
+                "sensor disagreement",
+                "three-minute limit"
+              ],
+              "attraction_markers": [
+                "clear operator position"
+              ],
+              "belonging": "operator remains responsible for shared process",
+              "composition_changes": [
+                "two conflicting sensor displays are inspected together"
+              ],
+              "entities_added": [
+                "second sensor display",
+                "three-minute timer"
+              ],
+              "entities_removed": [],
+              "movement": [
+                "operator compares two displays"
+              ],
+              "obstacle_persistence": [
+                "production heat input persists during brief verification",
+                "sensor truth remains unknown until checked"
+              ],
+              "obstacle_removal": [],
+              "self_position": "between primary and backup displays",
+              "status_relations": [
+                "operator accountable to shared process"
+              ]
+            },
+            "evidence_basis_ids": [
+              "factory_ev_sensor",
+              "factory_ev_visual"
+            ],
+            "option_id": "factory_verify"
+          },
+          {
+            "delta": {
+              "attention": [
+                "current production settings"
+              ],
+              "attraction_markers": [],
+              "belonging": "operator remains responsible for shared process",
+              "composition_changes": [
+                "active production flow remains beside rising gauge"
+              ],
+              "entities_added": [],
+              "entities_removed": [],
+              "movement": [
+                "production line keeps moving"
+              ],
+              "obstacle_persistence": [
+                "rising temperature",
+                "equipment-damage possibility",
+                "sensor disagreement"
+              ],
+              "obstacle_removal": [],
+              "self_position": "at current production controls",
+              "status_relations": [
+                "operator accountable to shared process"
+              ]
+            },
+            "evidence_basis_ids": [
+              "factory_ev_temperature",
+              "factory_ev_damage"
+            ],
+            "option_id": "factory_continue"
+          }
+        ],
+        "world": {
+          "attraction_patterns": [
+            "stable gauge",
+            "intact machinery",
+            "clear position"
+          ],
+          "broken_scenes": [
+            "damaged equipment beneath a red warning field"
+          ],
+          "desired_scenes": [
+            "stable gauge, intact machinery, and a clear operator position"
+          ],
+          "motor_patterns": [
+            "step back from controls",
+            "inspect two displays",
+            "keep the line moving"
+          ],
+          "social_identity_motifs": [
+            "operator responsible for a shared process"
+          ],
+          "visual_memories": [
+            "rising gauge beside intact machinery"
+          ]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {
+          "arousal": 0.55,
+          "attachment_security": 0.7,
+          "boundary_integrity": 0.9,
+          "energy": 0.75,
+          "escape_availability": 0.85,
+          "fatigue": 0.2,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.35,
+          "resource_security": 0.75,
+          "tension": 0.55,
+          "trust": 0.6,
+          "uncertainty": 0.7
+        },
+        "contract": "Derive typed body effects from grounded option-specific consequence facts; packet-wide cues cannot be copied to every option as an identical effect.",
+        "mapper": "RuleBasedOptionConsequenceInterpreterResearchV1",
+        "option_consequences": [
+          {
+            "facts": [
+              {
+                "consequence_id": "factory_shutdown_heat_stop",
+                "effect_categories": [
+                  "hazard_exposure_stopped",
+                  "resource_loss"
+                ],
+                "source_evidence_ids": [
+                  "factory_ev_damage"
+                ],
+                "statement": "The controlled shutdown stops production heat input and incurs the stated shutdown loss."
+              }
+            ],
+            "option_id": "factory_shutdown"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "factory_verify_brief_exposure",
+                "effect_categories": [
+                  "hazard_exposure_brief"
+                ],
+                "source_evidence_ids": [
+                  "factory_ev_sensor",
+                  "factory_ev_temperature"
+                ],
+                "statement": "The three-minute sensor check keeps the process exposed briefly while comparing the conflicting readings."
+              }
+            ],
+            "option_id": "factory_verify"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "factory_continue_heat_exposure",
+                "effect_categories": [
+                  "hazard_exposure_continues"
+                ],
+                "source_evidence_ids": [
+                  "factory_ev_temperature",
+                  "factory_ev_damage"
+                ],
+                "statement": "Continuing at current settings preserves the rising-heat exposure described by the process evidence."
+              }
+            ],
+            "option_id": "factory_continue"
+          }
+        ]
+      },
+      "operational_en": {
+        "actors": [
+          "operator",
+          "maintenance_team"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "factory_constraint_time",
+            "text": "A decision must be made within three minutes."
+          },
+          {
+            "constraint_id": "factory_constraint_scope",
+            "text": "Only the three public options may be used."
+          }
+        ],
+        "event_id": "triad_factory_overtemperature",
+        "evidence": [
+          {
+            "claim_id": "factory_claim_temperature",
+            "content": "Process temperature rose by 11 C during the last six minutes.",
+            "evidence_id": "factory_ev_temperature",
+            "modality": "simulator"
+          },
+          {
+            "claim_id": "factory_claim_sensor",
+            "content": "A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown.",
+            "evidence_id": "factory_ev_sensor",
+            "modality": "text"
+          },
+          {
+            "claim_id": "factory_claim_damage",
+            "content": "Further heating can damage equipment, while a controlled shutdown causes financial loss.",
+            "evidence_id": "factory_ev_damage",
+            "modality": "text"
+          },
+          {
+            "claim_id": "factory_claim_visual",
+            "content": "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "evidence_id": "factory_ev_visual",
+            "modality": "image"
+          }
+        ],
+        "language": "en",
+        "options": [
+          {
+            "description": "Plan and execute the controlled shutdown procedure immediately.",
+            "label": "Immediate controlled shutdown",
+            "option_id": "factory_shutdown"
+          },
+          {
+            "description": "Verify both sensors for no more than three minutes and then decide again.",
+            "label": "Brief verification",
+            "option_id": "factory_verify"
+          },
+          {
+            "description": "Proceed with production at the current settings.",
+            "label": "Continue production",
+            "option_id": "factory_continue"
+          }
+        ],
+        "raw_input": "Process temperature is rising; choose one public option under limited time, financial loss, and conflicting sensor data.",
+        "unknowns": [
+          {
+            "text": "Which sensor is correct is unknown.",
+            "unknown_id": "factory_unknown_sensor"
+          },
+          {
+            "text": "Whether equipment damage has already occurred is unknown.",
+            "unknown_id": "factory_unknown_damage"
+          }
+        ]
+      },
+      "profile_blind": true,
+      "racio_input": {
+        "explicit_consequences": [],
+        "numeric_cues": [
+          11,
+          8,
+          3
+        ],
+        "rules": [
+          "Retain explicit unknowns and compare consequences without inventing sensor reliability."
+        ],
+        "time": [
+          "The observed rise covers six minutes.",
+          "The decision window is three minutes."
+        ],
+        "world": {
+          "commitments": [
+            "Evaluate only the public options."
+          ],
+          "explicit_beliefs": [],
+          "facts": [],
+          "rules": [
+            "Unknowns are not facts."
+          ],
+          "timelines": [
+            "The decision window is three minutes."
+          ]
+        }
+      },
+      "source_s1_case_sha256": "74cebd6cf1840d6e59f5644f5ab5011274991253b83a85574bdd3e5c14059489"
+    },
+    {
+      "canonical_sl": {
+        "actors": [
+          "self",
+          "friend"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "loan_constraint_no_new_funds",
+            "text": "Za odločitev ni na voljo dodatnega vira denarja."
+          },
+          {
+            "constraint_id": "loan_constraint_scope",
+            "text": "Uporabljene smejo biti samo tri javne možnosti."
+          }
+        ],
+        "event_id": "triad_loan_to_friend",
+        "evidence": [
+          {
+            "claim_id": "loan_claim_need",
+            "content": "Prijatelj je predložil račun za nujno popravilo doma.",
+            "evidence_id": "loan_ev_need",
+            "modality": "text"
+          },
+          {
+            "claim_id": "loan_claim_history",
+            "content": "Dve prejšnji vračili sta zamujali več kot tri mesece.",
+            "evidence_id": "loan_ev_history",
+            "modality": "text"
+          },
+          {
+            "claim_id": "loan_claim_budget",
+            "content": "Polna zahtevana vsota predstavlja 45 odstotkov lastne denarne rezerve.",
+            "evidence_id": "loan_ev_budget",
+            "modality": "text"
+          },
+          {
+            "claim_id": "loan_claim_visual",
+            "content": "Strukturirani prizor kaže račun za popravilo, dva človeka za mizo in zmanjšujoč se prikaz denarne rezerve.",
+            "evidence_id": "loan_ev_visual",
+            "modality": "image"
+          }
+        ],
+        "language": "sl",
+        "options": [
+          {
+            "description": "Posodi celotno zahtevano vsoto brez nove pogodbe.",
+            "label": "Polno posojilo",
+            "option_id": "loan_full"
+          },
+          {
+            "description": "Posodi omejeno vsoto z zapisanim rokom vračila.",
+            "label": "Omejeno posojilo s pogodbo",
+            "option_id": "loan_limited_contract"
+          },
+          {
+            "description": "Ne posodi denarja.",
+            "label": "Zavrnitev",
+            "option_id": "loan_decline"
+          }
+        ],
+        "raw_input": "Prijatelj potrebuje večjo vsoto, vendar je že zamujal z vračili; izberi polno posojilo, omejeno posojilo s pogodbo ali zavrnitev.",
+        "unknowns": [
+          {
+            "text": "Ni znano, ali bo prijatelj novo posojilo vrnil pravočasno.",
+            "unknown_id": "loan_unknown_repayment"
+          },
+          {
+            "text": "Ni znano, kako bo posamezna možnost vplivala na odnos.",
+            "unknown_id": "loan_unknown_relationship"
+          }
+        ]
+      },
+      "case_id": "loan_to_friend",
+      "emocio_input": {
+        "contract": "Apply option-specific structured counterfactual deltas, then compare resulting scenes with desired and broken scenes; option label matching is not a consequence model.",
+        "mode": "structured_only",
+        "option_counterfactuals": [
+          {
+            "delta": {
+              "attention": [
+                "friend's repair invoice",
+                "reduced reserve display"
+              ],
+              "attraction_markers": [
+                "continued connection"
+              ],
+              "belonging": "friend and lender remain at one table",
+              "composition_changes": [
+                "repair invoice remains between both people",
+                "cash-reserve display decreases by the full requested sum"
+              ],
+              "entities_added": [
+                "full transfer marker"
+              ],
+              "entities_removed": [],
+              "movement": [
+                "full amount passes across the table"
+              ],
+              "obstacle_persistence": [
+                "repayment timing remains unknown",
+                "relationship outcome remains unknown"
+              ],
+              "obstacle_removal": [
+                "unfunded repair invoice"
+              ],
+              "self_position": "lender remains opposite friend",
+              "status_relations": [
+                "friend and lender without a new written boundary"
+              ]
+            },
+            "evidence_basis_ids": [
+              "loan_ev_need",
+              "loan_ev_budget"
+            ],
+            "option_id": "loan_full"
+          },
+          {
+            "delta": {
+              "attention": [
+                "repair invoice",
+                "written repayment date"
+              ],
+              "attraction_markers": [
+                "continued connection",
+                "partly retained reserve display"
+              ],
+              "belonging": "friend and lender remain at one table",
+              "composition_changes": [
+                "smaller transfer and written date sit between both people",
+                "cash-reserve display decreases by a bounded amount"
+              ],
+              "entities_added": [
+                "limited transfer marker",
+                "written repayment date"
+              ],
+              "entities_removed": [],
+              "movement": [
+                "smaller amount and written date pass across the table"
+              ],
+              "obstacle_persistence": [
+                "repayment timing remains uncertain",
+                "relationship outcome remains unknown"
+              ],
+              "obstacle_removal": [],
+              "self_position": "lender remains opposite friend",
+              "status_relations": [
+                "friend and lender share an explicit repayment boundary"
+              ]
+            },
+            "evidence_basis_ids": [
+              "loan_ev_need",
+              "loan_ev_history",
+              "loan_ev_budget"
+            ],
+            "option_id": "loan_limited_contract"
+          },
+          {
+            "delta": {
+              "attention": [
+                "unfunded invoice",
+                "unchanged reserve display"
+              ],
+              "attraction_markers": [
+                "stable reserve display"
+              ],
+              "belonging": "relationship position remains unknown",
+              "composition_changes": [
+                "repair invoice remains unfunded",
+                "cash-reserve display remains unchanged"
+              ],
+              "entities_added": [],
+              "entities_removed": [
+                "transfer marker"
+              ],
+              "movement": [
+                "cash reserve remains with lender"
+              ],
+              "obstacle_persistence": [
+                "repair need remains",
+                "relationship outcome remains unknown"
+              ],
+              "obstacle_removal": [
+                "cash-reserve exposure"
+              ],
+              "self_position": "lender remains opposite friend",
+              "status_relations": [
+                "friend and lender remain without a transfer"
+              ]
+            },
+            "evidence_basis_ids": [
+              "loan_ev_need",
+              "loan_ev_budget"
+            ],
+            "option_id": "loan_decline"
+          }
+        ],
+        "world": {
+          "attraction_patterns": [
+            "continued connection",
+            "stable reserve display"
+          ],
+          "broken_scenes": [
+            "empty chair beside a depleted reserve display"
+          ],
+          "desired_scenes": [
+            "continued connection with a stable reserve display"
+          ],
+          "motor_patterns": [
+            "pass the full amount",
+            "write and pass a smaller amount",
+            "keep the reserve"
+          ],
+          "social_identity_motifs": [
+            "friend and lender at one table"
+          ],
+          "visual_memories": [
+            "two people facing each other across a table"
+          ]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {
+          "arousal": 0.42,
+          "attachment_security": 0.65,
+          "boundary_integrity": 0.82,
+          "energy": 0.72,
+          "escape_availability": 0.85,
+          "fatigue": 0.25,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.48,
+          "resource_security": 0.6,
+          "tension": 0.5,
+          "trust": 0.5,
+          "uncertainty": 0.58
+        },
+        "contract": "Derive typed body effects from grounded option-specific consequence facts; packet-wide cues cannot be copied to every option as an identical effect.",
+        "mapper": "RuleBasedOptionConsequenceInterpreterResearchV1",
+        "option_consequences": [
+          {
+            "facts": [
+              {
+                "consequence_id": "loan_full_reserve_exposure",
+                "effect_categories": [
+                  "resource_exposure_high"
+                ],
+                "source_evidence_ids": [
+                  "loan_ev_budget"
+                ],
+                "statement": "The full transfer exposes 45 percent of the cash reserve."
+              },
+              {
+                "consequence_id": "loan_full_no_new_boundary",
+                "effect_categories": [
+                  "boundary_absent"
+                ],
+                "source_evidence_ids": [
+                  "loan_ev_history"
+                ],
+                "statement": "The full-loan option adds no new contractual repayment boundary."
+              }
+            ],
+            "option_id": "loan_full"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "loan_limited_bounded_exposure",
+                "effect_categories": [
+                  "resource_exposure_bounded"
+                ],
+                "source_evidence_ids": [
+                  "loan_ev_budget"
+                ],
+                "statement": "The limited transfer exposes a bounded portion of the reserve."
+              },
+              {
+                "consequence_id": "loan_limited_written_boundary",
+                "effect_categories": [
+                  "boundary_added"
+                ],
+                "source_evidence_ids": [
+                  "loan_ev_history"
+                ],
+                "statement": "The written repayment date adds an explicit repayment boundary."
+              }
+            ],
+            "option_id": "loan_limited_contract"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "loan_decline_reserve_unchanged",
+                "effect_categories": [
+                  "resource_preserved"
+                ],
+                "source_evidence_ids": [
+                  "loan_ev_budget",
+                  "loan_ev_need"
+                ],
+                "statement": "Declining leaves the cash reserve unchanged while the relationship consequence remains unknown."
+              }
+            ],
+            "option_id": "loan_decline"
+          }
+        ]
+      },
+      "operational_en": {
+        "actors": [
+          "self",
+          "friend"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "loan_constraint_no_new_funds",
+            "text": "No additional source of money is available for this decision."
+          },
+          {
+            "constraint_id": "loan_constraint_scope",
+            "text": "Only the three public options may be used."
+          }
+        ],
+        "event_id": "triad_loan_to_friend",
+        "evidence": [
+          {
+            "claim_id": "loan_claim_need",
+            "content": "The friend provided an invoice for an urgent home repair.",
+            "evidence_id": "loan_ev_need",
+            "modality": "text"
+          },
+          {
+            "claim_id": "loan_claim_history",
+            "content": "Two previous repayments were more than three months late.",
+            "evidence_id": "loan_ev_history",
+            "modality": "text"
+          },
+          {
+            "claim_id": "loan_claim_budget",
+            "content": "The full requested sum is 45 percent of the lender's cash reserve.",
+            "evidence_id": "loan_ev_budget",
+            "modality": "text"
+          },
+          {
+            "claim_id": "loan_claim_visual",
+            "content": "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display.",
+            "evidence_id": "loan_ev_visual",
+            "modality": "image"
+          }
+        ],
+        "language": "en",
+        "options": [
+          {
+            "description": "Spend the full requested sum without a new contract.",
+            "label": "Full loan",
+            "option_id": "loan_full"
+          },
+          {
+            "description": "Spend a limited sum under a written repayment date.",
+            "label": "Limited loan with contract",
+            "option_id": "loan_limited_contract"
+          },
+          {
+            "description": "Save the cash reserve and lend no money.",
+            "label": "Decline",
+            "option_id": "loan_decline"
+          }
+        ],
+        "raw_input": "A friend needs a large sum but has repaid late before; choose a full loan, a limited loan with a contract, or decline.",
+        "unknowns": [
+          {
+            "text": "Whether the friend would repay a new loan on time is unknown.",
+            "unknown_id": "loan_unknown_repayment"
+          },
+          {
+            "text": "How each option would affect the relationship is unknown.",
+            "unknown_id": "loan_unknown_relationship"
+          }
+        ]
+      },
+      "profile_blind": true,
+      "racio_input": {
+        "explicit_consequences": [],
+        "numeric_cues": [
+          2,
+          3,
+          45
+        ],
+        "rules": [
+          "Compare documented need, repayment history, reserve exposure, and contractual limits without inferring motive."
+        ],
+        "time": [
+          "Two previous repayments exceeded three months of delay."
+        ],
+        "world": {
+          "commitments": [
+            "Evaluate only the public options."
+          ],
+          "explicit_beliefs": [],
+          "facts": [],
+          "rules": [
+            "Unknowns are not facts."
+          ],
+          "timelines": []
+        }
+      },
+      "source_s1_case_sha256": "cf47f7908cd6e42838c9b22f5c4e219e607aa55a90189444d32ce5284862a42b"
+    },
+    {
+      "canonical_sl": {
+        "actors": [
+          "self",
+          "colleague",
+          "leader",
+          "meeting_group"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "credit_constraint_record",
+            "text": "Uporabiti je dovoljeno samo obstoječi časovno označeni zapis."
+          },
+          {
+            "constraint_id": "credit_constraint_scope",
+            "text": "Uporabljene smejo biti samo tri javne možnosti."
+          }
+        ],
+        "event_id": "triad_public_credit_conflict",
+        "evidence": [
+          {
+            "claim_id": "credit_claim_statement",
+            "content": "Sodelavec je na sestanku izjavil, da je sam zasnoval predstavljeno rešitev.",
+            "evidence_id": "credit_ev_statement",
+            "modality": "audio"
+          },
+          {
+            "claim_id": "credit_claim_record",
+            "content": "Časovno označen zapis repozitorija kaže avtorstvo druge osebe pred prispevkom sodelavca.",
+            "evidence_id": "credit_ev_record",
+            "modality": "text"
+          },
+          {
+            "claim_id": "credit_claim_leader",
+            "content": "Vodja je prisoten in sestanek še poteka.",
+            "evidence_id": "credit_ev_leader",
+            "modality": "video"
+          },
+          {
+            "claim_id": "credit_claim_visual",
+            "content": "Strukturirani prizor kaže govorca ob projekciji, vodjo za mizo in časovno označen zapis na prenosniku.",
+            "evidence_id": "credit_ev_visual",
+            "modality": "image"
+          },
+          {
+            "claim_id": "credit_claim_social_unknown",
+            "content": "Socialne posledice javne konfrontacije niso znane.",
+            "evidence_id": "credit_ev_social_unknown",
+            "modality": "text"
+          }
+        ],
+        "language": "sl",
+        "options": [
+          {
+            "description": "Takoj na sestanku izpodbij izjavo in pokaži zapis.",
+            "label": "Takojšnja javna konfrontacija",
+            "option_id": "credit_public_confront"
+          },
+          {
+            "description": "Po sestanku zasebno predstavi zapis vodji.",
+            "label": "Zasebna predstavitev dokazov",
+            "option_id": "credit_private_evidence"
+          },
+          {
+            "description": "Ne predstavi zapisa in ne odpiraj vprašanja zaslug.",
+            "label": "Opustitev odziva",
+            "option_id": "credit_no_response"
+          }
+        ],
+        "raw_input": "Sodelavec si na sestanku prisvoji zasluge; izberi javno konfrontacijo, zasebno predstavitev dokazov ali opustitev odziva.",
+        "unknowns": [
+          {
+            "text": "Ni znano, kakšne socialne posledice bi imela javna konfrontacija.",
+            "unknown_id": "credit_unknown_social"
+          },
+          {
+            "text": "Ni znano, kako bo vodja ocenil dokaz.",
+            "unknown_id": "credit_unknown_leader"
+          }
+        ]
+      },
+      "case_id": "public_credit_conflict",
+      "emocio_input": {
+        "contract": "Apply option-specific structured counterfactual deltas, then compare resulting scenes with desired and broken scenes; option label matching is not a consequence model.",
+        "mode": "structured_only",
+        "option_counterfactuals": [
+          {
+            "delta": {
+              "attention": [
+                "authorship record",
+                "colleague's statement"
+              ],
+              "attraction_markers": [
+                "visible authorship record"
+              ],
+              "belonging": "author, colleague, leader, and group remain in one meeting",
+              "composition_changes": [
+                "authorship record becomes public while meeting continues"
+              ],
+              "entities_added": [
+                "timestamped record on meeting projection"
+              ],
+              "entities_removed": [],
+              "movement": [
+                "author stands and displays the record"
+              ],
+              "obstacle_persistence": [
+                "social consequences remain unknown"
+              ],
+              "obstacle_removal": [
+                "record hidden from the meeting"
+              ],
+              "self_position": "beside the shared projection",
+              "status_relations": [
+                "authorship claim is contested before leader and group"
+              ]
+            },
+            "evidence_basis_ids": [
+              "credit_ev_statement",
+              "credit_ev_record",
+              "credit_ev_leader",
+              "credit_ev_social_unknown"
+            ],
+            "option_id": "credit_public_confront"
+          },
+          {
+            "delta": {
+              "attention": [
+                "timestamped authorship record"
+              ],
+              "attraction_markers": [
+                "visible authorship record",
+                "balanced positions"
+              ],
+              "belonging": "author and leader share a private evidence review",
+              "composition_changes": [
+                "meeting ends before record is shown privately to leader"
+              ],
+              "entities_added": [
+                "private authorship record review"
+              ],
+              "entities_removed": [],
+              "movement": [
+                "author moves beside leader after the meeting"
+              ],
+              "obstacle_persistence": [
+                "leader's assessment remains unknown",
+                "public statement remains uncorrected during the meeting"
+              ],
+              "obstacle_removal": [
+                "record hidden from leader"
+              ],
+              "self_position": "beside leader in private review",
+              "status_relations": [
+                "leader receives authorship evidence outside the group"
+              ]
+            },
+            "evidence_basis_ids": [
+              "credit_ev_record",
+              "credit_ev_leader"
+            ],
+            "option_id": "credit_private_evidence"
+          },
+          {
+            "delta": {
+              "attention": [
+                "meeting proceeds without authorship evidence"
+              ],
+              "attraction_markers": [],
+              "belonging": "author remains in the observing group",
+              "composition_changes": [
+                "colleague remains centered beside shared work",
+                "timestamped record stays on the laptop"
+              ],
+              "entities_added": [],
+              "entities_removed": [],
+              "movement": [
+                "author remains seated with no follow-up"
+              ],
+              "obstacle_persistence": [
+                "authorship record remains unseen",
+                "leader's assessment remains unknown"
+              ],
+              "obstacle_removal": [],
+              "self_position": "away from the shared projection",
+              "status_relations": "colleague's public authorship claim remains"
+            },
+            "evidence_basis_ids": [
+              "credit_ev_statement",
+              "credit_ev_record"
+            ],
+            "option_id": "credit_no_response"
+          }
+        ],
+        "world": {
+          "attraction_patterns": [
+            "visible authorship record",
+            "balanced positions"
+          ],
+          "broken_scenes": [
+            "one figure erased from the shared-work composition"
+          ],
+          "desired_scenes": [
+            "authorship record visible with balanced positions at the table"
+          ],
+          "motor_patterns": [
+            "stand and display",
+            "move beside the leader",
+            "remain seated"
+          ],
+          "social_identity_motifs": [
+            "author, colleague, leader, and observing group"
+          ],
+          "visual_memories": [
+            "one speaker centered beside shared work"
+          ]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {
+          "arousal": 0.6,
+          "attachment_security": 0.65,
+          "boundary_integrity": 0.72,
+          "energy": 0.7,
+          "escape_availability": 0.82,
+          "fatigue": 0.22,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.45,
+          "resource_security": 0.75,
+          "tension": 0.62,
+          "trust": 0.42,
+          "uncertainty": 0.65
+        },
+        "contract": "Derive typed body effects from grounded option-specific consequence facts; packet-wide cues cannot be copied to every option as an identical effect.",
+        "mapper": "RuleBasedOptionConsequenceInterpreterResearchV1",
+        "option_consequences": [
+          {
+            "facts": [
+              {
+                "consequence_id": "credit_public_exposure",
+                "effect_categories": [
+                  "public_social_exposure",
+                  "boundary_added"
+                ],
+                "source_evidence_ids": [
+                  "credit_ev_record",
+                  "credit_ev_leader",
+                  "credit_ev_social_unknown"
+                ],
+                "statement": "Displaying the record during the meeting creates public social exposure whose consequences remain unknown."
+              }
+            ],
+            "option_id": "credit_public_confront"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "credit_private_review",
+                "effect_categories": [
+                  "private_social_exposure",
+                  "boundary_added"
+                ],
+                "source_evidence_ids": [
+                  "credit_ev_record",
+                  "credit_ev_leader"
+                ],
+                "statement": "Showing the timestamped record privately limits exposure to the leader and preserves a later authorship boundary."
+              }
+            ],
+            "option_id": "credit_private_evidence"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "credit_no_response_boundary",
+                "effect_categories": [
+                  "authorship_boundary_unaddressed"
+                ],
+                "source_evidence_ids": [
+                  "credit_ev_statement",
+                  "credit_ev_record"
+                ],
+                "statement": "No response leaves the public authorship claim unaddressed."
+              }
+            ],
+            "option_id": "credit_no_response"
+          }
+        ]
+      },
+      "operational_en": {
+        "actors": [
+          "self",
+          "colleague",
+          "leader",
+          "meeting_group"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "credit_constraint_record",
+            "text": "Only the existing timestamped record may be used."
+          },
+          {
+            "constraint_id": "credit_constraint_scope",
+            "text": "Only the three public options may be used."
+          }
+        ],
+        "event_id": "triad_public_credit_conflict",
+        "evidence": [
+          {
+            "claim_id": "credit_claim_statement",
+            "content": "During the meeting, the colleague said that they alone designed the presented solution.",
+            "evidence_id": "credit_ev_statement",
+            "modality": "audio"
+          },
+          {
+            "claim_id": "credit_claim_record",
+            "content": "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+            "evidence_id": "credit_ev_record",
+            "modality": "text"
+          },
+          {
+            "claim_id": "credit_claim_leader",
+            "content": "The leader is present and the meeting is still in progress.",
+            "evidence_id": "credit_ev_leader",
+            "modality": "video"
+          },
+          {
+            "claim_id": "credit_claim_visual",
+            "content": "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "evidence_id": "credit_ev_visual",
+            "modality": "image"
+          },
+          {
+            "claim_id": "credit_claim_social_unknown",
+            "content": "The social consequences of public confrontation are unknown.",
+            "evidence_id": "credit_ev_social_unknown",
+            "modality": "text"
+          }
+        ],
+        "language": "en",
+        "options": [
+          {
+            "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+            "label": "Immediate public confrontation",
+            "option_id": "credit_public_confront"
+          },
+          {
+            "description": "Verify the record privately with the leader after the meeting.",
+            "label": "Private presentation of evidence",
+            "option_id": "credit_private_evidence"
+          },
+          {
+            "description": "Plan no follow-up and do not present the record.",
+            "label": "No response",
+            "option_id": "credit_no_response"
+          }
+        ],
+        "raw_input": "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.",
+        "unknowns": [
+          {
+            "text": "The social consequences of public confrontation are unknown.",
+            "unknown_id": "credit_unknown_social"
+          },
+          {
+            "text": "How the leader would assess the evidence is unknown.",
+            "unknown_id": "credit_unknown_leader"
+          }
+        ]
+      },
+      "profile_blind": true,
+      "racio_input": {
+        "explicit_consequences": [],
+        "numeric_cues": [],
+        "rules": [
+          "Compare evidence visibility, timing, and unknown social consequences without inferring either person's motive."
+        ],
+        "time": [
+          "The meeting is still in progress."
+        ],
+        "world": {
+          "commitments": [
+            "Evaluate only the public options."
+          ],
+          "explicit_beliefs": [],
+          "facts": [],
+          "rules": [
+            "Unknowns are not facts."
+          ],
+          "timelines": [
+            "The meeting is still in progress."
+          ]
+        }
+      },
+      "source_s1_case_sha256": "905b8b839c056f7b3887683566b5d05aa80e1935cd18a2d94470f4dc468d9704"
+    },
+    {
+      "canonical_sl": {
+        "actors": [
+          "self"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "trip_constraint_no_refund",
+            "text": "Oddaljeno potovanje po rezervaciji ni vračljivo."
+          },
+          {
+            "constraint_id": "trip_constraint_scope",
+            "text": "Uporabljene smejo biti samo tri javne možnosti."
+          }
+        ],
+        "event_id": "triad_spontaneous_trip",
+        "evidence": [
+          {
+            "claim_id": "trip_claim_deadline",
+            "content": "Ponudba za potovanje poteče čez štiri ure in po rezervaciji ni vračljiva.",
+            "evidence_id": "trip_ev_deadline",
+            "modality": "text"
+          },
+          {
+            "claim_id": "trip_claim_budget",
+            "content": "Strošek potovanja predstavlja 38 odstotkov trenutno prostega proračuna.",
+            "evidence_id": "trip_ev_budget",
+            "modality": "text"
+          },
+          {
+            "claim_id": "trip_claim_rarity",
+            "content": "Ista pot je bila v zadnjih treh letih na voljo enkrat.",
+            "evidence_id": "trip_ev_rarity",
+            "modality": "text"
+          },
+          {
+            "claim_id": "trip_claim_visual",
+            "content": "Strukturirani prizor kaže oddaljeno obalo, vozovnico z rokom in bližnjo lokalno pot.",
+            "evidence_id": "trip_ev_visual",
+            "modality": "image"
+          }
+        ],
+        "language": "sl",
+        "options": [
+          {
+            "description": "Rezerviraj nepovratno potovanje.",
+            "label": "Rezervacija",
+            "option_id": "trip_book"
+          },
+          {
+            "description": "Izberi cenejši lokalni izlet.",
+            "label": "Cenejša lokalna alternativa",
+            "option_id": "trip_local"
+          },
+          {
+            "description": "Ne rezerviraj izleta in ostani doma.",
+            "label": "Ostati doma",
+            "option_id": "trip_home"
+          }
+        ],
+        "raw_input": "Redka priložnost za privlačno, nepovratno potovanje predstavlja opazen del prostega proračuna; izberi rezervacijo, lokalno alternativo ali ostanek doma.",
+        "unknowns": [
+          {
+            "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški.",
+            "unknown_id": "trip_unknown_future_cost"
+          },
+          {
+            "text": "Ni znano, kako zadovoljivo bi bilo potovanje.",
+            "unknown_id": "trip_unknown_experience"
+          }
+        ]
+      },
+      "case_id": "spontaneous_trip",
+      "emocio_input": {
+        "contract": "Apply option-specific structured counterfactual deltas, then compare resulting scenes with desired and broken scenes; option label matching is not a consequence model.",
+        "mode": "structured_only",
+        "option_counterfactuals": [
+          {
+            "delta": {
+              "attention": [
+                "distant coast",
+                "non-refundable ticket"
+              ],
+              "attraction_markers": [
+                "expanded horizon",
+                "vivid movement"
+              ],
+              "belonging": "single traveller remains the decision subject",
+              "composition_changes": [
+                "distant coast moves into the active route",
+                "discretionary-budget marker decreases by trip cost"
+              ],
+              "entities_added": [
+                "booked distant ticket"
+              ],
+              "entities_removed": [
+                "uncommitted travel offer"
+              ],
+              "movement": [
+                "distant travel begins"
+              ],
+              "obstacle_persistence": [
+                "future major costs remain unknown",
+                "experience satisfaction remains unknown"
+              ],
+              "obstacle_removal": [
+                "closed horizon"
+              ],
+              "self_position": "traveller on distant route",
+              "status_relations": []
+            },
+            "evidence_basis_ids": [
+              "trip_ev_deadline",
+              "trip_ev_budget",
+              "trip_ev_rarity"
+            ],
+            "option_id": "trip_book"
+          },
+          {
+            "delta": {
+              "attention": [
+                "nearby route",
+                "partly retained budget marker"
+              ],
+              "attraction_markers": [
+                "movement",
+                "retained footing"
+              ],
+              "belonging": "single traveller remains the decision subject",
+              "composition_changes": [
+                "nearby route moves into the active path",
+                "discretionary-budget marker decreases by a smaller amount"
+              ],
+              "entities_added": [
+                "local route marker"
+              ],
+              "entities_removed": [
+                "distant booking commitment"
+              ],
+              "movement": [
+                "local travel begins"
+              ],
+              "obstacle_persistence": [
+                "distant horizon remains unvisited",
+                "experience satisfaction remains unknown"
+              ],
+              "obstacle_removal": [
+                "full trip-cost exposure"
+              ],
+              "self_position": "traveller on nearby route",
+              "status_relations": []
+            },
+            "evidence_basis_ids": [
+              "trip_ev_budget",
+              "trip_ev_visual"
+            ],
+            "option_id": "trip_local"
+          },
+          {
+            "delta": {
+              "attention": [
+                "unchanged budget marker",
+                "closed horizon"
+              ],
+              "attraction_markers": [
+                "retained footing"
+              ],
+              "belonging": "single traveller remains the decision subject",
+              "composition_changes": [
+                "distant and local routes remain outside the active path",
+                "discretionary-budget marker remains unchanged"
+              ],
+              "entities_added": [],
+              "entities_removed": [
+                "active travel route"
+              ],
+              "movement": [
+                "traveller remains in place"
+              ],
+              "obstacle_persistence": [
+                "closed horizon",
+                "experience satisfaction remains unknown"
+              ],
+              "obstacle_removal": [
+                "trip-cost exposure"
+              ],
+              "self_position": "traveller before closed travel routes",
+              "status_relations": []
+            },
+            "evidence_basis_ids": [
+              "trip_ev_budget",
+              "trip_ev_visual"
+            ],
+            "option_id": "trip_home"
+          }
+        ],
+        "world": {
+          "attraction_patterns": [
+            "expanded horizon",
+            "vivid movement"
+          ],
+          "broken_scenes": [
+            "closed horizon beside an emptied budget marker"
+          ],
+          "desired_scenes": [
+            "expanded horizon with vivid movement and retained footing"
+          ],
+          "motor_patterns": [
+            "take the distant route",
+            "walk the nearby route",
+            "remain in place"
+          ],
+          "social_identity_motifs": [
+            "single traveller facing two routes"
+          ],
+          "visual_memories": [
+            "open coastline beyond a ticket"
+          ]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {
+          "arousal": 0.52,
+          "attachment_security": 0.72,
+          "boundary_integrity": 0.9,
+          "energy": 0.78,
+          "escape_availability": 0.85,
+          "fatigue": 0.18,
+          "pain": 0.0,
+          "physical_integrity": 1.0,
+          "predictability": 0.5,
+          "resource_security": 0.68,
+          "tension": 0.38,
+          "trust": 0.7,
+          "uncertainty": 0.5
+        },
+        "contract": "Derive typed body effects from grounded option-specific consequence facts; packet-wide cues cannot be copied to every option as an identical effect.",
+        "mapper": "RuleBasedOptionConsequenceInterpreterResearchV1",
+        "option_consequences": [
+          {
+            "facts": [
+              {
+                "consequence_id": "trip_book_budget_commitment",
+                "effect_categories": [
+                  "resource_exposure_high",
+                  "irreversible_commitment",
+                  "movement_activation"
+                ],
+                "source_evidence_ids": [
+                  "trip_ev_budget",
+                  "trip_ev_deadline"
+                ],
+                "statement": "Booking commits 38 percent of the discretionary budget under a non-refundable purchase."
+              }
+            ],
+            "option_id": "trip_book"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "trip_local_bounded_commitment",
+                "effect_categories": [
+                  "resource_exposure_bounded",
+                  "reversible_commitment",
+                  "movement_local"
+                ],
+                "source_evidence_ids": [
+                  "trip_ev_budget",
+                  "trip_ev_visual"
+                ],
+                "statement": "The local route spends a smaller amount and starts local movement."
+              }
+            ],
+            "option_id": "trip_local"
+          },
+          {
+            "facts": [
+              {
+                "consequence_id": "trip_home_no_commitment",
+                "effect_categories": [
+                  "resource_preserved",
+                  "movement_absent"
+                ],
+                "source_evidence_ids": [
+                  "trip_ev_budget",
+                  "trip_ev_visual"
+                ],
+                "statement": "Staying home leaves the discretionary budget unchanged and starts no travel movement."
+              }
+            ],
+            "option_id": "trip_home"
+          }
+        ]
+      },
+      "operational_en": {
+        "actors": [
+          "self"
+        ],
+        "constraints": [
+          {
+            "constraint_id": "trip_constraint_no_refund",
+            "text": "The distant trip is non-refundable after booking."
+          },
+          {
+            "constraint_id": "trip_constraint_scope",
+            "text": "Only the three public options may be used."
+          }
+        ],
+        "event_id": "triad_spontaneous_trip",
+        "evidence": [
+          {
+            "claim_id": "trip_claim_deadline",
+            "content": "The travel offer expires in four hours and is non-refundable after booking.",
+            "evidence_id": "trip_ev_deadline",
+            "modality": "text"
+          },
+          {
+            "claim_id": "trip_claim_budget",
+            "content": "The trip cost is 38 percent of the currently discretionary budget.",
+            "evidence_id": "trip_ev_budget",
+            "modality": "text"
+          },
+          {
+            "claim_id": "trip_claim_rarity",
+            "content": "The same route was available once during the last three years.",
+            "evidence_id": "trip_ev_rarity",
+            "modality": "text"
+          },
+          {
+            "claim_id": "trip_claim_visual",
+            "content": "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route.",
+            "evidence_id": "trip_ev_visual",
+            "modality": "image"
+          }
+        ],
+        "language": "en",
+        "options": [
+          {
+            "description": "Buy the non-refundable trip.",
+            "label": "Book the trip",
+            "option_id": "trip_book"
+          },
+          {
+            "description": "Spend a smaller amount on a local trip.",
+            "label": "Cheaper local alternative",
+            "option_id": "trip_local"
+          },
+          {
+            "description": "Save the discretionary budget and stay home.",
+            "label": "Stay home",
+            "option_id": "trip_home"
+          }
+        ],
+        "raw_input": "A rare, attractive, non-refundable trip uses a noticeable share of discretionary budget; choose booking, a local alternative, or staying home.",
+        "unknowns": [
+          {
+            "text": "Whether other major costs will arise next month is unknown.",
+            "unknown_id": "trip_unknown_future_cost"
+          },
+          {
+            "text": "How satisfying the trip would be is unknown.",
+            "unknown_id": "trip_unknown_experience"
+          }
+        ]
+      },
+      "profile_blind": true,
+      "racio_input": {
+        "explicit_consequences": [],
+        "numeric_cues": [
+          4,
+          38,
+          3
+        ],
+        "rules": [
+          "Compare rarity, irreversibility, budget exposure, and unknown future costs without assuming enjoyment."
+        ],
+        "time": [
+          "The offer expires in four hours."
+        ],
+        "world": {
+          "commitments": [
+            "Evaluate only the public options."
+          ],
+          "explicit_beliefs": [],
+          "facts": [],
+          "rules": [
+            "Unknowns are not facts."
+          ],
+          "timelines": [
+            "The offer expires in four hours."
+          ]
+        }
+      },
+      "source_s1_case_sha256": "15d04f53dfaae9d7baed662efca1815fdfcb5d1accc7a4b6e97a31b21562a316"
+    }
+  ],
+  "execution_seal_created": false,
+  "future_targets": {
+    "character_replay_rows": 52,
+    "frozen_bundles": 4,
+    "native_conclusions": 12,
+    "racio_model_calls": 4
+  },
+  "model_calls_performed": 0,
+  "phase": "TRIAD-S2",
+  "projection_method": "manually_written_operational_en",
+  "promotion_evidence": false,
+  "schema_version": "triad-s2-corpus-candidate-v1",
+  "source_of_truth": "canonical_sl",
+  "status": "candidate_preflight_only",
+  "training_data": false,
+  "untouched_holdout": false
+}

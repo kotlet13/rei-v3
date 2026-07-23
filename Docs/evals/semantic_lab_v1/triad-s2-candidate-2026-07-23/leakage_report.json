@@ -1,0 +1,9 @@
+{
+  "expected_answer_leakage_found": false,
+  "findings": [],
+  "model_calls": 0,
+  "phase": "TRIAD-D1",
+  "processor_calls": 0,
+  "profile_blind": true,
+  "schema_version": "triad-d1-leakage-report-v1"
+}

@@ -1,0 +1,174 @@
+{
+  "candidate_phase": "TRIAD-S2",
+  "case_count": 4,
+  "cases": [
+    {
+      "case_id": "factory_overtemperature",
+      "emocio": {
+        "at_least_two_distinct": true,
+        "counterfactual_scene_signatures": {
+          "factory_continue": "fcde510b5d3768923570b8d895081cf57b81688c0a357e0589924278cee9c04d",
+          "factory_shutdown": "3bc7eab7ae9dd6ba01b4fae173896c7ff6ac5054665c6446af52daac65e0274c",
+          "factory_verify": "7ce9430d753d1f6e21b185fbe9c4221175665d85fb4ad66907fba4f13f16a18f"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      },
+      "instinkt": {
+        "at_least_two_distinct": true,
+        "derived_effects": {
+          "factory_continue": {
+            "physical_integrity": -0.25,
+            "predictability": -0.1,
+            "tension": 0.2
+          },
+          "factory_shutdown": {
+            "physical_integrity": 0.1,
+            "predictability": 0.1,
+            "resource_security": -0.2,
+            "tension": -0.15
+          },
+          "factory_verify": {
+            "physical_integrity": -0.05,
+            "predictability": 0.05,
+            "uncertainty": -0.1
+          }
+        },
+        "every_effect_has_option_specific_evidence": true,
+        "grounded_effect_signatures": {
+          "factory_continue": "22da2aa636efe38b5b4ceb9da4cb2e678dbb9e23b0d62059ebc7c7e51e1d59f3",
+          "factory_shutdown": "883ba1efc3d5c3ca0531ee375ecdad408230c6c1008a8729a456f3bc5a9ac309",
+          "factory_verify": "bf0ed444938d90fe2fcee7a92046d7fa0a59f1423eae8d22add6bcf717f8afb2"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      }
+    },
+    {
+      "case_id": "loan_to_friend",
+      "emocio": {
+        "at_least_two_distinct": true,
+        "counterfactual_scene_signatures": {
+          "loan_decline": "af5e9e531fd30a08e9136e77ce187624fca670440ef3ab32a01a069052b59a4d",
+          "loan_full": "4ff0bfd02aaac33f50171b0820e1d778c2a3a64a61fa019e93878fce89b1e602",
+          "loan_limited_contract": "10544eecfa89e3ad288efaadfdad3db16b42a0f8cd3d59325a55d7f4e8371b0a"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      },
+      "instinkt": {
+        "at_least_two_distinct": true,
+        "derived_effects": {
+          "loan_decline": {
+            "resource_security": 0.05
+          },
+          "loan_full": {
+            "boundary_integrity": -0.1,
+            "escape_availability": -0.1,
+            "predictability": -0.1,
+            "resource_security": -0.3
+          },
+          "loan_limited_contract": {
+            "boundary_integrity": 0.2,
+            "predictability": 0.15,
+            "resource_security": -0.12
+          }
+        },
+        "every_effect_has_option_specific_evidence": true,
+        "grounded_effect_signatures": {
+          "loan_decline": "fff5e2323b44c22b5ee85a13099547b78053030c18cf1d6995538805d1e73b2b",
+          "loan_full": "95b74fa090bea660b6d8947832d49089974cfd3003cea3910b4c51c6d70f1eda",
+          "loan_limited_contract": "b92f521df4262cf1c7676646430237cab5c82874ead4e85e6ed9c9e63f254615"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      }
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "emocio": {
+        "at_least_two_distinct": true,
+        "counterfactual_scene_signatures": {
+          "credit_no_response": "9ceb9cce53f01d801478d5bb9f0087ee8a39919d69b6d4028e5f291d1988868c",
+          "credit_private_evidence": "08cc1932cef256cf1b8b4d7da671a13d990dafbe05b7113886583c7a79149ea5",
+          "credit_public_confront": "7bcf4615e8e2093d65ee6b6a40b4b7d3eccceb8ecf554311cba39a5f03c141e3"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      },
+      "instinkt": {
+        "at_least_two_distinct": true,
+        "derived_effects": {
+          "credit_no_response": {
+            "boundary_integrity": -0.15
+          },
+          "credit_private_evidence": {
+            "boundary_integrity": 0.2,
+            "predictability": 0.25,
+            "tension": -0.05
+          },
+          "credit_public_confront": {
+            "boundary_integrity": 0.2,
+            "predictability": 0.15,
+            "tension": 0.2,
+            "uncertainty": 0.1
+          }
+        },
+        "every_effect_has_option_specific_evidence": true,
+        "grounded_effect_signatures": {
+          "credit_no_response": "29c7b52ac7fe41055c59dd5c37512ffbf37c72ce7152af2ea860b3a9b7133bc3",
+          "credit_private_evidence": "897a8070dbe9da43d527a445cd7994cde84c93dd2c467f4961b4b0e61cae7b13",
+          "credit_public_confront": "748ce590a6fd3408c4589444f7a65258c1d305b82db63592a0a836cbf5f6f04b"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      }
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "emocio": {
+        "at_least_two_distinct": true,
+        "counterfactual_scene_signatures": {
+          "trip_book": "dc80fd67822065506f69bdf49ed125fe378d5c31728888dae6e79b96e3c0574d",
+          "trip_home": "ba9477b1b6b7cdb0f767e4d459f8a6e9e204c3cd8d5aa01b8fc0ef1f456cd8f0",
+          "trip_local": "4fdd92d253e17473acda5f3f2baf890005ff685ed56320d47985852f4926a083"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      },
+      "instinkt": {
+        "at_least_two_distinct": true,
+        "derived_effects": {
+          "trip_book": {
+            "arousal": 0.1,
+            "escape_availability": -0.3,
+            "resource_security": -0.3
+          },
+          "trip_home": {
+            "arousal": -0.05,
+            "resource_security": 0.05
+          },
+          "trip_local": {
+            "arousal": 0.05,
+            "escape_availability": -0.05,
+            "resource_security": -0.12
+          }
+        },
+        "every_effect_has_option_specific_evidence": true,
+        "grounded_effect_signatures": {
+          "trip_book": "dcb8264bda5fb01dd6d36bd7e79adfd3258c2e062c4320098d751b85166fc005",
+          "trip_home": "ca39dd06a063cb88698bd0921c43e26186062aedc09419a177c1c02dfddecb36",
+          "trip_local": "e51736a0f91bfcc46dc2a3c4981175907ae8ed0d69e4229d7aa1b000c2bd8524"
+        },
+        "option_order_invariant": true,
+        "unique_signature_count": 3
+      }
+    }
+  ],
+  "gate_scope": "distinguishability_only_not_option_quality",
+  "model_calls": 0,
+  "passed": true,
+  "phase": "TRIAD-D1",
+  "processor_calls": 0,
+  "schema_version": "triad-d1-distinguishability-preflight-v1"
+}

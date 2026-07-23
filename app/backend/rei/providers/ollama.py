@@ -15,7 +15,7 @@ import os
 import socket
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, Literal, Protocol
+from typing import Any, Literal, Protocol, TypeAlias
 from urllib import error, parse, request
 
 from pydantic import Field, model_validator
@@ -72,6 +72,26 @@ class OllamaTransportError(OllamaProviderError):
 
 class OllamaResponseError(OllamaProviderError):
     """Ollama returned a response that does not close the approved contract."""
+
+
+RacioContractFailureCode: TypeAlias = Literal[
+    "unknown_option",
+    "hallucinated_fact",
+    "unknown_claim",
+    "evidence_out_of_scope",
+    "missing_fact_citation",
+    "fact_evidence_mismatch",
+    "other_contract_validation",
+]
+RACIO_CONTRACT_FAILURE_CODES: tuple[RacioContractFailureCode, ...] = (
+    "unknown_option",
+    "hallucinated_fact",
+    "unknown_claim",
+    "evidence_out_of_scope",
+    "missing_fact_citation",
+    "fact_evidence_mismatch",
+    "other_contract_validation",
+)
 
 
 class OllamaJsonTransport(Protocol):
@@ -665,6 +685,110 @@ class OllamaRacioResponseEvidence(FrozenArtifactModel):
         return self
 
 
+class OllamaRacioFailedOutputDiagnostic(FrozenArtifactModel):
+    """Bounded, thinking-free evidence for a rejected structured response."""
+
+    schema_version: Literal["rei-native-ollama-racio-failed-output-v1"] = (
+        "rei-native-ollama-racio-failed-output-v1"
+    )
+    diagnostic_id: NonEmptyId
+    packet_id: NonEmptyId
+    packet_hash: HashDigest
+    accepted: Literal[False] = False
+    validation_stage: Literal["racio_structured_output_packet_contract"]
+    failure_code: RacioContractFailureCode
+    canonical_json_projection: NonEmptyText
+    final_json_sha256: HashDigest
+
+    @model_validator(mode="after")
+    def validate_diagnostic(self) -> "OllamaRacioFailedOutputDiagnostic":
+        if (
+            sha256_hex(json.loads(self.canonical_json_projection))
+            != self.final_json_sha256
+        ):
+            raise ValueError("Failed-output JSON hash differs from its projection")
+        payload = self.model_dump(
+            mode="python",
+            round_trip=True,
+            exclude={"diagnostic_id"},
+        )
+        if self.diagnostic_id != content_id("racio_failed_output", payload):
+            raise ValueError("Failed-output diagnostic ID is not content-addressed")
+        return self
+
+
+def classify_racio_contract_failure(
+    structured: RacioStructuredOutput,
+    packet: RacioInputPacket,
+) -> RacioContractFailureCode:
+    """Classify one already-parsed rejection without inspecting exception text."""
+
+    if (
+        structured.option_id is not None
+        and structured.option_id not in packet.allowed_option_ids
+    ):
+        return "unknown_option"
+    permitted_facts = set(packet.explicit_facts).union(packet.world.facts)
+    if not set(structured.facts_used).issubset(permitted_facts):
+        return "hallucinated_fact"
+    if not set(structured.unknowns).issubset(packet.explicit_unknowns):
+        return "unknown_claim"
+    if not set(structured.evidence_ids_used).issubset(packet.evidence_ids):
+        return "evidence_out_of_scope"
+    if set(structured.facts_used).intersection(packet.explicit_facts) and not (
+        structured.evidence_ids_used
+    ):
+        return "missing_fact_citation"
+    try:
+        packet.validate_fact_evidence_usage(
+            structured.facts_used,
+            structured.evidence_ids_used,
+        )
+    except ValueError:
+        return "fact_evidence_mismatch"
+    try:
+        structured.validate_against(packet)
+    except ValueError:
+        return "other_contract_validation"
+    raise ValueError("Structured output satisfies the packet contract")
+
+
+def build_racio_failed_output_diagnostic(
+    *,
+    structured: RacioStructuredOutput,
+    packet: RacioInputPacket,
+) -> OllamaRacioFailedOutputDiagnostic:
+    """Build the only durable projection admitted for a packet rejection."""
+
+    projection = structured.model_dump(mode="json", round_trip=True)
+    canonical_projection = canonical_json_bytes(projection).decode("utf-8")
+    base = {
+        "schema_version": "rei-native-ollama-racio-failed-output-v1",
+        "packet_id": packet.packet_id,
+        "packet_hash": packet.content_hash(),
+        "accepted": False,
+        "validation_stage": "racio_structured_output_packet_contract",
+        "failure_code": classify_racio_contract_failure(structured, packet),
+        "canonical_json_projection": canonical_projection,
+        "final_json_sha256": sha256_hex(projection),
+    }
+    return OllamaRacioFailedOutputDiagnostic(
+        diagnostic_id=content_id("racio_failed_output", base),
+        **base,
+    )
+
+
+class OllamaStructuredOutputValidationError(OllamaResponseError):
+    """Typed rejection carrying only the bounded failed-output diagnostic."""
+
+    def __init__(self, diagnostic: OllamaRacioFailedOutputDiagnostic) -> None:
+        self.diagnostic = diagnostic
+        super().__init__(
+            "Ollama structured output failed "
+            f"{diagnostic.validation_stage}:{diagnostic.failure_code}"
+        )
+
+
 @dataclass(frozen=True, slots=True)
 class OllamaRacioNativeExecution:
     conclusion: RacioNativeConclusion
@@ -926,9 +1050,11 @@ class OllamaRacioNativeProvider:
         try:
             structured.validate_against(packet)
         except ValueError as exc:
-            raise OllamaResponseError(
-                "Ollama structured output exceeds the grounded Racio packet"
-            ) from exc
+            diagnostic = build_racio_failed_output_diagnostic(
+                structured=structured,
+                packet=packet,
+            )
+            raise OllamaStructuredOutputValidationError(diagnostic) from exc
         evidence = OllamaRacioResponseEvidence.create(
             packet=packet,
             call=call,
@@ -1011,9 +1137,11 @@ __all__ = [
     "DEFAULT_OLLAMA_NUM_PREDICT",
     "DEFAULT_OLLAMA_SEED",
     "DEFAULT_OLLAMA_TIMEOUT_SECONDS",
+    "RACIO_CONTRACT_FAILURE_CODES",
     "OllamaApiClient",
     "OllamaActiveModel",
     "OllamaProviderError",
+    "OllamaRacioFailedOutputDiagnostic",
     "OllamaRacioNativeExecution",
     "OllamaRacioNativeProvider",
     "OllamaRacioNativeProviders",
@@ -1021,9 +1149,13 @@ __all__ = [
     "OllamaRacioSettings",
     "OllamaResponseError",
     "OllamaRuntimeModel",
+    "OllamaStructuredOutputValidationError",
     "OllamaTransportError",
+    "RacioContractFailureCode",
     "UrllibOllamaTransport",
+    "build_racio_failed_output_diagnostic",
     "build_ollama_racio_native_providers",
+    "classify_racio_contract_failure",
     "inspect_ollama_runtime",
     "inspect_ollama_active_model",
 ]

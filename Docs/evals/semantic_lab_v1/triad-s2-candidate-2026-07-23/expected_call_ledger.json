@@ -1,0 +1,48 @@
+{
+  "entries": [
+    {
+      "case_id": "factory_overtemperature",
+      "future_model_calls": 1,
+      "ordinal": 1,
+      "status": "planned_unsealed"
+    },
+    {
+      "case_id": "loan_to_friend",
+      "future_model_calls": 1,
+      "ordinal": 2,
+      "status": "planned_unsealed"
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "future_model_calls": 1,
+      "ordinal": 3,
+      "status": "planned_unsealed"
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "future_model_calls": 1,
+      "ordinal": 4,
+      "status": "planned_unsealed"
+    }
+  ],
+  "execution_seal_created": false,
+  "expected_future_execution": {
+    "character_replay_rows": 52,
+    "fallbacks": 0,
+    "frozen_bundles": 4,
+    "model_calls": 4,
+    "native_conclusions": 12,
+    "retries": 0
+  },
+  "phase": "TRIAD-S2",
+  "prepared_by_phase": "TRIAD-D1",
+  "schema_version": "triad-s2-model-free-expected-call-ledger-v1",
+  "state": "candidate_unsealed_not_executed",
+  "triad_d1_actual": {
+    "character_replay_rows": 0,
+    "fallbacks": 0,
+    "model_calls": 0,
+    "native_processor_calls": 0,
+    "retries": 0
+  }
+}
