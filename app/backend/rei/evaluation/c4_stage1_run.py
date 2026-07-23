@@ -40,11 +40,13 @@ from .c4_stage1_attempt import (
     C4Stage1PreparedAttempt,
     C4Stage1PreparedAttemptOutcome,
     C4Stage1PreparedWorker,
+    C4Stage1ReviewServicePreflightPort,
     C4Stage1RepositoryGate,
     C4Stage1RuntimePaths,
     build_c4_stage1_worker_environment,
     capture_c4_stage1_repository_gate,
     cold_verify_c4_stage1_prepared_attempt,
+    verify_c4_stage1_live_review_boundary,
     verify_c4_stage1_pre_spawn_runtime_bindings,
     verify_c4_stage1_staging_parent,
 )
@@ -1287,6 +1289,21 @@ def _default_finalizer_factory(
     return C4Stage1TelemetryFinalizer(intent, artifact_store=artifact_store)
 
 
+def _verify_live_review_boundary(
+    paths: C4Stage1RuntimePaths,
+    prepared: C4Stage1PreparedAttempt,
+    review_service: C4Stage1ReviewServicePreflightPort,
+) -> None:
+    verify_c4_stage1_live_review_boundary(
+        repository_root=paths.repository_root,
+        repository_gate=prepared.repository_gate,
+        review_runtime_manifest=prepared.review_runtime_manifest,
+        review_service_readiness=prepared.review_service_readiness,
+        review_service=review_service,
+        expected_completed_review_count=0,
+    )
+
+
 @dataclass(frozen=True, slots=True)
 class _C4Stage1RunHooks:
     cold_prepared: Callable[..., C4Stage1PreparedAttemptOutcome] = (
@@ -1298,6 +1315,7 @@ class _C4Stage1RunHooks:
     verify_runtime_bindings: Callable[..., None] = (
         verify_c4_stage1_pre_spawn_runtime_bindings
     )
+    verify_review_boundary: Callable[..., None] = _verify_live_review_boundary
     controller_factory: ControllerFactory = _default_controller_factory
     runner_factory: RunnerFactory = _default_runner_factory
     finalizer_factory: FinalizerFactory = _default_finalizer_factory
@@ -1909,6 +1927,7 @@ def _execute_worker(
     prepared_anchor_storage: StoredArtifact,
     worker: C4Stage1PreparedWorker,
     paths: C4Stage1RuntimePaths,
+    review_service: C4Stage1ReviewServicePreflightPort,
     hooks: _C4Stage1RunHooks,
     member_deadline_ns: int,
 ) -> _WorkerExecution:
@@ -1969,6 +1988,7 @@ def _execute_worker(
         prepared,
         cuda_device=prepared.cuda_device,
     )
+    hooks.verify_review_boundary(paths, prepared, review_service)
     ledger.verify_exact(artifact_store)
     controller = hooks.controller_factory(intent, prepared.cuda_device)
     finalizer = hooks.finalizer_factory(intent, artifact_store)
@@ -2469,6 +2489,7 @@ def run_c4_stage1_attempt(
     prepared_anchor_storage: StoredArtifact,
     confirmed_prepared_attempt_id: str,
     paths: C4Stage1RuntimePaths,
+    review_service: C4Stage1ReviewServicePreflightPort,
 ) -> C4Stage1RunOutcome:
     """Execute the production parent path with no injectable runner/probe seam."""
 
@@ -2477,6 +2498,7 @@ def run_c4_stage1_attempt(
         prepared_anchor_storage=prepared_anchor_storage,
         confirmed_prepared_attempt_id=confirmed_prepared_attempt_id,
         paths=paths,
+        review_service=review_service,
         hooks=_C4Stage1RunHooks(),
     )
 
@@ -2487,6 +2509,7 @@ def _run_c4_stage1_attempt(
     prepared_anchor_storage: StoredArtifact,
     confirmed_prepared_attempt_id: str,
     paths: C4Stage1RuntimePaths,
+    review_service: C4Stage1ReviewServicePreflightPort,
     hooks: _C4Stage1RunHooks,
 ) -> C4Stage1RunOutcome:
     if not isinstance(artifact_store, FileArtifactStore):
@@ -2509,6 +2532,7 @@ def _run_c4_stage1_attempt(
         )
     ledger = _InventoryLedger.from_prepared(prepared_outcome)
     ledger.verify_exact(artifact_store)
+    hooks.verify_review_boundary(paths, prepared, review_service)
 
     member_runs: list[C4Stage1MemberRun] = []
     global_stop = False
@@ -2550,6 +2574,7 @@ def _run_c4_stage1_attempt(
                     prepared_anchor_storage=prepared_outcome.prepared_anchor_storage,
                     worker=worker,
                     paths=paths,
+                    review_service=review_service,
                     hooks=hooks,
                     member_deadline_ns=deadline_ns,
                 )

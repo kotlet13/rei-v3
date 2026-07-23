@@ -30,6 +30,7 @@ from rei.evaluation.c4_stage1_run import (
     C4Stage1PublishedCandidateReceipt,
     C4Stage1RenderAttemptManifest,
     C4Stage1RenderInventoryAnchor,
+    C4Stage1RunError,
     C4Stage1RunIntegrityError,
     C4Stage1WorkerTerminal,
     _C4Stage1RunHooks,
@@ -414,6 +415,8 @@ def _prepared_store(
         review_schema=base.review_schema,
         review_operator_policies=base.review_operator_policies,
         display_policy=base.display_policy,
+        review_runtime_manifest=base.review_runtime_manifest,
+        review_service_readiness=base.review_service_readiness,
         screen_contract=base.screen_contract,
         workers=base.workers,
         artifact_inventory_before_anchor=tuple(
@@ -578,6 +581,8 @@ class _Harness:
     visible_direct_counts: list[int] = field(default_factory=list)
     gate_capture_count: int = 0
     runtime_verification_count: int = 0
+    review_verification_count: int = 0
+    review_failure: bool = False
 
     @property
     def prepared(self) -> C4Stage1PreparedAttempt:
@@ -598,6 +603,11 @@ class _Harness:
 
     def verify_runtime(self, *_args, **_kwargs) -> None:
         self.runtime_verification_count += 1
+
+    def verify_review(self, *_args, **_kwargs) -> None:
+        self.review_verification_count += 1
+        if self.review_failure:
+            raise C4Stage1RunError("injected review boundary failure")
 
     def controller_factory(self, intent, _cuda):
         return _FakeController(self, self.key_for_request(intent.worker_request_id))
@@ -624,6 +634,7 @@ class _Harness:
             cold_prepared=self.cold_prepared,
             capture_repository_gate=self.capture_gate,
             verify_runtime_bindings=self.verify_runtime,
+            verify_review_boundary=self.verify_review,
             controller_factory=self.controller_factory,
             runner_factory=self.runner_factory,
             finalizer_factory=self.finalizer_factory,
@@ -646,6 +657,7 @@ def _run(
             prepared.prepared_attempt_id if confirmation is None else confirmation
         ),
         paths=paths,
+        review_service=object(),  # type: ignore[arg-type]
         hooks=harness.hooks(),
     )
 
@@ -916,6 +928,7 @@ def test_success_commits_two_atomic_members_and_cold_verifies_bytes(
     assert harness.visible_direct_counts == [0, 0, 2, 2]
     assert harness.gate_capture_count == 8
     assert harness.runtime_verification_count == 8
+    assert harness.review_verification_count == 5
     assert len(harness.commands) == 4
     for command in harness.commands:
         assert command[1:3] == ("-I", "-S")
@@ -986,6 +999,25 @@ def test_exact_confirmation_is_required_before_any_run_mutation(
         _run(harness, paths, confirmation="wrong-prepared-attempt")
 
     assert harness.commands == []
+    assert (
+        store.inspect_run_inventory_exact(prepared_outcome.prepared_attempt.run_id)
+        == before
+    )
+
+
+def test_live_review_boundary_failure_prevents_first_spawn_and_mutation(
+    tmp_path: Path,
+) -> None:
+    store, prepared_outcome, paths = _prepared_store(tmp_path)
+    harness = _Harness(store, prepared_outcome, review_failure=True)
+    before = store.inspect_run_inventory_exact(prepared_outcome.prepared_attempt.run_id)
+
+    with pytest.raises(C4Stage1RunError, match="review boundary"):
+        _run(harness, paths)
+
+    assert harness.review_verification_count == 1
+    assert harness.commands == []
+    assert harness.events == []
     assert (
         store.inspect_run_inventory_exact(prepared_outcome.prepared_attempt.run_id)
         == before
