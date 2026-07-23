@@ -70,6 +70,11 @@
       "detail": "The first cold verifier attempted strict Python validation of JSON arrays. It was corrected to use each Pydantic model's JSON validation path; compact evidence bytes were not changed by this verifier fix.",
       "event_id": "cold_verification_json_tuple_rejection",
       "status": "verifier_rejection_resolved"
+    },
+    {
+      "detail": "The first ordinary clean clone converted the frozen TRIAD JSON files to CRLF, so two TRIAD byte-hash tests failed while 2012 other tests passed. A path-scoped eol=lf Git attribute preserved the original frozen bytes; a fresh ordinary clone then passed all 10 TRIAD tests and cold verification.",
+      "event_id": "clean_clone_crlf_byte_hash_rejection",
+      "status": "checkout_portability_rejection_resolved"
     }
   ]
 }

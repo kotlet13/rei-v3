@@ -24,6 +24,7 @@ No global REI score is computed. GovernanceMandate is the primary character-repl
 - `factory_overtemperature_grounding_rejection` — unresolved_validation_rejection: The single factory_overtemperature Racio response exceeded the grounded packet contract. It was rejected with no retry, fallback, or prompt change.
 - `family_relocation_evidence_projection_failure` — unresolved_evidence_failure: The family_relocation R/E/I executions completed once, but compact serialization failed on an Emocio dataclass. No model or native processor was rerun, so the three observed conclusion IDs remain unbundled and no character replay is claimed.
 - `cold_verification_json_tuple_rejection` — verifier_rejection_resolved: The first cold verifier attempted strict Python validation of JSON arrays. It was corrected to use each Pydantic model's JSON validation path; compact evidence bytes were not changed by this verifier fix.
+- `clean_clone_crlf_byte_hash_rejection` — checkout_portability_rejection_resolved: The first ordinary clean clone converted the frozen TRIAD JSON files to CRLF, so two TRIAD byte-hash tests failed while 2012 other tests passed. A path-scoped eol=lf Git attribute preserved the original frozen bytes; a fresh ordinary clone then passed all 10 TRIAD tests and cold verification.
 
 ## factory_overtemperature
 
