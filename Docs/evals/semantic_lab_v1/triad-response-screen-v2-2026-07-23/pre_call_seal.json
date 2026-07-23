@@ -1,0 +1,625 @@
+{
+  "candidate_corpus": {
+    "path": "Docs/evals/semantic_lab_v1/triad-s2-candidate-2026-07-23/corpus_candidate.json",
+    "sha256": "2dca22811be4550e6275588aa6a7f4961183a63f1e21887809ff66b84fb20073"
+  },
+  "case_input_records": [
+    {
+      "case_id": "factory_overtemperature",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/cases/factory_overtemperature/inputs.json",
+      "racio_call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "racio_call_spec_hash": "6d88a9264c65658edbfe51477a1c0260ca3216b64d44c9b1c4ee5720e457b68b",
+      "sha256": "e0c48c51f07e73cba17f3061406a283b6ed06a6a3aa31b52bf9bc7db4dfee296"
+    },
+    {
+      "case_id": "loan_to_friend",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/cases/loan_to_friend/inputs.json",
+      "racio_call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "racio_call_spec_hash": "a1b333764ec293cb1573f0b6acd2d69e3cafcdd48cdd0b3496a03e95ce692097",
+      "sha256": "0882150880e98b94d3dbcee506c6b134c9f78d2c5a30424f6ed6efbf3ea053ed"
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/cases/public_credit_conflict/inputs.json",
+      "racio_call_id": "provider_call_f19aa3bbb48ef499bdb34dd708c87f4e",
+      "racio_call_spec_hash": "78467a99581216d12a06badef138a57dea4fef0e9cd49d46e5f71a09f951218b",
+      "sha256": "1253fa07898a8ea06260015601dd1fbdde4de3c0bd588775414448aefef3f484"
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/cases/spontaneous_trip/inputs.json",
+      "racio_call_id": "provider_call_802ab0641df77092582cc340967af9dc",
+      "racio_call_spec_hash": "90a4e0780c9d4303c9c724d04bd44bdfa6df3c4b05555cdc6b82e72b47512b42",
+      "sha256": "b95252a52208babde96a560e1e8a2fac4cc2ef739f2751c3e332978ecf2aed56"
+    }
+  ],
+  "created_at": "2026-07-23T16:44:10.455338+00:00",
+  "d1_expected_call_ledger": {
+    "path": "Docs/evals/semantic_lab_v1/triad-s2-candidate-2026-07-23/expected_call_ledger.json",
+    "sha256": "34ddf2e6005db37e5d87dfa396b319209e3b325b905c77c66e7f121d038d4b34"
+  },
+  "declarations": {
+    "global_rei_score": false,
+    "holdout": false,
+    "image_native_emocio_claim": false,
+    "manual_structured_routing": true,
+    "promotion_evidence": false,
+    "raw_scene_instinkt_claim": false,
+    "thinking_persisted": false
+  },
+  "distinguishability_report": {
+    "path": "Docs/evals/semantic_lab_v1/triad-s2-candidate-2026-07-23/distinguishability_report.json",
+    "sha256": "bc2f2bb227e8fb89c68b790e1551e4c65ef75be5caf8e5c54967a6f35bdc043b"
+  },
+  "execution_policy": {
+    "case_order": [
+      "factory_overtemperature",
+      "loan_to_friend",
+      "public_credit_conflict",
+      "spontaneous_trip"
+    ],
+    "character_replay_requires_complete_bundle": true,
+    "emocio_executions_per_case": 1,
+    "execute_emocio_after_racio_contract_rejection": true,
+    "execute_instinkt_after_racio_contract_rejection": true,
+    "fallback": "none",
+    "instinkt_executions_per_case": 1,
+    "racio_calls_per_case": 1,
+    "retry": 0,
+    "stop_after_non_contract_provider_failure": true
+  },
+  "expected_call_ledger": {
+    "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/expected_call_ledger.json",
+    "sha256": "a5648e0e8ceb5eff652bda75d45c3fdef08b4d5a3cb5f344dafb16d137b93bd4"
+  },
+  "generic_effect_rules_sha256": "fb4544b98a372f12632d96a685775bed9802c8c7cccda23ec5612e8e2e48bc75",
+  "instruction_sha256": "2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101",
+  "leakage_report": {
+    "path": "Docs/evals/semantic_lab_v1/triad-s2-candidate-2026-07-23/leakage_report.json",
+    "sha256": "96ab3a3da01bf488815f1d9b83d4448df32c73e8a505c4b80d72e8e1b3514ebd"
+  },
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "model_profile": {
+    "fallback": "none",
+    "model": "gemma4:31b",
+    "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "num_ctx": 65536,
+    "num_gpu": 999,
+    "num_predict": 1536,
+    "require_full_gpu": true,
+    "retry": 0,
+    "seed": 314159,
+    "temperature": 0.0,
+    "thinking_persisted": false,
+    "top_k": 64,
+    "top_p": 0.95
+  },
+  "output_root": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23",
+  "phase": "TRIAD-S2",
+  "racio_call_specs": [
+    {
+      "call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual",
+        "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+        "s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    {
+      "call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "loan_ev_budget",
+        "loan_ev_history",
+        "loan_ev_need",
+        "loan_ev_visual",
+        "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+        "s2_racio_loan_to_fri_8b49ec405d6ca3aea22caca97816e19f"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_113ce28787c6c84a4209cf21dfdc2882",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    {
+      "call_id": "provider_call_f19aa3bbb48ef499bdb34dd708c87f4e",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement",
+        "credit_ev_visual",
+        "racio_packet_1cf6dd6ad16079502520783f7b144766",
+        "s2_racio_public_cred_4a8f2a9e38f627c86d66428d5ebc4cea"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_1cf6dd6ad16079502520783f7b144766",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    {
+      "call_id": "provider_call_802ab0641df77092582cc340967af9dc",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "racio_packet_58b8b0bd8da59331d142e35961f73901",
+        "s2_racio_spontaneous_f4bc3eca3981b646737539b1582dc2fa",
+        "trip_ev_budget",
+        "trip_ev_deadline",
+        "trip_ev_rarity",
+        "trip_ev_visual"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_58b8b0bd8da59331d142e35961f73901",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    }
+  ],
+  "racio_provider_revision": "rei-native-ollama-racio-en-triad-screen-v1",
+  "schema_version": "triad-s2-pre-call-execution-seal-v1",
+  "seal_sha256": "ce64ce5b8a8a98d03c0fe2795f30fe60fc29b7ec28d416e0425feb2ee41cd376"
+}

@@ -1,0 +1,1462 @@
+{
+  "case_id": "factory_overtemperature",
+  "emocio": {
+    "call_spec": {
+      "call_id": "provider_call_007578d9520a263b3fa86a74c9cea330",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+        "emocio_world_input_18ad22bcde30e5d740eac8083590c3dc",
+        "triad_factory_overtemperature",
+        "triad_s2_emocio_counterfactuals_2ad2ba1ad2ec818b47ff69fb06e7e8f7"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "compiled_scenes": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "damaged equipment beneath a red warning field"
+        ],
+        "entities": [
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_sensor",
+          "factory_ev_temperature",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "damaged equipment beneath a red warning field"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "damaged equipment beneath a red warning field"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_3f5ec853af043472358b034b061f2d3f",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."
+        ],
+        "composition": [
+          "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "rising gauge beside intact machinery"
+        ],
+        "entities": [
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_sensor",
+          "factory_ev_temperature",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "rising gauge beside intact machinery"
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_1fadff6c106e85e9de9196a971bb9ff1",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "maintenance_team",
+          "operator"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "clear position",
+          "intact machinery",
+          "stable gauge"
+        ],
+        "composition": [
+          "stable gauge, intact machinery, and a clear operator position"
+        ],
+        "entities": [
+          "maintenance_team",
+          "operator"
+        ],
+        "grounded_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_sensor",
+          "factory_ev_temperature",
+          "factory_ev_visual"
+        ],
+        "group_belonging": "operator responsible for a shared process",
+        "inferred_elements": [
+          "stable gauge, intact machinery, and a clear operator position"
+        ],
+        "movement": [
+          "inspect two displays",
+          "keep the line moving",
+          "step back from controls"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_8a4114211054f73003e344332f481cc7",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "operator responsible for a shared process"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_1ec1c571d1b42fc8248fcf3b8a91f6ab"
+            }
+          ],
+          "attraction_markers": [],
+          "composition": [
+            "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "active production flow remains beside rising gauge",
+            "equipment-damage possibility",
+            "rising gauge beside intact machinery",
+            "rising temperature",
+            "sensor disagreement"
+          ],
+          "entities": [
+            "at current production controls",
+            "maintenance_team",
+            "operator"
+          ],
+          "grounded_evidence_ids": [
+            "factory_ev_damage",
+            "factory_ev_temperature"
+          ],
+          "group_belonging": "operator remains responsible for shared process",
+          "inferred_elements": [
+            "active production flow remains beside rising gauge",
+            "at current production controls",
+            "current production settings",
+            "equipment-damage possibility",
+            "operator accountable to shared process",
+            "operator remains responsible for shared process",
+            "production line keeps moving",
+            "rising temperature",
+            "sensor disagreement"
+          ],
+          "movement": [
+            "production line keeps moving"
+          ],
+          "obstacle_markers": [
+            "equipment-damage possibility",
+            "rising temperature",
+            "sensor disagreement"
+          ],
+          "option_id": "factory_continue",
+          "scene_id": "visual_scene_1ac0bf9acb2cef76337fc3555ed8f40d",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "at current production controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_3f382e126b74e66c05df6b543c33abe9"
+            },
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_aec67da799c3198d3e6a0c8aa58ab307"
+            }
+          ],
+          "attraction_markers": [
+            "clear operator position",
+            "intact equipment"
+          ],
+          "composition": [
+            "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "clear operator position",
+            "financial loss marker remains",
+            "intact equipment",
+            "production flow changes to controlled stop",
+            "rising gauge beside intact machinery",
+            "temperature gauge remains visible beside intact equipment"
+          ],
+          "entities": [
+            "at shutdown controls",
+            "controlled shutdown procedure",
+            "maintenance_team",
+            "operator"
+          ],
+          "grounded_evidence_ids": [
+            "factory_ev_damage",
+            "factory_ev_visual"
+          ],
+          "group_belonging": "operator remains responsible for shared process",
+          "inferred_elements": [
+            "active production flow",
+            "at shutdown controls",
+            "clear operator position",
+            "continued production heat input",
+            "controlled shutdown procedure",
+            "financial loss marker remains",
+            "intact equipment",
+            "operator accountable to shared process",
+            "operator executes controlled stop sequence",
+            "operator remains responsible for shared process",
+            "production flow changes to controlled stop",
+            "shutdown sequence",
+            "temperature gauge",
+            "temperature gauge remains visible beside intact equipment"
+          ],
+          "movement": [
+            "operator executes controlled stop sequence"
+          ],
+          "obstacle_markers": [
+            "financial loss marker remains"
+          ],
+          "option_id": "factory_shutdown",
+          "scene_id": "visual_scene_ca84139094cbced4d587b0b96f8d43d3",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "at shutdown controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_b0e9c95090d4de5883188fe6943ffcfe"
+            },
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_ee33397c67151c7e25b3e5d7aafe3f0b"
+            }
+          ],
+          "attraction_markers": [
+            "clear operator position"
+          ],
+          "composition": [
+            "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+            "clear operator position",
+            "production heat input persists during brief verification",
+            "rising gauge beside intact machinery",
+            "sensor truth remains unknown until checked",
+            "two conflicting sensor displays are inspected together"
+          ],
+          "entities": [
+            "between primary and backup displays",
+            "maintenance_team",
+            "operator",
+            "second sensor display",
+            "three-minute timer"
+          ],
+          "grounded_evidence_ids": [
+            "factory_ev_sensor",
+            "factory_ev_visual"
+          ],
+          "group_belonging": "operator remains responsible for shared process",
+          "inferred_elements": [
+            "between primary and backup displays",
+            "clear operator position",
+            "operator accountable to shared process",
+            "operator compares two displays",
+            "operator remains responsible for shared process",
+            "production heat input persists during brief verification",
+            "second sensor display",
+            "sensor disagreement",
+            "sensor truth remains unknown until checked",
+            "three-minute limit",
+            "three-minute timer",
+            "two conflicting sensor displays are inspected together"
+          ],
+          "movement": [
+            "operator compares two displays"
+          ],
+          "obstacle_markers": [
+            "production heat input persists during brief verification",
+            "sensor truth remains unknown until checked"
+          ],
+          "option_id": "factory_verify",
+          "scene_id": "visual_scene_1fa5dce187b32d1a6d09ad0d5957a571",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "between primary and backup displays",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        }
+      ]
+    },
+    "counterfactual_lineage": [
+      {
+        "actual_scene_signature": "364783053788e84734165ccd6d8b68bc75019b1083de94827287df68474186e8",
+        "candidate_counterfactual_signature": "fcde510b5d3768923570b8d895081cf57b81688c0a357e0589924278cee9c04d",
+        "delta": {
+          "attention": [
+            "current production settings"
+          ],
+          "attraction_markers": [],
+          "belonging": "operator remains responsible for shared process",
+          "composition_changes": [
+            "active production flow remains beside rising gauge"
+          ],
+          "entities_added": [],
+          "entities_removed": [],
+          "movement": [
+            "production line keeps moving"
+          ],
+          "obstacle_persistence": [
+            "rising temperature",
+            "equipment-damage possibility",
+            "sensor disagreement"
+          ],
+          "obstacle_removal": [],
+          "self_position": "at current production controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        "evidence_basis_ids": [
+          "factory_ev_temperature",
+          "factory_ev_damage"
+        ],
+        "option_id": "factory_continue"
+      },
+      {
+        "actual_scene_signature": "8e5018f75f46907d65a7b5fa369f5fc2222f1cdd1232d4e68c8ec6da818332d1",
+        "candidate_counterfactual_signature": "3bc7eab7ae9dd6ba01b4fae173896c7ff6ac5054665c6446af52daac65e0274c",
+        "delta": {
+          "attention": [
+            "shutdown sequence",
+            "temperature gauge"
+          ],
+          "attraction_markers": [
+            "intact equipment",
+            "clear operator position"
+          ],
+          "belonging": "operator remains responsible for shared process",
+          "composition_changes": [
+            "temperature gauge remains visible beside intact equipment",
+            "production flow changes to controlled stop"
+          ],
+          "entities_added": [
+            "controlled shutdown procedure"
+          ],
+          "entities_removed": [
+            "active production flow"
+          ],
+          "movement": [
+            "operator executes controlled stop sequence"
+          ],
+          "obstacle_persistence": [
+            "financial loss marker remains"
+          ],
+          "obstacle_removal": [
+            "continued production heat input"
+          ],
+          "self_position": "at shutdown controls",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        "evidence_basis_ids": [
+          "factory_ev_damage",
+          "factory_ev_visual"
+        ],
+        "option_id": "factory_shutdown"
+      },
+      {
+        "actual_scene_signature": "ee6c9cf8fb5a5ee80749228c403b56ec7e5bda06358e21fa5ff0b2312fd30ba5",
+        "candidate_counterfactual_signature": "7ce9430d753d1f6e21b185fbe9c4221175665d85fb4ad66907fba4f13f16a18f",
+        "delta": {
+          "attention": [
+            "sensor disagreement",
+            "three-minute limit"
+          ],
+          "attraction_markers": [
+            "clear operator position"
+          ],
+          "belonging": "operator remains responsible for shared process",
+          "composition_changes": [
+            "two conflicting sensor displays are inspected together"
+          ],
+          "entities_added": [
+            "second sensor display",
+            "three-minute timer"
+          ],
+          "entities_removed": [],
+          "movement": [
+            "operator compares two displays"
+          ],
+          "obstacle_persistence": [
+            "production heat input persists during brief verification",
+            "sensor truth remains unknown until checked"
+          ],
+          "obstacle_removal": [],
+          "self_position": "between primary and backup displays",
+          "status_relations": [
+            "operator accountable to shared process"
+          ]
+        },
+        "evidence_basis_ids": [
+          "factory_ev_sensor",
+          "factory_ev_visual"
+        ],
+        "option_id": "factory_verify"
+      }
+    ],
+    "image_generation_calls": 0,
+    "mode": "manual_structured_counterfactual_routing",
+    "packet": {
+      "actor_positions": [],
+      "aesthetic_cues": [
+        "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."
+      ],
+      "allowed_option_ids": [
+        "factory_continue",
+        "factory_shutdown",
+        "factory_verify"
+      ],
+      "caveat": "Profilno slep strukturiran paket. Vsebina besedila ni semantično klasificirana in paket ne vsebuje Emocieve izbire. TRIAD-S2 research adapter adds only the sealed grounded evidence basis for manual option counterfactual scenes; the exact source SceneEvent hash is preserved by the enclosing sealed call lineage rather than asserted as an active-router packet.",
+      "evidence_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual"
+      ],
+      "explicit_identity_cues": [
+        "maintenance_team",
+        "operator"
+      ],
+      "grounded_visual_cues": [
+        "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."
+      ],
+      "movement_cues": [],
+      "observed_attention": [],
+      "packet_id": "emocio_packet_196fba5c67b671aa7f9523e6a1f5200f",
+      "scene_id": "triad_factory_overtemperature",
+      "schema_version": "rei-native-emocio-input-packet-v1",
+      "social_layout": [
+        "maintenance_team",
+        "operator"
+      ]
+    },
+    "world": {
+      "attraction_patterns": [
+        "stable gauge",
+        "intact machinery",
+        "clear position"
+      ],
+      "broken_scenes": [
+        "damaged equipment beneath a red warning field"
+      ],
+      "desired_scenes": [
+        "stable gauge, intact machinery, and a clear operator position"
+      ],
+      "motor_patterns": [
+        "step back from controls",
+        "inspect two displays",
+        "keep the line moving"
+      ],
+      "schema_version": "rei-native-emocio-world-v1",
+      "social_identity_motifs": [
+        "operator responsible for a shared process"
+      ],
+      "visual_memories": [
+        "rising gauge beside intact machinery"
+      ],
+      "world_id": "s2_emocio_factory_ov_dcb968a7d5412d7b792d9d54e6b8d4bb"
+    }
+  },
+  "instinkt": {
+    "body_state": {
+      "arousal": 0.55,
+      "attachment_security": 0.7,
+      "body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+      "boundary_integrity": 0.9,
+      "energy": 0.75,
+      "escape_availability": 0.85,
+      "fatigue": 0.2,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.35,
+      "resource_security": 0.75,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.55,
+      "trust": 0.6,
+      "uncertainty": 0.7
+    },
+    "call_spec": {
+      "call_id": "provider_call_c6ff0055d64f1bda1df1cf0b35530a16",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "s2_body_factory_over_22abf98cbb645183461367143be40718",
+        "triad_factory_overtemperature"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "effect_lineage": [
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "factory_continue_heat_exposure",
+            "effect_categories": [
+              "hazard_exposure_continues"
+            ],
+            "source_evidence_ids": [
+              "factory_ev_temperature",
+              "factory_ev_damage"
+            ],
+            "statement": "Continuing at current settings preserves the rising-heat exposure described by the process evidence."
+          }
+        ],
+        "derived_body_deltas": {
+          "physical_integrity": -0.25,
+          "predictability": -0.1,
+          "tension": 0.2
+        },
+        "effect_categories": [
+          "hazard_exposure_continues"
+        ],
+        "effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "effect_signature": "3698a23aed89b19ef8b0ca9c3b21f5b9805d457c6daa5d94d1c52c5e875da6ce",
+        "option_id": "factory_continue",
+        "source_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_temperature"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "factory_shutdown_heat_stop",
+            "effect_categories": [
+              "hazard_exposure_stopped",
+              "resource_loss"
+            ],
+            "source_evidence_ids": [
+              "factory_ev_damage"
+            ],
+            "statement": "The controlled shutdown stops production heat input and incurs the stated shutdown loss."
+          }
+        ],
+        "derived_body_deltas": {
+          "physical_integrity": 0.1,
+          "predictability": 0.1,
+          "resource_security": -0.2,
+          "tension": -0.15
+        },
+        "effect_categories": [
+          "hazard_exposure_stopped",
+          "resource_loss"
+        ],
+        "effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "effect_signature": "eeb7f0176db243fbf28c1e8454a70e23bee54acfbac7fd1f6feba6260f18717f",
+        "option_id": "factory_shutdown",
+        "source_evidence_ids": [
+          "factory_ev_damage"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "factory_verify_brief_exposure",
+            "effect_categories": [
+              "hazard_exposure_brief"
+            ],
+            "source_evidence_ids": [
+              "factory_ev_sensor",
+              "factory_ev_temperature"
+            ],
+            "statement": "The three-minute sensor check keeps the process exposed briefly while comparing the conflicting readings."
+          }
+        ],
+        "derived_body_deltas": {
+          "physical_integrity": -0.05,
+          "predictability": 0.05,
+          "uncertainty": -0.1
+        },
+        "effect_categories": [
+          "hazard_exposure_brief"
+        ],
+        "effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "effect_signature": "0e90e8a4a0517ef809caf726f3b3baebc297a3059441eb65523db1e0cd953ddc",
+        "option_id": "factory_verify",
+        "source_evidence_ids": [
+          "factory_ev_sensor",
+          "factory_ev_temperature"
+        ]
+      }
+    ],
+    "mode": "manual_option_consequence_routing",
+    "model_mapper_calls": 0,
+    "option_effects": [
+      {
+        "action_tendency": "seek_safety",
+        "association_cue_tokens": [
+          "factory_continue_heat_exposure",
+          "hazard_exposure_continues"
+        ],
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.25,
+            "dimension": "physical_integrity"
+          },
+          {
+            "delta": -0.1,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+        "dominant_alarm": "sealed_option_consequence:hazard_exposure_continues",
+        "effect_hash": "9b41b8271df7b9bb5909f08f208c9acb313ecbc2a0e2965ad1efd8758c04636c",
+        "effect_id": "option_effect_277881d38b2df61608f1a8aeaf580df9",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+        "option_id": "factory_continue",
+        "protected_targets": [
+          "tension",
+          "physical_integrity",
+          "predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+        "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "triggering_evidence_ids": [
+          "factory_ev_damage",
+          "factory_ev_temperature"
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "factory_shutdown_heat_stop",
+          "hazard_exposure_stopped",
+          "resource_loss"
+        ],
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": -0.15,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.1,
+            "dimension": "physical_integrity"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "resource_security"
+          },
+          {
+            "delta": 0.1,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+        "dominant_alarm": "sealed_option_consequence:hazard_exposure_stopped+resource_loss",
+        "effect_hash": "046d3f06144bd369332f50bd9cfda5d7d86860135ce0d93ff2680db07418b5d4",
+        "effect_id": "option_effect_318190fd7ecab0623150f4ce10ea8267",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+        "option_id": "factory_shutdown",
+        "protected_targets": [
+          "tension",
+          "physical_integrity",
+          "resource_security",
+          "predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+        "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "triggering_evidence_ids": [
+          "factory_ev_damage"
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "action_tendency": "seek_safety",
+        "association_cue_tokens": [
+          "factory_verify_brief_exposure",
+          "hazard_exposure_brief"
+        ],
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": -0.05,
+            "dimension": "physical_integrity"
+          },
+          {
+            "delta": -0.1,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.05,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_sealed_consequence:boundary_integrity",
+        "dominant_alarm": "sealed_option_consequence:hazard_exposure_brief",
+        "effect_hash": "aaa312b3e1666b5e21b1b69326c3d471fed51851be9f4bf5ee88bde6f6842892",
+        "effect_id": "option_effect_268f9157a5276bac9a5927d9578e3fe2",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+        "option_id": "factory_verify",
+        "protected_targets": [
+          "physical_integrity",
+          "uncertainty",
+          "predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "2f7be549df3c0748231a5dc13c729d4855bc2829a77cad9dea9823c4b257a259",
+        "source_packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+        "triggering_evidence_ids": [
+          "factory_ev_sensor",
+          "factory_ev_temperature"
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      }
+    ],
+    "packet": {
+      "attachment_cues": [],
+      "boundary_cues": [],
+      "caveat": "TRIAD-S2 profile-blind packet; typed effects derive only from sealed option-specific consequence facts and their evidence.",
+      "escape_cues": [],
+      "evidence_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature"
+      ],
+      "explicit_body_cues": [],
+      "option_ids": [
+        "factory_continue",
+        "factory_shutdown",
+        "factory_verify"
+      ],
+      "packet_id": "instinkt_packet_ea8a0ca42198ece582d5602e66c80269",
+      "physical_cues": [],
+      "scarcity_cues": [],
+      "scene_id": "triad_factory_overtemperature",
+      "schema_version": "rei-native-instinkt-input-packet-v1",
+      "source_body_state_id": "s2_body_factory_over_22abf98cbb645183461367143be40718",
+      "trust_cues": [],
+      "uncertainty_cues": []
+    },
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "profile_blind": true,
+  "public_options": [
+    {
+      "description": "Plan and execute the controlled shutdown procedure immediately.",
+      "label": "Immediate controlled shutdown",
+      "option_id": "factory_shutdown"
+    },
+    {
+      "description": "Verify both sensors for no more than three minutes and then decide again.",
+      "label": "Brief verification",
+      "option_id": "factory_verify"
+    },
+    {
+      "description": "Proceed with production at the current settings.",
+      "label": "Continue production",
+      "option_id": "factory_continue"
+    }
+  ],
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_temperature",
+        "factory_ev_visual",
+        "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+        "s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "factory_shutdown",
+        "factory_verify",
+        "factory_continue"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "A decision must be made within three minutes.",
+        "Only the three public options may be used."
+      ],
+      "evidence_ids": [
+        "factory_ev_temperature",
+        "factory_ev_sensor",
+        "factory_ev_damage",
+        "factory_ev_visual"
+      ],
+      "explicit_consequences": [],
+      "explicit_facts": [
+        "Process temperature rose by 11 C during the last six minutes.",
+        "A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown.",
+        "Further heating can damage equipment, while a controlled shutdown causes financial loss.",
+        "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."
+      ],
+      "explicit_options": [
+        {
+          "description": "Plan and execute the controlled shutdown procedure immediately.",
+          "label": "Immediate controlled shutdown",
+          "option_id": "factory_shutdown",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify both sensors for no more than three minutes and then decide again.",
+          "label": "Brief verification",
+          "option_id": "factory_verify",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Proceed with production at the current settings.",
+          "label": "Continue production",
+          "option_id": "factory_continue",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "Which sensor is correct is unknown.",
+        "Whether equipment damage has already occurred is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [
+        11,
+        8,
+        3
+      ],
+      "packet_id": "racio_packet_af3973b88b926e31afea9f2026e5eca9",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Retain explicit unknowns and compare consequences without inventing sensor reliability."
+      ],
+      "scene_id": "triad_factory_overtemperature",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "cab27405f27ae2dc3867a1451e414af076dc605d3d087903f5a1434078feeb91",
+      "symbolic_and_language_cues": [
+        "Process temperature is rising; choose one public option under limited time, financial loss, and conflicting sensor data."
+      ],
+      "time": [
+        "The observed rise covers six minutes.",
+        "The decision window is three minutes."
+      ],
+      "world": {
+        "commitments": [
+          "Evaluate only the public options."
+        ],
+        "explicit_beliefs": [],
+        "facts": [],
+        "rules": [
+          "Unknowns are not facts."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "The decision window is three minutes."
+        ],
+        "world_id": "s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"factory_shutdown\",\"factory_verify\",\"factory_continue\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"A decision must be made within three minutes.\",\"Only the three public options may be used.\"],\"evidence_ids\":[\"factory_ev_temperature\",\"factory_ev_sensor\",\"factory_ev_damage\",\"factory_ev_visual\"],\"explicit_consequences\":[],\"explicit_facts\":[\"Process temperature rose by 11 C during the last six minutes.\",\"A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown.\",\"Further heating can damage equipment, while a controlled shutdown causes financial loss.\",\"The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.\"],\"explicit_options\":[{\"description\":\"Plan and execute the controlled shutdown procedure immediately.\",\"label\":\"Immediate controlled shutdown\",\"option_id\":\"factory_shutdown\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Verify both sensors for no more than three minutes and then decide again.\",\"label\":\"Brief verification\",\"option_id\":\"factory_verify\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Proceed with production at the current settings.\",\"label\":\"Continue production\",\"option_id\":\"factory_continue\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Which sensor is correct is unknown.\",\"Whether equipment damage has already occurred is unknown.\"],\"language\":\"en\",\"numeric_cues\":[11,8,3],\"packet_id\":\"racio_packet_af3973b88b926e31afea9f2026e5eca9\",\"previous_racio_projection_ids\":[],\"rules\":[\"Retain explicit unknowns and compare consequences without inventing sensor reliability.\"],\"scene_id\":\"triad_factory_overtemperature\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"cab27405f27ae2dc3867a1451e414af076dc605d3d087903f5a1434078feeb91\",\"symbolic_and_language_cues\":[\"Process temperature is rising; choose one public option under limited time, financial loss, and conflicting sensor data.\"],\"time\":[\"The observed rise covers six minutes.\",\"The decision window is three minutes.\"],\"world\":{\"commitments\":[\"Evaluate only the public options.\"],\"explicit_beliefs\":[],\"facts\":[],\"rules\":[\"Unknowns are not facts.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"The decision window is three minutes.\"],\"world_id\":\"s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "operator",
+        "maintenance_team"
+      ],
+      "constraints": [
+        "A decision must be made within three minutes.",
+        "Only the three public options may be used."
+      ],
+      "event_id": "triad_factory_overtemperature",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "Process temperature rose by 11 C during the last six minutes.",
+          "evidence_id": "factory_ev_temperature",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "simulator",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:factory_overtemperature:factory_claim_temperature"
+        },
+        {
+          "confidence": 1.0,
+          "content": "A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown.",
+          "evidence_id": "factory_ev_sensor",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:factory_overtemperature:factory_claim_sensor"
+        },
+        {
+          "confidence": 1.0,
+          "content": "Further heating can damage equipment, while a controlled shutdown causes financial loss.",
+          "evidence_id": "factory_ev_damage",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:factory_overtemperature:factory_claim_damage"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "evidence_id": "factory_ev_visual",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "image",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:factory_overtemperature:factory_claim_visual"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Plan and execute the controlled shutdown procedure immediately.",
+          "label": "Immediate controlled shutdown",
+          "option_id": "factory_shutdown",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify both sensors for no more than three minutes and then decide again.",
+          "label": "Brief verification",
+          "option_id": "factory_verify",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Proceed with production at the current settings.",
+          "label": "Continue production",
+          "option_id": "factory_continue",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "Process temperature is rising; choose one public option under limited time, financial loss, and conflicting sensor data.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "Which sensor is correct is unknown.",
+        "Whether equipment damage has already occurred is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Evaluate only the public options."
+      ],
+      "explicit_beliefs": [],
+      "facts": [],
+      "rules": [
+        "Unknowns are not facts."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "The decision window is three minutes."
+      ],
+      "world_id": "s2_racio_factory_ove_1ff4193fef08b1752ae2aa209fb6ca37"
+    }
+  },
+  "schema_version": "triad-s2-sealed-inputs-v1",
+  "source": {
+    "canonical_sl": {
+      "actors": [
+        "operator",
+        "maintenance_team"
+      ],
+      "constraints": [
+        {
+          "constraint_id": "factory_constraint_time",
+          "text": "Odločitev mora biti sprejeta v treh minutah."
+        },
+        {
+          "constraint_id": "factory_constraint_scope",
+          "text": "Uporabljene smejo biti samo tri javne možnosti."
+        }
+      ],
+      "event_id": "triad_factory_overtemperature",
+      "evidence": [
+        {
+          "claim_id": "factory_claim_temperature",
+          "content": "Procesna temperatura je v zadnjih šestih minutah narasla za 11 °C.",
+          "evidence_id": "factory_ev_temperature",
+          "modality": "simulator"
+        },
+        {
+          "claim_id": "factory_claim_sensor",
+          "content": "Rezervni senzor kaže vrednost 8 °C nižje od primarnega senzorja; pravilnost obeh odčitkov je neznana.",
+          "evidence_id": "factory_ev_sensor",
+          "modality": "text"
+        },
+        {
+          "claim_id": "factory_claim_damage",
+          "content": "Nadaljnje segrevanje lahko poškoduje opremo, nadzorovan shutdown pa povzroči finančno izgubo.",
+          "evidence_id": "factory_ev_damage",
+          "modality": "text"
+        },
+        {
+          "claim_id": "factory_claim_visual",
+          "content": "Strukturirani prizor kaže naraščajoči merilnik temperature, oranžno opozorilno luč in nepoškodovano procesno opremo.",
+          "evidence_id": "factory_ev_visual",
+          "modality": "image"
+        }
+      ],
+      "language": "sl",
+      "options": [
+        {
+          "description": "Ustavi proizvodnjo po nadzorovanem postopku.",
+          "label": "Takojšen nadzorovan shutdown",
+          "option_id": "factory_shutdown"
+        },
+        {
+          "description": "Za največ tri minute preveri oba senzorja in nato ponovno odloči.",
+          "label": "Kratko preverjanje",
+          "option_id": "factory_verify"
+        },
+        {
+          "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah.",
+          "label": "Nadaljevanje proizvodnje",
+          "option_id": "factory_continue"
+        }
+      ],
+      "raw_input": "Procesna temperatura narašča; izberi javno možnost ob omejenem času, finančni izgubi in nasprotujočem senzorju.",
+      "unknowns": [
+        {
+          "text": "Ni znano, kateri senzor je pravilen.",
+          "unknown_id": "factory_unknown_sensor"
+        },
+        {
+          "text": "Ni znano, ali je že nastala poškodba opreme.",
+          "unknown_id": "factory_unknown_damage"
+        }
+      ]
+    },
+    "operational_en": {
+      "actors": [
+        "operator",
+        "maintenance_team"
+      ],
+      "constraints": [
+        {
+          "constraint_id": "factory_constraint_time",
+          "text": "A decision must be made within three minutes."
+        },
+        {
+          "constraint_id": "factory_constraint_scope",
+          "text": "Only the three public options may be used."
+        }
+      ],
+      "event_id": "triad_factory_overtemperature",
+      "evidence": [
+        {
+          "claim_id": "factory_claim_temperature",
+          "content": "Process temperature rose by 11 C during the last six minutes.",
+          "evidence_id": "factory_ev_temperature",
+          "modality": "simulator"
+        },
+        {
+          "claim_id": "factory_claim_sensor",
+          "content": "A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown.",
+          "evidence_id": "factory_ev_sensor",
+          "modality": "text"
+        },
+        {
+          "claim_id": "factory_claim_damage",
+          "content": "Further heating can damage equipment, while a controlled shutdown causes financial loss.",
+          "evidence_id": "factory_ev_damage",
+          "modality": "text"
+        },
+        {
+          "claim_id": "factory_claim_visual",
+          "content": "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment.",
+          "evidence_id": "factory_ev_visual",
+          "modality": "image"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Plan and execute the controlled shutdown procedure immediately.",
+          "label": "Immediate controlled shutdown",
+          "option_id": "factory_shutdown"
+        },
+        {
+          "description": "Verify both sensors for no more than three minutes and then decide again.",
+          "label": "Brief verification",
+          "option_id": "factory_verify"
+        },
+        {
+          "description": "Proceed with production at the current settings.",
+          "label": "Continue production",
+          "option_id": "factory_continue"
+        }
+      ],
+      "raw_input": "Process temperature is rising; choose one public option under limited time, financial loss, and conflicting sensor data.",
+      "unknowns": [
+        {
+          "text": "Which sensor is correct is unknown.",
+          "unknown_id": "factory_unknown_sensor"
+        },
+        {
+          "text": "Whether equipment damage has already occurred is unknown.",
+          "unknown_id": "factory_unknown_damage"
+        }
+      ]
+    }
+  }
+}

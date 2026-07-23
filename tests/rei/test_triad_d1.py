@@ -206,10 +206,11 @@ def test_s1_route_audit_confirms_emocio_capacity_collapse_and_instinkt_scope() -
 
 
 def test_s2_candidate_has_distinguishable_emocio_and_instinkt_signatures() -> None:
-    candidate = build_s2_candidate(REPOSITORY_ROOT)
+    candidate = _json(S2_ROOT / "corpus_candidate.json")
     report = preflight_s2_candidate(candidate)
 
     assert tuple(case["case_id"] for case in candidate["cases"]) == S2_CASE_IDS
+    assert candidate == build_s2_candidate(REPOSITORY_ROOT)
     assert report["passed"] is True
     assert all(
         case["emocio"]["unique_signature_count"] >= 2

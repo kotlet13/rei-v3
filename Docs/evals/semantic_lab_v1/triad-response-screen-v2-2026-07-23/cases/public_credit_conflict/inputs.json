@@ -1,0 +1,1541 @@
+{
+  "case_id": "public_credit_conflict",
+  "emocio": {
+    "call_spec": {
+      "call_id": "provider_call_a77937436805cbcaffa27e64ca64707f",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "emocio_packet_c40ca425ac7b4b89d2f93f8f4911fb91",
+        "emocio_world_input_0d585c603a999c551240411bde6f9d17",
+        "triad_public_credit_conflict",
+        "triad_s2_emocio_counterfactuals_31315b2f501b3e9da560bfa3fbf0ac95"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_c40ca425ac7b4b89d2f93f8f4911fb91",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "compiled_scenes": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "one figure erased from the shared-work composition"
+        ],
+        "entities": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement",
+          "credit_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "one figure erased from the shared-work composition"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "one figure erased from the shared-work composition"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_5f72a48ed68007ae9d11aac98e710b58",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+        ],
+        "composition": [
+          "The leader is present and the meeting is still in progress.",
+          "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "one speaker centered beside shared work"
+        ],
+        "entities": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement",
+          "credit_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "one speaker centered beside shared work"
+        ],
+        "movement": [
+          "The leader is present and the meeting is still in progress."
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_92bf7479bf6fe382f327f0a7acb31b59",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "balanced positions",
+          "visible authorship record"
+        ],
+        "composition": [
+          "authorship record visible with balanced positions at the table"
+        ],
+        "entities": [
+          "colleague",
+          "leader",
+          "meeting_group",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown",
+          "credit_ev_statement",
+          "credit_ev_visual"
+        ],
+        "group_belonging": "author, colleague, leader, and observing group",
+        "inferred_elements": [
+          "authorship record visible with balanced positions at the table"
+        ],
+        "movement": [
+          "move beside the leader",
+          "remain seated",
+          "stand and display"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_8015c5652ed483486fe85a2e6f6deba2",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "author, colleague, leader, and observing group"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_c3b785f21fcb1c27ab4a21a493183434"
+            }
+          ],
+          "attraction_markers": [],
+          "composition": [
+            "The leader is present and the meeting is still in progress.",
+            "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "authorship record remains unseen",
+            "colleague remains centered beside shared work",
+            "leader's assessment remains unknown",
+            "one speaker centered beside shared work",
+            "timestamped record stays on the laptop"
+          ],
+          "entities": [
+            "away from the shared projection",
+            "colleague",
+            "leader",
+            "meeting_group",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "credit_ev_record",
+            "credit_ev_statement"
+          ],
+          "group_belonging": "author remains in the observing group",
+          "inferred_elements": [
+            " ",
+            "'",
+            "a",
+            "author remains in the observing group",
+            "author remains seated with no follow-up",
+            "authorship record remains unseen",
+            "away from the shared projection",
+            "b",
+            "c",
+            "colleague remains centered beside shared work",
+            "e",
+            "g",
+            "h",
+            "i",
+            "l",
+            "leader's assessment remains unknown",
+            "m",
+            "meeting proceeds without authorship evidence",
+            "n",
+            "o",
+            "p",
+            "r",
+            "s",
+            "t",
+            "timestamped record stays on the laptop",
+            "u"
+          ],
+          "movement": [
+            "author remains seated with no follow-up"
+          ],
+          "obstacle_markers": [
+            "authorship record remains unseen",
+            "leader's assessment remains unknown"
+          ],
+          "option_id": "credit_no_response",
+          "scene_id": "visual_scene_923c5d1d9f10f44c7e5aa340c7b73e7d",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "away from the shared projection",
+          "status_relations": [
+            " ",
+            "'",
+            "a",
+            "b",
+            "c",
+            "e",
+            "g",
+            "h",
+            "i",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "r",
+            "s",
+            "t",
+            "u"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_344aed7955306e4b78b1b07b914fa870"
+            }
+          ],
+          "attraction_markers": [
+            "balanced positions",
+            "visible authorship record"
+          ],
+          "composition": [
+            "The leader is present and the meeting is still in progress.",
+            "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "balanced positions",
+            "leader's assessment remains unknown",
+            "meeting ends before record is shown privately to leader",
+            "one speaker centered beside shared work",
+            "public statement remains uncorrected during the meeting",
+            "visible authorship record"
+          ],
+          "entities": [
+            "beside leader in private review",
+            "colleague",
+            "leader",
+            "meeting_group",
+            "private authorship record review",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "credit_ev_leader",
+            "credit_ev_record"
+          ],
+          "group_belonging": "author and leader share a private evidence review",
+          "inferred_elements": [
+            "author and leader share a private evidence review",
+            "author moves beside leader after the meeting",
+            "balanced positions",
+            "beside leader in private review",
+            "leader receives authorship evidence outside the group",
+            "leader's assessment remains unknown",
+            "meeting ends before record is shown privately to leader",
+            "private authorship record review",
+            "public statement remains uncorrected during the meeting",
+            "record hidden from leader",
+            "timestamped authorship record",
+            "visible authorship record"
+          ],
+          "movement": [
+            "author moves beside leader after the meeting"
+          ],
+          "obstacle_markers": [
+            "leader's assessment remains unknown",
+            "public statement remains uncorrected during the meeting"
+          ],
+          "option_id": "credit_private_evidence",
+          "scene_id": "visual_scene_ea1e40096551d1356f0ae197fd524eed",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "beside leader in private review",
+          "status_relations": [
+            "leader receives authorship evidence outside the group"
+          ]
+        },
+        {
+          "attention_structure": [
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_3f20cc84ff828b06964936a894cb9c79"
+            },
+            {
+              "score": 1.0,
+              "target": "s2_attention_target_492faf534c7f3d8c60533859c47e5c9a"
+            }
+          ],
+          "attraction_markers": [
+            "visible authorship record"
+          ],
+          "composition": [
+            "The leader is present and the meeting is still in progress.",
+            "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+            "authorship record becomes public while meeting continues",
+            "one speaker centered beside shared work",
+            "social consequences remain unknown",
+            "visible authorship record"
+          ],
+          "entities": [
+            "beside the shared projection",
+            "colleague",
+            "leader",
+            "meeting_group",
+            "self",
+            "timestamped record on meeting projection"
+          ],
+          "grounded_evidence_ids": [
+            "credit_ev_leader",
+            "credit_ev_record",
+            "credit_ev_social_unknown",
+            "credit_ev_statement"
+          ],
+          "group_belonging": "author, colleague, leader, and group remain in one meeting",
+          "inferred_elements": [
+            "author stands and displays the record",
+            "author, colleague, leader, and group remain in one meeting",
+            "authorship claim is contested before leader and group",
+            "authorship record",
+            "authorship record becomes public while meeting continues",
+            "beside the shared projection",
+            "colleague's statement",
+            "record hidden from the meeting",
+            "social consequences remain unknown",
+            "timestamped record on meeting projection",
+            "visible authorship record"
+          ],
+          "movement": [
+            "author stands and displays the record"
+          ],
+          "obstacle_markers": [
+            "social consequences remain unknown"
+          ],
+          "option_id": "credit_public_confront",
+          "scene_id": "visual_scene_3f81595fe4f0ea5112c5a274e882efff",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "beside the shared projection",
+          "status_relations": [
+            "authorship claim is contested before leader and group"
+          ]
+        }
+      ]
+    },
+    "counterfactual_lineage": [
+      {
+        "actual_scene_signature": "18d2fa43860d59c25103a58549dfa66c7786c7e0db8d157ed699505d64eada4d",
+        "candidate_counterfactual_signature": "9ceb9cce53f01d801478d5bb9f0087ee8a39919d69b6d4028e5f291d1988868c",
+        "delta": {
+          "attention": [
+            "meeting proceeds without authorship evidence"
+          ],
+          "attraction_markers": [],
+          "belonging": "author remains in the observing group",
+          "composition_changes": [
+            "colleague remains centered beside shared work",
+            "timestamped record stays on the laptop"
+          ],
+          "entities_added": [],
+          "entities_removed": [],
+          "movement": [
+            "author remains seated with no follow-up"
+          ],
+          "obstacle_persistence": [
+            "authorship record remains unseen",
+            "leader's assessment remains unknown"
+          ],
+          "obstacle_removal": [],
+          "self_position": "away from the shared projection",
+          "status_relations": "colleague's public authorship claim remains"
+        },
+        "evidence_basis_ids": [
+          "credit_ev_statement",
+          "credit_ev_record"
+        ],
+        "option_id": "credit_no_response"
+      },
+      {
+        "actual_scene_signature": "2f221f153c28926e45bc36a6b81e9bf353024f733f5b17a66beb336d64394f16",
+        "candidate_counterfactual_signature": "08cc1932cef256cf1b8b4d7da671a13d990dafbe05b7113886583c7a79149ea5",
+        "delta": {
+          "attention": [
+            "timestamped authorship record"
+          ],
+          "attraction_markers": [
+            "visible authorship record",
+            "balanced positions"
+          ],
+          "belonging": "author and leader share a private evidence review",
+          "composition_changes": [
+            "meeting ends before record is shown privately to leader"
+          ],
+          "entities_added": [
+            "private authorship record review"
+          ],
+          "entities_removed": [],
+          "movement": [
+            "author moves beside leader after the meeting"
+          ],
+          "obstacle_persistence": [
+            "leader's assessment remains unknown",
+            "public statement remains uncorrected during the meeting"
+          ],
+          "obstacle_removal": [
+            "record hidden from leader"
+          ],
+          "self_position": "beside leader in private review",
+          "status_relations": [
+            "leader receives authorship evidence outside the group"
+          ]
+        },
+        "evidence_basis_ids": [
+          "credit_ev_record",
+          "credit_ev_leader"
+        ],
+        "option_id": "credit_private_evidence"
+      },
+      {
+        "actual_scene_signature": "ef23412e056063f4401083934e3659235b993bdb075e5db330f286ce94d536c0",
+        "candidate_counterfactual_signature": "7bcf4615e8e2093d65ee6b6a40b4b7d3eccceb8ecf554311cba39a5f03c141e3",
+        "delta": {
+          "attention": [
+            "authorship record",
+            "colleague's statement"
+          ],
+          "attraction_markers": [
+            "visible authorship record"
+          ],
+          "belonging": "author, colleague, leader, and group remain in one meeting",
+          "composition_changes": [
+            "authorship record becomes public while meeting continues"
+          ],
+          "entities_added": [
+            "timestamped record on meeting projection"
+          ],
+          "entities_removed": [],
+          "movement": [
+            "author stands and displays the record"
+          ],
+          "obstacle_persistence": [
+            "social consequences remain unknown"
+          ],
+          "obstacle_removal": [
+            "record hidden from the meeting"
+          ],
+          "self_position": "beside the shared projection",
+          "status_relations": [
+            "authorship claim is contested before leader and group"
+          ]
+        },
+        "evidence_basis_ids": [
+          "credit_ev_statement",
+          "credit_ev_record",
+          "credit_ev_leader",
+          "credit_ev_social_unknown"
+        ],
+        "option_id": "credit_public_confront"
+      }
+    ],
+    "image_generation_calls": 0,
+    "mode": "manual_structured_counterfactual_routing",
+    "packet": {
+      "actor_positions": [],
+      "aesthetic_cues": [
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+      ],
+      "allowed_option_ids": [
+        "credit_no_response",
+        "credit_private_evidence",
+        "credit_public_confront"
+      ],
+      "caveat": "Profilno slep strukturiran paket. Vsebina besedila ni semantično klasificirana in paket ne vsebuje Emocieve izbire. TRIAD-S2 research adapter adds only the sealed grounded evidence basis for manual option counterfactual scenes; the exact source SceneEvent hash is preserved by the enclosing sealed call lineage rather than asserted as an active-router packet.",
+      "evidence_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement",
+        "credit_ev_visual"
+      ],
+      "explicit_identity_cues": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ],
+      "grounded_visual_cues": [
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+      ],
+      "movement_cues": [
+        "The leader is present and the meeting is still in progress."
+      ],
+      "observed_attention": [],
+      "packet_id": "emocio_packet_c40ca425ac7b4b89d2f93f8f4911fb91",
+      "scene_id": "triad_public_credit_conflict",
+      "schema_version": "rei-native-emocio-input-packet-v1",
+      "social_layout": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ]
+    },
+    "world": {
+      "attraction_patterns": [
+        "visible authorship record",
+        "balanced positions"
+      ],
+      "broken_scenes": [
+        "one figure erased from the shared-work composition"
+      ],
+      "desired_scenes": [
+        "authorship record visible with balanced positions at the table"
+      ],
+      "motor_patterns": [
+        "stand and display",
+        "move beside the leader",
+        "remain seated"
+      ],
+      "schema_version": "rei-native-emocio-world-v1",
+      "social_identity_motifs": [
+        "author, colleague, leader, and observing group"
+      ],
+      "visual_memories": [
+        "one speaker centered beside shared work"
+      ],
+      "world_id": "s2_emocio_public_cre_694a0e1f0e30b6bd1128b22ba5172c14"
+    }
+  },
+  "instinkt": {
+    "body_state": {
+      "arousal": 0.6,
+      "attachment_security": 0.65,
+      "body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "boundary_integrity": 0.72,
+      "energy": 0.7,
+      "escape_availability": 0.82,
+      "fatigue": 0.22,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.45,
+      "resource_security": 0.75,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.62,
+      "trust": 0.42,
+      "uncertainty": 0.65
+    },
+    "call_spec": {
+      "call_id": "provider_call_53e188d6e06dd907ce0c4fb7faa87613",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+        "option_effect_4a8a627cf569a800d966ecff86602eac",
+        "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+        "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "triad_public_credit_conflict"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "effect_lineage": [
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "credit_no_response_boundary",
+            "effect_categories": [
+              "authorship_boundary_unaddressed"
+            ],
+            "source_evidence_ids": [
+              "credit_ev_statement",
+              "credit_ev_record"
+            ],
+            "statement": "No response leaves the public authorship claim unaddressed."
+          }
+        ],
+        "derived_body_deltas": {
+          "boundary_integrity": -0.15
+        },
+        "effect_categories": [
+          "authorship_boundary_unaddressed"
+        ],
+        "effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+        "effect_signature": "e8d3429b20ae394a864268377374dda83769e2fb9fcdbdea60234c5811cfad91",
+        "option_id": "credit_no_response",
+        "source_evidence_ids": [
+          "credit_ev_record",
+          "credit_ev_statement"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "credit_private_review",
+            "effect_categories": [
+              "private_social_exposure",
+              "boundary_added"
+            ],
+            "source_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_leader"
+            ],
+            "statement": "Showing the timestamped record privately limits exposure to the leader and preserves a later authorship boundary."
+          }
+        ],
+        "derived_body_deltas": {
+          "boundary_integrity": 0.2,
+          "predictability": 0.25,
+          "tension": -0.05
+        },
+        "effect_categories": [
+          "boundary_added",
+          "private_social_exposure"
+        ],
+        "effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+        "effect_signature": "b74243f76d2302d56d79ba4b257a067e0eb8222b2bc2b69f8393606ece693105",
+        "option_id": "credit_private_evidence",
+        "source_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record"
+        ]
+      },
+      {
+        "consequence_facts": [
+          {
+            "consequence_id": "credit_public_exposure",
+            "effect_categories": [
+              "public_social_exposure",
+              "boundary_added"
+            ],
+            "source_evidence_ids": [
+              "credit_ev_record",
+              "credit_ev_leader",
+              "credit_ev_social_unknown"
+            ],
+            "statement": "Displaying the record during the meeting creates public social exposure whose consequences remain unknown."
+          }
+        ],
+        "derived_body_deltas": {
+          "boundary_integrity": 0.2,
+          "predictability": 0.15,
+          "tension": 0.2,
+          "uncertainty": 0.1
+        },
+        "effect_categories": [
+          "boundary_added",
+          "public_social_exposure"
+        ],
+        "effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+        "effect_signature": "33c01cbfc5fbe965238886f929f8b6f04fef06d2ea34c85137b959d0c6b457c2",
+        "option_id": "credit_public_confront",
+        "source_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown"
+        ]
+      }
+    ],
+    "mode": "manual_option_consequence_routing",
+    "model_mapper_calls": 0,
+    "option_effects": [
+      {
+        "action_tendency": "set_boundary",
+        "association_cue_tokens": [
+          "authorship_boundary_unaddressed",
+          "credit_no_response_boundary"
+        ],
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": -0.15,
+            "dimension": "boundary_integrity"
+          }
+        ],
+        "boundary_outcome": "sealed_consequence_delta:boundary_integrity:-0.150000",
+        "dominant_alarm": "sealed_option_consequence:authorship_boundary_unaddressed",
+        "effect_hash": "9c17cd6fb8e52066337c0fdce93d0a46e7e3dd072ccdfd445b89a9f6b4072f7f",
+        "effect_id": "option_effect_dabcd964d087fd3db4b9e8fc93202d60",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+        "option_id": "credit_no_response",
+        "protected_targets": [
+          "boundary_integrity"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+        "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "triggering_evidence_ids": [
+          "credit_ev_record",
+          "credit_ev_statement"
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "action_tendency": "maintain",
+        "association_cue_tokens": [
+          "boundary_added",
+          "credit_private_review",
+          "private_social_exposure"
+        ],
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": -0.05,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.2,
+            "dimension": "boundary_integrity"
+          },
+          {
+            "delta": 0.25,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "sealed_consequence_delta:boundary_integrity:+0.200000",
+        "dominant_alarm": "sealed_option_consequence:boundary_added+private_social_exposure",
+        "effect_hash": "eed43068d9669421c2c10cc4f3da4e95c986788f8227574c4372554a320b19e3",
+        "effect_id": "option_effect_4a8a627cf569a800d966ecff86602eac",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+        "option_id": "credit_private_evidence",
+        "protected_targets": [
+          "tension",
+          "boundary_integrity",
+          "predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+        "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "triggering_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record"
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      },
+      {
+        "action_tendency": "maintain",
+        "association_cue_tokens": [
+          "boundary_added",
+          "credit_public_exposure",
+          "public_social_exposure"
+        ],
+        "attachment_outcome": "not_changed_by_sealed_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.1,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.2,
+            "dimension": "boundary_integrity"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "sealed_consequence_delta:boundary_integrity:+0.200000",
+        "dominant_alarm": "sealed_option_consequence:boundary_added+public_social_exposure",
+        "effect_hash": "ca875759ce995d4299363aec2eeb4f160081e76a44c4501abe21bd9c21140aaf",
+        "effect_id": "option_effect_3ba567c5a91359d68d4ffaa50b622323",
+        "escape_outcome": "not_changed_by_sealed_consequence:escape_availability",
+        "minimum_safety_condition": "option-specific consequence evidence remains within the sealed packet scope",
+        "option_id": "credit_public_confront",
+        "protected_targets": [
+          "tension",
+          "uncertainty",
+          "boundary_integrity",
+          "predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "88bc793eef8f1cfbd241513761cc56db72ec44e063f77a537d60d108fb403180",
+        "source_packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+        "triggering_evidence_ids": [
+          "credit_ev_leader",
+          "credit_ev_record",
+          "credit_ev_social_unknown"
+        ],
+        "trust_outcome": "not_changed_by_sealed_consequence:trust"
+      }
+    ],
+    "packet": {
+      "attachment_cues": [],
+      "boundary_cues": [],
+      "caveat": "TRIAD-S2 profile-blind packet; typed effects derive only from sealed option-specific consequence facts and their evidence.",
+      "escape_cues": [],
+      "evidence_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement"
+      ],
+      "explicit_body_cues": [],
+      "option_ids": [
+        "credit_no_response",
+        "credit_private_evidence",
+        "credit_public_confront"
+      ],
+      "packet_id": "instinkt_packet_2a545c0d0bfecb037ad83ccf4dc2cd85",
+      "physical_cues": [],
+      "scarcity_cues": [],
+      "scene_id": "triad_public_credit_conflict",
+      "schema_version": "rei-native-instinkt-input-packet-v1",
+      "source_body_state_id": "s2_body_public_credi_ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "trust_cues": [],
+      "uncertainty_cues": []
+    },
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "profile_blind": true,
+  "public_options": [
+    {
+      "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+      "label": "Immediate public confrontation",
+      "option_id": "credit_public_confront"
+    },
+    {
+      "description": "Verify the record privately with the leader after the meeting.",
+      "label": "Private presentation of evidence",
+      "option_id": "credit_private_evidence"
+    },
+    {
+      "description": "Plan no follow-up and do not present the record.",
+      "label": "No response",
+      "option_id": "credit_no_response"
+    }
+  ],
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_f19aa3bbb48ef499bdb34dd708c87f4e",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "credit_ev_leader",
+        "credit_ev_record",
+        "credit_ev_social_unknown",
+        "credit_ev_statement",
+        "credit_ev_visual",
+        "racio_packet_1cf6dd6ad16079502520783f7b144766",
+        "s2_racio_public_cred_4a8f2a9e38f627c86d66428d5ebc4cea"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_1cf6dd6ad16079502520783f7b144766",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "credit_public_confront",
+        "credit_private_evidence",
+        "credit_no_response"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Only the existing timestamped record may be used.",
+        "Only the three public options may be used."
+      ],
+      "evidence_ids": [
+        "credit_ev_statement",
+        "credit_ev_record",
+        "credit_ev_leader",
+        "credit_ev_visual",
+        "credit_ev_social_unknown"
+      ],
+      "explicit_consequences": [],
+      "explicit_facts": [
+        "During the meeting, the colleague said that they alone designed the presented solution.",
+        "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+        "The social consequences of public confrontation are unknown."
+      ],
+      "explicit_options": [
+        {
+          "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+          "label": "Immediate public confrontation",
+          "option_id": "credit_public_confront",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify the record privately with the leader after the meeting.",
+          "label": "Private presentation of evidence",
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Plan no follow-up and do not present the record.",
+          "label": "No response",
+          "option_id": "credit_no_response",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "The social consequences of public confrontation are unknown.",
+        "How the leader would assess the evidence is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [],
+      "packet_id": "racio_packet_1cf6dd6ad16079502520783f7b144766",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compare evidence visibility, timing, and unknown social consequences without inferring either person's motive."
+      ],
+      "scene_id": "triad_public_credit_conflict",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "099cf87431463822cbb8c3f95362f40bc347737ba9815eaf5ac406d29d4557ae",
+      "symbolic_and_language_cues": [
+        "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response."
+      ],
+      "time": [
+        "The meeting is still in progress."
+      ],
+      "world": {
+        "commitments": [
+          "Evaluate only the public options."
+        ],
+        "explicit_beliefs": [],
+        "facts": [],
+        "rules": [
+          "Unknowns are not facts."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "The meeting is still in progress."
+        ],
+        "world_id": "s2_racio_public_cred_4a8f2a9e38f627c86d66428d5ebc4cea"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"credit_public_confront\",\"credit_private_evidence\",\"credit_no_response\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"Only the existing timestamped record may be used.\",\"Only the three public options may be used.\"],\"evidence_ids\":[\"credit_ev_statement\",\"credit_ev_record\",\"credit_ev_leader\",\"credit_ev_visual\",\"credit_ev_social_unknown\"],\"explicit_consequences\":[],\"explicit_facts\":[\"During the meeting, the colleague said that they alone designed the presented solution.\",\"A timestamped repository record shows another person's authorship before the colleague's contribution.\",\"The leader is present and the meeting is still in progress.\",\"The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.\",\"The social consequences of public confrontation are unknown.\"],\"explicit_options\":[{\"description\":\"Proceed now by challenging the statement and displaying the record in the meeting.\",\"label\":\"Immediate public confrontation\",\"option_id\":\"credit_public_confront\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Verify the record privately with the leader after the meeting.\",\"label\":\"Private presentation of evidence\",\"option_id\":\"credit_private_evidence\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Plan no follow-up and do not present the record.\",\"label\":\"No response\",\"option_id\":\"credit_no_response\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"The social consequences of public confrontation are unknown.\",\"How the leader would assess the evidence is unknown.\"],\"language\":\"en\",\"numeric_cues\":[],\"packet_id\":\"racio_packet_1cf6dd6ad16079502520783f7b144766\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compare evidence visibility, timing, and unknown social consequences without inferring either person's motive.\"],\"scene_id\":\"triad_public_credit_conflict\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"099cf87431463822cbb8c3f95362f40bc347737ba9815eaf5ac406d29d4557ae\",\"symbolic_and_language_cues\":[\"A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.\"],\"time\":[\"The meeting is still in progress.\"],\"world\":{\"commitments\":[\"Evaluate only the public options.\"],\"explicit_beliefs\":[],\"facts\":[],\"rules\":[\"Unknowns are not facts.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"The meeting is still in progress.\"],\"world_id\":\"s2_racio_public_cred_4a8f2a9e38f627c86d66428d5ebc4cea\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "self",
+        "colleague",
+        "leader",
+        "meeting_group"
+      ],
+      "constraints": [
+        "Only the existing timestamped record may be used.",
+        "Only the three public options may be used."
+      ],
+      "event_id": "triad_public_credit_conflict",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "During the meeting, the colleague said that they alone designed the presented solution.",
+          "evidence_id": "credit_ev_statement",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "audio",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:public_credit_conflict:credit_claim_statement"
+        },
+        {
+          "confidence": 1.0,
+          "content": "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+          "evidence_id": "credit_ev_record",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:public_credit_conflict:credit_claim_record"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The leader is present and the meeting is still in progress.",
+          "evidence_id": "credit_ev_leader",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "video",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:public_credit_conflict:credit_claim_leader"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "evidence_id": "credit_ev_visual",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "image",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:public_credit_conflict:credit_claim_visual"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The social consequences of public confrontation are unknown.",
+          "evidence_id": "credit_ev_social_unknown",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s2:public_credit_conflict:credit_claim_social_unknown"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+          "label": "Immediate public confrontation",
+          "option_id": "credit_public_confront",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify the record privately with the leader after the meeting.",
+          "label": "Private presentation of evidence",
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Plan no follow-up and do not present the record.",
+          "label": "No response",
+          "option_id": "credit_no_response",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "The social consequences of public confrontation are unknown.",
+        "How the leader would assess the evidence is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Evaluate only the public options."
+      ],
+      "explicit_beliefs": [],
+      "facts": [],
+      "rules": [
+        "Unknowns are not facts."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "The meeting is still in progress."
+      ],
+      "world_id": "s2_racio_public_cred_4a8f2a9e38f627c86d66428d5ebc4cea"
+    }
+  },
+  "schema_version": "triad-s2-sealed-inputs-v1",
+  "source": {
+    "canonical_sl": {
+      "actors": [
+        "self",
+        "colleague",
+        "leader",
+        "meeting_group"
+      ],
+      "constraints": [
+        {
+          "constraint_id": "credit_constraint_record",
+          "text": "Uporabiti je dovoljeno samo obstoječi časovno označeni zapis."
+        },
+        {
+          "constraint_id": "credit_constraint_scope",
+          "text": "Uporabljene smejo biti samo tri javne možnosti."
+        }
+      ],
+      "event_id": "triad_public_credit_conflict",
+      "evidence": [
+        {
+          "claim_id": "credit_claim_statement",
+          "content": "Sodelavec je na sestanku izjavil, da je sam zasnoval predstavljeno rešitev.",
+          "evidence_id": "credit_ev_statement",
+          "modality": "audio"
+        },
+        {
+          "claim_id": "credit_claim_record",
+          "content": "Časovno označen zapis repozitorija kaže avtorstvo druge osebe pred prispevkom sodelavca.",
+          "evidence_id": "credit_ev_record",
+          "modality": "text"
+        },
+        {
+          "claim_id": "credit_claim_leader",
+          "content": "Vodja je prisoten in sestanek še poteka.",
+          "evidence_id": "credit_ev_leader",
+          "modality": "video"
+        },
+        {
+          "claim_id": "credit_claim_visual",
+          "content": "Strukturirani prizor kaže govorca ob projekciji, vodjo za mizo in časovno označen zapis na prenosniku.",
+          "evidence_id": "credit_ev_visual",
+          "modality": "image"
+        },
+        {
+          "claim_id": "credit_claim_social_unknown",
+          "content": "Socialne posledice javne konfrontacije niso znane.",
+          "evidence_id": "credit_ev_social_unknown",
+          "modality": "text"
+        }
+      ],
+      "language": "sl",
+      "options": [
+        {
+          "description": "Takoj na sestanku izpodbij izjavo in pokaži zapis.",
+          "label": "Takojšnja javna konfrontacija",
+          "option_id": "credit_public_confront"
+        },
+        {
+          "description": "Po sestanku zasebno predstavi zapis vodji.",
+          "label": "Zasebna predstavitev dokazov",
+          "option_id": "credit_private_evidence"
+        },
+        {
+          "description": "Ne predstavi zapisa in ne odpiraj vprašanja zaslug.",
+          "label": "Opustitev odziva",
+          "option_id": "credit_no_response"
+        }
+      ],
+      "raw_input": "Sodelavec si na sestanku prisvoji zasluge; izberi javno konfrontacijo, zasebno predstavitev dokazov ali opustitev odziva.",
+      "unknowns": [
+        {
+          "text": "Ni znano, kakšne socialne posledice bi imela javna konfrontacija.",
+          "unknown_id": "credit_unknown_social"
+        },
+        {
+          "text": "Ni znano, kako bo vodja ocenil dokaz.",
+          "unknown_id": "credit_unknown_leader"
+        }
+      ]
+    },
+    "operational_en": {
+      "actors": [
+        "self",
+        "colleague",
+        "leader",
+        "meeting_group"
+      ],
+      "constraints": [
+        {
+          "constraint_id": "credit_constraint_record",
+          "text": "Only the existing timestamped record may be used."
+        },
+        {
+          "constraint_id": "credit_constraint_scope",
+          "text": "Only the three public options may be used."
+        }
+      ],
+      "event_id": "triad_public_credit_conflict",
+      "evidence": [
+        {
+          "claim_id": "credit_claim_statement",
+          "content": "During the meeting, the colleague said that they alone designed the presented solution.",
+          "evidence_id": "credit_ev_statement",
+          "modality": "audio"
+        },
+        {
+          "claim_id": "credit_claim_record",
+          "content": "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+          "evidence_id": "credit_ev_record",
+          "modality": "text"
+        },
+        {
+          "claim_id": "credit_claim_leader",
+          "content": "The leader is present and the meeting is still in progress.",
+          "evidence_id": "credit_ev_leader",
+          "modality": "video"
+        },
+        {
+          "claim_id": "credit_claim_visual",
+          "content": "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "evidence_id": "credit_ev_visual",
+          "modality": "image"
+        },
+        {
+          "claim_id": "credit_claim_social_unknown",
+          "content": "The social consequences of public confrontation are unknown.",
+          "evidence_id": "credit_ev_social_unknown",
+          "modality": "text"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+          "label": "Immediate public confrontation",
+          "option_id": "credit_public_confront"
+        },
+        {
+          "description": "Verify the record privately with the leader after the meeting.",
+          "label": "Private presentation of evidence",
+          "option_id": "credit_private_evidence"
+        },
+        {
+          "description": "Plan no follow-up and do not present the record.",
+          "label": "No response",
+          "option_id": "credit_no_response"
+        }
+      ],
+      "raw_input": "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.",
+      "unknowns": [
+        {
+          "text": "The social consequences of public confrontation are unknown.",
+          "unknown_id": "credit_unknown_social"
+        },
+        {
+          "text": "How the leader would assess the evidence is unknown.",
+          "unknown_id": "credit_unknown_leader"
+        }
+      ]
+    }
+  }
+}

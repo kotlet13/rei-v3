@@ -1,0 +1,67 @@
+{
+  "entries": [
+    {
+      "case_id": "factory_overtemperature",
+      "emocio_call_id": "provider_call_007578d9520a263b3fa86a74c9cea330",
+      "instinkt_call_id": "provider_call_c6ff0055d64f1bda1df1cf0b35530a16",
+      "ordinal": 1,
+      "racio_call_id": "provider_call_9f5cae5a7108b0ffb74590c6ed961883",
+      "racio_call_spec_hash": "6d88a9264c65658edbfe51477a1c0260ca3216b64d44c9b1c4ee5720e457b68b",
+      "status": "sealed"
+    },
+    {
+      "case_id": "loan_to_friend",
+      "emocio_call_id": "provider_call_5908afdf7ef99c1322904f35e1c20f40",
+      "instinkt_call_id": "provider_call_f800ac311d0583786f60bd351e2bc482",
+      "ordinal": 2,
+      "racio_call_id": "provider_call_3937bd802a246f00587c69e9e418eb6c",
+      "racio_call_spec_hash": "a1b333764ec293cb1573f0b6acd2d69e3cafcdd48cdd0b3496a03e95ce692097",
+      "status": "sealed"
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "emocio_call_id": "provider_call_a77937436805cbcaffa27e64ca64707f",
+      "instinkt_call_id": "provider_call_53e188d6e06dd907ce0c4fb7faa87613",
+      "ordinal": 3,
+      "racio_call_id": "provider_call_f19aa3bbb48ef499bdb34dd708c87f4e",
+      "racio_call_spec_hash": "78467a99581216d12a06badef138a57dea4fef0e9cd49d46e5f71a09f951218b",
+      "status": "sealed"
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "emocio_call_id": "provider_call_993701d584a811badc5704861f99dd46",
+      "instinkt_call_id": "provider_call_d4eef4eea09af0080829a0ececf583b8",
+      "ordinal": 4,
+      "racio_call_id": "provider_call_802ab0641df77092582cc340967af9dc",
+      "racio_call_spec_hash": "90a4e0780c9d4303c9c724d04bd44bdfa6df3c4b05555cdc6b82e72b47512b42",
+      "status": "sealed"
+    }
+  ],
+  "execution_policy": {
+    "case_order": [
+      "factory_overtemperature",
+      "loan_to_friend",
+      "public_credit_conflict",
+      "spontaneous_trip"
+    ],
+    "character_replay_requires_complete_bundle": true,
+    "emocio_executions_per_case": 1,
+    "execute_emocio_after_racio_contract_rejection": true,
+    "execute_instinkt_after_racio_contract_rejection": true,
+    "fallback": "none",
+    "instinkt_executions_per_case": 1,
+    "racio_calls_per_case": 1,
+    "retry": 0,
+    "stop_after_non_contract_provider_failure": true
+  },
+  "expected": {
+    "fallbacks": 0,
+    "maximum_character_replay_rows": 52,
+    "maximum_native_bundles": 4,
+    "model_calls": 4,
+    "retries": 0
+  },
+  "phase": "TRIAD-S2",
+  "schema_version": "triad-s2-expected-call-ledger-v1",
+  "state": "sealed_before_calls"
+}

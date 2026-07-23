@@ -882,7 +882,10 @@ def preflight_s2_candidate(candidate: Mapping[str, Any]) -> Mapping[str, Any]:
             raise ValueError("Instinkt consequence scope differs from public options")
         for item in emocio_items:
             delta = item["delta"]
-            if tuple(delta) != EMOCIO_COUNTERFACTUAL_FIELDS:
+            if (
+                len(delta) != len(EMOCIO_COUNTERFACTUAL_FIELDS)
+                or set(delta) != set(EMOCIO_COUNTERFACTUAL_FIELDS)
+            ):
                 raise ValueError("Emocio counterfactual fields are not canonical")
             if not set(item["evidence_basis_ids"]).issubset(evidence_ids):
                 raise ValueError("Emocio consequence evidence is outside case scope")
