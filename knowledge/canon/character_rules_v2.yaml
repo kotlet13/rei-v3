@@ -1,0 +1,153 @@
+schema_version: rei-character-rules-v2
+status: experimental_canon_only
+runtime_effect: none
+canon_language: sl
+operational_gloss_language: en
+
+authority_semantics:
+  canonical_sl: >-
+    Značaj je stabilna ordinalna razporeditev avtoritete med Raciom, Emociem
+    in Instinktom. Trenutna aktivnost, intenzivnost signala ali začasno
+    opravljanje naloge ne spremeni strukturnega vrstnega reda.
+  en_gloss: >-
+    Character is a stable ordinal allocation of authority among Racio,
+    Emocio, and Instinkt. Current activation, signal intensity, or temporary
+    task control does not change the structural rank.
+  decimal_weights_are_canonical: false
+  current_state_changes_authority: false
+  task_delegation_changes_authority: false
+  source_claim_ids:
+    - C-CHAR-001
+    - C-CHAR-003
+    - C-CHAR-004
+    - C-DELEG-001
+    - C-STATE-001
+
+decision_rules:
+  single_leader:
+    canonical_sl: Najvišje uvrščeni razum ima odločevalno avtoriteto.
+    en_gloss: The highest-ranked mind has decision authority.
+    source_claim_ids:
+      - C-ARB-001
+  ordered_leader:
+    canonical_sl: >-
+      Prvi položaj ima odločevalno avtoriteto, nižja položaja pa ostaneta
+      prisotna kot korekcija, ugovor ali izvedbena zmožnost.
+    en_gloss: >-
+      The first tier has decision authority, while lower tiers remain present
+      as correction, objection, or execution capability.
+    source_claim_ids:
+      - C-ARB-001
+      - C-MINDS-001
+  joint_leadership:
+    canonical_sl: >-
+      Dva enakovredna vodilna razuma si delita najvišji položaj. Univerzalno
+      pravilo za vsak njun spor v trenutnem kanonu ostaja odprto.
+    en_gloss: >-
+      Two equal leading minds share the highest tier. A universal rule for
+      every disagreement between them remains open in the current canon.
+    disagreement_status: unresolved_open_question
+    lower_tier_is_automatic_tiebreaker: false
+    source_claim_ids:
+      - C-PAIR-001
+  two_of_three:
+    canonical_sl: >-
+      Pri treh enakovrednih razumih odloči sklep, ki ga podpreta vsaj dva.
+    en_gloss: >-
+      With three equal minds, the conclusion supported by at least two decides.
+    no_two_mind_majority: unresolved
+    source_claim_ids:
+      - C-ARB-002
+
+profiles:
+  R:
+    authority_tiers:
+      - [R]
+      - [E, I]
+    decision_rule: single_leader
+    source_claim_ids: [C-CHAR-001, C-ARB-001]
+  E:
+    authority_tiers:
+      - [E]
+      - [R, I]
+    decision_rule: single_leader
+    source_claim_ids: [C-CHAR-001, C-ARB-001]
+  I:
+    authority_tiers:
+      - [I]
+      - [R, E]
+    decision_rule: single_leader
+    source_claim_ids: [C-CHAR-001, C-ARB-001]
+  R>E>I:
+    authority_tiers:
+      - [R]
+      - [E]
+      - [I]
+    decision_rule: ordered_leader
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-ARB-001]
+  R>I>E:
+    authority_tiers:
+      - [R]
+      - [I]
+      - [E]
+    decision_rule: ordered_leader
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-ARB-001]
+  E>R>I:
+    authority_tiers:
+      - [E]
+      - [R]
+      - [I]
+    decision_rule: ordered_leader
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-ARB-001]
+  E>I>R:
+    authority_tiers:
+      - [E]
+      - [I]
+      - [R]
+    decision_rule: ordered_leader
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-ARB-001]
+  I>R>E:
+    authority_tiers:
+      - [I]
+      - [R]
+      - [E]
+    decision_rule: ordered_leader
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-ARB-001]
+  I>E>R:
+    authority_tiers:
+      - [I]
+      - [E]
+      - [R]
+    decision_rule: ordered_leader
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-ARB-001]
+  RE:
+    authority_tiers:
+      - [R, E]
+      - [I]
+    decision_rule: joint_leadership
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-PAIR-001]
+  RI:
+    authority_tiers:
+      - [R, I]
+      - [E]
+    decision_rule: joint_leadership
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-PAIR-001]
+  EI:
+    authority_tiers:
+      - [E, I]
+      - [R]
+    decision_rule: joint_leadership
+    source_claim_ids: [C-CHAR-001, C-CHAR-003, C-PAIR-001]
+  REI:
+    authority_tiers:
+      - [R, E, I]
+    decision_rule: two_of_three
+    source_claim_ids: [C-ARB-002]
+
+non_runtime_guarantee:
+  canonical_sl: >-
+    Ta datoteka v Fazi 1 samo zapisuje kanon. Legacy engine je ne nalaga in
+    deterministična arbitraža še ni implementirana.
+  en_gloss: >-
+    In Phase 1 this file records canon only. The legacy engine does not load it,
+    and deterministic arbitration is not yet implemented.
