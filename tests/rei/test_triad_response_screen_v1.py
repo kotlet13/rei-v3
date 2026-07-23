@@ -16,6 +16,7 @@ from app.backend.rei.providers.ollama import (
     OllamaApiClient,
     OllamaRacioSettings,
     OllamaRuntimeModel,
+    inspect_ollama_runtime,
 )
 from app.backend.rei.providers.ollama_en import (
     OLLAMA_EN_TRIAD_PROVIDER_REVISION,
@@ -150,6 +151,41 @@ def test_thin_english_wrapper_reuses_transport_and_freezes_screen_profile() -> N
     assert parameters["local_model_language_policy_id"] == (
         "rei-local-model-english-only-v1"
     )
+
+
+def test_runtime_accepts_tag_capability_subset_reported_by_current_ollama() -> None:
+    class MetadataClient:
+        def version(self):
+            return "0.12.10"
+
+        def model_entry(self, model):
+            return {
+                "name": model,
+                "digest": EXPECTED_MODEL_DIGEST,
+                "size": 100,
+                "details": {"quantization_level": "Q4_K_M"},
+                "capabilities": ["completion", "tools", "thinking"],
+            }
+
+        def show(self, model):
+            del model
+            return {
+                "details": {"quantization_level": "Q4_K_M"},
+                "capabilities": ["completion", "vision", "tools", "thinking"],
+                "model_info": {
+                    "general.architecture": "gemma4",
+                    "gemma4.context_length": 131072,
+                },
+            }
+
+    runtime = inspect_ollama_runtime(
+        MetadataClient(),
+        "gemma4:31b",
+        expected_digest=EXPECTED_MODEL_DIGEST,
+    )
+
+    assert runtime.digest == EXPECTED_MODEL_DIGEST
+    assert runtime.capabilities == ("completion", "thinking", "tools", "vision")
 
 
 def test_pre_call_seal_and_all_case_input_hashes_verify_cold() -> None:

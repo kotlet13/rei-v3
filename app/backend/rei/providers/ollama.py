@@ -449,7 +449,11 @@ def inspect_ollama_runtime(
             isinstance(item, str) for item in tag_capabilities
         ):
             raise OllamaResponseError("Ollama tag capabilities are invalid")
-        if tuple(sorted(set(tag_capabilities))) != capabilities:
+        canonical_tag_capabilities = tuple(sorted(set(tag_capabilities)))
+        if (
+            "completion" not in canonical_tag_capabilities
+            or not set(canonical_tag_capabilities).issubset(capabilities)
+        ):
             raise OllamaResponseError("Ollama capability metadata is inconsistent")
     return OllamaRuntimeModel(
         server_version=server_version,
