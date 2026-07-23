@@ -1,12 +1,12 @@
 # REI-v3 — Gemma 4 31B: nadaljevalni načrt za epistemološko pravilnega RacioInterpreterja
 
-**Namen:** neposredno izvedbeno navodilo za Codex  
-**Repozitorij:** `kotlet13/rei-v3`  
-**Trenutna raziskovalna veja:** `codex/racio-failure-audit`  
-**Znani merge base z `main`:** `5c53cad56f47e9d1f672038cd6bc2741e449de88`  
-**Operatorjev izbrani naslednji model:** `gemma4:31b`  
-**Datum načrta:** 2026-07-16  
-**Status:** nova aktivna smer za nadaljevanje C3/X3 raziskave  
+**Namen:** neposredno izvedbeno navodilo za Codex
+**Repozitorij:** `kotlet13/rei-v3`
+**Trenutna raziskovalna veja:** `codex/racio-failure-audit`
+**Znani merge base z `main`:** `5c53cad56f47e9d1f672038cd6bc2741e449de88`
+**Operatorjev izbrani naslednji model:** `gemma4:31b`
+**Datum načrta:** 2026-07-16
+**Status:** nova aktivna smer za nadaljevanje C3/X3 raziskave
 **Nadomešča:** nadaljnje modelno delo s `qwen3.6:35b`; Qwenovi uradni rezultati ostanejo zamrznjeni zgodovinski baseline
 
 ---

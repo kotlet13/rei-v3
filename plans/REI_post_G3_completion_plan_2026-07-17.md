@@ -1,11 +1,11 @@
 # REI-v3 — nadaljevanje po G3: od semantičnega audita do dokončane infrastrukture
 
-**Namen:** izvedbeni načrt za Codex po zaključenem Gemma 4 G3 razvojnem screenu  
-**Repozitorij:** `kotlet13/rei-v3`  
-**Aktivna veja:** `codex/racio-gemma4-epistemic-interpreter`  
-**G3 pre-call seal:** `d9027d97faec36f1d2c806a5efe5e935ed931014`  
-**G3 rezultatni commit:** `72f05d7`  
-**Datum:** 2026-07-17  
+**Namen:** izvedbeni načrt za Codex po zaključenem Gemma 4 G3 razvojnem screenu
+**Repozitorij:** `kotlet13/rei-v3`
+**Aktivna veja:** `codex/racio-gemma4-epistemic-interpreter`
+**G3 pre-call seal:** `d9027d97faec36f1d2c806a5efe5e935ed931014`
+**G3 rezultatni commit:** `72f05d7`
+**Datum:** 2026-07-17
 **Cilj:** dokončati in sistemsko preizkusiti celotno REI infrastrukturo, ne da bi modelno kakovost zamenjali za arhitekturno pravilnost ali obratno.
 
 ---
@@ -253,8 +253,8 @@ omogoči, da se celotna pot, artefakti, GUI in failure handling dokončajo že p
 
 # 4. Faza G3A — človeško-semantična adjudikacija G3
 
-**Naslednja dovoljena faza.**  
-**Modelni klici: 0.**  
+**Naslednja dovoljena faza.**
+**Modelni klici: 0.**
 **Runtime spremembe: 0.**
 
 ## 4.1 Namen
@@ -393,7 +393,7 @@ Po commitu se ustavi.
 
 # 5. Faza G3B — epistemološka pogodba v3
 
-**Šele po človeški odobritvi G3A.**  
+**Šele po človeški odobritvi G3A.**
 **Modelni klici: 0.**
 
 ## 5.1 Nova shema
