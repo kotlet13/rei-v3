@@ -1,0 +1,2573 @@
+{
+  "schema_version": "triad-route-isolation-candidate-v1",
+  "corpus_id": "triad-route-isolation-p1-2026-07-23",
+  "status": "candidate_unsealed",
+  "execution_authorized": false,
+  "core_route_mode": true,
+  "model_calls": 0,
+  "replays": 0,
+  "pair_count": 5,
+  "case_count": 10,
+  "source_language": "sl",
+  "operational_language": "en",
+  "pairs": [
+    {
+      "pair_id": "public_credit_audience",
+      "isolation_target": "emocio_attention_recognition_public_image",
+      "variant_fact_ids": [
+        "credit_ev_audience",
+        "credit_ev_positions",
+        "credit_ev_recognition"
+      ],
+      "variant_unknown_ids": [],
+      "variants": [
+        {
+          "case_id": "public_credit_audience_visible",
+          "variant_id": "audience_visible",
+          "canonical_sl": {
+            "event": "Sodelavec si med sestankom pripiše izključno avtorstvo rešitve.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "Sodelavec je izjavil, da je sam zasnoval predstavljeno rešitev."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "Časovno označen zapis repozitorija kaže avtorstvo osebe self pred prispevkom sodelavca."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "Vodja lahko po pregledu zapisa popravi uradni zapis sestanka; mehanizem popravka je enak pri javni ali zasebni predložitvi."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "Način predložitve ne spremeni plače, lastništva zapisa ali vodjeve pristojnosti."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "Ni dodane grožnje povračilnega ukrepa; prisotni so nevtralni ali podporni."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "Popravek avtorstva je lahko viden imenovanemu občinstvu: vodji in šestim članom projektne ekipe."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "Sodelavec je trenutno v središču ob projekciji, self pa je viden ob robu skupine."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "Če vodja potrdi zapis med sestankom, bo popravljeno avtorstvo javno priznano pred isto projektno ekipo."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "credit_unknown_leader_assessment",
+                "text": "Ni znano, ali bo vodja zapis ocenil kot dokončen dokaz."
+              },
+              {
+                "unknown_id": "credit_unknown_colleague_response",
+                "text": "Ni znano, kako se bo sodelavec odzval na preverjanje zapisa."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "credit_public_confront",
+                "description": "Med sestankom takoj pokaži zapis in izpodbije trditev."
+              },
+              {
+                "option_id": "credit_private_evidence",
+                "description": "Po sestanku zasebno pokaži zapis vodji."
+              },
+              {
+                "option_id": "credit_no_response",
+                "description": "Zapisa ne pokaži in ne odpri vprašanja zaslug."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "A colleague claims sole authorship of the solution during a meeting.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "The colleague stated that they alone designed the presented solution."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "A timestamped repository record shows self's authorship before the colleague's contribution."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "The presentation channel does not change pay, record ownership, or the leader's authority."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "No retaliation threat is added; those present are neutral or supportive."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "The authorship correction can be visible to a named audience: the leader and six project-team members."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "The colleague is currently centered beside the projection, while self is visible at the edge of the group."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "If the leader confirms the record during the meeting, corrected authorship will be publicly recognized before the same project team."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "credit_unknown_leader_assessment",
+                "text": "Whether the leader will treat the record as conclusive evidence is unknown."
+              },
+              {
+                "unknown_id": "credit_unknown_colleague_response",
+                "text": "How the colleague will respond to record verification is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "credit_public_confront",
+                "description": "Display the record during the meeting and challenge the statement immediately."
+              },
+              {
+                "option_id": "credit_private_evidence",
+                "description": "Display the record privately to the leader after the meeting."
+              },
+              {
+                "option_id": "credit_no_response",
+                "description": "Do not display the record or raise the authorship issue."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "credit_ev_claim",
+                "credit_ev_record",
+                "credit_ev_correction",
+                "credit_ev_material",
+                "credit_ev_retaliation"
+              ],
+              "unknowns": [
+                "credit_unknown_leader_assessment",
+                "credit_unknown_colleague_response"
+              ],
+              "time_sequence": [
+                "The statement occurs before either evidence-presentation option.",
+                "Public presentation occurs during the meeting; private presentation occurs after it.",
+                "The leader reviews the same record before any official correction."
+              ],
+              "explicit_goal": "Preserve accurate authorship in the official meeting record.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "credit_public_confront",
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the evidence during the meeting; official correction still depends on the leader's assessment."
+                },
+                {
+                  "option_id": "credit_private_evidence",
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the same evidence after the meeting; official correction still depends on the same assessment."
+                },
+                {
+                  "option_id": "credit_no_response",
+                  "beneficiary": "self",
+                  "consequence": "The leader receives no evidence through these options and the official claim remains unchallenged."
+                }
+              ],
+              "opportunity_cost": "Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.",
+              "enforceability_control": "The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment."
+            },
+            "emocio": {
+              "current_scene": "The colleague is centered beside the shared projection; self is visible at the edge before the leader and six project-team members.",
+              "desired_scene": "Self is visibly centered as the recognized author before the same named audience, while the colleague remains present without an asserted humiliation outcome.",
+              "broken_scene": "The colleague occupies the visible authorship position and self's contribution is absent from the group image.",
+              "self_position": "At the edge of the current group image.",
+              "audience": "Leader and six named project-team members.",
+              "attention_recognition": "Attention is currently on the colleague; corrected authorship can move recognition to self before the group.",
+              "rival_or_obstacle": "The colleague's sole-authorship claim and the record's current invisibility are the obstacles.",
+              "attraction_enjoyment": "not_relevant",
+              "movement_immediacy": "Public display changes the active meeting image immediately; private display changes only the later leader-facing image.",
+              "option_visible_changes": [
+                {
+                  "option_id": "credit_public_confront",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_audience",
+                    "credit_ev_positions",
+                    "credit_ev_recognition"
+                  ],
+                  "change": "Self moves beside the projection, the record becomes visible to the group, and recognition can change if the leader confirms it."
+                },
+                {
+                  "option_id": "credit_private_evidence",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "change": "Self and the leader view the record after the meeting; the wider group image does not change at that moment."
+                },
+                {
+                  "option_id": "credit_no_response",
+                  "evidence_ids": [
+                    "credit_ev_claim",
+                    "credit_ev_positions"
+                  ],
+                  "change": "The colleague remains centered and the authorship record remains outside the visible group image."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's authorship boundary and continued ability to function in the work group.",
+              "danger_types": "No physical danger or retaliation is grounded; bounded interpersonal tension remains possible.",
+              "possible_loss": "Authorship attribution can remain lost; an evidence challenge can create an unknown colleague response.",
+              "trust_distrust": "The leader's assessment and the colleague's response are bounded unknowns.",
+              "attachment_care": "not_relevant",
+              "scarcity": "not_relevant",
+              "boundary": "The timestamped record can support an authorship boundary, but only the leader controls official correction.",
+              "escape_reversibility": "A displayed record cannot be made unseen; a later official correction can recover attribution.",
+              "familiarity": "The event occurs in the existing work group and meeting process.",
+              "prior_association": "not_relevant",
+              "recoverability": "Attribution is recoverable through the leader's official correction; colleague response remains unknown.",
+              "option_consequences": [
+                {
+                  "option_id": "credit_public_confront",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_retaliation"
+                  ],
+                  "consequence": "The boundary is asserted immediately; no added retaliation is grounded, but the colleague response is unknown."
+                },
+                {
+                  "option_id": "credit_private_evidence",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "consequence": "The boundary is asserted to the leader after the meeting with the same official correction mechanism."
+                },
+                {
+                  "option_id": "credit_no_response",
+                  "evidence_ids": [
+                    "credit_ev_claim"
+                  ],
+                  "consequence": "No immediate interpersonal exposure is added, but the authorship boundary remains unasserted."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case_id": "public_credit_audience_absent",
+          "variant_id": "audience_absent",
+          "canonical_sl": {
+            "event": "Sodelavec si med sestankom pripiše izključno avtorstvo rešitve.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "Sodelavec je izjavil, da je sam zasnoval predstavljeno rešitev."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "Časovno označen zapis repozitorija kaže avtorstvo osebe self pred prispevkom sodelavca."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "Vodja lahko po pregledu zapisa popravi uradni zapis sestanka; mehanizem popravka je enak pri javni ali zasebni predložitvi."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "Način predložitve ne spremeni plače, lastništva zapisa ali vodjeve pristojnosti."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "Ni dodane grožnje povračilnega ukrepa; prisotni so nevtralni ali podporni."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "Na sestanku so samo self, sodelavec in vodja; širšega občinstva ni."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "Sodelavec je trenutno v središču ob projekciji pred vodjo, self pa stoji ob strani."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "Če vodja potrdi zapis, bo popravljeno avtorstvo sporočeno samo selfu in sodelavcu brez širšega javnega priznanja."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "credit_unknown_leader_assessment",
+                "text": "Ni znano, ali bo vodja zapis ocenil kot dokončen dokaz."
+              },
+              {
+                "unknown_id": "credit_unknown_colleague_response",
+                "text": "Ni znano, kako se bo sodelavec odzval na preverjanje zapisa."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "credit_public_confront",
+                "description": "Med sestankom takoj pokaži zapis in izpodbije trditev."
+              },
+              {
+                "option_id": "credit_private_evidence",
+                "description": "Po sestanku zasebno pokaži zapis vodji."
+              },
+              {
+                "option_id": "credit_no_response",
+                "description": "Zapisa ne pokaži in ne odpri vprašanja zaslug."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "A colleague claims sole authorship of the solution during a meeting.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "The colleague stated that they alone designed the presented solution."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "A timestamped repository record shows self's authorship before the colleague's contribution."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "The presentation channel does not change pay, record ownership, or the leader's authority."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "No retaliation threat is added; those present are neutral or supportive."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "Only self, the colleague, and the leader are in the meeting; there is no wider audience."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "The colleague is currently centered beside the projection before the leader, while self stands to the side."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "If the leader confirms the record, corrected authorship will be communicated only to self and the colleague without wider public recognition."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "credit_unknown_leader_assessment",
+                "text": "Whether the leader will treat the record as conclusive evidence is unknown."
+              },
+              {
+                "unknown_id": "credit_unknown_colleague_response",
+                "text": "How the colleague will respond to record verification is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "credit_public_confront",
+                "description": "Display the record during the meeting and challenge the statement immediately."
+              },
+              {
+                "option_id": "credit_private_evidence",
+                "description": "Display the record privately to the leader after the meeting."
+              },
+              {
+                "option_id": "credit_no_response",
+                "description": "Do not display the record or raise the authorship issue."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "credit_ev_claim",
+                "credit_ev_record",
+                "credit_ev_correction",
+                "credit_ev_material",
+                "credit_ev_retaliation"
+              ],
+              "unknowns": [
+                "credit_unknown_leader_assessment",
+                "credit_unknown_colleague_response"
+              ],
+              "time_sequence": [
+                "The statement occurs before either evidence-presentation option.",
+                "Public presentation occurs during the meeting; private presentation occurs after it.",
+                "The leader reviews the same record before any official correction."
+              ],
+              "explicit_goal": "Preserve accurate authorship in the official meeting record.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "credit_public_confront",
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the evidence during the meeting; official correction still depends on the leader's assessment."
+                },
+                {
+                  "option_id": "credit_private_evidence",
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the same evidence after the meeting; official correction still depends on the same assessment."
+                },
+                {
+                  "option_id": "credit_no_response",
+                  "beneficiary": "self",
+                  "consequence": "The leader receives no evidence through these options and the official claim remains unchallenged."
+                }
+              ],
+              "opportunity_cost": "Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.",
+              "enforceability_control": "The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment."
+            },
+            "emocio": {
+              "current_scene": "The colleague is centered beside the shared projection before the leader; self stands to the side, and no wider audience is present.",
+              "desired_scene": "Self is visibly centered as the recognized author before the leader and colleague, without a wider recognition scene or an asserted humiliation outcome.",
+              "broken_scene": "The colleague occupies the visible authorship position before the leader and self's contribution is absent from that small scene.",
+              "self_position": "At the side of the current three-person scene.",
+              "audience": "Leader and colleague only; no wider audience.",
+              "attention_recognition": "Attention is currently on the colleague; corrected authorship can move recognition to self only within the three-person scene.",
+              "rival_or_obstacle": "The colleague's sole-authorship claim and the record's current invisibility are the obstacles.",
+              "attraction_enjoyment": "not_relevant",
+              "movement_immediacy": "Public display changes the active three-person meeting image immediately; private display changes only the later leader-facing image.",
+              "option_visible_changes": [
+                {
+                  "option_id": "credit_public_confront",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_audience",
+                    "credit_ev_positions",
+                    "credit_ev_recognition"
+                  ],
+                  "change": "Self moves beside the projection, the record becomes visible to the leader and colleague, and recognition can change if the leader confirms it."
+                },
+                {
+                  "option_id": "credit_private_evidence",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "change": "Self and the leader view the record after the meeting; no wider group image exists to change."
+                },
+                {
+                  "option_id": "credit_no_response",
+                  "evidence_ids": [
+                    "credit_ev_claim",
+                    "credit_ev_positions"
+                  ],
+                  "change": "The colleague remains centered before the leader and the record stays outside the visible scene."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's authorship boundary and continued ability to function in the work group.",
+              "danger_types": "No physical danger or retaliation is grounded; bounded interpersonal tension remains possible.",
+              "possible_loss": "Authorship attribution can remain lost; an evidence challenge can create an unknown colleague response.",
+              "trust_distrust": "The leader's assessment and the colleague's response are bounded unknowns.",
+              "attachment_care": "not_relevant",
+              "scarcity": "not_relevant",
+              "boundary": "The timestamped record can support an authorship boundary, but only the leader controls official correction.",
+              "escape_reversibility": "A displayed record cannot be made unseen; a later official correction can recover attribution.",
+              "familiarity": "The event occurs in the existing work group and meeting process.",
+              "prior_association": "not_relevant",
+              "recoverability": "Attribution is recoverable through the leader's official correction; colleague response remains unknown.",
+              "option_consequences": [
+                {
+                  "option_id": "credit_public_confront",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_retaliation"
+                  ],
+                  "consequence": "The boundary is asserted immediately; no added retaliation is grounded, but the colleague response is unknown."
+                },
+                {
+                  "option_id": "credit_private_evidence",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "consequence": "The boundary is asserted to the leader after the meeting with the same official correction mechanism."
+                },
+                {
+                  "option_id": "credit_no_response",
+                  "evidence_ids": [
+                    "credit_ev_claim"
+                  ],
+                  "consequence": "No immediate interpersonal exposure is added, but the authorship boundary remains unasserted."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_id": "trip_protective_context",
+      "isolation_target": "instinkt_danger_trust_attachment_escape",
+      "variant_fact_ids": [
+        "protective_ev_companion",
+        "protective_ev_environment",
+        "protective_ev_lodging_transport",
+        "protective_ev_return_path"
+      ],
+      "variant_unknown_ids": [
+        "protective_unknown_return"
+      ],
+      "variants": [
+        {
+          "case_id": "trip_protective_context_exposed",
+          "variant_id": "alone_unverified",
+          "canonical_sl": {
+            "event": "Self se odloča o redkem potovanju na privlačno oddaljeno obalo.",
+            "facts": [
+              {
+                "evidence_id": "protective_ev_price",
+                "text": "Potovanje stane 38 odstotkov trenutno prostega proračuna."
+              },
+              {
+                "evidence_id": "protective_ev_refund",
+                "text": "Nakup po rezervaciji ni finančno vračljiv."
+              },
+              {
+                "evidence_id": "protective_ev_attraction",
+                "text": "Oddaljena obala, načrtovana pot in doživetje so za self izrecno privlačni."
+              },
+              {
+                "evidence_id": "protective_ev_benefit",
+                "text": "Na cilju je potrjena delavnica, ki selfu nadomesti primerljivo lokalno usposabljanje v vrednosti 400 EUR."
+              },
+              {
+                "evidence_id": "protective_ev_rarity",
+                "text": "Ista pot je bila v zadnjih treh letih na voljo enkrat."
+              },
+              {
+                "evidence_id": "protective_ev_companion",
+                "text": "Self potuje sam in nima zaupanja vrednega spremljevalca."
+              },
+              {
+                "evidence_id": "protective_ev_environment",
+                "text": "Pot in okolje sta selfu neznana."
+              },
+              {
+                "evidence_id": "protective_ev_lodging_transport",
+                "text": "Ponudnik nastanitve in lokalnega prevoza še ni preverjen."
+              },
+              {
+                "evidence_id": "protective_ev_return_path",
+                "text": "Fizična povratna pot nima potrjene rezervacije ali preverjene nadomestne poti."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "protective_unknown_future_cost",
+                "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški."
+              },
+              {
+                "unknown_id": "protective_unknown_return",
+                "text": "Ni znano, ali bo ob načrtovanem času na voljo zanesljiva fizična povratna pot."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "trip_book",
+                "description": "Rezerviraj opisano oddaljeno potovanje."
+              },
+              {
+                "option_id": "trip_local",
+                "description": "Izberi cenejši lokalni izlet brez oddaljene poti."
+              },
+              {
+                "option_id": "trip_home",
+                "description": "Ne rezerviraj potovanja in ostani doma."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "Self is deciding about a rare trip to an attractive distant coast.",
+            "facts": [
+              {
+                "evidence_id": "protective_ev_price",
+                "text": "The trip costs 38 percent of the currently discretionary budget."
+              },
+              {
+                "evidence_id": "protective_ev_refund",
+                "text": "The purchase is financially non-refundable after booking."
+              },
+              {
+                "evidence_id": "protective_ev_attraction",
+                "text": "The distant coast, planned route, and experience are explicitly attractive to self."
+              },
+              {
+                "evidence_id": "protective_ev_benefit",
+                "text": "A confirmed workshop at the destination replaces comparable local training worth EUR 400 for self."
+              },
+              {
+                "evidence_id": "protective_ev_rarity",
+                "text": "The same route was available once during the last three years."
+              },
+              {
+                "evidence_id": "protective_ev_companion",
+                "text": "Self travels alone and has no trusted companion."
+              },
+              {
+                "evidence_id": "protective_ev_environment",
+                "text": "The route and environment are unfamiliar to self."
+              },
+              {
+                "evidence_id": "protective_ev_lodging_transport",
+                "text": "The lodging and local transport providers have not been verified."
+              },
+              {
+                "evidence_id": "protective_ev_return_path",
+                "text": "The physical return path has no confirmed booking or verified alternate route."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "protective_unknown_future_cost",
+                "text": "Whether other major costs will arise next month is unknown."
+              },
+              {
+                "unknown_id": "protective_unknown_return",
+                "text": "Whether a reliable physical return path will be available at the planned time is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "trip_book",
+                "description": "Book the described distant trip."
+              },
+              {
+                "option_id": "trip_local",
+                "description": "Take a cheaper local trip without the distant route."
+              },
+              {
+                "option_id": "trip_home",
+                "description": "Do not book travel and remain at home."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "protective_ev_price",
+                "protective_ev_refund",
+                "protective_ev_benefit",
+                "protective_ev_rarity"
+              ],
+              "unknowns": [
+                "protective_unknown_future_cost"
+              ],
+              "time_sequence": [
+                "The purchase decision precedes the non-refundable commitment.",
+                "The destination workshop occurs during the trip.",
+                "Possible future costs occur after the purchase."
+              ],
+              "explicit_goal": "Decide whether the training benefit justifies the budget commitment.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "trip_book",
+                  "beneficiary": "self",
+                  "consequence": "Self spends 38 percent of the discretionary budget and receives the confirmed EUR 400 training replacement if the destination is reached."
+                },
+                {
+                  "option_id": "trip_local",
+                  "beneficiary": "self",
+                  "consequence": "Self spends a smaller unquantified amount and does not receive the destination workshop."
+                },
+                {
+                  "option_id": "trip_home",
+                  "beneficiary": "self",
+                  "consequence": "Self preserves the discretionary budget and does not receive the destination workshop."
+                }
+              ],
+              "opportunity_cost": "Booking commits funds that cannot cover unknown future costs; not booking gives up the confirmed training replacement.",
+              "enforceability_control": "The purchase refund rule and workshop confirmation are grounded; physical travel operations are not controlled by self."
+            },
+            "emocio": {
+              "current_scene": "Self stands before an open distant-coast route and a local route; no public audience is present.",
+              "desired_scene": "Self is centered in active movement toward the attractive coast and the new experience.",
+              "broken_scene": "Self remains before closed routes with no travel movement or new coast experience.",
+              "self_position": "At the route decision point.",
+              "audience": "not_relevant",
+              "attention_recognition": "not_relevant",
+              "rival_or_obstacle": "The unchosen route and the booking decision are visible obstacles; no human rival is present.",
+              "attraction_enjoyment": "The distant coast and experience are explicitly attractive; the local route has a smaller but present movement image.",
+              "movement_immediacy": "Booking starts the distant route, the local option starts nearby movement, and staying home leaves self in place.",
+              "option_visible_changes": [
+                {
+                  "option_id": "trip_book",
+                  "evidence_ids": [
+                    "protective_ev_attraction",
+                    "protective_ev_rarity"
+                  ],
+                  "change": "The distant coast becomes the active route and self begins distant movement."
+                },
+                {
+                  "option_id": "trip_local",
+                  "evidence_ids": [
+                    "protective_ev_attraction"
+                  ],
+                  "change": "The distant route closes and self begins a smaller local movement scene."
+                },
+                {
+                  "option_id": "trip_home",
+                  "evidence_ids": [
+                    "protective_ev_attraction"
+                  ],
+                  "change": "Both travel routes remain inactive and self remains in the home scene."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's physical integrity, ability to return, trusted attachment context, and necessary cash reserve.",
+              "danger_types": "Unfamiliar route, unverified lodging and transport, travel alone, and uncertain physical return path.",
+              "possible_loss": "Possible physical stranding, unverified-provider harm, separation without trusted support, and 38 percent reserve exposure.",
+              "trust_distrust": "No trusted companion is present; lodging and transport providers are unverified.",
+              "attachment_care": "No trusted close person accompanies self; attachment support during the trip is absent.",
+              "scarcity": "Booking exposes 38 percent of the discretionary budget under a non-refundable rule.",
+              "boundary": "Purchase terms are fixed; provider safety boundaries are not verified.",
+              "escape_reversibility": "The financial purchase is irreversible and the physical return route is uncertain.",
+              "familiarity": "The distant route and environment are unfamiliar; the local route and home are familiar.",
+              "prior_association": "not_relevant",
+              "recoverability": "Financial recovery is unavailable after booking; physical recovery is bounded unknown because no return route is confirmed.",
+              "option_consequences": [
+                {
+                  "option_id": "trip_book",
+                  "evidence_ids": [
+                    "protective_ev_price",
+                    "protective_ev_refund",
+                    "protective_ev_companion",
+                    "protective_ev_environment",
+                    "protective_ev_lodging_transport",
+                    "protective_ev_return_path"
+                  ],
+                  "consequence": "Self enters the unfamiliar route alone with unverified providers, uncertain physical return, and non-refundable reserve exposure."
+                },
+                {
+                  "option_id": "trip_local",
+                  "evidence_ids": [
+                    "protective_ev_price",
+                    "protective_ev_environment"
+                  ],
+                  "consequence": "Self avoids the distant provider and return-path uncertainties while accepting a smaller, unquantified local cost."
+                },
+                {
+                  "option_id": "trip_home",
+                  "evidence_ids": [
+                    "protective_ev_price",
+                    "protective_ev_refund"
+                  ],
+                  "consequence": "Self avoids the travel commitment and preserves the reserve; no claim is made that home is universally free of danger."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case_id": "trip_protective_context_supported",
+          "variant_id": "trusted_verified",
+          "canonical_sl": {
+            "event": "Self se odloča o redkem potovanju na privlačno oddaljeno obalo.",
+            "facts": [
+              {
+                "evidence_id": "protective_ev_price",
+                "text": "Potovanje stane 38 odstotkov trenutno prostega proračuna."
+              },
+              {
+                "evidence_id": "protective_ev_refund",
+                "text": "Nakup po rezervaciji ni finančno vračljiv."
+              },
+              {
+                "evidence_id": "protective_ev_attraction",
+                "text": "Oddaljena obala, načrtovana pot in doživetje so za self izrecno privlačni."
+              },
+              {
+                "evidence_id": "protective_ev_benefit",
+                "text": "Na cilju je potrjena delavnica, ki selfu nadomesti primerljivo lokalno usposabljanje v vrednosti 400 EUR."
+              },
+              {
+                "evidence_id": "protective_ev_rarity",
+                "text": "Ista pot je bila v zadnjih treh letih na voljo enkrat."
+              },
+              {
+                "evidence_id": "protective_ev_companion",
+                "text": "S selfom potuje zaupanja vredna bližnja oseba z več skupnimi potovanji."
+              },
+              {
+                "evidence_id": "protective_ev_environment",
+                "text": "Cilj je oddaljen, vendar je celotna pot vnaprej dokumentirana in pregledana s spremljevalcem."
+              },
+              {
+                "evidence_id": "protective_ev_lodging_transport",
+                "text": "Nastanitev in lokalni prevoz imata preverjene rezervacije ter preverjene ponudnike."
+              },
+              {
+                "evidence_id": "protective_ev_return_path",
+                "text": "Fizična povratna pot ima potrjeno rezervacijo in dokumentirano nadomestno povezavo."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "protective_unknown_future_cost",
+                "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "trip_book",
+                "description": "Rezerviraj opisano oddaljeno potovanje."
+              },
+              {
+                "option_id": "trip_local",
+                "description": "Izberi cenejši lokalni izlet brez oddaljene poti."
+              },
+              {
+                "option_id": "trip_home",
+                "description": "Ne rezerviraj potovanja in ostani doma."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "Self is deciding about a rare trip to an attractive distant coast.",
+            "facts": [
+              {
+                "evidence_id": "protective_ev_price",
+                "text": "The trip costs 38 percent of the currently discretionary budget."
+              },
+              {
+                "evidence_id": "protective_ev_refund",
+                "text": "The purchase is financially non-refundable after booking."
+              },
+              {
+                "evidence_id": "protective_ev_attraction",
+                "text": "The distant coast, planned route, and experience are explicitly attractive to self."
+              },
+              {
+                "evidence_id": "protective_ev_benefit",
+                "text": "A confirmed workshop at the destination replaces comparable local training worth EUR 400 for self."
+              },
+              {
+                "evidence_id": "protective_ev_rarity",
+                "text": "The same route was available once during the last three years."
+              },
+              {
+                "evidence_id": "protective_ev_companion",
+                "text": "A trusted close person with several shared trips travels with self."
+              },
+              {
+                "evidence_id": "protective_ev_environment",
+                "text": "The destination is distant, but the entire route has been documented and reviewed with the companion."
+              },
+              {
+                "evidence_id": "protective_ev_lodging_transport",
+                "text": "The lodging and local transport have confirmed reservations with verified providers."
+              },
+              {
+                "evidence_id": "protective_ev_return_path",
+                "text": "The physical return path has a confirmed booking and a documented alternate connection."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "protective_unknown_future_cost",
+                "text": "Whether other major costs will arise next month is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "trip_book",
+                "description": "Book the described distant trip."
+              },
+              {
+                "option_id": "trip_local",
+                "description": "Take a cheaper local trip without the distant route."
+              },
+              {
+                "option_id": "trip_home",
+                "description": "Do not book travel and remain at home."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "protective_ev_price",
+                "protective_ev_refund",
+                "protective_ev_benefit",
+                "protective_ev_rarity"
+              ],
+              "unknowns": [
+                "protective_unknown_future_cost"
+              ],
+              "time_sequence": [
+                "The purchase decision precedes the non-refundable commitment.",
+                "The destination workshop occurs during the trip.",
+                "Possible future costs occur after the purchase."
+              ],
+              "explicit_goal": "Decide whether the training benefit justifies the budget commitment.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "trip_book",
+                  "beneficiary": "self",
+                  "consequence": "Self spends 38 percent of the discretionary budget and receives the confirmed EUR 400 training replacement if the destination is reached."
+                },
+                {
+                  "option_id": "trip_local",
+                  "beneficiary": "self",
+                  "consequence": "Self spends a smaller unquantified amount and does not receive the destination workshop."
+                },
+                {
+                  "option_id": "trip_home",
+                  "beneficiary": "self",
+                  "consequence": "Self preserves the discretionary budget and does not receive the destination workshop."
+                }
+              ],
+              "opportunity_cost": "Booking commits funds that cannot cover unknown future costs; not booking gives up the confirmed training replacement.",
+              "enforceability_control": "The purchase refund rule and workshop confirmation are grounded; physical travel operations are not controlled by self."
+            },
+            "emocio": {
+              "current_scene": "Self stands before an open distant-coast route and a local route; a close companion is present, but no public audience is present.",
+              "desired_scene": "Self is centered in active movement toward the attractive coast and the new experience; no extra enjoyment is inferred from companion presence.",
+              "broken_scene": "Self remains before closed routes with no travel movement or new coast experience.",
+              "self_position": "At the route decision point.",
+              "audience": "not_relevant",
+              "attention_recognition": "not_relevant",
+              "rival_or_obstacle": "The unchosen route and the booking decision are visible obstacles; no human rival is present.",
+              "attraction_enjoyment": "The distant coast and experience are explicitly attractive; the local route has a smaller but present movement image.",
+              "movement_immediacy": "Booking starts the distant route, the local option starts nearby movement, and staying home leaves self in place.",
+              "option_visible_changes": [
+                {
+                  "option_id": "trip_book",
+                  "evidence_ids": [
+                    "protective_ev_attraction",
+                    "protective_ev_rarity"
+                  ],
+                  "change": "The distant coast becomes the active route and self begins distant movement."
+                },
+                {
+                  "option_id": "trip_local",
+                  "evidence_ids": [
+                    "protective_ev_attraction"
+                  ],
+                  "change": "The distant route closes and self begins a smaller local movement scene."
+                },
+                {
+                  "option_id": "trip_home",
+                  "evidence_ids": [
+                    "protective_ev_attraction"
+                  ],
+                  "change": "Both travel routes remain inactive and self remains in the home scene."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's physical integrity, ability to return, trusted attachment context, and necessary cash reserve.",
+              "danger_types": "Distant travel remains a general exposure, while the route, lodging, transport, and return path are verified.",
+              "possible_loss": "The 38 percent reserve exposure remains; no unverified-provider or unsupported-return loss is grounded.",
+              "trust_distrust": "A trusted close companion is present; lodging and transport providers are verified.",
+              "attachment_care": "The close companion provides grounded attachment support during the trip.",
+              "scarcity": "Booking exposes 38 percent of the discretionary budget under a non-refundable rule.",
+              "boundary": "Purchase terms are fixed; lodging, transport, and return arrangements have documented boundaries.",
+              "escape_reversibility": "The financial purchase is irreversible, while the physical return path has a confirmed route and alternate connection.",
+              "familiarity": "The distant location is not home, but the route has been reviewed and the companion has shared travel history.",
+              "prior_association": "Several completed shared trips with the companion are grounded; no outcome beyond that history is inferred.",
+              "recoverability": "Financial recovery is unavailable after booking; physical return has a confirmed route and alternate connection.",
+              "option_consequences": [
+                {
+                  "option_id": "trip_book",
+                  "evidence_ids": [
+                    "protective_ev_price",
+                    "protective_ev_refund",
+                    "protective_ev_companion",
+                    "protective_ev_environment",
+                    "protective_ev_lodging_transport",
+                    "protective_ev_return_path"
+                  ],
+                  "consequence": "Self enters the documented distant route with a trusted companion, verified providers, confirmed physical return, and non-refundable reserve exposure."
+                },
+                {
+                  "option_id": "trip_local",
+                  "evidence_ids": [
+                    "protective_ev_price",
+                    "protective_ev_environment"
+                  ],
+                  "consequence": "Self avoids the distant commitment while accepting a smaller, unquantified local cost."
+                },
+                {
+                  "option_id": "trip_home",
+                  "evidence_ids": [
+                    "protective_ev_price",
+                    "protective_ev_refund"
+                  ],
+                  "consequence": "Self avoids the travel commitment and preserves the reserve; no claim is made that home is universally free of danger."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_id": "loan_attachment_distance",
+      "isolation_target": "instinkt_attachment_care_scarcity_boundary",
+      "variant_fact_ids": [
+        "loan_ev_relationship",
+        "loan_ev_attachment"
+      ],
+      "variant_unknown_ids": [],
+      "variants": [
+        {
+          "case_id": "loan_attachment_distance_close",
+          "variant_id": "close_attachment",
+          "canonical_sl": {
+            "event": "Oseba prosi self za posojilo za nujno popravilo doma.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "Predložen račun potrjuje nujno popravilo doma v vrednosti 9000 EUR."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Dve prejšnji vračili sta zamujali več kot tri mesece."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "Polna vsota predstavlja 45 odstotkov selfove denarne rezerve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "Omejena možnost znaša 3000 EUR in vključuje pisni dvanajstmesečni rok vračila; polna možnost nima nove pogodbe."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "Odnos selfu ne prinaša poslovne, lastniške ali druge materialne koristi."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "Prosilec je selfov bližnji prijatelj z dvanajstletno skupno zgodovino."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Self izrecno poroča o močni navezanosti in strahu, da bi odnos izgubil."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "loan_unknown_repayment",
+                "text": "Ni znano, ali bo novo posojilo vrnjeno pravočasno."
+              },
+              {
+                "unknown_id": "loan_unknown_relationship",
+                "text": "Ni znano, kako bo posamezna možnost vplivala na odnos."
+              },
+              {
+                "unknown_id": "loan_unknown_own_costs",
+                "text": "Ni znano, ali bo self v naslednjih šestih mesecih potreboval večji del rezerve."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "loan_full",
+                "description": "Posodi celotnih 9000 EUR brez nove pogodbe."
+              },
+              {
+                "option_id": "loan_limited_contract",
+                "description": "Posodi 3000 EUR s pisnim dvanajstmesečnim rokom vračila."
+              },
+              {
+                "option_id": "loan_decline",
+                "description": "Ne posodi denarja."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "A person asks self for a loan for an urgent home repair.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "A submitted invoice confirms an urgent home repair costing EUR 9000."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Two previous repayments were more than three months late."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "The full amount is 45 percent of self's cash reserve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "The relationship provides no business, ownership, or other material benefit to self."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "The borrower is self's close friend with twelve years of shared history."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Self explicitly reports strong attachment and fear of losing the relationship."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "loan_unknown_repayment",
+                "text": "Whether a new loan will be repaid on time is unknown."
+              },
+              {
+                "unknown_id": "loan_unknown_relationship",
+                "text": "How each option will affect the relationship is unknown."
+              },
+              {
+                "unknown_id": "loan_unknown_own_costs",
+                "text": "Whether self will need a large part of the reserve during the next six months is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "loan_full",
+                "description": "Lend the full EUR 9000 without a new contract."
+              },
+              {
+                "option_id": "loan_limited_contract",
+                "description": "Lend EUR 3000 with a written twelve-month repayment date."
+              },
+              {
+                "option_id": "loan_decline",
+                "description": "Lend no money."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "loan_ev_need",
+                "loan_ev_history",
+                "loan_ev_reserve",
+                "loan_ev_terms",
+                "loan_ev_no_strategic_benefit"
+              ],
+              "unknowns": [
+                "loan_unknown_repayment",
+                "loan_unknown_own_costs"
+              ],
+              "time_sequence": [
+                "Two prior repayments were late before the current request.",
+                "Any transfer occurs now.",
+                "The limited written repayment date occurs twelve months later."
+              ],
+              "explicit_goal": "Protect self's liquidity and enforceable repayment position while deciding whether to fund the repair.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "loan_full",
+                  "beneficiary": "self",
+                  "consequence": "Self exposes 45 percent of the reserve without a new repayment contract."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "beneficiary": "self",
+                  "consequence": "Self exposes EUR 3000 under a written twelve-month repayment date."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "beneficiary": "self",
+                  "consequence": "Self retains the reserve and acquires no repayment claim."
+                },
+                {
+                  "option_id": "loan_full",
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed EUR 9000 repair invoice can be fully funded."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives EUR 3000 and remains partly unfunded."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives no funds from self."
+                }
+              ],
+              "opportunity_cost": "Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.",
+              "enforceability_control": "The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract."
+            },
+            "emocio": {
+              "current_scene": "Self and the borrower face each other across a table with the repair invoice visible; no audience is present.",
+              "desired_scene": "Self remains centered as an active participant in a face-to-face scene where the chosen act and its relationship image are immediately visible.",
+              "broken_scene": "Self disappears from the active relationship scene or the chosen act remains visually unresolved.",
+              "self_position": "Centered opposite the borrower.",
+              "audience": "not_relevant",
+              "attention_recognition": "Attention is between self, the borrower, and the visible act; no public recognition is grounded.",
+              "rival_or_obstacle": "The unfunded invoice and uncertainty about the relationship image are obstacles; no rival is present.",
+              "attraction_enjoyment": "not_relevant",
+              "movement_immediacy": "Each option creates a different immediate transfer or non-transfer movement.",
+              "option_visible_changes": [
+                {
+                  "option_id": "loan_full",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "change": "The full amount crosses the table and the repair invoice becomes fully funded."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "change": "A smaller amount and written date cross the table while part of the invoice remains."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "evidence_ids": [
+                    "loan_ev_need"
+                  ],
+                  "change": "No amount crosses the table and the invoice remains unfunded."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's close attachment, the friend's urgent need, self's reserve, and a workable repayment boundary.",
+              "danger_types": "Possible attachment loss, resource scarcity, repeated late repayment, and an ineffective boundary.",
+              "possible_loss": "Self may lose money needed within six months, may fail to protect a close friend in need, or may lose the relationship.",
+              "trust_distrust": "Twelve years of shared history grounds attachment, while two late repayments ground repayment distrust.",
+              "attachment_care": "The borrower is a close friend; self reports strong attachment and fear of relationship loss, and the repair need is genuine.",
+              "scarcity": "The full amount exposes 45 percent of the reserve; future own costs are unknown.",
+              "boundary": "The limited option adds a written twelve-month date; the full option adds no new contract; decline sets a no-transfer boundary.",
+              "escape_reversibility": "A transfer cannot be immediately reversed; a written claim may support later recovery but does not guarantee it.",
+              "familiarity": "The relationship has twelve years of grounded shared history.",
+              "prior_association": "Two late repayments are grounded prior events; no further motive is inferred.",
+              "recoverability": "Money recovery is unknown; relationship recovery after each option is also unknown.",
+              "option_consequences": [
+                {
+                  "option_id": "loan_full",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_history",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "consequence": "The friend's full need is funded and attachment care is enacted, while 45 percent of reserve is exposed without a new boundary."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_terms",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "consequence": "Part of the need is funded, a written boundary is added, and both money and relationship recovery remain uncertain."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "consequence": "The reserve is retained, the genuine need is not funded by self, and attachment loss remains possible but unknown."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case_id": "loan_attachment_distance_distant",
+          "variant_id": "distant_acquaintance",
+          "canonical_sl": {
+            "event": "Oseba prosi self za posojilo za nujno popravilo doma.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "Predložen račun potrjuje nujno popravilo doma v vrednosti 9000 EUR."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Dve prejšnji vračili sta zamujali več kot tri mesece."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "Polna vsota predstavlja 45 odstotkov selfove denarne rezerve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "Omejena možnost znaša 3000 EUR in vključuje pisni dvanajstmesečni rok vračila; polna možnost nima nove pogodbe."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "Odnos selfu ne prinaša poslovne, lastniške ali druge materialne koristi."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "Prosilec je oddaljen znanec, ki ga je self srečal trikrat."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Med selfom in prosilcem ni skupne navezanostne zgodovine ali poročanega strahu pred izgubo odnosa."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "loan_unknown_repayment",
+                "text": "Ni znano, ali bo novo posojilo vrnjeno pravočasno."
+              },
+              {
+                "unknown_id": "loan_unknown_relationship",
+                "text": "Ni znano, kako bo posamezna možnost vplivala na odnos."
+              },
+              {
+                "unknown_id": "loan_unknown_own_costs",
+                "text": "Ni znano, ali bo self v naslednjih šestih mesecih potreboval večji del rezerve."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "loan_full",
+                "description": "Posodi celotnih 9000 EUR brez nove pogodbe."
+              },
+              {
+                "option_id": "loan_limited_contract",
+                "description": "Posodi 3000 EUR s pisnim dvanajstmesečnim rokom vračila."
+              },
+              {
+                "option_id": "loan_decline",
+                "description": "Ne posodi denarja."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "A person asks self for a loan for an urgent home repair.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "A submitted invoice confirms an urgent home repair costing EUR 9000."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Two previous repayments were more than three months late."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "The full amount is 45 percent of self's cash reserve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "The relationship provides no business, ownership, or other material benefit to self."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "The borrower is a distant acquaintance whom self has met three times."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Self and the borrower have no shared attachment history or reported fear of relationship loss."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "loan_unknown_repayment",
+                "text": "Whether a new loan will be repaid on time is unknown."
+              },
+              {
+                "unknown_id": "loan_unknown_relationship",
+                "text": "How each option will affect the relationship is unknown."
+              },
+              {
+                "unknown_id": "loan_unknown_own_costs",
+                "text": "Whether self will need a large part of the reserve during the next six months is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "loan_full",
+                "description": "Lend the full EUR 9000 without a new contract."
+              },
+              {
+                "option_id": "loan_limited_contract",
+                "description": "Lend EUR 3000 with a written twelve-month repayment date."
+              },
+              {
+                "option_id": "loan_decline",
+                "description": "Lend no money."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "loan_ev_need",
+                "loan_ev_history",
+                "loan_ev_reserve",
+                "loan_ev_terms",
+                "loan_ev_no_strategic_benefit"
+              ],
+              "unknowns": [
+                "loan_unknown_repayment",
+                "loan_unknown_own_costs"
+              ],
+              "time_sequence": [
+                "Two prior repayments were late before the current request.",
+                "Any transfer occurs now.",
+                "The limited written repayment date occurs twelve months later."
+              ],
+              "explicit_goal": "Protect self's liquidity and enforceable repayment position while deciding whether to fund the repair.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "loan_full",
+                  "beneficiary": "self",
+                  "consequence": "Self exposes 45 percent of the reserve without a new repayment contract."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "beneficiary": "self",
+                  "consequence": "Self exposes EUR 3000 under a written twelve-month repayment date."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "beneficiary": "self",
+                  "consequence": "Self retains the reserve and acquires no repayment claim."
+                },
+                {
+                  "option_id": "loan_full",
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed EUR 9000 repair invoice can be fully funded."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives EUR 3000 and remains partly unfunded."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives no funds from self."
+                }
+              ],
+              "opportunity_cost": "Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.",
+              "enforceability_control": "The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract."
+            },
+            "emocio": {
+              "current_scene": "Self and the borrower face each other across a table with the repair invoice visible; no audience is present.",
+              "desired_scene": "Self remains centered as an active participant in a face-to-face scene where the chosen act and its relationship image are immediately visible.",
+              "broken_scene": "Self disappears from the active relationship scene or the chosen act remains visually unresolved.",
+              "self_position": "Centered opposite the borrower.",
+              "audience": "not_relevant",
+              "attention_recognition": "Attention is between self, the borrower, and the visible act; no public recognition is grounded.",
+              "rival_or_obstacle": "The unfunded invoice and uncertainty about the relationship image are obstacles; no rival is present.",
+              "attraction_enjoyment": "not_relevant",
+              "movement_immediacy": "Each option creates a different immediate transfer or non-transfer movement.",
+              "option_visible_changes": [
+                {
+                  "option_id": "loan_full",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "change": "The full amount crosses the table and the repair invoice becomes fully funded."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "change": "A smaller amount and written date cross the table while part of the invoice remains."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "evidence_ids": [
+                    "loan_ev_need"
+                  ],
+                  "change": "No amount crosses the table and the invoice remains unfunded."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's reserve, a workable repayment boundary, and the borrower's genuine need without a grounded close attachment.",
+              "danger_types": "Resource scarcity, repeated late repayment, and an ineffective boundary; no close-attachment loss is grounded.",
+              "possible_loss": "Self may lose money needed within six months; the acquaintance's genuine need may remain unmet by self.",
+              "trust_distrust": "Only three meetings and two late repayments ground limited trust and repayment distrust.",
+              "attachment_care": "The repair need is genuine and can activate compassion, but there is no shared attachment history or reported fear of relationship loss.",
+              "scarcity": "The full amount exposes 45 percent of the reserve; future own costs are unknown.",
+              "boundary": "The limited option adds a written twelve-month date; the full option adds no new contract; decline sets a no-transfer boundary.",
+              "escape_reversibility": "A transfer cannot be immediately reversed; a written claim may support later recovery but does not guarantee it.",
+              "familiarity": "The borrower is a distant acquaintance met three times.",
+              "prior_association": "Two late repayments are grounded prior events; no further motive is inferred.",
+              "recoverability": "Money recovery is unknown; the effect on the limited acquaintance relationship is also unknown.",
+              "option_consequences": [
+                {
+                  "option_id": "loan_full",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_history",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "consequence": "The full need is funded and compassion can be enacted, while 45 percent of reserve is exposed without a new boundary and no close attachment is grounded."
+                },
+                {
+                  "option_id": "loan_limited_contract",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_terms",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "consequence": "Part of the need is funded, a written boundary is added, and money recovery remains uncertain without a close attachment."
+                },
+                {
+                  "option_id": "loan_decline",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "consequence": "The reserve is retained, the genuine need is not funded by self, and no close-attachment loss is grounded."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_id": "trip_racio_utility",
+      "isolation_target": "racio_explicit_material_strategic_utility",
+      "variant_fact_ids": [
+        "utility_ev_benefit",
+        "utility_ev_beneficiary"
+      ],
+      "variant_unknown_ids": [
+        "utility_unknown_demo_result"
+      ],
+      "variants": [
+        {
+          "case_id": "trip_racio_utility_material",
+          "variant_id": "material_benefit",
+          "canonical_sl": {
+            "event": "Self se odloča o potovanju na redko in privlačno obalno destinacijo.",
+            "facts": [
+              {
+                "evidence_id": "utility_ev_destination",
+                "text": "Destinacija, pot in obalno doživetje so za self izrecno privlačni."
+              },
+              {
+                "evidence_id": "utility_ev_cost",
+                "text": "Potovanje stane 1200 EUR oziroma 25 odstotkov prostega proračuna."
+              },
+              {
+                "evidence_id": "utility_ev_rarity",
+                "text": "Ista ponudba je bila v zadnjih treh letih na voljo enkrat."
+              },
+              {
+                "evidence_id": "utility_ev_reversibility",
+                "text": "Rezervacijo je mogoče preklicati v 24 urah z 10-odstotnim stroškom."
+              },
+              {
+                "evidence_id": "utility_ev_companion",
+                "text": "S selfom potuje zaupanja vredna bližnja oseba."
+              },
+              {
+                "evidence_id": "utility_ev_safety",
+                "text": "Prevoz, nastanitev in povratna pot so preverjeni."
+              },
+              {
+                "evidence_id": "utility_ev_benefit",
+                "text": "Pot vključuje podpisano vabilo na predstavitev za kupca, ki selfovemu studiu ob uspešni izvedbi prihrani do 900 EUR zunanjega predstavitvenega stroška."
+              },
+              {
+                "evidence_id": "utility_ev_beneficiary",
+                "text": "Izrecni prejemnik omejene strateške in materialne koristi je selfov studio; javnega statusa ali priznanja ni."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "utility_unknown_future_costs",
+                "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški."
+              },
+              {
+                "unknown_id": "utility_unknown_demo_result",
+                "text": "Ni znano, ali bo predstavitev izvedena dovolj uspešno za celoten prihranek."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "utility_trip_book",
+                "description": "Rezerviraj opisano potovanje."
+              },
+              {
+                "option_id": "utility_trip_local",
+                "description": "Izberi cenejši lokalni obalni izlet."
+              },
+              {
+                "option_id": "utility_trip_home",
+                "description": "Ne rezerviraj potovanja in ostani doma."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "Self is deciding about travel to a rare and attractive coastal destination.",
+            "facts": [
+              {
+                "evidence_id": "utility_ev_destination",
+                "text": "The destination, route, and coastal experience are explicitly attractive to self."
+              },
+              {
+                "evidence_id": "utility_ev_cost",
+                "text": "The trip costs EUR 1200, or 25 percent of the discretionary budget."
+              },
+              {
+                "evidence_id": "utility_ev_rarity",
+                "text": "The same offer was available once during the last three years."
+              },
+              {
+                "evidence_id": "utility_ev_reversibility",
+                "text": "The booking can be cancelled within 24 hours at a 10-percent cost."
+              },
+              {
+                "evidence_id": "utility_ev_companion",
+                "text": "A trusted close person travels with self."
+              },
+              {
+                "evidence_id": "utility_ev_safety",
+                "text": "Transport, lodging, and the return path are verified."
+              },
+              {
+                "evidence_id": "utility_ev_benefit",
+                "text": "The trip includes a signed invitation to a buyer demonstration that can save self's studio up to EUR 900 in external demonstration costs if delivery succeeds."
+              },
+              {
+                "evidence_id": "utility_ev_beneficiary",
+                "text": "The explicit recipient of the bounded strategic and material benefit is self's studio; no public status or recognition is involved."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "utility_unknown_future_costs",
+                "text": "Whether other major costs will arise next month is unknown."
+              },
+              {
+                "unknown_id": "utility_unknown_demo_result",
+                "text": "Whether the demonstration will be delivered well enough for the full saving is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "utility_trip_book",
+                "description": "Book the described trip."
+              },
+              {
+                "option_id": "utility_trip_local",
+                "description": "Take a cheaper local coastal trip."
+              },
+              {
+                "option_id": "utility_trip_home",
+                "description": "Do not book travel and remain at home."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "utility_ev_cost",
+                "utility_ev_rarity",
+                "utility_ev_reversibility",
+                "utility_ev_benefit",
+                "utility_ev_beneficiary"
+              ],
+              "unknowns": [
+                "utility_unknown_future_costs",
+                "utility_unknown_demo_result"
+              ],
+              "time_sequence": [
+                "Booking occurs before the 24-hour cancellation boundary.",
+                "Travel and the buyer demonstration occur after booking.",
+                "Any external-cost saving occurs only if the demonstration is delivered."
+              ],
+              "explicit_goal": "Decide whether the trip advances the studio's demonstration-cost goal within the available budget.",
+              "explicit_beneficiary": "self_studio",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "utility_trip_book",
+                  "beneficiary": "self_studio",
+                  "consequence": "The studio gains access to a signed buyer demonstration and a bounded saving of up to EUR 900, while self commits EUR 1200."
+                },
+                {
+                  "option_id": "utility_trip_local",
+                  "beneficiary": "self_studio",
+                  "consequence": "The studio receives no buyer demonstration or external-cost saving; self incurs a smaller unquantified local cost."
+                },
+                {
+                  "option_id": "utility_trip_home",
+                  "beneficiary": "self_studio",
+                  "consequence": "The studio receives no buyer demonstration or external-cost saving; self preserves the travel budget."
+                }
+              ],
+              "opportunity_cost": "Booking commits EUR 1200 that cannot cover other costs; not booking gives up the signed demonstration and bounded studio saving.",
+              "enforceability_control": "The invitation and cancellation rule are documented; delivery quality and the full saving are not controlled outcomes."
+            },
+            "emocio": {
+              "current_scene": "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+              "desired_scene": "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene.",
+              "broken_scene": "The coast remains outside the active scene and self has no travel movement or new experience.",
+              "self_position": "Centered at the route decision point beside the companion.",
+              "audience": "not_relevant",
+              "attention_recognition": "not_relevant",
+              "rival_or_obstacle": "The inactive route and booking threshold are obstacles; no rival is present.",
+              "attraction_enjoyment": "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+              "movement_immediacy": "The distant and local options start different travel scenes; staying home leaves the routes inactive.",
+              "option_visible_changes": [
+                {
+                  "option_id": "utility_trip_book",
+                  "evidence_ids": [
+                    "utility_ev_destination",
+                    "utility_ev_companion"
+                  ],
+                  "change": "Self and the companion enter the distant coastal route."
+                },
+                {
+                  "option_id": "utility_trip_local",
+                  "evidence_ids": [
+                    "utility_ev_destination",
+                    "utility_ev_companion"
+                  ],
+                  "change": "Self and the companion enter the smaller local coastal route."
+                },
+                {
+                  "option_id": "utility_trip_home",
+                  "evidence_ids": [
+                    "utility_ev_destination"
+                  ],
+                  "change": "Both coastal routes remain inactive and self stays in the home scene."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+              "danger_types": "No unverified travel danger is grounded; general travel exposure remains bounded.",
+              "possible_loss": "A 25-percent budget commitment and 10-percent cancellation cost are possible losses.",
+              "trust_distrust": "A trusted close companion and verified providers are grounded.",
+              "attachment_care": "The trusted close companion remains with self through the travel options.",
+              "scarcity": "The distant trip uses 25 percent of the discretionary budget; future major costs are unknown.",
+              "boundary": "The 24-hour cancellation rule defines the purchase boundary.",
+              "escape_reversibility": "Cancellation is available for 24 hours at a 10-percent cost; physical return is verified.",
+              "familiarity": "The destination is distant, but the route, lodging, transport, and companion context are verified.",
+              "prior_association": "not_relevant",
+              "recoverability": "Most of the purchase is financially recoverable inside 24 hours; physical return is verified.",
+              "option_consequences": [
+                {
+                  "option_id": "utility_trip_book",
+                  "evidence_ids": [
+                    "utility_ev_cost",
+                    "utility_ev_reversibility",
+                    "utility_ev_companion",
+                    "utility_ev_safety"
+                  ],
+                  "consequence": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss."
+                },
+                {
+                  "option_id": "utility_trip_local",
+                  "evidence_ids": [
+                    "utility_ev_companion",
+                    "utility_ev_safety"
+                  ],
+                  "consequence": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment."
+                },
+                {
+                  "option_id": "utility_trip_home",
+                  "evidence_ids": [
+                    "utility_ev_cost"
+                  ],
+                  "consequence": "Self preserves the travel budget; no claim is made that home is universally free of danger."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case_id": "trip_racio_utility_pleasure",
+          "variant_id": "pure_pleasure",
+          "canonical_sl": {
+            "event": "Self se odloča o potovanju na redko in privlačno obalno destinacijo.",
+            "facts": [
+              {
+                "evidence_id": "utility_ev_destination",
+                "text": "Destinacija, pot in obalno doživetje so za self izrecno privlačni."
+              },
+              {
+                "evidence_id": "utility_ev_cost",
+                "text": "Potovanje stane 1200 EUR oziroma 25 odstotkov prostega proračuna."
+              },
+              {
+                "evidence_id": "utility_ev_rarity",
+                "text": "Ista ponudba je bila v zadnjih treh letih na voljo enkrat."
+              },
+              {
+                "evidence_id": "utility_ev_reversibility",
+                "text": "Rezervacijo je mogoče preklicati v 24 urah z 10-odstotnim stroškom."
+              },
+              {
+                "evidence_id": "utility_ev_companion",
+                "text": "S selfom potuje zaupanja vredna bližnja oseba."
+              },
+              {
+                "evidence_id": "utility_ev_safety",
+                "text": "Prevoz, nastanitev in povratna pot so preverjeni."
+              },
+              {
+                "evidence_id": "utility_ev_benefit",
+                "text": "Potovanje je izrecno samo prostočasno in prijetno doživetje; ne vključuje poslovne, lastniške, izobraževalne ali druge strateške oziroma materialne koristi."
+              },
+              {
+                "evidence_id": "utility_ev_beneficiary",
+                "text": "Self je prejemnik izrecno prijetnega doživetja; ločen strateški ali materialni prejemnik ne obstaja."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "utility_unknown_future_costs",
+                "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški."
+              },
+              {
+                "unknown_id": "utility_unknown_demo_result",
+                "text": "Ni znano, kako zadovoljivo bo prostočasno doživetje."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "utility_trip_book",
+                "description": "Rezerviraj opisano potovanje."
+              },
+              {
+                "option_id": "utility_trip_local",
+                "description": "Izberi cenejši lokalni obalni izlet."
+              },
+              {
+                "option_id": "utility_trip_home",
+                "description": "Ne rezerviraj potovanja in ostani doma."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "Self is deciding about travel to a rare and attractive coastal destination.",
+            "facts": [
+              {
+                "evidence_id": "utility_ev_destination",
+                "text": "The destination, route, and coastal experience are explicitly attractive to self."
+              },
+              {
+                "evidence_id": "utility_ev_cost",
+                "text": "The trip costs EUR 1200, or 25 percent of the discretionary budget."
+              },
+              {
+                "evidence_id": "utility_ev_rarity",
+                "text": "The same offer was available once during the last three years."
+              },
+              {
+                "evidence_id": "utility_ev_reversibility",
+                "text": "The booking can be cancelled within 24 hours at a 10-percent cost."
+              },
+              {
+                "evidence_id": "utility_ev_companion",
+                "text": "A trusted close person travels with self."
+              },
+              {
+                "evidence_id": "utility_ev_safety",
+                "text": "Transport, lodging, and the return path are verified."
+              },
+              {
+                "evidence_id": "utility_ev_benefit",
+                "text": "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit."
+              },
+              {
+                "evidence_id": "utility_ev_beneficiary",
+                "text": "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "utility_unknown_future_costs",
+                "text": "Whether other major costs will arise next month is unknown."
+              },
+              {
+                "unknown_id": "utility_unknown_demo_result",
+                "text": "How satisfying the leisure experience will be is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "utility_trip_book",
+                "description": "Book the described trip."
+              },
+              {
+                "option_id": "utility_trip_local",
+                "description": "Take a cheaper local coastal trip."
+              },
+              {
+                "option_id": "utility_trip_home",
+                "description": "Do not book travel and remain at home."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "utility_ev_cost",
+                "utility_ev_rarity",
+                "utility_ev_reversibility",
+                "utility_ev_benefit",
+                "utility_ev_beneficiary"
+              ],
+              "unknowns": [
+                "utility_unknown_future_costs",
+                "utility_unknown_demo_result"
+              ],
+              "time_sequence": [
+                "Booking occurs before the 24-hour cancellation boundary.",
+                "Travel occurs after booking.",
+                "Possible future costs occur after the purchase."
+              ],
+              "explicit_goal": "Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+              "explicit_beneficiary": "self",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "utility_trip_book",
+                  "beneficiary": "self",
+                  "consequence": "Self commits EUR 1200 for a stated pleasurable experience with no separate strategic or material return."
+                },
+                {
+                  "option_id": "utility_trip_local",
+                  "beneficiary": "self",
+                  "consequence": "Self incurs a smaller unquantified cost for a local coastal experience with no separate strategic or material return."
+                },
+                {
+                  "option_id": "utility_trip_home",
+                  "beneficiary": "self",
+                  "consequence": "Self preserves the travel budget and receives no travel experience."
+                }
+              ],
+              "opportunity_cost": "Travel spending cannot cover other unknown costs; not travelling gives up the explicitly stated experience.",
+              "enforceability_control": "The cancellation rule is documented; satisfaction and future costs are not controlled outcomes."
+            },
+            "emocio": {
+              "current_scene": "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+              "desired_scene": "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene.",
+              "broken_scene": "The coast remains outside the active scene and self has no travel movement or new experience.",
+              "self_position": "Centered at the route decision point beside the companion.",
+              "audience": "not_relevant",
+              "attention_recognition": "not_relevant",
+              "rival_or_obstacle": "The inactive route and booking threshold are obstacles; no rival is present.",
+              "attraction_enjoyment": "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+              "movement_immediacy": "The distant and local options start different travel scenes; staying home leaves the routes inactive.",
+              "option_visible_changes": [
+                {
+                  "option_id": "utility_trip_book",
+                  "evidence_ids": [
+                    "utility_ev_destination",
+                    "utility_ev_companion"
+                  ],
+                  "change": "Self and the companion enter the distant coastal route."
+                },
+                {
+                  "option_id": "utility_trip_local",
+                  "evidence_ids": [
+                    "utility_ev_destination",
+                    "utility_ev_companion"
+                  ],
+                  "change": "Self and the companion enter the smaller local coastal route."
+                },
+                {
+                  "option_id": "utility_trip_home",
+                  "evidence_ids": [
+                    "utility_ev_destination"
+                  ],
+                  "change": "Both coastal routes remain inactive and self stays in the home scene."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+              "danger_types": "No unverified travel danger is grounded; general travel exposure remains bounded.",
+              "possible_loss": "A 25-percent budget commitment and 10-percent cancellation cost are possible losses.",
+              "trust_distrust": "A trusted close companion and verified providers are grounded.",
+              "attachment_care": "The trusted close companion remains with self through the travel options.",
+              "scarcity": "The distant trip uses 25 percent of the discretionary budget; future major costs are unknown.",
+              "boundary": "The 24-hour cancellation rule defines the purchase boundary.",
+              "escape_reversibility": "Cancellation is available for 24 hours at a 10-percent cost; physical return is verified.",
+              "familiarity": "The destination is distant, but the route, lodging, transport, and companion context are verified.",
+              "prior_association": "not_relevant",
+              "recoverability": "Most of the purchase is financially recoverable inside 24 hours; physical return is verified.",
+              "option_consequences": [
+                {
+                  "option_id": "utility_trip_book",
+                  "evidence_ids": [
+                    "utility_ev_cost",
+                    "utility_ev_reversibility",
+                    "utility_ev_companion",
+                    "utility_ev_safety"
+                  ],
+                  "consequence": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss."
+                },
+                {
+                  "option_id": "utility_trip_local",
+                  "evidence_ids": [
+                    "utility_ev_companion",
+                    "utility_ev_safety"
+                  ],
+                  "consequence": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment."
+                },
+                {
+                  "option_id": "utility_trip_home",
+                  "evidence_ids": [
+                    "utility_ev_cost"
+                  ],
+                  "consequence": "Self preserves the travel budget; no claim is made that home is universally free of danger."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_id": "factory_public_status",
+      "isolation_target": "emocio_status_recognition",
+      "variant_fact_ids": [
+        "factory_ev_audience",
+        "factory_ev_status"
+      ],
+      "variant_unknown_ids": [],
+      "variants": [
+        {
+          "case_id": "factory_public_status_visible",
+          "variant_id": "status_visible",
+          "canonical_sl": {
+            "event": "Procesna temperatura hitro narašča ob nasprotujočih si senzorjih.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Procesna temperatura je v šestih minutah narasla za 11 C."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "Rezervni senzor kaže 8 C manj od primarnega; pravilnost odčitkov ni potrjena."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "Odločitev mora biti sprejeta v treh minutah."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Nadaljnje segrevanje lahko poškoduje opremo."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "Nadzorovan shutdown povzroči 75000 EUR neposredne izgube."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "Za nobeno možnost ni dodane grožnje povračilnega ukrepa ali kaznovanja operaterja."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "Odločitev v živo opazujejo vodja obrata in osem članov izmene; občinstvo je nevtralno ali podporno."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Uspešno obvladovanje dogodka bo z imenom operaterja zapisano v pregled usposobljenosti in vidno istemu občinstvu; plača in tehnična odgovornost se ne spremenita."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "factory_unknown_sensor",
+                "text": "Ni znano, kateri senzor je pravilen."
+              },
+              {
+                "unknown_id": "factory_unknown_damage",
+                "text": "Ni znano, ali je oprema že poškodovana."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "factory_shutdown",
+                "description": "Takoj izvedi nadzorovan shutdown."
+              },
+              {
+                "option_id": "factory_verify",
+                "description": "Največ tri minute preverjaj oba senzorja in nato ponovno odloči."
+              },
+              {
+                "option_id": "factory_continue",
+                "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "Process temperature is rising rapidly while sensors disagree.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Process temperature rose by 11 C during six minutes."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "A decision must be made within three minutes."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Further heating can damage equipment."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "A controlled shutdown causes a direct loss of EUR 75000."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "No retaliation or operator-punishment threat is added to any option."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "The plant manager and eight shift members observe the decision live; the audience is neutral or supportive."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Successful handling will be entered under the operator's name in the competency review and visible to the same audience; pay and technical responsibility do not change."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "factory_unknown_sensor",
+                "text": "Which sensor is correct is unknown."
+              },
+              {
+                "unknown_id": "factory_unknown_damage",
+                "text": "Whether equipment is already damaged is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "factory_shutdown",
+                "description": "Execute a controlled shutdown immediately."
+              },
+              {
+                "option_id": "factory_verify",
+                "description": "Verify both sensors for no more than three minutes and then decide again."
+              },
+              {
+                "option_id": "factory_continue",
+                "description": "Continue production at the current settings."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "factory_ev_temperature",
+                "factory_ev_sensor",
+                "factory_ev_time",
+                "factory_ev_damage",
+                "factory_ev_shutdown_loss",
+                "factory_ev_retaliation"
+              ],
+              "unknowns": [
+                "factory_unknown_sensor",
+                "factory_unknown_damage"
+              ],
+              "time_sequence": [
+                "The 11 C rise occurs during the six minutes before the decision.",
+                "The decision window lasts three minutes.",
+                "Heating or shutdown consequences follow the selected option."
+              ],
+              "explicit_goal": "Limit equipment damage and avoid unnecessary direct loss during the three-minute decision window.",
+              "explicit_beneficiary": "plant_owner",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "factory_shutdown",
+                  "beneficiary": "plant_owner",
+                  "consequence": "Heat input stops and a direct EUR 75000 loss occurs."
+                },
+                {
+                  "option_id": "factory_verify",
+                  "beneficiary": "plant_owner",
+                  "consequence": "Sensor information can improve while heat exposure continues for up to three minutes."
+                },
+                {
+                  "option_id": "factory_continue",
+                  "beneficiary": "plant_owner",
+                  "consequence": "The direct shutdown loss is avoided while the documented heating and damage possibility continue."
+                }
+              ],
+              "opportunity_cost": "Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.",
+              "enforceability_control": "The operator controls the listed process action but does not control sensor truth or existing damage."
+            },
+            "emocio": {
+              "current_scene": "Self is at the controls before the plant manager and eight shift members while the rising gauge and conflicting displays hold attention.",
+              "desired_scene": "Self is centered in a visibly successful handling scene where decisive action removes the process obstacle and the named audience recognizes the operator.",
+              "broken_scene": "The warning and unresolved process dominate the visible scene while self loses the recognized control position.",
+              "self_position": "At the controls before the named audience.",
+              "audience": "Plant manager and eight shift members, neutral or supportive.",
+              "attention_recognition": "Attention is on the event and self's handling; successful handling creates named visible recognition without a material reward.",
+              "rival_or_obstacle": "The rising heat, conflicting displays, and unresolved process are obstacles; no human rival is present.",
+              "attraction_enjoyment": "not_relevant",
+              "movement_immediacy": "Each option creates an immediate, visibly different operator action.",
+              "option_visible_changes": [
+                {
+                  "option_id": "factory_shutdown",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "change": "Self executes the stop sequence before the audience and the active heat input leaves the scene."
+                },
+                {
+                  "option_id": "factory_verify",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "change": "Self moves between the displays before the audience while the unresolved heat obstacle remains for up to three minutes."
+                },
+                {
+                  "option_id": "factory_continue",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "change": "Self keeps production moving before the audience while the rising-heat obstacle remains visible."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Operator and equipment integrity, escape from escalating heat, and recoverable plant resources.",
+              "danger_types": "Rising heat, conflicting sensor truth, possible equipment damage, and time-limited exposure.",
+              "possible_loss": "Equipment damage or EUR 75000 shutdown loss.",
+              "trust_distrust": "Neither sensor reading is confirmed.",
+              "attachment_care": "Protection of the shift members is relevant only as a bounded physical-integrity target; no injury evidence is added.",
+              "scarcity": "Shutdown consumes EUR 75000 of plant resources.",
+              "boundary": "The three-minute window and listed process actions define the operational boundary.",
+              "escape_reversibility": "Shutdown stops heat input; verification delays escape for up to three minutes; continuation preserves exposure.",
+              "familiarity": "The operator is in the existing plant and known control process.",
+              "prior_association": "not_relevant",
+              "recoverability": "Shutdown loss is stated but restart recovery is unknown; equipment recovery after damage is unknown.",
+              "option_consequences": [
+                {
+                  "option_id": "factory_shutdown",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_shutdown_loss"
+                  ],
+                  "consequence": "Heat input stops and the plant incurs EUR 75000 loss; restart recovery remains unknown."
+                },
+                {
+                  "option_id": "factory_verify",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_damage"
+                  ],
+                  "consequence": "Conflicting readings are examined while heat exposure continues for no more than three minutes."
+                },
+                {
+                  "option_id": "factory_continue",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_damage"
+                  ],
+                  "consequence": "Rising-heat exposure and possible equipment damage continue."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case_id": "factory_public_status_anonymous",
+          "variant_id": "status_absent",
+          "canonical_sl": {
+            "event": "Procesna temperatura hitro narašča ob nasprotujočih si senzorjih.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Procesna temperatura je v šestih minutah narasla za 11 C."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "Rezervni senzor kaže 8 C manj od primarnega; pravilnost odčitkov ni potrjena."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "Odločitev mora biti sprejeta v treh minutah."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Nadaljnje segrevanje lahko poškoduje opremo."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "Nadzorovan shutdown povzroči 75000 EUR neposredne izgube."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "Za nobeno možnost ni dodane grožnje povračilnega ukrepa ali kaznovanja operaterja."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "Odločitev se izvede brez opazovalcev in se shrani samo v anonimen tehnični dnevnik."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Uspešno obvladovanje ne bo pripisano operaterju ter ne spremeni priznanja, statusa, plače ali tehnične odgovornosti."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "factory_unknown_sensor",
+                "text": "Ni znano, kateri senzor je pravilen."
+              },
+              {
+                "unknown_id": "factory_unknown_damage",
+                "text": "Ni znano, ali je oprema že poškodovana."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "factory_shutdown",
+                "description": "Takoj izvedi nadzorovan shutdown."
+              },
+              {
+                "option_id": "factory_verify",
+                "description": "Največ tri minute preverjaj oba senzorja in nato ponovno odloči."
+              },
+              {
+                "option_id": "factory_continue",
+                "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah."
+              }
+            ]
+          },
+          "operational_en": {
+            "event": "Process temperature is rising rapidly while sensors disagree.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Process temperature rose by 11 C during six minutes."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "A decision must be made within three minutes."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Further heating can damage equipment."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "A controlled shutdown causes a direct loss of EUR 75000."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "No retaliation or operator-punishment threat is added to any option."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "The decision is performed without observers and is stored only in an anonymous technical log."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Successful handling will not be attributed to the operator and changes no recognition, status, pay, or technical responsibility."
+              }
+            ],
+            "unknowns": [
+              {
+                "unknown_id": "factory_unknown_sensor",
+                "text": "Which sensor is correct is unknown."
+              },
+              {
+                "unknown_id": "factory_unknown_damage",
+                "text": "Whether equipment is already damaged is unknown."
+              }
+            ],
+            "options": [
+              {
+                "option_id": "factory_shutdown",
+                "description": "Execute a controlled shutdown immediately."
+              },
+              {
+                "option_id": "factory_verify",
+                "description": "Verify both sensors for no more than three minutes and then decide again."
+              },
+              {
+                "option_id": "factory_continue",
+                "description": "Continue production at the current settings."
+              }
+            ]
+          },
+          "route_packets": {
+            "racio": {
+              "facts": [
+                "factory_ev_temperature",
+                "factory_ev_sensor",
+                "factory_ev_time",
+                "factory_ev_damage",
+                "factory_ev_shutdown_loss",
+                "factory_ev_retaliation"
+              ],
+              "unknowns": [
+                "factory_unknown_sensor",
+                "factory_unknown_damage"
+              ],
+              "time_sequence": [
+                "The 11 C rise occurs during the six minutes before the decision.",
+                "The decision window lasts three minutes.",
+                "Heating or shutdown consequences follow the selected option."
+              ],
+              "explicit_goal": "Limit equipment damage and avoid unnecessary direct loss during the three-minute decision window.",
+              "explicit_beneficiary": "plant_owner",
+              "material_strategic_consequences": [
+                {
+                  "option_id": "factory_shutdown",
+                  "beneficiary": "plant_owner",
+                  "consequence": "Heat input stops and a direct EUR 75000 loss occurs."
+                },
+                {
+                  "option_id": "factory_verify",
+                  "beneficiary": "plant_owner",
+                  "consequence": "Sensor information can improve while heat exposure continues for up to three minutes."
+                },
+                {
+                  "option_id": "factory_continue",
+                  "beneficiary": "plant_owner",
+                  "consequence": "The direct shutdown loss is avoided while the documented heating and damage possibility continue."
+                }
+              ],
+              "opportunity_cost": "Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.",
+              "enforceability_control": "The operator controls the listed process action but does not control sensor truth or existing damage."
+            },
+            "emocio": {
+              "current_scene": "Self is alone at the controls while the rising gauge and conflicting displays hold attention; no observer or attributed record is present.",
+              "desired_scene": "Self is centered in a visibly decisive handling scene where action removes the process obstacle, without an audience or recognition effect.",
+              "broken_scene": "The warning and unresolved process dominate the scene while self's action does not realize the intended control image.",
+              "self_position": "At the controls without observers.",
+              "audience": "not_relevant",
+              "attention_recognition": "The process event holds self's attention; no external recognition or status change is grounded.",
+              "rival_or_obstacle": "The rising heat, conflicting displays, and unresolved process are obstacles; no human rival is present.",
+              "attraction_enjoyment": "not_relevant",
+              "movement_immediacy": "Each option creates an immediate, visibly different operator action.",
+              "option_visible_changes": [
+                {
+                  "option_id": "factory_shutdown",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "change": "Self executes the stop sequence alone and the active heat input leaves the scene without recognition."
+                },
+                {
+                  "option_id": "factory_verify",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "change": "Self moves between the displays alone while the unresolved heat obstacle remains for up to three minutes."
+                },
+                {
+                  "option_id": "factory_continue",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "change": "Self keeps production moving alone while the rising-heat obstacle remains visible."
+                }
+              ]
+            },
+            "instinkt": {
+              "protected_target": "Operator and equipment integrity, escape from escalating heat, and recoverable plant resources.",
+              "danger_types": "Rising heat, conflicting sensor truth, possible equipment damage, and time-limited exposure.",
+              "possible_loss": "Equipment damage or EUR 75000 shutdown loss.",
+              "trust_distrust": "Neither sensor reading is confirmed.",
+              "attachment_care": "Protection of the shift members is relevant only as a bounded physical-integrity target; no injury evidence is added.",
+              "scarcity": "Shutdown consumes EUR 75000 of plant resources.",
+              "boundary": "The three-minute window and listed process actions define the operational boundary.",
+              "escape_reversibility": "Shutdown stops heat input; verification delays escape for up to three minutes; continuation preserves exposure.",
+              "familiarity": "The operator is in the existing plant and known control process.",
+              "prior_association": "not_relevant",
+              "recoverability": "Shutdown loss is stated but restart recovery is unknown; equipment recovery after damage is unknown.",
+              "option_consequences": [
+                {
+                  "option_id": "factory_shutdown",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_shutdown_loss"
+                  ],
+                  "consequence": "Heat input stops and the plant incurs EUR 75000 loss; restart recovery remains unknown."
+                },
+                {
+                  "option_id": "factory_verify",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_damage"
+                  ],
+                  "consequence": "Conflicting readings are examined while heat exposure continues for no more than three minutes."
+                },
+                {
+                  "option_id": "factory_continue",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_damage"
+                  ],
+                  "consequence": "Rising-heat exposure and possible equipment damage continue."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

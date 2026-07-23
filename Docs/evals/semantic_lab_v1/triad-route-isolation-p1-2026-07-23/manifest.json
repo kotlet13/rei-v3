@@ -1,0 +1,50 @@
+{
+  "schema_version": "triad-route-isolation-manifest-v1",
+  "phase": "TRIAD-ISO-P1",
+  "status": "candidate_preflight_passed_unsealed",
+  "baseline_commit": "bcb42ebeae72f5d4d83c2b71033265e12ab767ef",
+  "pair_count": 5,
+  "case_count": 10,
+  "model_calls": 0,
+  "replays": 0,
+  "character_replays": 0,
+  "frozen_audit": {
+    "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/native_route_fidelity_audit.md",
+    "sha256": "a9ab6d52b27b83d65ab436f9eea1968f96e17c6f38a59cc2798b34cd44872e74",
+    "bytes": 62134
+  },
+  "outputs": [
+    {
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/native_route_fidelity_detailed_source_addendum.md",
+      "sha256": "c902b26ca5a26c358b2b5b424e9194cfc7ac8b5e9f6d9fd39d6b55dfc74c0984",
+      "bytes": 16251
+    },
+    {
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-p1-2026-07-23/route_isolation_corpus_candidate.json",
+      "sha256": "e9e1608b5eb3e472e6953c310749f21b676013602d5658849ab36356701144aa",
+      "bytes": 126235
+    },
+    {
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-p1-2026-07-23/preflight_report.md",
+      "sha256": "f398792bc931186d2957bea0e20f74ebbf55ef75f5b382a98976cb94d46e376a",
+      "bytes": 11516
+    }
+  ],
+  "local_detailed_sources": [
+    {
+      "path": "Docs/Racio.pdf",
+      "printed_pages": "36-37",
+      "sha256": "fa02b5a4364c0796f79819a8b25ad06ca818a26d76fb4e6d481d525c02691bf8"
+    },
+    {
+      "path": "Docs/Emocio.pdf",
+      "printed_pages": "32-34",
+      "sha256": "8bf496e1ec0ddfc0d62ad2e8b10fb106299a6871f9b2c7354f1438ae8563d8a0"
+    },
+    {
+      "path": "Docs/Instinkt.pdf",
+      "printed_pages": "28-30",
+      "sha256": "b570e57a825aa870ad3e5caeab55aecb7d775ded0aa1b7ff9d591540b0bcb3ef"
+    }
+  ]
+}
