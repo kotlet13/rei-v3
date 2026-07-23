@@ -588,6 +588,15 @@ def test_injected_hanging_child_is_killed_with_a_bounded_tree(tmp_path: Path) ->
         stderr_limit_bytes=PROCESS_TREE_DEFAULT_OUTPUT_LIMIT_BYTES,
     )
     result = BoundedProcessTreeRunner().run(request)
+    if os.name != "nt":
+        assert result.record.status == "failed"
+        assert result.record.failure_code == "process_start_failure"
+        assert result.record.workload_released is False
+        assert result.record.workload_release_status == "not_attempted"
+        assert result.record.tree_termination_requested is False
+        assert result.record.containment_closed is True
+        assert not marker.exists()
+        return
     assert result.record.status == "timed_out"
     assert result.record.termination_trigger == "hard_timeout"
     assert result.record.tree_termination_requested is True
