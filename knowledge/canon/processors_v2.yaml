@@ -1,0 +1,119 @@
+schema_version: rei-processors-v2
+status: experimental_canon_only
+runtime_effect: none
+canon_language: sl
+operational_gloss_language: en
+profile_independent_core: true
+
+processors:
+  R:
+    canonical_name: Racio
+    canonical_sl: >-
+      Racio je neposredno zavedni, besedni in številčni razum. Podatke
+      razčlenjuje analitično, ločuje znano od neznanega ter uporablja čas,
+      zaporedje, načrtovanje in eksplicitne posledice.
+    en_gloss: >-
+      Racio is the directly conscious verbal and numerical REI mind. It
+      processes analytically through facts, unknowns, time, sequence,
+      planning, and explicit consequences.
+    direct_conscious_access: true
+    native_verbal_access: true
+    translated_by_racio: false
+    route_domains:
+      - facts_and_unknowns
+      - words_and_numbers
+      - time_and_sequence
+      - analysis_and_planning
+      - utility_and_explicit_consequences
+      - rationalization_risk
+    caveat_sl: >-
+      Racijeva neposredna zavest ne pomeni, da ima vedno značajsko avtoriteto
+      ali da je njegov sklep samodejno resničen.
+    source_claim_ids:
+      - C-RACIO-001
+      - C-RACIO-002
+      - C-PERCEPT-001
+      - C-CONSC-002
+      - C-ROUTE-001
+      - C-MINDS-001
+
+  E:
+    canonical_name: Emocio
+    canonical_sl: >-
+      Emocio je slikovni in izkustveni razum. Procesira prizore, sedanje,
+      želene in porušene slike, pozornost, pripadnost, tekmovalnost,
+      privlačnost, odboj, gibanje in improvizacijo.
+    en_gloss: >-
+      Emocio is the image- and experience-oriented REI mind. Its routes
+      concern scenes, current, desired, and broken images, attention,
+      belonging, competition, attraction, rejection, movement, and
+      improvisation.
+    direct_conscious_access: false
+    native_verbal_access: false
+    translated_by_racio: true
+    route_domains:
+      - current_desired_and_broken_image
+      - attention_and_recognition
+      - belonging_and_social_scene
+      - attraction_and_rejection
+      - competition
+      - movement_and_immediate_experience
+    caveat_sl: >-
+      Vsako besedilo Emocia je Racijev operativni prevod hipotetičnega
+      nezavednega signala, ne dobesedni notranji govor Emocia. Prevod je lahko
+      prilagojen ali popačen in zato ni neposreden dostop do Emocia.
+    source_claim_ids:
+      - C-EMOCIO-001
+      - C-EMOCIO-002
+      - C-CONSC-001
+      - C-ROUTE-001
+      - C-MINDS-001
+
+  I:
+    canonical_name: Instinkt
+    canonical_sl: >-
+      Instinkt je najstarejši, varovalni razum. Procesira nevarnost, možno
+      izgubo, mejo, zaupanje, navezanost, pomanjkanje in opisane telesne
+      opozorilne signale.
+    en_gloss: >-
+      Instinkt is the oldest protective REI mind. Its routes concern threat,
+      possible loss, boundaries, trust, attachment, scarcity, and described
+      bodily warning signals.
+    direct_conscious_access: false
+    native_verbal_access: false
+    translated_by_racio: true
+    route_domains:
+      - threat_and_loss_scan
+      - trust_test
+      - boundary_check
+      - attachment_protection
+      - scarcity
+      - described_body_alarm
+      - withdrawal_or_protection
+    caveat_sl: >-
+      Vsako besedilo Instinkta je Racijev operativni prevod hipotetičnega
+      nezavednega signala, ne dobesedni notranji govor Instinkta. Prevod je
+      lahko prilagojen ali popačen in zato ni neposreden dostop do Instinkta.
+    source_claim_ids:
+      - C-INSTINKT-001
+      - C-INSTINKT-002
+      - C-CONSC-001
+      - C-ROUTE-001
+      - C-MINDS-001
+
+global_invariants:
+  - canonical_sl: >-
+      Vsi trije razumi so enakovredni v vrednosti, čeprav imajo lahko v
+      značaju različne položaje.
+    en_gloss: >-
+      All three minds are equal in value even when they occupy different
+      character ranks.
+    source_claim_ids:
+      - C-MINDS-001
+  - canonical_sl: >-
+      Procesorska pot se ne sme določati iz pričakovanega zunanjega vedenja.
+    en_gloss: >-
+      A processor route must not be inferred from an expected outward behavior.
+    source_claim_ids:
+      - C-CHAR-002
+      - C-ROUTE-001

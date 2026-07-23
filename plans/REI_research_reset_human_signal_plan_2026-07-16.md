@@ -1,5 +1,12 @@
 # REI-v3 — raziskovalni reset in vrnitev k semantičnemu cilju
 
+> **STATUS: HISTORICAL — EXECUTED AND SUPERSEDED / DO NOT EXECUTE**
+>
+> Ta načrt je vzpostavil raziskovalno governance mejo, ki jo danes določa
+> `AGENTS.md`, njegove izvedbene faze pa so zaključene ali nadomeščene z
+> poznejšimi samostojnimi načrti. Spodnja stara SHA, status in neposredna
+> navodila so zgodovinska sled, ne trenutni ukazi.
+
 **Namen:** neposredno izvedbeno navodilo za Codex
 **Repozitorij:** `kotlet13/rei-v3`
 **Pričakovani trenutni `main`:** `5c53cad56f47e9d1f672038cd6bc2741e449de88`
@@ -457,7 +464,7 @@ SUPERSEDED FOR FUTURE WORK
 
 M0–C8 remain historical records. The direct-main workflow and automatic
 continuation are no longer active. Future work follows:
-plans/REI_research_reset_human_signal_2026-07-16.md
+plans/REI_research_reset_human_signal_plan_2026-07-16.md
 ```
 
 Ne prepisuj zgodovinskih rezultatov.
@@ -467,7 +474,7 @@ Ne prepisuj zgodovinskih rezultatov.
 Pot:
 
 ```text
-plans/REI_research_reset_human_signal_2026-07-16.md
+plans/REI_research_reset_human_signal_plan_2026-07-16.md
 ```
 
 ## 5.7 Pošteno posodobi `CURRENT.md`
