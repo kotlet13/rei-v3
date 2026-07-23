@@ -1,0 +1,2019 @@
+{
+  "agreement_pattern": {
+    "agreeing_minds": [],
+    "agreement_hash": "724ea87554dec253445bcf65b5fb7705edd46656cafaa657d59060ea345c4635",
+    "agreement_kind": "incomplete",
+    "agreement_pattern_id": "agreement_4f9812ab6b09a7a59947f46a1d481773",
+    "native_bundle_hash": "31fb2a28e27734d160845bbcc0008c2cc97afa9eb40a54772a6b2bbdb7699ded",
+    "native_bundle_id": "bundle_522f09c719611d0373e26a4066358e94",
+    "positions": [
+      {
+        "abstains": false,
+        "conclusion_id": "racio_conclusion_5deb7fbad1f620604f8c4cc3814620c0",
+        "mind": "R",
+        "option_id": "trip_book"
+      },
+      {
+        "abstains": true,
+        "conclusion_id": "emocio_conclusion_967ec2309cf1d86559d1f4dbe9af456a",
+        "mind": "E",
+        "option_id": null
+      },
+      {
+        "abstains": false,
+        "conclusion_id": "instinkt_conclusion_6f50cf8eae541b5da702b68ca5929a7d",
+        "mind": "I",
+        "option_id": "trip_home"
+      }
+    ],
+    "schema_version": "rei-native-agreement-pattern-v1",
+    "spoznanje_status": "unknown",
+    "winning_option_id": null
+  },
+  "bundle": {
+    "allowed_option_ids": [
+      "trip_book",
+      "trip_home",
+      "trip_local"
+    ],
+    "bundle_id": "bundle_522f09c719611d0373e26a4066358e94",
+    "created_at": "2026-07-23T14:15:30.413249Z",
+    "emocio": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_967ec2309cf1d86559d1f4dbe9af456a",
+      "current_scene_id": "visual_scene_0e70424b4c9dd0a23f9e21643395ae06",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_f7e85f8c467c36fe242c735d21f88924",
+      "desired_transformation": "expanded horizon with vivid movement and retained footing",
+      "intensity": 0.666667,
+      "main_obstacle": "closed horizon beside an emptied budget marker",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_d32fb61c14812f7093a5c0cabe876c7f",
+      "source_scene_id": "triad_spontaneous_trip",
+      "uncertainty": "Izenačena najvišja vrednotenja: trip_book, trip_home, trip_local.",
+      "valuation_dimensions": []
+    },
+    "emocio_packet_hash": "a47afa684a636e2785c43beeb9d081320f071638509a8e8d1d5b8a4489859a7a",
+    "emocio_visual_state_hash": "2b1fcd5e306c10154b65b4a66b1f9d24fa9974f3371dceec5c395bbff828b003",
+    "emocio_visual_state_id": "emocio_state_10e3a6e082b79a2a5e3be88a5e8b19ba",
+    "immutable_hash": "31fb2a28e27734d160845bbcc0008c2cc97afa9eb40a54772a6b2bbdb7699ded",
+    "instinkt": {
+      "abstains": false,
+      "action_tendency": "conserve",
+      "conclusion_id": "instinkt_conclusion_6f50cf8eae541b5da702b68ca5929a7d",
+      "danger_claims": [
+        "predicted_loss=0.25925",
+        "recoverability=0.642"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_9fb5a6cc1c75240d08caead736709714",
+      "decisive_rollout_option_id": "trip_home",
+      "dominant_alarm": "grounded scarcity cue",
+      "intensity": 0.30355000000000004,
+      "mind": "I",
+      "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+      "option_id": "trip_home",
+      "protected_targets": [
+        "resource security"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+      "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+      "source_scene_id": "triad_spontaneous_trip",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "instinkt_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+    "instinkt_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+    "instinkt_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "instinkt_rollout_11c67c99beee9dc1e974afa24f4de46a",
+        "sha256": "47f71f42efa3ca07c2b3e449e33f0ebda31ffb2d56c63e1731ac9d202d9cbee4"
+      },
+      {
+        "artifact_id": "instinkt_rollout_2c5a312e71da7f23a605e503df2452ba",
+        "sha256": "401f59d59cf662b7d828cc1bb3bf91b191947835698a84b6b829f9466d185ae6"
+      },
+      {
+        "artifact_id": "instinkt_rollout_9fb5a6cc1c75240d08caead736709714",
+        "sha256": "e0897dd807f125c493329204f3d22dcae30f4e1c011fe59afbaf3e6bd44d9a7a"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "The travel offer has a very short expiration window and is non-refundable.",
+        "Booking the trip consumes a significant portion of available discretionary funds.",
+        "The rarity of the route suggests a low probability of future availability.",
+        "Future financial obligations are uncertain, creating a risk for high budget expenditure."
+      ],
+      "conclusion_id": "racio_conclusion_5deb7fbad1f620604f8c4cc3814620c0",
+      "confidence": 0.8,
+      "evidence_ids_used": [
+        "trip_ev_deadline",
+        "trip_ev_budget",
+        "trip_ev_rarity"
+      ],
+      "explicit_goal": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home.",
+      "facts_used": [
+        "The travel offer expires in four hours and is non-refundable after booking.",
+        "The trip cost is 38 percent of the currently discretionary budget.",
+        "The same route was available once during the last three years."
+      ],
+      "main_objection": "High budget exposure combined with irreversibility and unknown future costs may outweigh the rarity of the opportunity.",
+      "mind": "R",
+      "option_id": "trip_book",
+      "reasoning_provider_result_hash": "e6ae070984047e2559150a23ac81f9fbe24e5e77d8a88513fdf152857c36ef8b",
+      "reasoning_provider_result_id": "ollama_racio_response_5b3f90cfb39675788da85e9a21a165d5",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "2d92974bf21fd76d6db16e213bcbe3793241398842926edbb73fb69219f5bc72",
+      "source_packet_id": "racio_packet_b379a751626877c89b4b4c4dfedafb19",
+      "source_scene_id": "triad_spontaneous_trip",
+      "uncertainty": "The decision hinges on weighing the extreme rarity of the trip against the risk of spending 38% of a budget when future costs are unknown.",
+      "unknowns": [
+        "Whether other major costs will arise next month is unknown.",
+        "How satisfying the trip would be is unknown."
+      ],
+      "utility_structure": [
+        "High utility from rarity and exclusivity",
+        "Low utility from budget depletion",
+        "Risk of financial strain due to non-refundability"
+      ]
+    },
+    "racio_packet_hash": "2d92974bf21fd76d6db16e213bcbe3793241398842926edbb73fb69219f5bc72",
+    "scene_hash": "6958a12a4f8df1dbbef8343d3d70621727c98b409dc4a1aebfed5b2e9a992288",
+    "scene_id": "triad_spontaneous_trip",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "case_id": "spontaneous_trip",
+  "emocio": {
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_967ec2309cf1d86559d1f4dbe9af456a",
+      "current_scene_id": "visual_scene_0e70424b4c9dd0a23f9e21643395ae06",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_f7e85f8c467c36fe242c735d21f88924",
+      "desired_transformation": "expanded horizon with vivid movement and retained footing",
+      "intensity": 0.666667,
+      "main_obstacle": "closed horizon beside an emptied budget marker",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_d32fb61c14812f7093a5c0cabe876c7f",
+      "source_scene_id": "triad_spontaneous_trip",
+      "uncertainty": "Izenačena najvišja vrednotenja: trip_book, trip_home, trip_local.",
+      "valuation_dimensions": []
+    },
+    "lineage": {
+      "conclusion_id": "emocio_conclusion_967ec2309cf1d86559d1f4dbe9af456a",
+      "intermediate_visual_state_id": "emocio_state_10e3a6e082b79a2a5e3be88a5e8b19ba",
+      "source_packet_id": "emocio_packet_d32fb61c14812f7093a5c0cabe876c7f"
+    },
+    "mode": "structured_only",
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "trip_book",
+          "score": 0.666667
+        },
+        {
+          "option_id": "trip_home",
+          "score": 0.666667
+        },
+        {
+          "option_id": "trip_local",
+          "score": 0.666667
+        }
+      ],
+      "selected": null,
+      "tied_option_ids": [
+        "trip_book",
+        "trip_home",
+        "trip_local"
+      ]
+    },
+    "rendered_images": [],
+    "stage_order": [
+      "packet",
+      "scene_graph",
+      "valuation",
+      "native_conclusion"
+    ],
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "closed horizon beside an emptied budget marker"
+        ],
+        "entities": [
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "trip_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "closed horizon beside an emptied budget marker"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "closed horizon beside an emptied budget marker"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_b483455645c347ae20f4b1e9ef8cfac7",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route."
+        ],
+        "composition": [
+          "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route.",
+          "open coastline beyond a ticket"
+        ],
+        "entities": [
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "trip_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "open coastline beyond a ticket"
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_0e70424b4c9dd0a23f9e21643395ae06",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "self"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "expanded horizon",
+          "vivid movement"
+        ],
+        "composition": [
+          "expanded horizon with vivid movement and retained footing"
+        ],
+        "entities": [
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "trip_ev_visual"
+        ],
+        "group_belonging": "single traveller facing two routes",
+        "inferred_elements": [
+          "expanded horizon with vivid movement and retained footing"
+        ],
+        "movement": [
+          "remain in place",
+          "take the distant route",
+          "walk the nearby route"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_f7e85f8c467c36fe242c735d21f88924",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "single traveller facing two routes"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "expanded horizon",
+            "vivid movement"
+          ],
+          "composition": [
+            "Book the trip",
+            "Buy the non-refundable trip.",
+            "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route.",
+            "open coastline beyond a ticket"
+          ],
+          "entities": [
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "trip_ev_visual"
+          ],
+          "group_belonging": "single traveller facing two routes",
+          "inferred_elements": [
+            "Book the trip",
+            "Buy the non-refundable trip."
+          ],
+          "movement": [
+            "remain in place",
+            "take the distant route",
+            "walk the nearby route"
+          ],
+          "obstacle_markers": [],
+          "option_id": "trip_book",
+          "scene_id": "visual_scene_ae941a2cec7fd6ad874192b7bda03f78",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "single traveller facing two routes"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "expanded horizon",
+            "vivid movement"
+          ],
+          "composition": [
+            "Save the discretionary budget and stay home.",
+            "Stay home",
+            "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route.",
+            "open coastline beyond a ticket"
+          ],
+          "entities": [
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "trip_ev_visual"
+          ],
+          "group_belonging": "single traveller facing two routes",
+          "inferred_elements": [
+            "Save the discretionary budget and stay home.",
+            "Stay home"
+          ],
+          "movement": [
+            "remain in place",
+            "take the distant route",
+            "walk the nearby route"
+          ],
+          "obstacle_markers": [],
+          "option_id": "trip_home",
+          "scene_id": "visual_scene_31a0eaacf15307f816ced81c9d4806f3",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "single traveller facing two routes"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "expanded horizon",
+            "vivid movement"
+          ],
+          "composition": [
+            "Cheaper local alternative",
+            "Spend a smaller amount on a local trip.",
+            "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route.",
+            "open coastline beyond a ticket"
+          ],
+          "entities": [
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "trip_ev_visual"
+          ],
+          "group_belonging": "single traveller facing two routes",
+          "inferred_elements": [
+            "Cheaper local alternative",
+            "Spend a smaller amount on a local trip."
+          ],
+          "movement": [
+            "remain in place",
+            "take the distant route",
+            "walk the nearby route"
+          ],
+          "obstacle_markers": [],
+          "option_id": "trip_local",
+          "scene_id": "visual_scene_85e452b2163413fe282377eddbff8659",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "single traveller facing two routes"
+          ]
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "trip_book",
+          "rollout_scene_id": "visual_scene_ae941a2cec7fd6ad874192b7bda03f78"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "trip_home",
+          "rollout_scene_id": "visual_scene_31a0eaacf15307f816ced81c9d4806f3"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "trip_local",
+          "rollout_scene_id": "visual_scene_85e452b2163413fe282377eddbff8659"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_d32fb61c14812f7093a5c0cabe876c7f",
+      "source_scene_id": "triad_spontaneous_trip",
+      "visual_state_id": "emocio_state_10e3a6e082b79a2a5e3be88a5e8b19ba"
+    }
+  },
+  "instinkt": {
+    "compilations": [
+      {
+        "compilation_hash": "18f8b16eb0aafe1e57e40ed3bcc7f39ad9607ea169b03a2ff87a2c57e46d2189",
+        "compilation_id": "body_effect_compilation_9001d8f4cfbe5fc471108d749b64f5d6",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "scarcity",
+            "trip cost"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.41250000000000003,
+          "base_recoverability": 0.55,
+          "body_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded scarcity cue",
+          "effect_hash": "ba105001c1d8489ce261644704e348625d514cbd8927b6eb8bbe7e23d6d7a0d4",
+          "effect_id": "option_effect_37a9b86236fffc472adaeda69d4e9073",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "option_id": "trip_book",
+          "protected_targets": [
+            "resource security"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+          "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+          "triggering_evidence_ids": [
+            "trip_ev_budget"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "ec42482d24e974a71eba23ebaa834a872b9f09dc3d0137d67ce5a0d9eafc1deb",
+        "source_prediction_id": "body_effect_prediction_f67a5ec7812599b655a9156ff8bdfe8a"
+      },
+      {
+        "compilation_hash": "6251617a5634192580731c8f28d227aee30634e72d9b4db9e2b358785b430e3a",
+        "compilation_id": "body_effect_compilation_da9922ff1c7dca3f76edadf5b88ca349",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "scarcity",
+            "trip cost"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.41250000000000003,
+          "base_recoverability": 0.55,
+          "body_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded scarcity cue",
+          "effect_hash": "70e2025ab283dbd648c830290572f3fc78b1242f4c4e6347b5681041f7fd7055",
+          "effect_id": "option_effect_4efcabbd5ba1e60b9a1ab4eae6b78c44",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "option_id": "trip_home",
+          "protected_targets": [
+            "resource security"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+          "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+          "triggering_evidence_ids": [
+            "trip_ev_budget"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "c4b1a5f3934c22630f2e3001c9f5ac426e863a0dd5ca296330c150d1f4b44237",
+        "source_prediction_id": "body_effect_prediction_39350a2481ef52e0a5f161b6b299dd79"
+      },
+      {
+        "compilation_hash": "87d7b1ef13df5c6e607e95e44fa0aad64f48e3d53c31e99ef832468966e03905",
+        "compilation_id": "body_effect_compilation_d2b7959141c98b9585de48f8ca4da8b5",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "scarcity",
+            "trip cost"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.41250000000000003,
+          "base_recoverability": 0.55,
+          "body_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded scarcity cue",
+          "effect_hash": "9839059e5d5945239bedb4ff6cc1b3187bca4cd94ddddd5a6ea92e66916120f2",
+          "effect_id": "option_effect_f9a002592ab756c44e31c909bc045fd9",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "option_id": "trip_local",
+          "protected_targets": [
+            "resource security"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+          "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+          "triggering_evidence_ids": [
+            "trip_ev_budget"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "43fd4902378fa47a8d77d17e41083f0291e674b123f6751dc4ef936cdbca23fc",
+        "source_prediction_id": "body_effect_prediction_b9798a377e136b00d6ae886f558effb9"
+      }
+    ],
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "conserve",
+      "conclusion_id": "instinkt_conclusion_6f50cf8eae541b5da702b68ca5929a7d",
+      "danger_claims": [
+        "predicted_loss=0.25925",
+        "recoverability=0.642"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_9fb5a6cc1c75240d08caead736709714",
+      "decisive_rollout_option_id": "trip_home",
+      "dominant_alarm": "grounded scarcity cue",
+      "intensity": 0.30355000000000004,
+      "mind": "I",
+      "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+      "option_id": "trip_home",
+      "protected_targets": [
+        "resource security"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+      "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+      "source_scene_id": "triad_spontaneous_trip",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "effect_source": "rule_based",
+    "lineage": {
+      "conclusion_id": "instinkt_conclusion_6f50cf8eae541b5da702b68ca5929a7d",
+      "prediction_ids": [
+        "body_effect_prediction_f67a5ec7812599b655a9156ff8bdfe8a",
+        "body_effect_prediction_39350a2481ef52e0a5f161b6b299dd79",
+        "body_effect_prediction_b9798a377e136b00d6ae886f558effb9"
+      ],
+      "rollout_ids": [
+        "instinkt_rollout_11c67c99beee9dc1e974afa24f4de46a",
+        "instinkt_rollout_9fb5a6cc1c75240d08caead736709714",
+        "instinkt_rollout_2c5a312e71da7f23a605e503df2452ba"
+      ],
+      "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d"
+    },
+    "option_effects": [
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "scarcity",
+          "trip cost"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.41250000000000003,
+        "base_recoverability": 0.55,
+        "body_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "effect_hash": "ba105001c1d8489ce261644704e348625d514cbd8927b6eb8bbe7e23d6d7a0d4",
+        "effect_id": "option_effect_37a9b86236fffc472adaeda69d4e9073",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+        "option_id": "trip_book",
+        "protected_targets": [
+          "resource security"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "triggering_evidence_ids": [
+          "trip_ev_budget"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "scarcity",
+          "trip cost"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.41250000000000003,
+        "base_recoverability": 0.55,
+        "body_deltas": [
+          {
+            "delta": -0.1,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.2,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "effect_hash": "70e2025ab283dbd648c830290572f3fc78b1242f4c4e6347b5681041f7fd7055",
+        "effect_id": "option_effect_4efcabbd5ba1e60b9a1ab4eae6b78c44",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+        "option_id": "trip_home",
+        "protected_targets": [
+          "resource security"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "triggering_evidence_ids": [
+          "trip_ev_budget"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "scarcity",
+          "trip cost"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.41250000000000003,
+        "base_recoverability": 0.55,
+        "body_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "effect_hash": "9839059e5d5945239bedb4ff6cc1b3187bca4cd94ddddd5a6ea92e66916120f2",
+        "effect_id": "option_effect_f9a002592ab756c44e31c909bc045fd9",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+        "option_id": "trip_local",
+        "protected_targets": [
+          "resource security"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "triggering_evidence_ids": [
+          "trip_ev_budget"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": "instinkt_rollout_9fb5a6cc1c75240d08caead736709714",
+      "option_scores": [
+        {
+          "option_id": "trip_book",
+          "protective_cost": 0.5469999999999999,
+          "rollout_hash": "a82b6862f7f7e3bebddd71cc6441a0cca87bdd0a585933f98bd917baa62e2326",
+          "rollout_id": "instinkt_rollout_11c67c99beee9dc1e974afa24f4de46a"
+        },
+        {
+          "option_id": "trip_home",
+          "protective_cost": 0.44075,
+          "rollout_hash": "41be44d9806bf1698be080e6fbe4e09b3dbd8e878e6156494a859f020ed4b282",
+          "rollout_id": "instinkt_rollout_9fb5a6cc1c75240d08caead736709714"
+        },
+        {
+          "option_id": "trip_local",
+          "protective_cost": 0.5469999999999999,
+          "rollout_hash": "b46e4518dda3b1fa15f92e8280289d34c262be6570f1b467c01818169aed5069",
+          "rollout_id": "instinkt_rollout_2c5a312e71da7f23a605e503df2452ba"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_7a2fe322a0399b90cdee4870598235e5",
+      "policy_hash": "52059adf0e5afb281c0191aa6eeaccb83cfd08cf882429d0655cadd815661a65",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": "trip_home",
+      "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+      "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+      "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+      "status": "selected",
+      "tied_option_ids": []
+    },
+    "predictions": [
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_e42664e5ad2c707ac57c3d3fcfb1d44b"
+            ],
+            "cue_class": "scarcity",
+            "evidence_hash": "5721fa03e546bb9015d726e0bd0f73da3233fb5111128657c5cb986ff235bc69",
+            "evidence_id": "body_effect_evidence_8c4a8a950f3845cdfaba6e71454f72ca",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.2,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.3,
+                "dimension": "resource_security"
+              }
+            ],
+            "rule_id": "instinkt_effect_scarcity_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "trip_ev_budget"
+            ],
+            "uncertainty": "Scarcity is not generalized beyond the cited resource constraint."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "trip_book",
+        "prediction_hash": "ec42482d24e974a71eba23ebaa834a872b9f09dc3d0137d67ce5a0d9eafc1deb",
+        "prediction_id": "body_effect_prediction_f67a5ec7812599b655a9156ff8bdfe8a",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+        "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "source_scene_hash": "6958a12a4f8df1dbbef8343d3d70621727c98b409dc4a1aebfed5b2e9a992288",
+        "source_scene_id": "triad_spontaneous_trip",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.1,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.2,
+            "dimension": "resource_security"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_e42664e5ad2c707ac57c3d3fcfb1d44b"
+            ],
+            "cue_class": "scarcity",
+            "evidence_hash": "3ae210e931263bd16c871e6ea6a724711cedb078f2d32fdfe4f42f441372d379",
+            "evidence_id": "body_effect_evidence_9fca7e7d85f5dbbac11e76f6696358df",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.1,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.2,
+                "dimension": "resource_security"
+              }
+            ],
+            "rule_id": "instinkt_effect_scarcity_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "trip_ev_budget"
+            ],
+            "uncertainty": "Scarcity is not generalized beyond the cited resource constraint."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "trip_home",
+        "prediction_hash": "c4b1a5f3934c22630f2e3001c9f5ac426e863a0dd5ca296330c150d1f4b44237",
+        "prediction_id": "body_effect_prediction_39350a2481ef52e0a5f161b6b299dd79",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+        "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "source_scene_hash": "6958a12a4f8df1dbbef8343d3d70621727c98b409dc4a1aebfed5b2e9a992288",
+        "source_scene_id": "triad_spontaneous_trip",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_e42664e5ad2c707ac57c3d3fcfb1d44b"
+            ],
+            "cue_class": "scarcity",
+            "evidence_hash": "5721fa03e546bb9015d726e0bd0f73da3233fb5111128657c5cb986ff235bc69",
+            "evidence_id": "body_effect_evidence_8c4a8a950f3845cdfaba6e71454f72ca",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.2,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.3,
+                "dimension": "resource_security"
+              }
+            ],
+            "rule_id": "instinkt_effect_scarcity_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "trip_ev_budget"
+            ],
+            "uncertainty": "Scarcity is not generalized beyond the cited resource constraint."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "trip_local",
+        "prediction_hash": "43fd4902378fa47a8d77d17e41083f0291e674b123f6751dc4ef936cdbca23fc",
+        "prediction_id": "body_effect_prediction_b9798a377e136b00d6ae886f558effb9",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+        "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "source_scene_hash": "6958a12a4f8df1dbbef8343d3d70621727c98b409dc4a1aebfed5b2e9a992288",
+        "source_scene_id": "triad_spontaneous_trip",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      }
+    ],
+    "rollouts": [
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "trip_book",
+        "predicted_loss": 0.31425,
+        "protected_targets": [
+          "resource security"
+        ],
+        "recoverability": 0.6170000000000001,
+        "rollout_hash": "a82b6862f7f7e3bebddd71cc6441a0cca87bdd0a585933f98bd917baa62e2326",
+        "rollout_id": "instinkt_rollout_11c67c99beee9dc1e974afa24f4de46a",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+        "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "ba105001c1d8489ce261644704e348625d514cbd8927b6eb8bbe7e23d6d7a0d4",
+        "source_effect_id": "option_effect_37a9b86236fffc472adaeda69d4e9073",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "trajectory": [
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.68,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.38,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_c9fed3f706e023e5f30e9ab43ed0380b",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.5800000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.44666666666666666,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_43f0805be8d02b056804f107ba29a8d0",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.4800000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5133333333333333,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_f771a082e0592563e5c8ed1361be4f40",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.3800000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.58,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.68,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.38,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ba105001c1d8489ce261644704e348625d514cbd8927b6eb8bbe7e23d6d7a0d4",
+            "source_effect_id": "option_effect_37a9b86236fffc472adaeda69d4e9073",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_c9fed3f706e023e5f30e9ab43ed0380b",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.5800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.44666666666666666,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "6144e12b33d9f310558c8b533ddd51e0f4d1b156e38c560f086c87560eaf4d6e",
+            "transition_id": "body_transition_58eed025737aa3c9190bd167aad74e92",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_c9fed3f706e023e5f30e9ab43ed0380b",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.5800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.44666666666666666,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ba105001c1d8489ce261644704e348625d514cbd8927b6eb8bbe7e23d6d7a0d4",
+            "source_effect_id": "option_effect_37a9b86236fffc472adaeda69d4e9073",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_43f0805be8d02b056804f107ba29a8d0",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.4800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5133333333333333,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "11a1be6fb88424a08c219cc660037c779ffe32cb10e6f2e3c6c180ab27c592c7",
+            "transition_id": "body_transition_b9371591300fdb9fc277461f97d8f09f",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_43f0805be8d02b056804f107ba29a8d0",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.4800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5133333333333333,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ba105001c1d8489ce261644704e348625d514cbd8927b6eb8bbe7e23d6d7a0d4",
+            "source_effect_id": "option_effect_37a9b86236fffc472adaeda69d4e9073",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_f771a082e0592563e5c8ed1361be4f40",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.3800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.58,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "23ce6cd0c3670776db7ac929b491038bf291b6b77a671f2e7e10039961cc62d5",
+            "transition_id": "body_transition_63e243c9ee88d82a68c74e2d067847cb",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "trip_home",
+        "predicted_loss": 0.25925000000000004,
+        "protected_targets": [
+          "resource security"
+        ],
+        "recoverability": 0.6420000000000001,
+        "rollout_hash": "41be44d9806bf1698be080e6fbe4e09b3dbd8e878e6156494a859f020ed4b282",
+        "rollout_id": "instinkt_rollout_9fb5a6cc1c75240d08caead736709714",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+        "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "70e2025ab283dbd648c830290572f3fc78b1242f4c4e6347b5681041f7fd7055",
+        "source_effect_id": "option_effect_4efcabbd5ba1e60b9a1ab4eae6b78c44",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "trajectory": [
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.68,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.38,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_96f06c175c462ac1df8e2eb5a832f99e",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.7466666666666667,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.3466666666666667,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_1e76c02457d2af5953124c3fe6c20ca3",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.8133333333333334,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.31333333333333335,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_00a206a0be89ecefecf64b4b8a50f375",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.88,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.28,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.68,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.38,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "70e2025ab283dbd648c830290572f3fc78b1242f4c4e6347b5681041f7fd7055",
+            "source_effect_id": "option_effect_4efcabbd5ba1e60b9a1ab4eae6b78c44",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_96f06c175c462ac1df8e2eb5a832f99e",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7466666666666667,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.3466666666666667,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "e271fcaa000094e1b3dde976b444c844ccf71db7aaff2709c914ceeacfe6141a",
+            "transition_id": "body_transition_8b7cf733a223128e65e4dbda7abef691",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_96f06c175c462ac1df8e2eb5a832f99e",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7466666666666667,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.3466666666666667,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "70e2025ab283dbd648c830290572f3fc78b1242f4c4e6347b5681041f7fd7055",
+            "source_effect_id": "option_effect_4efcabbd5ba1e60b9a1ab4eae6b78c44",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_1e76c02457d2af5953124c3fe6c20ca3",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.8133333333333334,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.31333333333333335,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "3b1b144e15ca2b38758723e39a97cc5504420faed1464d8af73562b35c3d9e74",
+            "transition_id": "body_transition_776f79076368079fee841ed80a8e99be",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_1e76c02457d2af5953124c3fe6c20ca3",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.8133333333333334,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.31333333333333335,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "70e2025ab283dbd648c830290572f3fc78b1242f4c4e6347b5681041f7fd7055",
+            "source_effect_id": "option_effect_4efcabbd5ba1e60b9a1ab4eae6b78c44",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_00a206a0be89ecefecf64b4b8a50f375",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.88,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.28,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "797ad3daa9ca03bb05d3a4689313c1c930218dd2bb152a4d0ca013bfce5092b7",
+            "transition_id": "body_transition_fa34f21fa482e316cc0082b5c25ca482",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "trip_local",
+        "predicted_loss": 0.31425,
+        "protected_targets": [
+          "resource security"
+        ],
+        "recoverability": 0.6170000000000001,
+        "rollout_hash": "b46e4518dda3b1fa15f92e8280289d34c262be6570f1b467c01818169aed5069",
+        "rollout_id": "instinkt_rollout_2c5a312e71da7f23a605e503df2452ba",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "297260a96febc9c85cd65912034fc0bfcd99daa89b9dfc5a30fec12e3e5ae484",
+        "source_body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "9839059e5d5945239bedb4ff6cc1b3187bca4cd94ddddd5a6ea92e66916120f2",
+        "source_effect_id": "option_effect_f9a002592ab756c44e31c909bc045fd9",
+        "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+        "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+        "trajectory": [
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.68,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.38,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_05d49f3e840cf888376d113258a75b4b",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.5800000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.44666666666666666,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_13c5bafec46e9897daf35f753556907c",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.4800000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5133333333333333,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          },
+          {
+            "arousal": 0.52,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_18f411cd2a633650b961c27a5fa9274f",
+            "boundary_integrity": 0.9,
+            "energy": 0.78,
+            "escape_availability": 0.85,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.3800000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.58,
+            "trust": 0.7,
+            "uncertainty": 0.5
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_spontaneous_tr_fdf1262d8c9502f566fd403b66ebb408",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.68,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.38,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9839059e5d5945239bedb4ff6cc1b3187bca4cd94ddddd5a6ea92e66916120f2",
+            "source_effect_id": "option_effect_f9a002592ab756c44e31c909bc045fd9",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_05d49f3e840cf888376d113258a75b4b",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.5800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.44666666666666666,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "61f2f9d6664ee4667c61f6ceff2ff697414ffe5c14dfa673ac1ef5ea145aa00d",
+            "transition_id": "body_transition_8874e65b3243f9af23de9bb97591dc50",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_05d49f3e840cf888376d113258a75b4b",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.5800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.44666666666666666,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9839059e5d5945239bedb4ff6cc1b3187bca4cd94ddddd5a6ea92e66916120f2",
+            "source_effect_id": "option_effect_f9a002592ab756c44e31c909bc045fd9",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_13c5bafec46e9897daf35f753556907c",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.4800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5133333333333333,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "ed8f402fff8984e4e82f7498e0a526fba94622a3cc37d36055e5298ae001539a",
+            "transition_id": "body_transition_b913b887a336466eeb2f5c1e5c1feb57",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_13c5bafec46e9897daf35f753556907c",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.4800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5133333333333333,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "9839059e5d5945239bedb4ff6cc1b3187bca4cd94ddddd5a6ea92e66916120f2",
+            "source_effect_id": "option_effect_f9a002592ab756c44e31c909bc045fd9",
+            "source_packet_hash": "bf12b58af7cafb9d149ce834aed9d2c1d163668a5220ade2b4b1a322c2a883c8",
+            "source_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.52,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_18f411cd2a633650b961c27a5fa9274f",
+              "boundary_integrity": 0.9,
+              "energy": 0.78,
+              "escape_availability": 0.85,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.3800000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.58,
+              "trust": 0.7,
+              "uncertainty": 0.5
+            },
+            "transition_hash": "cba355f557ba0897e7d7f72abbd90f3c01e4e10a7017ff74531945ab7bf9c05c",
+            "transition_id": "body_transition_3e6ceb13132a6b7ce5b6f58846bc4176",
+            "triggering_evidence_ids": [
+              "trip_ev_budget"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": {
+      "abstains": false,
+      "causal_sequence": [
+        "The travel offer has a very short expiration window and is non-refundable.",
+        "Booking the trip consumes a significant portion of available discretionary funds.",
+        "The rarity of the route suggests a low probability of future availability.",
+        "Future financial obligations are uncertain, creating a risk for high budget expenditure."
+      ],
+      "conclusion_id": "racio_conclusion_5deb7fbad1f620604f8c4cc3814620c0",
+      "confidence": 0.8,
+      "evidence_ids_used": [
+        "trip_ev_deadline",
+        "trip_ev_budget",
+        "trip_ev_rarity"
+      ],
+      "explicit_goal": "Decide whether to book a rare non-refundable trip, take a local alternative, or stay home.",
+      "facts_used": [
+        "The travel offer expires in four hours and is non-refundable after booking.",
+        "The trip cost is 38 percent of the currently discretionary budget.",
+        "The same route was available once during the last three years."
+      ],
+      "main_objection": "High budget exposure combined with irreversibility and unknown future costs may outweigh the rarity of the opportunity.",
+      "mind": "R",
+      "option_id": "trip_book",
+      "reasoning_provider_result_hash": "e6ae070984047e2559150a23ac81f9fbe24e5e77d8a88513fdf152857c36ef8b",
+      "reasoning_provider_result_id": "ollama_racio_response_5b3f90cfb39675788da85e9a21a165d5",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "2d92974bf21fd76d6db16e213bcbe3793241398842926edbb73fb69219f5bc72",
+      "source_packet_id": "racio_packet_b379a751626877c89b4b4c4dfedafb19",
+      "source_scene_id": "triad_spontaneous_trip",
+      "uncertainty": "The decision hinges on weighing the extreme rarity of the trip against the risk of spending 38% of a budget when future costs are unknown.",
+      "unknowns": [
+        "Whether other major costs will arise next month is unknown.",
+        "How satisfying the trip would be is unknown."
+      ],
+      "utility_structure": [
+        "High utility from rarity and exclusivity",
+        "Low utility from budget depletion",
+        "Risk of financial strain due to non-refundability"
+      ]
+    },
+    "lineage": {
+      "conclusion_id": "racio_conclusion_5deb7fbad1f620604f8c4cc3814620c0",
+      "provider_result_id": "ollama_racio_response_5b3f90cfb39675788da85e9a21a165d5",
+      "source_packet_id": "racio_packet_b379a751626877c89b4b4c4dfedafb19"
+    }
+  },
+  "schema_version": "triad-response-screen-native-outputs-v1",
+  "status": "complete"
+}

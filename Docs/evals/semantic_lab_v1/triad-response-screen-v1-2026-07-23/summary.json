@@ -1,0 +1,75 @@
+{
+  "abstentions": {
+    "E": 6,
+    "I": 4,
+    "R": 0
+  },
+  "agreement_counts": {
+    "all_different": 0,
+    "incomplete": 6,
+    "majority": 0,
+    "unanimous": 0
+  },
+  "branch": "codex/triad-response-screen-v1",
+  "case_target": 8,
+  "character_replay_rows": 78,
+  "character_replay_target": 104,
+  "compact_validated_native_conclusions": 18,
+  "emocio_image_model_calls": 0,
+  "executed_cases": 6,
+  "failures": [
+    {
+      "case_id": "factory_overtemperature",
+      "failure": "Ollama structured output exceeds the grounded Racio packet",
+      "failure_type": "OllamaResponseError"
+    },
+    {
+      "case_id": "family_relocation",
+      "failure": "Native execution completed once, but compact evidence projection failed; model and native processors were not rerun.",
+      "failure_type": "EvidenceProjectionError"
+    }
+  ],
+  "fallbacks": 0,
+  "fully_evidenced_cases": 6,
+  "global_rei_score": null,
+  "image_generation_calls": 0,
+  "instinkt_model_mapper_calls": 0,
+  "model": "gemma4:31b",
+  "model_calls": 8,
+  "model_cases_attempted": 8,
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "native_conclusion_target": 24,
+  "native_conclusions": 21,
+  "phase": "TRIAD-S1",
+  "pre_call_seal_sha256": "b3556246f32c211b3980f6748b6e5557ee384388f69ce8735bc002e2eb4eb996",
+  "provider_revision": "rei-native-ollama-racio-en-triad-screen-v1",
+  "retries": 0,
+  "schema_version": "triad-response-screen-summary-v1",
+  "validation_events": [
+    {
+      "detail": "The initial model-free native-cycle command found an existing completed default run tree. The same command then passed with a fresh external runs root and ego-traces root; production code and tests were not changed for the path condition.",
+      "event_id": "pre_call_native_cycle_existing_artifact",
+      "status": "environment_rejection_then_external_basetemp_pass"
+    },
+    {
+      "detail": "Before the first model call, Ollama tags omitted the vision capability that Ollama show reported for the exact expected digest. A narrow tag-subset compatibility check was added and focused tests passed; digest, completion capability, context, and GPU checks remained mandatory.",
+      "event_id": "ollama_capability_metadata_mismatch",
+      "status": "metadata_rejection_resolved_before_calls"
+    },
+    {
+      "detail": "The single factory_overtemperature Racio response exceeded the grounded packet contract. It was rejected with no retry, fallback, or prompt change.",
+      "event_id": "factory_overtemperature_grounding_rejection",
+      "status": "unresolved_validation_rejection"
+    },
+    {
+      "detail": "The family_relocation R/E/I executions completed once, but compact serialization failed on an Emocio dataclass. No model or native processor was rerun, so the three observed conclusion IDs remain unbundled and no character replay is claimed.",
+      "event_id": "family_relocation_evidence_projection_failure",
+      "status": "unresolved_evidence_failure"
+    },
+    {
+      "detail": "The first cold verifier attempted strict Python validation of JSON arrays. It was corrected to use each Pydantic model's JSON validation path; compact evidence bytes were not changed by this verifier fix.",
+      "event_id": "cold_verification_json_tuple_rejection",
+      "status": "verifier_rejection_resolved"
+    }
+  ]
+}

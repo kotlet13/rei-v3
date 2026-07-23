@@ -1,0 +1,11 @@
+{
+  "call_id": "provider_call_fb657617b32e69d7995beab0c51f58a7",
+  "case_id": "factory_overtemperature",
+  "failure": "Ollama structured output exceeds the grounded Racio packet",
+  "failure_type": "OllamaResponseError",
+  "fallbacks": 0,
+  "private_thinking_persisted": false,
+  "retries": 0,
+  "schema_version": "triad-response-screen-call-record-v1",
+  "status": "validation_rejected"
+}

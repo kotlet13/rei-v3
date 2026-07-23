@@ -1,0 +1,1321 @@
+{
+  "case_id": "unstable_slope_rescue",
+  "model_calls": 0,
+  "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+  "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+  "native_processor_executions": 0,
+  "profile_order": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "967901ca91a3e410b5cacb30094be55c449d7370d2ec24f78548db26508801c3",
+        "character_id": "triad_character_77496a58f483dedd0bd5750519e3adfa",
+        "effective_authority_hash": "96e5cad5cdbd76b7138d2d4f3086f6ef7a94a1c48eadda12116317dac58bc48a",
+        "effective_authority_id": "effective_authority_36960d0025e0bda214bd0a9f6c920327",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_650c780657e8a1842ecfa6d792e31503",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "rescue_distance_tool",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "b328c9670d72f4d3254e643d315755a0505458bab06515021a79510fbd543d33",
+        "resolution_id": "governance_ad7cfd8e171b156b9aa2fd71991d2e54",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>(E=I)",
+      "selected_mandate_option": "rescue_distance_tool",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "2cb262b996a71a72e4444e88eea27935949cdf2aa6323af16cc9c328b8aa27e1",
+        "character_id": "triad_character_fc5c0c96e5fa59a6f2f62b5385ae80ee",
+        "effective_authority_hash": "9814f8613780a8dec8ca02d88f5395c1e8cceb50a838f2cf2791dbdec2bd9f8f",
+        "effective_authority_id": "effective_authority_a04eb35f3f3a83e7a00c4fe68449bbb8",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_8bf8cbe5cc7543e580d5cad5ae8e77ee",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "c08bdef9645c314e44c5e70027be30f1d9ad3c0d0ef1f6f7f5796461540e8a2c",
+        "resolution_id": "governance_d9d7f9e12728d75dafaf4771cccf5c4a",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>(R=I)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "867e8dbd7f6482b161fe87c630a78c7225b5798189095a727681b2a705b74ebc",
+        "character_id": "triad_character_bef887d6dde84ef107b50df63b803db8",
+        "effective_authority_hash": "bf71ae7c9cb8546e43bead5898a8aa5555525db977f0c0ed579bccb249121940",
+        "effective_authority_id": "effective_authority_9efa082824d8018628a855d5d2db0487",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_4e603faf144c9fd0d61910b1a6dbaf47",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "19e23954a30b51f9654e5262d4bd70e1a8937c55e9706224c915ce90539142b5",
+        "resolution_id": "governance_85989a5cb6e66cf3b9a2a406f178d6f1",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>(R=E)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "aaa6a722b70e408d40b1ff09342f9aa9e10f76d19a2e62e790b541e629ac866d",
+        "character_id": "triad_character_3960f6482f44ed4daecbf50471f50bb4",
+        "effective_authority_hash": "c0b5c9280adb75fe30bd52da01d89425a11ea22fbef84701fd480fbb93374c6e",
+        "effective_authority_id": "effective_authority_98b576bbae2f1595be647a204dbf9f07",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_cbfe3e6f28b4cda9ec91a59a2ea4b1d3",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "be5d7d279f8292bfb0ae236f821b263091c76a800958eab8e9429eb09e9f6458",
+        "resolution_id": "governance_a109b0da4464f19814877b5f15a09962",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=E)>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "09f88580e96c5202a009a9de79dc243161b3f1d239fbe018f49aafc4927471d6",
+        "character_id": "triad_character_024f6646a9e3d1d9d0a0840b5778ffcb",
+        "effective_authority_hash": "290fd9c607839d29ae15d51eb502ef75ed574e3a01cba91977c60362e29e081b",
+        "effective_authority_id": "effective_authority_ed8af5fbb0d7cfe0d0e7eed2197d4da0",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_e0e9e56136cb00a735c5558d1e9c89ec",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "a0ea602667e33014e0321b5a40995d9191480876584b1fcfa633e8b7e21d197a",
+        "resolution_id": "governance_b0fc05e2e4382b333c6be4eb7c983bee",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "1741873c9008bdc06385ae2aff6288269e099851c01aa05396924ed03212eaa9",
+        "character_id": "triad_character_45edbe702f4154653c2e2a100874724f",
+        "effective_authority_hash": "3030ba5431275b05dc88029b51e1fb33a54ad0f6f0312d44588906d98dd94d7e",
+        "effective_authority_id": "effective_authority_3064eedacb452024e4f0496ae7a356f4",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_765e0cc427caf476f24b4d43f6a865d8",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "8f922e92a0fcbc058f6f135de54ee8d7e0059b567dd8f068956a078609e1b9df",
+        "resolution_id": "governance_6d2626d2526ea8311fd53068d2aee9be",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "c00a8d0cf16f3347a9ff2f2eb258d3efb32f6a7a4da4f4f72943506bbb01762d",
+        "character_id": "triad_character_4296168d3183b76ab5f07e6bd15ee701",
+        "effective_authority_hash": "6d719383857f9143305fc3903d176875ee1b2c30158c4c881e490c189da5b83e",
+        "effective_authority_id": "effective_authority_a8fa354ef3c9c58cfcbaa0980197ce75",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_650c780657e8a1842ecfa6d792e31503",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "rescue_distance_tool",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "d35463e6effb7a297cce228fddb0735e180c77c26f56e2e3ac10cce6230e7cee",
+        "resolution_id": "governance_95244f53f9f249d52fc7e79745098b9e",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>E>I",
+      "selected_mandate_option": "rescue_distance_tool",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "de7ce3f7166d29f5f49f2f22ca84fdcd35f717c880307c85ec5eebc1ceeb280a",
+        "character_id": "triad_character_533b5fd51887dbb1b37ed2700d9b01f9",
+        "effective_authority_hash": "4af6035c3a40980bb0509f42ca18105b841131704a04a9ea98c114c005ae73da",
+        "effective_authority_id": "effective_authority_888912ee24d2d4da8ffc7359f645f6dc",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_650c780657e8a1842ecfa6d792e31503",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "rescue_distance_tool",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "7d9a3decbe4a73ac2e77b20ed5ea7c0ee2e3dde58ff6ef36b647703c66340622",
+        "resolution_id": "governance_a0957dcfd7a48eaa580008c466d4bdff",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>I>E",
+      "selected_mandate_option": "rescue_distance_tool",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "cf2503449beb25d4bcb2fdf58ed7792bf7c4a6b62985639280b7fcfb9fccdf1c",
+        "character_id": "triad_character_0946476c9dadad61d23c05f0e1806047",
+        "effective_authority_hash": "4a75130861d289aca4902e009bf007d6f2c968712b0cca18b813676eaac6ed05",
+        "effective_authority_id": "effective_authority_a5171ef2b9e6031b88d4fe3b139fc321",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_8bf8cbe5cc7543e580d5cad5ae8e77ee",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "e8b2e417aa4beca4226a5bd85f5838b82981ef6c3d8d3a9d0a5687600cce9da8",
+        "resolution_id": "governance_ceac785bed55d929313554c1cda5c7f1",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>R>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "43dd9c124b2bd9be9f26ee9cf3cdafb3e0a270c3d21b889bf52e02d1c8e1871b",
+        "character_id": "triad_character_a542ffa40a4b6401e93a850f6167403d",
+        "effective_authority_hash": "78bf5f8eb93e78b47a7d6812f76a3a7a228a1e87d329ca5a30f94b0e193df285",
+        "effective_authority_id": "effective_authority_4dc8a09f37107d6f1328d883078ab612",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_8bf8cbe5cc7543e580d5cad5ae8e77ee",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "eece89db0bfd7151a0274045713c701a6a77e0a6e058b63e6a061334f9070e49",
+        "resolution_id": "governance_ad528d7c926deeb3b4a35b9615e22afd",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>I>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "055d5593ba0a1cda9191655900a40b173120f9f7b1a6ed5a5496cd578a4c3a40",
+        "character_id": "triad_character_a5e9a01ffc07a8a8ffc5d22dea8bd74e",
+        "effective_authority_hash": "a0e2759e529fab3c2a18d2fd9c3a0962e3e9565465c8bed45cd6a04af8d7d9c2",
+        "effective_authority_id": "effective_authority_bf3ddcb89cc30da25454746b69f74f23",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_4e603faf144c9fd0d61910b1a6dbaf47",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "c1cc7116f3946c1c08b888fb9169ab63ba1e25d583a21f03f8ffab959eda33eb",
+        "resolution_id": "governance_cb693977aa4fedc5b793908b887d59bf",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>R>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "7cb5d2f592cc06e09f700850353e3bec7c42df72a3697cb1b75d4b20d3f2f60d",
+        "character_id": "triad_character_ff8d81ec6bae397e79733344169e0298",
+        "effective_authority_hash": "09e4bf4a5dba0069447a34b1b4333f2a7dbe8744b96355b618523e9f460bd233",
+        "effective_authority_id": "effective_authority_18c2bf1186acf6076dbe69d5d0f605eb",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_4e603faf144c9fd0d61910b1a6dbaf47",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "393c4de65003ffed1ab1969007cd4567bcdc15ec3859a124182c32b26422e15d",
+        "resolution_id": "governance_10b08dcdf3fb60feb88094c85a0b1586",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>E>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+          "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+          "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+              "mind": "R",
+              "option_id": "rescue_distance_tool"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "9b2e47ceb9479fc4e1b36ca4d025dfc5cc17c8cacbe4065243281a39f6333362",
+        "character_id": "triad_character_e83556743ba659493a8b1acedd450f73",
+        "effective_authority_hash": "84e8aec4d9252cd9629ef06875415ce6dc1e07921e36145daacce955669a3a04",
+        "effective_authority_id": "effective_authority_28eb99a28bb373c7b6500ee7bf2df93f",
+        "effective_source_minds": [
+          "R",
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Rescue the animal while minimizing physical danger to the observer."
+            },
+            {
+              "mind": "E",
+              "statement": "animal and observer on stable ground with open space"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_1b3de407d8505fca792541edec52b81f",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further."
+            },
+            {
+              "mind": "E",
+              "statement": "falling fragments between separated figures"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+        "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "848cd1fea5239f639304c0e385c2db49f4d244df20fe6a86538c2bce60d0a077",
+        "resolution_id": "governance_9f0760f5d8f3fd92321f526fe8c90982",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "R=E=I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    }
+  ],
+  "schema_version": "triad-response-screen-profile-matrix-v1",
+  "status": "complete"
+}

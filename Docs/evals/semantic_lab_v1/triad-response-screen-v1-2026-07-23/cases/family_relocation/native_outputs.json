@@ -1,0 +1,13 @@
+{
+  "case_id": "family_relocation",
+  "failure": "Native execution completed once, but compact evidence projection failed; model and native processors were not rerun.",
+  "failure_type": "EvidenceProjectionError",
+  "native_bundle": null,
+  "observed_conclusion_ids": [
+    "racio_conclusion_dc3c16c8beca6f7d6ef8d56507d7f8f2",
+    "emocio_processing_result_8c4b04055e56b80de892fa4e3af892e8",
+    "instinkt_conclusion_63a26e9d2caf926d102bcebe12bc248d"
+  ],
+  "schema_version": "triad-response-screen-native-outputs-v1",
+  "status": "evidence_projection_failed"
+}

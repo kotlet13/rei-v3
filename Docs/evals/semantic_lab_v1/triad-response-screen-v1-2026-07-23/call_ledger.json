@@ -1,73 +1,127 @@
 {
   "actual": {
     "fallbacks": 0,
-    "model_calls": 0,
+    "model_calls": 8,
     "retries": 0
   },
   "entries": [
     {
+      "call_id": "provider_call_fb657617b32e69d7995beab0c51f58a7",
       "case_id": "factory_overtemperature",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "failure": "Ollama structured output exceeds the grounded Racio packet",
+      "failure_type": "OllamaResponseError",
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 1,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "status": "validation_rejected"
     },
     {
+      "call_id": "provider_call_84714fc31e34e4d9266f7b76d821f7d3",
       "case_id": "family_relocation",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "failure": "Native execution completed once, but compact evidence projection failed; model and native processors were not rerun.",
+      "failure_type": "EvidenceProjectionError",
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 2,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "retries": 0,
+      "status": "evidence_projection_failed"
     },
     {
+      "call_id": "provider_call_8bc02204b3d774b34366c326a98f7a03",
       "case_id": "imperfect_product_launch",
+      "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 3,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "result_evidence_id": "ollama_racio_response_316bb54061b11b18baad89c5f8501136",
+      "retries": 0,
+      "status": "succeeded"
     },
     {
+      "call_id": "provider_call_10fd7a5ed6f04851f53f8cbdfeb95154",
       "case_id": "loan_to_friend",
+      "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 4,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "result_evidence_id": "ollama_racio_response_cf089f2dc34ab8ab7f1c79b872addc49",
+      "retries": 0,
+      "status": "succeeded"
     },
     {
+      "call_id": "provider_call_bb7422449c99ae577a80010d8b149eff",
       "case_id": "unstable_slope_rescue",
+      "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 5,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "result_evidence_id": "ollama_racio_response_d1e002e6cdf31f9e4fb89abdce80eff2",
+      "retries": 0,
+      "status": "succeeded"
     },
     {
+      "call_id": "provider_call_37f1b5719c14e769fe6658a22c4694d7",
       "case_id": "public_credit_conflict",
+      "conclusion_id": "racio_conclusion_901617e411f6d5c1723ac609fb46e376",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 6,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "result_evidence_id": "ollama_racio_response_4485390615c957b88a39c6cd744c45d1",
+      "retries": 0,
+      "status": "succeeded"
     },
     {
+      "call_id": "provider_call_07c676306171cafcc9fe6f427e9f0846",
       "case_id": "spontaneous_trip",
+      "conclusion_id": "racio_conclusion_5deb7fbad1f620604f8c4cc3814620c0",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 7,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "result_evidence_id": "ollama_racio_response_5b3f90cfb39675788da85e9a21a165d5",
+      "retries": 0,
+      "status": "succeeded"
     },
     {
+      "call_id": "provider_call_0d39baf625da5f254178f51d2dcb5438",
       "case_id": "ambiguous_silence",
+      "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
       "expected_fallbacks": 0,
       "expected_model_calls": 1,
       "expected_retries": 0,
+      "fallbacks": 0,
+      "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
       "ordinal": 8,
-      "status": "planned"
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "result_evidence_id": "ollama_racio_response_280cfe3d6f22f225ef66ea4caa0eabac",
+      "retries": 0,
+      "status": "succeeded"
     }
   ],
   "expected": {
@@ -77,5 +131,5 @@
   },
   "phase": "TRIAD-S1",
   "schema_version": "triad-response-screen-call-ledger-v1",
-  "state": "sealed_before_calls"
+  "state": "completed_with_rejections"
 }

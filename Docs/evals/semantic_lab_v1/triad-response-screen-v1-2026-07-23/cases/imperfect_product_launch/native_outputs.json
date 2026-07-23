@@ -1,0 +1,2038 @@
+{
+  "agreement_pattern": {
+    "agreeing_minds": [],
+    "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+    "agreement_kind": "incomplete",
+    "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+    "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+    "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+    "positions": [
+      {
+        "abstains": false,
+        "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+        "mind": "R",
+        "option_id": "launch_private_pilot"
+      },
+      {
+        "abstains": true,
+        "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+        "mind": "E",
+        "option_id": null
+      },
+      {
+        "abstains": true,
+        "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+        "mind": "I",
+        "option_id": null
+      }
+    ],
+    "schema_version": "rei-native-agreement-pattern-v1",
+    "spoznanje_status": "unknown",
+    "winning_option_id": null
+  },
+  "bundle": {
+    "allowed_option_ids": [
+      "launch_delay",
+      "launch_private_pilot",
+      "launch_public_beta"
+    ],
+    "bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+    "created_at": "2026-07-23T14:14:56.584335Z",
+    "emocio": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+      "current_scene_id": "visual_scene_fa61cb75320199e7d3607e3649b812d5",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_e6417dbd0f6f92dc0c2733fcb1911247",
+      "desired_transformation": "coherent interface surrounded by visible user response",
+      "intensity": 0.666667,
+      "main_obstacle": "fragmented interface and an empty audience field",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_5c780c941fde7bd7ea9e40a7ce20cc1a",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "uncertainty": "Izenačena najvišja vrednotenja: launch_delay, launch_private_pilot, launch_public_beta.",
+      "valuation_dimensions": []
+    },
+    "emocio_packet_hash": "02306bbd4fd192c053650e23b7e81ba3957b485252e5e78b06d7e7ca56f286cf",
+    "emocio_visual_state_hash": "9b3e6250dc05579bf8785c6e096c0d00db5dc5542bf9a7ac54a307b3b412d875",
+    "emocio_visual_state_id": "emocio_state_2b0818eb7c8c1dd7f54efc871e257875",
+    "immutable_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+    "instinkt": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+      "danger_claims": [
+        "launch_delay:predicted_loss=0.2425",
+        "launch_private_pilot:predicted_loss=0.2425"
+      ],
+      "decisive_rollout_id": null,
+      "decisive_rollout_option_id": null,
+      "dominant_alarm": "unresolved_equal_protective_cost",
+      "intensity": 0.3425,
+      "mind": "I",
+      "minimum_safety_condition": "additional differentiating evidence required",
+      "option_id": null,
+      "protected_targets": [
+        "bounded predictability"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+      "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "uncertainty": "protective cost tie within configured epsilon"
+    },
+    "instinkt_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+    "instinkt_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+    "instinkt_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "instinkt_rollout_a220366f44dbb85654b85b15b4ac25cf",
+        "sha256": "0ffba2d0b37877211990a56b95628ad20b9326c11a6a5e1482db8a8c152f0127"
+      },
+      {
+        "artifact_id": "instinkt_rollout_a7aeef5a8d0e8005e03c223cb1b69e4d",
+        "sha256": "3a9fdae825df6035f90d2923b228dfa775abd343a230b5aed920835faec5d199"
+      },
+      {
+        "artifact_id": "instinkt_rollout_cb3087b915742d38830762187583a354",
+        "sha256": "e5057a1da16c6a8babd0359341bd758cf810c353c2a7e008be1e88627c676739"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "The prototype is mostly functional but contains critical defects that can cause data loss.",
+        "A competitor's six-week timeline creates pressure for a rapid release.",
+        "Launching a public beta with disclosure satisfies the transparency constraint while maximizing feedback potential.",
+        "A private pilot limits exposure to defects and reduces reputation risk compared to a public launch.",
+        "Delaying until fixes are complete eliminates defect risks but may result in losing market position to the competitor."
+      ],
+      "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+      "confidence": 0.8,
+      "evidence_ids_used": [
+        "launch_ev_function",
+        "launch_ev_defect",
+        "launch_ev_competitor"
+      ],
+      "explicit_goal": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks.",
+      "facts_used": [
+        "The prototype completes 87 percent of its main workflows without error.",
+        "Two known defects can erase a user's unsaved drafts.",
+        "A competitor announced a related product in six weeks."
+      ],
+      "main_objection": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure.",
+      "mind": "R",
+      "option_id": "launch_private_pilot",
+      "reasoning_provider_result_hash": "71b5d496fa3b017de52280f727926733cf1c497b13b42af7b617c6fad0ba229f",
+      "reasoning_provider_result_id": "ollama_racio_response_316bb54061b11b18baad89c5f8501136",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "3a4a1b080d528b84c0ceaa0f7b3ee6fcabcea573a32eccbe24e8836859580190",
+      "source_packet_id": "racio_packet_11f2a461d7565e8c3007e01c82c5d955",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "uncertainty": "The trade-off between the speed of public feedback and the risk of reputation damage is unclear due to unknown variables.",
+      "unknowns": [
+        "How much useful feedback a public beta would produce is unknown.",
+        "The extent of possible reputation damage is unknown."
+      ],
+      "utility_structure": [
+        "Public Beta: High feedback potential, high risk of data loss exposure, fast time-to-market.",
+        "Private Pilot: Controlled feedback, mitigated risk, moderate time-to-market.",
+        "Delay: Zero defect risk, zero immediate feedback, high risk of competitor precedence."
+      ]
+    },
+    "racio_packet_hash": "3a4a1b080d528b84c0ceaa0f7b3ee6fcabcea573a32eccbe24e8836859580190",
+    "scene_hash": "4ea96af4e39f33c9dc4ac301b21761b94cfe8acc6ce229887f2cfd7dbe8fee63",
+    "scene_id": "triad_imperfect_product_launch",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "case_id": "imperfect_product_launch",
+  "emocio": {
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+      "current_scene_id": "visual_scene_fa61cb75320199e7d3607e3649b812d5",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_e6417dbd0f6f92dc0c2733fcb1911247",
+      "desired_transformation": "coherent interface surrounded by visible user response",
+      "intensity": 0.666667,
+      "main_obstacle": "fragmented interface and an empty audience field",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_5c780c941fde7bd7ea9e40a7ce20cc1a",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "uncertainty": "Izenačena najvišja vrednotenja: launch_delay, launch_private_pilot, launch_public_beta.",
+      "valuation_dimensions": []
+    },
+    "lineage": {
+      "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+      "intermediate_visual_state_id": "emocio_state_2b0818eb7c8c1dd7f54efc871e257875",
+      "source_packet_id": "emocio_packet_5c780c941fde7bd7ea9e40a7ce20cc1a"
+    },
+    "mode": "structured_only",
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "launch_delay",
+          "score": 0.666667
+        },
+        {
+          "option_id": "launch_private_pilot",
+          "score": 0.666667
+        },
+        {
+          "option_id": "launch_public_beta",
+          "score": 0.666667
+        }
+      ],
+      "selected": null,
+      "tied_option_ids": [
+        "launch_delay",
+        "launch_private_pilot",
+        "launch_public_beta"
+      ]
+    },
+    "rendered_images": [],
+    "stage_order": [
+      "packet",
+      "scene_graph",
+      "valuation",
+      "native_conclusion"
+    ],
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "fragmented interface and an empty audience field"
+        ],
+        "entities": [
+          "competitor",
+          "product_team",
+          "prospective_users"
+        ],
+        "grounded_evidence_ids": [
+          "launch_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "fragmented interface and an empty audience field"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "fragmented interface and an empty audience field"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_b4a79b5b2196c5a5f049b65a14439f86",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The structured scene shows a working interface, two marked breaks, and an empty field for user response."
+        ],
+        "composition": [
+          "The structured scene shows a working interface, two marked breaks, and an empty field for user response.",
+          "working interface with marked breaks"
+        ],
+        "entities": [
+          "competitor",
+          "product_team",
+          "prospective_users"
+        ],
+        "grounded_evidence_ids": [
+          "launch_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "working interface with marked breaks"
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_fa61cb75320199e7d3607e3649b812d5",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "competitor",
+          "product_team",
+          "prospective_users"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "coherent interface",
+          "visible user response"
+        ],
+        "composition": [
+          "coherent interface surrounded by visible user response"
+        ],
+        "entities": [
+          "competitor",
+          "product_team",
+          "prospective_users"
+        ],
+        "grounded_evidence_ids": [
+          "launch_ev_visual"
+        ],
+        "group_belonging": "maker seen by users",
+        "inferred_elements": [
+          "coherent interface surrounded by visible user response"
+        ],
+        "movement": [
+          "keep the field closed",
+          "open the interface",
+          "show it to a bounded group"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_e6417dbd0f6f92dc0c2733fcb1911247",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "maker seen by users"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "coherent interface",
+            "visible user response"
+          ],
+          "composition": [
+            "Complete delay",
+            "Plan no external testing until the known defects are fixed.",
+            "The structured scene shows a working interface, two marked breaks, and an empty field for user response.",
+            "working interface with marked breaks"
+          ],
+          "entities": [
+            "competitor",
+            "product_team",
+            "prospective_users"
+          ],
+          "grounded_evidence_ids": [
+            "launch_ev_visual"
+          ],
+          "group_belonging": "maker seen by users",
+          "inferred_elements": [
+            "Complete delay",
+            "Plan no external testing until the known defects are fixed."
+          ],
+          "movement": [
+            "keep the field closed",
+            "open the interface",
+            "show it to a bounded group"
+          ],
+          "obstacle_markers": [],
+          "option_id": "launch_delay",
+          "scene_id": "visual_scene_79297c0f8300f424840e84ef75af7587",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "maker seen by users"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "coherent interface",
+            "visible user response"
+          ],
+          "composition": [
+            "Limited private pilot",
+            "The structured scene shows a working interface, two marked breaks, and an empty field for user response.",
+            "Verify the prototype with a limited set of preselected users.",
+            "working interface with marked breaks"
+          ],
+          "entities": [
+            "competitor",
+            "product_team",
+            "prospective_users"
+          ],
+          "grounded_evidence_ids": [
+            "launch_ev_visual"
+          ],
+          "group_belonging": "maker seen by users",
+          "inferred_elements": [
+            "Limited private pilot",
+            "Verify the prototype with a limited set of preselected users."
+          ],
+          "movement": [
+            "keep the field closed",
+            "open the interface",
+            "show it to a bounded group"
+          ],
+          "obstacle_markers": [],
+          "option_id": "launch_private_pilot",
+          "scene_id": "visual_scene_9a7f6aee690d5882229de084fcc5ca60",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "maker seen by users"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "coherent interface",
+            "visible user response"
+          ],
+          "composition": [
+            "Proceed with a public beta and publish the known-defect list.",
+            "Public beta launch",
+            "The structured scene shows a working interface, two marked breaks, and an empty field for user response.",
+            "working interface with marked breaks"
+          ],
+          "entities": [
+            "competitor",
+            "product_team",
+            "prospective_users"
+          ],
+          "grounded_evidence_ids": [
+            "launch_ev_visual"
+          ],
+          "group_belonging": "maker seen by users",
+          "inferred_elements": [
+            "Proceed with a public beta and publish the known-defect list.",
+            "Public beta launch"
+          ],
+          "movement": [
+            "keep the field closed",
+            "open the interface",
+            "show it to a bounded group"
+          ],
+          "obstacle_markers": [],
+          "option_id": "launch_public_beta",
+          "scene_id": "visual_scene_6e2c9634e1caadbd640633e9fe43e03d",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "maker seen by users"
+          ]
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "launch_delay",
+          "rollout_scene_id": "visual_scene_79297c0f8300f424840e84ef75af7587"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "launch_private_pilot",
+          "rollout_scene_id": "visual_scene_9a7f6aee690d5882229de084fcc5ca60"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "launch_public_beta",
+          "rollout_scene_id": "visual_scene_6e2c9634e1caadbd640633e9fe43e03d"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_5c780c941fde7bd7ea9e40a7ce20cc1a",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "visual_state_id": "emocio_state_2b0818eb7c8c1dd7f54efc871e257875"
+    }
+  },
+  "instinkt": {
+    "compilations": [
+      {
+        "compilation_hash": "7873ebd033323c7a849f445e1a94b704fa62cfc76b371a01abe7b08e4e6e667e",
+        "compilation_id": "body_effect_compilation_42a63b21214f7d1c98091a82b3aa8ccd",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "freeze",
+          "association_cue_tokens": [
+            "reputation impact is unknown",
+            "uncertainty"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.315,
+          "base_recoverability": 0.6,
+          "body_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded uncertainty cue",
+          "effect_hash": "5fa614e126b8bebcb5d519efe78f9fb433e470d9bad3e302a802054e6a4945c8",
+          "effect_id": "option_effect_243bab8fe1dbbe7a3ae4406ccf557c15",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "option_id": "launch_delay",
+          "protected_targets": [
+            "bounded predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+          "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+          "triggering_evidence_ids": [
+            "launch_ev_reputation_unknown"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "a720fa8723baad942cc01faaf991bd3b1dfd194cf7f4d859903605c3138bbbe7",
+        "source_prediction_id": "body_effect_prediction_05f06c8cbdf8a13606535d2e977dec6e"
+      },
+      {
+        "compilation_hash": "981698f96a24eb4fb0eb6795e8560c12fc553f8c81cb161415f2f04de251b6ef",
+        "compilation_id": "body_effect_compilation_6c45bb5c23b24f4f7eb22e633b50df11",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "freeze",
+          "association_cue_tokens": [
+            "reputation impact is unknown",
+            "uncertainty"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.315,
+          "base_recoverability": 0.6,
+          "body_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded uncertainty cue",
+          "effect_hash": "ce7f760e47f957cdee787e24fda4346ac99e78b911f9df04a3e6ea20956a0845",
+          "effect_id": "option_effect_986c9c190ec3678c522293810c22f30c",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "option_id": "launch_private_pilot",
+          "protected_targets": [
+            "bounded predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+          "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+          "triggering_evidence_ids": [
+            "launch_ev_reputation_unknown"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "27abb6c21a024ad676792f1fc26c675857bd236a0018cb1089ceb6720b5053fc",
+        "source_prediction_id": "body_effect_prediction_be55fb34b1835f48366026785f7181e8"
+      },
+      {
+        "compilation_hash": "e19f46e8df4e8a12c53642097d4e077dac54caa76be1b985c75c835e93f9219e",
+        "compilation_id": "body_effect_compilation_63831d6591153375e3aa9fdb70328079",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "freeze",
+          "association_cue_tokens": [
+            "reputation impact is unknown",
+            "uncertainty"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.315,
+          "base_recoverability": 0.6,
+          "body_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded uncertainty cue",
+          "effect_hash": "445bdb430e62dc1b83a5ad926d800c30ca485c83f546c1dd6fe9b11be45a0b7e",
+          "effect_id": "option_effect_3037aa81a7de69c48a144b645c4e1a14",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "option_id": "launch_public_beta",
+          "protected_targets": [
+            "bounded predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+          "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+          "triggering_evidence_ids": [
+            "launch_ev_reputation_unknown"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "987c3ef3f21e7bccc8f3eadaea9380d426a60df5997908765f079dd20692e966",
+        "source_prediction_id": "body_effect_prediction_02957232cfa63fa91b8f5e41e1a45d97"
+      }
+    ],
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+      "danger_claims": [
+        "launch_delay:predicted_loss=0.2425",
+        "launch_private_pilot:predicted_loss=0.2425"
+      ],
+      "decisive_rollout_id": null,
+      "decisive_rollout_option_id": null,
+      "dominant_alarm": "unresolved_equal_protective_cost",
+      "intensity": 0.3425,
+      "mind": "I",
+      "minimum_safety_condition": "additional differentiating evidence required",
+      "option_id": null,
+      "protected_targets": [
+        "bounded predictability"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+      "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "uncertainty": "protective cost tie within configured epsilon"
+    },
+    "effect_source": "rule_based",
+    "lineage": {
+      "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+      "prediction_ids": [
+        "body_effect_prediction_05f06c8cbdf8a13606535d2e977dec6e",
+        "body_effect_prediction_be55fb34b1835f48366026785f7181e8",
+        "body_effect_prediction_02957232cfa63fa91b8f5e41e1a45d97"
+      ],
+      "rollout_ids": [
+        "instinkt_rollout_a7aeef5a8d0e8005e03c223cb1b69e4d",
+        "instinkt_rollout_a220366f44dbb85654b85b15b4ac25cf",
+        "instinkt_rollout_cb3087b915742d38830762187583a354"
+      ],
+      "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17"
+    },
+    "option_effects": [
+      {
+        "action_tendency": "freeze",
+        "association_cue_tokens": [
+          "reputation impact is unknown",
+          "uncertainty"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.315,
+        "base_recoverability": 0.6,
+        "body_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded uncertainty cue",
+        "effect_hash": "5fa614e126b8bebcb5d519efe78f9fb433e470d9bad3e302a802054e6a4945c8",
+        "effect_id": "option_effect_243bab8fe1dbbe7a3ae4406ccf557c15",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+        "option_id": "launch_delay",
+        "protected_targets": [
+          "bounded predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "triggering_evidence_ids": [
+          "launch_ev_reputation_unknown"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "freeze",
+        "association_cue_tokens": [
+          "reputation impact is unknown",
+          "uncertainty"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.315,
+        "base_recoverability": 0.6,
+        "body_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded uncertainty cue",
+        "effect_hash": "ce7f760e47f957cdee787e24fda4346ac99e78b911f9df04a3e6ea20956a0845",
+        "effect_id": "option_effect_986c9c190ec3678c522293810c22f30c",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+        "option_id": "launch_private_pilot",
+        "protected_targets": [
+          "bounded predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "triggering_evidence_ids": [
+          "launch_ev_reputation_unknown"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "freeze",
+        "association_cue_tokens": [
+          "reputation impact is unknown",
+          "uncertainty"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.315,
+        "base_recoverability": 0.6,
+        "body_deltas": [
+          {
+            "delta": 0.25,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": -0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded uncertainty cue",
+        "effect_hash": "445bdb430e62dc1b83a5ad926d800c30ca485c83f546c1dd6fe9b11be45a0b7e",
+        "effect_id": "option_effect_3037aa81a7de69c48a144b645c4e1a14",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+        "option_id": "launch_public_beta",
+        "protected_targets": [
+          "bounded predictability"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "triggering_evidence_ids": [
+          "launch_ev_reputation_unknown"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": null,
+      "option_scores": [
+        {
+          "option_id": "launch_delay",
+          "protective_cost": 0.44875,
+          "rollout_hash": "c80fe04eafc2dde8e179d3d14422b3c8793eb83c9f7c290213dc7cdfc05dd205",
+          "rollout_id": "instinkt_rollout_a7aeef5a8d0e8005e03c223cb1b69e4d"
+        },
+        {
+          "option_id": "launch_private_pilot",
+          "protective_cost": 0.44875,
+          "rollout_hash": "8b77faa12b60dc9d4deeeae332834740eed4893fe98fb9aea742b5b3994fe951",
+          "rollout_id": "instinkt_rollout_a220366f44dbb85654b85b15b4ac25cf"
+        },
+        {
+          "option_id": "launch_public_beta",
+          "protective_cost": 0.5012500000000001,
+          "rollout_hash": "f61f2d7aab963a85ac9d39064c25a5e1f5f1de2d35acc03c107b5351b41d4867",
+          "rollout_id": "instinkt_rollout_cb3087b915742d38830762187583a354"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_6b3bb5212d14fcbab94225868f4e436f",
+      "policy_hash": "2d78e032f667386f39e2d0391cbfafb4605439942cf591e63c93489ea4863973",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": null,
+      "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+      "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+      "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+      "status": "abstained_tie",
+      "tied_option_ids": [
+        "launch_delay",
+        "launch_private_pilot"
+      ]
+    },
+    "predictions": [
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.7,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_8764854138aa6718b10aab6f8acb44fb"
+            ],
+            "cue_class": "uncertainty",
+            "evidence_hash": "5e8aa71a6aec81dfa09348af5e5ab50be9b3ebb5ea5833be946f491bd7731f34",
+            "evidence_id": "body_effect_evidence_f85bd752e43c3f25eb792a6ea4fa2ad5",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.2,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.15,
+                "dimension": "predictability"
+              }
+            ],
+            "rule_id": "instinkt_effect_uncertainty_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ],
+            "uncertainty": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "launch_delay",
+        "prediction_hash": "a720fa8723baad942cc01faaf991bd3b1dfd194cf7f4d859903605c3138bbbe7",
+        "prediction_id": "body_effect_prediction_05f06c8cbdf8a13606535d2e977dec6e",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+        "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "source_scene_hash": "4ea96af4e39f33c9dc4ac301b21761b94cfe8acc6ce229887f2cfd7dbe8fee63",
+        "source_scene_id": "triad_imperfect_product_launch",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.7,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_8764854138aa6718b10aab6f8acb44fb"
+            ],
+            "cue_class": "uncertainty",
+            "evidence_hash": "5e8aa71a6aec81dfa09348af5e5ab50be9b3ebb5ea5833be946f491bd7731f34",
+            "evidence_id": "body_effect_evidence_f85bd752e43c3f25eb792a6ea4fa2ad5",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.2,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.15,
+                "dimension": "predictability"
+              }
+            ],
+            "rule_id": "instinkt_effect_uncertainty_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ],
+            "uncertainty": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "launch_private_pilot",
+        "prediction_hash": "27abb6c21a024ad676792f1fc26c675857bd236a0018cb1089ceb6720b5053fc",
+        "prediction_id": "body_effect_prediction_be55fb34b1835f48366026785f7181e8",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+        "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "source_scene_hash": "4ea96af4e39f33c9dc4ac301b21761b94cfe8acc6ce229887f2cfd7dbe8fee63",
+        "source_scene_id": "triad_imperfect_product_launch",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.25,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": -0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.7,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_8764854138aa6718b10aab6f8acb44fb"
+            ],
+            "cue_class": "uncertainty",
+            "evidence_hash": "2d68993dc82495a45e91ead04a59d718c5c8dcfd3a8e50877fb979400a09172d",
+            "evidence_id": "body_effect_evidence_4f3dd036e057f6740851be7eebe6d225",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.25,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": -0.15,
+                "dimension": "predictability"
+              }
+            ],
+            "rule_id": "instinkt_effect_uncertainty_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ],
+            "uncertainty": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "launch_public_beta",
+        "prediction_hash": "987c3ef3f21e7bccc8f3eadaea9380d426a60df5997908765f079dd20692e966",
+        "prediction_id": "body_effect_prediction_02957232cfa63fa91b8f5e41e1a45d97",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+        "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "source_scene_hash": "4ea96af4e39f33c9dc4ac301b21761b94cfe8acc6ce229887f2cfd7dbe8fee63",
+        "source_scene_id": "triad_imperfect_product_launch",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      }
+    ],
+    "rollouts": [
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded uncertainty cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "launch_delay",
+        "predicted_loss": 0.24250000000000005,
+        "protected_targets": [
+          "bounded predictability"
+        ],
+        "recoverability": 0.6430000000000001,
+        "rollout_hash": "c80fe04eafc2dde8e179d3d14422b3c8793eb83c9f7c290213dc7cdfc05dd205",
+        "rollout_id": "instinkt_rollout_a7aeef5a8d0e8005e03c223cb1b69e4d",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+        "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "5fa614e126b8bebcb5d519efe78f9fb433e470d9bad3e302a802054e6a4945c8",
+        "source_effect_id": "option_effect_243bab8fe1dbbe7a3ae4406ccf557c15",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "trajectory": [
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_cb6ff12f01b029211d3303548e8e4728",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.5533333333333333
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_e600a330d77b0ae367e10cfaaf9ae00f",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.55,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.4866666666666667
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_25d9d3612a8b6607cb649063e27abdfe",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.6000000000000001,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.42000000000000004
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.04999999999999999,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "5fa614e126b8bebcb5d519efe78f9fb433e470d9bad3e302a802054e6a4945c8",
+            "source_effect_id": "option_effect_243bab8fe1dbbe7a3ae4406ccf557c15",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_cb6ff12f01b029211d3303548e8e4728",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.5533333333333333
+            },
+            "transition_hash": "9ae9d20bb2d5d5ee4479c5b2fbd424d985e4404f4f2772e8af148e18b16fcfe8",
+            "transition_id": "body_transition_1aeb3ff70580005358fd16ad6c11850e",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_cb6ff12f01b029211d3303548e8e4728",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.5533333333333333
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "5fa614e126b8bebcb5d519efe78f9fb433e470d9bad3e302a802054e6a4945c8",
+            "source_effect_id": "option_effect_243bab8fe1dbbe7a3ae4406ccf557c15",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_e600a330d77b0ae367e10cfaaf9ae00f",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.55,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.4866666666666667
+            },
+            "transition_hash": "8853c03a7c6ee76e692ce285e4d273764e44818cf66dd9828a0e473633ebfb5d",
+            "transition_id": "body_transition_0d54b8ebb7a60e832020aa3f0d0cdb8b",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_e600a330d77b0ae367e10cfaaf9ae00f",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.55,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.4866666666666667
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "5fa614e126b8bebcb5d519efe78f9fb433e470d9bad3e302a802054e6a4945c8",
+            "source_effect_id": "option_effect_243bab8fe1dbbe7a3ae4406ccf557c15",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_25d9d3612a8b6607cb649063e27abdfe",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.6000000000000001,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.42000000000000004
+            },
+            "transition_hash": "821d9a9d6f1e92d2fa77e3b379428400936a5c5f5abb5d85d832b78aa3aa93cc",
+            "transition_id": "body_transition_21f849f2d8e5e5d0ed2555dbdd1369b2",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded uncertainty cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "launch_private_pilot",
+        "predicted_loss": 0.24250000000000005,
+        "protected_targets": [
+          "bounded predictability"
+        ],
+        "recoverability": 0.6430000000000001,
+        "rollout_hash": "8b77faa12b60dc9d4deeeae332834740eed4893fe98fb9aea742b5b3994fe951",
+        "rollout_id": "instinkt_rollout_a220366f44dbb85654b85b15b4ac25cf",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+        "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "ce7f760e47f957cdee787e24fda4346ac99e78b911f9df04a3e6ea20956a0845",
+        "source_effect_id": "option_effect_986c9c190ec3678c522293810c22f30c",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "trajectory": [
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_3e3824b91069503efc31f0afbca5906b",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.5533333333333333
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_6e32754dc9b787df346731c20d8c0b1c",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.55,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.4866666666666667
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_549324553182addacd8fe73f4cf3682f",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.6000000000000001,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.42000000000000004
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.04999999999999999,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ce7f760e47f957cdee787e24fda4346ac99e78b911f9df04a3e6ea20956a0845",
+            "source_effect_id": "option_effect_986c9c190ec3678c522293810c22f30c",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_3e3824b91069503efc31f0afbca5906b",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.5533333333333333
+            },
+            "transition_hash": "e07f323dfd7704ff88d8dd22680689fff47d254d78c681727ed9045fa78a55fb",
+            "transition_id": "body_transition_7c79931a2e82b95cc95688a1718d1a4a",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_3e3824b91069503efc31f0afbca5906b",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.5533333333333333
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ce7f760e47f957cdee787e24fda4346ac99e78b911f9df04a3e6ea20956a0845",
+            "source_effect_id": "option_effect_986c9c190ec3678c522293810c22f30c",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_6e32754dc9b787df346731c20d8c0b1c",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.55,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.4866666666666667
+            },
+            "transition_hash": "5a46c56d36880b0f1ef75a01be00b21961d8c674f77706af4182d63aac271dec",
+            "transition_id": "body_transition_5dc0e132e820780c0db6d246c01079d0",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_6e32754dc9b787df346731c20d8c0b1c",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.55,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.4866666666666667
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "ce7f760e47f957cdee787e24fda4346ac99e78b911f9df04a3e6ea20956a0845",
+            "source_effect_id": "option_effect_986c9c190ec3678c522293810c22f30c",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_549324553182addacd8fe73f4cf3682f",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.6000000000000001,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.42000000000000004
+            },
+            "transition_hash": "aa10da5b2a27c7f3d5879953410fb039147db740e232302846fc6a501bfceaae",
+            "transition_id": "body_transition_e1d3db3c874b2443e31b072d982eb639",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded uncertainty cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "launch_public_beta",
+        "predicted_loss": 0.24250000000000005,
+        "protected_targets": [
+          "bounded predictability"
+        ],
+        "recoverability": 0.6130000000000001,
+        "rollout_hash": "f61f2d7aab963a85ac9d39064c25a5e1f5f1de2d35acc03c107b5351b41d4867",
+        "rollout_id": "instinkt_rollout_cb3087b915742d38830762187583a354",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "4752b65532071fb466c2722390af39c48f590a994e47aa78179fa6e11a1d36aa",
+        "source_body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "445bdb430e62dc1b83a5ad926d800c30ca485c83f546c1dd6fe9b11be45a0b7e",
+        "source_effect_id": "option_effect_3037aa81a7de69c48a144b645c4e1a14",
+        "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+        "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+        "trajectory": [
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.45,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_b7af5f001826d191d3993f238366fca6",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.4,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.7033333333333334
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_5b6ca70fbb0cdd00db7430327a9f57ad",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35000000000000003,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.7866666666666667
+          },
+          {
+            "arousal": 0.48,
+            "attachment_security": 0.72,
+            "body_state_id": "body_state_58260b02daebbcfd0582abc3225f3ba1",
+            "boundary_integrity": 0.88,
+            "energy": 0.68,
+            "escape_availability": 0.8,
+            "fatigue": 0.3,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.30000000000000004,
+            "resource_security": 0.7,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.6,
+            "uncertainty": 0.8700000000000001
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": -0.04999999999999999,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_imperfect_prod_3db352c4419f3d9a4651c377cf856394",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.45,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "445bdb430e62dc1b83a5ad926d800c30ca485c83f546c1dd6fe9b11be45a0b7e",
+            "source_effect_id": "option_effect_3037aa81a7de69c48a144b645c4e1a14",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_b7af5f001826d191d3993f238366fca6",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.4,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.7033333333333334
+            },
+            "transition_hash": "f84c647d821f56e1a8ef96b5661cd500f0e4bd401fd1d58d3b021800b508ee3d",
+            "transition_id": "body_transition_686aed50b048d13eb4c1a5afbdbe84c7",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": -0.04999999999999999,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_b7af5f001826d191d3993f238366fca6",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.4,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.7033333333333334
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "445bdb430e62dc1b83a5ad926d800c30ca485c83f546c1dd6fe9b11be45a0b7e",
+            "source_effect_id": "option_effect_3037aa81a7de69c48a144b645c4e1a14",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_5b6ca70fbb0cdd00db7430327a9f57ad",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35000000000000003,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.7866666666666667
+            },
+            "transition_hash": "969184835d4e1636526ada62c5a0fcefb5d9d7984b060eaa3b2115fd2ec3d38c",
+            "transition_id": "body_transition_2df845c6f8e5245aabdee584304353ae",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": -0.04999999999999999,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_5b6ca70fbb0cdd00db7430327a9f57ad",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35000000000000003,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.7866666666666667
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "445bdb430e62dc1b83a5ad926d800c30ca485c83f546c1dd6fe9b11be45a0b7e",
+            "source_effect_id": "option_effect_3037aa81a7de69c48a144b645c4e1a14",
+            "source_packet_hash": "e1149f171b5cbec8c914b8cc937d0612f73fd29ea537bce11fb803f8e171349c",
+            "source_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.48,
+              "attachment_security": 0.72,
+              "body_state_id": "body_state_58260b02daebbcfd0582abc3225f3ba1",
+              "boundary_integrity": 0.88,
+              "energy": 0.68,
+              "escape_availability": 0.8,
+              "fatigue": 0.3,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.30000000000000004,
+              "resource_security": 0.7,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.6,
+              "uncertainty": 0.8700000000000001
+            },
+            "transition_hash": "4e35f8feda3625da224f8ab1065b612b8d7f41fd6373367e8a011121ab1f3cee",
+            "transition_id": "body_transition_bec563b3b3d28c391cc96df73ca7662b",
+            "triggering_evidence_ids": [
+              "launch_ev_reputation_unknown"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": {
+      "abstains": false,
+      "causal_sequence": [
+        "The prototype is mostly functional but contains critical defects that can cause data loss.",
+        "A competitor's six-week timeline creates pressure for a rapid release.",
+        "Launching a public beta with disclosure satisfies the transparency constraint while maximizing feedback potential.",
+        "A private pilot limits exposure to defects and reduces reputation risk compared to a public launch.",
+        "Delaying until fixes are complete eliminates defect risks but may result in losing market position to the competitor."
+      ],
+      "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+      "confidence": 0.8,
+      "evidence_ids_used": [
+        "launch_ev_function",
+        "launch_ev_defect",
+        "launch_ev_competitor"
+      ],
+      "explicit_goal": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks.",
+      "facts_used": [
+        "The prototype completes 87 percent of its main workflows without error.",
+        "Two known defects can erase a user's unsaved drafts.",
+        "A competitor announced a related product in six weeks."
+      ],
+      "main_objection": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure.",
+      "mind": "R",
+      "option_id": "launch_private_pilot",
+      "reasoning_provider_result_hash": "71b5d496fa3b017de52280f727926733cf1c497b13b42af7b617c6fad0ba229f",
+      "reasoning_provider_result_id": "ollama_racio_response_316bb54061b11b18baad89c5f8501136",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "3a4a1b080d528b84c0ceaa0f7b3ee6fcabcea573a32eccbe24e8836859580190",
+      "source_packet_id": "racio_packet_11f2a461d7565e8c3007e01c82c5d955",
+      "source_scene_id": "triad_imperfect_product_launch",
+      "uncertainty": "The trade-off between the speed of public feedback and the risk of reputation damage is unclear due to unknown variables.",
+      "unknowns": [
+        "How much useful feedback a public beta would produce is unknown.",
+        "The extent of possible reputation damage is unknown."
+      ],
+      "utility_structure": [
+        "Public Beta: High feedback potential, high risk of data loss exposure, fast time-to-market.",
+        "Private Pilot: Controlled feedback, mitigated risk, moderate time-to-market.",
+        "Delay: Zero defect risk, zero immediate feedback, high risk of competitor precedence."
+      ]
+    },
+    "lineage": {
+      "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+      "provider_result_id": "ollama_racio_response_316bb54061b11b18baad89c5f8501136",
+      "source_packet_id": "racio_packet_11f2a461d7565e8c3007e01c82c5d955"
+    }
+  },
+  "schema_version": "triad-response-screen-native-outputs-v1",
+  "status": "complete"
+}

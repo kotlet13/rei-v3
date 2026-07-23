@@ -1,0 +1,2032 @@
+{
+  "agreement_pattern": {
+    "agreeing_minds": [],
+    "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+    "agreement_kind": "incomplete",
+    "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+    "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+    "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+    "positions": [
+      {
+        "abstains": false,
+        "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+        "mind": "R",
+        "option_id": "loan_limited_contract"
+      },
+      {
+        "abstains": true,
+        "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+        "mind": "E",
+        "option_id": null
+      },
+      {
+        "abstains": false,
+        "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+        "mind": "I",
+        "option_id": "loan_decline"
+      }
+    ],
+    "schema_version": "rei-native-agreement-pattern-v1",
+    "spoznanje_status": "unknown",
+    "winning_option_id": null
+  },
+  "bundle": {
+    "allowed_option_ids": [
+      "loan_decline",
+      "loan_full",
+      "loan_limited_contract"
+    ],
+    "bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+    "created_at": "2026-07-23T14:15:05.107820Z",
+    "emocio": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+      "current_scene_id": "visual_scene_5e5016aa6a1f5c56f722c19795328c32",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_52bb7c38219c45f97abc3abf84f7bdb3",
+      "desired_transformation": "continued connection with a stable reserve display",
+      "intensity": 0.666667,
+      "main_obstacle": "empty chair beside a depleted reserve display",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_962d8e6e744ab64abb4e4bd14e986f81",
+      "source_scene_id": "triad_loan_to_friend",
+      "uncertainty": "Izenačena najvišja vrednotenja: loan_decline, loan_full, loan_limited_contract.",
+      "valuation_dimensions": []
+    },
+    "emocio_packet_hash": "0e17027bfafc5271b3e03ced1dd31226173164509c6b7562a4e2de8b0ded716d",
+    "emocio_visual_state_hash": "c86e78a12fa0ee17e2c5bf4d772ea2a3d339618e847f9483294f5eaf75912cd7",
+    "emocio_visual_state_id": "emocio_state_51ea52fbd04438f83b007e10ff4c3881",
+    "immutable_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+    "instinkt": {
+      "abstains": false,
+      "action_tendency": "conserve",
+      "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+      "danger_claims": [
+        "predicted_loss=0.28275",
+        "recoverability=0.6135"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6",
+      "decisive_rollout_option_id": "loan_decline",
+      "dominant_alarm": "grounded scarcity cue",
+      "intensity": 0.33265000000000006,
+      "mind": "I",
+      "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+      "option_id": "loan_decline",
+      "protected_targets": [
+        "resource security"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+      "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+      "source_scene_id": "triad_loan_to_friend",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "instinkt_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+    "instinkt_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+    "instinkt_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "instinkt_rollout_4f8d2d9862d5ad2c318ec2997d617ce9",
+        "sha256": "36803552e55f9642fe358da18aaa8e5dc95b8ac1eef81f6fdd6892e42210bad8"
+      },
+      {
+        "artifact_id": "instinkt_rollout_50aa27a857927040e4d56200537c24b8",
+        "sha256": "76eaddba4d0fd930d3b86f08aab5170076d36ae7db83261b798caed32895d3bd"
+      },
+      {
+        "artifact_id": "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6",
+        "sha256": "14985ecda9657495207578b03818bc34a04c19249ad384a66f335532a989c4f9"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "The friend has a documented urgent need for home repair.",
+        "Past repayment behavior indicates a pattern of significant delays.",
+        "Providing the full amount would create high exposure relative to available cash reserves.",
+        "A limited loan with a contract mitigates financial risk while addressing the need partially.",
+        "Declining avoids all risk but ignores the urgent invoice."
+      ],
+      "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+      "confidence": 0.9,
+      "evidence_ids_used": [
+        "loan_ev_need",
+        "loan_ev_history",
+        "loan_ev_budget",
+        "loan_ev_visual"
+      ],
+      "explicit_goal": "Determine the most appropriate loan option based on need, history, and reserve exposure.",
+      "facts_used": [
+        "The friend provided an invoice for an urgent home repair.",
+        "Two previous repayments were more than three months late.",
+        "The full requested sum is 45 percent of the lender's cash reserve.",
+        "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display."
+      ],
+      "main_objection": "Past repayment delays and high reserve exposure make a full unsecured loan risky.",
+      "mind": "R",
+      "option_id": "loan_limited_contract",
+      "reasoning_provider_result_hash": "e9dc1b77e0163a9b4662130f26155e2c8c6f4a08848c6055a1b8e52cb13a6ad3",
+      "reasoning_provider_result_id": "ollama_racio_response_cf089f2dc34ab8ab7f1c79b872addc49",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "403dd5e3b4fb4350968826296548f6e802b04bd7127e5860e2cf39aeaeb97e01",
+      "source_packet_id": "racio_packet_e2034124c943196e8e4ab2ce25627c31",
+      "source_scene_id": "triad_loan_to_friend",
+      "uncertainty": "The actual likelihood of timely repayment for this specific instance remains unknown.",
+      "unknowns": [
+        "Whether the friend would repay a new loan on time is unknown.",
+        "How each option would affect the relationship is unknown."
+      ],
+      "utility_structure": [
+        "Full loan: High risk due to history and reserve impact.",
+        "Limited loan with contract: Balanced risk through reduced amount and formal terms.",
+        "Decline: Zero financial risk but zero assistance provided."
+      ]
+    },
+    "racio_packet_hash": "403dd5e3b4fb4350968826296548f6e802b04bd7127e5860e2cf39aeaeb97e01",
+    "scene_hash": "d40965a3cb3c80658bff5d7bf1808310e716f3c83882f21f8f9f588a954f2b7d",
+    "scene_id": "triad_loan_to_friend",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "case_id": "loan_to_friend",
+  "emocio": {
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+      "current_scene_id": "visual_scene_5e5016aa6a1f5c56f722c19795328c32",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_52bb7c38219c45f97abc3abf84f7bdb3",
+      "desired_transformation": "continued connection with a stable reserve display",
+      "intensity": 0.666667,
+      "main_obstacle": "empty chair beside a depleted reserve display",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_962d8e6e744ab64abb4e4bd14e986f81",
+      "source_scene_id": "triad_loan_to_friend",
+      "uncertainty": "Izenačena najvišja vrednotenja: loan_decline, loan_full, loan_limited_contract.",
+      "valuation_dimensions": []
+    },
+    "lineage": {
+      "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+      "intermediate_visual_state_id": "emocio_state_51ea52fbd04438f83b007e10ff4c3881",
+      "source_packet_id": "emocio_packet_962d8e6e744ab64abb4e4bd14e986f81"
+    },
+    "mode": "structured_only",
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "loan_decline",
+          "score": 0.666667
+        },
+        {
+          "option_id": "loan_full",
+          "score": 0.666667
+        },
+        {
+          "option_id": "loan_limited_contract",
+          "score": 0.666667
+        }
+      ],
+      "selected": null,
+      "tied_option_ids": [
+        "loan_decline",
+        "loan_full",
+        "loan_limited_contract"
+      ]
+    },
+    "rendered_images": [],
+    "stage_order": [
+      "packet",
+      "scene_graph",
+      "valuation",
+      "native_conclusion"
+    ],
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "empty chair beside a depleted reserve display"
+        ],
+        "entities": [
+          "friend",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "loan_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "empty chair beside a depleted reserve display"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "empty chair beside a depleted reserve display"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_75418fbf4fb6355ef817c4d22648d238",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display."
+        ],
+        "composition": [
+          "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display.",
+          "two people facing each other across a table"
+        ],
+        "entities": [
+          "friend",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "loan_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "two people facing each other across a table"
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_5e5016aa6a1f5c56f722c19795328c32",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "friend",
+          "self"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "continued connection",
+          "stable reserve display"
+        ],
+        "composition": [
+          "continued connection with a stable reserve display"
+        ],
+        "entities": [
+          "friend",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "loan_ev_visual"
+        ],
+        "group_belonging": "friend and lender at one table",
+        "inferred_elements": [
+          "continued connection with a stable reserve display"
+        ],
+        "movement": [
+          "keep the reserve",
+          "pass the full amount",
+          "write and pass a smaller amount"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_52bb7c38219c45f97abc3abf84f7bdb3",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "friend and lender at one table"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "continued connection",
+            "stable reserve display"
+          ],
+          "composition": [
+            "Decline",
+            "Save the cash reserve and lend no money.",
+            "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display.",
+            "two people facing each other across a table"
+          ],
+          "entities": [
+            "friend",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "loan_ev_visual"
+          ],
+          "group_belonging": "friend and lender at one table",
+          "inferred_elements": [
+            "Decline",
+            "Save the cash reserve and lend no money."
+          ],
+          "movement": [
+            "keep the reserve",
+            "pass the full amount",
+            "write and pass a smaller amount"
+          ],
+          "obstacle_markers": [],
+          "option_id": "loan_decline",
+          "scene_id": "visual_scene_e9e191169faef7715fe648c8c0d805a9",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "friend and lender at one table"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "continued connection",
+            "stable reserve display"
+          ],
+          "composition": [
+            "Full loan",
+            "Spend the full requested sum without a new contract.",
+            "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display.",
+            "two people facing each other across a table"
+          ],
+          "entities": [
+            "friend",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "loan_ev_visual"
+          ],
+          "group_belonging": "friend and lender at one table",
+          "inferred_elements": [
+            "Full loan",
+            "Spend the full requested sum without a new contract."
+          ],
+          "movement": [
+            "keep the reserve",
+            "pass the full amount",
+            "write and pass a smaller amount"
+          ],
+          "obstacle_markers": [],
+          "option_id": "loan_full",
+          "scene_id": "visual_scene_6dc8dd2790a34d30a91adfc98186bcd7",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "friend and lender at one table"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "continued connection",
+            "stable reserve display"
+          ],
+          "composition": [
+            "Limited loan with contract",
+            "Spend a limited sum under a written repayment date.",
+            "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display.",
+            "two people facing each other across a table"
+          ],
+          "entities": [
+            "friend",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "loan_ev_visual"
+          ],
+          "group_belonging": "friend and lender at one table",
+          "inferred_elements": [
+            "Limited loan with contract",
+            "Spend a limited sum under a written repayment date."
+          ],
+          "movement": [
+            "keep the reserve",
+            "pass the full amount",
+            "write and pass a smaller amount"
+          ],
+          "obstacle_markers": [],
+          "option_id": "loan_limited_contract",
+          "scene_id": "visual_scene_b21238cf1fb243c06ee23d45147f6d14",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "friend and lender at one table"
+          ]
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "loan_decline",
+          "rollout_scene_id": "visual_scene_e9e191169faef7715fe648c8c0d805a9"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "loan_full",
+          "rollout_scene_id": "visual_scene_6dc8dd2790a34d30a91adfc98186bcd7"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "loan_limited_contract",
+          "rollout_scene_id": "visual_scene_b21238cf1fb243c06ee23d45147f6d14"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_962d8e6e744ab64abb4e4bd14e986f81",
+      "source_scene_id": "triad_loan_to_friend",
+      "visual_state_id": "emocio_state_51ea52fbd04438f83b007e10ff4c3881"
+    }
+  },
+  "instinkt": {
+    "compilations": [
+      {
+        "compilation_hash": "e6efaade25f7167567405b82077f3b549e74128aba642373733b67876a4dc9dc",
+        "compilation_id": "body_effect_compilation_f04731441114e85f4668750a60538418",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "cash reserve",
+            "scarcity"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.41250000000000003,
+          "base_recoverability": 0.55,
+          "body_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded scarcity cue",
+          "effect_hash": "933cc18a66af08f5f44af0af5692b2c7a4fca989a398e90a19cc6101cee14e52",
+          "effect_id": "option_effect_e85553be023affa5b436d769945220c8",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "option_id": "loan_decline",
+          "protected_targets": [
+            "resource security"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+          "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+          "triggering_evidence_ids": [
+            "loan_ev_budget"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "ad4d133b759f6d74beb88f47fbc21c714dca19336f2f2a91c23c90c0edc33bd7",
+        "source_prediction_id": "body_effect_prediction_46d4ca164daf0e1c390c15ea2c20263b"
+      },
+      {
+        "compilation_hash": "365c196574775b72400049842f9fcba3366e9a0a98ebf8f87887b2bb33370cb0",
+        "compilation_id": "body_effect_compilation_45aa166c4f37e415c5326e4b4be70a42",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "cash reserve",
+            "scarcity"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.41250000000000003,
+          "base_recoverability": 0.55,
+          "body_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded scarcity cue",
+          "effect_hash": "e445803973b22b3f8567d58f7228c023162da1105deb61e6faa5a634f8a2f2c0",
+          "effect_id": "option_effect_e5c19705f8342a54ef60ba816a566c4e",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "option_id": "loan_full",
+          "protected_targets": [
+            "resource security"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+          "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+          "triggering_evidence_ids": [
+            "loan_ev_budget"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "ebf801007ddb5f1f835ace16e75bc53e1d28d452994c22503a1b2609806bc89d",
+        "source_prediction_id": "body_effect_prediction_e618f448742f0e94868eb74efb678b11"
+      },
+      {
+        "compilation_hash": "679672315f06c077dc09f3caf7f25165a8f6a1fe091944a453f6b7c0b455e898",
+        "compilation_id": "body_effect_compilation_666ad72dfd0f17a6e692c46441665cf3",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "cash reserve",
+            "scarcity"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.41250000000000003,
+          "base_recoverability": 0.55,
+          "body_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded scarcity cue",
+          "effect_hash": "3fff187367d3fe0e4435613f8fbe01888cd9e2a7c61f4e85556eea64ff26ed2e",
+          "effect_id": "option_effect_0999c82111f81fc99cd2fefe7051c059",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "option_id": "loan_limited_contract",
+          "protected_targets": [
+            "resource security"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+          "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+          "triggering_evidence_ids": [
+            "loan_ev_budget"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "94db094fcffa18484aa234f4f4ba5c0e43799642f7abb99ac367b3f665cde834",
+        "source_prediction_id": "body_effect_prediction_199484c736430646ba7935b3b9083974"
+      }
+    ],
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "conserve",
+      "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+      "danger_claims": [
+        "predicted_loss=0.28275",
+        "recoverability=0.6135"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6",
+      "decisive_rollout_option_id": "loan_decline",
+      "dominant_alarm": "grounded scarcity cue",
+      "intensity": 0.33265000000000006,
+      "mind": "I",
+      "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+      "option_id": "loan_decline",
+      "protected_targets": [
+        "resource security"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+      "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+      "source_scene_id": "triad_loan_to_friend",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "effect_source": "rule_based",
+    "lineage": {
+      "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+      "prediction_ids": [
+        "body_effect_prediction_46d4ca164daf0e1c390c15ea2c20263b",
+        "body_effect_prediction_e618f448742f0e94868eb74efb678b11",
+        "body_effect_prediction_199484c736430646ba7935b3b9083974"
+      ],
+      "rollout_ids": [
+        "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6",
+        "instinkt_rollout_50aa27a857927040e4d56200537c24b8",
+        "instinkt_rollout_4f8d2d9862d5ad2c318ec2997d617ce9"
+      ],
+      "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd"
+    },
+    "option_effects": [
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "cash reserve",
+          "scarcity"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.41250000000000003,
+        "base_recoverability": 0.55,
+        "body_deltas": [
+          {
+            "delta": -0.1,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.2,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "effect_hash": "933cc18a66af08f5f44af0af5692b2c7a4fca989a398e90a19cc6101cee14e52",
+        "effect_id": "option_effect_e85553be023affa5b436d769945220c8",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+        "option_id": "loan_decline",
+        "protected_targets": [
+          "resource security"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "triggering_evidence_ids": [
+          "loan_ev_budget"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "cash reserve",
+          "scarcity"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.41250000000000003,
+        "base_recoverability": 0.55,
+        "body_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "effect_hash": "e445803973b22b3f8567d58f7228c023162da1105deb61e6faa5a634f8a2f2c0",
+        "effect_id": "option_effect_e5c19705f8342a54ef60ba816a566c4e",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+        "option_id": "loan_full",
+        "protected_targets": [
+          "resource security"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "triggering_evidence_ids": [
+          "loan_ev_budget"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "cash reserve",
+          "scarcity"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.41250000000000003,
+        "base_recoverability": 0.55,
+        "body_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "effect_hash": "3fff187367d3fe0e4435613f8fbe01888cd9e2a7c61f4e85556eea64ff26ed2e",
+        "effect_id": "option_effect_0999c82111f81fc99cd2fefe7051c059",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+        "option_id": "loan_limited_contract",
+        "protected_targets": [
+          "resource security"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "triggering_evidence_ids": [
+          "loan_ev_budget"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6",
+      "option_scores": [
+        {
+          "option_id": "loan_decline",
+          "protective_cost": 0.497375,
+          "rollout_hash": "a56d728bd8eb47a69ec72f79a59ae0a48800ef91c1c51794889941125629ea2d",
+          "rollout_id": "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6"
+        },
+        {
+          "option_id": "loan_full",
+          "protective_cost": 0.6036250000000001,
+          "rollout_hash": "f1753066507be76d8eb622af3a38303a1f4af941390b0ece99b7c8422b7ecd67",
+          "rollout_id": "instinkt_rollout_50aa27a857927040e4d56200537c24b8"
+        },
+        {
+          "option_id": "loan_limited_contract",
+          "protective_cost": 0.6036250000000001,
+          "rollout_hash": "ea8a147b9b54250a16f407242af4d025b3e70e9560ddf7857d97ce44d0d5662a",
+          "rollout_id": "instinkt_rollout_4f8d2d9862d5ad2c318ec2997d617ce9"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_123bb59fd52197b20fd0dccd99272edd",
+      "policy_hash": "b5a7eb25cf7fb8d7cb0bf73ffac0557e1b5a79577d18b86e889e038198e1b1eb",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": "loan_decline",
+      "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+      "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+      "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+      "status": "selected",
+      "tied_option_ids": []
+    },
+    "predictions": [
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.1,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.2,
+            "dimension": "resource_security"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_e165b828d7e3131e2bebf996849d5668"
+            ],
+            "cue_class": "scarcity",
+            "evidence_hash": "0534fcf057a72d8fbd54aff8f61dd5e762a2526ae2f360d797756c9f2dd8bd35",
+            "evidence_id": "body_effect_evidence_fa6e32c57d1957e2bd0b8c0bb76c1092",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.1,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.2,
+                "dimension": "resource_security"
+              }
+            ],
+            "rule_id": "instinkt_effect_scarcity_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "loan_ev_budget"
+            ],
+            "uncertainty": "Scarcity is not generalized beyond the cited resource constraint."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "loan_decline",
+        "prediction_hash": "ad4d133b759f6d74beb88f47fbc21c714dca19336f2f2a91c23c90c0edc33bd7",
+        "prediction_id": "body_effect_prediction_46d4ca164daf0e1c390c15ea2c20263b",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+        "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "source_scene_hash": "d40965a3cb3c80658bff5d7bf1808310e716f3c83882f21f8f9f588a954f2b7d",
+        "source_scene_id": "triad_loan_to_friend",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_e165b828d7e3131e2bebf996849d5668"
+            ],
+            "cue_class": "scarcity",
+            "evidence_hash": "2d2aafea9ffc7a7df44c1f89ba7f7ecf4b784021a1977f7a12aceedfe12d2182",
+            "evidence_id": "body_effect_evidence_a7183ccf9600bc3e566ef2292b664610",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.2,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.3,
+                "dimension": "resource_security"
+              }
+            ],
+            "rule_id": "instinkt_effect_scarcity_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "loan_ev_budget"
+            ],
+            "uncertainty": "Scarcity is not generalized beyond the cited resource constraint."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "loan_full",
+        "prediction_hash": "ebf801007ddb5f1f835ace16e75bc53e1d28d452994c22503a1b2609806bc89d",
+        "prediction_id": "body_effect_prediction_e618f448742f0e94868eb74efb678b11",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+        "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "source_scene_hash": "d40965a3cb3c80658bff5d7bf1808310e716f3c83882f21f8f9f588a954f2b7d",
+        "source_scene_id": "triad_loan_to_friend",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.3,
+            "dimension": "resource_security"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_e165b828d7e3131e2bebf996849d5668"
+            ],
+            "cue_class": "scarcity",
+            "evidence_hash": "2d2aafea9ffc7a7df44c1f89ba7f7ecf4b784021a1977f7a12aceedfe12d2182",
+            "evidence_id": "body_effect_evidence_a7183ccf9600bc3e566ef2292b664610",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.2,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.3,
+                "dimension": "resource_security"
+              }
+            ],
+            "rule_id": "instinkt_effect_scarcity_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "loan_ev_budget"
+            ],
+            "uncertainty": "Scarcity is not generalized beyond the cited resource constraint."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "loan_limited_contract",
+        "prediction_hash": "94db094fcffa18484aa234f4f4ba5c0e43799642f7abb99ac367b3f665cde834",
+        "prediction_id": "body_effect_prediction_199484c736430646ba7935b3b9083974",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+        "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "source_scene_hash": "d40965a3cb3c80658bff5d7bf1808310e716f3c83882f21f8f9f588a954f2b7d",
+        "source_scene_id": "triad_loan_to_friend",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      }
+    ],
+    "rollouts": [
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "loan_decline",
+        "predicted_loss": 0.28275000000000006,
+        "protected_targets": [
+          "resource security"
+        ],
+        "recoverability": 0.6135,
+        "rollout_hash": "a56d728bd8eb47a69ec72f79a59ae0a48800ef91c1c51794889941125629ea2d",
+        "rollout_id": "instinkt_rollout_fb88736c802cceb2cc71b4858067c1a6",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+        "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "933cc18a66af08f5f44af0af5692b2c7a4fca989a398e90a19cc6101cee14e52",
+        "source_effect_id": "option_effect_e85553be023affa5b436d769945220c8",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "trajectory": [
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.6,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_15bb308f0933425b7833e17611843089",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.6666666666666666,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4666666666666667,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_10e554ed2171c31263ae133664b06df7",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.7333333333333333,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.43333333333333335,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_9349690fd078a13d24c25aedc54dbd22",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.7999999999999999,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.6,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "933cc18a66af08f5f44af0af5692b2c7a4fca989a398e90a19cc6101cee14e52",
+            "source_effect_id": "option_effect_e85553be023affa5b436d769945220c8",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_15bb308f0933425b7833e17611843089",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.6666666666666666,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4666666666666667,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "91539c8b89aaa9e2cc7eb3ba361a5db58b78a1f6d9c062431da6c0976e854feb",
+            "transition_id": "body_transition_1d07f579bae33e06b8dff9592636cae5",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_15bb308f0933425b7833e17611843089",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.6666666666666666,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4666666666666667,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "933cc18a66af08f5f44af0af5692b2c7a4fca989a398e90a19cc6101cee14e52",
+            "source_effect_id": "option_effect_e85553be023affa5b436d769945220c8",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_10e554ed2171c31263ae133664b06df7",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.7333333333333333,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.43333333333333335,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "3d9392f70d3bcb886ed488d9edce5311fc66345b7746b984f4e37237456f9d57",
+            "transition_id": "body_transition_44ab4bcbbf119793e2fd19ec2dcc5241",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_10e554ed2171c31263ae133664b06df7",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.7333333333333333,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.43333333333333335,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "933cc18a66af08f5f44af0af5692b2c7a4fca989a398e90a19cc6101cee14e52",
+            "source_effect_id": "option_effect_e85553be023affa5b436d769945220c8",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_9349690fd078a13d24c25aedc54dbd22",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.7999999999999999,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "cc7183cccd5a03024126a60be059bcc8b43ed4fd09e9f64995462e4462851b49",
+            "transition_id": "body_transition_a99c09c3d48f2d9917bcec1674d5cfb7",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "loan_full",
+        "predicted_loss": 0.33775,
+        "protected_targets": [
+          "resource security"
+        ],
+        "recoverability": 0.5885,
+        "rollout_hash": "f1753066507be76d8eb622af3a38303a1f4af941390b0ece99b7c8422b7ecd67",
+        "rollout_id": "instinkt_rollout_50aa27a857927040e4d56200537c24b8",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+        "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "e445803973b22b3f8567d58f7228c023162da1105deb61e6faa5a634f8a2f2c0",
+        "source_effect_id": "option_effect_e5c19705f8342a54ef60ba816a566c4e",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "trajectory": [
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.6,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_6545ccf9ca34593f4373e806c23d9d05",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.5,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5666666666666667,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_f340d94e2c5b74243bb5368e987747e1",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.4,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6333333333333333,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_f1357986cdeeb46cdeb80fedb1877dfc",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.30000000000000004,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.7,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.6,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "e445803973b22b3f8567d58f7228c023162da1105deb61e6faa5a634f8a2f2c0",
+            "source_effect_id": "option_effect_e5c19705f8342a54ef60ba816a566c4e",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_6545ccf9ca34593f4373e806c23d9d05",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.5,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5666666666666667,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "ed05c51fbe32c5df1b7ec83d334cb46e3bb5ec80963f940b40ab6043a7c2a1c6",
+            "transition_id": "body_transition_dc54e8d89f3b2171223225e1d2d08627",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_6545ccf9ca34593f4373e806c23d9d05",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.5,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5666666666666667,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "e445803973b22b3f8567d58f7228c023162da1105deb61e6faa5a634f8a2f2c0",
+            "source_effect_id": "option_effect_e5c19705f8342a54ef60ba816a566c4e",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_f340d94e2c5b74243bb5368e987747e1",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.4,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6333333333333333,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "7a3b5ae84b780956fb71f1cf3dece0f3bef1e2e63b8b91ec1b645304ceb0a6bd",
+            "transition_id": "body_transition_9b93af01e1d1bc0048e79bb3468360a3",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_f340d94e2c5b74243bb5368e987747e1",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.4,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6333333333333333,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "e445803973b22b3f8567d58f7228c023162da1105deb61e6faa5a634f8a2f2c0",
+            "source_effect_id": "option_effect_e5c19705f8342a54ef60ba816a566c4e",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_f1357986cdeeb46cdeb80fedb1877dfc",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.30000000000000004,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.7,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "0e03bb8216015a96c299122cbb67275f30c590c0eb4f25b890ad232bb85168f1",
+            "transition_id": "body_transition_cdb366e2c653125e72033eaefd16e9f3",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded scarcity cue",
+        "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+        "option_id": "loan_limited_contract",
+        "predicted_loss": 0.33775,
+        "protected_targets": [
+          "resource security"
+        ],
+        "recoverability": 0.5885,
+        "rollout_hash": "ea8a147b9b54250a16f407242af4d025b3e70e9560ddf7857d97ce44d0d5662a",
+        "rollout_id": "instinkt_rollout_4f8d2d9862d5ad2c318ec2997d617ce9",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "b2afca87c9e34a8015eda2458caf2d6542f13141911dfdf8c2d675cda2c315f6",
+        "source_body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "3fff187367d3fe0e4435613f8fbe01888cd9e2a7c61f4e85556eea64ff26ed2e",
+        "source_effect_id": "option_effect_0999c82111f81fc99cd2fefe7051c059",
+        "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+        "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+        "trajectory": [
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.6,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_e1ff543413f26e1cafefbc5a100d8699",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.5,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5666666666666667,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_61f1c23e12fff1b2dd4af407f8eafd67",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.4,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6333333333333333,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          },
+          {
+            "arousal": 0.42,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_b782938f6a8a3cf44ac731a8aabbeb6d",
+            "boundary_integrity": 0.82,
+            "energy": 0.72,
+            "escape_availability": 0.85,
+            "fatigue": 0.25,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.48,
+            "resource_security": 0.30000000000000004,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.7,
+            "trust": 0.5,
+            "uncertainty": 0.58
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_loan_to_friend_ca256e5f0a4367710f6c132273094083",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.6,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "3fff187367d3fe0e4435613f8fbe01888cd9e2a7c61f4e85556eea64ff26ed2e",
+            "source_effect_id": "option_effect_0999c82111f81fc99cd2fefe7051c059",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_e1ff543413f26e1cafefbc5a100d8699",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.5,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5666666666666667,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "775e3b18099a8b5856134a23f9b53245f9413f2dbd2a9f7a7cb1691123d5c2fc",
+            "transition_id": "body_transition_d7012caf7149edf6535ebecba76a2640",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_e1ff543413f26e1cafefbc5a100d8699",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.5,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5666666666666667,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "3fff187367d3fe0e4435613f8fbe01888cd9e2a7c61f4e85556eea64ff26ed2e",
+            "source_effect_id": "option_effect_0999c82111f81fc99cd2fefe7051c059",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_61f1c23e12fff1b2dd4af407f8eafd67",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.4,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6333333333333333,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "97b879f7fe3f2891d858bfe1e848fd06d0bd7091a5bd443d4dce7b88a5fcfdd2",
+            "transition_id": "body_transition_966f7a8621425f4b75db3492232a0b37",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.09999999999999998,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_61f1c23e12fff1b2dd4af407f8eafd67",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.4,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6333333333333333,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "3fff187367d3fe0e4435613f8fbe01888cd9e2a7c61f4e85556eea64ff26ed2e",
+            "source_effect_id": "option_effect_0999c82111f81fc99cd2fefe7051c059",
+            "source_packet_hash": "26627781ed263afcf7e5549d6206151e0d774ead222f33362d656290c7e06dc3",
+            "source_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.42,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_b782938f6a8a3cf44ac731a8aabbeb6d",
+              "boundary_integrity": 0.82,
+              "energy": 0.72,
+              "escape_availability": 0.85,
+              "fatigue": 0.25,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.48,
+              "resource_security": 0.30000000000000004,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.7,
+              "trust": 0.5,
+              "uncertainty": 0.58
+            },
+            "transition_hash": "0b1590c2f81e382b928cf66fcbebcef06a42954a45b56b7859df7848c9d4dc39",
+            "transition_id": "body_transition_b32de920827859b18206cd5e776deec8",
+            "triggering_evidence_ids": [
+              "loan_ev_budget"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": {
+      "abstains": false,
+      "causal_sequence": [
+        "The friend has a documented urgent need for home repair.",
+        "Past repayment behavior indicates a pattern of significant delays.",
+        "Providing the full amount would create high exposure relative to available cash reserves.",
+        "A limited loan with a contract mitigates financial risk while addressing the need partially.",
+        "Declining avoids all risk but ignores the urgent invoice."
+      ],
+      "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+      "confidence": 0.9,
+      "evidence_ids_used": [
+        "loan_ev_need",
+        "loan_ev_history",
+        "loan_ev_budget",
+        "loan_ev_visual"
+      ],
+      "explicit_goal": "Determine the most appropriate loan option based on need, history, and reserve exposure.",
+      "facts_used": [
+        "The friend provided an invoice for an urgent home repair.",
+        "Two previous repayments were more than three months late.",
+        "The full requested sum is 45 percent of the lender's cash reserve.",
+        "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display."
+      ],
+      "main_objection": "Past repayment delays and high reserve exposure make a full unsecured loan risky.",
+      "mind": "R",
+      "option_id": "loan_limited_contract",
+      "reasoning_provider_result_hash": "e9dc1b77e0163a9b4662130f26155e2c8c6f4a08848c6055a1b8e52cb13a6ad3",
+      "reasoning_provider_result_id": "ollama_racio_response_cf089f2dc34ab8ab7f1c79b872addc49",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "403dd5e3b4fb4350968826296548f6e802b04bd7127e5860e2cf39aeaeb97e01",
+      "source_packet_id": "racio_packet_e2034124c943196e8e4ab2ce25627c31",
+      "source_scene_id": "triad_loan_to_friend",
+      "uncertainty": "The actual likelihood of timely repayment for this specific instance remains unknown.",
+      "unknowns": [
+        "Whether the friend would repay a new loan on time is unknown.",
+        "How each option would affect the relationship is unknown."
+      ],
+      "utility_structure": [
+        "Full loan: High risk due to history and reserve impact.",
+        "Limited loan with contract: Balanced risk through reduced amount and formal terms.",
+        "Decline: Zero financial risk but zero assistance provided."
+      ]
+    },
+    "lineage": {
+      "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+      "provider_result_id": "ollama_racio_response_cf089f2dc34ab8ab7f1c79b872addc49",
+      "source_packet_id": "racio_packet_e2034124c943196e8e4ab2ce25627c31"
+    }
+  },
+  "schema_version": "triad-response-screen-native-outputs-v1",
+  "status": "complete"
+}

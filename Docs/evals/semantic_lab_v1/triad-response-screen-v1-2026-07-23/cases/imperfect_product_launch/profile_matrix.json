@@ -1,0 +1,1321 @@
+{
+  "case_id": "imperfect_product_launch",
+  "model_calls": 0,
+  "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+  "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+  "native_processor_executions": 0,
+  "profile_order": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "22beffabc1dac26033eb30e6037cea0fe91a8fd48c9195538fe66aad0ddfe134",
+        "character_id": "triad_character_c9443e6cf6567b3ca0e71159bee6a97a",
+        "effective_authority_hash": "fa8204e5997d9be15d018caf04f258f4a050cb3c0e323de7e212072ed359eafa",
+        "effective_authority_id": "effective_authority_0fa8276ad1c31e1c47e127993b2039e6",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ea1f2a2e471f5234def4ba4b177e51c3",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "launch_private_pilot",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "b70eeaf6034ef560763cb0d7c0e9e68a5baabb64d419199189cdaed29cc94c99",
+        "resolution_id": "governance_2db7b7d768677bac8535b970c29dacee",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>(E=I)",
+      "selected_mandate_option": "launch_private_pilot",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "402de5450d061ba8591994e9563df081b233c839a96fa933cdb43028bfb939ad",
+        "character_id": "triad_character_2dae1a2313f210423d8450535088c200",
+        "effective_authority_hash": "68095c268af33f2ff51785a37990abe891e9727d5f58f393a8157b73f877fbf0",
+        "effective_authority_id": "effective_authority_3983fde9442e539a0742827054942350",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ffa62496398b8fd1e0e8e5edc4d8d3e9",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "eaf0fec9fd728b908e2c7890e6fb09984a0492ba9ab49b8f771f456f57868dc3",
+        "resolution_id": "governance_d01678c6fb87f9e1fe25f5d79b3f39fa",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>(R=I)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "c68cff3e43fa4b16cd4bbc774f2413a8a2ec40b43104a1068f48719d7b044f09",
+        "character_id": "triad_character_58968eb1d42f28cabbd685a07b037961",
+        "effective_authority_hash": "392cf7744ab5b1587e6bcb2484497f8eebda8fa70c41dae9d6270e0a2f397ad5",
+        "effective_authority_id": "effective_authority_d514ff8f9cf450aefd9659060c888649",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_fdb00cdba8b6f6d8214d5a56983880f1",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "025cdf7f50d36908d73c37b6010dcb2162d4a01d6c52c6128edadfa6b6bd3c1e",
+        "resolution_id": "governance_f9dcfabd414b6fc7d699c2b96416b011",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>(R=E)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "55c34aefb635645f5468f34e095c25dc4d0f1d0e3063efc994332796048818e5",
+        "character_id": "triad_character_8817775fc5ec031ecb5918fa4939b99f",
+        "effective_authority_hash": "1e084f396a6d83c52e5b74c934b8507d49abd9ef6771387caf28f003abeeb017",
+        "effective_authority_id": "effective_authority_757c96592dbe866641492c90e5a73ccf",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_bc2c6c970fa6dd529b3da1bba8871a66",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "439436c47a965f12428eb13a029893b7c4199151007fcb9d18f814b49fb11858",
+        "resolution_id": "governance_cba660594b1d72af1cc60d1f3e195bf4",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=E)>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "56676a84f7a25af3477d63c9777cdc0432b434588076314019d816dd1d015866",
+        "character_id": "triad_character_b43f23036ee719963bc417f2ad654f6b",
+        "effective_authority_hash": "d186c9c2c444c7643be3644be5f1d4aee3af8bca1d8275515b4e96fec89a2920",
+        "effective_authority_id": "effective_authority_03114c7bb36625f14001a674f06cad47",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ff7cb50e916e6faf3980042520cafc23",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "1e53ef6030f7c1aeebf019b805b0bb4aebd0280a3eaafde0c57eb3d4959a0ff6",
+        "resolution_id": "governance_525e84fc8630b597be4bc6c428e0b6fd",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "b8057edecba40f04d0b32fe4ba8c2f8bc408dbb4bd6cf2e259e715223791725e",
+        "character_id": "triad_character_5b58d45cddea6db2895ad691bfaea09a",
+        "effective_authority_hash": "fb6196c100677ed064f02c1a23091302d37581a0f5a3d20849f92a9974384a19",
+        "effective_authority_id": "effective_authority_37631b9c600330687236093c1066208b",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_8b13317e255f38dc619e01720016cbdf",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "ba03c1b4b150eff71f373278d36d173e424c309816d964b7641a7d8f0f16e480",
+        "resolution_id": "governance_f843ae93d40436b7cc3b839ef576976d",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "59c52fd38ac0a5956c0a2c5d72798be589f52c1787ed1cca157a2fd77b9bfd7c",
+        "character_id": "triad_character_51a0a58c6733c79f4b9fbab2f9198460",
+        "effective_authority_hash": "72e2c1cc8d09a056e527edf7174bb15e6a6e795f01f17833d3d236922fc2a293",
+        "effective_authority_id": "effective_authority_61298593654dab5d9df4974b6f030463",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ea1f2a2e471f5234def4ba4b177e51c3",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "launch_private_pilot",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "be82b9224093aaf651029a59ee521ea4250c6e76d70f270fa17bbc3784727934",
+        "resolution_id": "governance_922f2d9528057b7bdb1645b546471fb7",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>E>I",
+      "selected_mandate_option": "launch_private_pilot",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "6185054e589eac92a664bc7890a070abee354d5ec9cc5d3cf8b6040ae65a8309",
+        "character_id": "triad_character_d93413823409504fde7ec239e2ac7bbb",
+        "effective_authority_hash": "0e6768d8a3ee46ad0b841a9267dfbfb9b899663dacbd919073701515239b50fc",
+        "effective_authority_id": "effective_authority_de23107261906b240090eb5766e23bc5",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ea1f2a2e471f5234def4ba4b177e51c3",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "launch_private_pilot",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "b6c12480cd0470259bdc1d4a1791c4df7d588501731c47085d68271ce3446fd6",
+        "resolution_id": "governance_d8d5e065949b1f6b26a2a91b53ef4da6",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>I>E",
+      "selected_mandate_option": "launch_private_pilot",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "486dc86c9679d98bbef0ee3fae1676581657c4c17d75c6eb0569ae6c720e7e38",
+        "character_id": "triad_character_9e25faee11238a1f7ad1511820a94276",
+        "effective_authority_hash": "371a3eb48a7e168a6099b8382f5f5856d16b7c88d94acd472595a5b3b2789902",
+        "effective_authority_id": "effective_authority_321875c234705ee3729ac77f485355bb",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ffa62496398b8fd1e0e8e5edc4d8d3e9",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "2349aaa034253947b18687b31faeed3a897b4868eb851255c38b954fc967b4a2",
+        "resolution_id": "governance_c61d3ede84413ae6c1cc7ac0d796b041",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>R>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "c70889623c7b25ddd8adbb98698e29e4314fe5735a6e5766ea0b86c8be136e29",
+        "character_id": "triad_character_41302af4fc8f2a17465d0350b98f22a4",
+        "effective_authority_hash": "716837a84da69362113ba228c1a92a4a885b4c05437fbc78ab4e5642c28dca48",
+        "effective_authority_id": "effective_authority_e56035e8ffda566825242750a908227a",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_ffa62496398b8fd1e0e8e5edc4d8d3e9",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "1a3cc90cd5457f5c84415dfe92a2bc3b12016ccadd9439e5ad94154b46d63c0c",
+        "resolution_id": "governance_5e7e544ab9bdd3799fcc9f1d36704c8d",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>I>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "e9c245f2152fc3bb99c706acfe0c671c3ff1b9e67be5fb7e5474e38538e11bf0",
+        "character_id": "triad_character_9573753e204413ec0a635f7c9f5c65a9",
+        "effective_authority_hash": "19246ef43e77cc9a1ff04b406e432a98983321cb311723d370b5a3fed0765e9e",
+        "effective_authority_id": "effective_authority_469ab69fff01cca9e9fe81b181514bb9",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_fdb00cdba8b6f6d8214d5a56983880f1",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "8a9a687af7be1930b5e65cdf27177c888894d565b18ae08da8a15ca948c56150",
+        "resolution_id": "governance_07056d4c3d72e73417fa2308765c4e06",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>R>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "6b74c27463653edcf87853a74875c8cf69dc50d7caa23ee78a0c0a2a7f241b98",
+        "character_id": "triad_character_9a025851769ba43c9874b0b983d7c5bb",
+        "effective_authority_hash": "07e6f3e650240df9e39d37f2810ab2b636987e1cc48f674ca6b4d095b2ecc6b1",
+        "effective_authority_id": "effective_authority_7f0c1f33c96f3ee2d554f204cf7e89b3",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_fdb00cdba8b6f6d8214d5a56983880f1",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "bc6f1095ee4457b9d724888d10ed280e6c4a9ce7faa3e59b519580962b792dd6",
+        "resolution_id": "governance_c861e3d2b5363d174b320494c125c991",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>E>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "63305fd6ede47dc4818d430674ea2e7a2a6c7866034d54501b267826af892bf1",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_46f9024a461b7b07d9f5cf86b7576b64",
+          "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+          "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_7df2ef79e732c10fd39902eb182a772a",
+              "mind": "R",
+              "option_id": "launch_private_pilot"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_dc6ee1b6388b930e1cdd581f4a9bc9e0",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_5e567ecbbaffc5cf94333da95abfcfb2",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "54b3b8765746836543a77ecfd225c9ddda8424429829b06db0c7fc7511b84b56",
+        "character_id": "triad_character_d76e84929dff1112eff65fc34b2be115",
+        "effective_authority_hash": "5defe5a241b82db4e8486331de483f85ea3ae6c48ddd6036ade84483ee8e0c51",
+        "effective_authority_id": "effective_authority_c2553a7237d3956cdbb8449f8a7d4836",
+        "effective_source_minds": [
+          "R",
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the optimal launch strategy for an imperfect prototype given competitor pressure and defect risks."
+            },
+            {
+              "mind": "E",
+              "statement": "coherent interface surrounded by visible user response"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_dd2466a849801b5d3023948ef8b23829",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Public exposure to data-erasing defects may cause severe reputation damage despite disclosure."
+            },
+            {
+              "mind": "E",
+              "statement": "fragmented interface and an empty audience field"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "89f98912743c2ed30c697e77e37a80711a8669dd43484c8077b20fd58217c93b",
+        "native_bundle_id": "bundle_4c19e6318f1d22642ea3bfd95f78b043",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "9632c2fee286df455d7ee737878d33cb827425caa90f8da4ee989e87181344e0",
+        "resolution_id": "governance_d00a5a86932ee5b95d888198c215dab6",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "R=E=I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    }
+  ],
+  "schema_version": "triad-response-screen-profile-matrix-v1",
+  "status": "complete"
+}

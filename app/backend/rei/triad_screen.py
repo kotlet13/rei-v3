@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import hashlib
 import json
 import re
@@ -9,6 +10,8 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Final, Mapping
+
+from pydantic import BaseModel
 
 from .emocio.packets import build_emocio_packet
 from .emocio.processor import DeterministicEmocioProcessor
@@ -122,6 +125,12 @@ def _json_value(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _model_from_json(model_type: Any, value: Any) -> Any:
+    return model_type.model_validate_json(
+        json.dumps(value, ensure_ascii=False, allow_nan=False)
+    )
+
+
 def _write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rendered = json.dumps(
@@ -136,7 +145,18 @@ def _write_json(path: Path, value: Any) -> None:
 
 
 def _model_json(value: Any) -> Any:
-    return value.model_dump(mode="json", round_trip=True)
+    if isinstance(value, BaseModel):
+        return value.model_dump(mode="json", round_trip=True)
+    if dataclasses.is_dataclass(value):
+        return {
+            field.name: _model_json(getattr(value, field.name))
+            for field in dataclasses.fields(value)
+        }
+    if isinstance(value, Mapping):
+        return {str(key): _model_json(child) for key, child in value.items()}
+    if isinstance(value, list | tuple):
+        return [_model_json(child) for child in value]
+    return value
 
 
 def _file_sha256(path: Path) -> str:
@@ -651,6 +671,7 @@ def _call_record_projection(
 ) -> dict[str, Any]:
     return {
         "schema_version": "triad-response-screen-call-record-v1",
+        "status": "complete",
         "racio": {
             "request_payload": request_payload,
             "call_spec": _model_json(racio_execution.call_spec),
@@ -684,6 +705,7 @@ def _native_output_projection(
 ) -> dict[str, Any]:
     return {
         "schema_version": "triad-response-screen-native-outputs-v1",
+        "status": "complete",
         "case_id": item.case_id,
         "processor_execution_counts": {"R": 1, "E": 1, "I": 1},
         "bundle": _model_json(bundle),
@@ -750,6 +772,7 @@ def _profile_projection(
 ) -> dict[str, Any]:
     return {
         "schema_version": "triad-response-screen-profile-matrix-v1",
+        "status": "complete",
         "case_id": case_id,
         "native_bundle_id": bundle.bundle_id,
         "native_bundle_hash": bundle.immutable_hash,
@@ -842,17 +865,54 @@ def render_report(
         "character-replay result; no downstream output is treated as evidence "
         "of Racio translation quality.",
     ]
+    if summary.get("validation_events"):
+        lines.extend(["", "## Validation event log", ""])
+        for event in summary["validation_events"]:
+            lines.append(
+                f"- `{event['event_id']}` — {event['status']}: {event['detail']}"
+            )
     for item in prepared:
         case_root = screen_root / "cases" / item.case_id
         inputs = _json_value(case_root / "inputs.json")
         outputs = _json_value(case_root / "native_outputs.json")
         matrix = _json_value(case_root / "profile_matrix.json")
         calls = _json_value(case_root / "call_record.json")
+        source = inputs["source"]
+        if outputs.get("status") != "complete":
+            lines.extend(
+                [
+                    "",
+                    f"## {item.case_id}",
+                    "",
+                    "### SOURCE",
+                    "",
+                    "#### Canonical Slovenian",
+                    "",
+                    source["canonical_sl"]["raw_input"],
+                    "",
+                    "#### Operational English sealed for Racio",
+                    "",
+                    source["operational_en"]["raw_input"],
+                    "",
+                    "### EXECUTION FAILURE",
+                    "",
+                    f"- Status: `{outputs['status']}`",
+                    f"- Failure type: `{outputs.get('failure_type', 'unknown')}`",
+                    f"- Failure: {outputs.get('failure', 'No detail recorded.')}",
+                    f"- Observed conclusion IDs: "
+                    f"`{outputs.get('observed_conclusion_ids', [])}`",
+                    "- No native bundle or character replay is claimed for this case.",
+                    "",
+                    "### HUMAN-REVIEW RUBRIC",
+                    "",
+                    _human_rubric(),
+                ]
+            )
+            continue
         racio = outputs["racio"]["conclusion"]
         emocio = outputs["emocio"]
         instinkt = outputs["instinkt"]
         agreement = outputs["agreement_pattern"]
-        source = inputs["source"]
         lines.extend(
             [
                 "",
@@ -1042,12 +1102,19 @@ def execute_screen(repository_root: Path) -> Mapping[str, Any]:
     seal = _json_value(screen_root / "pre_call_seal.json")
     ledger_path = screen_root / "call_ledger.json"
     ledger = _json_value(ledger_path)
-    if ledger["state"] != "sealed_before_calls" or ledger["actual"] != {
+    initial_run = ledger["state"] == "sealed_before_calls" and ledger["actual"] == {
         "model_calls": 0,
         "retries": 0,
         "fallbacks": 0,
-    }:
-        raise ValueError("TRIAD-S1 call ledger is not in its sealed initial state")
+    }
+    resumable_run = (
+        ledger["state"] == "executing"
+        and ledger["actual"]["retries"] == 0
+        and ledger["actual"]["fallbacks"] == 0
+        and 0 < ledger["actual"]["model_calls"] < 8
+    )
+    if not initial_run and not resumable_run:
+        raise ValueError("TRIAD-S1 call ledger is neither initial nor resumable")
 
     settings = OllamaRacioSettings(
         model=MODEL_PROFILE["model"],
@@ -1078,9 +1145,59 @@ def execute_screen(repository_root: Path) -> Mapping[str, Any]:
     bundles: list[NativeMindBundle] = []
     abstentions = Counter()
     failures: list[dict[str, str]] = []
+    for item, entry in zip(prepared, ledger["entries"], strict=True):
+        case_root = screen_root / "cases" / item.case_id
+        if entry["status"] == "succeeded":
+            output_path = case_root / "native_outputs.json"
+            if not output_path.exists():
+                raise ValueError("Succeeded ledger entry lacks native outputs")
+            bundle = _model_from_json(
+                NativeMindBundle,
+                _json_value(output_path)["bundle"],
+            )
+            bundles.append(bundle)
+            abstentions["R"] += int(bundle.racio.abstains)
+            abstentions["E"] += int(bundle.emocio.abstains)
+            abstentions["I"] += int(bundle.instinkt.abstains)
+        elif entry["status"] == "validation_rejected":
+            failures.append(
+                {
+                    "case_id": item.case_id,
+                    "failure_type": entry["failure_type"],
+                    "failure": entry["failure"],
+                }
+            )
+        elif entry["status"] == "dispatching":
+            call_path = case_root / "call_record.json"
+            if not call_path.exists():
+                raise ValueError(
+                    "Interrupted dispatch lacks evidence needed to prevent a retry"
+                )
+            entry.update(
+                {
+                    "status": "evidence_projection_failed",
+                    "failure_type": "EvidenceProjectionError",
+                    "failure": (
+                        "Native execution completed once, but compact evidence "
+                        "projection failed; model and native processors were not rerun."
+                    ),
+                    "retries": 0,
+                    "fallbacks": 0,
+                }
+            )
+            failures.append(
+                {
+                    "case_id": item.case_id,
+                    "failure_type": entry["failure_type"],
+                    "failure": entry["failure"],
+                }
+            )
+            _write_json(ledger_path, ledger)
 
     for ordinal, item in enumerate(prepared, start=1):
         entry = ledger["entries"][ordinal - 1]
+        if entry["status"] != "planned":
+            continue
         request_payload = provider.request_payload(item.racio_packet)
         if _SLOVENE_FREE_TEXT.search(str(request_payload["prompt"])):
             raise ValueError("Racio model payload contains Slovene free text")
@@ -1209,9 +1326,68 @@ def execute_screen(repository_root: Path) -> Mapping[str, Any]:
         )
         _write_json(ledger_path, ledger)
 
+    for item, entry in zip(prepared, ledger["entries"], strict=True):
+        if entry["status"] in {"succeeded"}:
+            continue
+        case_root = screen_root / "cases" / item.case_id
+        call_path = case_root / "call_record.json"
+        observed_ids: list[str] = []
+        if call_path.exists():
+            call_projection = _json_value(call_path)
+            for mind in ("racio", "emocio", "instinkt"):
+                output_ids = (
+                    call_projection.get(mind, {})
+                    .get("call_record", {})
+                    .get("output_artifact_ids", [])
+                )
+                if output_ids:
+                    observed_ids.append(output_ids[-1])
+        else:
+            _write_json(
+                call_path,
+                {
+                    "schema_version": "triad-response-screen-call-record-v1",
+                    "status": entry["status"],
+                    "case_id": item.case_id,
+                    "call_id": entry.get("call_id"),
+                    "failure_type": entry.get("failure_type"),
+                    "failure": entry.get("failure"),
+                    "retries": 0,
+                    "fallbacks": 0,
+                    "private_thinking_persisted": False,
+                },
+            )
+        _write_json(
+            case_root / "native_outputs.json",
+            {
+                "schema_version": "triad-response-screen-native-outputs-v1",
+                "status": entry["status"],
+                "case_id": item.case_id,
+                "failure_type": entry.get("failure_type"),
+                "failure": entry.get("failure"),
+                "observed_conclusion_ids": observed_ids,
+                "native_bundle": None,
+            },
+        )
+        _write_json(
+            case_root / "profile_matrix.json",
+            {
+                "schema_version": "triad-response-screen-profile-matrix-v1",
+                "status": "not_run_without_frozen_bundle",
+                "case_id": item.case_id,
+                "rows": [],
+                "native_processor_executions": 0,
+                "model_calls": 0,
+            },
+        )
+
     ledger["state"] = "complete" if not failures else "completed_with_rejections"
     _write_json(ledger_path, ledger)
     agreements = summarize_agreements(tuple(bundles))
+    observed_conclusion_count = len(bundles) * 3
+    for entry in ledger["entries"]:
+        if entry["status"] == "evidence_projection_failed":
+            observed_conclusion_count += 3
     summary = {
         "schema_version": "triad-response-screen-summary-v1",
         "phase": "TRIAD-S1",
@@ -1223,9 +1399,15 @@ def execute_screen(repository_root: Path) -> Mapping[str, Any]:
         "model_calls": ledger["actual"]["model_calls"],
         "retries": ledger["actual"]["retries"],
         "fallbacks": ledger["actual"]["fallbacks"],
+        "model_cases_attempted": ledger["actual"]["model_calls"],
         "executed_cases": len(bundles),
-        "native_conclusions": len(bundles) * 3,
+        "fully_evidenced_cases": len(bundles),
+        "case_target": 8,
+        "native_conclusions": observed_conclusion_count,
+        "compact_validated_native_conclusions": len(bundles) * 3,
+        "native_conclusion_target": 24,
         "character_replay_rows": len(bundles) * len(CHARACTER_PROFILE_ORDER),
+        "character_replay_target": 104,
         "abstentions": {
             "R": abstentions["R"],
             "E": abstentions["E"],
@@ -1239,12 +1421,11 @@ def execute_screen(repository_root: Path) -> Mapping[str, Any]:
         "global_rei_score": None,
     }
     _write_json(screen_root / "summary.json", summary)
-    if len(bundles) == 8:
-        render_report(
-            repository_root=repository_root,
-            prepared=prepared,
-            summary=summary,
-        )
+    render_report(
+        repository_root=repository_root,
+        prepared=prepared,
+        summary=summary,
+    )
     if failures:
         raise RuntimeError(
             f"TRIAD-S1 completed with {len(failures)} validation rejection(s)"
@@ -1269,7 +1450,7 @@ def cold_verify_screen(repository_root: Path) -> Mapping[str, Any]:
     summary = _json_value(screen_root / "summary.json")
     if ledger["actual"] != {"model_calls": 8, "retries": 0, "fallbacks": 0}:
         raise ValueError("Compact evidence has incorrect model call accounting")
-    if ledger["state"] != "complete":
+    if ledger["state"] not in {"complete", "completed_with_rejections"}:
         raise ValueError("Compact evidence call ledger is not complete")
     total_rows = 0
     total_conclusions = 0
@@ -1292,6 +1473,19 @@ def cold_verify_screen(repository_root: Path) -> Mapping[str, Any]:
                 r"[A-Za-z]:\\\\|/home/|/Users/", value
             ):
                 raise ValueError("Compact evidence persists an absolute local path")
+        if outputs.get("status") != "complete":
+            entry = next(
+                value
+                for value in ledger["entries"]
+                if value["case_id"] == item.case_id
+            )
+            if outputs["status"] != entry["status"]:
+                raise ValueError("Failure projection differs from call ledger")
+            if matrix["rows"] or matrix["native_processor_executions"] != 0:
+                raise ValueError("Failed case incorrectly claims character replay")
+            if outputs.get("native_bundle") is not None:
+                raise ValueError("Failed case incorrectly claims a frozen bundle")
+            continue
         request_payload = calls["racio"]["request_payload"]
         require_english_local_model_payload(
             declared_language="en",
@@ -1303,13 +1497,18 @@ def cold_verify_screen(repository_root: Path) -> Mapping[str, Any]:
         )
         if "canonical_sl" in json.dumps(request_payload, ensure_ascii=False):
             raise ValueError("Racio request payload leaked canonical_sl")
-        spec = ProviderCallSpec.model_validate(calls["racio"]["call_spec"])
-        record = ProviderCallRecord.model_validate(calls["racio"]["call_record"])
-        evidence = OllamaRacioResponseEvidence.model_validate(
+        spec = _model_from_json(ProviderCallSpec, calls["racio"]["call_spec"])
+        record = _model_from_json(
+            ProviderCallRecord, calls["racio"]["call_record"]
+        )
+        evidence = _model_from_json(
+            OllamaRacioResponseEvidence,
             calls["racio"]["result_evidence"]
         )
-        bundle = NativeMindBundle.model_validate(outputs["bundle"])
-        agreement = AgreementPattern.model_validate(outputs["agreement_pattern"])
+        bundle = _model_from_json(NativeMindBundle, outputs["bundle"])
+        agreement = _model_from_json(
+            AgreementPattern, outputs["agreement_pattern"]
+        )
         racio_execution = OllamaRacioNativeExecution(
             conclusion=bundle.racio,
             call_spec=spec,
@@ -1329,7 +1528,9 @@ def cold_verify_screen(repository_root: Path) -> Mapping[str, Any]:
         if len(matrix["rows"]) != 13:
             raise ValueError("Case profile matrix does not contain 13 rows")
         for row in matrix["rows"]:
-            governance = GovernanceResolution.model_validate(row["governance"])
+            governance = _model_from_json(
+                GovernanceResolution, row["governance"]
+            )
             if (
                 governance.native_bundle_id != bundle.bundle_id
                 or governance.native_bundle_hash != bundle.immutable_hash
@@ -1344,11 +1545,13 @@ def cold_verify_screen(repository_root: Path) -> Mapping[str, Any]:
         bundles.append(bundle)
         total_rows += len(matrix["rows"])
         total_conclusions += 3
-    if len(bundles) != 8 or total_conclusions != 24 or total_rows != 104:
-        raise ValueError("Compact evidence coverage is incomplete")
+    if total_conclusions != len(bundles) * 3:
+        raise ValueError("Compact native-conclusion count is inconsistent")
+    if total_rows != len(bundles) * len(CHARACTER_PROFILE_ORDER):
+        raise ValueError("Compact character-replay count is inconsistent")
     if summary["agreement_counts"] != summarize_agreements(tuple(bundles)):
         raise ValueError("Summary agreement counts differ from frozen bundles")
-    if summary["character_replay_rows"] != 104:
+    if summary["character_replay_rows"] != total_rows:
         raise ValueError("Summary character replay count differs")
     report = (screen_root / "report.md").read_text(encoding="utf-8")
     required_report_text = (

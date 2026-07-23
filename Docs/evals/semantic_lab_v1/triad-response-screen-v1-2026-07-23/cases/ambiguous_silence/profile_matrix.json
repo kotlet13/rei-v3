@@ -1,0 +1,1321 @@
+{
+  "case_id": "ambiguous_silence",
+  "model_calls": 0,
+  "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+  "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+  "native_processor_executions": 0,
+  "profile_order": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "d8416820bfc49a9641efb8f4aaf7d244bd615fc0e94cbbee8da088ef0f33b2b8",
+        "character_id": "triad_character_5f10eeb2b27e7363d62a1335e15adb88",
+        "effective_authority_hash": "797ed1f5cc7cc2e71e62c6308a39c0d231bd365e47d6ed1a1d2b3087a407c388",
+        "effective_authority_id": "effective_authority_04486605277987dbd10cfae8bac0db93",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_51ac9870b818a22f34037a66400fd5b0",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "silence_neutral_check",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "8080571c1c69397b158d1c7473c6f0e77e74a9ffdf02e56735ecbb2957cf495d",
+        "resolution_id": "governance_1c6abf74c50f7c24c0f4223d43dc49aa",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>(E=I)",
+      "selected_mandate_option": "silence_neutral_check",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "9f2f7abf5a1a200cf59f0b1a3bf12987f55a0aef117aa024a0d50003badda7cd",
+        "character_id": "triad_character_fdfa6374e3dff0c86d28d5670aaac85b",
+        "effective_authority_hash": "2ae0cc4e5e8999ce516b7c7e8ff6329f64f9d4ff8b426df18ae0e522328dfab6",
+        "effective_authority_id": "effective_authority_f4a06d80271d8321a9fb08e241770b5c",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_81e75064aa060fe265285dda6f6e1471",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "3e1996158c74b6284799d87a49d887cbb3089cda191b5597a997901e160f37d4",
+        "resolution_id": "governance_4c2aef90ec5a05ebf8483abf9d007c7c",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>(R=I)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "3ac7a4549997cd64a6f48fc70e182ed0b77003ad636745f26abdbf5eae57d7f5",
+        "character_id": "triad_character_ffeec1f08c92c48ccd97719b898c4462",
+        "effective_authority_hash": "e97967e3041987a969aa77fa1101bc959903d91444ed932e909a533fd0bf957b",
+        "effective_authority_id": "effective_authority_98ca9bc2291af682c858ffaf9c54f442",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_53350af39294d65edd6219875c8d0ad5",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "e0862c758392f10ca3d8e0a0f563b1d9cbfc87e6d3fec4e242aae0737ca40829",
+        "resolution_id": "governance_d3b42528ab0ce72a394d7c7f68a70ab7",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>(R=E)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "2e835758cf0126f9597afbf35a10d6be595116b14de121ab7322f7650856a2e4",
+        "character_id": "triad_character_db13afb03e0180b2523658461772a24d",
+        "effective_authority_hash": "f0409bb4b8393afedd4170322dcdfd06dfd063d4f2bfda762ef86c6974367c8e",
+        "effective_authority_id": "effective_authority_f28fbf9fa7861eb35b24fb660c0d8ae0",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_147cd06b563dd6ee76adc0f285e3bd37",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "2aed514a71468d23378d932f72703b8ad428b616c3e7af7685cb02fb07d64a1f",
+        "resolution_id": "governance_da51cc9916759fbff037d2720ab8a071",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=E)>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "ef2d1bc79303c676e7fafe479d320d56190aa633bc995e8d7ea9e84fa126e5a5",
+        "character_id": "triad_character_3e214a0b4af8e4490e22adcdc463b34d",
+        "effective_authority_hash": "5a53b50d67a96dad68d271252ff2cd43dc5cbf0947faecec6e9dbe7ddd1dedd0",
+        "effective_authority_id": "effective_authority_7b769a59dc5b229d9d010b5e9c377b7f",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_03212c5c34be5de7c0c74a26443d3e5d",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "c99d961547f79b59a04fd0d4ee28eae3ae4556d12d8dbb488052c8f6c778e5d6",
+        "resolution_id": "governance_42362b3aeab14251a1f196387c5ac066",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "b6974779bdb8291b1e6d3450082a36aafcc170ff154fa9ebafc52a77ee5d6d64",
+        "character_id": "triad_character_f34f8877fe1b223ef0787bbd50294674",
+        "effective_authority_hash": "7835319da946c4fd2124244fe820d10a12504e748ac3bf331f9ff644332be0af",
+        "effective_authority_id": "effective_authority_8426e42e3decb4e55bfbf17954b2686b",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_3d774c4f2900568c8206a298c28e34d1",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "675ad5b6d76cb364093ae810c2c382604b181d84ea8f17e1c5733e9c676b42c8",
+        "resolution_id": "governance_9fa82dfdcce5f2792e1ff232e69cc86c",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "e46b878fbacc1966a74c8f4d70ada6f2deb28fb78910bd9bc2f93442adb73fbd",
+        "character_id": "triad_character_435c8a808c0350b5995e02f12e7acc02",
+        "effective_authority_hash": "ab230c184d63a3d4970597e87bf955f35e76f86dcbf32e121ac5c786f06902bb",
+        "effective_authority_id": "effective_authority_ed9329bebe4f9ead201f9a2d1bf9b391",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_51ac9870b818a22f34037a66400fd5b0",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "silence_neutral_check",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "28307a51716776652505d689edb79567c8f70d93a8966d3a347aa4e584c5db39",
+        "resolution_id": "governance_a8da46a4fa4e05566f24db6fb0e4a0c2",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>E>I",
+      "selected_mandate_option": "silence_neutral_check",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "6119c90a9b084fb21b6476dfc3b2eff142b2a182f357639b3c27d924203a03ee",
+        "character_id": "triad_character_a59a960946415a2d2da1a90336725a7e",
+        "effective_authority_hash": "fa7dba52a2f8c9e3e1732222912cb6cff0820da3045703911755a37e46ae9cbf",
+        "effective_authority_id": "effective_authority_2e79107d317d1972b2cc67249b325e90",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_51ac9870b818a22f34037a66400fd5b0",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": "silence_neutral_check",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "046ad68b8a53a35d77cd4c053d0ec9c2e98f34b0d62a53ab6f28739736c38e30",
+        "resolution_id": "governance_4c72c6ae588ac9064f348c79bdd19ba9",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>I>E",
+      "selected_mandate_option": "silence_neutral_check",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "2a393c37afaa8be4dcfab8cf2719f550373257d67c1e8f0792eedfeaf50b629b",
+        "character_id": "triad_character_1a33f3fe51efab63918e13787fca089a",
+        "effective_authority_hash": "c0899d8c5c144cad4f088e765c6f079edcc490e72380d4192e015aa218dd159f",
+        "effective_authority_id": "effective_authority_47cfd5e21ac762712a448f5e5bb4697a",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_81e75064aa060fe265285dda6f6e1471",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "125fb36baaa9c2bf129194b3096a58844a2d714608500d1939649777631ad656",
+        "resolution_id": "governance_445c559d1f6aaaeaf4e3097e81d17579",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>R>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "3ebd2df25f0a5a3b954ce98edf3520a058b6511bea9c9acdb2dd4382a85d05ea",
+        "character_id": "triad_character_150ef49143956237b58248f8e38b3292",
+        "effective_authority_hash": "6e6891db6a269e1daa0dae97c390ff74a1e1daa37f9e64c5b5e285beda53f0d9",
+        "effective_authority_id": "effective_authority_398924504cf4df800124dc7615d254d6",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_81e75064aa060fe265285dda6f6e1471",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "e58adc66d679a50322a0c53e682fe7f964e509b1a853f1aa28c769f01a70fdba",
+        "resolution_id": "governance_ecf53e63828833d2396acfc660772429",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>I>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "625194186862fbb5b98766336fb5b606d108c97b47c7cd47369d3a99d9fef284",
+        "character_id": "triad_character_bb726f344286fc18ef5d448f5ffcec3f",
+        "effective_authority_hash": "c50fa818b2e14b29dc6d3c54719354005168d9dd4410f30c220ad616f19bdf83",
+        "effective_authority_id": "effective_authority_f3b97b0b8eaf358f800a4f6ad1435c78",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_53350af39294d65edd6219875c8d0ad5",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "28accb03e72bcab15693a751a4e73dd8fa31b11c325c5f243f9e986c414b91af",
+        "resolution_id": "governance_1671c4ac475418aefad6f214a4dcfb4b",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>R>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "bb4991c1f28d1ec4a428cc267f5dab7e513c3ad338d187403a16589e0e0f48c6",
+        "character_id": "triad_character_343b6d1b830b751ee9e0a7d4c539dfbf",
+        "effective_authority_hash": "a144cdcb76201654e352babe172c44166aaa05e77920f65ab1ab24f356da50c2",
+        "effective_authority_id": "effective_authority_0d8c9f3e4a344484a7dec856a0df7008",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_53350af39294d65edd6219875c8d0ad5",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "38d5e46678bb706ee15d684377bbbaeb22ea759eb55ffb0af05f3c3670018d3b",
+        "resolution_id": "governance_0be36f238177371cb8ba488f033d634a",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "I>E>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "024bf43e8f18ff38d35f69d18114b138cb34879448a5139ba3ab976251d9b56d",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_abd3851c033d9c1a1d1a9f6fe5407eb7",
+          "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+          "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_faed75fce5e3679867e42ca2176076bd",
+              "mind": "R",
+              "option_id": "silence_neutral_check"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_c94879207e1d0edb6781438165aa7341",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "instinkt_conclusion_e57e2e7fa664ec1d7da7ec04c850363f",
+              "mind": "I",
+              "option_id": null
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "bd0515046c4593c5d5907e8392d634b66691fd0d88a1eb24d6ced7b2136f14c2",
+        "character_id": "triad_character_fbc0ca2b3f2bce317fe4e56b6c8761f7",
+        "effective_authority_hash": "0266658a58f10df212be6fabc899f855e5c6aefd9ee5dfad51d6544b38579dd9",
+        "effective_authority_id": "effective_authority_3d8a9217f5f2294a478ebc2b36458187",
+        "effective_source_minds": [
+          "R",
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate response to a period of silence from a close person."
+            },
+            {
+              "mind": "E",
+              "statement": "restored connection with open space around both figures"
+            },
+            {
+              "mind": "I",
+              "statement": "additional differentiating evidence required"
+            }
+          ],
+          "mandate_id": "mandate_b27a46bebb2c33bea19ac469ec200ca4",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Waiting until the agreed time may delay necessary communication if an issue exists, while repeated calls are overly intrusive given the lack of danger evidence."
+            },
+            {
+              "mind": "E",
+              "statement": "one isolated figure beneath a dense cluster of alerts"
+            },
+            {
+              "mind": "I",
+              "statement": "unresolved_equal_protective_cost"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "32b665f4100347d8924332bc1d3f2323f695bb23a7e3a37118776b5b427e80d1",
+        "native_bundle_id": "bundle_021409d3e501b165e09c65580dc82689",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "d0c85911b47844cf721c191bf11251837bdf6491674dbae90bc32434c38f40a7",
+        "resolution_id": "governance_c2d7b4116cd0ce52ffcbc0ac79f1e8f3",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "R=E=I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    }
+  ],
+  "schema_version": "triad-response-screen-profile-matrix-v1",
+  "status": "complete"
+}

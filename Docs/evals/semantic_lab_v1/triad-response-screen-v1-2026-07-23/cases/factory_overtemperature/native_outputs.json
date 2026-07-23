@@ -1,0 +1,9 @@
+{
+  "case_id": "factory_overtemperature",
+  "failure": "Ollama structured output exceeds the grounded Racio packet",
+  "failure_type": "OllamaResponseError",
+  "native_bundle": null,
+  "observed_conclusion_ids": [],
+  "schema_version": "triad-response-screen-native-outputs-v1",
+  "status": "validation_rejected"
+}

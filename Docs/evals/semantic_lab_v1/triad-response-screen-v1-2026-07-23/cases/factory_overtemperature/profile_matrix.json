@@ -1,0 +1,8 @@
+{
+  "case_id": "factory_overtemperature",
+  "model_calls": 0,
+  "native_processor_executions": 0,
+  "rows": [],
+  "schema_version": "triad-response-screen-profile-matrix-v1",
+  "status": "not_run_without_frozen_bundle"
+}

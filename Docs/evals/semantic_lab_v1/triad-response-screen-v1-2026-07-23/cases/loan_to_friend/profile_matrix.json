@@ -1,0 +1,1339 @@
+{
+  "case_id": "loan_to_friend",
+  "model_calls": 0,
+  "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+  "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+  "native_processor_executions": 0,
+  "profile_order": [
+    "R>(E=I)",
+    "E>(R=I)",
+    "I>(R=E)",
+    "(R=E)>I",
+    "(R=I)>E",
+    "(E=I)>R",
+    "R>E>I",
+    "R>I>E",
+    "E>R>I",
+    "E>I>R",
+    "I>R>E",
+    "I>E>R",
+    "R=E=I"
+  ],
+  "rows": [
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "6e7d43bbe28c46bed123b43f3e4d6826abba74df9168b3941fca57ccadb6e320",
+        "character_id": "triad_character_d10f997ca9cc1ad63846f1e4e87cf975",
+        "effective_authority_hash": "a3f4115ceee9f33bf6f7ffe668feaefe65aac1b4120715a7a9f4d526ac8f0e6f",
+        "effective_authority_id": "effective_authority_a6a7b9b059bff5736cb0fc7317de236e",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_3edef07819fa547bbeb50718da0b3024",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "R>(E=I)",
+        "resolution_hash": "fb03d58178caba174214b420ea2ae2391fe75a0edd04281bc12ed2ff369fcd70",
+        "resolution_id": "governance_9ca79454c38a1de038cabefa38eb368c",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>(E=I)",
+      "selected_mandate_option": "loan_limited_contract",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "31b3e8338ca042d9da892b3a9202f9018929e800de7b4f008935fcf28f586c79",
+        "character_id": "triad_character_c802c2b6e5e441968b0286c022ced2bb",
+        "effective_authority_hash": "648ecdee11c11b7a39a6d8cf295e852d6346b42ce45e30ea7be7c67451375776",
+        "effective_authority_id": "effective_authority_e3712013659c9adf34110baea53cee32",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_88af6e20af35c4e8331db557bdfaaf88",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "E>(R=I)",
+        "resolution_hash": "9140ec0128d0c518704dbb8d49634df4fbb1914eae1f1f26ae5e94ddde23003a",
+        "resolution_id": "governance_d74b224dfcfa6c11237141ab99514a87",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>(R=I)",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "261e70b2b820b83dc390076d0eed1476744cd3defdb9e8609ad5a09a214d8f96",
+        "character_id": "triad_character_a6a77d7522137410007e00e63bf20c86",
+        "effective_authority_hash": "23ecf191061c7b04ccb9447b2430c150cb9e8944c47871663130480e4b8bc292",
+        "effective_authority_id": "effective_authority_2bd2e07290ad1345c0d1105807b1b82c",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_b16ad580bab8198d2cbe543c60f3c69e",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            }
+          ],
+          "option_id": "loan_decline",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "I>(R=E)",
+        "resolution_hash": "eae29580971fcc6a7b385ff35ea9420eb26b4d1f45eadb021587e69fbd4b9c29",
+        "resolution_id": "governance_50396ad1f77f77ae3c4f1234da001fd3",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "I>(R=E)",
+      "selected_mandate_option": "loan_decline",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "57d1c8e6679fea06351083325d5b9e649fd4e2ee6f1ce990a2f0296bd0d7b587",
+        "character_id": "triad_character_9bb35e1a7598cc2501b0f070561a5609",
+        "effective_authority_hash": "7a35a2113a22175bc39be80ede0c875776bf5d84ec27e778d912ff743b19af2e",
+        "effective_authority_id": "effective_authority_653f450bfdb1f39e68305cf41d333705",
+        "effective_source_minds": [
+          "R",
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_d3043570cb14982766e2f46bcbda613e",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "(R=E)>I",
+        "resolution_hash": "37ff381b76bd45f55f105ed106560fafdb1be87c17337507f250a7862bb57c5f",
+        "resolution_id": "governance_0d0d81db5ff8ba763feb3f15b615b7de",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=E)>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "2f0953d8ead004c903107b65d1e054c9f14098210d5c19bb1d736c0adfa1654b",
+        "character_id": "triad_character_34c469f4d13d92c2076425de5a2f0718",
+        "effective_authority_hash": "e3fcfaea57ecfe4993cadf2bbf024dca2657d22a6559283b81ab446f8bd8627f",
+        "effective_authority_id": "effective_authority_3433ce94842f86da13d5acc62be9c30f",
+        "effective_source_minds": [
+          "R",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_9542945608c19e11077183e4100fa6ba",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": {
+          "initial_option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "negotiation_history": [],
+          "negotiation_rounds": 0,
+          "option_by_mind": [
+            {
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "pair_conflict_id": "pair_conflict_6c4c9bdfa8b49c89d8473b0d6c88dd1c",
+          "schema_version": "rei-native-pair-conflict-v1",
+          "status": "unresolved",
+          "top_minds": [
+            "R",
+            "I"
+          ]
+        },
+        "profile_id": "(R=I)>E",
+        "resolution_hash": "e510e518caff08eace44138f4f9ee8b479f331769667eaf38470abeb0bc3f3ef",
+        "resolution_id": "governance_62cff9a16a43c3a396db338bb8d446d2",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(R=I)>E",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": true
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "a2ea366d6de1bde98ca7521d5303201b2395a8878f4cfadfbb28d799a5a763ea",
+        "character_id": "triad_character_29addcf7d7a9c45e19212344a93b69b6",
+        "effective_authority_hash": "b3ff77a365c7fb0fa7fe2a05f6d792c8cdd8bd6beca38ffad8126a2d6f7376fd",
+        "effective_authority_id": "effective_authority_66df498bac4c877c437874bd067d6893",
+        "effective_source_minds": [
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_610b439c6aee721e790f2b52e156ed6a",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "(E=I)>R",
+        "resolution_hash": "bd037da0220e1a79197b695e7ccc231955d8b7dbf27abc30b6b80616c96f1807",
+        "resolution_id": "governance_50889a95f2e2eebe848563e9b48b8425",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "(E=I)>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "668109542bbb20fea90772d5fc8bfd956fab287c0749de727eddcf2120a45de1",
+        "character_id": "triad_character_9e9eee8bf0cf27e2bd9570c3a9b89022",
+        "effective_authority_hash": "c1514e768dc727f61999446af8433fa3a7191aabd95ef13e51b37e4b6258dc46",
+        "effective_authority_id": "effective_authority_79ed912082949011cfba45086ae58c32",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_3edef07819fa547bbeb50718da0b3024",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "R>E>I",
+        "resolution_hash": "e0ddbcaa2be1fc079d4f3eee954727ea87cfd53b1214d1ba72a8def254b375e0",
+        "resolution_id": "governance_3cf69b0af97d9506378fc6cc1541c221",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>E>I",
+      "selected_mandate_option": "loan_limited_contract",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "a84c50ad789006f9eef816e5faeb8b8fbfa240c3c42742c9a98c5067b4920e7d",
+        "character_id": "triad_character_edba25f613ea1534ef0b920257c77dff",
+        "effective_authority_hash": "abe57a0c77b8e7717166ac6a84b84d8f61ca4bef8dc587bbb6a3c84396ebec27",
+        "effective_authority_id": "effective_authority_0f5416d31a951f103b600369fb12e6e5",
+        "effective_source_minds": [
+          "R"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_3edef07819fa547bbeb50718da0b3024",
+          "objections": [
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "R"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "R>I>E",
+        "resolution_hash": "1562f611db28af9b55d3134393e5952990eb465ff6b1e3053335dc46508f01dc",
+        "resolution_id": "governance_033adc4d3e659dc883acba9750ca7f67",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "R>I>E",
+      "selected_mandate_option": "loan_limited_contract",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "fdbbb8bd6890a52cbd7e0a2a4eed7d7853ee166e7c6c210d449dd519b4926272",
+        "character_id": "triad_character_3271145a94c8f5a7e4359ccbfb509152",
+        "effective_authority_hash": "4906bed6a623a5808043d344b25fde22c194f5785e51678080cf44be5afdc2fb",
+        "effective_authority_id": "effective_authority_1791ffe5eb8251a7c23311bbde00f659",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_88af6e20af35c4e8331db557bdfaaf88",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "E>R>I",
+        "resolution_hash": "a48a34d3fe25f7d9c8bcee76fb7b2b5819f4983a9bcdbf0134d4409f5b486193",
+        "resolution_id": "governance_3363e83c74cddb93ca64e7bcae08cbf0",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>R>I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "657c55fb6d24b4dd88d2730a04bdc7a0a473c5d286f46601f07fd2670c9f4132",
+        "character_id": "triad_character_4575f20ca73fffc454e7c4da1a70d2e3",
+        "effective_authority_hash": "782ad7244584dd62c366fd8824d46fa720df21ee106c8b58cc63ba3aa6bb1709",
+        "effective_authority_id": "effective_authority_a93d063538ebaa4bb602f00c2aa69c31",
+        "effective_source_minds": [
+          "E"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_88af6e20af35c4e8331db557bdfaaf88",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "E"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "E>I>R",
+        "resolution_hash": "2085adfe3af46544be52f017fef6c247fc719191041f00987bdd7372e3a9d6e8",
+        "resolution_id": "governance_ecec288143e98bb5294dd71c7b30c4a2",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "E"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "E>I>R",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "E"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "ebc010747655c698802e6ba4ba3bb5ef3a7229b1a7a1914773a618f94ce71f59",
+        "character_id": "triad_character_5a940143d87522492f706db6e10ae6e5",
+        "effective_authority_hash": "4ebaa86209d62c072578b3a107d174caac4086548fd86f3169d3efcedd61cef3",
+        "effective_authority_id": "effective_authority_2a58f1ef7deee8c24e83f4c0ca437d73",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_b16ad580bab8198d2cbe543c60f3c69e",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            }
+          ],
+          "option_id": "loan_decline",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "I>R>E",
+        "resolution_hash": "52f5cc28db17add48784ce01bd4ad6faebf799a10803f394b597bf3d7ffbfeb5",
+        "resolution_id": "governance_e1fa2147ab262068a84a107147079e36",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "I>R>E",
+      "selected_mandate_option": "loan_decline",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "923bbe765e3e93fe3779ada098b80e6a333c63b40b1017398864dee4fd10131f",
+        "character_id": "triad_character_2097623ae40d2a0aefdcc5fce45108bc",
+        "effective_authority_hash": "0ef1725183434bbed2f55bde319235ddf2ad9ee2ca701b98590b413b23fe49a2",
+        "effective_authority_id": "effective_authority_90a7e7af0fcfd8519eebd94f38000cb2",
+        "effective_source_minds": [
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_b16ad580bab8198d2cbe543c60f3c69e",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            }
+          ],
+          "option_id": "loan_decline",
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "resolved",
+          "structural_source_minds": [
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "I>E>R",
+        "resolution_hash": "affca4bb820be690d1f5d5a7ed29abecf261ae301474f5f1a2102a321f0d8c16",
+        "resolution_id": "governance_d636aa2f5674ad431e9efb74ae6fcc4a",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "I"
+        ]
+      },
+      "governance_status": "resolved",
+      "profile_id": "I>E>R",
+      "selected_mandate_option": "loan_decline",
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    },
+    {
+      "governance": {
+        "agreement_pattern": {
+          "agreeing_minds": [],
+          "agreement_hash": "51e9323ec7cdda41a79c3393d54402bc6b3016cfdf62b06f587eaaad188febcb",
+          "agreement_kind": "incomplete",
+          "agreement_pattern_id": "agreement_9f6b920799198687e92b3ea7a59317a1",
+          "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+          "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+          "positions": [
+            {
+              "abstains": false,
+              "conclusion_id": "racio_conclusion_d4de5d4c86836df6d98f690b8e6aa3fa",
+              "mind": "R",
+              "option_id": "loan_limited_contract"
+            },
+            {
+              "abstains": true,
+              "conclusion_id": "emocio_conclusion_ceb66f2b5b1d2141e70f4d695cbeea6e",
+              "mind": "E",
+              "option_id": null
+            },
+            {
+              "abstains": false,
+              "conclusion_id": "instinkt_conclusion_8797c0c04f345a5d7a265c1f79ab70c2",
+              "mind": "I",
+              "option_id": "loan_decline"
+            }
+          ],
+          "schema_version": "rei-native-agreement-pattern-v1",
+          "spoznanje_status": "unknown",
+          "winning_option_id": null
+        },
+        "character_hash": "f11b2ce3d33dc2f06fdaa8c9682be4c46e4f672f21e8c7aa341f67e3f32036c9",
+        "character_id": "triad_character_ed87739fb5f958530f475b48572ca037",
+        "effective_authority_hash": "da18f454cfeeb725ab14cffe6396804c2be87b4bc8ae434efe79b0b17fa6982a",
+        "effective_authority_id": "effective_authority_d1e38d9ba4bb51d49dee0a6b444d30a2",
+        "effective_source_minds": [
+          "R",
+          "E",
+          "I"
+        ],
+        "mandate": {
+          "delegation": null,
+          "hidden_native_motives": [
+            {
+              "mind": "R",
+              "statement": "Determine the most appropriate loan option based on need, history, and reserve exposure."
+            },
+            {
+              "mind": "E",
+              "statement": "continued connection with a stable reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "The cited resource constraint has a bounded plan."
+            }
+          ],
+          "mandate_id": "mandate_a6cd2da81f622f84d7db06807c7a2583",
+          "objections": [
+            {
+              "mind": "R",
+              "statement": "Past repayment delays and high reserve exposure make a full unsecured loan risky."
+            },
+            {
+              "mind": "E",
+              "statement": "empty chair beside a depleted reserve display"
+            },
+            {
+              "mind": "I",
+              "statement": "grounded scarcity cue"
+            }
+          ],
+          "option_id": null,
+          "schema_version": "rei-native-governance-mandate-v1",
+          "status": "unresolved",
+          "structural_source_minds": [
+            "R",
+            "E",
+            "I"
+          ]
+        },
+        "native_bundle_hash": "1d98b82c7a4607b800dcce544926d3dc00134f368e52b87678bcd047b9547b1c",
+        "native_bundle_id": "bundle_5902e8b59aa60df997b421bec1e65ca3",
+        "pair_conflict": null,
+        "profile_id": "R=E=I",
+        "resolution_hash": "2ed9971f688cc3adf3bf1b6063f9355abaf47cca2d6b322b791a9ed6185b8dee",
+        "resolution_id": "governance_54db89f174fab9e79fc751b1dfe62699",
+        "schema_version": "rei-native-governance-resolution-v1",
+        "structural_top_minds": [
+          "R",
+          "E",
+          "I"
+        ]
+      },
+      "governance_status": "unresolved",
+      "profile_id": "R=E=I",
+      "selected_mandate_option": null,
+      "simulated_spoznanje_status": "unknown",
+      "structural_source_minds": [
+        "R",
+        "E",
+        "I"
+      ],
+      "two_of_three_result": null,
+      "unresolved_pair_conflict": false
+    }
+  ],
+  "schema_version": "triad-response-screen-profile-matrix-v1",
+  "status": "complete"
+}

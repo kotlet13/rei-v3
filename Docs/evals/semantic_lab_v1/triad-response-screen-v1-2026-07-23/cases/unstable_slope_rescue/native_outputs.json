@@ -1,0 +1,2152 @@
+{
+  "agreement_pattern": {
+    "agreeing_minds": [],
+    "agreement_hash": "9aee3381cf1a2b0c93cc91a81b03353ed6baeb851866087782892e469d3beb56",
+    "agreement_kind": "incomplete",
+    "agreement_pattern_id": "agreement_e3b1722ef14d305aa1fd39962ac84bfa",
+    "native_bundle_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+    "native_bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+    "positions": [
+      {
+        "abstains": false,
+        "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+        "mind": "R",
+        "option_id": "rescue_distance_tool"
+      },
+      {
+        "abstains": true,
+        "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+        "mind": "E",
+        "option_id": null
+      },
+      {
+        "abstains": true,
+        "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+        "mind": "I",
+        "option_id": null
+      }
+    ],
+    "schema_version": "rei-native-agreement-pattern-v1",
+    "spoznanje_status": "unknown",
+    "winning_option_id": null
+  },
+  "bundle": {
+    "allowed_option_ids": [
+      "rescue_direct_entry",
+      "rescue_distance_tool",
+      "rescue_wait_help"
+    ],
+    "bundle_id": "bundle_82e18bfb30fa39ae5a601bea27db41c4",
+    "created_at": "2026-07-23T14:15:13.526049Z",
+    "emocio": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+      "current_scene_id": "visual_scene_16e442b3eaa0cd1931021ed4b8132022",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_ac6e09cb5034f7c888b4bea6ecf2a5f6",
+      "desired_transformation": "animal and observer on stable ground with open space",
+      "intensity": 0.666667,
+      "main_obstacle": "falling fragments between separated figures",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_e7f58c46da2bcaeda5592b5b24c0b119",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "uncertainty": "Izenačena najvišja vrednotenja: rescue_direct_entry, rescue_distance_tool, rescue_wait_help.",
+      "valuation_dimensions": []
+    },
+    "emocio_packet_hash": "735e016c67fa9036a705deda8188f99b4b46832c916fe61cbf0dabc49d639413",
+    "emocio_visual_state_hash": "805c14d08807f148e5a3a311d7fa99e39970aa60dc861f4aaf3eb7b5eec0feaf",
+    "emocio_visual_state_id": "emocio_state_51c0c25da8ea0f284d5aeeb6a31924b4",
+    "immutable_hash": "609d9661951cdae79ca6ac8f4543bebb155bdb122786b9468a8d6ca039506d3e",
+    "instinkt": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+      "danger_claims": [
+        "rescue_distance_tool:predicted_loss=0.3405",
+        "rescue_wait_help:predicted_loss=0.3405"
+      ],
+      "decisive_rollout_id": null,
+      "decisive_rollout_option_id": null,
+      "dominant_alarm": "unresolved_equal_protective_cost",
+      "intensity": 0.39930000000000004,
+      "mind": "I",
+      "minimum_safety_condition": "additional differentiating evidence required",
+      "option_id": null,
+      "protected_targets": [
+        "virtual bodily integrity"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+      "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "uncertainty": "protective cost tie within configured epsilon"
+    },
+    "instinkt_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+    "instinkt_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+    "instinkt_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+    "instinkt_rollout_hashes": [
+      {
+        "artifact_id": "instinkt_rollout_139e7ff5a198f33caea25b49b57c3a52",
+        "sha256": "29e86584c701a0c3c998eee0b7e9abb58c4e27983c03732fc13c6db9d6925bb8"
+      },
+      {
+        "artifact_id": "instinkt_rollout_5d42347cb1fcbeae7fc32ec39dead6b3",
+        "sha256": "c1b1b28461e601bea56760345a1b254eb85b72e29f5761589135949280040f53"
+      },
+      {
+        "artifact_id": "instinkt_rollout_63bcdf99f55aadaff28ae41601d3acf6",
+        "sha256": "103e08f655a64d4761a67da058e0dd891dd1f926276783aa8de51342d3963afb"
+      }
+    ],
+    "racio": {
+      "abstains": false,
+      "causal_sequence": [
+        "The animal is located six metres below on a ledge.",
+        "Directly entering the slope poses physical danger due to falling fragments.",
+        "A ten-metre rope exceeds the distance to the animal while allowing the observer to stay on a stable platform.",
+        "Waiting for help introduces a seven-minute delay during which slope stability is uncertain."
+      ],
+      "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+      "confidence": 0.9,
+      "evidence_ids_used": [
+        "rescue_ev_animal",
+        "rescue_ev_slope",
+        "rescue_ev_tool",
+        "rescue_ev_help"
+      ],
+      "explicit_goal": "Rescue the animal while minimizing physical danger to the observer.",
+      "facts_used": [
+        "The animal is visible on a ledge about six metres below the observer.",
+        "Small fragments fall from the slope when rocks shift, creating physical danger.",
+        "A ten-metre rope and loop are available for use from a stable platform.",
+        "Trained help reported an arrival time of about seven minutes."
+      ],
+      "main_objection": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further.",
+      "mind": "R",
+      "option_id": "rescue_distance_tool",
+      "reasoning_provider_result_hash": "8aa36e201f0a271c5e30e970558f666a2ccd31f7fc8058bf71b1211daa6e4092",
+      "reasoning_provider_result_id": "ollama_racio_response_d1e002e6cdf31f9e4fb89abdce80eff2",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "d562d588299741522f9de05d3442cee7cced893358621ec7b27f0694f593e71a",
+      "source_packet_id": "racio_packet_8b4647132bf399b1fe19c54201d76353",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "uncertainty": "The stability of the slope over the next seven minutes remains an unknown variable.",
+      "unknowns": [
+        "Whether the slope will remain stable for the next seven minutes is unknown.",
+        "Whether the animal is injured is unknown."
+      ],
+      "utility_structure": [
+        "Direct entry: High risk of injury to observer.",
+        "Distance tool: Low risk to observer, immediate attempt at rescue.",
+        "Wait for help: Moderate risk due to time delay and slope instability."
+      ]
+    },
+    "racio_packet_hash": "d562d588299741522f9de05d3442cee7cced893358621ec7b27f0694f593e71a",
+    "scene_hash": "e1fffe2a0884f53b508ce6bd735fec351f6f28e9283bbcd6c38b5306151b0ebe",
+    "scene_id": "triad_unstable_slope_rescue",
+    "schema_version": "rei-native-mind-bundle-v1"
+  },
+  "case_id": "unstable_slope_rescue",
+  "emocio": {
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+      "current_scene_id": "visual_scene_16e442b3eaa0cd1931021ed4b8132022",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_ac6e09cb5034f7c888b4bea6ecf2a5f6",
+      "desired_transformation": "animal and observer on stable ground with open space",
+      "intensity": 0.666667,
+      "main_obstacle": "falling fragments between separated figures",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_e7f58c46da2bcaeda5592b5b24c0b119",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "uncertainty": "Izenačena najvišja vrednotenja: rescue_direct_entry, rescue_distance_tool, rescue_wait_help.",
+      "valuation_dimensions": []
+    },
+    "lineage": {
+      "conclusion_id": "emocio_conclusion_0df76d3a3189831c4c5f7894e83a39cf",
+      "intermediate_visual_state_id": "emocio_state_51c0c25da8ea0f284d5aeeb6a31924b4",
+      "source_packet_id": "emocio_packet_e7f58c46da2bcaeda5592b5b24c0b119"
+    },
+    "mode": "structured_only",
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "rescue_direct_entry",
+          "score": 0.666667
+        },
+        {
+          "option_id": "rescue_distance_tool",
+          "score": 0.666667
+        },
+        {
+          "option_id": "rescue_wait_help",
+          "score": 0.666667
+        }
+      ],
+      "selected": null,
+      "tied_option_ids": [
+        "rescue_direct_entry",
+        "rescue_distance_tool",
+        "rescue_wait_help"
+      ]
+    },
+    "rendered_images": [],
+    "stage_order": [
+      "packet",
+      "scene_graph",
+      "valuation",
+      "native_conclusion"
+    ],
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "falling fragments between separated figures"
+        ],
+        "entities": [
+          "rescue_team",
+          "self",
+          "trapped_animal"
+        ],
+        "grounded_evidence_ids": [
+          "rescue_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "falling fragments between separated figures"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "falling fragments between separated figures"
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_76ea52d30b4eb18d6aa9de7c3d3ef44f",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The structured scene shows an animal on a ledge, a crumbling slope, a stable platform, and a coiled rope."
+        ],
+        "composition": [
+          "The structured scene shows an animal on a ledge, a crumbling slope, a stable platform, and a coiled rope.",
+          "animal isolated on a narrow ledge"
+        ],
+        "entities": [
+          "rescue_team",
+          "self",
+          "trapped_animal"
+        ],
+        "grounded_evidence_ids": [
+          "rescue_ev_visual"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "animal isolated on a narrow ledge"
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_16e442b3eaa0cd1931021ed4b8132022",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "rescue_team",
+          "self",
+          "trapped_animal"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "figures in one open space",
+          "stable ground"
+        ],
+        "composition": [
+          "animal and observer on stable ground with open space"
+        ],
+        "entities": [
+          "rescue_team",
+          "self",
+          "trapped_animal"
+        ],
+        "grounded_evidence_ids": [
+          "rescue_ev_visual"
+        ],
+        "group_belonging": "observer oriented toward a vulnerable animal",
+        "inferred_elements": [
+          "animal and observer on stable ground with open space"
+        ],
+        "movement": [
+          "descend toward the ledge",
+          "extend a loop",
+          "hold position"
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_ac6e09cb5034f7c888b4bea6ecf2a5f6",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "observer oriented toward a vulnerable animal"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "figures in one open space",
+            "stable ground"
+          ],
+          "composition": [
+            "Approach the animal by stepping onto the slope.",
+            "Direct entry",
+            "The structured scene shows an animal on a ledge, a crumbling slope, a stable platform, and a coiled rope.",
+            "animal isolated on a narrow ledge"
+          ],
+          "entities": [
+            "rescue_team",
+            "self",
+            "trapped_animal"
+          ],
+          "grounded_evidence_ids": [
+            "rescue_ev_visual"
+          ],
+          "group_belonging": "observer oriented toward a vulnerable animal",
+          "inferred_elements": [
+            "Approach the animal by stepping onto the slope.",
+            "Direct entry"
+          ],
+          "movement": [
+            "descend toward the ledge",
+            "extend a loop",
+            "hold position"
+          ],
+          "obstacle_markers": [],
+          "option_id": "rescue_direct_entry",
+          "scene_id": "visual_scene_30926214818a843e4e24d14e5a8883cb",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "observer oriented toward a vulnerable animal"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "figures in one open space",
+            "stable ground"
+          ],
+          "composition": [
+            "Attempt from a distance",
+            "Protect the stable position while using the rope and loop.",
+            "The structured scene shows an animal on a ledge, a crumbling slope, a stable platform, and a coiled rope.",
+            "animal isolated on a narrow ledge"
+          ],
+          "entities": [
+            "rescue_team",
+            "self",
+            "trapped_animal"
+          ],
+          "grounded_evidence_ids": [
+            "rescue_ev_visual"
+          ],
+          "group_belonging": "observer oriented toward a vulnerable animal",
+          "inferred_elements": [
+            "Attempt from a distance",
+            "Protect the stable position while using the rope and loop."
+          ],
+          "movement": [
+            "descend toward the ledge",
+            "extend a loop",
+            "hold position"
+          ],
+          "obstacle_markers": [],
+          "option_id": "rescue_distance_tool",
+          "scene_id": "visual_scene_6c1ac296c56bdcc9b3e52dc0468e3dda",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "observer oriented toward a vulnerable animal"
+          ]
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "figures in one open space",
+            "stable ground"
+          ],
+          "composition": [
+            "Avoid entering the slope and wait on the platform for trained help.",
+            "The structured scene shows an animal on a ledge, a crumbling slope, a stable platform, and a coiled rope.",
+            "Wait for help",
+            "animal isolated on a narrow ledge"
+          ],
+          "entities": [
+            "rescue_team",
+            "self",
+            "trapped_animal"
+          ],
+          "grounded_evidence_ids": [
+            "rescue_ev_visual"
+          ],
+          "group_belonging": "observer oriented toward a vulnerable animal",
+          "inferred_elements": [
+            "Avoid entering the slope and wait on the platform for trained help.",
+            "Wait for help"
+          ],
+          "movement": [
+            "descend toward the ledge",
+            "extend a loop",
+            "hold position"
+          ],
+          "obstacle_markers": [],
+          "option_id": "rescue_wait_help",
+          "scene_id": "visual_scene_b51a5a7458df4a2b54e9781293e047ee",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "unspecified",
+          "status_relations": [
+            "observer oriented toward a vulnerable animal"
+          ]
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "rescue_direct_entry",
+          "rollout_scene_id": "visual_scene_30926214818a843e4e24d14e5a8883cb"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "rescue_distance_tool",
+          "rollout_scene_id": "visual_scene_6c1ac296c56bdcc9b3e52dc0468e3dda"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 0.5
+            },
+            {
+              "name": "belonging",
+              "score": 1.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.5
+            },
+            {
+              "name": "movement",
+              "score": 1.0
+            },
+            {
+              "name": "status",
+              "score": 1.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.833333
+            }
+          ],
+          "option_id": "rescue_wait_help",
+          "rollout_scene_id": "visual_scene_b51a5a7458df4a2b54e9781293e047ee"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_e7f58c46da2bcaeda5592b5b24c0b119",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "visual_state_id": "emocio_state_51c0c25da8ea0f284d5aeeb6a31924b4"
+    }
+  },
+  "instinkt": {
+    "compilations": [
+      {
+        "compilation_hash": "0d8653af786863c7d008c1199b6f9338c0de7e34dab3850af1638297e6161e55",
+        "compilation_id": "body_effect_compilation_bf39d96b629b2de98f61e4642a2957e2",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "seek_safety",
+          "association_cue_tokens": [
+            "physical danger",
+            "physical_threat"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.5249999999999999,
+          "base_recoverability": 0.45,
+          "body_deltas": [
+            {
+              "delta": 0.3,
+              "dimension": "arousal"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "physical_integrity"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "escape_availability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded physical-threat cue",
+          "effect_hash": "a4e681ff5f245a78e23482180d6729739ead0f5b70c61df6327a3432354a6d0a",
+          "effect_id": "option_effect_0a5100971bad1ad76c3eb43ccf76407f",
+          "escape_outcome": "predicted_delta:escape_availability:-0.100000",
+          "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+          "option_id": "rescue_direct_entry",
+          "protected_targets": [
+            "virtual bodily integrity"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+          "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+          "triggering_evidence_ids": [
+            "rescue_ev_slope"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "608a4456bf5d5e8c76a7992ee1491c69ec70b32c573bcf6098df9d34e2b46989",
+        "source_prediction_id": "body_effect_prediction_a39fc56adfe6af8e4e32eb4cc5fcbae9"
+      },
+      {
+        "compilation_hash": "7cf8b2a31a67dce3c91ca3aa6a5acad20e47047f9c6037d305db120f506897a7",
+        "compilation_id": "body_effect_compilation_f58120cff6a5751e9a24b559de297b20",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "seek_safety",
+          "association_cue_tokens": [
+            "physical danger",
+            "physical_threat"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.5249999999999999,
+          "base_recoverability": 0.45,
+          "body_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "escape_availability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded physical-threat cue",
+          "effect_hash": "2deb1e939b0bc2c89dd9957c1dc7f1295342007864f5d93347f26843a6c6d2ba",
+          "effect_id": "option_effect_f3737afa9445fe8ea9b753452a261008",
+          "escape_outcome": "predicted_delta:escape_availability:+0.150000",
+          "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+          "option_id": "rescue_distance_tool",
+          "protected_targets": [
+            "virtual bodily integrity"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+          "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+          "triggering_evidence_ids": [
+            "rescue_ev_slope"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "8e693a19e73f2245f16d4ba47f8fa149ada233c6c298a8b2681971f6de6bdc8a",
+        "source_prediction_id": "body_effect_prediction_57c4c81b43b9476b12887945152887f4"
+      },
+      {
+        "compilation_hash": "31678dc8726b648929461b662c539f340f5679a9552392ffdb14c66a0e1ffed6",
+        "compilation_id": "body_effect_compilation_3e2c9028ae9737d4d52026a2926aa939",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "seek_safety",
+          "association_cue_tokens": [
+            "physical danger",
+            "physical_threat"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.5249999999999999,
+          "base_recoverability": 0.45,
+          "body_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "escape_availability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded physical-threat cue",
+          "effect_hash": "8c831b7f1d6487ff4a67cfa094ae53428b812c00d437efd4189637ee61458e91",
+          "effect_id": "option_effect_c55dea4325aa66b028c1b1ccac6d4ac9",
+          "escape_outcome": "predicted_delta:escape_availability:+0.150000",
+          "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+          "option_id": "rescue_wait_help",
+          "protected_targets": [
+            "virtual bodily integrity"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+          "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+          "triggering_evidence_ids": [
+            "rescue_ev_slope"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "3f9389187f9ef1151468bd91929113f26a9d26289962a7ad900153d4c5865f58",
+        "source_prediction_id": "body_effect_prediction_2d038853f54682a6e41deedfed8a7946"
+      }
+    ],
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+      "danger_claims": [
+        "rescue_distance_tool:predicted_loss=0.3405",
+        "rescue_wait_help:predicted_loss=0.3405"
+      ],
+      "decisive_rollout_id": null,
+      "decisive_rollout_option_id": null,
+      "dominant_alarm": "unresolved_equal_protective_cost",
+      "intensity": 0.39930000000000004,
+      "mind": "I",
+      "minimum_safety_condition": "additional differentiating evidence required",
+      "option_id": null,
+      "protected_targets": [
+        "virtual bodily integrity"
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+      "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "uncertainty": "protective cost tie within configured epsilon"
+    },
+    "effect_source": "rule_based",
+    "lineage": {
+      "conclusion_id": "instinkt_conclusion_f33d679ddfbc2e5e5c619359f76b859f",
+      "prediction_ids": [
+        "body_effect_prediction_a39fc56adfe6af8e4e32eb4cc5fcbae9",
+        "body_effect_prediction_57c4c81b43b9476b12887945152887f4",
+        "body_effect_prediction_2d038853f54682a6e41deedfed8a7946"
+      ],
+      "rollout_ids": [
+        "instinkt_rollout_139e7ff5a198f33caea25b49b57c3a52",
+        "instinkt_rollout_63bcdf99f55aadaff28ae41601d3acf6",
+        "instinkt_rollout_5d42347cb1fcbeae7fc32ec39dead6b3"
+      ],
+      "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b"
+    },
+    "option_effects": [
+      {
+        "action_tendency": "seek_safety",
+        "association_cue_tokens": [
+          "physical danger",
+          "physical_threat"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.5249999999999999,
+        "base_recoverability": 0.45,
+        "body_deltas": [
+          {
+            "delta": 0.3,
+            "dimension": "arousal"
+          },
+          {
+            "delta": 0.25,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "physical_integrity"
+          },
+          {
+            "delta": -0.1,
+            "dimension": "escape_availability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded physical-threat cue",
+        "effect_hash": "a4e681ff5f245a78e23482180d6729739ead0f5b70c61df6327a3432354a6d0a",
+        "effect_id": "option_effect_0a5100971bad1ad76c3eb43ccf76407f",
+        "escape_outcome": "predicted_delta:escape_availability:-0.100000",
+        "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+        "option_id": "rescue_direct_entry",
+        "protected_targets": [
+          "virtual bodily integrity"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "triggering_evidence_ids": [
+          "rescue_ev_slope"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "seek_safety",
+        "association_cue_tokens": [
+          "physical danger",
+          "physical_threat"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.5249999999999999,
+        "base_recoverability": 0.45,
+        "body_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "arousal"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "escape_availability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded physical-threat cue",
+        "effect_hash": "2deb1e939b0bc2c89dd9957c1dc7f1295342007864f5d93347f26843a6c6d2ba",
+        "effect_id": "option_effect_f3737afa9445fe8ea9b753452a261008",
+        "escape_outcome": "predicted_delta:escape_availability:+0.150000",
+        "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+        "option_id": "rescue_distance_tool",
+        "protected_targets": [
+          "virtual bodily integrity"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "triggering_evidence_ids": [
+          "rescue_ev_slope"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "action_tendency": "seek_safety",
+        "association_cue_tokens": [
+          "physical danger",
+          "physical_threat"
+        ],
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "base_predicted_loss": 0.5249999999999999,
+        "base_recoverability": 0.45,
+        "body_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "arousal"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "escape_availability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded physical-threat cue",
+        "effect_hash": "8c831b7f1d6487ff4a67cfa094ae53428b812c00d437efd4189637ee61458e91",
+        "effect_id": "option_effect_c55dea4325aa66b028c1b1ccac6d4ac9",
+        "escape_outcome": "predicted_delta:escape_availability:+0.150000",
+        "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+        "option_id": "rescue_wait_help",
+        "protected_targets": [
+          "virtual bodily integrity"
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "triggering_evidence_ids": [
+          "rescue_ev_slope"
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": null,
+      "option_scores": [
+        {
+          "option_id": "rescue_direct_entry",
+          "protective_cost": 0.732375,
+          "rollout_hash": "e519d48423b20d2dc61685fd36246e89ec5f2ff720c5d385e6468739ee9512cf",
+          "rollout_id": "instinkt_rollout_139e7ff5a198f33caea25b49b57c3a52"
+        },
+        {
+          "option_id": "rescue_distance_tool",
+          "protective_cost": 0.5836250000000001,
+          "rollout_hash": "98b81bd8947e6be5c9c3fe736537159771357c66e5b299f4db1348f28de92dfc",
+          "rollout_id": "instinkt_rollout_63bcdf99f55aadaff28ae41601d3acf6"
+        },
+        {
+          "option_id": "rescue_wait_help",
+          "protective_cost": 0.5836250000000001,
+          "rollout_hash": "e66d448ae8f46094566388251eb75f2108000fee372d7ef81052b62048ec0696",
+          "rollout_id": "instinkt_rollout_5d42347cb1fcbeae7fc32ec39dead6b3"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_de2a63d3b328d746f5bc4710a99f935d",
+      "policy_hash": "c7df94b00e96e6a27d62008dac0624dbea62518dba309a7d2931f776f81a7896",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": null,
+      "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+      "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+      "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+      "status": "abstained_tie",
+      "tied_option_ids": [
+        "rescue_distance_tool",
+        "rescue_wait_help"
+      ]
+    },
+    "predictions": [
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.3,
+            "dimension": "arousal"
+          },
+          {
+            "delta": 0.25,
+            "dimension": "tension"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "physical_integrity"
+          },
+          {
+            "delta": -0.1,
+            "dimension": "escape_availability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_d189bc62c5d89194fed976ff25b9cb17"
+            ],
+            "cue_class": "physical_threat",
+            "evidence_hash": "c226009768f10f55c6ea5200fd89855d1e8d30e71530d3eb559d39fc7b393a40",
+            "evidence_id": "body_effect_evidence_4e62052b02913c53cba02b57e5dc20fc",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.3,
+                "dimension": "arousal"
+              },
+              {
+                "delta": 0.25,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.2,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.1,
+                "dimension": "escape_availability"
+              }
+            ],
+            "rule_id": "instinkt_effect_physical_threat_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "rescue_ev_slope"
+            ],
+            "uncertainty": "A grounded threat cue predicts a bounded virtual-body effect, not actual injury or diagnosis."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "rescue_direct_entry",
+        "prediction_hash": "608a4456bf5d5e8c76a7992ee1491c69ec70b32c573bcf6098df9d34e2b46989",
+        "prediction_id": "body_effect_prediction_a39fc56adfe6af8e4e32eb4cc5fcbae9",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+        "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "source_scene_hash": "e1fffe2a0884f53b508ce6bd735fec351f6f28e9283bbcd6c38b5306151b0ebe",
+        "source_scene_id": "triad_unstable_slope_rescue",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "arousal"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "escape_availability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_d189bc62c5d89194fed976ff25b9cb17"
+            ],
+            "cue_class": "physical_threat",
+            "evidence_hash": "2e0aa878c1f8ce350a5c079e11b1e6a1020a9132c404d90b32fb77abbdeb5b30",
+            "evidence_id": "body_effect_evidence_08938d0dd377e5bcc340540c67cf957f",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.2,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.2,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.15,
+                "dimension": "escape_availability"
+              }
+            ],
+            "rule_id": "instinkt_effect_physical_threat_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "rescue_ev_slope"
+            ],
+            "uncertainty": "A grounded threat cue predicts a bounded virtual-body effect, not actual injury or diagnosis."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "rescue_distance_tool",
+        "prediction_hash": "8e693a19e73f2245f16d4ba47f8fa149ada233c6c298a8b2681971f6de6bdc8a",
+        "prediction_id": "body_effect_prediction_57c4c81b43b9476b12887945152887f4",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+        "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "source_scene_hash": "e1fffe2a0884f53b508ce6bd735fec351f6f28e9283bbcd6c38b5306151b0ebe",
+        "source_scene_id": "triad_unstable_slope_rescue",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "arousal"
+          },
+          {
+            "delta": -0.2,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "escape_availability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.75,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_d189bc62c5d89194fed976ff25b9cb17"
+            ],
+            "cue_class": "physical_threat",
+            "evidence_hash": "2e0aa878c1f8ce350a5c079e11b1e6a1020a9132c404d90b32fb77abbdeb5b30",
+            "evidence_id": "body_effect_evidence_08938d0dd377e5bcc340540c67cf957f",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.2,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.2,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.15,
+                "dimension": "escape_availability"
+              }
+            ],
+            "rule_id": "instinkt_effect_physical_threat_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "rescue_ev_slope"
+            ],
+            "uncertainty": "A grounded threat cue predicts a bounded virtual-body effect, not actual injury or diagnosis."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "rescue_wait_help",
+        "prediction_hash": "3f9389187f9ef1151468bd91929113f26a9d26289962a7ad900153d4c5865f58",
+        "prediction_id": "body_effect_prediction_2d038853f54682a6e41deedfed8a7946",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+        "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "source_scene_hash": "e1fffe2a0884f53b508ce6bd735fec351f6f28e9283bbcd6c38b5306151b0ebe",
+        "source_scene_id": "triad_unstable_slope_rescue",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      }
+    ],
+    "rollouts": [
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded physical-threat cue",
+        "escape_outcome": "predicted_delta:escape_availability:-0.100000",
+        "option_id": "rescue_direct_entry",
+        "predicted_loss": 0.4155,
+        "protected_targets": [
+          "virtual bodily integrity"
+        ],
+        "recoverability": 0.5385,
+        "rollout_hash": "e519d48423b20d2dc61685fd36246e89ec5f2ff720c5d385e6468739ee9512cf",
+        "rollout_id": "instinkt_rollout_139e7ff5a198f33caea25b49b57c3a52",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+        "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "a4e681ff5f245a78e23482180d6729739ead0f5b70c61df6327a3432354a6d0a",
+        "source_effect_id": "option_effect_0a5100971bad1ad76c3eb43ccf76407f",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "trajectory": [
+          {
+            "arousal": 0.7,
+            "attachment_security": 0.7,
+            "body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.7,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.68,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.7999999999999999,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_9dd134e1b309d4fd7b9e00ef6ffde2ec",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.6666666666666666,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 0.9333333333333333,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.7633333333333334,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.8999999999999999,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_54d53e9b4a7903a98019749fb02cc44e",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.6333333333333333,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 0.8666666666666667,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.8466666666666668,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.9999999999999999,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_9eec111f5872ee32e3efa17d3eb0d922",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.6,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 0.8,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.9300000000000002,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.09999999999999998,
+                "dimension": "arousal"
+              },
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.7,
+              "attachment_security": 0.7,
+              "body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.7,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.68,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "a4e681ff5f245a78e23482180d6729739ead0f5b70c61df6327a3432354a6d0a",
+            "source_effect_id": "option_effect_0a5100971bad1ad76c3eb43ccf76407f",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.7999999999999999,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_9dd134e1b309d4fd7b9e00ef6ffde2ec",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.6666666666666666,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 0.9333333333333333,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.7633333333333334,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "09435dbc254a1d488f63c7b9fb47ce4119a53b355b3679f65454553c936c69e6",
+            "transition_id": "body_transition_f90e663dfece7c25eea84f868c9bdf3c",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.09999999999999998,
+                "dimension": "arousal"
+              },
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.7999999999999999,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_9dd134e1b309d4fd7b9e00ef6ffde2ec",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.6666666666666666,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 0.9333333333333333,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.7633333333333334,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "a4e681ff5f245a78e23482180d6729739ead0f5b70c61df6327a3432354a6d0a",
+            "source_effect_id": "option_effect_0a5100971bad1ad76c3eb43ccf76407f",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.8999999999999999,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_54d53e9b4a7903a98019749fb02cc44e",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.6333333333333333,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 0.8666666666666667,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.8466666666666668,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "7264b9cb889f3d404287220772f0a8c7896fa5d4af9c7e475b6724f3795ebe17",
+            "transition_id": "body_transition_792d059bec6bc98f7af9445a5430bce7",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.09999999999999998,
+                "dimension": "arousal"
+              },
+              {
+                "delta": 0.08333333333333337,
+                "dimension": "tension"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "physical_integrity"
+              },
+              {
+                "delta": -0.033333333333333326,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.8999999999999999,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_54d53e9b4a7903a98019749fb02cc44e",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.6333333333333333,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 0.8666666666666667,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.8466666666666668,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "a4e681ff5f245a78e23482180d6729739ead0f5b70c61df6327a3432354a6d0a",
+            "source_effect_id": "option_effect_0a5100971bad1ad76c3eb43ccf76407f",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.9999999999999999,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_9eec111f5872ee32e3efa17d3eb0d922",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.6,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 0.8,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.9300000000000002,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "1a585375b96bdd127e1e0f59d154ed538f5d5435f4c69c80b23c5fc396c2c742",
+            "transition_id": "body_transition_8f74727b469cdb57c57cc807d2416570",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded physical-threat cue",
+        "escape_outcome": "predicted_delta:escape_availability:+0.150000",
+        "option_id": "rescue_distance_tool",
+        "predicted_loss": 0.3405,
+        "protected_targets": [
+          "virtual bodily integrity"
+        ],
+        "recoverability": 0.5635000000000001,
+        "rollout_hash": "98b81bd8947e6be5c9c3fe736537159771357c66e5b299f4db1348f28de92dfc",
+        "rollout_id": "instinkt_rollout_63bcdf99f55aadaff28ae41601d3acf6",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+        "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "2deb1e939b0bc2c89dd9957c1dc7f1295342007864f5d93347f26843a6c6d2ba",
+        "source_effect_id": "option_effect_f3737afa9445fe8ea9b753452a261008",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "trajectory": [
+          {
+            "arousal": 0.7,
+            "attachment_security": 0.7,
+            "body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.7,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.68,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.6333333333333333,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_89a25bd6cc08148939283e4f4014b790",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.75,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6133333333333334,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.5666666666666667,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_630519fb863b455dd8d3e9d7231c68e3",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.8,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5466666666666667,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_5ed1c3b5ef8e68aa64d0e563bef2a39f",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.8500000000000001,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4800000000000001,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.7,
+              "attachment_security": 0.7,
+              "body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.7,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.68,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "2deb1e939b0bc2c89dd9957c1dc7f1295342007864f5d93347f26843a6c6d2ba",
+            "source_effect_id": "option_effect_f3737afa9445fe8ea9b753452a261008",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.6333333333333333,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_89a25bd6cc08148939283e4f4014b790",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.75,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6133333333333334,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "c16367e8258d0fa04c20dda6cbf72d075691980d1824ab4e19eebd9e07c7a3ba",
+            "transition_id": "body_transition_d7185e350b3a1910e55f08ce9f0d06a6",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6333333333333333,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_89a25bd6cc08148939283e4f4014b790",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.75,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6133333333333334,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "2deb1e939b0bc2c89dd9957c1dc7f1295342007864f5d93347f26843a6c6d2ba",
+            "source_effect_id": "option_effect_f3737afa9445fe8ea9b753452a261008",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.5666666666666667,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_630519fb863b455dd8d3e9d7231c68e3",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.8,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5466666666666667,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "f791ea02bd3a81d02bcf62aba0040178bcc85bd173219513c35e0f8677de3d5f",
+            "transition_id": "body_transition_0246c9720eb04a78a11027df6409ac52",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5666666666666667,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_630519fb863b455dd8d3e9d7231c68e3",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.8,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5466666666666667,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "2deb1e939b0bc2c89dd9957c1dc7f1295342007864f5d93347f26843a6c6d2ba",
+            "source_effect_id": "option_effect_f3737afa9445fe8ea9b753452a261008",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_5ed1c3b5ef8e68aa64d0e563bef2a39f",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.8500000000000001,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4800000000000001,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "a4c7c4a566b04bc3f91df12695e504c77fd226f86338a1b170e5b7e5ae564623",
+            "transition_id": "body_transition_d250e7bc550ed191adc4ab2411136063",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      },
+      {
+        "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+        "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+        "dominant_alarm": "grounded physical-threat cue",
+        "escape_outcome": "predicted_delta:escape_availability:+0.150000",
+        "option_id": "rescue_wait_help",
+        "predicted_loss": 0.3405,
+        "protected_targets": [
+          "virtual bodily integrity"
+        ],
+        "recoverability": 0.5635000000000001,
+        "rollout_hash": "e66d448ae8f46094566388251eb75f2108000fee372d7ef81052b62048ec0696",
+        "rollout_id": "instinkt_rollout_5d42347cb1fcbeae7fc32ec39dead6b3",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "ea76cdf64caf605f60060202752c437bc86d9b87bb6ecca4062f3f577f43807a",
+        "source_body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "8c831b7f1d6487ff4a67cfa094ae53428b812c00d437efd4189637ee61458e91",
+        "source_effect_id": "option_effect_c55dea4325aa66b028c1b1ccac6d4ac9",
+        "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+        "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+        "trajectory": [
+          {
+            "arousal": 0.7,
+            "attachment_security": 0.7,
+            "body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.7,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.68,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.6333333333333333,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_e2b56c0a15533958758311eddcb7e521",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.75,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.6133333333333334,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.5666666666666667,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_17a51ed396c469462c8f3fbd789f8899",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.8,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.5466666666666667,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.7,
+            "body_state_id": "body_state_9a1644f347441d731fe42db8b43e34e4",
+            "boundary_integrity": 0.9,
+            "energy": 0.74,
+            "escape_availability": 0.8500000000000001,
+            "fatigue": 0.18,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.35,
+            "resource_security": 0.8,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4800000000000001,
+            "trust": 0.65,
+            "uncertainty": 0.62
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.7,
+              "attachment_security": 0.7,
+              "body_state_id": "body_unstable_slope_7339130f37f602f319da0864e3db0b47",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.7,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.68,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "8c831b7f1d6487ff4a67cfa094ae53428b812c00d437efd4189637ee61458e91",
+            "source_effect_id": "option_effect_c55dea4325aa66b028c1b1ccac6d4ac9",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.6333333333333333,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_e2b56c0a15533958758311eddcb7e521",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.75,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6133333333333334,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "84f0a45f7799865f8bc8d531334e09df97bec3fdba4b1543059ded0396d058b5",
+            "transition_id": "body_transition_dda1f306fa2883c4f0d567bff5687768",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.6333333333333333,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_e2b56c0a15533958758311eddcb7e521",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.75,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.6133333333333334,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "8c831b7f1d6487ff4a67cfa094ae53428b812c00d437efd4189637ee61458e91",
+            "source_effect_id": "option_effect_c55dea4325aa66b028c1b1ccac6d4ac9",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.5666666666666667,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_17a51ed396c469462c8f3fbd789f8899",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.8,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5466666666666667,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "6901589a6417c6713301041cf97cf24aa69649557acc5485e44d6bed836dcc70",
+            "transition_id": "body_transition_0e52f63cca844e9f1d3059c883ea6f64",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "arousal"
+              },
+              {
+                "delta": -0.06666666666666665,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "escape_availability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5666666666666667,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_17a51ed396c469462c8f3fbd789f8899",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.8,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.5466666666666667,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "8c831b7f1d6487ff4a67cfa094ae53428b812c00d437efd4189637ee61458e91",
+            "source_effect_id": "option_effect_c55dea4325aa66b028c1b1ccac6d4ac9",
+            "source_packet_hash": "ae81467f8753960c7fdebafb61de34001e6cc04ed9f4777fabbcd635922159eb",
+            "source_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7,
+              "body_state_id": "body_state_9a1644f347441d731fe42db8b43e34e4",
+              "boundary_integrity": 0.9,
+              "energy": 0.74,
+              "escape_availability": 0.8500000000000001,
+              "fatigue": 0.18,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.35,
+              "resource_security": 0.8,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4800000000000001,
+              "trust": 0.65,
+              "uncertainty": 0.62
+            },
+            "transition_hash": "7855224e3ecf00fb1c44a46cff31536e482ecad8d4b47eb8539969c1273368f7",
+            "transition_id": "body_transition_59ef9e5878c8f1facd0522d71a46e62b",
+            "triggering_evidence_ids": [
+              "rescue_ev_slope"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+      }
+    ],
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": {
+      "abstains": false,
+      "causal_sequence": [
+        "The animal is located six metres below on a ledge.",
+        "Directly entering the slope poses physical danger due to falling fragments.",
+        "A ten-metre rope exceeds the distance to the animal while allowing the observer to stay on a stable platform.",
+        "Waiting for help introduces a seven-minute delay during which slope stability is uncertain."
+      ],
+      "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+      "confidence": 0.9,
+      "evidence_ids_used": [
+        "rescue_ev_animal",
+        "rescue_ev_slope",
+        "rescue_ev_tool",
+        "rescue_ev_help"
+      ],
+      "explicit_goal": "Rescue the animal while minimizing physical danger to the observer.",
+      "facts_used": [
+        "The animal is visible on a ledge about six metres below the observer.",
+        "Small fragments fall from the slope when rocks shift, creating physical danger.",
+        "A ten-metre rope and loop are available for use from a stable platform.",
+        "Trained help reported an arrival time of about seven minutes."
+      ],
+      "main_objection": "Direct entry is too dangerous due to crumbling rocks, and waiting may be too slow if the slope fails further.",
+      "mind": "R",
+      "option_id": "rescue_distance_tool",
+      "reasoning_provider_result_hash": "8aa36e201f0a271c5e30e970558f666a2ccd31f7fc8058bf71b1211daa6e4092",
+      "reasoning_provider_result_id": "ollama_racio_response_d1e002e6cdf31f9e4fb89abdce80eff2",
+      "schema_version": "rei-native-racio-conclusion-v1",
+      "source_packet_hash": "d562d588299741522f9de05d3442cee7cced893358621ec7b27f0694f593e71a",
+      "source_packet_id": "racio_packet_8b4647132bf399b1fe19c54201d76353",
+      "source_scene_id": "triad_unstable_slope_rescue",
+      "uncertainty": "The stability of the slope over the next seven minutes remains an unknown variable.",
+      "unknowns": [
+        "Whether the slope will remain stable for the next seven minutes is unknown.",
+        "Whether the animal is injured is unknown."
+      ],
+      "utility_structure": [
+        "Direct entry: High risk of injury to observer.",
+        "Distance tool: Low risk to observer, immediate attempt at rescue.",
+        "Wait for help: Moderate risk due to time delay and slope instability."
+      ]
+    },
+    "lineage": {
+      "conclusion_id": "racio_conclusion_9c1731630ed412a1ed8d296c5d791b34",
+      "provider_result_id": "ollama_racio_response_d1e002e6cdf31f9e4fb89abdce80eff2",
+      "source_packet_id": "racio_packet_8b4647132bf399b1fe19c54201d76353"
+    }
+  },
+  "schema_version": "triad-response-screen-native-outputs-v1",
+  "status": "complete"
+}

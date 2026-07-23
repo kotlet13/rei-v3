@@ -1,0 +1,715 @@
+{
+  "emocio": {
+    "call_record": {
+      "call_id": "provider_call_18f2111c7fdc5ad8a46b6a456a1f6d43",
+      "fallback": null,
+      "finished_at": "2026-07-23T14:05:04.566098Z",
+      "input_artifact_ids": [
+        "emocio_packet_b5821dc61e04253ff700c3a8865b3bcb",
+        "emocio_processor_runtime_faf9d5584d7439104e3a8f36ca0fd487",
+        "emocio_world_input_7d41eab3871299f47126ac2c55c2f35f",
+        "triad_family_relocation"
+      ],
+      "output_artifact_ids": [
+        "emocio_conclusion_97884bbcaccb21b35b6fc80e661fa1f4",
+        "emocio_processing_result_8c4b04055e56b80de892fa4e3af892e8"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "\"structured_only\"",
+          "name": "emocio.cognition_mode"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.encoder_provider_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.encoder_spec_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.encoding_timeout_seconds"
+        },
+        {
+          "canonical_json_value": "\"bb7767b5dcc3e0aaee65c3964756c8bd9ecf0eb5e8ae8825b09bc982b7aea49d\"",
+          "name": "emocio.processor_runtime_config_hash"
+        },
+        {
+          "canonical_json_value": "\"emocio_processor_runtime_faf9d5584d7439104e3a8f36ca0fd487\"",
+          "name": "emocio.processor_runtime_config_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.render_seed"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.renderer_binding_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.renderer_binding_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_approval_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_approval_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_authority_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_authority_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_policy_config_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_policy_config_id"
+        }
+      ],
+      "primary_finished_at": "2026-07-23T14:05:04.566098Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.emocio.process_emocio",
+        "implementation_revision": "c4-runtime-v1:bb7767b5dcc3e0aaee65c3964756c8bd9ecf0eb5e8ae8825b09bc982b7aea49d",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_c98ed04ef8600f8cbdb3e88c02964631",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_b5821dc61e04253ff700c3a8865b3bcb",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": null,
+      "spec_hash": "3bbb957cf7ccd2df23a0047b455224849986663b375e824fa93385786999da9d",
+      "started_at": "2026-07-23T14:05:04.558095Z",
+      "status": "succeeded",
+      "timeout_seconds": 30.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_18f2111c7fdc5ad8a46b6a456a1f6d43",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "emocio_packet_b5821dc61e04253ff700c3a8865b3bcb",
+        "emocio_processor_runtime_faf9d5584d7439104e3a8f36ca0fd487",
+        "emocio_world_input_7d41eab3871299f47126ac2c55c2f35f",
+        "triad_family_relocation"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "\"structured_only\"",
+          "name": "emocio.cognition_mode"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.encoder_provider_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.encoder_spec_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.encoding_timeout_seconds"
+        },
+        {
+          "canonical_json_value": "\"bb7767b5dcc3e0aaee65c3964756c8bd9ecf0eb5e8ae8825b09bc982b7aea49d\"",
+          "name": "emocio.processor_runtime_config_hash"
+        },
+        {
+          "canonical_json_value": "\"emocio_processor_runtime_faf9d5584d7439104e3a8f36ca0fd487\"",
+          "name": "emocio.processor_runtime_config_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.render_seed"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.renderer_binding_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.renderer_binding_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_approval_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_approval_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_authority_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_influence_authority_id"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_policy_config_hash"
+        },
+        {
+          "canonical_json_value": "null",
+          "name": "emocio.visual_policy_config_id"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.emocio.process_emocio",
+        "implementation_revision": "c4-runtime-v1:bb7767b5dcc3e0aaee65c3964756c8bd9ecf0eb5e8ae8825b09bc982b7aea49d",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_c98ed04ef8600f8cbdb3e88c02964631",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_b5821dc61e04253ff700c3a8865b3bcb",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "uses_model": false
+  },
+  "instinkt": {
+    "call_record": {
+      "call_id": "provider_call_2c4d3f1d4a3219a1a0685e6db6b6fc46",
+      "fallback": null,
+      "finished_at": "2026-07-23T14:05:04.586026Z",
+      "input_artifact_ids": [
+        "body_family_relocat_06ea94c937ad20cccecef83de30e1991",
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_947c66b925686668daa5f030f6fe5218",
+        "option_effect_599cbf6281ef887cb535c8a409fc4366",
+        "option_effect_9296bc98fd1817fd4321e354b175ff60",
+        "option_effect_d5a7ecc6a90be2c0ae44205539c7f58f",
+        "triad_family_relocation"
+      ],
+      "output_artifact_ids": [
+        "instinkt_conclusion_63a26e9d2caf926d102bcebe12bc248d"
+      ],
+      "parameters": [],
+      "primary_finished_at": "2026-07-23T14:05:04.586026Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_947c66b925686668daa5f030f6fe5218",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": null,
+      "spec_hash": "09eca3085e859c7815b1c1edfe3204bca146e52c4a4347892b182ea189aed4e8",
+      "started_at": "2026-07-23T14:05:04.566098Z",
+      "status": "succeeded",
+      "timeout_seconds": 30.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_2c4d3f1d4a3219a1a0685e6db6b6fc46",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "body_family_relocat_06ea94c937ad20cccecef83de30e1991",
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_947c66b925686668daa5f030f6fe5218",
+        "option_effect_599cbf6281ef887cb535c8a409fc4366",
+        "option_effect_9296bc98fd1817fd4321e354b175ff60",
+        "option_effect_d5a7ecc6a90be2c0ae44205539c7f58f",
+        "triad_family_relocation"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_947c66b925686668daa5f030f6fe5218",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "uses_model": false
+  },
+  "private_thinking_persisted": false,
+  "racio": {
+    "call_record": {
+      "call_id": "provider_call_84714fc31e34e4d9266f7b76d821f7d3",
+      "fallback": null,
+      "finished_at": "2026-07-23T14:05:04.557094Z",
+      "input_artifact_ids": [
+        "racio_family_reloc_19c207c05a72f7385bdf4d7c41bc19da",
+        "racio_packet_84527065859c4eddf2ebc8c193412645",
+        "relocation_ev_care",
+        "relocation_ev_distance",
+        "relocation_ev_income",
+        "relocation_ev_visual"
+      ],
+      "output_artifact_ids": [
+        "ollama_racio_response_854d5e98e4da29e28b08fa18d700a293",
+        "racio_conclusion_dc3c16c8beca6f7d6ef8d56507d7f8f2"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "primary_finished_at": "2026-07-23T14:05:04.557094Z",
+      "primary_status": "succeeded",
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_84527065859c4eddf2ebc8c193412645",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-record-v1",
+      "seed": 314159,
+      "spec_hash": "4effca6b00cc829157eb057997e195561b90c63cc12b16b2282f556d174f0d27",
+      "started_at": "2026-07-23T14:04:56.801944Z",
+      "status": "succeeded",
+      "timeout_seconds": 600.0,
+      "warnings": []
+    },
+    "call_spec": {
+      "call_id": "provider_call_84714fc31e34e4d9266f7b76d821f7d3",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "racio_family_reloc_19c207c05a72f7385bdf4d7c41bc19da",
+        "racio_packet_84527065859c4eddf2ebc8c193412645",
+        "relocation_ev_care",
+        "relocation_ev_distance",
+        "relocation_ev_income",
+        "relocation_ev_visual"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_84527065859c4eddf2ebc8c193412645",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "fallbacks": 0,
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"relocation_move\",\"relocation_hybrid\",\"relocation_decline\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"The employer requires an answer within seven days.\",\"Only the three public options may be used.\"],\"evidence_ids\":[\"relocation_ev_income\",\"relocation_ev_distance\",\"relocation_ev_care\",\"relocation_ev_visual\"],\"explicit_consequences\":[],\"explicit_facts\":[\"The offer raises annual net income by about 28 percent.\",\"The move would increase the distance from family to about 900 kilometres.\",\"A close relative currently receives help twice each week.\",\"The structured scene shows two distant locations, a family table, and an open plan for a new apartment.\"],\"explicit_options\":[{\"description\":\"Accept the offer and move to the new location.\",\"label\":\"Move\",\"option_id\":\"relocation_move\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Connect both locations by negotiating a hybrid arrangement before deciding.\",\"label\":\"Negotiate hybrid work\",\"option_id\":\"relocation_hybrid\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Decline the offer and stay at the current location.\",\"label\":\"Decline\",\"option_id\":\"relocation_decline\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Whether the employer will accept a hybrid arrangement is unknown.\",\"Who would provide the relative's help after a move is unknown.\"],\"language\":\"en\",\"numeric_cues\":[28,900,7],\"packet_id\":\"racio_packet_84527065859c4eddf2ebc8c193412645\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compare income, distance, care logistics, and reversibility while retaining unknowns.\"],\"scene_id\":\"triad_family_relocation\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"ee6b6db0afdfb69f84367172e4d9524489df8c1c62030a76c92434cd15ebab18\",\"symbolic_and_language_cues\":[\"A job offer brings higher income and a move far from family; choose among moving, negotiating hybrid work, and declining.\"],\"time\":[\"The employer requires an answer within seven days.\"],\"world\":{\"commitments\":[\"Evaluate only the public options.\"],\"explicit_beliefs\":[],\"facts\":[],\"rules\":[\"Unknowns are not facts.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"The reply window is seven days.\"],\"world_id\":\"racio_family_reloc_19c207c05a72f7385bdf4d7c41bc19da\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "result_evidence": {
+      "active_context_length": 65536,
+      "active_gpu_percent_rounded": 100,
+      "active_size_bytes": 20166119259,
+      "active_size_vram_bytes": 20166119259,
+      "call_id": "provider_call_84714fc31e34e4d9266f7b76d821f7d3",
+      "call_spec_hash": "4effca6b00cc829157eb057997e195561b90c63cc12b16b2282f556d174f0d27",
+      "done_reason": "stop",
+      "eval_count": 378,
+      "eval_duration_ns": 6546411000,
+      "evidence_ids_used": [
+        "relocation_ev_income",
+        "relocation_ev_distance",
+        "relocation_ev_care"
+      ],
+      "load_duration_ns": 249478253,
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "ollama_server_version": "0.31.2",
+      "packet_hash": "689d185e8d872f973c7a05a30e9595710c465f51abb7f27d5766cb22005d8802",
+      "packet_id": "racio_packet_84527065859c4eddf2ebc8c193412645",
+      "prompt_eval_count": 918,
+      "prompt_eval_duration_ns": 337374000,
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "request_payload_hash": "3fac84b9383093ec2b7491c69790857dd84ef7ddcb79c71d25e7dd4555a789a3",
+      "response_created_at": "2026-07-23T14:05:04.517653339Z",
+      "response_envelope_hash": "abe697e81f7583ef9ff1d55d5e0416d7c83b571aa65a7992fc98bf3cf0123dc1",
+      "response_text": "{\n  \"abstains\": false,\n  \"causal_sequence\": [\n    \"The job offer provides a significant financial increase but creates a physical barrier to providing family care.\",\n    \"Moving would leave a gap in the twice-weekly assistance required by a relative.\",\n    \"Negotiating a hybrid model could potentially reconcile the income gain with the need for proximity to family.\",\n    \"The feasibility of this compromise depends on employer flexibility.\"\n  ],\n  \"confidence\": 0.8,\n  \"evidence_ids_used\": [\n    \"relocation_ev_income\",\n    \"relocation_ev_distance\",\n    \"relocation_ev_care\"\n  ],\n  \"explicit_goal\": \"Balance increased income with the ability to provide necessary care for a close relative.\",\n  \"facts_used\": [\n    \"The offer raises annual net income by about 28 percent.\",\n    \"The move would increase the distance from family to about 900 kilometres.\",\n    \"A close relative currently receives help twice each week.\"\n  ],\n  \"main_objection\": \"Moving creates a logistical impossibility for current care routines, while declining forfeits a substantial salary increase.\",\n  \"option_id\": \"relocation_hybrid\",\n  \"uncertainty\": \"The outcome depends on whether the employer is open to a hybrid arrangement.\",\n  \"unknowns\": [\n    \"Whether the employer will accept a hybrid arrangement is unknown.\",\n    \"Who would provide the relative's help after a move is unknown.\"\n  ],\n  \"utility_structure\": [\n    \"Income increase vs. Family proximity\",\n    \"Hybrid flexibility vs. Full relocation\",\n    \"Care continuity vs. Career advancement\"\n  ]\n}",
+      "result_id": "ollama_racio_response_854d5e98e4da29e28b08fa18d700a293",
+      "schema_version": "rei-native-ollama-racio-response-v1",
+      "total_duration_ns": 7670059500
+    },
+    "retries": 0
+  },
+  "schema_version": "triad-response-screen-call-record-v1"
+}
