@@ -7,6 +7,7 @@ from types import ModuleType, SimpleNamespace
 
 from rei.evaluation.c4_stage1_attempt import C4Stage1ReviewCommitments
 from rei.providers.protocols import StoredArtifact
+from tests.evaluation.test_c4_stage1_attempt import _review_boundary
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -22,6 +23,8 @@ def _load_cli() -> ModuleType:
 
 
 def _paths(tmp_path: Path) -> list[str]:
+    auth_secret = (tmp_path / "review-ipc-auth.key").resolve()
+    auth_secret.write_bytes(b"a" * 32)
     values = {
         "artifact-root": tmp_path / "artifacts",
         "worker-python": tmp_path / "python.exe",
@@ -31,22 +34,25 @@ def _paths(tmp_path: Path) -> list[str]:
         "alternate-snapshot": tmp_path / "alternate",
         "staging-parent": tmp_path / "staging",
     }
-    arguments = ["--run-id", "c4-stage1-cli-test"]
+    arguments = [
+        "--run-id",
+        "c4-stage1-cli-test",
+        "--review-service-port",
+        "1",
+        "--review-service-auth-secret",
+        str(auth_secret),
+    ]
     for name, value in values.items():
         arguments.extend((f"--{name}", str(value.resolve())))
     return arguments
 
 
 def _commitments(path: Path) -> C4Stage1ReviewCommitments:
-    value = C4Stage1ReviewCommitments(
-        operator_hmac_key_commitments_sha256=("1" * 64, "2" * 64),
+    runtime, readiness = _review_boundary()
+    value = C4Stage1ReviewCommitments.create(
+        review_runtime_manifest=runtime,
+        review_service_readiness=readiness,
         display_policy_nonce="3" * 64,
-        ui_bundle_sha256="4" * 64,
-        content_security_policy="default-src 'self'; object-src 'none'",
-        presenter_implementation_id="stage1-test-presenter",
-        presenter_revision="stage1-test-v1",
-        display_attester_id="stage1-test-attester",
-        display_signing_key_commitment_sha256="5" * 64,
     )
     path.write_bytes(value.canonical_json_bytes())
     return value
@@ -79,6 +85,8 @@ def test_cli_defaults_to_model_free_preparation_and_emits_exact_confirmation(
         calls.append(kwargs)
         assert kwargs["review_commitments"] == commitments
         assert kwargs["cuda_device"].logical_device_index == 0
+        assert kwargs["review_service"]._timeout_seconds == 126.0
+        assert kwargs["review_service"]._presenter_timeout_ms == 120_000
         return prepared
 
     monkeypatch.setattr(cli, "prepare_c4_stage1_attempt", prepare)
@@ -95,6 +103,10 @@ def test_cli_defaults_to_model_free_preparation_and_emits_exact_confirmation(
         "GPU-11111111-2222-3333-4444-555555555555",
         "--cuda-pci-bus-id",
         "00000000:01:00.0",
+        "--review-service-timeout-seconds",
+        "126",
+        "--review-presenter-timeout-ms",
+        "120000",
     ]
 
     assert cli.main(arguments) == 0

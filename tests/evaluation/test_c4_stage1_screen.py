@@ -77,6 +77,8 @@ def _contract() -> C4Stage1ScreenContract:
             _content_pin("review_operator_policy", "alternate"),
         ),
         display_policy=_content_pin("display_policy"),
+        review_runtime=_content_pin("review_runtime"),
+        review_service_readiness=_content_pin("review_service_readiness"),
         telemetry_policy=_content_pin("telemetry_policy"),
         dino_policy=dino,
     )

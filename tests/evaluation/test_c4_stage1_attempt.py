@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 
 import pytest
@@ -22,6 +23,7 @@ from rei.emocio.omnigen_editor import (
     build_omnigen_worker_request,
     omnigen_stage1_spec,
 )
+from rei.ids import canonical_json_bytes, content_id
 from rei.evaluation.c4_blind_review import (
     build_c4_blind_human_review_schema,
     build_c4_human_review_operator_policy,
@@ -29,14 +31,18 @@ from rei.evaluation.c4_blind_review import (
 from rei.evaluation import c4_stage1_attempt as attempt_module
 from rei.evaluation.c4_stage1_attempt import (
     C4_STAGE1_BOOTSTRAP_SCRIPT_PATH,
+    C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH,
+    C4_STAGE1_DINO_WORKER_SCRIPT_PATH,
     C4_STAGE1_GIT_SCOPE_PATHS,
     C4_STAGE1_ORIGIN_URL,
     C4_STAGE1_TELEMETRY_JOIN_TIMEOUT_SECONDS,
     C4Stage1GitRuntimePin,
+    C4Stage1DinoEntrypointPin,
     C4Stage1LaunchPolicy,
     C4Stage1PreparationError,
     C4Stage1PreparedAttempt,
     C4Stage1PreparedWorker,
+    C4Stage1ReviewCommitments,
     C4Stage1RepositoryGate,
     C4Stage1RuntimePaths,
     C4Stage1RuntimeTreeInventoryPin,
@@ -46,6 +52,7 @@ from rei.evaluation.c4_stage1_attempt import (
     build_c4_stage1_worker_environment,
     capture_c4_stage1_worker_runtime,
     capture_c4_stage1_repository_gate,
+    verify_c4_stage1_live_review_boundary,
     verify_c4_stage1_pre_spawn_runtime_bindings,
     verify_c4_stage1_staging_parent,
 )
@@ -53,6 +60,19 @@ from rei.evaluation.c4_stage1_fixture import build_c4_stage1_fixture
 from rei.evaluation.c4_stage1_review import (
     build_c4_stage1_display_attester_policy,
     c4_stage1_display_policy_content_pin,
+)
+from rei.evaluation.c4_stage1_review_runtime import (
+    capture_c4_stage1_review_runtime_manifest,
+)
+from rei.evaluation.c4_stage1_review_service import (
+    C4_STAGE1_REVIEW_READINESS_ID_NAMESPACE,
+    C4Stage1ReviewRepositoryGateBinding,
+    C4Stage1ReviewServiceReadiness,
+)
+from rei.evaluation.c4_stage1_review_presenter import (
+    C4Stage1ReviewBrowserRuntimePin,
+    C4Stage1ReviewExternalRuntimePin,
+    C4Stage1ReviewSealedTreeIdentity,
 )
 from rei.evaluation.c4_stage1_screen import (
     C4_STAGE1_ADDENDUM_PATH,
@@ -161,6 +181,76 @@ def _git_runtime_pin() -> C4Stage1GitRuntimePin:
     )
 
 
+def _repository_gate() -> C4Stage1RepositoryGate:
+    return C4Stage1RepositoryGate.create(
+        git_runtime=_git_runtime_pin(),
+        head_commit="1" * 40,
+        local_origin_main_commit="1" * 40,
+        remote_origin_main_commit="1" * 40,
+    )
+
+
+def _external_runtime_pin(
+    *, chromium_sha256: str = "4" * 64
+) -> C4Stage1ReviewExternalRuntimePin:
+    runtime_tree = C4Stage1ReviewSealedTreeIdentity(
+        schema_version="rei-c4-stage1-review-sealed-tree-identity-v1",
+        manifest_id="runtime-manifest-fixture",
+        canonical_sha256="1" * 64,
+        canonical_size_bytes=1,
+        tree_content_id="runtime-tree-fixture",
+        tree_content_sha256="2" * 64,
+        file_count=1,
+        directory_count=1,
+        executable_count=1,
+        total_size_bytes=1,
+    )
+    browser_tree = C4Stage1ReviewSealedTreeIdentity(
+        schema_version="rei-c4-stage1-review-sealed-tree-identity-v1",
+        manifest_id="browser-manifest-fixture",
+        canonical_sha256="3" * 64,
+        canonical_size_bytes=1,
+        tree_content_id="browser-tree-fixture",
+        tree_content_sha256="4" * 64,
+        file_count=1,
+        directory_count=1,
+        executable_count=1,
+        total_size_bytes=1,
+    )
+    base = {
+        "schema_version": "rei-c4-stage1-review-external-runtime-pin-v1",
+        "verification_schema_version": ("rei-c4-stage1-review-runtime-verification-v1"),
+        "verification_id": "external-runtime-verification-fixture",
+        "verification_sha256": "5" * 64,
+        "provenance_id": "external-runtime-provenance-fixture",
+        "provenance_canonical_sha256": "6" * 64,
+        "provenance_canonical_size_bytes": 1,
+        "create_only_inventory_verified": True,
+        "runtime_manifest": runtime_tree,
+        "browser_manifest": browser_tree,
+        "runtime_python_relative_path": "venv/Scripts/python.exe",
+        "runtime_python_sha256": "7" * 64,
+        "runtime_python_size_bytes": 1,
+        "installed_browsers_json_sha256": "8" * 64,
+        "installed_browsers_json_size_bytes": 1,
+        "chromium_executable_relative_path": ("chromium-1228/chrome-win64/chrome.exe"),
+        "chromium_executable_sha256": chromium_sha256,
+        "chromium_executable_size_bytes": 1,
+        "checkpoint_applied_during_all_file_and_tree_hashing": True,
+        "paths_stored": False,
+        "browser_process_launch_performed": False,
+        "headed_full_ui_smoke_performed": False,
+        "model_calls": 0,
+    }
+    return C4Stage1ReviewExternalRuntimePin(
+        external_runtime_pin_id=content_id("c4_review_external_runtime", base),
+        external_runtime_pin_sha256=hashlib.sha256(
+            canonical_json_bytes(base)
+        ).hexdigest(),
+        **base,
+    )
+
+
 def _git_runner(
     *,
     branch: str = "main",
@@ -223,11 +313,154 @@ def _documents():
     )
 
 
+def _review_boundary():
+    runtime = capture_c4_stage1_review_runtime_manifest(ROOT)
+    operator_commitments = tuple(
+        hashlib.sha256(f"operator-secret-{index}".encode()).hexdigest()
+        for index in range(2)
+    )
+    base = {
+        "schema_version": "rei-c4-stage1-review-service-v2",
+        "presenter_implementation_id": runtime.presenter_implementation_id,
+        "presenter_revision": runtime.presenter_revision,
+        "ipc_schema": runtime.ipc_protocol,
+        "ledger_schema": runtime.ledger_schema_revision,
+        "ui_bundle_sha256": runtime.ui_bundle_sha256,
+        "content_security_policy_sha256": runtime.content_security_policy_sha256,
+        "repository_gate": C4Stage1ReviewRepositoryGateBinding.create(
+            _repository_gate()
+        ),
+        "browser_runtime": C4Stage1ReviewBrowserRuntimePin.create(
+            browser_executable_sha256="4" * 64,
+            browser_executable_size_bytes=1,
+            external_runtime=_external_runtime_pin(),
+        ),
+        "presenter_session_timeout_ms": 3_600_000,
+        "service_epoch_id": content_id(
+            "c4_stage1_review_service_epoch", {"epoch": "e" * 64}
+        ),
+        "state_directory_identity_sha256": "a" * 64,
+        "state_database_identity_sha256": "b" * 64,
+        "boundary_roots_identity_sha256": "c" * 64,
+        "exclusive_state_owner_lock_held": True,
+        "copied_state_rejected": True,
+        "display_signing_key_commitment_sha256": "5" * 64,
+        "operator_signing_key_commitment_sha256s": operator_commitments,
+        "ipc_auth_key_commitment_sha256": "6" * 64,
+        "submission_auth_key_commitment_sha256": "7" * 64,
+        "secret_count": 5,
+        "secret_size_bytes": 32,
+        "ipc_auth_required": True,
+        "ipc_auth_secret_separate_from_review_keys": True,
+        "ipc_request_nonce_replay_rejected": True,
+        "ipc_response_auth_required": True,
+        "ipc_response_request_binding_required": True,
+        "ipc_response_replay_and_cross_operation_rejected": True,
+        "stateful_ipc_result_journal_required": True,
+        "stateful_ipc_request_id_server_derived": True,
+        "stateful_ipc_result_hmac_required": True,
+        "stateful_ipc_transport_retry_limit": 1,
+        "stateful_ipc_operation_count": 7,
+        "stateful_ipc_max_completed_rows": 13,
+        "display_in_progress_never_relaunched": True,
+        "sealed_sign_result_recoverable": True,
+        "presenter_submission_auth_required": True,
+        "operator_signing_lease_required": True,
+        "sqlite_journal_mode": "wal",
+        "sqlite_synchronous": "FULL",
+        "one_time_ledgers": (
+            "display_attestation",
+            "display_receipt",
+            "operator_policy",
+            "presenter_submission",
+            "operator_signing_lease",
+        ),
+        "service_is_model_free": True,
+        "secrets_exposed": False,
+        "semantic_quality_gate_passed": False,
+        "production_authority_granted": False,
+        "model_judge_calls": 0,
+    }
+    readiness = C4Stage1ReviewServiceReadiness(
+        readiness_receipt_id=content_id(C4_STAGE1_REVIEW_READINESS_ID_NAMESPACE, base),
+        readiness_receipt_sha256=hashlib.sha256(canonical_json_bytes(base)).hexdigest(),
+        **base,
+    )
+    return runtime, readiness
+
+
+class _ReviewService:
+    def __init__(
+        self,
+        readiness,
+        *,
+        ledger_count: int = 0,
+        cohort_complete: bool | None = None,
+    ):
+        self.readiness = readiness
+        self.ledger_count = ledger_count
+        self.cohort_complete = (
+            ledger_count == 2 if cohort_complete is None else cohort_complete
+        )
+
+    def health(self):
+        return {
+            "schema_version": "rei-c4-stage1-review-service-v2",
+            "ready": True,
+            "sqlite_integrity": "ok",
+            "sqlite_journal_mode": "wal",
+            "sqlite_synchronous": "FULL",
+            "ledger_counts": {
+                "display_attestation_uses": self.ledger_count,
+                "display_receipt_uses": self.ledger_count,
+                "operator_policy_uses": self.ledger_count,
+                "presenter_submissions": self.ledger_count,
+                "operator_signing_leases": self.ledger_count,
+            },
+            "operator_signing_cohort_complete": self.cohort_complete,
+            "operator_signing_cohort_id": (
+                "c4_stage1_operator_signing_cohort_test"
+                if self.cohort_complete
+                else None
+            ),
+            "operator_signing_cohort_sha256": (
+                "d" * 64 if self.cohort_complete else None
+            ),
+            "secret_commitments_match_state": True,
+            "display_presenter_attached": True,
+            "repository_gate_matches_startup": True,
+            "presenter_boundary_roots_match_startup": True,
+            "browser_runtime_matches_readiness": True,
+            "ipc_response_auth_required": True,
+            "presenter_submission_auth_required": True,
+            "operator_signing_lease_required": True,
+            "service_is_model_free": True,
+            "semantic_quality_gate_passed": False,
+            "production_authority_granted": False,
+            "model_judge_calls": 0,
+        }
+
+
+def _readdress_readiness(readiness, **updates):
+    base = readiness.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={"readiness_receipt_id", "readiness_receipt_sha256"},
+    )
+    base.update(updates)
+    return C4Stage1ReviewServiceReadiness(
+        readiness_receipt_id=content_id(C4_STAGE1_REVIEW_READINESS_ID_NAMESPACE, base),
+        readiness_receipt_sha256=hashlib.sha256(canonical_json_bytes(base)).hexdigest(),
+        **base,
+    )
+
+
 def _prepared_attempt(
     *,
     worker_runtime: C4Stage1WorkerRuntimePin | None = None,
 ) -> C4Stage1PreparedAttempt:
     fixture = build_c4_stage1_fixture()
+    review_runtime, review_readiness = _review_boundary()
     schema = build_c4_blind_human_review_schema()
     policies = tuple(
         build_c4_human_review_operator_policy(
@@ -243,13 +476,11 @@ def _prepared_attempt(
     )
     display = build_c4_stage1_display_attester_policy(
         policy_nonce="3" * 64,
-        ui_bundle_sha256="4" * 64,
-        content_security_policy=(
-            "default-src 'self'; object-src 'none'; frame-ancestors 'none'"
-        ),
-        presenter_implementation_id="stage1-review-ui",
-        presenter_revision="review-ui-v1",
-        display_attester_id="stage1-display-attester",
+        ui_bundle_sha256=review_runtime.ui_bundle_sha256,
+        content_security_policy=review_runtime.content_security_policy,
+        presenter_implementation_id=review_runtime.presenter_implementation_id,
+        presenter_revision=review_runtime.presenter_revision,
+        display_attester_id=review_readiness.readiness_receipt_id,
         display_signing_key_commitment_sha256="5" * 64,
     )
     telemetry = c4_stage1_telemetry_policy()
@@ -272,6 +503,10 @@ def _prepared_attempt(
             _content_pin("review_operator_policy", policy) for policy in policies
         ),
         display_policy=c4_stage1_display_policy_content_pin(display),
+        review_runtime=attempt_module._review_runtime_content_pin(review_runtime),
+        review_service_readiness=(
+            attempt_module._review_service_readiness_content_pin(review_readiness)
+        ),
         telemetry_policy=_telemetry_content_pin(telemetry),
         dino_policy=C4Stage1DinoPolicy.create(dinov2_base_provider_identity()),
     )
@@ -314,12 +549,7 @@ def _prepared_attempt(
     )
     return C4Stage1PreparedAttempt.create(
         run_id="stage1-test-run",
-        repository_gate=C4Stage1RepositoryGate.create(
-            git_runtime=_git_runtime_pin(),
-            head_commit="1" * 40,
-            local_origin_main_commit="1" * 40,
-            remote_origin_main_commit="1" * 40,
-        ),
+        repository_gate=_repository_gate(),
         launch_policy=launch,
         worker_runtime=launch.worker_runtime,
         cuda_device=CUDA_DEVICE,
@@ -328,10 +558,114 @@ def _prepared_attempt(
         review_schema=schema,
         review_operator_policies=policies,
         display_policy=display,
+        review_runtime_manifest=review_runtime,
+        review_service_readiness=review_readiness,
         screen_contract=screen,
         workers=tuple(workers),
         artifact_inventory_before_anchor=(),
     )
+
+
+def test_review_commitments_are_derived_from_exact_runtime_and_service() -> None:
+    runtime, readiness = _review_boundary()
+    commitments = C4Stage1ReviewCommitments.create(
+        review_runtime_manifest=runtime,
+        review_service_readiness=readiness,
+        display_policy_nonce="3" * 64,
+    )
+
+    assert commitments.ui_bundle_sha256 == runtime.ui_bundle_sha256
+    assert commitments.operator_hmac_key_commitments_sha256 == (
+        readiness.operator_signing_key_commitment_sha256s
+    )
+    assert commitments.display_attester_id == readiness.readiness_receipt_id
+    forged = commitments.model_dump(mode="python", round_trip=True)
+    forged["ui_bundle_sha256"] = "f" * 64
+    with pytest.raises(ValidationError, match="pinned runtime service"):
+        C4Stage1ReviewCommitments.model_validate(forged)
+
+
+def test_live_review_boundary_rejects_other_or_used_service() -> None:
+    runtime, readiness = _review_boundary()
+    verified_runtime, verified_readiness = verify_c4_stage1_live_review_boundary(
+        repository_root=ROOT.resolve(),
+        repository_gate=_repository_gate(),
+        review_runtime_manifest=runtime,
+        review_service_readiness=readiness,
+        review_service=_ReviewService(readiness),
+        expected_completed_review_count=0,
+    )
+    assert verified_runtime == runtime
+    assert verified_readiness == readiness
+
+    other = _readdress_readiness(
+        readiness,
+        ipc_auth_key_commitment_sha256="8" * 64,
+    )
+    with pytest.raises(C4Stage1PreparationError, match="public commitment"):
+        verify_c4_stage1_live_review_boundary(
+            repository_root=ROOT.resolve(),
+            repository_gate=_repository_gate(),
+            review_runtime_manifest=runtime,
+            review_service_readiness=readiness,
+            review_service=_ReviewService(other),
+            expected_completed_review_count=0,
+        )
+    with pytest.raises(C4Stage1PreparationError, match="fresh and exact"):
+        verify_c4_stage1_live_review_boundary(
+            repository_root=ROOT.resolve(),
+            repository_gate=_repository_gate(),
+            review_runtime_manifest=runtime,
+            review_service_readiness=readiness,
+            review_service=_ReviewService(readiness, ledger_count=1),
+            expected_completed_review_count=0,
+        )
+
+    verified_runtime, verified_readiness = verify_c4_stage1_live_review_boundary(
+        repository_root=ROOT.resolve(),
+        repository_gate=_repository_gate(),
+        review_runtime_manifest=runtime,
+        review_service_readiness=readiness,
+        review_service=_ReviewService(readiness, ledger_count=2),
+        expected_completed_review_count=2,
+    )
+    assert verified_runtime == runtime
+    assert verified_readiness == readiness
+
+    with pytest.raises(C4Stage1PreparationError, match="fresh and exact"):
+        verify_c4_stage1_live_review_boundary(
+            repository_root=ROOT.resolve(),
+            repository_gate=_repository_gate(),
+            review_runtime_manifest=runtime,
+            review_service_readiness=readiness,
+            review_service=_ReviewService(
+                readiness, ledger_count=2, cohort_complete=False
+            ),
+            expected_completed_review_count=2,
+        )
+
+
+def test_live_review_boundary_rehashes_ui_before_use(tmp_path: Path) -> None:
+    repository = (tmp_path / "repository").resolve()
+    source = ROOT / "app/backend/rei/evaluation/c4_stage1_review_ui"
+    target = repository / "app/backend/rei/evaluation/c4_stage1_review_ui"
+    target.mkdir(parents=True)
+    for name in ("index.html", "review.css", "review.js"):
+        shutil.copy2(source / name, target / name)
+    runtime = capture_c4_stage1_review_runtime_manifest(repository)
+    _, readiness = _review_boundary()
+    script = target / "review.js"
+    script.write_bytes(script.read_bytes() + b"\n")
+
+    with pytest.raises(ValueError, match="differs from the pinned revision"):
+        verify_c4_stage1_live_review_boundary(
+            repository_root=repository,
+            repository_gate=_repository_gate(),
+            review_runtime_manifest=runtime,
+            review_service_readiness=readiness,
+            review_service=_ReviewService(readiness),
+            expected_completed_review_count=0,
+        )
 
 
 def test_repository_gate_requires_live_equal_main_and_ignores_unrelated_dirt(
@@ -382,6 +716,81 @@ def test_repository_gate_requires_live_equal_main_and_ignores_unrelated_dirt(
                 command_runner=_git_runner(tracked=tracked),
                 injected_git_runtime=_git_runtime_pin(),
             )
+
+
+def test_dino_entrypoint_pin_binds_exact_git_scope_bytes_and_gate() -> None:
+    gate = _repository_gate()
+    bootstrap = (ROOT / C4_STAGE1_DINO_BOOTSTRAP_SCRIPT_PATH).read_bytes()
+    worker = (ROOT / C4_STAGE1_DINO_WORKER_SCRIPT_PATH).read_bytes()
+
+    pin = C4Stage1DinoEntrypointPin.create(
+        repository_gate=gate,
+        bootstrap_script=bootstrap,
+        worker_script=worker,
+    )
+
+    assert pin.repository_gate_id == gate.repository_gate_id
+    assert pin.repository_gate_sha256 == gate.repository_gate_sha256
+    assert pin.repository_head_commit == gate.head_commit
+    assert tuple(item.role for item in pin.scripts) == (
+        "dino-bootstrap",
+        "dino-worker",
+    )
+    assert tuple(item.content_sha256 for item in pin.scripts) == (
+        hashlib.sha256(bootstrap).hexdigest(),
+        hashlib.sha256(worker).hexdigest(),
+    )
+    assert tuple(item.size_bytes for item in pin.scripts) == (
+        len(bootstrap),
+        len(worker),
+    )
+    assert str(ROOT).encode() not in pin.canonical_json_bytes()
+
+
+@pytest.mark.parametrize("role", ("dino-bootstrap", "dino-worker"))
+def test_cold_dino_entrypoint_copy_verification_rejects_replacement(
+    tmp_path: Path,
+    role: str,
+) -> None:
+    prepared = _prepared_attempt()
+    store = attempt_module.FileArtifactStore(tmp_path / "runs")
+    descriptors = {}
+    for script_pin in prepared.dino_entrypoint_pin.scripts:
+        payload = (ROOT / script_pin.repository_relative_path).read_bytes()
+        relative_path = attempt_module._dino_script_copy_path(
+            prepared.dino_entrypoint_pin,
+            script_pin.role,
+        )
+        descriptors[relative_path] = store.write_bytes(
+            prepared.run_id,
+            relative_path,
+            payload,
+            overwrite=False,
+        )
+
+    attempt_module._cold_verify_dino_entrypoint_copies(
+        store,
+        prepared,
+        descriptors,
+    )
+    target_pin = next(
+        item for item in prepared.dino_entrypoint_pin.scripts if item.role == role
+    )
+    target_path = store.run_path(prepared.run_id) / attempt_module._dino_script_copy_path(
+        prepared.dino_entrypoint_pin,
+        target_pin.role,
+    )
+    target_path.write_bytes(b"replaced DINO entrypoint bytes")
+
+    with pytest.raises(
+        attempt_module.C4Stage1ColdVerificationError,
+        match="not cold-readable|differs from its exact pin",
+    ):
+        attempt_module._cold_verify_dino_entrypoint_copies(
+            store,
+            prepared,
+            descriptors,
+        )
 
 
 def test_worker_runtime_pin_uses_stable_executable_and_exact_runtime_inventory(

@@ -27,6 +27,10 @@ from rei.evaluation.c4_stage1_attempt import (  # noqa: E402
     prepare_c4_stage1_attempt,
 )
 from rei.evaluation.c4_stage1_run import run_c4_stage1_attempt  # noqa: E402
+from rei.evaluation.c4_stage1_review_service import (  # noqa: E402
+    C4_STAGE1_REVIEW_LOOPBACK_HOST,
+    C4Stage1ReviewServiceClient,
+)
 from rei.evaluation.resource_telemetry import (  # noqa: E402
     ResourceTelemetryCudaDeviceIdentity,
 )
@@ -119,6 +123,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--primary-snapshot", type=_absolute, required=True)
     parser.add_argument("--alternate-snapshot", type=_absolute, required=True)
     parser.add_argument("--staging-parent", type=_absolute, required=True)
+    parser.add_argument("--review-service-host", default=C4_STAGE1_REVIEW_LOOPBACK_HOST)
+    parser.add_argument("--review-service-port", type=int, required=True)
+    parser.add_argument("--review-service-auth-secret", type=_absolute, required=True)
+    parser.add_argument("--review-service-timeout-seconds", type=float, default=3606.0)
+    parser.add_argument("--review-presenter-timeout-ms", type=int, default=3_600_000)
     parser.add_argument("--review-commitments", type=_absolute)
     parser.add_argument("--cuda-uuid")
     parser.add_argument("--cuda-pci-bus-id")
@@ -136,6 +145,16 @@ def _runtime_paths(arguments: argparse.Namespace) -> C4Stage1RuntimePaths:
         primary_snapshot=arguments.primary_snapshot,
         alternate_snapshot=arguments.alternate_snapshot,
         staging_parent=arguments.staging_parent,
+    )
+
+
+def _review_service(arguments: argparse.Namespace) -> C4Stage1ReviewServiceClient:
+    return C4Stage1ReviewServiceClient(
+        arguments.review_service_host,
+        arguments.review_service_port,
+        auth_secret_path=arguments.review_service_auth_secret,
+        timeout_seconds=arguments.review_service_timeout_seconds,
+        presenter_timeout_ms=arguments.review_presenter_timeout_ms,
     )
 
 
@@ -183,6 +202,7 @@ def _prepare(arguments: argparse.Namespace) -> int:
         review_commitments=commitments,
         cuda_device=cuda,
         artifact_store=store,
+        review_service=_review_service(arguments),
     )
     _emit(
         {
@@ -222,6 +242,7 @@ def _execute(arguments: argparse.Namespace) -> int:
         prepared_anchor_storage=matches[0],
         confirmed_prepared_attempt_id=arguments.prepared_attempt_id,
         paths=_runtime_paths(arguments),
+        review_service=_review_service(arguments),
     )
     _emit(
         {
@@ -241,6 +262,10 @@ def _execute(arguments: argparse.Namespace) -> int:
 def main(argv: list[str] | None = None) -> int:
     arguments = _parser().parse_args(argv)
     try:
+        if arguments.repository_root.resolve(strict=True) != ROOT.resolve(strict=True):
+            raise ValueError(
+                "C4 Stage 1 must verify the checkout that supplies its CLI code"
+            )
         return _execute(arguments) if arguments.execute else _prepare(arguments)
     except Exception as exc:
         sys.stderr.write(f"C4 Stage 1 stopped: {type(exc).__name__}\n")

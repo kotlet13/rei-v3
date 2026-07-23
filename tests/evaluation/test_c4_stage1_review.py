@@ -204,6 +204,18 @@ def _screen_contract(
             _content_pin("review_operator_policy", alternate_operator_policy),
         ),
         display_policy=c4_stage1_display_policy_content_pin(display_policy),
+        review_runtime=C4Stage1ContentPin(
+            kind="review_runtime",
+            artifact_id="review-runtime-fixture",
+            artifact_hash="c" * 64,
+            schema_version="rei-c4-stage1-review-runtime-fixture-v1",
+        ),
+        review_service_readiness=C4Stage1ContentPin(
+            kind="review_service_readiness",
+            artifact_id="review-service-readiness-fixture",
+            artifact_hash="d" * 64,
+            schema_version="rei-c4-stage1-review-service-fixture-v1",
+        ),
         telemetry_policy=C4Stage1ContentPin(
             kind="telemetry_policy",
             artifact_id="telemetry-policy-fixture",
@@ -382,6 +394,36 @@ class OperatorLedger(C4Stage1ExternalUsedPolicyLedgerPort):
         self.verify_calls += 1
         key = operator_policy.policy_id
         return self.live and self._receipts.get(key) == consumed_receipt
+
+
+class OperatorAttestationVerifier:
+    def __init__(self, secret: bytes = SECRET):
+        self._secret = secret
+        self.verify_calls = 0
+
+    def sign_claim(self, *, operator_policy, claim):
+        assert _sha256(self._secret) == operator_policy.hmac_key_commitment_sha256
+        return build_c4_stage1_operator_attestation(
+            claim,
+            external_hmac_sha256=hmac.digest(
+                self._secret,
+                c4_stage1_operator_attestation_message(claim),
+                "sha256",
+            ).hex(),
+        )
+
+    def verify_attestation(self, *, operator_policy, attestation):
+        self.verify_calls += 1
+        expected = hmac.digest(
+            self._secret,
+            c4_stage1_operator_attestation_message(attestation.claim),
+            "sha256",
+        ).hex()
+        return _sha256(
+            self._secret
+        ) == operator_policy.hmac_key_commitment_sha256 and hmac.compare_digest(
+            expected, attestation.hmac_sha256
+        )
 
 
 @dataclass
@@ -631,7 +673,10 @@ def _claim_and_attestation(
         review_timestamp=REVIEWED_AT,
         output_judgments=outputs,
         pair_judgment=pair,
-        external_one_time_operator_ledger_lease_sha256=operator_lease_sha256,
+        submission_receipt_id="authenticated-submission-receipt-test",
+        submission_receipt_sha256="9" * 64,
+        operator_signing_lease_id="operator-signing-lease-test",
+        operator_signing_lease_sha256=operator_lease_sha256,
     )
     tag = hmac.digest(
         SECRET,
@@ -689,6 +734,232 @@ def _sealed_flow(
         attestation,
         operator_ledger,
         submission,
+    )
+
+
+def _readdress_artifact(
+    artifact,
+    *,
+    namespace: str,
+    id_field: str,
+    sha256_field: str,
+    **updates,
+):
+    body = artifact.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={id_field, sha256_field},
+    )
+    body.update(updates)
+    return type(artifact)(
+        **{
+            id_field: content_id(namespace, body),
+            sha256_field: _sha256(canonical_json_bytes(body)),
+            **body,
+        }
+    )
+
+
+def _directly_construct_readdressed_sealed_submission(submission, mutation: str):
+    presentation = submission.presentation_manifest
+    context = submission.display_receipt.context
+    claim_specific_updates = {}
+    context_updates = {}
+
+    def readdress_presentation(**updates):
+        nonlocal presentation
+        presentation = _readdress_artifact(
+            presentation,
+            namespace="c4_presentation",
+            id_field="presentation_manifest_id",
+            sha256_field="presentation_manifest_sha256",
+            **updates,
+        )
+        context_updates.update(
+            presentation_manifest_id=presentation.presentation_manifest_id,
+            presentation_manifest_sha256=(presentation.presentation_manifest_sha256),
+        )
+
+    if mutation == "presentation-packet-sha256":
+        readdress_presentation(packet_sha256="f" * 64)
+    elif mutation == "presentation-review-schema-id":
+        readdress_presentation(review_schema_id="forged-review-schema")
+    elif mutation == "presentation-operator-policy-id":
+        readdress_presentation(operator_policy_id="forged-operator-policy")
+    elif mutation == "presentation-source-sha256":
+        source = C4PresentedPng.model_validate(
+            {
+                **presentation.source.model_dump(mode="python", round_trip=True),
+                "image_sha256": "f" * 64,
+            }
+        )
+        readdress_presentation(source=source)
+    elif mutation == "presentation-output-sha256":
+        outputs = list(presentation.outputs)
+        outputs[0] = C4PresentedPng.model_validate(
+            {
+                **outputs[0].model_dump(mode="python", round_trip=True),
+                "image_sha256": "f" * 64,
+            }
+        )
+        readdress_presentation(outputs=tuple(outputs))
+    elif mutation == "context-packet-sha256":
+        context_updates["packet_sha256"] = "f" * 64
+    elif mutation == "context-review-schema-id":
+        context_updates["review_schema_id"] = "forged-review-schema"
+    elif mutation == "context-operator-policy-id":
+        context_updates["operator_policy_id"] = "forged-operator-policy"
+    elif mutation == "context-presentation-id":
+        context_updates["presentation_manifest_id"] = "forged-presentation"
+    elif mutation == "context-presentation-sha256":
+        context_updates["presentation_manifest_sha256"] = "f" * 64
+    elif mutation == "context-material-id":
+        context_updates["material_commitment_id"] = "forged-material"
+    elif mutation == "context-material-sha256":
+        context_updates["material_commitment_sha256"] = "f" * 64
+    elif mutation == "claim-packet-sha256":
+        claim_specific_updates["packet_sha256"] = "f" * 64
+    elif mutation == "claim-presentation-sha256":
+        claim_specific_updates["presentation_manifest_sha256"] = "f" * 64
+    elif mutation == "claim-review-schema-id":
+        claim_specific_updates["review_schema_id"] = "forged-review-schema"
+    else:
+        raise AssertionError(f"unknown sealed mutation: {mutation}")
+
+    context = _readdress_artifact(
+        context,
+        namespace="c4_stage1_display_context",
+        id_field="context_id",
+        sha256_field="context_sha256",
+        **context_updates,
+    )
+    bundle_sha256 = review_module._exact_bytes_bundle_sha256(
+        context=context,
+        source_sha256=submission.display_receipt.source.image_sha256,
+        output_records=tuple(
+            (
+                reference.blind_code,
+                reference.blind_order_sha256,
+                reference.instruction_sha256,
+                reference.output_sha256,
+            )
+            for reference in context.outputs
+        ),
+    )
+    acknowledgement = _readdress_artifact(
+        submission.display_receipt.acknowledgement,
+        namespace="c4_stage1_display_ack",
+        id_field="acknowledgement_id",
+        sha256_field="acknowledgement_sha256",
+        context_id=context.context_id,
+        context_sha256=context.context_sha256,
+        received_exact_bytes_bundle_sha256=bundle_sha256,
+    )
+    display_attestation = build_c4_stage1_display_attestation(
+        submission.display_attester_policy,
+        context,
+        acknowledgement,
+        external_hmac_sha256=(
+            submission.display_receipt.display_attestation.hmac_sha256
+        ),
+    )
+    consumed_display_attestation = record_c4_stage1_consumed_display_attestation(
+        submission.display_attester_policy,
+        context,
+        acknowledgement,
+        display_attestation,
+        external_transaction_id=(
+            submission.display_receipt.consumed_display_attestation.external_transaction_id
+        ),
+        external_transaction_timestamp=(
+            submission.display_receipt.consumed_display_attestation.external_transaction_timestamp
+        ),
+    )
+    receipt_body = submission.display_receipt.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={"display_receipt_id", "display_receipt_sha256"},
+    )
+    receipt_body.update(
+        context=context,
+        acknowledgement=acknowledgement,
+        display_attestation=display_attestation,
+        consumed_display_attestation=consumed_display_attestation,
+        pre_display_exact_bytes_bundle_sha256=bundle_sha256,
+        port_received_exact_bytes_bundle_sha256=bundle_sha256,
+        post_display_exact_bytes_bundle_sha256=bundle_sha256,
+    )
+    display_receipt = C4Stage1DisplayExecutionReceipt(
+        display_receipt_id=content_id("c4_stage1_display_receipt", receipt_body),
+        display_receipt_sha256=_sha256(canonical_json_bytes(receipt_body)),
+        **receipt_body,
+    )
+    consumed_display = record_c4_stage1_consumed_display_receipt(
+        display_receipt,
+        external_transaction_id=(
+            submission.consumed_display_receipt.external_transaction_id
+        ),
+        external_transaction_timestamp=(
+            submission.consumed_display_receipt.external_transaction_timestamp
+        ),
+    )
+    claim_updates = {
+        "packet_id": context.packet_id,
+        "packet_sha256": context.packet_sha256,
+        "presentation_manifest_id": context.presentation_manifest_id,
+        "presentation_manifest_sha256": context.presentation_manifest_sha256,
+        "display_attestation_id": display_attestation.display_attestation_id,
+        "display_attestation_sha256": display_attestation.display_attestation_sha256,
+        "consumed_display_attestation_id": (
+            consumed_display_attestation.consumed_display_attestation_id
+        ),
+        "consumed_display_attestation_sha256": (
+            consumed_display_attestation.consumed_display_attestation_sha256
+        ),
+        "display_receipt_id": display_receipt.display_receipt_id,
+        "display_receipt_sha256": display_receipt.display_receipt_sha256,
+        "consumed_display_receipt_id": consumed_display.consumed_display_receipt_id,
+        "consumed_display_receipt_sha256": (
+            consumed_display.consumed_display_receipt_sha256
+        ),
+        **claim_specific_updates,
+    }
+    claim = _readdress_artifact(
+        submission.operator_attestation.claim,
+        namespace="c4_stage1_review_claim",
+        id_field="claim_id",
+        sha256_field="claim_sha256",
+        **claim_updates,
+    )
+    operator_attestation = build_c4_stage1_operator_attestation(
+        claim,
+        external_hmac_sha256=submission.operator_attestation.hmac_sha256,
+    )
+    consumed_operator = record_c4_stage1_consumed_operator_policy_receipt(
+        submission.operator_policy,
+        operator_attestation,
+        external_transaction_id=(
+            submission.consumed_operator_receipt.external_transaction_id
+        ),
+        external_transaction_timestamp=(
+            submission.consumed_operator_receipt.external_transaction_timestamp
+        ),
+    )
+    body = submission.model_dump(
+        mode="python",
+        round_trip=True,
+        exclude={"submission_id"},
+    )
+    body.update(
+        presentation_manifest=presentation,
+        display_receipt=display_receipt,
+        consumed_display_receipt=consumed_display,
+        operator_attestation=operator_attestation,
+        consumed_operator_receipt=consumed_operator,
+    )
+    return review_module.C4Stage1SealedHumanReviewSubmission(
+        submission_id=content_id("c4_stage1_human_review", body),
+        **body,
     )
 
 
@@ -1339,6 +1610,151 @@ def test_operator_hmac_and_sealed_submission_include_exact_display_receipt(
     assert str(tmp_path).encode() not in encoded
 
 
+@pytest.mark.parametrize(
+    "mutation",
+    (
+        "presentation-packet-sha256",
+        "presentation-review-schema-id",
+        "presentation-operator-policy-id",
+        "presentation-source-sha256",
+        "presentation-output-sha256",
+        "context-packet-sha256",
+        "context-review-schema-id",
+        "context-operator-policy-id",
+        "context-presentation-id",
+        "context-presentation-sha256",
+        "context-material-id",
+        "context-material-sha256",
+        "claim-packet-sha256",
+        "claim-presentation-sha256",
+        "claim-review-schema-id",
+    ),
+)
+def test_direct_sealed_model_rejects_readdressed_cross_artifact_bindings(
+    tmp_path: Path,
+    mutation: str,
+) -> None:
+    fixture = _fixture(tmp_path)
+    *_, submission = _sealed_flow(fixture)
+
+    with pytest.raises(ValueError, match="sealed review differs"):
+        _directly_construct_readdressed_sealed_submission(submission, mutation)
+
+
+def test_external_operator_verifier_keeps_secret_out_of_seal_and_gate(
+    tmp_path: Path,
+) -> None:
+    fixture = _fixture(tmp_path)
+    receipt, _ = _display(fixture)
+    display_ledger = DisplayLedger()
+    consumed_display = consume_c4_stage1_display_receipt_once(display_ledger, receipt)
+    claim, _ = _claim_and_attestation(fixture, receipt, consumed_display)
+    verifier = OperatorAttestationVerifier()
+    attestation = verifier.sign_claim(
+        operator_policy=fixture.policy,
+        claim=claim,
+    )
+    operator_ledger = OperatorLedger()
+    submission = seal_c4_stage1_human_review(
+        fixture.schema,
+        fixture.packet,
+        artifact_store=fixture.artifact_store,
+        operator_policy=fixture.policy,
+        screen_contract=fixture.screen_contract,
+        display_attester_policy=fixture.display_policy,
+        presentation_manifest=fixture.presentation,
+        display_receipt=receipt,
+        consumed_display_receipt=consumed_display,
+        operator_attestation=attestation,
+        operator_secret=None,
+        operator_attestation_verifier=verifier,
+        display_attestation_verifier=fixture.display_verifier,
+        display_receipt_ledger=display_ledger,
+        used_policy_ledger=operator_ledger,
+    )
+    gate = evaluate_c4_stage1_human_review(
+        fixture.schema,
+        fixture.packet,
+        artifact_store=fixture.artifact_store,
+        operator_policy=fixture.policy,
+        screen_contract=fixture.screen_contract,
+        display_attester_policy=fixture.display_policy,
+        operator_secret=None,
+        operator_attestation_verifier=verifier,
+        display_attestation_verifier=fixture.display_verifier,
+        display_receipt_ledger=display_ledger,
+        used_policy_ledger=operator_ledger,
+        submission=submission,
+    )
+
+    assert gate.human_review_passed is True
+    assert verifier.verify_calls == 2
+    assert SECRET not in submission.canonical_json_bytes()
+
+
+def test_breaking_stage1_review_artifact_family_uses_v2_schemas(
+    tmp_path: Path,
+) -> None:
+    fixture = _fixture(tmp_path)
+    (
+        _,
+        _,
+        display_ledger,
+        _,
+        claim,
+        attestation,
+        operator_ledger,
+        submission,
+    ) = _sealed_flow(fixture)
+    gate = evaluate_c4_stage1_human_review(
+        fixture.schema,
+        fixture.packet,
+        artifact_store=fixture.artifact_store,
+        operator_policy=fixture.policy,
+        screen_contract=fixture.screen_contract,
+        display_attester_policy=fixture.display_policy,
+        operator_secret=SECRET,
+        display_attestation_verifier=fixture.display_verifier,
+        display_receipt_ledger=display_ledger,
+        used_policy_ledger=operator_ledger,
+        submission=submission,
+    )
+    artifacts = (
+        (
+            claim,
+            "rei-c4-stage1-human-review-unsigned-claim-v2",
+            "rei-c4-stage1-human-review-unsigned-claim-v1",
+        ),
+        (
+            attestation,
+            "rei-c4-stage1-human-review-attestation-v2",
+            "rei-c4-stage1-human-review-attestation-v1",
+        ),
+        (
+            submission.consumed_operator_receipt,
+            "rei-c4-stage1-consumed-operator-policy-v2",
+            "rei-c4-stage1-consumed-operator-policy-v1",
+        ),
+        (
+            submission,
+            "rei-c4-stage1-sealed-human-review-v2",
+            "rei-c4-stage1-sealed-human-review-v1",
+        ),
+        (
+            gate,
+            "rei-c4-stage1-human-review-gate-v2",
+            "rei-c4-stage1-human-review-gate-v1",
+        ),
+    )
+
+    for artifact, expected_schema, legacy_schema in artifacts:
+        assert artifact.schema_version == expected_schema
+        legacy = artifact.model_dump(mode="python", round_trip=True)
+        legacy["schema_version"] = legacy_schema
+        with pytest.raises(ValueError):
+            type(artifact).model_validate(legacy)
+
+
 def test_raw_path_receipt_without_live_member_marker_cannot_be_sealed(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -1847,7 +2263,10 @@ def test_missing_judgment_and_wrong_display_hash_fail_claim(tmp_path: Path) -> N
             review_timestamp=REVIEWED_AT,
             output_judgments=(outputs[0],),
             pair_judgment=pair,
-            external_one_time_operator_ledger_lease_sha256="a" * 64,
+            submission_receipt_id="authenticated-submission-receipt-test",
+            submission_receipt_sha256="9" * 64,
+            operator_signing_lease_id="operator-signing-lease-test",
+            operator_signing_lease_sha256="a" * 64,
         )
 
     tampered = receipt.model_copy(update={"display_receipt_sha256": "0" * 64})
@@ -1865,7 +2284,10 @@ def test_missing_judgment_and_wrong_display_hash_fail_claim(tmp_path: Path) -> N
             review_timestamp=REVIEWED_AT,
             output_judgments=outputs,
             pair_judgment=pair,
-            external_one_time_operator_ledger_lease_sha256="a" * 64,
+            submission_receipt_id="authenticated-submission-receipt-test",
+            submission_receipt_sha256="9" * 64,
+            operator_signing_lease_id="operator-signing-lease-test",
+            operator_signing_lease_sha256="a" * 64,
         )
 
 

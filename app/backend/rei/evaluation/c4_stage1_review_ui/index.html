@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; child-src 'none'; connect-src 'none'; font-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src blob:; manifest-src 'none'; media-src 'none'; navigate-to 'none'; object-src 'none'; script-src 'self'; style-src 'self'; worker-src 'none'">
+  <title>REI C4 blind review</title>
+  <link rel="stylesheet" href="review.css">
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <p class="eyebrow">C4 Stage 1</p>
+      <h1>Blind image review</h1>
+      <p>Compare each blind output with the verified source and its instruction. Complete every judgment before submitting.</p>
+    </header>
+
+    <form id="review-form" autocomplete="off">
+      <section class="source-panel" aria-labelledby="source-heading">
+        <div class="section-heading">
+          <h2 id="source-heading">Verified source</h2>
+          <span id="source-slot" class="slot-label" aria-label="Opaque source slot"></span>
+          <span id="source-digest" hidden aria-hidden="true"></span>
+        </div>
+        <div class="image-frame source-frame">
+          <img id="source-image" alt="Verified source image">
+        </div>
+      </section>
+
+      <div class="output-grid">
+        <section class="output-panel" aria-labelledby="output-heading-0">
+          <div class="section-heading">
+            <h2 id="output-heading-0">Review slot <span id="output-code-0"></span></h2>
+            <span id="output-digest-0" hidden aria-hidden="true"></span>
+          </div>
+          <p id="output-instruction-0" class="instruction"></p>
+          <div class="image-frame">
+            <img id="output-image-0" alt="First blind output image">
+          </div>
+          <fieldset>
+            <legend>First output judgments</legend>
+            <div class="judgment-row"><span>Source subject is present</span><label><input type="radio" name="outputs.0.source_subject_present" value="true" required>Yes</label><label><input type="radio" name="outputs.0.source_subject_present" value="false" required>No</label></div>
+            <div class="judgment-row"><span>Identity is preserved</span><label><input type="radio" name="outputs.0.identity_preserved" value="true" required>Yes</label><label><input type="radio" name="outputs.0.identity_preserved" value="false" required>No</label></div>
+            <div class="judgment-row"><span>Unchanged composition is preserved</span><label><input type="radio" name="outputs.0.unchanged_composition_preserved" value="true" required>Yes</label><label><input type="radio" name="outputs.0.unchanged_composition_preserved" value="false" required>No</label></div>
+            <div class="judgment-row"><span>Requested option action is correct</span><label><input type="radio" name="outputs.0.option_action_correct" value="true" required>Yes</label><label><input type="radio" name="outputs.0.option_action_correct" value="false" required>No</label></div>
+            <div class="judgment-row"><span>No extra actor was added</span><label><input type="radio" name="outputs.0.no_extra_actor" value="true" required>Yes</label><label><input type="radio" name="outputs.0.no_extra_actor" value="false" required>No</label></div>
+            <div class="judgment-row"><span>No external-evidence claim was generated</span><label><input type="radio" name="outputs.0.no_generated_external_evidence_claim" value="true" required>Yes</label><label><input type="radio" name="outputs.0.no_generated_external_evidence_claim" value="false" required>No</label></div>
+            <div class="judgment-row"><span>I am uncertain about this output</span><label><input type="radio" name="outputs.0.reviewer_uncertain" value="true" required>Yes</label><label><input type="radio" name="outputs.0.reviewer_uncertain" value="false" required>No</label></div>
+          </fieldset>
+        </section>
+
+        <section class="output-panel" aria-labelledby="output-heading-1">
+          <div class="section-heading">
+            <h2 id="output-heading-1">Review slot <span id="output-code-1"></span></h2>
+            <span id="output-digest-1" hidden aria-hidden="true"></span>
+          </div>
+          <p id="output-instruction-1" class="instruction"></p>
+          <div class="image-frame">
+            <img id="output-image-1" alt="Second blind output image">
+          </div>
+          <fieldset>
+            <legend>Second output judgments</legend>
+            <div class="judgment-row"><span>Source subject is present</span><label><input type="radio" name="outputs.1.source_subject_present" value="true" required>Yes</label><label><input type="radio" name="outputs.1.source_subject_present" value="false" required>No</label></div>
+            <div class="judgment-row"><span>Identity is preserved</span><label><input type="radio" name="outputs.1.identity_preserved" value="true" required>Yes</label><label><input type="radio" name="outputs.1.identity_preserved" value="false" required>No</label></div>
+            <div class="judgment-row"><span>Unchanged composition is preserved</span><label><input type="radio" name="outputs.1.unchanged_composition_preserved" value="true" required>Yes</label><label><input type="radio" name="outputs.1.unchanged_composition_preserved" value="false" required>No</label></div>
+            <div class="judgment-row"><span>Requested option action is correct</span><label><input type="radio" name="outputs.1.option_action_correct" value="true" required>Yes</label><label><input type="radio" name="outputs.1.option_action_correct" value="false" required>No</label></div>
+            <div class="judgment-row"><span>No extra actor was added</span><label><input type="radio" name="outputs.1.no_extra_actor" value="true" required>Yes</label><label><input type="radio" name="outputs.1.no_extra_actor" value="false" required>No</label></div>
+            <div class="judgment-row"><span>No external-evidence claim was generated</span><label><input type="radio" name="outputs.1.no_generated_external_evidence_claim" value="true" required>Yes</label><label><input type="radio" name="outputs.1.no_generated_external_evidence_claim" value="false" required>No</label></div>
+            <div class="judgment-row"><span>I am uncertain about this output</span><label><input type="radio" name="outputs.1.reviewer_uncertain" value="true" required>Yes</label><label><input type="radio" name="outputs.1.reviewer_uncertain" value="false" required>No</label></div>
+          </fieldset>
+        </section>
+      </div>
+
+      <section class="pair-panel" aria-labelledby="pair-heading">
+        <h2 id="pair-heading">Pair judgments</h2>
+        <fieldset>
+          <legend>Compare both blind outputs</legend>
+          <div class="judgment-row"><span>The option actions are visibly distinct</span><label><input type="radio" name="pair.actions_visibly_distinct" value="true" required>Yes</label><label><input type="radio" name="pair.actions_visibly_distinct" value="false" required>No</label></div>
+          <div class="judgment-row"><span>Both outputs use the same verified source bytes</span><label><input type="radio" name="pair.same_source_bytes_confirmed" value="true" required>Yes</label><label><input type="radio" name="pair.same_source_bytes_confirmed" value="false" required>No</label></div>
+        </fieldset>
+      </section>
+
+      <section class="operator-panel" aria-labelledby="operator-heading">
+        <h2 id="operator-heading">Reviewer</h2>
+        <label for="reviewer-pseudonym">Reviewer pseudonym</label>
+        <input id="reviewer-pseudonym" name="reviewer_pseudonym" type="text" minlength="1" maxlength="200" required autocomplete="off" spellcheck="false">
+      </section>
+
+      <p id="review-status" class="status" role="status" aria-live="polite">Loading verified review material…</p>
+      <div class="actions">
+        <button id="cancel-review" type="button" disabled>Cancel review</button>
+        <button id="submit-review" type="submit" disabled>Submit sealed review</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
