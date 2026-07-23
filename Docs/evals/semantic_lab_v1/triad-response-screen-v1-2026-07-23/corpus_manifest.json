@@ -1,0 +1,89 @@
+{
+  "case_order": [
+    "factory_overtemperature",
+    "family_relocation",
+    "imperfect_product_launch",
+    "loan_to_friend",
+    "unstable_slope_rescue",
+    "public_credit_conflict",
+    "spontaneous_trip",
+    "ambiguous_silence"
+  ],
+  "corpus_path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/corpus.json",
+  "corpus_sha256": "c670005795d0c3b504f5122c250dcf97947769f94054260c38cfcd78be7d3785",
+  "corpus_status": {
+    "frozen_before_calls": true,
+    "promotion_evidence": false,
+    "training_data": false,
+    "untouched_holdout": false
+  },
+  "input_records": [
+    {
+      "case_id": "factory_overtemperature",
+      "emocio_packet_id": "emocio_packet_c87f83ae8ee2b4aac010be2f1047c18f",
+      "instinkt_packet_id": "instinkt_packet_a7399af44e5ee8dcbabf0c744e23f688",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/factory_overtemperature/inputs.json",
+      "racio_packet_id": "racio_packet_4c9eea02bb28ada774d73c288e5265da",
+      "sha256": "83fc423856380d83be803b36d94c00e3bc5735b08c39aa82c50ce98552ef5fb1"
+    },
+    {
+      "case_id": "family_relocation",
+      "emocio_packet_id": "emocio_packet_b5821dc61e04253ff700c3a8865b3bcb",
+      "instinkt_packet_id": "instinkt_packet_947c66b925686668daa5f030f6fe5218",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/family_relocation/inputs.json",
+      "racio_packet_id": "racio_packet_84527065859c4eddf2ebc8c193412645",
+      "sha256": "7b82d61a66eaef20facb3bb3183ee31bb722f8b9ac9a128abf17b4dc6f42a7df"
+    },
+    {
+      "case_id": "imperfect_product_launch",
+      "emocio_packet_id": "emocio_packet_5c780c941fde7bd7ea9e40a7ce20cc1a",
+      "instinkt_packet_id": "instinkt_packet_43db66acfd8811cd14ee7c9168060d17",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/imperfect_product_launch/inputs.json",
+      "racio_packet_id": "racio_packet_11f2a461d7565e8c3007e01c82c5d955",
+      "sha256": "e1d3d6061330f947360ccae3ae2a0db8f188f7b7f90297df052dbd7020380d08"
+    },
+    {
+      "case_id": "loan_to_friend",
+      "emocio_packet_id": "emocio_packet_962d8e6e744ab64abb4e4bd14e986f81",
+      "instinkt_packet_id": "instinkt_packet_145a47a55fec24f25fd6240242e5babd",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/loan_to_friend/inputs.json",
+      "racio_packet_id": "racio_packet_e2034124c943196e8e4ab2ce25627c31",
+      "sha256": "92177192203386e10b42daa5ba4df1b27bfd3874b367cbecfdd6fe337508364f"
+    },
+    {
+      "case_id": "unstable_slope_rescue",
+      "emocio_packet_id": "emocio_packet_e7f58c46da2bcaeda5592b5b24c0b119",
+      "instinkt_packet_id": "instinkt_packet_0822b621ed3a7a457cb93297fb7b061b",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/unstable_slope_rescue/inputs.json",
+      "racio_packet_id": "racio_packet_8b4647132bf399b1fe19c54201d76353",
+      "sha256": "90da25721123cfc2ad1ed527de46629847a33d3318e707b5b5d60ad081c88e08"
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "emocio_packet_id": "emocio_packet_8cd2e59f9e6b99f756e1bf7dd6642103",
+      "instinkt_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/public_credit_conflict/inputs.json",
+      "racio_packet_id": "racio_packet_9d40a4859be89daa62d2c1badfc71794",
+      "sha256": "a449310c9e30b2587e81099de0039678271c3c19537e6e248f65e64f76d625a5"
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "emocio_packet_id": "emocio_packet_d32fb61c14812f7093a5c0cabe876c7f",
+      "instinkt_packet_id": "instinkt_packet_e6c08727381a98970077901966d1714d",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/spontaneous_trip/inputs.json",
+      "racio_packet_id": "racio_packet_b379a751626877c89b4b4c4dfedafb19",
+      "sha256": "46b235c110536e34759bd11a25887c23427adc0a779cf3a8285f081328b37ed9"
+    },
+    {
+      "case_id": "ambiguous_silence",
+      "emocio_packet_id": "emocio_packet_36e65c1599f153a2f76596629af36e66",
+      "instinkt_packet_id": "instinkt_packet_74ad802072474942bc56707936cfdd5c",
+      "path": "Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/cases/ambiguous_silence/inputs.json",
+      "racio_packet_id": "racio_packet_fa64ff0fa7f37ca23903da6b4ea61fc7",
+      "sha256": "35451a5c2a02eb99d0ddb2d4d73137c837c84068c150f1a5b94af6d32cce47a7"
+    }
+  ],
+  "manifest_sha256": "1fccf6adf143084830f104fc62a5f5cf4854c9522c6148f12bebb968d1b28a2c",
+  "phase": "TRIAD-S1",
+  "schema_version": "triad-response-screen-corpus-manifest-v1"
+}

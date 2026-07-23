@@ -1,0 +1,2261 @@
+{
+  "case_id": "public_credit_conflict",
+  "emocio": {
+    "image_model_calls": 0,
+    "mode": "structured_only",
+    "packet": {
+      "actor_positions": [],
+      "aesthetic_cues": [
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+      ],
+      "allowed_option_ids": [
+        "credit_no_response",
+        "credit_private_evidence",
+        "credit_public_confront"
+      ],
+      "caveat": "Profilno slep strukturiran paket. Vsebina besedila ni semantično klasificirana in paket ne vsebuje Emocieve izbire.",
+      "evidence_ids": [
+        "credit_ev_leader",
+        "credit_ev_visual"
+      ],
+      "explicit_identity_cues": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ],
+      "grounded_visual_cues": [
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."
+      ],
+      "movement_cues": [
+        "The leader is present and the meeting is still in progress."
+      ],
+      "observed_attention": [],
+      "packet_id": "emocio_packet_8cd2e59f9e6b99f756e1bf7dd6642103",
+      "scene_id": "triad_public_credit_conflict",
+      "schema_version": "rei-native-emocio-input-packet-v1",
+      "social_layout": [
+        "colleague",
+        "leader",
+        "meeting_group",
+        "self"
+      ],
+      "source_scene_hash": "08086853fec094c7945fa49600c2dcb7887f007d96c01ec79a57dfe2092d9276"
+    },
+    "renderer": null,
+    "world": {
+      "attraction_patterns": [
+        "visible authorship record",
+        "balanced positions"
+      ],
+      "broken_scenes": [
+        "one figure erased from the shared-work composition"
+      ],
+      "desired_scenes": [
+        "authorship record visible with balanced positions at the table"
+      ],
+      "motor_patterns": [
+        "stand and display",
+        "move beside the leader",
+        "remain seated"
+      ],
+      "schema_version": "rei-native-emocio-world-v1",
+      "social_identity_motifs": [
+        "author, colleague, leader, and observing group"
+      ],
+      "visual_memories": [
+        "one speaker centered beside shared work"
+      ],
+      "world_id": "emocio_public_cred_694a0e1f0e30b6bd1128b22ba5172c14"
+    }
+  },
+  "instinkt": {
+    "body_state": {
+      "arousal": 0.6,
+      "attachment_security": 0.65,
+      "body_state_id": "body_public_credit__ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "boundary_integrity": 0.72,
+      "energy": 0.7,
+      "escape_availability": 0.82,
+      "fatigue": 0.22,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.45,
+      "resource_security": 0.75,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.62,
+      "trust": 0.42,
+      "uncertainty": 0.65
+    },
+    "compilations": [
+      {
+        "compilation_hash": "dea46b3734810baee383b7acc72379bb838e50461f56636fb0b0d40f765f976b",
+        "compilation_id": "body_effect_compilation_c3de603d634319fbc04688c21fc3f701",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "freeze",
+          "association_cue_tokens": [
+            "social consequences of public confrontation are unknown",
+            "uncertainty"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.315,
+          "base_recoverability": 0.6,
+          "body_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded uncertainty cue",
+          "effect_hash": "1eafda6e0466cfb17ff9dba2dc46343eb72dd4cdf50171da2368842a69d2fa0f",
+          "effect_id": "option_effect_fafc50ffc72a56c2111de4c78cf5c3e1",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "option_id": "credit_no_response",
+          "protected_targets": [
+            "bounded predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "18ead17f7103dd5e7b70c379d16f1a8950d7638e0c06aeaafc6dd6ca84838a0c",
+          "source_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+          "triggering_evidence_ids": [
+            "credit_ev_social_unknown"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "995f0598a6726eb498f6a2879e09e81418a8a7e3645cd1611ca3acd523685428",
+        "source_prediction_id": "body_effect_prediction_3a1f7a88b067892ec33792ff81e2bb72"
+      },
+      {
+        "compilation_hash": "87b4f6d3ae1d049314446d6c8e2e3934f892590f8376ed6a6c30cc1f48b8d310",
+        "compilation_id": "body_effect_compilation_8cf45433bde54dc5a8ec9a8df82d90c6",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "freeze",
+          "association_cue_tokens": [
+            "social consequences of public confrontation are unknown",
+            "uncertainty"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.315,
+          "base_recoverability": 0.6,
+          "body_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded uncertainty cue",
+          "effect_hash": "8821716acee77d5744f0582defd965735e98deaaf7a62fc1f00ce57ce4cc1046",
+          "effect_id": "option_effect_176a6abb294951e5031588b1cc87a395",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "option_id": "credit_private_evidence",
+          "protected_targets": [
+            "bounded predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "18ead17f7103dd5e7b70c379d16f1a8950d7638e0c06aeaafc6dd6ca84838a0c",
+          "source_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+          "triggering_evidence_ids": [
+            "credit_ev_social_unknown"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "aaa7de90c72b3187eaae316b4f28afea5bbfc4edf10c15614533f06867ee3785",
+        "source_prediction_id": "body_effect_prediction_797ca2a6bbaf10fb216d8d336269df5e"
+      },
+      {
+        "compilation_hash": "f807d514666cc4e2ce8de671e2512665668ee1b922a4658d00ec1561324f190c",
+        "compilation_id": "body_effect_compilation_dd74a3bffb27a8f8e3e6eaa0c5fd76ba",
+        "compiler_id": "rei.instinkt.option_body_effect_compiler",
+        "compiler_revision": "c5-v2",
+        "option_body_effect": {
+          "action_tendency": "freeze",
+          "association_cue_tokens": [
+            "social consequences of public confrontation are unknown",
+            "uncertainty"
+          ],
+          "attachment_outcome": "not_changed_by_cited_effect_rules:attachment_security",
+          "base_predicted_loss": 0.315,
+          "base_recoverability": 0.6,
+          "body_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_cited_effect_rules:boundary_integrity",
+          "dominant_alarm": "grounded uncertainty cue",
+          "effect_hash": "471c12fa8c7fbc12377f84ec7644ec34eda5c7deaa0e11c88a6f21d61ce34d76",
+          "effect_id": "option_effect_42c58e6ff59d00b39328ea6e3123df84",
+          "escape_outcome": "not_changed_by_cited_effect_rules:escape_availability",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "option_id": "credit_public_confront",
+          "protected_targets": [
+            "bounded predictability"
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "18ead17f7103dd5e7b70c379d16f1a8950d7638e0c06aeaafc6dd6ca84838a0c",
+          "source_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+          "triggering_evidence_ids": [
+            "credit_ev_social_unknown"
+          ],
+          "trust_outcome": "not_changed_by_cited_effect_rules:trust"
+        },
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-compilation-v1",
+        "source_prediction_hash": "5012e588a06db516215d4ade8bdb3ed046274231d80157d9262d0aa0818feba6",
+        "source_prediction_id": "body_effect_prediction_6dcfa2ef3c0be6e31ebd5070508808a8"
+      }
+    ],
+    "effect_source": "rule_based",
+    "model_mapper_calls": 0,
+    "packet": {
+      "attachment_cues": [],
+      "boundary_cues": [],
+      "caveat": "Profile-blind protective packet containing only explicitly routed typed cues; no prose classification, character profile, or preferred option is inferred.",
+      "cue_evidence_bindings": [
+        {
+          "assertion_status": "asserted_positive",
+          "binding_hash": "77291e7aa96c0bef43eda41686ddd95717731b924840a90d519247267630acfc",
+          "binding_id": "instinkt_cue_binding_dcf88f6d277b04cae0da62c0caca4332",
+          "citations": [
+            {
+              "citation_hash": "7faaf94722a67cdd8f69656050abc1ce39fd87606b4c9219aae30db7af7ba4b8",
+              "citation_id": "instinkt_cue_citation_b38fdf79db9a34a8fa4a5850007f94af",
+              "cited_text": "social consequences of public confrontation are unknown",
+              "cited_text_hash": "d2a61b5a2ac4bafd4782a7ce96b7bdac3fa855e30db517101418fe33e7b47223",
+              "end_char": 59,
+              "evidence_id": "credit_ev_social_unknown",
+              "schema_version": "rei-native-instinkt-cue-evidence-citation-v1",
+              "source_content_hash": "cfb36a14327498ff035a86d3a6040788d9925e8e16abb6e1258301d74ce99eab",
+              "start_char": 4
+            }
+          ],
+          "cue": "social consequences of public confrontation are unknown",
+          "cue_class": "uncertainty",
+          "lane": "uncertainty_cues",
+          "schema_version": "rei-native-instinkt-cue-evidence-binding-v2"
+        }
+      ],
+      "escape_cues": [],
+      "evidence_ids": [
+        "credit_ev_social_unknown"
+      ],
+      "explicit_body_cues": [],
+      "option_ids": [
+        "credit_no_response",
+        "credit_private_evidence",
+        "credit_public_confront"
+      ],
+      "packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+      "physical_cues": [],
+      "scarcity_cues": [],
+      "scene_id": "triad_public_credit_conflict",
+      "schema_version": "rei-native-instinkt-input-packet-v1",
+      "source_body_state_id": "body_public_credit__ba58352cb3fb2729ddc5d6a9aab04f6e",
+      "trust_cues": [],
+      "uncertainty_cues": [
+        "social consequences of public confrontation are unknown"
+      ]
+    },
+    "predictions": [
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.7,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_dcf88f6d277b04cae0da62c0caca4332"
+            ],
+            "cue_class": "uncertainty",
+            "evidence_hash": "0ee6c86a488dbb953716102365deb422c4d28335bc20f0bc27e858a9b981fb3d",
+            "evidence_id": "body_effect_evidence_3df4f7578184b970fd6fbb333b047e97",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.2,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.15,
+                "dimension": "predictability"
+              }
+            ],
+            "rule_id": "instinkt_effect_uncertainty_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "credit_ev_social_unknown"
+            ],
+            "uncertainty": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "credit_no_response",
+        "prediction_hash": "995f0598a6726eb498f6a2879e09e81418a8a7e3645cd1611ca3acd523685428",
+        "prediction_id": "body_effect_prediction_3a1f7a88b067892ec33792ff81e2bb72",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "c2cb71bf645054215bac309738e7c6eef3ad43dee4770d484fd17c6c16c78e3c",
+        "source_body_state_id": "body_public_credit__ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "source_packet_hash": "18ead17f7103dd5e7b70c379d16f1a8950d7638e0c06aeaafc6dd6ca84838a0c",
+        "source_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+        "source_scene_hash": "08086853fec094c7945fa49600c2dcb7887f007d96c01ec79a57dfe2092d9276",
+        "source_scene_id": "triad_public_credit_conflict",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": -0.2,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.7,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_dcf88f6d277b04cae0da62c0caca4332"
+            ],
+            "cue_class": "uncertainty",
+            "evidence_hash": "0ee6c86a488dbb953716102365deb422c4d28335bc20f0bc27e858a9b981fb3d",
+            "evidence_id": "body_effect_evidence_3df4f7578184b970fd6fbb333b047e97",
+            "option_relation": "protective",
+            "predicted_deltas": [
+              {
+                "delta": -0.2,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": 0.15,
+                "dimension": "predictability"
+              }
+            ],
+            "rule_id": "instinkt_effect_uncertainty_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "credit_ev_social_unknown"
+            ],
+            "uncertainty": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "credit_private_evidence",
+        "prediction_hash": "aaa7de90c72b3187eaae316b4f28afea5bbfc4edf10c15614533f06867ee3785",
+        "prediction_id": "body_effect_prediction_797ca2a6bbaf10fb216d8d336269df5e",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "c2cb71bf645054215bac309738e7c6eef3ad43dee4770d484fd17c6c16c78e3c",
+        "source_body_state_id": "body_public_credit__ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "source_packet_hash": "18ead17f7103dd5e7b70c379d16f1a8950d7638e0c06aeaafc6dd6ca84838a0c",
+        "source_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+        "source_scene_hash": "08086853fec094c7945fa49600c2dcb7887f007d96c01ec79a57dfe2092d9276",
+        "source_scene_id": "triad_public_credit_conflict",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      },
+      {
+        "abstains": false,
+        "combined_deltas": [
+          {
+            "delta": 0.25,
+            "dimension": "uncertainty"
+          },
+          {
+            "delta": -0.15,
+            "dimension": "predictability"
+          }
+        ],
+        "conflict_flags": [],
+        "effect_source": "rule_based",
+        "evidence": [
+          {
+            "association_basis": "canonical_default_rule",
+            "association_ids": [],
+            "association_matches": [],
+            "confidence": 0.7,
+            "cue_binding_ids": [
+              "instinkt_cue_binding_dcf88f6d277b04cae0da62c0caca4332"
+            ],
+            "cue_class": "uncertainty",
+            "evidence_hash": "6564d107d2874f74e620a7e37064a8d09616e8382ae2976db863fd77d23420f4",
+            "evidence_id": "body_effect_evidence_69d1e6b231c368e3d9f52545718d30ec",
+            "option_relation": "adverse",
+            "predicted_deltas": [
+              {
+                "delta": 0.25,
+                "dimension": "uncertainty"
+              },
+              {
+                "delta": -0.15,
+                "dimension": "predictability"
+              }
+            ],
+            "rule_id": "instinkt_effect_uncertainty_v1",
+            "schema_version": "rei-native-body-effect-evidence-v1",
+            "source_evidence_ids": [
+              "credit_ev_social_unknown"
+            ],
+            "uncertainty": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+          }
+        ],
+        "mapper_id": "rei.instinkt.rule_based_embodied_cue_interpreter",
+        "mapper_revision": "c5-v2",
+        "option_id": "credit_public_confront",
+        "prediction_hash": "5012e588a06db516215d4ade8bdb3ed046274231d80157d9262d0aa0818feba6",
+        "prediction_id": "body_effect_prediction_6dcfa2ef3c0be6e31ebd5070508808a8",
+        "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+        "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+        "schema_version": "rei-native-option-body-effect-prediction-v1",
+        "source_body_state_hash": "c2cb71bf645054215bac309738e7c6eef3ad43dee4770d484fd17c6c16c78e3c",
+        "source_body_state_id": "body_public_credit__ba58352cb3fb2729ddc5d6a9aab04f6e",
+        "source_packet_hash": "18ead17f7103dd5e7b70c379d16f1a8950d7638e0c06aeaafc6dd6ca84838a0c",
+        "source_packet_id": "instinkt_packet_6e150cd1540b33ca0281243a8552ee87",
+        "source_scene_hash": "08086853fec094c7945fa49600c2dcb7887f007d96c01ec79a57dfe2092d9276",
+        "source_scene_id": "triad_public_credit_conflict",
+        "source_world_hash": "8eda18b2d0afb34c7ee7520e9861a2a17c5fb2aac9abd402c293ac584285bb9f",
+        "source_world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f",
+        "uncertainty": "Rule-backed effect; every delta is grounded in packet-scoped evidence and remains an implementation hypothesis.",
+        "unsupported_dimensions": []
+      }
+    ],
+    "ruleset": {
+      "canonical_source_status": "implementation_hypothesis",
+      "conflict_pairs": [
+        {
+          "first": "uncertainty",
+          "second": "predictability"
+        },
+        {
+          "first": "trust",
+          "second": "betrayal"
+        },
+        {
+          "first": "attachment",
+          "second": "abandonment"
+        },
+        {
+          "first": "resource_security",
+          "second": "scarcity"
+        },
+        {
+          "first": "escape_availability",
+          "second": "social_safety"
+        },
+        {
+          "first": "fatigue",
+          "second": "temperature_or_environment"
+        }
+      ],
+      "minimum_association_score": 0.45,
+      "revision": "2026-07-14-c5-v1",
+      "rules": [
+        {
+          "action_tendency": "seek_safety",
+          "adverse_deltas": [
+            {
+              "delta": 0.3,
+              "dimension": "arousal"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "physical_integrity"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "escape_availability"
+            }
+          ],
+          "adverse_option_terms": [
+            "approach",
+            "accept",
+            "stay",
+            "približaj",
+            "sprejmi",
+            "ostani",
+            "nadaljuj",
+            "izpostavljen*"
+          ],
+          "allowed_body_dimensions": [
+            "arousal",
+            "tension",
+            "physical_integrity",
+            "escape_availability"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.7,
+          "base_recoverability": 0.45,
+          "candidate_terms": [
+            "threat",
+            "danger",
+            "attack",
+            "grožnja",
+            "nevarnost",
+            "napad"
+          ],
+          "confidence": 0.75,
+          "cue_class": "physical_threat",
+          "dominant_alarm": "grounded physical-threat cue",
+          "minimum_safety_condition": "A grounded safe-exit or protection condition is available.",
+          "packet_lanes": [
+            "physical_cues"
+          ],
+          "protected_target": "virtual bodily integrity",
+          "protective_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "escape_availability"
+            }
+          ],
+          "protective_option_terms": [
+            "avoid",
+            "leave",
+            "withdraw",
+            "protect",
+            "izogni",
+            "odidi",
+            "umakni",
+            "zaščit*",
+            "izstopi"
+          ],
+          "rule_id": "instinkt_effect_physical_threat_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "image",
+            "video",
+            "audio",
+            "body",
+            "simulator"
+          ],
+          "uncertainty_rule": "A grounded threat cue predicts a bounded virtual-body effect, not actual injury or diagnosis."
+        },
+        {
+          "action_tendency": "conserve",
+          "adverse_deltas": [
+            {
+              "delta": 0.15,
+              "dimension": "fatigue"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "pain"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "physical_integrity"
+            }
+          ],
+          "adverse_option_terms": [
+            "continue",
+            "ignore",
+            "push",
+            "nadaljuj",
+            "prezri",
+            "vztrajaj"
+          ],
+          "allowed_body_dimensions": [
+            "fatigue",
+            "pain",
+            "physical_integrity"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.65,
+          "base_recoverability": 0.5,
+          "candidate_terms": [
+            "pain",
+            "injury",
+            "hurt",
+            "bolečina",
+            "poškodba",
+            "boli"
+          ],
+          "confidence": 0.7,
+          "cue_class": "pain_or_injury",
+          "dominant_alarm": "explicit pain-or-injury cue",
+          "minimum_safety_condition": "The explicit strain cue is no longer being intensified.",
+          "packet_lanes": [
+            "physical_cues",
+            "explicit_body_cues"
+          ],
+          "protected_target": "virtual physical integrity",
+          "protective_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "fatigue"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "pain"
+            },
+            {
+              "delta": 0.1,
+              "dimension": "physical_integrity"
+            }
+          ],
+          "protective_option_terms": [
+            "rest",
+            "treat",
+            "stop",
+            "počivaj",
+            "zdravi",
+            "ustavi"
+          ],
+          "rule_id": "instinkt_effect_pain_or_injury_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "image",
+            "video",
+            "body",
+            "simulator"
+          ],
+          "uncertainty_rule": "The rule models an explicit cue only and makes no medical determination."
+        },
+        {
+          "action_tendency": "freeze",
+          "adverse_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "adverse_option_terms": [
+            "accept",
+            "proceed",
+            "move",
+            "sprejmi",
+            "nadaljuj",
+            "preseli se",
+            "podpiši",
+            "zdaj",
+            "kupi",
+            "porabi"
+          ],
+          "allowed_body_dimensions": [
+            "uncertainty",
+            "predictability"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.45,
+          "base_recoverability": 0.6,
+          "candidate_terms": [
+            "uncertain",
+            "unknown",
+            "unclear",
+            "negotovost",
+            "neznano",
+            "nejasno"
+          ],
+          "confidence": 0.7,
+          "cue_class": "uncertainty",
+          "dominant_alarm": "grounded uncertainty cue",
+          "minimum_safety_condition": "A cited uncertainty has a verifiable resolution path.",
+          "packet_lanes": [
+            "uncertainty_cues"
+          ],
+          "protected_target": "bounded predictability",
+          "protective_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "predictability"
+            }
+          ],
+          "protective_option_terms": [
+            "clarify",
+            "verify",
+            "plan",
+            "razjasni",
+            "preveri",
+            "načrtuj",
+            "ustavi",
+            "odloži",
+            "pripravi",
+            "ohrani",
+            "negotovost"
+          ],
+          "rule_id": "instinkt_effect_uncertainty_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "simulator"
+          ],
+          "uncertainty_rule": "Only the cited unknown is modeled; unobserved uncertainty is not inferred."
+        },
+        {
+          "action_tendency": "maintain",
+          "adverse_deltas": [
+            {
+              "delta": 0.15,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": -0.25,
+              "dimension": "predictability"
+            }
+          ],
+          "adverse_option_terms": [
+            "reject",
+            "disrupt",
+            "cancel",
+            "zavrni",
+            "prekini",
+            "odpovej"
+          ],
+          "allowed_body_dimensions": [
+            "uncertainty",
+            "predictability"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.3,
+          "base_recoverability": 0.75,
+          "candidate_terms": [
+            "predictable",
+            "contract",
+            "schedule",
+            "predvidljivo",
+            "pogodba",
+            "urnik"
+          ],
+          "confidence": 0.75,
+          "cue_class": "predictability",
+          "dominant_alarm": "predictability change",
+          "minimum_safety_condition": "The cited agreement remains explicit and reviewable.",
+          "packet_lanes": [
+            "uncertainty_cues"
+          ],
+          "protected_target": "bounded predictability",
+          "protective_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "predictability"
+            }
+          ],
+          "protective_option_terms": [
+            "accept",
+            "plan",
+            "confirm",
+            "sprejmi",
+            "načrtuj",
+            "potrdi",
+            "dogovori",
+            "zavaruj",
+            "ohrani",
+            "predvidljiv"
+          ],
+          "rule_id": "instinkt_effect_predictability_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "simulator"
+          ],
+          "uncertainty_rule": "Predictability applies only to the grounded schedule or agreement cited."
+        },
+        {
+          "action_tendency": "maintain",
+          "adverse_deltas": [
+            {
+              "delta": 0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "trust"
+            }
+          ],
+          "adverse_option_terms": [
+            "reject",
+            "leave",
+            "withhold",
+            "zavrni",
+            "odidi",
+            "zadrži"
+          ],
+          "allowed_body_dimensions": [
+            "tension",
+            "trust"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.3,
+          "base_recoverability": 0.7,
+          "candidate_terms": [
+            "trust",
+            "honest",
+            "reliable",
+            "zaupanje",
+            "iskren",
+            "zanesljiv"
+          ],
+          "confidence": 0.7,
+          "cue_class": "trust",
+          "dominant_alarm": "grounded trust cue",
+          "minimum_safety_condition": "Trust remains evidence-linked and revocable.",
+          "packet_lanes": [
+            "trust_cues"
+          ],
+          "protected_target": "bounded relational trust",
+          "protective_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "trust"
+            }
+          ],
+          "protective_option_terms": [
+            "collaborate",
+            "accept",
+            "share",
+            "sodeluj",
+            "sprejmi",
+            "deli",
+            "ohrani"
+          ],
+          "rule_id": "instinkt_effect_trust_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "Trust effects are bounded to explicit evidence and remain revisable."
+        },
+        {
+          "action_tendency": "set_boundary",
+          "adverse_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "trust"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "boundary_integrity"
+            }
+          ],
+          "adverse_option_terms": [
+            "trust",
+            "accept",
+            "share",
+            "zaupaj",
+            "sprejmi",
+            "deli"
+          ],
+          "allowed_body_dimensions": [
+            "tension",
+            "trust",
+            "boundary_integrity"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.65,
+          "base_recoverability": 0.45,
+          "candidate_terms": [
+            "betrayal",
+            "deceit",
+            "lie",
+            "izdaja",
+            "prevara",
+            "laž"
+          ],
+          "confidence": 0.75,
+          "cue_class": "betrayal",
+          "dominant_alarm": "grounded betrayal cue",
+          "minimum_safety_condition": "The cited inconsistency can be verified without forced trust.",
+          "packet_lanes": [
+            "trust_cues"
+          ],
+          "protected_target": "trust and boundary integrity",
+          "protective_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "trust"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "boundary_integrity"
+            }
+          ],
+          "protective_option_terms": [
+            "leave",
+            "verify",
+            "refuse",
+            "odidi",
+            "preveri",
+            "zavrni"
+          ],
+          "rule_id": "instinkt_effect_betrayal_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "The cue does not establish motive; it models only cited inconsistency."
+        },
+        {
+          "action_tendency": "set_boundary",
+          "adverse_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "boundary_integrity"
+            }
+          ],
+          "adverse_option_terms": [
+            "accept",
+            "comply",
+            "yield",
+            "sprejmi",
+            "podredi",
+            "popusti",
+            "podpiši",
+            "nadaljuj",
+            "ostani"
+          ],
+          "allowed_body_dimensions": [
+            "tension",
+            "boundary_integrity"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.6,
+          "base_recoverability": 0.55,
+          "candidate_terms": [
+            "boundary",
+            "consent",
+            "pressure",
+            "meja",
+            "soglasje",
+            "pritisk"
+          ],
+          "confidence": 0.8,
+          "cue_class": "boundary",
+          "dominant_alarm": "grounded boundary cue",
+          "minimum_safety_condition": "Consent and refusal remain explicit and revocable.",
+          "packet_lanes": [
+            "boundary_cues"
+          ],
+          "protected_target": "boundary integrity",
+          "protective_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.3,
+              "dimension": "boundary_integrity"
+            }
+          ],
+          "protective_option_terms": [
+            "refuse",
+            "decline",
+            "limit",
+            "zavrni",
+            "odkloni",
+            "omeji",
+            "ustavi",
+            "odloži",
+            "umakni",
+            "odmakni",
+            "prekini"
+          ],
+          "rule_id": "instinkt_effect_boundary_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "video",
+            "body",
+            "simulator"
+          ],
+          "uncertainty_rule": "Only an explicit boundary or consent cue is mapped."
+        },
+        {
+          "action_tendency": "seek_attachment",
+          "adverse_deltas": [
+            {
+              "delta": 0.15,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": -0.25,
+              "dimension": "attachment_security"
+            }
+          ],
+          "adverse_option_terms": [
+            "leave",
+            "move",
+            "separate",
+            "odidi",
+            "preseli se",
+            "loči se",
+            "prekini"
+          ],
+          "allowed_body_dimensions": [
+            "uncertainty",
+            "attachment_security"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.45,
+          "base_recoverability": 0.65,
+          "candidate_terms": [
+            "attachment",
+            "family",
+            "home",
+            "navezanost",
+            "družina",
+            "dom"
+          ],
+          "confidence": 0.7,
+          "cue_class": "attachment",
+          "dominant_alarm": "attachment-security change",
+          "minimum_safety_condition": "A cited attachment connection remains reachable.",
+          "packet_lanes": [
+            "attachment_cues"
+          ],
+          "protected_target": "attachment security",
+          "protective_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "uncertainty"
+            },
+            {
+              "delta": 0.25,
+              "dimension": "attachment_security"
+            }
+          ],
+          "protective_option_terms": [
+            "stay",
+            "connect",
+            "return",
+            "ostani",
+            "poveži se",
+            "vrni se",
+            "zavaruj",
+            "dogovori",
+            "ohrani"
+          ],
+          "rule_id": "instinkt_effect_attachment_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "image",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "Attachment effects refer only to the explicit relationship or place cue."
+        },
+        {
+          "action_tendency": "seek_attachment",
+          "adverse_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "attachment_security"
+            }
+          ],
+          "adverse_option_terms": [
+            "leave",
+            "separate",
+            "move",
+            "odidi",
+            "loči se",
+            "preseli se",
+            "prekini"
+          ],
+          "allowed_body_dimensions": [
+            "arousal",
+            "attachment_security"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.6,
+          "base_recoverability": 0.5,
+          "candidate_terms": [
+            "abandonment",
+            "alone",
+            "separation",
+            "zapuščenost",
+            "sam",
+            "ločitev"
+          ],
+          "confidence": 0.65,
+          "cue_class": "abandonment",
+          "dominant_alarm": "grounded separation cue",
+          "minimum_safety_condition": "A concrete connection or continuity path is available.",
+          "packet_lanes": [
+            "attachment_cues"
+          ],
+          "protected_target": "attachment continuity",
+          "protective_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "arousal"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "attachment_security"
+            }
+          ],
+          "protective_option_terms": [
+            "stay",
+            "connect",
+            "seek",
+            "ostani",
+            "poveži se",
+            "poišči",
+            "zavaruj",
+            "dogovori",
+            "ohrani",
+            "nadaljuj"
+          ],
+          "rule_id": "instinkt_effect_abandonment_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "No hidden attachment history is inferred from the explicit separation cue."
+        },
+        {
+          "action_tendency": "conserve",
+          "adverse_deltas": [
+            {
+              "delta": -0.25,
+              "dimension": "resource_security"
+            }
+          ],
+          "adverse_option_terms": [
+            "reject",
+            "quit",
+            "decline",
+            "zavrni",
+            "odpovej",
+            "odkloni",
+            "kupi",
+            "porabi"
+          ],
+          "allowed_body_dimensions": [
+            "resource_security"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.4,
+          "base_recoverability": 0.7,
+          "candidate_terms": [
+            "salary",
+            "income",
+            "resource",
+            "security",
+            "plača",
+            "dohodek",
+            "vir",
+            "varnost"
+          ],
+          "confidence": 0.8,
+          "cue_class": "resource_security",
+          "dominant_alarm": "resource-security change",
+          "minimum_safety_condition": "The cited resource remains concrete and reviewable.",
+          "packet_lanes": [
+            "scarcity_cues"
+          ],
+          "protected_target": "resource security",
+          "protective_deltas": [
+            {
+              "delta": 0.3,
+              "dimension": "resource_security"
+            }
+          ],
+          "protective_option_terms": [
+            "accept",
+            "work",
+            "take",
+            "sprejmi",
+            "delaj",
+            "vzemi",
+            "ohrani"
+          ],
+          "rule_id": "instinkt_effect_resource_security_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "image",
+            "simulator"
+          ],
+          "uncertainty_rule": "Resource security is limited to the cited concrete resource change."
+        },
+        {
+          "action_tendency": "conserve",
+          "adverse_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "resource_security"
+            }
+          ],
+          "adverse_option_terms": [
+            "spend",
+            "accept",
+            "buy",
+            "zapravi",
+            "sprejmi",
+            "kupi",
+            "porabi"
+          ],
+          "allowed_body_dimensions": [
+            "tension",
+            "resource_security"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.55,
+          "base_recoverability": 0.55,
+          "candidate_terms": [
+            "scarcity",
+            "shortage",
+            "debt",
+            "cost",
+            "pomanjkanje",
+            "primanjkljaj",
+            "dolg",
+            "strošek"
+          ],
+          "confidence": 0.75,
+          "cue_class": "scarcity",
+          "dominant_alarm": "grounded scarcity cue",
+          "minimum_safety_condition": "The cited resource constraint has a bounded plan.",
+          "packet_lanes": [
+            "scarcity_cues"
+          ],
+          "protected_target": "resource security",
+          "protective_deltas": [
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "resource_security"
+            }
+          ],
+          "protective_option_terms": [
+            "conserve",
+            "save",
+            "decline",
+            "varčuj",
+            "prihrani",
+            "odkloni",
+            "ohrani",
+            "odloži"
+          ],
+          "rule_id": "instinkt_effect_scarcity_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "image",
+            "simulator"
+          ],
+          "uncertainty_rule": "Scarcity is not generalized beyond the cited resource constraint."
+        },
+        {
+          "action_tendency": "seek_safety",
+          "adverse_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.35,
+              "dimension": "escape_availability"
+            }
+          ],
+          "adverse_option_terms": [
+            "stay",
+            "block",
+            "close",
+            "ostani",
+            "blokiraj",
+            "zapri",
+            "izpostavljen*"
+          ],
+          "allowed_body_dimensions": [
+            "arousal",
+            "escape_availability"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.55,
+          "base_recoverability": 0.6,
+          "candidate_terms": [
+            "exit",
+            "escape",
+            "route",
+            "izhod",
+            "pobeg",
+            "pot"
+          ],
+          "confidence": 0.8,
+          "cue_class": "escape_availability",
+          "dominant_alarm": "escape-availability change",
+          "minimum_safety_condition": "A grounded exit remains usable.",
+          "packet_lanes": [
+            "escape_cues"
+          ],
+          "protected_target": "escape availability",
+          "protective_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "arousal"
+            },
+            {
+              "delta": 0.35,
+              "dimension": "escape_availability"
+            }
+          ],
+          "protective_option_terms": [
+            "leave",
+            "exit",
+            "withdraw",
+            "odidi",
+            "izstopi",
+            "umakni",
+            "zaščiti se"
+          ],
+          "rule_id": "instinkt_effect_escape_availability_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "image",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "Only a cited exit or route is treated as available."
+        },
+        {
+          "action_tendency": "seek_attachment",
+          "adverse_deltas": [
+            {
+              "delta": 0.15,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "trust"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "attachment_security"
+            }
+          ],
+          "adverse_option_terms": [
+            "leave",
+            "reject",
+            "withdraw",
+            "odidi",
+            "zavrni",
+            "umakni"
+          ],
+          "allowed_body_dimensions": [
+            "tension",
+            "trust",
+            "attachment_security"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.4,
+          "base_recoverability": 0.65,
+          "candidate_terms": [
+            "welcome",
+            "support",
+            "safe group",
+            "dobrodošel",
+            "podpora",
+            "varna skupina"
+          ],
+          "confidence": 0.65,
+          "cue_class": "social_safety",
+          "dominant_alarm": "social-safety change",
+          "minimum_safety_condition": "Participation remains voluntary and evidence-supported.",
+          "packet_lanes": [
+            "trust_cues",
+            "attachment_cues"
+          ],
+          "protected_target": "social safety",
+          "protective_deltas": [
+            {
+              "delta": -0.15,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "trust"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "attachment_security"
+            }
+          ],
+          "protective_option_terms": [
+            "join",
+            "stay",
+            "accept",
+            "pridruži se",
+            "ostani",
+            "sprejmi",
+            "ohrani"
+          ],
+          "rule_id": "instinkt_effect_social_safety_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "image",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "Social safety is not generalized beyond the cited interaction."
+        },
+        {
+          "action_tendency": "protect",
+          "adverse_deltas": [
+            {
+              "delta": 0.25,
+              "dimension": "arousal"
+            },
+            {
+              "delta": 0.2,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.2,
+              "dimension": "attachment_security"
+            }
+          ],
+          "adverse_option_terms": [
+            "leave",
+            "ignore",
+            "abandon",
+            "odidi",
+            "prezri",
+            "zapusti"
+          ],
+          "allowed_body_dimensions": [
+            "arousal",
+            "tension",
+            "attachment_security"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.6,
+          "base_recoverability": 0.5,
+          "candidate_terms": [
+            "child",
+            "dependent",
+            "protected other",
+            "otrok",
+            "odvisna oseba",
+            "zaščitena oseba"
+          ],
+          "confidence": 0.7,
+          "cue_class": "protected_other",
+          "dominant_alarm": "protected-other cue",
+          "minimum_safety_condition": "The cited other has a grounded protection path.",
+          "packet_lanes": [
+            "physical_cues",
+            "attachment_cues"
+          ],
+          "protected_target": "explicitly cited other",
+          "protective_deltas": [
+            {
+              "delta": 0.1,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "attachment_security"
+            }
+          ],
+          "protective_option_terms": [
+            "protect",
+            "help",
+            "stay",
+            "zaščiti",
+            "pomagaj",
+            "ostani"
+          ],
+          "rule_id": "instinkt_effect_protected_other_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "audio",
+            "image",
+            "video",
+            "simulator"
+          ],
+          "uncertainty_rule": "Protection is modeled only for an explicitly cited other."
+        },
+        {
+          "action_tendency": "conserve",
+          "adverse_deltas": [
+            {
+              "delta": -0.25,
+              "dimension": "energy"
+            },
+            {
+              "delta": 0.3,
+              "dimension": "fatigue"
+            },
+            {
+              "delta": 0.1,
+              "dimension": "tension"
+            }
+          ],
+          "adverse_option_terms": [
+            "continue",
+            "work",
+            "push",
+            "nadaljuj",
+            "delaj",
+            "vztrajaj",
+            "začni",
+            "vadba"
+          ],
+          "allowed_body_dimensions": [
+            "energy",
+            "fatigue",
+            "tension"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.7,
+          "candidate_terms": [
+            "fatigue",
+            "tired",
+            "exhausted",
+            "utrujenost",
+            "utrujen",
+            "izčrpan"
+          ],
+          "confidence": 0.75,
+          "cue_class": "fatigue",
+          "dominant_alarm": "explicit fatigue cue",
+          "minimum_safety_condition": "A bounded recovery interval is available.",
+          "packet_lanes": [
+            "explicit_body_cues"
+          ],
+          "protected_target": "virtual energy reserve",
+          "protective_deltas": [
+            {
+              "delta": 0.2,
+              "dimension": "energy"
+            },
+            {
+              "delta": -0.3,
+              "dimension": "fatigue"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            }
+          ],
+          "protective_option_terms": [
+            "rest",
+            "pause",
+            "sleep",
+            "počivaj",
+            "premor",
+            "spi",
+            "odloži",
+            "preveri"
+          ],
+          "rule_id": "instinkt_effect_fatigue_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "body",
+            "simulator"
+          ],
+          "uncertainty_rule": "The mapper models an explicit fatigue cue and makes no clinical claim."
+        },
+        {
+          "action_tendency": "seek_safety",
+          "adverse_deltas": [
+            {
+              "delta": -0.2,
+              "dimension": "energy"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "arousal"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "tension"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "physical_integrity"
+            }
+          ],
+          "adverse_option_terms": [
+            "stay",
+            "expose",
+            "continue",
+            "ostani",
+            "izpostavi",
+            "nadaljuj",
+            "izpostavljen*"
+          ],
+          "allowed_body_dimensions": [
+            "energy",
+            "arousal",
+            "tension",
+            "physical_integrity"
+          ],
+          "association_policy": "optional_with_explicit_default",
+          "base_predicted_loss": 0.55,
+          "base_recoverability": 0.6,
+          "candidate_terms": [
+            "cold",
+            "heat",
+            "temperature",
+            "environment",
+            "mraz",
+            "vročina",
+            "temperatura",
+            "okolje"
+          ],
+          "confidence": 0.7,
+          "cue_class": "temperature_or_environment",
+          "dominant_alarm": "environmental strain cue",
+          "minimum_safety_condition": "A grounded environmental mitigation is available.",
+          "packet_lanes": [
+            "physical_cues",
+            "explicit_body_cues"
+          ],
+          "protected_target": "virtual physical integrity",
+          "protective_deltas": [
+            {
+              "delta": 0.1,
+              "dimension": "energy"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "arousal"
+            },
+            {
+              "delta": -0.1,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.1,
+              "dimension": "physical_integrity"
+            }
+          ],
+          "protective_option_terms": [
+            "shelter",
+            "cool",
+            "warm",
+            "leave",
+            "zavetje",
+            "ohladi",
+            "segrej",
+            "odidi",
+            "zaščit*"
+          ],
+          "rule_id": "instinkt_effect_temperature_or_environment_v1",
+          "source_claim_ids": [
+            "C-INSTINKT-002",
+            "C-PROV-001"
+          ],
+          "source_status": "implementation_hypothesis",
+          "supported_evidence_modalities": [
+            "text",
+            "image",
+            "video",
+            "body",
+            "simulator"
+          ],
+          "uncertainty_rule": "Only the explicit environmental cue is mapped; no physiology is diagnosed."
+        }
+      ],
+      "ruleset_hash": "6be3db1b772a8eea8d826a60112dd640d40eb0cd7e319ac764810dec19b37c05",
+      "ruleset_id": "instinkt_effect_rules_fccbccc4777a81f9e5ba57c8c5beb9bc",
+      "schema_version": "rei-native-instinkt-effect-rules-v1"
+    },
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    },
+    "world": {
+      "associations": [],
+      "attachment_objects": [],
+      "boundary_patterns": [],
+      "schema_version": "rei-native-instinkt-world-v1",
+      "threat_patterns": [],
+      "trusted_patterns": [],
+      "unresolved_losses": [],
+      "world_id": "instinkt_world_c074e33d4d06609889e5299d40ca8a4f"
+    }
+  },
+  "profile_blind": true,
+  "public_option_scope": [
+    "credit_public_confront",
+    "credit_private_evidence",
+    "credit_no_response"
+  ],
+  "racio": {
+    "instruction_sha256": "2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101",
+    "packet": {
+      "allowed_option_ids": [
+        "credit_public_confront",
+        "credit_private_evidence",
+        "credit_no_response"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Only the existing timestamped record may be used.",
+        "Only the three public options may be used."
+      ],
+      "evidence_ids": [
+        "credit_ev_statement",
+        "credit_ev_record",
+        "credit_ev_leader",
+        "credit_ev_visual",
+        "credit_ev_social_unknown"
+      ],
+      "explicit_consequences": [],
+      "explicit_facts": [
+        "During the meeting, the colleague said that they alone designed the presented solution.",
+        "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+        "The leader is present and the meeting is still in progress.",
+        "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+        "The social consequences of public confrontation are unknown."
+      ],
+      "explicit_options": [
+        {
+          "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+          "label": "Immediate public confrontation",
+          "option_id": "credit_public_confront",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify the record privately with the leader after the meeting.",
+          "label": "Private presentation of evidence",
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Plan no follow-up and do not present the record.",
+          "label": "No response",
+          "option_id": "credit_no_response",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "The social consequences of public confrontation are unknown.",
+        "How the leader would assess the evidence is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [],
+      "packet_id": "racio_packet_9d40a4859be89daa62d2c1badfc71794",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compare evidence visibility, timing, and unknown social consequences without inferring either person's motive."
+      ],
+      "scene_id": "triad_public_credit_conflict",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "08086853fec094c7945fa49600c2dcb7887f007d96c01ec79a57dfe2092d9276",
+      "symbolic_and_language_cues": [
+        "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response."
+      ],
+      "time": [
+        "The meeting is still in progress."
+      ],
+      "world": {
+        "commitments": [
+          "Evaluate only the public options."
+        ],
+        "explicit_beliefs": [],
+        "facts": [],
+        "rules": [
+          "Unknowns are not facts."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "The meeting is still in progress."
+        ],
+        "world_id": "racio_public_credi_4a8f2a9e38f627c86d66428d5ebc4cea"
+      }
+    },
+    "scene": {
+      "actors": [
+        "self",
+        "colleague",
+        "leader",
+        "meeting_group"
+      ],
+      "constraints": [
+        "Only the existing timestamped record may be used.",
+        "Only the three public options may be used."
+      ],
+      "event_id": "triad_public_credit_conflict",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "During the meeting, the colleague said that they alone designed the presented solution.",
+          "evidence_id": "credit_ev_statement",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "audio",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s1:public_credit_conflict:credit_claim_statement"
+        },
+        {
+          "confidence": 1.0,
+          "content": "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+          "evidence_id": "credit_ev_record",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s1:public_credit_conflict:credit_claim_record"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The leader is present and the meeting is still in progress.",
+          "evidence_id": "credit_ev_leader",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "video",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s1:public_credit_conflict:credit_claim_leader"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "evidence_id": "credit_ev_visual",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "image",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s1:public_credit_conflict:credit_claim_visual"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The social consequences of public confrontation are unknown.",
+          "evidence_id": "credit_ev_social_unknown",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-s1:public_credit_conflict:credit_claim_social_unknown"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+          "label": "Immediate public confrontation",
+          "option_id": "credit_public_confront",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify the record privately with the leader after the meeting.",
+          "label": "Private presentation of evidence",
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Plan no follow-up and do not present the record.",
+          "label": "No response",
+          "option_id": "credit_no_response",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "The social consequences of public confrontation are unknown.",
+        "How the leader would assess the evidence is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Evaluate only the public options."
+      ],
+      "explicit_beliefs": [],
+      "facts": [],
+      "rules": [
+        "Unknowns are not facts."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "The meeting is still in progress."
+      ],
+      "world_id": "racio_public_credi_4a8f2a9e38f627c86d66428d5ebc4cea"
+    }
+  },
+  "schema_version": "triad-response-screen-inputs-v1",
+  "source": {
+    "canonical_sl": {
+      "actors": [
+        "self",
+        "colleague",
+        "leader",
+        "meeting_group"
+      ],
+      "constraints": [
+        {
+          "constraint_id": "credit_constraint_record",
+          "text": "Uporabiti je dovoljeno samo obstoječi časovno označeni zapis."
+        },
+        {
+          "constraint_id": "credit_constraint_scope",
+          "text": "Uporabljene smejo biti samo tri javne možnosti."
+        }
+      ],
+      "event_id": "triad_public_credit_conflict",
+      "evidence": [
+        {
+          "claim_id": "credit_claim_statement",
+          "content": "Sodelavec je na sestanku izjavil, da je sam zasnoval predstavljeno rešitev.",
+          "evidence_id": "credit_ev_statement",
+          "modality": "audio"
+        },
+        {
+          "claim_id": "credit_claim_record",
+          "content": "Časovno označen zapis repozitorija kaže avtorstvo druge osebe pred prispevkom sodelavca.",
+          "evidence_id": "credit_ev_record",
+          "modality": "text"
+        },
+        {
+          "claim_id": "credit_claim_leader",
+          "content": "Vodja je prisoten in sestanek še poteka.",
+          "evidence_id": "credit_ev_leader",
+          "modality": "video"
+        },
+        {
+          "claim_id": "credit_claim_visual",
+          "content": "Strukturirani prizor kaže govorca ob projekciji, vodjo za mizo in časovno označen zapis na prenosniku.",
+          "evidence_id": "credit_ev_visual",
+          "modality": "image"
+        },
+        {
+          "claim_id": "credit_claim_social_unknown",
+          "content": "Socialne posledice javne konfrontacije niso znane.",
+          "evidence_id": "credit_ev_social_unknown",
+          "modality": "text"
+        }
+      ],
+      "language": "sl",
+      "options": [
+        {
+          "description": "Takoj na sestanku izpodbij izjavo in pokaži zapis.",
+          "label": "Takojšnja javna konfrontacija",
+          "option_id": "credit_public_confront"
+        },
+        {
+          "description": "Po sestanku zasebno predstavi zapis vodji.",
+          "label": "Zasebna predstavitev dokazov",
+          "option_id": "credit_private_evidence"
+        },
+        {
+          "description": "Ne predstavi zapisa in ne odpiraj vprašanja zaslug.",
+          "label": "Opustitev odziva",
+          "option_id": "credit_no_response"
+        }
+      ],
+      "raw_input": "Sodelavec si na sestanku prisvoji zasluge; izberi javno konfrontacijo, zasebno predstavitev dokazov ali opustitev odziva.",
+      "unknowns": [
+        {
+          "text": "Ni znano, kakšne socialne posledice bi imela javna konfrontacija.",
+          "unknown_id": "credit_unknown_social"
+        },
+        {
+          "text": "Ni znano, kako bo vodja ocenil dokaz.",
+          "unknown_id": "credit_unknown_leader"
+        }
+      ]
+    },
+    "operational_en": {
+      "actors": [
+        "self",
+        "colleague",
+        "leader",
+        "meeting_group"
+      ],
+      "constraints": [
+        {
+          "constraint_id": "credit_constraint_record",
+          "text": "Only the existing timestamped record may be used."
+        },
+        {
+          "constraint_id": "credit_constraint_scope",
+          "text": "Only the three public options may be used."
+        }
+      ],
+      "event_id": "triad_public_credit_conflict",
+      "evidence": [
+        {
+          "claim_id": "credit_claim_statement",
+          "content": "During the meeting, the colleague said that they alone designed the presented solution.",
+          "evidence_id": "credit_ev_statement",
+          "modality": "audio"
+        },
+        {
+          "claim_id": "credit_claim_record",
+          "content": "A timestamped repository record shows another person's authorship before the colleague's contribution.",
+          "evidence_id": "credit_ev_record",
+          "modality": "text"
+        },
+        {
+          "claim_id": "credit_claim_leader",
+          "content": "The leader is present and the meeting is still in progress.",
+          "evidence_id": "credit_ev_leader",
+          "modality": "video"
+        },
+        {
+          "claim_id": "credit_claim_visual",
+          "content": "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop.",
+          "evidence_id": "credit_ev_visual",
+          "modality": "image"
+        },
+        {
+          "claim_id": "credit_claim_social_unknown",
+          "content": "The social consequences of public confrontation are unknown.",
+          "evidence_id": "credit_ev_social_unknown",
+          "modality": "text"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Proceed now by challenging the statement and displaying the record in the meeting.",
+          "label": "Immediate public confrontation",
+          "option_id": "credit_public_confront"
+        },
+        {
+          "description": "Verify the record privately with the leader after the meeting.",
+          "label": "Private presentation of evidence",
+          "option_id": "credit_private_evidence"
+        },
+        {
+          "description": "Plan no follow-up and do not present the record.",
+          "label": "No response",
+          "option_id": "credit_no_response"
+        }
+      ],
+      "raw_input": "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.",
+      "unknowns": [
+        {
+          "text": "The social consequences of public confrontation are unknown.",
+          "unknown_id": "credit_unknown_social"
+        },
+        {
+          "text": "How the leader would assess the evidence is unknown.",
+          "unknown_id": "credit_unknown_leader"
+        }
+      ]
+    }
+  }
+}

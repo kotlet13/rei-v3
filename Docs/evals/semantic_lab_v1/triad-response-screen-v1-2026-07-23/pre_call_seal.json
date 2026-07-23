@@ -1,0 +1,97 @@
+{
+  "case_input_sha256": {
+    "ambiguous_silence": "35451a5c2a02eb99d0ddb2d4d73137c837c84068c150f1a5b94af6d32cce47a7",
+    "factory_overtemperature": "83fc423856380d83be803b36d94c00e3bc5735b08c39aa82c50ce98552ef5fb1",
+    "family_relocation": "7b82d61a66eaef20facb3bb3183ee31bb722f8b9ac9a128abf17b4dc6f42a7df",
+    "imperfect_product_launch": "e1d3d6061330f947360ccae3ae2a0db8f188f7b7f90297df052dbd7020380d08",
+    "loan_to_friend": "92177192203386e10b42daa5ba4df1b27bfd3874b367cbecfdd6fe337508364f",
+    "public_credit_conflict": "a449310c9e30b2587e81099de0039678271c3c19537e6e248f65e64f76d625a5",
+    "spontaneous_trip": "46b235c110536e34759bd11a25887c23427adc0a779cf3a8285f081328b37ed9",
+    "unstable_slope_rescue": "90da25721123cfc2ad1ed527de46629847a33d3318e707b5b5d60ad081c88e08"
+  },
+  "corpus_manifest_sha256": "9f4fa1fe096b9c4fdc26f75679ee5abe432945562d774c214c36941eea08aa6b",
+  "declarations": {
+    "corpus_frozen_before_calls": true,
+    "development_screen": true,
+    "promotion_evidence": false,
+    "training_data": false,
+    "untouched_holdout": false
+  },
+  "expected_call_ledger": {
+    "case_order": [
+      "factory_overtemperature",
+      "family_relocation",
+      "imperfect_product_launch",
+      "loan_to_friend",
+      "unstable_slope_rescue",
+      "public_credit_conflict",
+      "spontaneous_trip",
+      "ambiguous_silence"
+    ],
+    "fallbacks": 0,
+    "model_calls": 8,
+    "retries": 0
+  },
+  "instruction_sha256": "2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101",
+  "model_profile": {
+    "expected_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "fallback": "none",
+    "model": "gemma4:31b",
+    "num_ctx": 65536,
+    "num_gpu": 999,
+    "require_full_gpu": true,
+    "retry": 0,
+    "seed": 314159,
+    "temperature": 0.0,
+    "thinking_persisted": false,
+    "top_k": 64,
+    "top_p": 0.95
+  },
+  "phase": "TRIAD-S1",
+  "provider_revision": "rei-native-ollama-racio-en-triad-screen-v1",
+  "public_option_scope": {
+    "ambiguous_silence": [
+      "silence_neutral_check",
+      "silence_repeat_calls",
+      "silence_wait"
+    ],
+    "factory_overtemperature": [
+      "factory_shutdown",
+      "factory_verify",
+      "factory_continue"
+    ],
+    "family_relocation": [
+      "relocation_move",
+      "relocation_hybrid",
+      "relocation_decline"
+    ],
+    "imperfect_product_launch": [
+      "launch_public_beta",
+      "launch_private_pilot",
+      "launch_delay"
+    ],
+    "loan_to_friend": [
+      "loan_full",
+      "loan_limited_contract",
+      "loan_decline"
+    ],
+    "public_credit_conflict": [
+      "credit_public_confront",
+      "credit_private_evidence",
+      "credit_no_response"
+    ],
+    "spontaneous_trip": [
+      "trip_book",
+      "trip_local",
+      "trip_home"
+    ],
+    "unstable_slope_rescue": [
+      "rescue_direct_entry",
+      "rescue_distance_tool",
+      "rescue_wait_help"
+    ]
+  },
+  "schema_version": "triad-response-screen-pre-call-seal-v1",
+  "seal_sha256": "b3556246f32c211b3980f6748b6e5557ee384388f69ce8735bc002e2eb4eb996",
+  "sealed_at": "2026-07-23T13:58:12.233734Z"
+}

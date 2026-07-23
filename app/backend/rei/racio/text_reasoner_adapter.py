@@ -29,6 +29,11 @@ three fields mutually disjoint. Do not interpret Emocio or Instinkt, decide gove
 commit behavior, or infer character authority. Return raw JSON without markdown fences
 or additional keys."""
 
+RACIO_STRUCTURED_INSTRUCTION_EN = (
+    "The packet and every free-text response field must be in English.\n"
+    + RACIO_STRUCTURED_INSTRUCTION
+)
+
 
 def _unique_artifact_ids(values: tuple[str, ...]) -> tuple[str, ...]:
     return tuple(dict.fromkeys(values))
@@ -121,4 +126,8 @@ class TextReasonerRacioAdapter:
         )
 
 
-__all__ = ["RACIO_STRUCTURED_INSTRUCTION", "TextReasonerRacioAdapter"]
+__all__ = [
+    "RACIO_STRUCTURED_INSTRUCTION",
+    "RACIO_STRUCTURED_INSTRUCTION_EN",
+    "TextReasonerRacioAdapter",
+]

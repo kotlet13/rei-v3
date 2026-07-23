@@ -1,0 +1,634 @@
+{
+  "schema_version": "triad-response-screen-corpus-v1",
+  "phase": "TRIAD-S1",
+  "case_count": 8,
+  "source_of_truth": "canonical_sl",
+  "projection_method": "manually_written_operational_en",
+  "untouched_holdout": false,
+  "promotion_evidence": false,
+  "training_data": false,
+  "cases": [
+    {
+      "case_id": "factory_overtemperature",
+      "canonical_sl": {
+        "event_id": "triad_factory_overtemperature",
+        "language": "sl",
+        "raw_input": "Procesna temperatura narašča; izberi javno možnost ob omejenem času, finančni izgubi in nasprotujočem senzorju.",
+        "evidence": [
+          {"claim_id": "factory_claim_temperature", "evidence_id": "factory_ev_temperature", "modality": "simulator", "content": "Procesna temperatura je v zadnjih šestih minutah narasla za 11 °C."},
+          {"claim_id": "factory_claim_sensor", "evidence_id": "factory_ev_sensor", "modality": "text", "content": "Rezervni senzor kaže vrednost 8 °C nižje od primarnega senzorja; pravilnost obeh odčitkov je neznana."},
+          {"claim_id": "factory_claim_damage", "evidence_id": "factory_ev_damage", "modality": "text", "content": "Nadaljnje segrevanje lahko poškoduje opremo, nadzorovan shutdown pa povzroči finančno izgubo."},
+          {"claim_id": "factory_claim_visual", "evidence_id": "factory_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže naraščajoči merilnik temperature, oranžno opozorilno luč in nepoškodovano procesno opremo."}
+        ],
+        "options": [
+          {"option_id": "factory_shutdown", "label": "Takojšen nadzorovan shutdown", "description": "Ustavi proizvodnjo po nadzorovanem postopku."},
+          {"option_id": "factory_verify", "label": "Kratko preverjanje", "description": "Za največ tri minute preveri oba senzorja in nato ponovno odloči."},
+          {"option_id": "factory_continue", "label": "Nadaljevanje proizvodnje", "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah."}
+        ],
+        "actors": ["operator", "maintenance_team"],
+        "constraints": [
+          {"constraint_id": "factory_constraint_time", "text": "Odločitev mora biti sprejeta v treh minutah."},
+          {"constraint_id": "factory_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "factory_unknown_sensor", "text": "Ni znano, kateri senzor je pravilen."},
+          {"unknown_id": "factory_unknown_damage", "text": "Ni znano, ali je že nastala poškodba opreme."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_factory_overtemperature",
+        "language": "en",
+        "raw_input": "Process temperature is rising; choose one public option under limited time, financial loss, and conflicting sensor data.",
+        "evidence": [
+          {"claim_id": "factory_claim_temperature", "evidence_id": "factory_ev_temperature", "modality": "simulator", "content": "Process temperature rose by 11 C during the last six minutes."},
+          {"claim_id": "factory_claim_sensor", "evidence_id": "factory_ev_sensor", "modality": "text", "content": "A backup sensor reads 8 C below the primary sensor; which reading is correct is unknown."},
+          {"claim_id": "factory_claim_damage", "evidence_id": "factory_ev_damage", "modality": "text", "content": "Further heating can damage equipment, while a controlled shutdown causes financial loss."},
+          {"claim_id": "factory_claim_visual", "evidence_id": "factory_ev_visual", "modality": "image", "content": "The structured scene shows a rising temperature gauge, an amber warning light, and intact process equipment."}
+        ],
+        "options": [
+          {"option_id": "factory_shutdown", "label": "Immediate controlled shutdown", "description": "Plan and execute the controlled shutdown procedure immediately."},
+          {"option_id": "factory_verify", "label": "Brief verification", "description": "Verify both sensors for no more than three minutes and then decide again."},
+          {"option_id": "factory_continue", "label": "Continue production", "description": "Proceed with production at the current settings."}
+        ],
+        "actors": ["operator", "maintenance_team"],
+        "constraints": [
+          {"constraint_id": "factory_constraint_time", "text": "A decision must be made within three minutes."},
+          {"constraint_id": "factory_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "factory_unknown_sensor", "text": "Which sensor is correct is unknown."},
+          {"unknown_id": "factory_unknown_damage", "text": "Whether equipment damage has already occurred is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["The decision window is three minutes."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [11, 8, 3],
+        "time": ["The observed rise covers six minutes.", "The decision window is three minutes."],
+        "rules": ["Retain explicit unknowns and compare consequences without inventing sensor reliability."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["rising gauge beside intact machinery"],
+          "desired_scenes": ["stable gauge, intact machinery, and a clear operator position"],
+          "broken_scenes": ["damaged equipment beneath a red warning field"],
+          "social_identity_motifs": ["operator responsible for a shared process"],
+          "attraction_patterns": ["stable gauge", "intact machinery", "clear position"],
+          "motor_patterns": ["step back from controls", "inspect two displays", "keep the line moving"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.75, "fatigue": 0.2, "pain": 0.0, "arousal": 0.55, "tension": 0.55, "physical_integrity": 1.0, "uncertainty": 0.7, "trust": 0.6, "attachment_security": 0.7, "resource_security": 0.75, "boundary_integrity": 0.9, "escape_availability": 0.85, "predictability": 0.35},
+        "cue_bindings": [
+          {"lane": "uncertainty_cues", "cue_class": "uncertainty", "cue": "which reading is correct is unknown", "evidence_id": "factory_ev_sensor", "cited_text": "which reading is correct is unknown"}
+        ]
+      }
+    },
+    {
+      "case_id": "family_relocation",
+      "canonical_sl": {
+        "event_id": "triad_family_relocation",
+        "language": "sl",
+        "raw_input": "Ponudba za delo prinaša višji prihodek in selitev daleč od družine; izberi med selitvijo, pogajanjem za hibrid in zavrnitvijo.",
+        "evidence": [
+          {"claim_id": "relocation_claim_income", "evidence_id": "relocation_ev_income", "modality": "text", "content": "Ponudba zviša letni neto prihodek za približno 28 odstotkov."},
+          {"claim_id": "relocation_claim_distance", "evidence_id": "relocation_ev_distance", "modality": "text", "content": "Selitev bi povečala razdaljo do družine na približno 900 kilometrov."},
+          {"claim_id": "relocation_claim_care", "evidence_id": "relocation_ev_care", "modality": "text", "content": "Bližnji sorodnik trenutno prejema pomoč dvakrat tedensko."},
+          {"claim_id": "relocation_claim_visual", "evidence_id": "relocation_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže dve oddaljeni lokaciji, družinsko mizo in odprt načrt novega stanovanja."}
+        ],
+        "options": [
+          {"option_id": "relocation_move", "label": "Selitev", "description": "Sprejmi ponudbo in se preseli na novo lokacijo."},
+          {"option_id": "relocation_hybrid", "label": "Pogajanje za hibrid", "description": "Pred odločitvijo se pogajaj za hibridno ureditev."},
+          {"option_id": "relocation_decline", "label": "Zavrnitev", "description": "Zavrni ponudbo in ostani na sedanji lokaciji."}
+        ],
+        "actors": ["self", "close_relative", "employer"],
+        "constraints": [
+          {"constraint_id": "relocation_constraint_reply", "text": "Delodajalec zahteva odgovor v sedmih dneh."},
+          {"constraint_id": "relocation_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "relocation_unknown_hybrid", "text": "Ni znano, ali bo delodajalec sprejel hibridno ureditev."},
+          {"unknown_id": "relocation_unknown_care", "text": "Ni znano, kdo bi po selitvi prevzel pomoč sorodniku."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_family_relocation",
+        "language": "en",
+        "raw_input": "A job offer brings higher income and a move far from family; choose among moving, negotiating hybrid work, and declining.",
+        "evidence": [
+          {"claim_id": "relocation_claim_income", "evidence_id": "relocation_ev_income", "modality": "text", "content": "The offer raises annual net income by about 28 percent."},
+          {"claim_id": "relocation_claim_distance", "evidence_id": "relocation_ev_distance", "modality": "text", "content": "The move would increase the distance from family to about 900 kilometres."},
+          {"claim_id": "relocation_claim_care", "evidence_id": "relocation_ev_care", "modality": "text", "content": "A close relative currently receives help twice each week."},
+          {"claim_id": "relocation_claim_visual", "evidence_id": "relocation_ev_visual", "modality": "image", "content": "The structured scene shows two distant locations, a family table, and an open plan for a new apartment."}
+        ],
+        "options": [
+          {"option_id": "relocation_move", "label": "Move", "description": "Accept the offer and move to the new location."},
+          {"option_id": "relocation_hybrid", "label": "Negotiate hybrid work", "description": "Connect both locations by negotiating a hybrid arrangement before deciding."},
+          {"option_id": "relocation_decline", "label": "Decline", "description": "Decline the offer and stay at the current location."}
+        ],
+        "actors": ["self", "close_relative", "employer"],
+        "constraints": [
+          {"constraint_id": "relocation_constraint_reply", "text": "The employer requires an answer within seven days."},
+          {"constraint_id": "relocation_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "relocation_unknown_hybrid", "text": "Whether the employer will accept a hybrid arrangement is unknown."},
+          {"unknown_id": "relocation_unknown_care", "text": "Who would provide the relative's help after a move is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["The reply window is seven days."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [28, 900, 7],
+        "time": ["The employer requires an answer within seven days."],
+        "rules": ["Compare income, distance, care logistics, and reversibility while retaining unknowns."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["occupied family table and familiar home"],
+          "desired_scenes": ["continued connection beside an open future horizon"],
+          "broken_scenes": ["empty chair at the family table and a closed route"],
+          "social_identity_motifs": ["family member and worker in two locations"],
+          "attraction_patterns": ["continued connection", "open future horizon"],
+          "motor_patterns": ["travel outward", "move between locations", "remain near the table"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.7, "fatigue": 0.25, "pain": 0.0, "arousal": 0.4, "tension": 0.45, "physical_integrity": 1.0, "uncertainty": 0.55, "trust": 0.7, "attachment_security": 0.65, "resource_security": 0.65, "boundary_integrity": 0.9, "escape_availability": 0.8, "predictability": 0.55},
+        "cue_bindings": [
+          {"lane": "attachment_cues", "cue_class": "attachment", "cue": "family", "evidence_id": "relocation_ev_distance", "cited_text": "family"}
+        ]
+      }
+    },
+    {
+      "case_id": "imperfect_product_launch",
+      "canonical_sl": {
+        "event_id": "triad_imperfect_product_launch",
+        "language": "sl",
+        "raw_input": "Delujoč, vendar nepopoln prototip je pred odločitvijo o javni beti, zasebnem pilotu ali popolni preložitvi.",
+        "evidence": [
+          {"claim_id": "launch_claim_function", "evidence_id": "launch_ev_function", "modality": "simulator", "content": "Prototip dokonča 87 odstotkov glavnih delovnih tokov brez napake."},
+          {"claim_id": "launch_claim_defect", "evidence_id": "launch_ev_defect", "modality": "text", "content": "Dve znani napaki lahko uporabniku izbrišeta neshranjene osnutke."},
+          {"claim_id": "launch_claim_competitor", "evidence_id": "launch_ev_competitor", "modality": "text", "content": "Konkurent je napovedal soroden izdelek čez šest tednov."},
+          {"claim_id": "launch_claim_visual", "evidence_id": "launch_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže delujoč vmesnik, dva označena preloma in prazno polje za uporabniški odziv."},
+          {"claim_id": "launch_claim_reputation_unknown", "evidence_id": "launch_ev_reputation_unknown", "modality": "text", "content": "Vpliv napak na ugled ni znan."}
+        ],
+        "options": [
+          {"option_id": "launch_public_beta", "label": "Javni beta launch", "description": "Odpri javno beto z objavljenim seznamom znanih napak."},
+          {"option_id": "launch_private_pilot", "label": "Omejeni zasebni pilot", "description": "Izvedi omejeni pilot z vnaprej izbranimi uporabniki."},
+          {"option_id": "launch_delay", "label": "Popolna preložitev", "description": "Preloži vse zunanje testiranje do odprave znanih napak."}
+        ],
+        "actors": ["product_team", "prospective_users", "competitor"],
+        "constraints": [
+          {"constraint_id": "launch_constraint_disclosure", "text": "Znane napake morajo biti razkrite vsakemu udeležencu."},
+          {"constraint_id": "launch_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "launch_unknown_feedback", "text": "Ni znano, koliko uporabnega feedbacka bi dala javna beta."},
+          {"unknown_id": "launch_unknown_reputation", "text": "Ni znan obseg morebitne škode ugledu."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_imperfect_product_launch",
+        "language": "en",
+        "raw_input": "A working but incomplete prototype faces a choice among public beta, a private pilot, and complete delay.",
+        "evidence": [
+          {"claim_id": "launch_claim_function", "evidence_id": "launch_ev_function", "modality": "simulator", "content": "The prototype completes 87 percent of its main workflows without error."},
+          {"claim_id": "launch_claim_defect", "evidence_id": "launch_ev_defect", "modality": "text", "content": "Two known defects can erase a user's unsaved drafts."},
+          {"claim_id": "launch_claim_competitor", "evidence_id": "launch_ev_competitor", "modality": "text", "content": "A competitor announced a related product in six weeks."},
+          {"claim_id": "launch_claim_visual", "evidence_id": "launch_ev_visual", "modality": "image", "content": "The structured scene shows a working interface, two marked breaks, and an empty field for user response."},
+          {"claim_id": "launch_claim_reputation_unknown", "evidence_id": "launch_ev_reputation_unknown", "modality": "text", "content": "The reputation impact is unknown."}
+        ],
+        "options": [
+          {"option_id": "launch_public_beta", "label": "Public beta launch", "description": "Proceed with a public beta and publish the known-defect list."},
+          {"option_id": "launch_private_pilot", "label": "Limited private pilot", "description": "Verify the prototype with a limited set of preselected users."},
+          {"option_id": "launch_delay", "label": "Complete delay", "description": "Plan no external testing until the known defects are fixed."}
+        ],
+        "actors": ["product_team", "prospective_users", "competitor"],
+        "constraints": [
+          {"constraint_id": "launch_constraint_disclosure", "text": "Known defects must be disclosed to every participant."},
+          {"constraint_id": "launch_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "launch_unknown_feedback", "text": "How much useful feedback a public beta would produce is unknown."},
+          {"unknown_id": "launch_unknown_reputation", "text": "The extent of possible reputation damage is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["The competitor's announced horizon is six weeks."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [87, 2, 6],
+        "time": ["The competitor announced a six-week horizon."],
+        "rules": ["Compare learning access, defect exposure, timing, and reversibility without assuming user reaction."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["working interface with marked breaks"],
+          "desired_scenes": ["coherent interface surrounded by visible user response"],
+          "broken_scenes": ["fragmented interface and an empty audience field"],
+          "social_identity_motifs": ["maker seen by users"],
+          "attraction_patterns": ["coherent interface", "visible user response"],
+          "motor_patterns": ["open the interface", "show it to a bounded group", "keep the field closed"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.68, "fatigue": 0.3, "pain": 0.0, "arousal": 0.48, "tension": 0.5, "physical_integrity": 1.0, "uncertainty": 0.62, "trust": 0.6, "attachment_security": 0.72, "resource_security": 0.7, "boundary_integrity": 0.88, "escape_availability": 0.8, "predictability": 0.45},
+        "cue_bindings": [
+          {"lane": "uncertainty_cues", "cue_class": "uncertainty", "cue": "reputation impact is unknown", "evidence_id": "launch_ev_reputation_unknown", "cited_text": "reputation impact is unknown"}
+        ]
+      }
+    },
+    {
+      "case_id": "loan_to_friend",
+      "canonical_sl": {
+        "event_id": "triad_loan_to_friend",
+        "language": "sl",
+        "raw_input": "Prijatelj potrebuje večjo vsoto, vendar je že zamujal z vračili; izberi polno posojilo, omejeno posojilo s pogodbo ali zavrnitev.",
+        "evidence": [
+          {"claim_id": "loan_claim_need", "evidence_id": "loan_ev_need", "modality": "text", "content": "Prijatelj je predložil račun za nujno popravilo doma."},
+          {"claim_id": "loan_claim_history", "evidence_id": "loan_ev_history", "modality": "text", "content": "Dve prejšnji vračili sta zamujali več kot tri mesece."},
+          {"claim_id": "loan_claim_budget", "evidence_id": "loan_ev_budget", "modality": "text", "content": "Polna zahtevana vsota predstavlja 45 odstotkov lastne denarne rezerve."},
+          {"claim_id": "loan_claim_visual", "evidence_id": "loan_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže račun za popravilo, dva človeka za mizo in zmanjšujoč se prikaz denarne rezerve."}
+        ],
+        "options": [
+          {"option_id": "loan_full", "label": "Polno posojilo", "description": "Posodi celotno zahtevano vsoto brez nove pogodbe."},
+          {"option_id": "loan_limited_contract", "label": "Omejeno posojilo s pogodbo", "description": "Posodi omejeno vsoto z zapisanim rokom vračila."},
+          {"option_id": "loan_decline", "label": "Zavrnitev", "description": "Ne posodi denarja."}
+        ],
+        "actors": ["self", "friend"],
+        "constraints": [
+          {"constraint_id": "loan_constraint_no_new_funds", "text": "Za odločitev ni na voljo dodatnega vira denarja."},
+          {"constraint_id": "loan_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "loan_unknown_repayment", "text": "Ni znano, ali bo prijatelj novo posojilo vrnil pravočasno."},
+          {"unknown_id": "loan_unknown_relationship", "text": "Ni znano, kako bo posamezna možnost vplivala na odnos."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_loan_to_friend",
+        "language": "en",
+        "raw_input": "A friend needs a large sum but has repaid late before; choose a full loan, a limited loan with a contract, or decline.",
+        "evidence": [
+          {"claim_id": "loan_claim_need", "evidence_id": "loan_ev_need", "modality": "text", "content": "The friend provided an invoice for an urgent home repair."},
+          {"claim_id": "loan_claim_history", "evidence_id": "loan_ev_history", "modality": "text", "content": "Two previous repayments were more than three months late."},
+          {"claim_id": "loan_claim_budget", "evidence_id": "loan_ev_budget", "modality": "text", "content": "The full requested sum is 45 percent of the lender's cash reserve."},
+          {"claim_id": "loan_claim_visual", "evidence_id": "loan_ev_visual", "modality": "image", "content": "The structured scene shows a repair invoice, two people at a table, and a shrinking cash-reserve display."}
+        ],
+        "options": [
+          {"option_id": "loan_full", "label": "Full loan", "description": "Spend the full requested sum without a new contract."},
+          {"option_id": "loan_limited_contract", "label": "Limited loan with contract", "description": "Spend a limited sum under a written repayment date."},
+          {"option_id": "loan_decline", "label": "Decline", "description": "Save the cash reserve and lend no money."}
+        ],
+        "actors": ["self", "friend"],
+        "constraints": [
+          {"constraint_id": "loan_constraint_no_new_funds", "text": "No additional source of money is available for this decision."},
+          {"constraint_id": "loan_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "loan_unknown_repayment", "text": "Whether the friend would repay a new loan on time is unknown."},
+          {"unknown_id": "loan_unknown_relationship", "text": "How each option would affect the relationship is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": [], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [2, 3, 45],
+        "time": ["Two previous repayments exceeded three months of delay."],
+        "rules": ["Compare documented need, repayment history, reserve exposure, and contractual limits without inferring motive."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["two people facing each other across a table"],
+          "desired_scenes": ["continued connection with a stable reserve display"],
+          "broken_scenes": ["empty chair beside a depleted reserve display"],
+          "social_identity_motifs": ["friend and lender at one table"],
+          "attraction_patterns": ["continued connection", "stable reserve display"],
+          "motor_patterns": ["pass the full amount", "write and pass a smaller amount", "keep the reserve"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.72, "fatigue": 0.25, "pain": 0.0, "arousal": 0.42, "tension": 0.5, "physical_integrity": 1.0, "uncertainty": 0.58, "trust": 0.5, "attachment_security": 0.65, "resource_security": 0.6, "boundary_integrity": 0.82, "escape_availability": 0.85, "predictability": 0.48},
+        "cue_bindings": [
+          {"lane": "scarcity_cues", "cue_class": "scarcity", "cue": "cash reserve", "evidence_id": "loan_ev_budget", "cited_text": "cash reserve"}
+        ]
+      }
+    },
+    {
+      "case_id": "unstable_slope_rescue",
+      "canonical_sl": {
+        "event_id": "triad_unstable_slope_rescue",
+        "language": "sl",
+        "raw_input": "Žival je ujeta ob nestabilnem pobočju; izberi neposreden vstop, poskus z razdalje ali čakanje na pomoč.",
+        "evidence": [
+          {"claim_id": "rescue_claim_animal", "evidence_id": "rescue_ev_animal", "modality": "text", "content": "Žival je vidna na polici približno šest metrov pod opazovalcem."},
+          {"claim_id": "rescue_claim_slope", "evidence_id": "rescue_ev_slope", "modality": "text", "content": "S pobočja se ob premiku kamenja sproščajo manjši delci, kar predstavlja fizično nevarnost."},
+          {"claim_id": "rescue_claim_tool", "evidence_id": "rescue_ev_tool", "modality": "text", "content": "Na voljo sta desetmetrska vrv in zanka, ki ju je mogoče uporabiti s stabilne ploščadi."},
+          {"claim_id": "rescue_claim_help", "evidence_id": "rescue_ev_help", "modality": "text", "content": "Usposobljena pomoč je sporočila prihod čez približno sedem minut."},
+          {"claim_id": "rescue_claim_visual", "evidence_id": "rescue_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže žival na polici, drobljivo pobočje, stabilno ploščad in navito vrv."}
+        ],
+        "options": [
+          {"option_id": "rescue_direct_entry", "label": "Neposreden vstop", "description": "Stopi na pobočje in se približaj živali."},
+          {"option_id": "rescue_distance_tool", "label": "Poskus z razdalje", "description": "S stabilne ploščadi uporabi vrv in zanko."},
+          {"option_id": "rescue_wait_help", "label": "Čakanje na pomoč", "description": "Ostani na ploščadi in počakaj na usposobljeno pomoč."}
+        ],
+        "actors": ["self", "trapped_animal", "rescue_team"],
+        "constraints": [
+          {"constraint_id": "rescue_constraint_visibility", "text": "Žival mora ostati v vidnem polju."},
+          {"constraint_id": "rescue_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "rescue_unknown_slope", "text": "Ni znano, ali bo pobočje ostalo stabilno naslednjih sedem minut."},
+          {"unknown_id": "rescue_unknown_animal", "text": "Ni znano, ali je žival poškodovana."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_unstable_slope_rescue",
+        "language": "en",
+        "raw_input": "An animal is trapped beside an unstable slope; choose direct entry, an attempt from a distance, or waiting for help.",
+        "evidence": [
+          {"claim_id": "rescue_claim_animal", "evidence_id": "rescue_ev_animal", "modality": "text", "content": "The animal is visible on a ledge about six metres below the observer."},
+          {"claim_id": "rescue_claim_slope", "evidence_id": "rescue_ev_slope", "modality": "text", "content": "Small fragments fall from the slope when rocks shift, creating physical danger."},
+          {"claim_id": "rescue_claim_tool", "evidence_id": "rescue_ev_tool", "modality": "text", "content": "A ten-metre rope and loop are available for use from a stable platform."},
+          {"claim_id": "rescue_claim_help", "evidence_id": "rescue_ev_help", "modality": "text", "content": "Trained help reported an arrival time of about seven minutes."},
+          {"claim_id": "rescue_claim_visual", "evidence_id": "rescue_ev_visual", "modality": "image", "content": "The structured scene shows an animal on a ledge, a crumbling slope, a stable platform, and a coiled rope."}
+        ],
+        "options": [
+          {"option_id": "rescue_direct_entry", "label": "Direct entry", "description": "Approach the animal by stepping onto the slope."},
+          {"option_id": "rescue_distance_tool", "label": "Attempt from a distance", "description": "Protect the stable position while using the rope and loop."},
+          {"option_id": "rescue_wait_help", "label": "Wait for help", "description": "Avoid entering the slope and wait on the platform for trained help."}
+        ],
+        "actors": ["self", "trapped_animal", "rescue_team"],
+        "constraints": [
+          {"constraint_id": "rescue_constraint_visibility", "text": "The animal must remain in view."},
+          {"constraint_id": "rescue_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "rescue_unknown_slope", "text": "Whether the slope will remain stable for the next seven minutes is unknown."},
+          {"unknown_id": "rescue_unknown_animal", "text": "Whether the animal is injured is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["Trained help reported an arrival time of about seven minutes."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [6, 10, 7],
+        "time": ["Trained help reported an arrival time of about seven minutes."],
+        "rules": ["Compare exposure, tool reach, delay, and uncertain slope stability without inferring injury."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["animal isolated on a narrow ledge"],
+          "desired_scenes": ["animal and observer on stable ground with open space"],
+          "broken_scenes": ["falling fragments between separated figures"],
+          "social_identity_motifs": ["observer oriented toward a vulnerable animal"],
+          "attraction_patterns": ["stable ground", "figures in one open space"],
+          "motor_patterns": ["descend toward the ledge", "extend a loop", "hold position"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.74, "fatigue": 0.18, "pain": 0.0, "arousal": 0.7, "tension": 0.68, "physical_integrity": 1.0, "uncertainty": 0.62, "trust": 0.65, "attachment_security": 0.7, "resource_security": 0.8, "boundary_integrity": 0.9, "escape_availability": 0.7, "predictability": 0.35},
+        "cue_bindings": [
+          {"lane": "physical_cues", "cue_class": "physical_threat", "cue": "physical danger", "evidence_id": "rescue_ev_slope", "cited_text": "physical danger"}
+        ]
+      }
+    },
+    {
+      "case_id": "public_credit_conflict",
+      "canonical_sl": {
+        "event_id": "triad_public_credit_conflict",
+        "language": "sl",
+        "raw_input": "Sodelavec si na sestanku prisvoji zasluge; izberi javno konfrontacijo, zasebno predstavitev dokazov ali opustitev odziva.",
+        "evidence": [
+          {"claim_id": "credit_claim_statement", "evidence_id": "credit_ev_statement", "modality": "audio", "content": "Sodelavec je na sestanku izjavil, da je sam zasnoval predstavljeno rešitev."},
+          {"claim_id": "credit_claim_record", "evidence_id": "credit_ev_record", "modality": "text", "content": "Časovno označen zapis repozitorija kaže avtorstvo druge osebe pred prispevkom sodelavca."},
+          {"claim_id": "credit_claim_leader", "evidence_id": "credit_ev_leader", "modality": "video", "content": "Vodja je prisoten in sestanek še poteka."},
+          {"claim_id": "credit_claim_visual", "evidence_id": "credit_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže govorca ob projekciji, vodjo za mizo in časovno označen zapis na prenosniku."},
+          {"claim_id": "credit_claim_social_unknown", "evidence_id": "credit_ev_social_unknown", "modality": "text", "content": "Socialne posledice javne konfrontacije niso znane."}
+        ],
+        "options": [
+          {"option_id": "credit_public_confront", "label": "Takojšnja javna konfrontacija", "description": "Takoj na sestanku izpodbij izjavo in pokaži zapis."},
+          {"option_id": "credit_private_evidence", "label": "Zasebna predstavitev dokazov", "description": "Po sestanku zasebno predstavi zapis vodji."},
+          {"option_id": "credit_no_response", "label": "Opustitev odziva", "description": "Ne predstavi zapisa in ne odpiraj vprašanja zaslug."}
+        ],
+        "actors": ["self", "colleague", "leader", "meeting_group"],
+        "constraints": [
+          {"constraint_id": "credit_constraint_record", "text": "Uporabiti je dovoljeno samo obstoječi časovno označeni zapis."},
+          {"constraint_id": "credit_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "credit_unknown_social", "text": "Ni znano, kakšne socialne posledice bi imela javna konfrontacija."},
+          {"unknown_id": "credit_unknown_leader", "text": "Ni znano, kako bo vodja ocenil dokaz."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_public_credit_conflict",
+        "language": "en",
+        "raw_input": "A colleague claims credit during a meeting; choose public confrontation, private presentation of evidence, or no response.",
+        "evidence": [
+          {"claim_id": "credit_claim_statement", "evidence_id": "credit_ev_statement", "modality": "audio", "content": "During the meeting, the colleague said that they alone designed the presented solution."},
+          {"claim_id": "credit_claim_record", "evidence_id": "credit_ev_record", "modality": "text", "content": "A timestamped repository record shows another person's authorship before the colleague's contribution."},
+          {"claim_id": "credit_claim_leader", "evidence_id": "credit_ev_leader", "modality": "video", "content": "The leader is present and the meeting is still in progress."},
+          {"claim_id": "credit_claim_visual", "evidence_id": "credit_ev_visual", "modality": "image", "content": "The structured scene shows a speaker beside a projection, a leader at the table, and a timestamped record on a laptop."},
+          {"claim_id": "credit_claim_social_unknown", "evidence_id": "credit_ev_social_unknown", "modality": "text", "content": "The social consequences of public confrontation are unknown."}
+        ],
+        "options": [
+          {"option_id": "credit_public_confront", "label": "Immediate public confrontation", "description": "Proceed now by challenging the statement and displaying the record in the meeting."},
+          {"option_id": "credit_private_evidence", "label": "Private presentation of evidence", "description": "Verify the record privately with the leader after the meeting."},
+          {"option_id": "credit_no_response", "label": "No response", "description": "Plan no follow-up and do not present the record."}
+        ],
+        "actors": ["self", "colleague", "leader", "meeting_group"],
+        "constraints": [
+          {"constraint_id": "credit_constraint_record", "text": "Only the existing timestamped record may be used."},
+          {"constraint_id": "credit_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "credit_unknown_social", "text": "The social consequences of public confrontation are unknown."},
+          {"unknown_id": "credit_unknown_leader", "text": "How the leader would assess the evidence is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["The meeting is still in progress."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [],
+        "time": ["The meeting is still in progress."],
+        "rules": ["Compare evidence visibility, timing, and unknown social consequences without inferring either person's motive."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["one speaker centered beside shared work"],
+          "desired_scenes": ["authorship record visible with balanced positions at the table"],
+          "broken_scenes": ["one figure erased from the shared-work composition"],
+          "social_identity_motifs": ["author, colleague, leader, and observing group"],
+          "attraction_patterns": ["visible authorship record", "balanced positions"],
+          "motor_patterns": ["stand and display", "move beside the leader", "remain seated"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.7, "fatigue": 0.22, "pain": 0.0, "arousal": 0.6, "tension": 0.62, "physical_integrity": 1.0, "uncertainty": 0.65, "trust": 0.42, "attachment_security": 0.65, "resource_security": 0.75, "boundary_integrity": 0.72, "escape_availability": 0.82, "predictability": 0.45},
+        "cue_bindings": [
+          {"lane": "uncertainty_cues", "cue_class": "uncertainty", "cue": "social consequences of public confrontation are unknown", "evidence_id": "credit_ev_social_unknown", "cited_text": "social consequences of public confrontation are unknown"}
+        ]
+      }
+    },
+    {
+      "case_id": "spontaneous_trip",
+      "canonical_sl": {
+        "event_id": "triad_spontaneous_trip",
+        "language": "sl",
+        "raw_input": "Redka priložnost za privlačno, nepovratno potovanje predstavlja opazen del prostega proračuna; izberi rezervacijo, lokalno alternativo ali ostanek doma.",
+        "evidence": [
+          {"claim_id": "trip_claim_deadline", "evidence_id": "trip_ev_deadline", "modality": "text", "content": "Ponudba za potovanje poteče čez štiri ure in po rezervaciji ni vračljiva."},
+          {"claim_id": "trip_claim_budget", "evidence_id": "trip_ev_budget", "modality": "text", "content": "Strošek potovanja predstavlja 38 odstotkov trenutno prostega proračuna."},
+          {"claim_id": "trip_claim_rarity", "evidence_id": "trip_ev_rarity", "modality": "text", "content": "Ista pot je bila v zadnjih treh letih na voljo enkrat."},
+          {"claim_id": "trip_claim_visual", "evidence_id": "trip_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže oddaljeno obalo, vozovnico z rokom in bližnjo lokalno pot."}
+        ],
+        "options": [
+          {"option_id": "trip_book", "label": "Rezervacija", "description": "Rezerviraj nepovratno potovanje."},
+          {"option_id": "trip_local", "label": "Cenejša lokalna alternativa", "description": "Izberi cenejši lokalni izlet."},
+          {"option_id": "trip_home", "label": "Ostati doma", "description": "Ne rezerviraj izleta in ostani doma."}
+        ],
+        "actors": ["self"],
+        "constraints": [
+          {"constraint_id": "trip_constraint_no_refund", "text": "Oddaljeno potovanje po rezervaciji ni vračljivo."},
+          {"constraint_id": "trip_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "trip_unknown_future_cost", "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški."},
+          {"unknown_id": "trip_unknown_experience", "text": "Ni znano, kako zadovoljivo bi bilo potovanje."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_spontaneous_trip",
+        "language": "en",
+        "raw_input": "A rare, attractive, non-refundable trip uses a noticeable share of discretionary budget; choose booking, a local alternative, or staying home.",
+        "evidence": [
+          {"claim_id": "trip_claim_deadline", "evidence_id": "trip_ev_deadline", "modality": "text", "content": "The travel offer expires in four hours and is non-refundable after booking."},
+          {"claim_id": "trip_claim_budget", "evidence_id": "trip_ev_budget", "modality": "text", "content": "The trip cost is 38 percent of the currently discretionary budget."},
+          {"claim_id": "trip_claim_rarity", "evidence_id": "trip_ev_rarity", "modality": "text", "content": "The same route was available once during the last three years."},
+          {"claim_id": "trip_claim_visual", "evidence_id": "trip_ev_visual", "modality": "image", "content": "The structured scene shows a distant coast, a ticket with a deadline, and a nearby local route."}
+        ],
+        "options": [
+          {"option_id": "trip_book", "label": "Book the trip", "description": "Buy the non-refundable trip."},
+          {"option_id": "trip_local", "label": "Cheaper local alternative", "description": "Spend a smaller amount on a local trip."},
+          {"option_id": "trip_home", "label": "Stay home", "description": "Save the discretionary budget and stay home."}
+        ],
+        "actors": ["self"],
+        "constraints": [
+          {"constraint_id": "trip_constraint_no_refund", "text": "The distant trip is non-refundable after booking."},
+          {"constraint_id": "trip_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "trip_unknown_future_cost", "text": "Whether other major costs will arise next month is unknown."},
+          {"unknown_id": "trip_unknown_experience", "text": "How satisfying the trip would be is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["The offer expires in four hours."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [4, 38, 3],
+        "time": ["The offer expires in four hours."],
+        "rules": ["Compare rarity, irreversibility, budget exposure, and unknown future costs without assuming enjoyment."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["open coastline beyond a ticket"],
+          "desired_scenes": ["expanded horizon with vivid movement and retained footing"],
+          "broken_scenes": ["closed horizon beside an emptied budget marker"],
+          "social_identity_motifs": ["single traveller facing two routes"],
+          "attraction_patterns": ["expanded horizon", "vivid movement"],
+          "motor_patterns": ["take the distant route", "walk the nearby route", "remain in place"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.78, "fatigue": 0.18, "pain": 0.0, "arousal": 0.52, "tension": 0.38, "physical_integrity": 1.0, "uncertainty": 0.5, "trust": 0.7, "attachment_security": 0.72, "resource_security": 0.68, "boundary_integrity": 0.9, "escape_availability": 0.85, "predictability": 0.5},
+        "cue_bindings": [
+          {"lane": "scarcity_cues", "cue_class": "scarcity", "cue": "trip cost", "evidence_id": "trip_ev_budget", "cited_text": "trip cost"}
+        ]
+      }
+    },
+    {
+      "case_id": "ambiguous_silence",
+      "canonical_sl": {
+        "event_id": "triad_ambiguous_silence",
+        "language": "sl",
+        "raw_input": "Bližnja oseba se več ur ne odziva; izberi eno nevtralno preverjanje, ponavljajoče klicanje ali čakanje do dogovorjenega časa.",
+        "evidence": [
+          {"claim_id": "silence_claim_duration", "evidence_id": "silence_ev_duration", "modality": "text", "content": "Od zadnjega sporočila so minile štiri ure."},
+          {"claim_id": "silence_claim_pattern", "evidence_id": "silence_ev_pattern", "modality": "text", "content": "Oseba običajno odgovori v dveh urah, vendar je že prej med delom odgovorila pozneje."},
+          {"claim_id": "silence_claim_danger", "evidence_id": "silence_ev_danger", "modality": "text", "content": "Razlog za neodzivnost ni znan; ni sporočila, dogodka ali drugega dokaza o nevarnosti."},
+          {"claim_id": "silence_claim_visual", "evidence_id": "silence_ev_visual", "modality": "image", "content": "Strukturirani prizor kaže eno neodgovorjeno sporočilo, uro in nespremenjen dogovorjeni čas."}
+        ],
+        "options": [
+          {"option_id": "silence_neutral_check", "label": "Eno nevtralno preverjanje", "description": "Pošlji eno nevtralno sporočilo brez dodatnega klica."},
+          {"option_id": "silence_repeat_calls", "label": "Ponavljajoče klicanje", "description": "Večkrat pokliči v kratkih presledkih."},
+          {"option_id": "silence_wait", "label": "Čakanje do dogovorjenega časa", "description": "Ne pošiljaj novega sporočila in počakaj do dogovorjenega časa."}
+        ],
+        "actors": ["self", "close_person"],
+        "constraints": [
+          {"constraint_id": "silence_constraint_no_new_evidence", "text": "Trenutno ni dodatnega vira informacij."},
+          {"constraint_id": "silence_constraint_scope", "text": "Uporabljene smejo biti samo tri javne možnosti."}
+        ],
+        "unknowns": [
+          {"unknown_id": "silence_unknown_reason", "text": "Razlog za neodzivnost ni znan."},
+          {"unknown_id": "silence_unknown_risk", "text": "Ni znano, ali odstopanje od običajnega vzorca pomeni nevarnost."}
+        ]
+      },
+      "operational_en": {
+        "event_id": "triad_ambiguous_silence",
+        "language": "en",
+        "raw_input": "A close person has not responded for several hours; choose one neutral check, repeated calling, or waiting until the agreed time.",
+        "evidence": [
+          {"claim_id": "silence_claim_duration", "evidence_id": "silence_ev_duration", "modality": "text", "content": "Four hours have passed since the last message."},
+          {"claim_id": "silence_claim_pattern", "evidence_id": "silence_ev_pattern", "modality": "text", "content": "The person usually responds within two hours but has previously responded later while working."},
+          {"claim_id": "silence_claim_danger", "evidence_id": "silence_ev_danger", "modality": "text", "content": "The reason for the silence is unknown; there is no message, event, or other evidence of danger."},
+          {"claim_id": "silence_claim_visual", "evidence_id": "silence_ev_visual", "modality": "image", "content": "The structured scene shows one unanswered message, a clock, and an unchanged agreed time."}
+        ],
+        "options": [
+          {"option_id": "silence_neutral_check", "label": "One neutral check", "description": "Clarify contact status with one neutral message and no additional call."},
+          {"option_id": "silence_repeat_calls", "label": "Repeated calling", "description": "Proceed with repeated calls at short intervals."},
+          {"option_id": "silence_wait", "label": "Wait until the agreed time", "description": "Plan no new message and wait until the agreed time."}
+        ],
+        "actors": ["self", "close_person"],
+        "constraints": [
+          {"constraint_id": "silence_constraint_no_new_evidence", "text": "No additional source of information is currently available."},
+          {"constraint_id": "silence_constraint_scope", "text": "Only the three public options may be used."}
+        ],
+        "unknowns": [
+          {"unknown_id": "silence_unknown_reason", "text": "The reason for the silence is unknown."},
+          {"unknown_id": "silence_unknown_risk", "text": "Whether the deviation from the usual pattern indicates danger is unknown."}
+        ]
+      },
+      "racio_input": {
+        "world": {"explicit_beliefs": [], "facts": [], "rules": ["Unknowns are not facts."], "timelines": ["Four hours have passed since the last message."], "commitments": ["Evaluate only the public options."]},
+        "numeric_cues": [4, 2],
+        "time": ["Four hours have passed since the last message."],
+        "rules": ["Compare information gain, intrusion, delay, and the absence of danger evidence without inventing a cause."],
+        "explicit_consequences": []
+      },
+      "emocio_input": {
+        "mode": "structured_only",
+        "world": {
+          "visual_memories": ["two connected figures with a quiet message line"],
+          "desired_scenes": ["restored connection with open space around both figures"],
+          "broken_scenes": ["one isolated figure beneath a dense cluster of alerts"],
+          "social_identity_motifs": ["close connection across a message channel"],
+          "attraction_patterns": ["restored connection", "open space"],
+          "motor_patterns": ["send one signal", "send repeated signals", "hold position"]
+        }
+      },
+      "instinkt_input": {
+        "body_state": {"energy": 0.7, "fatigue": 0.28, "pain": 0.0, "arousal": 0.58, "tension": 0.55, "physical_integrity": 1.0, "uncertainty": 0.72, "trust": 0.72, "attachment_security": 0.62, "resource_security": 0.8, "boundary_integrity": 0.85, "escape_availability": 0.9, "predictability": 0.42},
+        "cue_bindings": [
+          {"lane": "uncertainty_cues", "cue_class": "uncertainty", "cue": "reason for the silence is unknown", "evidence_id": "silence_ev_danger", "cited_text": "reason for the silence is unknown"}
+        ]
+      }
+    }
+  ]
+}
