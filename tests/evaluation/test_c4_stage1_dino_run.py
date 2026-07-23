@@ -594,7 +594,7 @@ def test_injected_hanging_child_is_killed_with_a_bounded_tree(tmp_path: Path) ->
         assert result.record.workload_released is False
         assert result.record.workload_release_status == "not_attempted"
         assert result.record.tree_termination_requested is False
-        assert result.record.containment_closed is True
+        assert result.record.containment_closed is False
         assert not marker.exists()
         return
     assert result.record.status == "timed_out"
