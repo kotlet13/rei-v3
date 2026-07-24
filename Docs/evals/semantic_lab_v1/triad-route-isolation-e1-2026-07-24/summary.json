@@ -1,0 +1,75 @@
+{
+  "abstentions": {
+    "E": 4,
+    "I": 0,
+    "R": 0
+  },
+  "calls": 4,
+  "candidate_sha256": "e9e1608b5eb3e472e6953c310749f21b676013602d5658849ab36356701144aa",
+  "character_replay_rows": 0,
+  "emocio_executions": 4,
+  "failure_categories": {
+    "fact_evidence_mismatch": 1
+  },
+  "failures": [
+    {
+      "accepted": false,
+      "failure_code": "fact_evidence_mismatch",
+      "failure_type": "OllamaStructuredOutputValidationError",
+      "final_json_sha256": "15fbfb4d294b9859eaf56b2ee3a34b35e1e3216e2194a813c81d3374a2467474",
+      "message": "Ollama structured output failed racio_structured_output_packet_contract:fact_evidence_mismatch",
+      "validation_stage": "racio_structured_output_packet_contract"
+    }
+  ],
+  "fallbacks": 0,
+  "gemma_emocio_shadow_calls": 0,
+  "gemma_instinkt_shadow_calls": 0,
+  "global_rei_score": null,
+  "holdout": false,
+  "image_generation_calls": 0,
+  "instinkt_executions": 4,
+  "model": "gemma4:31b",
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "native_mind_bundles": 0,
+  "pair_analysis": {
+    "emocio_protective_pair": {
+      "semantic_difference": "cross_visible_companion_effect_or_other_difference"
+    },
+    "emocio_utility_pair": {
+      "semantic_stability": "identical"
+    },
+    "instinkt_protective_pair": {
+      "route_distinction": "route_distinct"
+    },
+    "instinkt_utility_pair": {
+      "semantic_stability": "identical"
+    },
+    "racio_protective_pair": {
+      "request_payload_byte_identical": true,
+      "route_scope_leakage_terms": {
+        "trip_protective_context_exposed": [],
+        "trip_protective_context_supported": []
+      },
+      "semantic_stability": "identical"
+    },
+    "racio_utility_pair": {
+      "material_retains_cost": false,
+      "material_retains_uncertainty": false,
+      "material_uses_explicit_studio_benefit": false,
+      "pleasure_preserves_no_material_return": true,
+      "route_distinction": "not_assessable"
+    }
+  },
+  "phase": "TRIAD-ISO-E1",
+  "pre_call_seal_sha256": "1360554ad44b64f1aa8cdeb4e92d3bf278b8d812d381f0685e4e4595ccf86080",
+  "private_thinking_persisted": false,
+  "promotion_evidence": false,
+  "provider_revision": "rei-native-ollama-racio-en-triad-screen-v1",
+  "racio": {
+    "accepted": 3,
+    "rejected": 1
+  },
+  "retries": 0,
+  "schema_version": "triad-iso-e1-summary-v1",
+  "subset_sha256": "e4861112f8917658fdde47cf5c69f7c3df83cb9c137af398b53aeb4f39480118"
+}

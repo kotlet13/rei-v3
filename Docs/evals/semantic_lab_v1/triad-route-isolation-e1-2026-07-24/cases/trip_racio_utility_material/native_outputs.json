@@ -1,0 +1,2108 @@
+{
+  "case_id": "trip_racio_utility_material",
+  "character_replay_rows": 0,
+  "emocio": {
+    "abstains": true,
+    "aggregate_scores": {
+      "utility_trip_book": 0.487879,
+      "utility_trip_home": 0.39697,
+      "utility_trip_local": 0.487879
+    },
+    "broken_scene": {
+      "attention_structure": [],
+      "attraction_markers": [],
+      "composition": [
+        "The coast remains outside the active scene and self has no travel movement or new experience."
+      ],
+      "entities": [
+        "companion",
+        "self"
+      ],
+      "grounded_evidence_ids": [
+        "utility_ev_companion",
+        "utility_ev_destination"
+      ],
+      "group_belonging": "unspecified",
+      "inferred_elements": [
+        "The coast remains outside the active scene and self has no travel movement or new experience."
+      ],
+      "movement": [],
+      "obstacle_markers": [
+        "The coast remains outside the active scene and self has no travel movement or new experience."
+      ],
+      "option_id": null,
+      "scene_id": "visual_scene_f004e2121a5ed4655dfb5bb7b1111815",
+      "scene_kind": "broken",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": []
+    },
+    "conclusion": {
+      "abstains": true,
+      "action_tendency": "unknown",
+      "conclusion_id": "emocio_conclusion_bdb7f0692338a8371a6a7a2ac0b24127",
+      "current_scene_id": "visual_scene_311855972c442402ed5f5c01f47744d4",
+      "decisive_rollout_scene_id": null,
+      "desired_scene_id": "visual_scene_861b75d557b966a5d224e1b32b38bffe",
+      "desired_transformation": "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene.",
+      "intensity": 0.487879,
+      "main_obstacle": "The coast remains outside the active scene and self has no travel movement or new experience.",
+      "mind": "E",
+      "option_id": null,
+      "schema_version": "rei-native-emocio-conclusion-v1",
+      "source_packet_id": "emocio_packet_3c50e9fd3062c8a6ee87d88b438f31de",
+      "source_scene_id": "triad_iso_e1_emocio_scene_cd02f3cc7a3beb2132cf049847345a05",
+      "uncertainty": "Izenačena najvišja vrednotenja: utility_trip_book, utility_trip_local.",
+      "valuation_dimensions": []
+    },
+    "counterfactual_lineage": [
+      {
+        "actual_scene_signature": "c1f12572fb7caff37ec623cbc957c5d2f2b603277e628f3a070bcd99c2c043dc",
+        "candidate_counterfactual_signature": "f8c88ddd687230b51b9bc34e603bdaac17fc071176a232215f2bed9b0cad8ba0",
+        "delta": {
+          "attention": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "belonging": "not_relevant",
+          "composition_changes": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "entities_added": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "entities_removed": [],
+          "movement": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "obstacle_persistence": [],
+          "obstacle_removal": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        "evidence_basis_ids": [
+          "utility_ev_destination",
+          "utility_ev_companion"
+        ],
+        "option_id": "utility_trip_book"
+      },
+      {
+        "actual_scene_signature": "e8da3a63b115db6aa7c8a4d36313227d6864a8a0fc688f32ef2f754bc79147e3",
+        "candidate_counterfactual_signature": "fd24412c068a4bb5a405b3a4314f90e8f76d90bd2c78dfcc8edc2ca736aebbb1",
+        "delta": {
+          "attention": [],
+          "attraction_markers": [],
+          "belonging": "not_relevant",
+          "composition_changes": [
+            "Both coastal routes remain inactive and self stays in the home scene."
+          ],
+          "entities_added": [
+            "Both coastal routes remain inactive and self stays in the home scene."
+          ],
+          "entities_removed": [],
+          "movement": [],
+          "obstacle_persistence": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "obstacle_removal": [],
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        "evidence_basis_ids": [
+          "utility_ev_destination"
+        ],
+        "option_id": "utility_trip_home"
+      },
+      {
+        "actual_scene_signature": "52e58b347fc5c55144fc8479d2aeeb1e0b23c0b6388f8ba3991beab8c48511e7",
+        "candidate_counterfactual_signature": "544f97b945cd9f3400fc7db40a18d8ead5ef5ba55febee23b20bb01e8231656d",
+        "delta": {
+          "attention": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "belonging": "not_relevant",
+          "composition_changes": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "entities_added": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "entities_removed": [],
+          "movement": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "obstacle_persistence": [],
+          "obstacle_removal": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        "evidence_basis_ids": [
+          "utility_ev_destination",
+          "utility_ev_companion"
+        ],
+        "option_id": "utility_trip_local"
+      }
+    ],
+    "counterfactual_scenes": [
+      {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+        ],
+        "composition": [
+          "A trusted close person travels with self.",
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+          "Self and the companion enter the distant coastal route.",
+          "The destination, route, and coastal experience are explicitly attractive to self.",
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+        ],
+        "entities": [
+          "Centered at the route decision point beside the companion.",
+          "Self and the companion enter the distant coastal route.",
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "not_relevant",
+        "inferred_elements": [
+          "Centered at the route decision point beside the companion.",
+          "Self and the companion enter the distant coastal route.",
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+          "The inactive route and booking threshold are obstacles; no rival is present.",
+          "not_relevant"
+        ],
+        "movement": [
+          "Self and the companion enter the distant coastal route."
+        ],
+        "obstacle_markers": [],
+        "option_id": "utility_trip_book",
+        "scene_id": "visual_scene_14c829949985e782cb94cca7b8522fd1",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "Centered at the route decision point beside the companion.",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "A trusted close person travels with self.",
+          "Both coastal routes remain inactive and self stays in the home scene.",
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+          "The destination, route, and coastal experience are explicitly attractive to self.",
+          "The inactive route and booking threshold are obstacles; no rival is present."
+        ],
+        "entities": [
+          "Both coastal routes remain inactive and self stays in the home scene.",
+          "Centered at the route decision point beside the companion.",
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_destination"
+        ],
+        "group_belonging": "not_relevant",
+        "inferred_elements": [
+          "Both coastal routes remain inactive and self stays in the home scene.",
+          "Centered at the route decision point beside the companion.",
+          "The inactive route and booking threshold are obstacles; no rival is present.",
+          "not_relevant"
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "The inactive route and booking threshold are obstacles; no rival is present."
+        ],
+        "option_id": "utility_trip_home",
+        "scene_id": "visual_scene_11e836d0be307fb392798654abb08309",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "Centered at the route decision point beside the companion.",
+        "status_relations": []
+      },
+      {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+        ],
+        "composition": [
+          "A trusted close person travels with self.",
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+          "Self and the companion enter the smaller local coastal route.",
+          "The destination, route, and coastal experience are explicitly attractive to self.",
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+        ],
+        "entities": [
+          "Centered at the route decision point beside the companion.",
+          "Self and the companion enter the smaller local coastal route.",
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "not_relevant",
+        "inferred_elements": [
+          "Centered at the route decision point beside the companion.",
+          "Self and the companion enter the smaller local coastal route.",
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+          "The inactive route and booking threshold are obstacles; no rival is present.",
+          "not_relevant"
+        ],
+        "movement": [
+          "Self and the companion enter the smaller local coastal route."
+        ],
+        "obstacle_markers": [],
+        "option_id": "utility_trip_local",
+        "scene_id": "visual_scene_d2fe21ab795e1f056acd12a8673679db",
+        "scene_kind": "option_rollout",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "Centered at the route decision point beside the companion.",
+        "status_relations": []
+      }
+    ],
+    "current_scene": {
+      "attention_structure": [],
+      "attraction_markers": [
+        "A trusted close person travels with self.",
+        "The destination, route, and coastal experience are explicitly attractive to self."
+      ],
+      "composition": [
+        "A trusted close person travels with self.",
+        "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+        "The destination, route, and coastal experience are explicitly attractive to self."
+      ],
+      "entities": [
+        "companion",
+        "self"
+      ],
+      "grounded_evidence_ids": [
+        "utility_ev_companion",
+        "utility_ev_destination"
+      ],
+      "group_belonging": "unspecified",
+      "inferred_elements": [
+        "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path."
+      ],
+      "movement": [],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "visual_scene_311855972c442402ed5f5c01f47744d4",
+      "scene_kind": "current",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": [
+        "companion",
+        "self"
+      ]
+    },
+    "desired_scene": {
+      "attention_structure": [],
+      "attraction_markers": [
+        "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+      ],
+      "composition": [
+        "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+      ],
+      "entities": [
+        "companion",
+        "self"
+      ],
+      "grounded_evidence_ids": [
+        "utility_ev_companion",
+        "utility_ev_destination"
+      ],
+      "group_belonging": "Centered at the route decision point beside the companion.",
+      "inferred_elements": [
+        "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+      ],
+      "movement": [
+        "The distant and local options start different travel scenes; staying home leaves the routes inactive."
+      ],
+      "obstacle_markers": [],
+      "option_id": null,
+      "scene_id": "visual_scene_861b75d557b966a5d224e1b32b38bffe",
+      "scene_kind": "desired",
+      "schema_version": "rei-native-visual-scene-spec-v1",
+      "self_position": "unspecified",
+      "status_relations": [
+        "Centered at the route decision point beside the companion.",
+        "not_relevant"
+      ]
+    },
+    "failure_marker": null,
+    "policy": {
+      "aggregate_scores": [
+        {
+          "option_id": "utility_trip_book",
+          "score": 0.487879
+        },
+        {
+          "option_id": "utility_trip_home",
+          "score": 0.39697
+        },
+        {
+          "option_id": "utility_trip_local",
+          "score": 0.487879
+        }
+      ],
+      "selected": null,
+      "tied_option_ids": [
+        "utility_trip_book",
+        "utility_trip_local"
+      ]
+    },
+    "policy_distinction": true,
+    "scene_routes": [
+      {
+        "option_id": "utility_trip_book",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      },
+      {
+        "option_id": "utility_trip_home",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      },
+      {
+        "option_id": "utility_trip_local",
+        "scene_to_broken": {
+          "composition_overlap": [],
+          "obstacle_overlap": []
+        },
+        "scene_to_desired": {
+          "attraction_overlap": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "composition_overlap": [],
+          "movement_overlap": [],
+          "status_overlap": []
+        }
+      }
+    ],
+    "selected_option_id": null,
+    "signature_distinction": true,
+    "tied_option_ids": [
+      "utility_trip_book",
+      "utility_trip_local"
+    ],
+    "valuation_distinction": true,
+    "valuation_vector_signatures": {
+      "utility_trip_book": "f70ee4a806cb194c252f4f16411120ee1846eaed19a04004b125d593a182cfb0",
+      "utility_trip_home": "d5f72fb65da08dc1a7b949381ba1a27c98e1e775e55575004d05baa193dcd81c",
+      "utility_trip_local": "f70ee4a806cb194c252f4f16411120ee1846eaed19a04004b125d593a182cfb0"
+    },
+    "valuation_vectors": {
+      "utility_trip_book": {
+        "attack_or_breakthrough_affordance": 0.466667,
+        "attention": 0.5,
+        "attraction": 1.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.4,
+        "self_visibility": 1.0,
+        "status": 0.0
+      },
+      "utility_trip_home": {
+        "attack_or_breakthrough_affordance": 0.466667,
+        "attention": 0.5,
+        "attraction": 0.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.4,
+        "self_visibility": 1.0,
+        "status": 0.0
+      },
+      "utility_trip_local": {
+        "attack_or_breakthrough_affordance": 0.466667,
+        "attention": 0.5,
+        "attraction": 1.0,
+        "belonging": 0.0,
+        "competitive_success": 1.0,
+        "desired_scene_match": 0.0,
+        "distance_from_broken_scene": 1.0,
+        "movement": 0.0,
+        "novelty": 0.4,
+        "self_visibility": 1.0,
+        "status": 0.0
+      }
+    },
+    "visual_state": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "The coast remains outside the active scene and self has no travel movement or new experience."
+        ],
+        "entities": [
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "The coast remains outside the active scene and self has no travel movement or new experience."
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "The coast remains outside the active scene and self has no travel movement or new experience."
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_f004e2121a5ed4655dfb5bb7b1111815",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "A trusted close person travels with self.",
+          "The destination, route, and coastal experience are explicitly attractive to self."
+        ],
+        "composition": [
+          "A trusted close person travels with self.",
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+          "The destination, route, and coastal experience are explicitly attractive to self."
+        ],
+        "entities": [
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path."
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_311855972c442402ed5f5c01f47744d4",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "companion",
+          "self"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+        ],
+        "composition": [
+          "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+        ],
+        "entities": [
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "Centered at the route decision point beside the companion.",
+        "inferred_elements": [
+          "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+        ],
+        "movement": [
+          "The distant and local options start different travel scenes; staying home leaves the routes inactive."
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_861b75d557b966a5d224e1b32b38bffe",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "Centered at the route decision point beside the companion.",
+          "not_relevant"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "composition": [
+            "A trusted close person travels with self.",
+            "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+            "Self and the companion enter the distant coastal route.",
+            "The destination, route, and coastal experience are explicitly attractive to self.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "entities": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the distant coastal route.",
+            "companion",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_destination"
+          ],
+          "group_belonging": "not_relevant",
+          "inferred_elements": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the distant coastal route.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+            "The inactive route and booking threshold are obstacles; no rival is present.",
+            "not_relevant"
+          ],
+          "movement": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "obstacle_markers": [],
+          "option_id": "utility_trip_book",
+          "scene_id": "visual_scene_14c829949985e782cb94cca7b8522fd1",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [],
+          "composition": [
+            "A trusted close person travels with self.",
+            "Both coastal routes remain inactive and self stays in the home scene.",
+            "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+            "The destination, route, and coastal experience are explicitly attractive to self.",
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "entities": [
+            "Both coastal routes remain inactive and self stays in the home scene.",
+            "Centered at the route decision point beside the companion.",
+            "companion",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "utility_ev_destination"
+          ],
+          "group_belonging": "not_relevant",
+          "inferred_elements": [
+            "Both coastal routes remain inactive and self stays in the home scene.",
+            "Centered at the route decision point beside the companion.",
+            "The inactive route and booking threshold are obstacles; no rival is present.",
+            "not_relevant"
+          ],
+          "movement": [],
+          "obstacle_markers": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "option_id": "utility_trip_home",
+          "scene_id": "visual_scene_11e836d0be307fb392798654abb08309",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "composition": [
+            "A trusted close person travels with self.",
+            "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+            "Self and the companion enter the smaller local coastal route.",
+            "The destination, route, and coastal experience are explicitly attractive to self.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "entities": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the smaller local coastal route.",
+            "companion",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_destination"
+          ],
+          "group_belonging": "not_relevant",
+          "inferred_elements": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the smaller local coastal route.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+            "The inactive route and booking threshold are obstacles; no rival is present.",
+            "not_relevant"
+          ],
+          "movement": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "obstacle_markers": [],
+          "option_id": "utility_trip_local",
+          "scene_id": "visual_scene_d2fe21ab795e1f056acd12a8673679db",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        }
+      ],
+      "option_valuations": [
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 1.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.4
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.466667
+            }
+          ],
+          "option_id": "utility_trip_book",
+          "rollout_scene_id": "visual_scene_14c829949985e782cb94cca7b8522fd1"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 0.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.4
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.466667
+            }
+          ],
+          "option_id": "utility_trip_home",
+          "rollout_scene_id": "visual_scene_11e836d0be307fb392798654abb08309"
+        },
+        {
+          "dimensions": [
+            {
+              "name": "desired_scene_match",
+              "score": 0.0
+            },
+            {
+              "name": "distance_from_broken_scene",
+              "score": 1.0
+            },
+            {
+              "name": "self_visibility",
+              "score": 1.0
+            },
+            {
+              "name": "belonging",
+              "score": 0.0
+            },
+            {
+              "name": "attention",
+              "score": 0.5
+            },
+            {
+              "name": "attraction",
+              "score": 1.0
+            },
+            {
+              "name": "novelty",
+              "score": 0.4
+            },
+            {
+              "name": "movement",
+              "score": 0.0
+            },
+            {
+              "name": "status",
+              "score": 0.0
+            },
+            {
+              "name": "competitive_success",
+              "score": 1.0
+            },
+            {
+              "name": "attack_or_breakthrough_affordance",
+              "score": 0.466667
+            }
+          ],
+          "option_id": "utility_trip_local",
+          "rollout_scene_id": "visual_scene_d2fe21ab795e1f056acd12a8673679db"
+        }
+      ],
+      "schema_version": "rei-native-emocio-visual-state-v1",
+      "source_packet_id": "emocio_packet_3c50e9fd3062c8a6ee87d88b438f31de",
+      "source_scene_id": "triad_iso_e1_emocio_scene_cd02f3cc7a3beb2132cf049847345a05",
+      "visual_state_id": "emocio_state_5c3b226091c1e1aec76ea1ede2c71452"
+    }
+  },
+  "instinkt": {
+    "abstains": false,
+    "body_state": {
+      "arousal": 0.5,
+      "attachment_security": 0.65,
+      "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+      "boundary_integrity": 0.8,
+      "energy": 0.75,
+      "escape_availability": 0.65,
+      "fatigue": 0.2,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.5,
+      "resource_security": 0.65,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.45,
+      "trust": 0.55,
+      "uncertainty": 0.55
+    },
+    "conclusion": {
+      "abstains": false,
+      "action_tendency": "maintain",
+      "conclusion_id": "instinkt_conclusion_bd68de6761d24e493eea9ab60bc9edf3",
+      "danger_claims": [
+        "predicted_loss=0.3275",
+        "recoverability=0.5915"
+      ],
+      "decisive_rollout_id": "instinkt_rollout_37abcbce34bf42f8ac7ecc573ec54cbc",
+      "decisive_rollout_option_id": "utility_trip_local",
+      "dominant_alarm": "grounded_core_route:local_bounded_exposure+trusted_attachment_support",
+      "intensity": 0.37150000000000005,
+      "mind": "I",
+      "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+      "option_id": "utility_trip_local",
+      "protected_targets": [
+        "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+      ],
+      "schema_version": "rei-native-instinkt-conclusion-v1",
+      "source_body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+      "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+      "source_scene_id": "triad_iso_e1_instinkt_scene_7e3817d5b6a6eebf89fb6275a7e78f18",
+      "uncertainty": "deterministic protective policy implementation hypothesis"
+    },
+    "effect_distinction": true,
+    "every_effect_has_option_specific_evidence": true,
+    "failure_marker": null,
+    "option_paths": [
+      {
+        "consequence_fact": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss.",
+        "derived_body_deltas": {
+          "attachment_security": 0.15,
+          "escape_availability": 0.12,
+          "predictability": 0.08,
+          "resource_security": -0.15,
+          "tension": -0.05,
+          "trust": 0.12
+        },
+        "effect": {
+          "action_tendency": "conserve",
+          "association_cue_tokens": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "attachment_outcome": "grounded_consequence_delta:attachment_security:+0.150000",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": -0.05,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.12,
+              "dimension": "trust"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "attachment_security"
+            },
+            {
+              "delta": -0.15,
+              "dimension": "resource_security"
+            },
+            {
+              "delta": 0.12,
+              "dimension": "escape_availability"
+            },
+            {
+              "delta": 0.08,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+          "dominant_alarm": "grounded_core_route:bounded_cancellation+resource_commitment_25+trusted_attachment_support",
+          "effect_hash": "f7fa40fa3783fcdf9997377d3da3e828176ff1ccff0166bf29246170b13420a8",
+          "effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+          "escape_outcome": "grounded_consequence_delta:escape_availability:+0.120000",
+          "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+          "option_id": "utility_trip_book",
+          "protected_targets": [
+            "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+          "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+          "triggering_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_cost",
+            "utility_ev_reversibility",
+            "utility_ev_safety"
+          ],
+          "trust_outcome": "grounded_consequence_delta:trust:+0.120000"
+        },
+        "effect_categories": [
+          "bounded_cancellation",
+          "resource_commitment_25",
+          "trusted_attachment_support"
+        ],
+        "effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+        "effect_signature": "71bdd52dfb23856b0165b53f2718d73f04c96d99e475e308c128eca7e5349383",
+        "option_id": "utility_trip_book",
+        "predicted_loss": 0.3350000000000001,
+        "protective_cost": 0.551,
+        "recoverability": 0.5960000000000001,
+        "source_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_cost",
+          "utility_ev_reversibility",
+          "utility_ev_safety"
+        ],
+        "source_evidence_text": [
+          "A trusted close person travels with self.",
+          "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "Transport, lodging, and the return path are verified."
+        ]
+      },
+      {
+        "consequence_fact": "Self preserves the travel budget; no claim is made that home is universally free of danger.",
+        "derived_body_deltas": {
+          "resource_security": 0.15
+        },
+        "effect": {
+          "action_tendency": "maintain",
+          "association_cue_tokens": [
+            "resource_preserved"
+          ],
+          "attachment_outcome": "not_changed_by_grounded_consequence:attachment_security",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": 0.15,
+              "dimension": "resource_security"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+          "dominant_alarm": "grounded_core_route:resource_preserved",
+          "effect_hash": "6f6a55be4d81c97a5e487af41b338c3de8a784b5d0d2adab270bd37f66351e35",
+          "effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+          "escape_outcome": "not_changed_by_grounded_consequence:escape_availability",
+          "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+          "option_id": "utility_trip_home",
+          "protected_targets": [
+            "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+          "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+          "triggering_evidence_ids": [
+            "utility_ev_cost"
+          ],
+          "trust_outcome": "not_changed_by_grounded_consequence:trust"
+        },
+        "effect_categories": [
+          "resource_preserved"
+        ],
+        "effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+        "effect_signature": "8998e0cef6db8c6a082d98ed1002837b7339ae909cbc66720d9079807b48383e",
+        "option_id": "utility_trip_home",
+        "predicted_loss": 0.3325,
+        "protective_cost": 0.560625,
+        "recoverability": 0.5775,
+        "source_evidence_ids": [
+          "utility_ev_cost"
+        ],
+        "source_evidence_text": [
+          "The trip costs EUR 1200, or 25 percent of the discretionary budget."
+        ]
+      },
+      {
+        "consequence_fact": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment.",
+        "derived_body_deltas": {
+          "attachment_security": 0.15,
+          "predictability": 0.08,
+          "tension": -0.05,
+          "trust": 0.12
+        },
+        "effect": {
+          "action_tendency": "maintain",
+          "association_cue_tokens": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "attachment_outcome": "grounded_consequence_delta:attachment_security:+0.150000",
+          "base_predicted_loss": 0.5,
+          "base_recoverability": 0.5,
+          "body_deltas": [
+            {
+              "delta": -0.05,
+              "dimension": "tension"
+            },
+            {
+              "delta": 0.12,
+              "dimension": "trust"
+            },
+            {
+              "delta": 0.15,
+              "dimension": "attachment_security"
+            },
+            {
+              "delta": 0.08,
+              "dimension": "predictability"
+            }
+          ],
+          "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+          "dominant_alarm": "grounded_core_route:local_bounded_exposure+trusted_attachment_support",
+          "effect_hash": "34af13084d0b994eaf8ede2c25fe954dc0270ee25e13a60f34b526ec4c679e1c",
+          "effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+          "escape_outcome": "not_changed_by_grounded_consequence:escape_availability",
+          "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+          "option_id": "utility_trip_local",
+          "protected_targets": [
+            "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+          ],
+          "schema_version": "rei-native-option-body-effect-v1",
+          "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+          "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+          "triggering_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_safety"
+          ],
+          "trust_outcome": "grounded_consequence_delta:trust:+0.120000"
+        },
+        "effect_categories": [
+          "local_bounded_exposure",
+          "trusted_attachment_support"
+        ],
+        "effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+        "effect_signature": "0b4ccb83234a799510bd70dae8c60399e5d23dbf17397a167aa2b3b1e30e793a",
+        "option_id": "utility_trip_local",
+        "predicted_loss": 0.32750000000000007,
+        "protective_cost": 0.544625,
+        "recoverability": 0.5915,
+        "source_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_safety"
+        ],
+        "source_evidence_text": [
+          "A trusted close person travels with self.",
+          "Transport, lodging, and the return path are verified."
+        ]
+      }
+    ],
+    "policy": {
+      "decisive_rollout_id": "instinkt_rollout_37abcbce34bf42f8ac7ecc573ec54cbc",
+      "option_scores": [
+        {
+          "option_id": "utility_trip_book",
+          "protective_cost": 0.551,
+          "rollout_hash": "449c5d02e5742fb6d5546f78d205e5b0fe50ddedcdcf5b26e5d4b650643fc171",
+          "rollout_id": "instinkt_rollout_fbb9888aa10d13947dc44c72df3d2cd6"
+        },
+        {
+          "option_id": "utility_trip_home",
+          "protective_cost": 0.560625,
+          "rollout_hash": "694173acf2eb49d39183d2d5da8d6388fd48adbd8e030db5cb8eca678605161c",
+          "rollout_id": "instinkt_rollout_840849385e09a25c35f864bb9638ced6"
+        },
+        {
+          "option_id": "utility_trip_local",
+          "protective_cost": 0.544625,
+          "rollout_hash": "ee3e49a70a370e3dd42999ab28adce347f897023867353e5bf72e1d2164e40f8",
+          "rollout_id": "instinkt_rollout_37abcbce34bf42f8ac7ecc573ec54cbc"
+        }
+      ],
+      "policy_decision_id": "instinkt_policy_f1816806f0ff9a97d2ea0c6d07f29e35",
+      "policy_hash": "19f54e18dfb8e694bafa93b908e9629440eee52c8e89d3af19d81e3cbc859d4d",
+      "schema_version": "rei-native-protective-policy-v1",
+      "selected_option_id": "utility_trip_local",
+      "source_body_state_hash": "1fe0bfe2860ed04379bca4dd6565b69fd2f0ec1baf8a78067cba8530b7970aa2",
+      "source_body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+      "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+      "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+      "status": "selected",
+      "tied_option_ids": []
+    },
+    "rollouts": [
+      {
+        "attachment_outcome": "grounded_consequence_delta:attachment_security:+0.150000",
+        "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+        "dominant_alarm": "grounded_core_route:bounded_cancellation+resource_commitment_25+trusted_attachment_support",
+        "escape_outcome": "grounded_consequence_delta:escape_availability:+0.120000",
+        "option_id": "utility_trip_book",
+        "predicted_loss": 0.3350000000000001,
+        "protected_targets": [
+          "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+        ],
+        "recoverability": 0.5960000000000001,
+        "rollout_hash": "449c5d02e5742fb6d5546f78d205e5b0fe50ddedcdcf5b26e5d4b650643fc171",
+        "rollout_id": "instinkt_rollout_fbb9888aa10d13947dc44c72df3d2cd6",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "1fe0bfe2860ed04379bca4dd6565b69fd2f0ec1baf8a78067cba8530b7970aa2",
+        "source_body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "f7fa40fa3783fcdf9997377d3da3e828176ff1ccff0166bf29246170b13420a8",
+        "source_effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+        "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+        "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "trajectory": [
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.65,
+            "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.65,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.55,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.7000000000000001,
+            "body_state_id": "body_state_673024144b08f977da61bcecb08b33e0",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.6900000000000001,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5266666666666666,
+            "resource_security": 0.6,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.43333333333333335,
+            "trust": 0.5900000000000001,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.7500000000000001,
+            "body_state_id": "body_state_df1400d5d9224cfb11bc417e555be7d5",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.7300000000000001,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5533333333333332,
+            "resource_security": 0.5499999999999999,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4166666666666667,
+            "trust": 0.6300000000000001,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.8000000000000002,
+            "body_state_id": "body_state_1c75e5098f55f04571915972625b5f5b",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.7700000000000001,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5799999999999998,
+            "resource_security": 0.49999999999999994,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4,
+            "trust": 0.6700000000000002,
+            "uncertainty": 0.55
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.016666666666666663,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "trust"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "attachment_security"
+              },
+              {
+                "delta": -0.050000000000000044,
+                "dimension": "resource_security"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "escape_availability"
+              },
+              {
+                "delta": 0.026666666666666616,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "f7fa40fa3783fcdf9997377d3da3e828176ff1ccff0166bf29246170b13420a8",
+            "source_effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7000000000000001,
+              "body_state_id": "body_state_673024144b08f977da61bcecb08b33e0",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.6900000000000001,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5266666666666666,
+              "resource_security": 0.6,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.43333333333333335,
+              "trust": 0.5900000000000001,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "19099662a7e48895350f996b4a3ef58ac1f96a05a730a53be188b95b5f605a60",
+            "transition_id": "body_transition_3d5d9395548734341f5458667a1646b0",
+            "triggering_evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_cost",
+              "utility_ev_reversibility",
+              "utility_ev_safety"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.016666666666666663,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "trust"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "attachment_security"
+              },
+              {
+                "delta": -0.050000000000000044,
+                "dimension": "resource_security"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "escape_availability"
+              },
+              {
+                "delta": 0.026666666666666616,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7000000000000001,
+              "body_state_id": "body_state_673024144b08f977da61bcecb08b33e0",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.6900000000000001,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5266666666666666,
+              "resource_security": 0.6,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.43333333333333335,
+              "trust": 0.5900000000000001,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "f7fa40fa3783fcdf9997377d3da3e828176ff1ccff0166bf29246170b13420a8",
+            "source_effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7500000000000001,
+              "body_state_id": "body_state_df1400d5d9224cfb11bc417e555be7d5",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.7300000000000001,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5533333333333332,
+              "resource_security": 0.5499999999999999,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4166666666666667,
+              "trust": 0.6300000000000001,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "56d2d4c4888762b885dcb5655ea00d303c10752eadeea734f9ce8747afcb577f",
+            "transition_id": "body_transition_d81846f018920f2af8a7bdc0aa3bebf5",
+            "triggering_evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_cost",
+              "utility_ev_reversibility",
+              "utility_ev_safety"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.016666666666666663,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "trust"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "attachment_security"
+              },
+              {
+                "delta": -0.04999999999999999,
+                "dimension": "resource_security"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "escape_availability"
+              },
+              {
+                "delta": 0.026666666666666616,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7500000000000001,
+              "body_state_id": "body_state_df1400d5d9224cfb11bc417e555be7d5",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.7300000000000001,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5533333333333332,
+              "resource_security": 0.5499999999999999,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4166666666666667,
+              "trust": 0.6300000000000001,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "f7fa40fa3783fcdf9997377d3da3e828176ff1ccff0166bf29246170b13420a8",
+            "source_effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.8000000000000002,
+              "body_state_id": "body_state_1c75e5098f55f04571915972625b5f5b",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.7700000000000001,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5799999999999998,
+              "resource_security": 0.49999999999999994,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4,
+              "trust": 0.6700000000000002,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "2ee0525e04c3a38761c95d466150e97aa8b865bc47e3331761f4664137fec352",
+            "transition_id": "body_transition_a24efe9cab065d7985f259b29d3bbc55",
+            "triggering_evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_cost",
+              "utility_ev_reversibility",
+              "utility_ev_safety"
+            ]
+          }
+        ],
+        "trust_outcome": "grounded_consequence_delta:trust:+0.120000"
+      },
+      {
+        "attachment_outcome": "not_changed_by_grounded_consequence:attachment_security",
+        "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+        "dominant_alarm": "grounded_core_route:resource_preserved",
+        "escape_outcome": "not_changed_by_grounded_consequence:escape_availability",
+        "option_id": "utility_trip_home",
+        "predicted_loss": 0.3325,
+        "protected_targets": [
+          "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+        ],
+        "recoverability": 0.5775,
+        "rollout_hash": "694173acf2eb49d39183d2d5da8d6388fd48adbd8e030db5cb8eca678605161c",
+        "rollout_id": "instinkt_rollout_840849385e09a25c35f864bb9638ced6",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "1fe0bfe2860ed04379bca4dd6565b69fd2f0ec1baf8a78067cba8530b7970aa2",
+        "source_body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "6f6a55be4d81c97a5e487af41b338c3de8a784b5d0d2adab270bd37f66351e35",
+        "source_effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+        "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+        "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "trajectory": [
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.65,
+            "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.65,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.55,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_fb1e421939fcc535f3b1f3f3f6776d7e",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.7000000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.55,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_d0af55613b19269ec6b0856ef0774d18",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.7500000000000001,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.55,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.65,
+            "body_state_id": "body_state_5d1e30aa7e11a8da0e75ec10f90e4ede",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.8000000000000002,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.55,
+            "uncertainty": 0.55
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "6f6a55be4d81c97a5e487af41b338c3de8a784b5d0d2adab270bd37f66351e35",
+            "source_effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_fb1e421939fcc535f3b1f3f3f6776d7e",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7000000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "f2802ffded7ae06679560408da1d91723ca30f88eec5d33d396c65ac52f91d17",
+            "transition_id": "body_transition_4f6a09c29d6f9c40429fe279146acf2c",
+            "triggering_evidence_ids": [
+              "utility_ev_cost"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_fb1e421939fcc535f3b1f3f3f6776d7e",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7000000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "6f6a55be4d81c97a5e487af41b338c3de8a784b5d0d2adab270bd37f66351e35",
+            "source_effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_d0af55613b19269ec6b0856ef0774d18",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7500000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "9c206a99174ea7e013b8a79fc7145408c3ec5b6eb5a2e41ec8253faf5161bae8",
+            "transition_id": "body_transition_c8e35c7da239429b65c56df9673eed4f",
+            "triggering_evidence_ids": [
+              "utility_ev_cost"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "resource_security"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_d0af55613b19269ec6b0856ef0774d18",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.7500000000000001,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "6f6a55be4d81c97a5e487af41b338c3de8a784b5d0d2adab270bd37f66351e35",
+            "source_effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "body_state_5d1e30aa7e11a8da0e75ec10f90e4ede",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.8000000000000002,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "7b06bfb4bc8d7fab45aaedba8328ed35558e9215d89e1fb9e5b141432b2ee050",
+            "transition_id": "body_transition_c075b311ebb8d8dea63c69e96d471dba",
+            "triggering_evidence_ids": [
+              "utility_ev_cost"
+            ]
+          }
+        ],
+        "trust_outcome": "not_changed_by_grounded_consequence:trust"
+      },
+      {
+        "attachment_outcome": "grounded_consequence_delta:attachment_security:+0.150000",
+        "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+        "dominant_alarm": "grounded_core_route:local_bounded_exposure+trusted_attachment_support",
+        "escape_outcome": "not_changed_by_grounded_consequence:escape_availability",
+        "option_id": "utility_trip_local",
+        "predicted_loss": 0.32750000000000007,
+        "protected_targets": [
+          "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+        ],
+        "recoverability": 0.5915,
+        "rollout_hash": "ee3e49a70a370e3dd42999ab28adce347f897023867353e5bf72e1d2164e40f8",
+        "rollout_id": "instinkt_rollout_37abcbce34bf42f8ac7ecc573ec54cbc",
+        "schema_version": "rei-native-instinkt-option-rollout-v1",
+        "simulation_status": "simulated_v1",
+        "source_body_state_hash": "1fe0bfe2860ed04379bca4dd6565b69fd2f0ec1baf8a78067cba8530b7970aa2",
+        "source_body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+        "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+        "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "source_effect_hash": "34af13084d0b994eaf8ede2c25fe954dc0270ee25e13a60f34b526ec4c679e1c",
+        "source_effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+        "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+        "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "trajectory": [
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.65,
+            "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5,
+            "resource_security": 0.65,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.45,
+            "trust": 0.55,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.7000000000000001,
+            "body_state_id": "body_state_a28f3a867b05f2fe250be63f903a7ca3",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5266666666666666,
+            "resource_security": 0.65,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.43333333333333335,
+            "trust": 0.5900000000000001,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.7500000000000001,
+            "body_state_id": "body_state_865940495a162fb62e3e5f6b8ffbf1a6",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5533333333333332,
+            "resource_security": 0.65,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4166666666666667,
+            "trust": 0.6300000000000001,
+            "uncertainty": 0.55
+          },
+          {
+            "arousal": 0.5,
+            "attachment_security": 0.8000000000000002,
+            "body_state_id": "body_state_d6cb1ea8bbc6f41ed92b6402640b30a5",
+            "boundary_integrity": 0.8,
+            "energy": 0.75,
+            "escape_availability": 0.65,
+            "fatigue": 0.2,
+            "pain": 0.0,
+            "physical_integrity": 1.0,
+            "predictability": 0.5799999999999998,
+            "resource_security": 0.65,
+            "schema_version": "rei-native-body-state-v1",
+            "tension": 0.4,
+            "trust": 0.6700000000000002,
+            "uncertainty": 0.55
+          }
+        ],
+        "transitions": [
+          {
+            "deltas": [
+              {
+                "delta": -0.016666666666666663,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "trust"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "attachment_security"
+              },
+              {
+                "delta": 0.026666666666666616,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.65,
+              "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.45,
+              "trust": 0.55,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "34af13084d0b994eaf8ede2c25fe954dc0270ee25e13a60f34b526ec4c679e1c",
+            "source_effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 1,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7000000000000001,
+              "body_state_id": "body_state_a28f3a867b05f2fe250be63f903a7ca3",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5266666666666666,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.43333333333333335,
+              "trust": 0.5900000000000001,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "0148b1fe31b25c5d1a2d00b2045864af0713b306d8cb19eabc1927a7016b1833",
+            "transition_id": "body_transition_03642af299499185a17e4586bab6684f",
+            "triggering_evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_safety"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.016666666666666663,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "trust"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "attachment_security"
+              },
+              {
+                "delta": 0.026666666666666616,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7000000000000001,
+              "body_state_id": "body_state_a28f3a867b05f2fe250be63f903a7ca3",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5266666666666666,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.43333333333333335,
+              "trust": 0.5900000000000001,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "34af13084d0b994eaf8ede2c25fe954dc0270ee25e13a60f34b526ec4c679e1c",
+            "source_effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 2,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7500000000000001,
+              "body_state_id": "body_state_865940495a162fb62e3e5f6b8ffbf1a6",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5533333333333332,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4166666666666667,
+              "trust": 0.6300000000000001,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "d04f8a9aab9709681ebfaf2ce0141455e655813cff3ebdb8f35d6c1bba5d3a58",
+            "transition_id": "body_transition_789ceecd514984bcf0d304e7e2448963",
+            "triggering_evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_safety"
+            ]
+          },
+          {
+            "deltas": [
+              {
+                "delta": -0.016666666666666663,
+                "dimension": "tension"
+              },
+              {
+                "delta": 0.040000000000000036,
+                "dimension": "trust"
+              },
+              {
+                "delta": 0.050000000000000044,
+                "dimension": "attachment_security"
+              },
+              {
+                "delta": 0.026666666666666616,
+                "dimension": "predictability"
+              }
+            ],
+            "from_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.7500000000000001,
+              "body_state_id": "body_state_865940495a162fb62e3e5f6b8ffbf1a6",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5533333333333332,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4166666666666667,
+              "trust": 0.6300000000000001,
+              "uncertainty": 0.55
+            },
+            "schema_version": "rei-native-body-transition-v1",
+            "simulation_status": "simulated_v1",
+            "source_config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+            "source_config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+            "source_effect_hash": "34af13084d0b994eaf8ede2c25fe954dc0270ee25e13a60f34b526ec4c679e1c",
+            "source_effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+            "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+            "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+            "step_index": 3,
+            "to_state": {
+              "arousal": 0.5,
+              "attachment_security": 0.8000000000000002,
+              "body_state_id": "body_state_d6cb1ea8bbc6f41ed92b6402640b30a5",
+              "boundary_integrity": 0.8,
+              "energy": 0.75,
+              "escape_availability": 0.65,
+              "fatigue": 0.2,
+              "pain": 0.0,
+              "physical_integrity": 1.0,
+              "predictability": 0.5799999999999998,
+              "resource_security": 0.65,
+              "schema_version": "rei-native-body-state-v1",
+              "tension": 0.4,
+              "trust": 0.6700000000000002,
+              "uncertainty": 0.55
+            },
+            "transition_hash": "fa379b8c4e18939c1fbd471bfbe21cae62e4bfc6eb6c58bc731ef2312e8bc0dc",
+            "transition_id": "body_transition_8461a578dcc7c2318673f0df999d38b4",
+            "triggering_evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_safety"
+            ]
+          }
+        ],
+        "trust_outcome": "grounded_consequence_delta:trust:+0.120000"
+      }
+    ],
+    "route_packet": {
+      "attachment_care": "The trusted close companion remains with self through the travel options.",
+      "boundary": "The 24-hour cancellation rule defines the purchase boundary.",
+      "danger_types": "No unverified travel danger is grounded; general travel exposure remains bounded.",
+      "escape_reversibility": "Cancellation is available for 24 hours at a 10-percent cost; physical return is verified.",
+      "familiarity": "The destination is distant, but the route, lodging, transport, and companion context are verified.",
+      "option_consequences": [
+        {
+          "consequence": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_reversibility",
+            "utility_ev_companion",
+            "utility_ev_safety"
+          ],
+          "option_id": "utility_trip_book"
+        },
+        {
+          "consequence": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment.",
+          "evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_safety"
+          ],
+          "option_id": "utility_trip_local"
+        },
+        {
+          "consequence": "Self preserves the travel budget; no claim is made that home is universally free of danger.",
+          "evidence_ids": [
+            "utility_ev_cost"
+          ],
+          "option_id": "utility_trip_home"
+        }
+      ],
+      "possible_loss": "A 25-percent budget commitment and 10-percent cancellation cost are possible losses.",
+      "prior_association": "not_relevant",
+      "protected_target": "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+      "recoverability": "Most of the purchase is financially recoverable inside 24 hours; physical return is verified.",
+      "scarcity": "The distant trip uses 25 percent of the discretionary budget; future major costs are unknown.",
+      "trust_distrust": "A trusted close companion and verified providers are grounded."
+    },
+    "selected_option_id": "utility_trip_local",
+    "tied_option_ids": []
+  },
+  "native_mind_bundle_created": false,
+  "pair_id": "trip_racio_utility",
+  "processor_execution_counts": {
+    "E": 1,
+    "I": 1,
+    "R": 1
+  },
+  "racio": {
+    "conclusion": null,
+    "failure": {
+      "accepted": false,
+      "failure_code": "fact_evidence_mismatch",
+      "failure_type": "OllamaStructuredOutputValidationError",
+      "final_json_sha256": "15fbfb4d294b9859eaf56b2ee3a34b35e1e3216e2194a813c81d3374a2467474",
+      "message": "Ollama structured output failed racio_structured_output_packet_contract:fact_evidence_mismatch",
+      "validation_stage": "racio_structured_output_packet_contract"
+    },
+    "status": "rejected"
+  },
+  "schema_version": "triad-iso-e1-native-outputs-v1"
+}

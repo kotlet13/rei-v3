@@ -1,0 +1,64 @@
+{
+  "actual": {
+    "character_replay_rows": 0,
+    "emocio_executions": 4,
+    "fallbacks": 0,
+    "instinkt_executions": 4,
+    "model_call_attempts": 4,
+    "retries": 0
+  },
+  "entries": [
+    {
+      "attempt_recorded_before_dispatch": true,
+      "case_id": "trip_racio_utility_material",
+      "emocio_status": "succeeded",
+      "failure_code": "fact_evidence_mismatch",
+      "final_json_sha256": "15fbfb4d294b9859eaf56b2ee3a34b35e1e3216e2194a813c81d3374a2467474",
+      "instinkt_status": "succeeded",
+      "ordinal": 1,
+      "racio_call_id": "provider_call_2ebeb591d09cff3b837991ea1da5c152",
+      "racio_status": "rejected",
+      "status": "complete"
+    },
+    {
+      "attempt_recorded_before_dispatch": true,
+      "case_id": "trip_racio_utility_pleasure",
+      "emocio_status": "succeeded",
+      "instinkt_status": "succeeded",
+      "ordinal": 2,
+      "racio_call_id": "provider_call_e9b55cc950f826f9983273de604b9b24",
+      "racio_status": "accepted",
+      "status": "complete"
+    },
+    {
+      "attempt_recorded_before_dispatch": true,
+      "case_id": "trip_protective_context_exposed",
+      "emocio_status": "succeeded",
+      "instinkt_status": "succeeded",
+      "ordinal": 3,
+      "racio_call_id": "provider_call_99c75797e221ea667c3e6ab22ac4cad9",
+      "racio_status": "accepted",
+      "status": "complete"
+    },
+    {
+      "attempt_recorded_before_dispatch": true,
+      "case_id": "trip_protective_context_supported",
+      "emocio_status": "succeeded",
+      "instinkt_status": "succeeded",
+      "ordinal": 4,
+      "racio_call_id": "provider_call_99c75797e221ea667c3e6ab22ac4cad9",
+      "racio_status": "accepted",
+      "status": "complete"
+    }
+  ],
+  "expected": {
+    "character_replay_rows": 0,
+    "fallbacks": 0,
+    "model_calls": 4,
+    "retries": 0
+  },
+  "phase": "TRIAD-ISO-E1",
+  "pre_call_seal_sha256": "1360554ad44b64f1aa8cdeb4e92d3bf278b8d812d381f0685e4e4595ccf86080",
+  "schema_version": "triad-iso-e1-call-ledger-v1",
+  "state": "complete"
+}
