@@ -1,0 +1,27 @@
+{
+  "schema_version": "triad-vis-o1-pre-execution-validation-addendum-v1",
+  "phase": "TRIAD-VIS-O1",
+  "status": "resolved_before_first_provider_call",
+  "original_pre_call_seal_sha256": "6b51593c622d0d9c241c9afeb95f1e03116cebbc9556955e4b95bf1734e56761",
+  "scene_prompt_manifest_sha256": "c9a1fa58ec9124cd63d7a036cfcae08a6623b4cc399cda9cacb87ea4bd10c867",
+  "expected_call_ledger_sha256": "84162c84c34f0855b42cfc674f88b9feee5992c1ba44fc6ce1aff5bc645bf0a6",
+  "validation_rejection": {
+    "code": "strict_json_tuple_deserialization",
+    "stage": "sealed_scene_spec_replay_before_request_construction",
+    "image_render_attempts": 0,
+    "provider_calls": 0,
+    "retries": 0,
+    "fallbacks": 0
+  },
+  "resolution": {
+    "commit": "09924baebabe4e18b8707977e85d1e73a8beaaa6",
+    "scope": "strict JSON-to-tuple replay only",
+    "scene_specs_changed": false,
+    "prompts_changed": false,
+    "pipeline_changed": false,
+    "provider_changed": false,
+    "seed_schedule_changed": false,
+    "call_order_changed": false
+  },
+  "private_thinking_persisted": false
+}
