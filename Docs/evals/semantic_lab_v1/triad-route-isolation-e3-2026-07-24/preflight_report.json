@@ -1,0 +1,60 @@
+{
+  "checks": {
+    "all_pair_checks": true,
+    "emocio_evidence_closure": true,
+    "exact_case_order": true,
+    "exact_pair_order": true,
+    "factory_recognition_not_option_winner_specific": true,
+    "factory_status_absent_from_instinkt": true,
+    "factory_status_absent_from_racio": true,
+    "instinkt_evidence_closure": true,
+    "loan_need_not_compassion_goal": true,
+    "no_global_score": true,
+    "no_leakage": true,
+    "opaque_and_order_invariance": true,
+    "public_audience_absent_from_racio": true,
+    "source_candidate_hash": true,
+    "zero_model_calls": true,
+    "zero_native_processor_executions": true
+  },
+  "model_calls": 0,
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "opaque_order_checks": {
+    "factory_public_status_anonymous": true,
+    "factory_public_status_visible": true,
+    "loan_attachment_distance_close": true,
+    "loan_attachment_distance_distant": true,
+    "public_credit_audience_absent": true,
+    "public_credit_audience_visible": true
+  },
+  "pair_checks": {
+    "factory_public_status": {
+      "emocio_distinguishable_or_stable_as_declared": true,
+      "instinkt_distinguishable_or_stable_as_declared": true,
+      "public_options_identical": true,
+      "racio_packet_byte_identical": true
+    },
+    "loan_attachment_distance": {
+      "emocio_distinguishable_or_stable_as_declared": true,
+      "instinkt_distinguishable_or_stable_as_declared": true,
+      "public_options_identical": true,
+      "racio_packet_byte_identical": true
+    },
+    "public_credit_audience": {
+      "emocio_distinguishable_or_stable_as_declared": true,
+      "instinkt_distinguishable_or_stable_as_declared": true,
+      "public_options_identical": true,
+      "racio_packet_byte_identical": true
+    }
+  },
+  "pair_packet_hashes": {
+    "factory_public_status": "a12eb63535300b1ed821dd54e1798bd082c3101731297f22ed6f316c90d9dd72",
+    "loan_attachment_distance": "08c6fbfa97321100cf3a5cccd656847c1f039d0402bdddc5f3b1fd8959863bb8",
+    "public_credit_audience": "f731632991ab64c1293ff55b4ff46def50a6605e2a4b4c44b88a99798a94fa17"
+  },
+  "schema_version": "triad-iso-e3-model-free-preflight-v1",
+  "status": "passed"
+}

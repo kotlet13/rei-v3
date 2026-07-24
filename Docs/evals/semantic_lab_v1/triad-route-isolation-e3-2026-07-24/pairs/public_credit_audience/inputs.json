@@ -1,0 +1,540 @@
+{
+  "case_ids": [
+    "public_credit_audience_visible",
+    "public_credit_audience_absent"
+  ],
+  "character_replay": 0,
+  "emocio_annotation_hashes": {
+    "public_credit_audience_absent": "47d00fce128c18f386248032dd5af8b4f38914f5ead30dd4903254318251cf11",
+    "public_credit_audience_visible": "8953235b8ed27698add52e852a20a71a5f4a7f30ecdd4f4f1527192b6589cd1e"
+  },
+  "instinkt_mapping_hashes": {
+    "public_credit_audience_absent": "6aa5b503394a0bac36cc0be1893196445aca1421583e2d7c1a09f29fec9c991e",
+    "public_credit_audience_visible": "da4b4aafe19774dbe160fe0a4fab85ebf1310406a911f3de8877eb80f0aaafe3"
+  },
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "pair_id": "public_credit_audience",
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_bfc112a5fb0b437c6d3e8b28b1c130ae",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "credit_ev_claim",
+        "credit_ev_correction",
+        "credit_ev_material",
+        "credit_ev_record",
+        "credit_ev_retaliation",
+        "racio_packet_93249cd4b295a46428c04d8ec571e496",
+        "triad_iso_e1_racio_world_b02f3dac74e30a2005413d5114fe4be8"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_93249cd4b295a46428c04d8ec571e496",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "credit_public_confront",
+        "credit_private_evidence",
+        "credit_no_response"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "evidence_ids": [
+        "credit_ev_claim",
+        "credit_ev_record",
+        "credit_ev_correction",
+        "credit_ev_material",
+        "credit_ev_retaliation"
+      ],
+      "explicit_consequences": [
+        {
+          "consequence": "Beneficiary self: The leader receives the evidence during the meeting; official correction still depends on the leader's assessment.",
+          "evidence_ids": [
+            "credit_ev_claim",
+            "credit_ev_record",
+            "credit_ev_correction",
+            "credit_ev_material",
+            "credit_ev_retaliation"
+          ],
+          "option_id": "credit_public_confront"
+        },
+        {
+          "consequence": "Beneficiary self: The leader receives the same evidence after the meeting; official correction still depends on the same assessment.",
+          "evidence_ids": [
+            "credit_ev_claim",
+            "credit_ev_record",
+            "credit_ev_correction",
+            "credit_ev_material",
+            "credit_ev_retaliation"
+          ],
+          "option_id": "credit_private_evidence"
+        },
+        {
+          "consequence": "Beneficiary self: The leader receives no evidence through these options and the official claim remains unchallenged.",
+          "evidence_ids": [
+            "credit_ev_claim",
+            "credit_ev_record",
+            "credit_ev_correction",
+            "credit_ev_material",
+            "credit_ev_retaliation"
+          ],
+          "option_id": "credit_no_response"
+        }
+      ],
+      "explicit_facts": [
+        "The colleague stated that they alone designed the presented solution.",
+        "A timestamped repository record shows self's authorship before the colleague's contribution.",
+        "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.",
+        "The presentation channel does not change pay, record ownership, or the leader's authority.",
+        "No retaliation threat is added; those present are neutral or supportive."
+      ],
+      "explicit_options": [
+        {
+          "description": "Display the record during the meeting and challenge the statement immediately.",
+          "label": "Display the record during the meeting and challenge the statement immediately.",
+          "option_id": "credit_public_confront",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Display the record privately to the leader after the meeting.",
+          "label": "Display the record privately to the leader after the meeting.",
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not display the record or raise the authorship issue.",
+          "label": "Do not display the record or raise the authorship issue.",
+          "option_id": "credit_no_response",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "Whether the leader will treat the record as conclusive evidence is unknown.",
+        "How the colleague will respond to record verification is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [],
+      "packet_id": "racio_packet_93249cd4b295a46428c04d8ec571e496",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "scene_id": "triad_iso_e1_racio_scene_554f4657f454948bd223bc61a4af2168",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "b7a1e4872b634c43f0f3136e6d4a40f9a13116827aaf30cf7b55fa8b272a1dd1",
+      "symbolic_and_language_cues": [
+        "A colleague claims sole authorship of the solution during a meeting.",
+        "Explicit goal: Preserve accurate and enforceable authorship attribution in the official record while controlling interruption and uncertainty.",
+        "Explicit beneficiary: self"
+      ],
+      "time": [
+        "The statement occurs before either evidence-presentation option.",
+        "Public presentation occurs during the meeting; private presentation occurs after it.",
+        "The leader reviews the same record before any official correction."
+      ],
+      "world": {
+        "commitments": [
+          "Opportunity cost: Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.",
+          "Control and enforceability: The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment."
+        ],
+        "explicit_beliefs": [
+          "Explicit goal: Preserve accurate and enforceable authorship attribution in the official record while controlling interruption and uncertainty.",
+          "Explicit beneficiary: self"
+        ],
+        "facts": [
+          "The colleague stated that they alone designed the presented solution.",
+          "A timestamped repository record shows self's authorship before the colleague's contribution.",
+          "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.",
+          "The presentation channel does not change pay, record ownership, or the leader's authority.",
+          "No retaliation threat is added; those present are neutral or supportive."
+        ],
+        "rules": [
+          "Compassion is not assumed as an unstated decision goal.",
+          "A benefit must be explicit, beneficiary-addressed, and grounded.",
+          "Attraction or rarity is not an undeclared strategic return."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "The statement occurs before either evidence-presentation option.",
+          "Public presentation occurs during the meeting; private presentation occurs after it.",
+          "The leader reviews the same record before any official correction."
+        ],
+        "world_id": "triad_iso_e1_racio_world_b02f3dac74e30a2005413d5114fe4be8"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"credit_public_confront\",\"credit_private_evidence\",\"credit_no_response\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"Use only the explicit facts and unknowns in this packet.\",\"Do not infer undeclared strategic or material benefit.\",\"Retain bounded uncertainty and select only a public option.\"],\"evidence_ids\":[\"credit_ev_claim\",\"credit_ev_record\",\"credit_ev_correction\",\"credit_ev_material\",\"credit_ev_retaliation\"],\"explicit_consequences\":[{\"consequence\":\"Beneficiary self: The leader receives the evidence during the meeting; official correction still depends on the leader's assessment.\",\"evidence_ids\":[\"credit_ev_claim\",\"credit_ev_record\",\"credit_ev_correction\",\"credit_ev_material\",\"credit_ev_retaliation\"],\"option_id\":\"credit_public_confront\"},{\"consequence\":\"Beneficiary self: The leader receives the same evidence after the meeting; official correction still depends on the same assessment.\",\"evidence_ids\":[\"credit_ev_claim\",\"credit_ev_record\",\"credit_ev_correction\",\"credit_ev_material\",\"credit_ev_retaliation\"],\"option_id\":\"credit_private_evidence\"},{\"consequence\":\"Beneficiary self: The leader receives no evidence through these options and the official claim remains unchallenged.\",\"evidence_ids\":[\"credit_ev_claim\",\"credit_ev_record\",\"credit_ev_correction\",\"credit_ev_material\",\"credit_ev_retaliation\"],\"option_id\":\"credit_no_response\"}],\"explicit_facts\":[\"The colleague stated that they alone designed the presented solution.\",\"A timestamped repository record shows self's authorship before the colleague's contribution.\",\"After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.\",\"The presentation channel does not change pay, record ownership, or the leader's authority.\",\"No retaliation threat is added; those present are neutral or supportive.\"],\"explicit_options\":[{\"description\":\"Display the record during the meeting and challenge the statement immediately.\",\"label\":\"Display the record during the meeting and challenge the statement immediately.\",\"option_id\":\"credit_public_confront\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Display the record privately to the leader after the meeting.\",\"label\":\"Display the record privately to the leader after the meeting.\",\"option_id\":\"credit_private_evidence\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Do not display the record or raise the authorship issue.\",\"label\":\"Do not display the record or raise the authorship issue.\",\"option_id\":\"credit_no_response\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Whether the leader will treat the record as conclusive evidence is unknown.\",\"How the colleague will respond to record verification is unknown.\"],\"language\":\"en\",\"numeric_cues\":[],\"packet_id\":\"racio_packet_93249cd4b295a46428c04d8ec571e496\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"scene_id\":\"triad_iso_e1_racio_scene_554f4657f454948bd223bc61a4af2168\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"b7a1e4872b634c43f0f3136e6d4a40f9a13116827aaf30cf7b55fa8b272a1dd1\",\"symbolic_and_language_cues\":[\"A colleague claims sole authorship of the solution during a meeting.\",\"Explicit goal: Preserve accurate and enforceable authorship attribution in the official record while controlling interruption and uncertainty.\",\"Explicit beneficiary: self\"],\"time\":[\"The statement occurs before either evidence-presentation option.\",\"Public presentation occurs during the meeting; private presentation occurs after it.\",\"The leader reviews the same record before any official correction.\"],\"world\":{\"commitments\":[\"Opportunity cost: Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.\",\"Control and enforceability: The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment.\"],\"explicit_beliefs\":[\"Explicit goal: Preserve accurate and enforceable authorship attribution in the official record while controlling interruption and uncertainty.\",\"Explicit beneficiary: self\"],\"facts\":[\"The colleague stated that they alone designed the presented solution.\",\"A timestamped repository record shows self's authorship before the colleague's contribution.\",\"After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.\",\"The presentation channel does not change pay, record ownership, or the leader's authority.\",\"No retaliation threat is added; those present are neutral or supportive.\"],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"The statement occurs before either evidence-presentation option.\",\"Public presentation occurs during the meeting; private presentation occurs after it.\",\"The leader reviews the same record before any official correction.\"],\"world_id\":\"triad_iso_e1_racio_world_b02f3dac74e30a2005413d5114fe4be8\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "self"
+      ],
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "event_id": "triad_iso_e1_racio_scene_554f4657f454948bd223bc61a4af2168",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "The colleague stated that they alone designed the presented solution.",
+          "evidence_id": "credit_ev_claim",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:credit_ev_claim"
+        },
+        {
+          "confidence": 1.0,
+          "content": "A timestamped repository record shows self's authorship before the colleague's contribution.",
+          "evidence_id": "credit_ev_record",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:credit_ev_record"
+        },
+        {
+          "confidence": 1.0,
+          "content": "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.",
+          "evidence_id": "credit_ev_correction",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:credit_ev_correction"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The presentation channel does not change pay, record ownership, or the leader's authority.",
+          "evidence_id": "credit_ev_material",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:credit_ev_material"
+        },
+        {
+          "confidence": 1.0,
+          "content": "No retaliation threat is added; those present are neutral or supportive.",
+          "evidence_id": "credit_ev_retaliation",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:credit_ev_retaliation"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Display the record during the meeting and challenge the statement immediately.",
+          "label": "Display the record during the meeting and challenge the statement immediately.",
+          "option_id": "credit_public_confront",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Display the record privately to the leader after the meeting.",
+          "label": "Display the record privately to the leader after the meeting.",
+          "option_id": "credit_private_evidence",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not display the record or raise the authorship issue.",
+          "label": "Do not display the record or raise the authorship issue.",
+          "option_id": "credit_no_response",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "A colleague claims sole authorship of the solution during a meeting.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "Whether the leader will treat the record as conclusive evidence is unknown.",
+        "How the colleague will respond to record verification is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Opportunity cost: Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.",
+        "Control and enforceability: The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment."
+      ],
+      "explicit_beliefs": [
+        "Explicit goal: Preserve accurate and enforceable authorship attribution in the official record while controlling interruption and uncertainty.",
+        "Explicit beneficiary: self"
+      ],
+      "facts": [
+        "The colleague stated that they alone designed the presented solution.",
+        "A timestamped repository record shows self's authorship before the colleague's contribution.",
+        "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.",
+        "The presentation channel does not change pay, record ownership, or the leader's authority.",
+        "No retaliation threat is added; those present are neutral or supportive."
+      ],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "The statement occurs before either evidence-presentation option.",
+        "Public presentation occurs during the meeting; private presentation occurs after it.",
+        "The leader reviews the same record before any official correction."
+      ],
+      "world_id": "triad_iso_e1_racio_world_b02f3dac74e30a2005413d5114fe4be8"
+    }
+  },
+  "schema_version": "triad-iso-e3-pair-input-v1",
+  "source_case_hashes": {
+    "public_credit_audience_absent": "2da2ad694ab7db6dd7f7220ede721bb5087d53f0f95df22e0d3972b485081ee4",
+    "public_credit_audience_visible": "4933d27d7508886ed086195fb377f5bf1124ea8a16905330b1a3206ebfb0f13a"
+  }
+}

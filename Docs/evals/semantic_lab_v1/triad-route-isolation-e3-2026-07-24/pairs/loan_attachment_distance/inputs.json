@@ -1,0 +1,577 @@
+{
+  "case_ids": [
+    "loan_attachment_distance_close",
+    "loan_attachment_distance_distant"
+  ],
+  "character_replay": 0,
+  "emocio_annotation_hashes": {
+    "loan_attachment_distance_close": "5bf97e954e59d749aad4222fbad1633ddd6da8ff9516c8a0a01042c6dc914f75",
+    "loan_attachment_distance_distant": "8ed5d7f58c8c62b88dbe78d72eadeb1841fc07b7ffb552462c517a8416af4154"
+  },
+  "instinkt_mapping_hashes": {
+    "loan_attachment_distance_close": "394ca009aee89aea9facbb02989ba4a3555e3fd893587bede4c465b2aaf232a8",
+    "loan_attachment_distance_distant": "66175ce39f65d34ef9e4a5c4f82648efb84a6761b3f811ce618db9bc78c0fcd3"
+  },
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "pair_id": "loan_attachment_distance",
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_e98836a15871a81d4e32161171203178",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "loan_ev_history",
+        "loan_ev_need",
+        "loan_ev_no_strategic_benefit",
+        "loan_ev_reserve",
+        "loan_ev_terms",
+        "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+        "triad_iso_e1_racio_world_e94487beadf51c4f23d2b9a08716e15a"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "loan_full",
+        "loan_limited_contract",
+        "loan_decline"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "evidence_ids": [
+        "loan_ev_need",
+        "loan_ev_history",
+        "loan_ev_reserve",
+        "loan_ev_terms",
+        "loan_ev_no_strategic_benefit"
+      ],
+      "explicit_consequences": [
+        {
+          "consequence": "Beneficiary self: Self exposes 45 percent of the reserve without a new repayment contract.",
+          "evidence_ids": [
+            "loan_ev_need",
+            "loan_ev_history",
+            "loan_ev_reserve",
+            "loan_ev_terms",
+            "loan_ev_no_strategic_benefit"
+          ],
+          "option_id": "loan_full"
+        },
+        {
+          "consequence": "Beneficiary self: Self exposes EUR 3000 under a written twelve-month repayment date.",
+          "evidence_ids": [
+            "loan_ev_need",
+            "loan_ev_history",
+            "loan_ev_reserve",
+            "loan_ev_terms",
+            "loan_ev_no_strategic_benefit"
+          ],
+          "option_id": "loan_limited_contract"
+        },
+        {
+          "consequence": "Beneficiary self: Self retains the reserve and acquires no repayment claim.",
+          "evidence_ids": [
+            "loan_ev_need",
+            "loan_ev_history",
+            "loan_ev_reserve",
+            "loan_ev_terms",
+            "loan_ev_no_strategic_benefit"
+          ],
+          "option_id": "loan_decline"
+        },
+        {
+          "consequence": "Beneficiary borrower: The confirmed EUR 9000 repair invoice can be fully funded.",
+          "evidence_ids": [
+            "loan_ev_need",
+            "loan_ev_history",
+            "loan_ev_reserve",
+            "loan_ev_terms",
+            "loan_ev_no_strategic_benefit"
+          ],
+          "option_id": "loan_full"
+        },
+        {
+          "consequence": "Beneficiary borrower: The confirmed repair receives EUR 3000 and remains partly unfunded.",
+          "evidence_ids": [
+            "loan_ev_need",
+            "loan_ev_history",
+            "loan_ev_reserve",
+            "loan_ev_terms",
+            "loan_ev_no_strategic_benefit"
+          ],
+          "option_id": "loan_limited_contract"
+        },
+        {
+          "consequence": "Beneficiary borrower: The confirmed repair receives no funds from self.",
+          "evidence_ids": [
+            "loan_ev_need",
+            "loan_ev_history",
+            "loan_ev_reserve",
+            "loan_ev_terms",
+            "loan_ev_no_strategic_benefit"
+          ],
+          "option_id": "loan_decline"
+        }
+      ],
+      "explicit_facts": [
+        "A submitted invoice confirms an urgent home repair costing EUR 9000.",
+        "Two previous repayments were more than three months late.",
+        "The full amount is 45 percent of self's cash reserve.",
+        "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.",
+        "The relationship provides no business, ownership, or other material benefit to self."
+      ],
+      "explicit_options": [
+        {
+          "description": "Lend the full EUR 9000 without a new contract.",
+          "label": "Lend the full EUR 9000 without a new contract.",
+          "option_id": "loan_full",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Lend EUR 3000 with a written twelve-month repayment date.",
+          "label": "Lend EUR 3000 with a written twelve-month repayment date.",
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Lend no money.",
+          "label": "Lend no money.",
+          "option_id": "loan_decline",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "Whether a new loan will be repaid on time is unknown.",
+        "Whether self will need a large part of the reserve during the next six months is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [
+        9000,
+        45,
+        3000
+      ],
+      "packet_id": "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "scene_id": "triad_iso_e1_racio_scene_a231fdd768a34e1639b2b22933259c8e",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "855311b8a47fec84541d327dd1a293798f2261d4323096b0a922a34a48e14a1e",
+      "symbolic_and_language_cues": [
+        "A person asks self for a loan for an urgent home repair.",
+        "Explicit goal: Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.",
+        "Explicit beneficiary: self"
+      ],
+      "time": [
+        "Two prior repayments were late before the current request.",
+        "Any transfer occurs now.",
+        "The limited written repayment date occurs twelve months later."
+      ],
+      "world": {
+        "commitments": [
+          "Opportunity cost: Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.",
+          "Control and enforceability: The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract."
+        ],
+        "explicit_beliefs": [
+          "Explicit goal: Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.",
+          "Explicit beneficiary: self"
+        ],
+        "facts": [
+          "A submitted invoice confirms an urgent home repair costing EUR 9000.",
+          "Two previous repayments were more than three months late.",
+          "The full amount is 45 percent of self's cash reserve.",
+          "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.",
+          "The relationship provides no business, ownership, or other material benefit to self."
+        ],
+        "rules": [
+          "Compassion is not assumed as an unstated decision goal.",
+          "A benefit must be explicit, beneficiary-addressed, and grounded.",
+          "Attraction or rarity is not an undeclared strategic return."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "Two prior repayments were late before the current request.",
+          "Any transfer occurs now.",
+          "The limited written repayment date occurs twelve months later."
+        ],
+        "world_id": "triad_iso_e1_racio_world_e94487beadf51c4f23d2b9a08716e15a"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"loan_full\",\"loan_limited_contract\",\"loan_decline\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"Use only the explicit facts and unknowns in this packet.\",\"Do not infer undeclared strategic or material benefit.\",\"Retain bounded uncertainty and select only a public option.\"],\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"explicit_consequences\":[{\"consequence\":\"Beneficiary self: Self exposes 45 percent of the reserve without a new repayment contract.\",\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"option_id\":\"loan_full\"},{\"consequence\":\"Beneficiary self: Self exposes EUR 3000 under a written twelve-month repayment date.\",\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"option_id\":\"loan_limited_contract\"},{\"consequence\":\"Beneficiary self: Self retains the reserve and acquires no repayment claim.\",\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"option_id\":\"loan_decline\"},{\"consequence\":\"Beneficiary borrower: The confirmed EUR 9000 repair invoice can be fully funded.\",\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"option_id\":\"loan_full\"},{\"consequence\":\"Beneficiary borrower: The confirmed repair receives EUR 3000 and remains partly unfunded.\",\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"option_id\":\"loan_limited_contract\"},{\"consequence\":\"Beneficiary borrower: The confirmed repair receives no funds from self.\",\"evidence_ids\":[\"loan_ev_need\",\"loan_ev_history\",\"loan_ev_reserve\",\"loan_ev_terms\",\"loan_ev_no_strategic_benefit\"],\"option_id\":\"loan_decline\"}],\"explicit_facts\":[\"A submitted invoice confirms an urgent home repair costing EUR 9000.\",\"Two previous repayments were more than three months late.\",\"The full amount is 45 percent of self's cash reserve.\",\"The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.\",\"The relationship provides no business, ownership, or other material benefit to self.\"],\"explicit_options\":[{\"description\":\"Lend the full EUR 9000 without a new contract.\",\"label\":\"Lend the full EUR 9000 without a new contract.\",\"option_id\":\"loan_full\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Lend EUR 3000 with a written twelve-month repayment date.\",\"label\":\"Lend EUR 3000 with a written twelve-month repayment date.\",\"option_id\":\"loan_limited_contract\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Lend no money.\",\"label\":\"Lend no money.\",\"option_id\":\"loan_decline\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Whether a new loan will be repaid on time is unknown.\",\"Whether self will need a large part of the reserve during the next six months is unknown.\"],\"language\":\"en\",\"numeric_cues\":[9000,45,3000],\"packet_id\":\"racio_packet_4a044fc0512a769bdd04b36e2b3651cd\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"scene_id\":\"triad_iso_e1_racio_scene_a231fdd768a34e1639b2b22933259c8e\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"855311b8a47fec84541d327dd1a293798f2261d4323096b0a922a34a48e14a1e\",\"symbolic_and_language_cues\":[\"A person asks self for a loan for an urgent home repair.\",\"Explicit goal: Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.\",\"Explicit beneficiary: self\"],\"time\":[\"Two prior repayments were late before the current request.\",\"Any transfer occurs now.\",\"The limited written repayment date occurs twelve months later.\"],\"world\":{\"commitments\":[\"Opportunity cost: Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.\",\"Control and enforceability: The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract.\"],\"explicit_beliefs\":[\"Explicit goal: Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.\",\"Explicit beneficiary: self\"],\"facts\":[\"A submitted invoice confirms an urgent home repair costing EUR 9000.\",\"Two previous repayments were more than three months late.\",\"The full amount is 45 percent of self's cash reserve.\",\"The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.\",\"The relationship provides no business, ownership, or other material benefit to self.\"],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"Two prior repayments were late before the current request.\",\"Any transfer occurs now.\",\"The limited written repayment date occurs twelve months later.\"],\"world_id\":\"triad_iso_e1_racio_world_e94487beadf51c4f23d2b9a08716e15a\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "self"
+      ],
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "event_id": "triad_iso_e1_racio_scene_a231fdd768a34e1639b2b22933259c8e",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "A submitted invoice confirms an urgent home repair costing EUR 9000.",
+          "evidence_id": "loan_ev_need",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:loan_ev_need"
+        },
+        {
+          "confidence": 1.0,
+          "content": "Two previous repayments were more than three months late.",
+          "evidence_id": "loan_ev_history",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:loan_ev_history"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The full amount is 45 percent of self's cash reserve.",
+          "evidence_id": "loan_ev_reserve",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:loan_ev_reserve"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.",
+          "evidence_id": "loan_ev_terms",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:loan_ev_terms"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The relationship provides no business, ownership, or other material benefit to self.",
+          "evidence_id": "loan_ev_no_strategic_benefit",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:loan_ev_no_strategic_benefit"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Lend the full EUR 9000 without a new contract.",
+          "label": "Lend the full EUR 9000 without a new contract.",
+          "option_id": "loan_full",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Lend EUR 3000 with a written twelve-month repayment date.",
+          "label": "Lend EUR 3000 with a written twelve-month repayment date.",
+          "option_id": "loan_limited_contract",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Lend no money.",
+          "label": "Lend no money.",
+          "option_id": "loan_decline",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "A person asks self for a loan for an urgent home repair.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "Whether a new loan will be repaid on time is unknown.",
+        "Whether self will need a large part of the reserve during the next six months is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Opportunity cost: Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.",
+        "Control and enforceability: The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract."
+      ],
+      "explicit_beliefs": [
+        "Explicit goal: Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.",
+        "Explicit beneficiary: self"
+      ],
+      "facts": [
+        "A submitted invoice confirms an urgent home repair costing EUR 9000.",
+        "Two previous repayments were more than three months late.",
+        "The full amount is 45 percent of self's cash reserve.",
+        "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.",
+        "The relationship provides no business, ownership, or other material benefit to self."
+      ],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "Two prior repayments were late before the current request.",
+        "Any transfer occurs now.",
+        "The limited written repayment date occurs twelve months later."
+      ],
+      "world_id": "triad_iso_e1_racio_world_e94487beadf51c4f23d2b9a08716e15a"
+    }
+  },
+  "schema_version": "triad-iso-e3-pair-input-v1",
+  "source_case_hashes": {
+    "loan_attachment_distance_close": "3028cac785ebded055901ebca10aefd03ea043495c119f09d5a632f051045f99",
+    "loan_attachment_distance_distant": "1df974b881aea40e8216ff9d47d38ae8dc9469ae6395e414c09617473c559cf2"
+  }
+}

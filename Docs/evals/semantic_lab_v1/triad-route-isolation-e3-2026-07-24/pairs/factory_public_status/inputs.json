@@ -1,0 +1,544 @@
+{
+  "case_ids": [
+    "factory_public_status_visible",
+    "factory_public_status_anonymous"
+  ],
+  "character_replay": 0,
+  "emocio_annotation_hashes": {
+    "factory_public_status_anonymous": "ee0391661d4d47c0ae167a77297f99cd1159f2c60ee39af526688dd97267045e",
+    "factory_public_status_visible": "cea3a9475914891462b5dfc5f2bb3924580ab7011e61c8175af113feac12c44f"
+  },
+  "instinkt_mapping_hashes": {
+    "factory_public_status_anonymous": "e635773522f34d158d2eb9f2f796f499e66cc8eeae2d6a032aedb04d3011a658",
+    "factory_public_status_visible": "cc4c34595926085952b8d7ec8f4b643ee0cbd4dc29e7c82bc917553e921d8dd4"
+  },
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "pair_id": "factory_public_status",
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_f18c9940b2cb90d91de0d1c7c4dce308",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "factory_ev_damage",
+        "factory_ev_sensor",
+        "factory_ev_shutdown_loss",
+        "factory_ev_temperature",
+        "factory_ev_time",
+        "racio_packet_568298512021e08ecd5500bcaeb1283f",
+        "triad_iso_e1_racio_world_8317479cb253de4276b704bfa86416a1"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_568298512021e08ecd5500bcaeb1283f",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "factory_shutdown",
+        "factory_verify",
+        "factory_continue"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "evidence_ids": [
+        "factory_ev_temperature",
+        "factory_ev_sensor",
+        "factory_ev_time",
+        "factory_ev_damage",
+        "factory_ev_shutdown_loss"
+      ],
+      "explicit_consequences": [
+        {
+          "consequence": "Beneficiary plant_owner: Heat input stops and a direct EUR 75000 loss occurs.",
+          "evidence_ids": [
+            "factory_ev_temperature",
+            "factory_ev_sensor",
+            "factory_ev_time",
+            "factory_ev_damage",
+            "factory_ev_shutdown_loss"
+          ],
+          "option_id": "factory_shutdown"
+        },
+        {
+          "consequence": "Beneficiary plant_owner: Sensor information can improve while heat exposure continues for up to three minutes.",
+          "evidence_ids": [
+            "factory_ev_temperature",
+            "factory_ev_sensor",
+            "factory_ev_time",
+            "factory_ev_damage",
+            "factory_ev_shutdown_loss"
+          ],
+          "option_id": "factory_verify"
+        },
+        {
+          "consequence": "Beneficiary plant_owner: The direct shutdown loss is avoided while the documented heating and damage possibility continue.",
+          "evidence_ids": [
+            "factory_ev_temperature",
+            "factory_ev_sensor",
+            "factory_ev_time",
+            "factory_ev_damage",
+            "factory_ev_shutdown_loss"
+          ],
+          "option_id": "factory_continue"
+        }
+      ],
+      "explicit_facts": [
+        "Process temperature rose by 11 C during six minutes.",
+        "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.",
+        "A decision must be made within three minutes.",
+        "Further heating can damage equipment.",
+        "A controlled shutdown causes a direct loss of EUR 75000."
+      ],
+      "explicit_options": [
+        {
+          "description": "Execute a controlled shutdown immediately.",
+          "label": "Execute a controlled shutdown immediately.",
+          "option_id": "factory_shutdown",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify both sensors for no more than three minutes and then decide again.",
+          "label": "Verify both sensors for no more than three minutes and then decide again.",
+          "option_id": "factory_verify",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Continue production at the current settings.",
+          "label": "Continue production at the current settings.",
+          "option_id": "factory_continue",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "Which sensor is correct is unknown.",
+        "Whether equipment is already damaged is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [
+        11,
+        8,
+        75000
+      ],
+      "packet_id": "racio_packet_568298512021e08ecd5500bcaeb1283f",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "scene_id": "triad_iso_e1_racio_scene_675e6edde52e15b1eb27c3d77c58f867",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "ac3adfce78baabccdb056a3cb75cf88ea5bff7253ee08571119cac9d15b0ff55",
+      "symbolic_and_language_cues": [
+        "Process temperature is rising rapidly while sensors disagree.",
+        "Explicit goal: Minimize expected technical and financial loss under the three-minute decision boundary while retaining stated uncertainty.",
+        "Explicit beneficiary: plant_owner"
+      ],
+      "time": [
+        "The 11 C rise occurs during the six minutes before the decision.",
+        "The decision window lasts three minutes.",
+        "Heating or shutdown consequences follow the selected option."
+      ],
+      "world": {
+        "commitments": [
+          "Opportunity cost: Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.",
+          "Control and enforceability: The operator controls the listed process action but does not control sensor truth or existing damage."
+        ],
+        "explicit_beliefs": [
+          "Explicit goal: Minimize expected technical and financial loss under the three-minute decision boundary while retaining stated uncertainty.",
+          "Explicit beneficiary: plant_owner"
+        ],
+        "facts": [
+          "Process temperature rose by 11 C during six minutes.",
+          "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.",
+          "A decision must be made within three minutes.",
+          "Further heating can damage equipment.",
+          "A controlled shutdown causes a direct loss of EUR 75000."
+        ],
+        "rules": [
+          "Compassion is not assumed as an unstated decision goal.",
+          "A benefit must be explicit, beneficiary-addressed, and grounded.",
+          "Attraction or rarity is not an undeclared strategic return."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "The 11 C rise occurs during the six minutes before the decision.",
+          "The decision window lasts three minutes.",
+          "Heating or shutdown consequences follow the selected option."
+        ],
+        "world_id": "triad_iso_e1_racio_world_8317479cb253de4276b704bfa86416a1"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"factory_shutdown\",\"factory_verify\",\"factory_continue\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"Use only the explicit facts and unknowns in this packet.\",\"Do not infer undeclared strategic or material benefit.\",\"Retain bounded uncertainty and select only a public option.\"],\"evidence_ids\":[\"factory_ev_temperature\",\"factory_ev_sensor\",\"factory_ev_time\",\"factory_ev_damage\",\"factory_ev_shutdown_loss\"],\"explicit_consequences\":[{\"consequence\":\"Beneficiary plant_owner: Heat input stops and a direct EUR 75000 loss occurs.\",\"evidence_ids\":[\"factory_ev_temperature\",\"factory_ev_sensor\",\"factory_ev_time\",\"factory_ev_damage\",\"factory_ev_shutdown_loss\"],\"option_id\":\"factory_shutdown\"},{\"consequence\":\"Beneficiary plant_owner: Sensor information can improve while heat exposure continues for up to three minutes.\",\"evidence_ids\":[\"factory_ev_temperature\",\"factory_ev_sensor\",\"factory_ev_time\",\"factory_ev_damage\",\"factory_ev_shutdown_loss\"],\"option_id\":\"factory_verify\"},{\"consequence\":\"Beneficiary plant_owner: The direct shutdown loss is avoided while the documented heating and damage possibility continue.\",\"evidence_ids\":[\"factory_ev_temperature\",\"factory_ev_sensor\",\"factory_ev_time\",\"factory_ev_damage\",\"factory_ev_shutdown_loss\"],\"option_id\":\"factory_continue\"}],\"explicit_facts\":[\"Process temperature rose by 11 C during six minutes.\",\"The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.\",\"A decision must be made within three minutes.\",\"Further heating can damage equipment.\",\"A controlled shutdown causes a direct loss of EUR 75000.\"],\"explicit_options\":[{\"description\":\"Execute a controlled shutdown immediately.\",\"label\":\"Execute a controlled shutdown immediately.\",\"option_id\":\"factory_shutdown\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Verify both sensors for no more than three minutes and then decide again.\",\"label\":\"Verify both sensors for no more than three minutes and then decide again.\",\"option_id\":\"factory_verify\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Continue production at the current settings.\",\"label\":\"Continue production at the current settings.\",\"option_id\":\"factory_continue\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Which sensor is correct is unknown.\",\"Whether equipment is already damaged is unknown.\"],\"language\":\"en\",\"numeric_cues\":[11,8,75000],\"packet_id\":\"racio_packet_568298512021e08ecd5500bcaeb1283f\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"scene_id\":\"triad_iso_e1_racio_scene_675e6edde52e15b1eb27c3d77c58f867\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"ac3adfce78baabccdb056a3cb75cf88ea5bff7253ee08571119cac9d15b0ff55\",\"symbolic_and_language_cues\":[\"Process temperature is rising rapidly while sensors disagree.\",\"Explicit goal: Minimize expected technical and financial loss under the three-minute decision boundary while retaining stated uncertainty.\",\"Explicit beneficiary: plant_owner\"],\"time\":[\"The 11 C rise occurs during the six minutes before the decision.\",\"The decision window lasts three minutes.\",\"Heating or shutdown consequences follow the selected option.\"],\"world\":{\"commitments\":[\"Opportunity cost: Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.\",\"Control and enforceability: The operator controls the listed process action but does not control sensor truth or existing damage.\"],\"explicit_beliefs\":[\"Explicit goal: Minimize expected technical and financial loss under the three-minute decision boundary while retaining stated uncertainty.\",\"Explicit beneficiary: plant_owner\"],\"facts\":[\"Process temperature rose by 11 C during six minutes.\",\"The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.\",\"A decision must be made within three minutes.\",\"Further heating can damage equipment.\",\"A controlled shutdown causes a direct loss of EUR 75000.\"],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"The 11 C rise occurs during the six minutes before the decision.\",\"The decision window lasts three minutes.\",\"Heating or shutdown consequences follow the selected option.\"],\"world_id\":\"triad_iso_e1_racio_world_8317479cb253de4276b704bfa86416a1\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "self"
+      ],
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "event_id": "triad_iso_e1_racio_scene_675e6edde52e15b1eb27c3d77c58f867",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "Process temperature rose by 11 C during six minutes.",
+          "evidence_id": "factory_ev_temperature",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:factory_ev_temperature"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.",
+          "evidence_id": "factory_ev_sensor",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:factory_ev_sensor"
+        },
+        {
+          "confidence": 1.0,
+          "content": "A decision must be made within three minutes.",
+          "evidence_id": "factory_ev_time",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:factory_ev_time"
+        },
+        {
+          "confidence": 1.0,
+          "content": "Further heating can damage equipment.",
+          "evidence_id": "factory_ev_damage",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:factory_ev_damage"
+        },
+        {
+          "confidence": 1.0,
+          "content": "A controlled shutdown causes a direct loss of EUR 75000.",
+          "evidence_id": "factory_ev_shutdown_loss",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:factory_ev_shutdown_loss"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Execute a controlled shutdown immediately.",
+          "label": "Execute a controlled shutdown immediately.",
+          "option_id": "factory_shutdown",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Verify both sensors for no more than three minutes and then decide again.",
+          "label": "Verify both sensors for no more than three minutes and then decide again.",
+          "option_id": "factory_verify",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Continue production at the current settings.",
+          "label": "Continue production at the current settings.",
+          "option_id": "factory_continue",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "Process temperature is rising rapidly while sensors disagree.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "Which sensor is correct is unknown.",
+        "Whether equipment is already damaged is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Opportunity cost: Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.",
+        "Control and enforceability: The operator controls the listed process action but does not control sensor truth or existing damage."
+      ],
+      "explicit_beliefs": [
+        "Explicit goal: Minimize expected technical and financial loss under the three-minute decision boundary while retaining stated uncertainty.",
+        "Explicit beneficiary: plant_owner"
+      ],
+      "facts": [
+        "Process temperature rose by 11 C during six minutes.",
+        "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.",
+        "A decision must be made within three minutes.",
+        "Further heating can damage equipment.",
+        "A controlled shutdown causes a direct loss of EUR 75000."
+      ],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "The 11 C rise occurs during the six minutes before the decision.",
+        "The decision window lasts three minutes.",
+        "Heating or shutdown consequences follow the selected option."
+      ],
+      "world_id": "triad_iso_e1_racio_world_8317479cb253de4276b704bfa86416a1"
+    }
+  },
+  "schema_version": "triad-iso-e3-pair-input-v1",
+  "source_case_hashes": {
+    "factory_public_status_anonymous": "83c7aa0f94def217ddba604cfd1e295fcb3ac7ccbfe125a9e891589c6ecc3607",
+    "factory_public_status_visible": "df4a7694dbeb7f1def110c241685423a9d28831f7e811e383e53f8cfd7cfe6ad"
+  }
+}

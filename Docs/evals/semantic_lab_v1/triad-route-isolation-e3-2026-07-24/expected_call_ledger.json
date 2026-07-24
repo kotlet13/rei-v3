@@ -1,0 +1,33 @@
+{
+  "entries": [
+    {
+      "call_id": "provider_call_bfc112a5fb0b437c6d3e8b28b1c130ae",
+      "call_spec_hash": "b0c6746e3115e1f9230b4a70cc663ccca4ec42a8f8f00d8edcee37d72132cdc0",
+      "ordinal": 1,
+      "pair_id": "public_credit_audience",
+      "status": "sealed"
+    },
+    {
+      "call_id": "provider_call_e98836a15871a81d4e32161171203178",
+      "call_spec_hash": "2a5d924435129ec42460295c0d79c6acce4e33f88c52473f1a1fe7daa43e446e",
+      "ordinal": 2,
+      "pair_id": "loan_attachment_distance",
+      "status": "sealed"
+    },
+    {
+      "call_id": "provider_call_f18c9940b2cb90d91de0d1c7c4dce308",
+      "call_spec_hash": "b0c05267702f8fa0617e13d135247631cfcf7e0b5e30df0d87131e137cb45bee",
+      "ordinal": 3,
+      "pair_id": "factory_public_status",
+      "status": "sealed"
+    }
+  ],
+  "expected": {
+    "character_replay": 0,
+    "fallbacks": 0,
+    "model_calls": 3,
+    "retries": 0
+  },
+  "schema_version": "triad-iso-e3-expected-ledger-v1",
+  "state": "sealed_before_calls"
+}

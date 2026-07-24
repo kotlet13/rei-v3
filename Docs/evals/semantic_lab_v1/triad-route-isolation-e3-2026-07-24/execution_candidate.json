@@ -1,0 +1,1574 @@
+{
+  "case_order": [
+    "public_credit_audience_visible",
+    "public_credit_audience_absent",
+    "loan_attachment_distance_close",
+    "loan_attachment_distance_distant",
+    "factory_public_status_visible",
+    "factory_public_status_anonymous"
+  ],
+  "character_replay": 0,
+  "execution_authorized": false,
+  "human_review_status": "approved_for_triad_iso_e3_exact_scope",
+  "model_calls": 0,
+  "pair_order": [
+    "public_credit_audience",
+    "loan_attachment_distance",
+    "factory_public_status"
+  ],
+  "pairs": [
+    {
+      "isolation_target": "emocio_attention_recognition_public_image",
+      "pair_id": "public_credit_audience",
+      "variant_fact_ids": [
+        "credit_ev_audience",
+        "credit_ev_positions",
+        "credit_ev_recognition"
+      ],
+      "variants": [
+        {
+          "canonical_sl": {
+            "event": "Sodelavec si med sestankom pripiše izključno avtorstvo rešitve.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "Sodelavec je izjavil, da je sam zasnoval predstavljeno rešitev."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "Časovno označen zapis repozitorija kaže avtorstvo osebe self pred prispevkom sodelavca."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "Vodja lahko po pregledu zapisa popravi uradni zapis sestanka; mehanizem popravka je enak pri javni ali zasebni predložitvi."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "Način predložitve ne spremeni plače, lastništva zapisa ali vodjeve pristojnosti."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "Ni dodane grožnje povračilnega ukrepa; prisotni so nevtralni ali podporni."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "Popravek avtorstva je lahko viden imenovanemu občinstvu: vodji in šestim članom projektne ekipe."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "Sodelavec je trenutno v središču ob projekciji, self pa je viden ob robu skupine."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "Če vodja potrdi zapis med sestankom, bo popravljeno avtorstvo javno priznano pred isto projektno ekipo."
+              }
+            ],
+            "options": [
+              {
+                "description": "Med sestankom takoj pokaži zapis in izpodbije trditev.",
+                "option_id": "credit_public_confront"
+              },
+              {
+                "description": "Po sestanku zasebno pokaži zapis vodji.",
+                "option_id": "credit_private_evidence"
+              },
+              {
+                "description": "Zapisa ne pokaži in ne odpri vprašanja zaslug.",
+                "option_id": "credit_no_response"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Ni znano, ali bo vodja zapis ocenil kot dokončen dokaz.",
+                "unknown_id": "credit_unknown_leader_assessment"
+              },
+              {
+                "text": "Ni znano, kako se bo sodelavec odzval na preverjanje zapisa.",
+                "unknown_id": "credit_unknown_colleague_response"
+              }
+            ]
+          },
+          "case_id": "public_credit_audience_visible",
+          "operational_en": {
+            "event": "A colleague claims sole authorship of the solution during a meeting.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "The colleague stated that they alone designed the presented solution."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "A timestamped repository record shows self's authorship before the colleague's contribution."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "The presentation channel does not change pay, record ownership, or the leader's authority."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "No retaliation threat is added; those present are neutral or supportive."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "The authorship correction can be visible to a named audience: the leader and six project-team members."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "The colleague is currently centered beside the projection, while self is visible at the edge of the group."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "If the leader confirms the record during the meeting, corrected authorship will be publicly recognized before the same project team."
+              }
+            ],
+            "options": [
+              {
+                "description": "Display the record during the meeting and challenge the statement immediately.",
+                "option_id": "credit_public_confront"
+              },
+              {
+                "description": "Display the record privately to the leader after the meeting.",
+                "option_id": "credit_private_evidence"
+              },
+              {
+                "description": "Do not display the record or raise the authorship issue.",
+                "option_id": "credit_no_response"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Whether the leader will treat the record as conclusive evidence is unknown.",
+                "unknown_id": "credit_unknown_leader_assessment"
+              },
+              {
+                "text": "How the colleague will respond to record verification is unknown.",
+                "unknown_id": "credit_unknown_colleague_response"
+              }
+            ]
+          },
+          "route_packets": {
+            "emocio": {
+              "attention_recognition": "Attention is currently on the colleague; corrected authorship can move recognition to self before the group.",
+              "attraction_enjoyment": "not_relevant",
+              "audience": "Leader and six named project-team members.",
+              "broken_scene": "The colleague occupies the visible authorship position and self's contribution is absent from the group image.",
+              "current_scene": "The colleague is centered beside the shared projection; self is visible at the edge before the leader and six project-team members.",
+              "desired_scene": "Self is visibly centered as the recognized author before the same named audience, while the colleague remains present without an asserted humiliation outcome.",
+              "movement_immediacy": "Public display changes the active meeting image immediately; private display changes only the later leader-facing image.",
+              "option_visible_changes": [
+                {
+                  "change": "Self moves beside the projection, the record becomes visible to the group, and recognition can change if the leader confirms it.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_audience",
+                    "credit_ev_positions",
+                    "credit_ev_recognition"
+                  ],
+                  "option_id": "credit_public_confront"
+                },
+                {
+                  "change": "Self and the leader view the record after the meeting; the wider group image does not change at that moment.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "option_id": "credit_private_evidence"
+                },
+                {
+                  "change": "The colleague remains centered and the authorship record remains outside the visible group image.",
+                  "evidence_ids": [
+                    "credit_ev_claim",
+                    "credit_ev_positions"
+                  ],
+                  "option_id": "credit_no_response"
+                }
+              ],
+              "rival_or_obstacle": "The colleague's sole-authorship claim and the record's current invisibility are the obstacles.",
+              "self_position": "At the edge of the current group image."
+            },
+            "instinkt": {
+              "attachment_care": "not_relevant",
+              "boundary": "The timestamped record can support an authorship boundary, but only the leader controls official correction.",
+              "danger_types": "No physical danger or retaliation is grounded; bounded interpersonal tension remains possible.",
+              "escape_reversibility": "A displayed record cannot be made unseen; a later official correction can recover attribution.",
+              "familiarity": "The event occurs in the existing work group and meeting process.",
+              "option_consequences": [
+                {
+                  "consequence": "The boundary is asserted immediately; no added retaliation is grounded, but the colleague response is unknown.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_retaliation"
+                  ],
+                  "option_id": "credit_public_confront"
+                },
+                {
+                  "consequence": "The boundary is asserted to the leader after the meeting with the same official correction mechanism.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "option_id": "credit_private_evidence"
+                },
+                {
+                  "consequence": "No immediate interpersonal exposure is added, but the authorship boundary remains unasserted.",
+                  "evidence_ids": [
+                    "credit_ev_claim"
+                  ],
+                  "option_id": "credit_no_response"
+                }
+              ],
+              "possible_loss": "Authorship attribution can remain lost; an evidence challenge can create an unknown colleague response.",
+              "prior_association": "not_relevant",
+              "protected_target": "Self's authorship boundary and continued ability to function in the work group.",
+              "recoverability": "Attribution is recoverable through the leader's official correction; colleague response remains unknown.",
+              "scarcity": "not_relevant",
+              "trust_distrust": "The leader's assessment and the colleague's response are bounded unknowns."
+            },
+            "racio": {
+              "enforceability_control": "The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment.",
+              "explicit_beneficiary": "self",
+              "explicit_goal": "Preserve accurate authorship in the official meeting record.",
+              "facts": [
+                "credit_ev_claim",
+                "credit_ev_record",
+                "credit_ev_correction",
+                "credit_ev_material",
+                "credit_ev_retaliation"
+              ],
+              "material_strategic_consequences": [
+                {
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the evidence during the meeting; official correction still depends on the leader's assessment.",
+                  "option_id": "credit_public_confront"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the same evidence after the meeting; official correction still depends on the same assessment.",
+                  "option_id": "credit_private_evidence"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "The leader receives no evidence through these options and the official claim remains unchallenged.",
+                  "option_id": "credit_no_response"
+                }
+              ],
+              "opportunity_cost": "Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.",
+              "time_sequence": [
+                "The statement occurs before either evidence-presentation option.",
+                "Public presentation occurs during the meeting; private presentation occurs after it.",
+                "The leader reviews the same record before any official correction."
+              ],
+              "unknowns": [
+                "credit_unknown_leader_assessment",
+                "credit_unknown_colleague_response"
+              ]
+            }
+          },
+          "variant_id": "audience_visible"
+        },
+        {
+          "canonical_sl": {
+            "event": "Sodelavec si med sestankom pripiše izključno avtorstvo rešitve.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "Sodelavec je izjavil, da je sam zasnoval predstavljeno rešitev."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "Časovno označen zapis repozitorija kaže avtorstvo osebe self pred prispevkom sodelavca."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "Vodja lahko po pregledu zapisa popravi uradni zapis sestanka; mehanizem popravka je enak pri javni ali zasebni predložitvi."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "Način predložitve ne spremeni plače, lastništva zapisa ali vodjeve pristojnosti."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "Ni dodane grožnje povračilnega ukrepa; prisotni so nevtralni ali podporni."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "Na sestanku so samo self, sodelavec in vodja; širšega občinstva ni."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "Sodelavec je trenutno v središču ob projekciji pred vodjo, self pa stoji ob strani."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "Če vodja potrdi zapis, bo popravljeno avtorstvo sporočeno samo selfu in sodelavcu brez širšega javnega priznanja."
+              }
+            ],
+            "options": [
+              {
+                "description": "Med sestankom takoj pokaži zapis in izpodbije trditev.",
+                "option_id": "credit_public_confront"
+              },
+              {
+                "description": "Po sestanku zasebno pokaži zapis vodji.",
+                "option_id": "credit_private_evidence"
+              },
+              {
+                "description": "Zapisa ne pokaži in ne odpri vprašanja zaslug.",
+                "option_id": "credit_no_response"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Ni znano, ali bo vodja zapis ocenil kot dokončen dokaz.",
+                "unknown_id": "credit_unknown_leader_assessment"
+              },
+              {
+                "text": "Ni znano, kako se bo sodelavec odzval na preverjanje zapisa.",
+                "unknown_id": "credit_unknown_colleague_response"
+              }
+            ]
+          },
+          "case_id": "public_credit_audience_absent",
+          "operational_en": {
+            "event": "A colleague claims sole authorship of the solution during a meeting.",
+            "facts": [
+              {
+                "evidence_id": "credit_ev_claim",
+                "text": "The colleague stated that they alone designed the presented solution."
+              },
+              {
+                "evidence_id": "credit_ev_record",
+                "text": "A timestamped repository record shows self's authorship before the colleague's contribution."
+              },
+              {
+                "evidence_id": "credit_ev_correction",
+                "text": "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation."
+              },
+              {
+                "evidence_id": "credit_ev_material",
+                "text": "The presentation channel does not change pay, record ownership, or the leader's authority."
+              },
+              {
+                "evidence_id": "credit_ev_retaliation",
+                "text": "No retaliation threat is added; those present are neutral or supportive."
+              },
+              {
+                "evidence_id": "credit_ev_audience",
+                "text": "Only self, the colleague, and the leader are in the meeting; there is no wider audience."
+              },
+              {
+                "evidence_id": "credit_ev_positions",
+                "text": "The colleague is currently centered beside the projection before the leader, while self stands to the side."
+              },
+              {
+                "evidence_id": "credit_ev_recognition",
+                "text": "If the leader confirms the record, corrected authorship will be communicated only to self and the colleague without wider public recognition."
+              }
+            ],
+            "options": [
+              {
+                "description": "Display the record during the meeting and challenge the statement immediately.",
+                "option_id": "credit_public_confront"
+              },
+              {
+                "description": "Display the record privately to the leader after the meeting.",
+                "option_id": "credit_private_evidence"
+              },
+              {
+                "description": "Do not display the record or raise the authorship issue.",
+                "option_id": "credit_no_response"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Whether the leader will treat the record as conclusive evidence is unknown.",
+                "unknown_id": "credit_unknown_leader_assessment"
+              },
+              {
+                "text": "How the colleague will respond to record verification is unknown.",
+                "unknown_id": "credit_unknown_colleague_response"
+              }
+            ]
+          },
+          "route_packets": {
+            "emocio": {
+              "attention_recognition": "Attention is currently on the colleague; corrected authorship can move recognition to self only within the three-person scene.",
+              "attraction_enjoyment": "not_relevant",
+              "audience": "Leader and colleague only; no wider audience.",
+              "broken_scene": "The colleague occupies the visible authorship position before the leader and self's contribution is absent from that small scene.",
+              "current_scene": "The colleague is centered beside the shared projection before the leader; self stands to the side, and no wider audience is present.",
+              "desired_scene": "Self is visibly centered as the recognized author before the leader and colleague, without a wider recognition scene or an asserted humiliation outcome.",
+              "movement_immediacy": "Public display changes the active three-person meeting image immediately; private display changes only the later leader-facing image.",
+              "option_visible_changes": [
+                {
+                  "change": "Self moves beside the projection, the record becomes visible to the leader and colleague, and recognition can change if the leader confirms it.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_audience",
+                    "credit_ev_positions",
+                    "credit_ev_recognition"
+                  ],
+                  "option_id": "credit_public_confront"
+                },
+                {
+                  "change": "Self and the leader view the record after the meeting; no wider group image exists to change.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "option_id": "credit_private_evidence"
+                },
+                {
+                  "change": "The colleague remains centered before the leader and the record stays outside the visible scene.",
+                  "evidence_ids": [
+                    "credit_ev_claim",
+                    "credit_ev_positions"
+                  ],
+                  "option_id": "credit_no_response"
+                }
+              ],
+              "rival_or_obstacle": "The colleague's sole-authorship claim and the record's current invisibility are the obstacles.",
+              "self_position": "At the side of the current three-person scene."
+            },
+            "instinkt": {
+              "attachment_care": "not_relevant",
+              "boundary": "The timestamped record can support an authorship boundary, but only the leader controls official correction.",
+              "danger_types": "No physical danger or retaliation is grounded; bounded interpersonal tension remains possible.",
+              "escape_reversibility": "A displayed record cannot be made unseen; a later official correction can recover attribution.",
+              "familiarity": "The event occurs in the existing work group and meeting process.",
+              "option_consequences": [
+                {
+                  "consequence": "The boundary is asserted immediately; no added retaliation is grounded, but the colleague response is unknown.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_retaliation"
+                  ],
+                  "option_id": "credit_public_confront"
+                },
+                {
+                  "consequence": "The boundary is asserted to the leader after the meeting with the same official correction mechanism.",
+                  "evidence_ids": [
+                    "credit_ev_record",
+                    "credit_ev_correction"
+                  ],
+                  "option_id": "credit_private_evidence"
+                },
+                {
+                  "consequence": "No immediate interpersonal exposure is added, but the authorship boundary remains unasserted.",
+                  "evidence_ids": [
+                    "credit_ev_claim"
+                  ],
+                  "option_id": "credit_no_response"
+                }
+              ],
+              "possible_loss": "Authorship attribution can remain lost; an evidence challenge can create an unknown colleague response.",
+              "prior_association": "not_relevant",
+              "protected_target": "Self's authorship boundary and continued ability to function in the work group.",
+              "recoverability": "Attribution is recoverable through the leader's official correction; colleague response remains unknown.",
+              "scarcity": "not_relevant",
+              "trust_distrust": "The leader's assessment and the colleague's response are bounded unknowns."
+            },
+            "racio": {
+              "enforceability_control": "The timestamped record is grounded evidence, and the leader controls the official meeting correction; self does not control the leader's assessment.",
+              "explicit_beneficiary": "self",
+              "explicit_goal": "Preserve accurate authorship in the official meeting record.",
+              "facts": [
+                "credit_ev_claim",
+                "credit_ev_record",
+                "credit_ev_correction",
+                "credit_ev_material",
+                "credit_ev_retaliation"
+              ],
+              "material_strategic_consequences": [
+                {
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the evidence during the meeting; official correction still depends on the leader's assessment.",
+                  "option_id": "credit_public_confront"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "The leader receives the same evidence after the meeting; official correction still depends on the same assessment.",
+                  "option_id": "credit_private_evidence"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "The leader receives no evidence through these options and the official claim remains unchallenged.",
+                  "option_id": "credit_no_response"
+                }
+              ],
+              "opportunity_cost": "Immediate presentation interrupts the active meeting; delayed presentation leaves the claim uncorrected until review.",
+              "time_sequence": [
+                "The statement occurs before either evidence-presentation option.",
+                "Public presentation occurs during the meeting; private presentation occurs after it.",
+                "The leader reviews the same record before any official correction."
+              ],
+              "unknowns": [
+                "credit_unknown_leader_assessment",
+                "credit_unknown_colleague_response"
+              ]
+            }
+          },
+          "variant_id": "audience_absent"
+        }
+      ]
+    },
+    {
+      "isolation_target": "instinkt_attachment_care_scarcity_boundary",
+      "pair_id": "loan_attachment_distance",
+      "variant_fact_ids": [
+        "loan_ev_relationship",
+        "loan_ev_attachment"
+      ],
+      "variants": [
+        {
+          "canonical_sl": {
+            "event": "Oseba prosi self za posojilo za nujno popravilo doma.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "Predložen račun potrjuje nujno popravilo doma v vrednosti 9000 EUR."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Dve prejšnji vračili sta zamujali več kot tri mesece."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "Polna vsota predstavlja 45 odstotkov selfove denarne rezerve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "Omejena možnost znaša 3000 EUR in vključuje pisni dvanajstmesečni rok vračila; polna možnost nima nove pogodbe."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "Odnos selfu ne prinaša poslovne, lastniške ali druge materialne koristi."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "Prosilec je selfov bližnji prijatelj z dvanajstletno skupno zgodovino."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Self izrecno poroča o močni navezanosti in strahu, da bi odnos izgubil."
+              }
+            ],
+            "options": [
+              {
+                "description": "Posodi celotnih 9000 EUR brez nove pogodbe.",
+                "option_id": "loan_full"
+              },
+              {
+                "description": "Posodi 3000 EUR s pisnim dvanajstmesečnim rokom vračila.",
+                "option_id": "loan_limited_contract"
+              },
+              {
+                "description": "Ne posodi denarja.",
+                "option_id": "loan_decline"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Ni znano, ali bo novo posojilo vrnjeno pravočasno.",
+                "unknown_id": "loan_unknown_repayment"
+              },
+              {
+                "text": "Ni znano, kako bo posamezna možnost vplivala na odnos.",
+                "unknown_id": "loan_unknown_relationship"
+              },
+              {
+                "text": "Ni znano, ali bo self v naslednjih šestih mesecih potreboval večji del rezerve.",
+                "unknown_id": "loan_unknown_own_costs"
+              }
+            ]
+          },
+          "case_id": "loan_attachment_distance_close",
+          "operational_en": {
+            "event": "A person asks self for a loan for an urgent home repair.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "A submitted invoice confirms an urgent home repair costing EUR 9000."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Two previous repayments were more than three months late."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "The full amount is 45 percent of self's cash reserve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "The relationship provides no business, ownership, or other material benefit to self."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "The borrower is self's close friend with twelve years of shared history."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Self explicitly reports strong attachment and fear of losing the relationship."
+              }
+            ],
+            "options": [
+              {
+                "description": "Lend the full EUR 9000 without a new contract.",
+                "option_id": "loan_full"
+              },
+              {
+                "description": "Lend EUR 3000 with a written twelve-month repayment date.",
+                "option_id": "loan_limited_contract"
+              },
+              {
+                "description": "Lend no money.",
+                "option_id": "loan_decline"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Whether a new loan will be repaid on time is unknown.",
+                "unknown_id": "loan_unknown_repayment"
+              },
+              {
+                "text": "How each option will affect the relationship is unknown.",
+                "unknown_id": "loan_unknown_relationship"
+              },
+              {
+                "text": "Whether self will need a large part of the reserve during the next six months is unknown.",
+                "unknown_id": "loan_unknown_own_costs"
+              }
+            ]
+          },
+          "route_packets": {
+            "emocio": {
+              "attention_recognition": "Attention is between self, the borrower, and the visible act; no public recognition is grounded.",
+              "attraction_enjoyment": "not_relevant",
+              "audience": "not_relevant",
+              "broken_scene": "Self disappears from the active relationship scene or the chosen act remains visually unresolved.",
+              "current_scene": "Self and the borrower face each other across a table with the repair invoice visible; no audience is present.",
+              "desired_scene": "Self remains centered as an active participant in a face-to-face scene where the chosen act and its relationship image are immediately visible.",
+              "movement_immediacy": "Each option creates a different immediate transfer or non-transfer movement.",
+              "option_visible_changes": [
+                {
+                  "change": "The full amount crosses the table and the repair invoice becomes fully funded.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "option_id": "loan_full"
+                },
+                {
+                  "change": "A smaller amount and written date cross the table while part of the invoice remains.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "change": "No amount crosses the table and the invoice remains unfunded.",
+                  "evidence_ids": [
+                    "loan_ev_need"
+                  ],
+                  "option_id": "loan_decline"
+                }
+              ],
+              "rival_or_obstacle": "The unfunded invoice and uncertainty about the relationship image are obstacles; no rival is present.",
+              "self_position": "Centered opposite the borrower."
+            },
+            "instinkt": {
+              "attachment_care": "The borrower is a close friend; self reports strong attachment and fear of relationship loss, and the repair need is genuine.",
+              "boundary": "The limited option adds a written twelve-month date; the full option adds no new contract; decline sets a no-transfer boundary.",
+              "danger_types": "Possible attachment loss, resource scarcity, repeated late repayment, and an ineffective boundary.",
+              "escape_reversibility": "A transfer cannot be immediately reversed; a written claim may support later recovery but does not guarantee it.",
+              "familiarity": "The relationship has twelve years of grounded shared history.",
+              "option_consequences": [
+                {
+                  "consequence": "The friend's full need is funded and attachment care is enacted, while 45 percent of reserve is exposed without a new boundary.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_history",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "option_id": "loan_full"
+                },
+                {
+                  "consequence": "Part of the need is funded, a written boundary is added, and both money and relationship recovery remain uncertain.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_terms",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "consequence": "The reserve is retained, the genuine need is not funded by self, and attachment loss remains possible but unknown.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "option_id": "loan_decline"
+                }
+              ],
+              "possible_loss": "Self may lose money needed within six months, may fail to protect a close friend in need, or may lose the relationship.",
+              "prior_association": "Two late repayments are grounded prior events; no further motive is inferred.",
+              "protected_target": "Self's close attachment, the friend's urgent need, self's reserve, and a workable repayment boundary.",
+              "recoverability": "Money recovery is unknown; relationship recovery after each option is also unknown.",
+              "scarcity": "The full amount exposes 45 percent of the reserve; future own costs are unknown.",
+              "trust_distrust": "Twelve years of shared history grounds attachment, while two late repayments ground repayment distrust."
+            },
+            "racio": {
+              "enforceability_control": "The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract.",
+              "explicit_beneficiary": "self",
+              "explicit_goal": "Protect self's liquidity and enforceable repayment position while deciding whether to fund the repair.",
+              "facts": [
+                "loan_ev_need",
+                "loan_ev_history",
+                "loan_ev_reserve",
+                "loan_ev_terms",
+                "loan_ev_no_strategic_benefit"
+              ],
+              "material_strategic_consequences": [
+                {
+                  "beneficiary": "self",
+                  "consequence": "Self exposes 45 percent of the reserve without a new repayment contract.",
+                  "option_id": "loan_full"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "Self exposes EUR 3000 under a written twelve-month repayment date.",
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "Self retains the reserve and acquires no repayment claim.",
+                  "option_id": "loan_decline"
+                },
+                {
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed EUR 9000 repair invoice can be fully funded.",
+                  "option_id": "loan_full"
+                },
+                {
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives EUR 3000 and remains partly unfunded.",
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives no funds from self.",
+                  "option_id": "loan_decline"
+                }
+              ],
+              "opportunity_cost": "Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.",
+              "time_sequence": [
+                "Two prior repayments were late before the current request.",
+                "Any transfer occurs now.",
+                "The limited written repayment date occurs twelve months later."
+              ],
+              "unknowns": [
+                "loan_unknown_repayment",
+                "loan_unknown_own_costs"
+              ]
+            }
+          },
+          "variant_id": "close_attachment"
+        },
+        {
+          "canonical_sl": {
+            "event": "Oseba prosi self za posojilo za nujno popravilo doma.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "Predložen račun potrjuje nujno popravilo doma v vrednosti 9000 EUR."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Dve prejšnji vračili sta zamujali več kot tri mesece."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "Polna vsota predstavlja 45 odstotkov selfove denarne rezerve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "Omejena možnost znaša 3000 EUR in vključuje pisni dvanajstmesečni rok vračila; polna možnost nima nove pogodbe."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "Odnos selfu ne prinaša poslovne, lastniške ali druge materialne koristi."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "Prosilec je oddaljen znanec, ki ga je self srečal trikrat."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Med selfom in prosilcem ni skupne navezanostne zgodovine ali poročanega strahu pred izgubo odnosa."
+              }
+            ],
+            "options": [
+              {
+                "description": "Posodi celotnih 9000 EUR brez nove pogodbe.",
+                "option_id": "loan_full"
+              },
+              {
+                "description": "Posodi 3000 EUR s pisnim dvanajstmesečnim rokom vračila.",
+                "option_id": "loan_limited_contract"
+              },
+              {
+                "description": "Ne posodi denarja.",
+                "option_id": "loan_decline"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Ni znano, ali bo novo posojilo vrnjeno pravočasno.",
+                "unknown_id": "loan_unknown_repayment"
+              },
+              {
+                "text": "Ni znano, kako bo posamezna možnost vplivala na odnos.",
+                "unknown_id": "loan_unknown_relationship"
+              },
+              {
+                "text": "Ni znano, ali bo self v naslednjih šestih mesecih potreboval večji del rezerve.",
+                "unknown_id": "loan_unknown_own_costs"
+              }
+            ]
+          },
+          "case_id": "loan_attachment_distance_distant",
+          "operational_en": {
+            "event": "A person asks self for a loan for an urgent home repair.",
+            "facts": [
+              {
+                "evidence_id": "loan_ev_need",
+                "text": "A submitted invoice confirms an urgent home repair costing EUR 9000."
+              },
+              {
+                "evidence_id": "loan_ev_history",
+                "text": "Two previous repayments were more than three months late."
+              },
+              {
+                "evidence_id": "loan_ev_reserve",
+                "text": "The full amount is 45 percent of self's cash reserve."
+              },
+              {
+                "evidence_id": "loan_ev_terms",
+                "text": "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract."
+              },
+              {
+                "evidence_id": "loan_ev_no_strategic_benefit",
+                "text": "The relationship provides no business, ownership, or other material benefit to self."
+              },
+              {
+                "evidence_id": "loan_ev_relationship",
+                "text": "The borrower is a distant acquaintance whom self has met three times."
+              },
+              {
+                "evidence_id": "loan_ev_attachment",
+                "text": "Self and the borrower have no shared attachment history or reported fear of relationship loss."
+              }
+            ],
+            "options": [
+              {
+                "description": "Lend the full EUR 9000 without a new contract.",
+                "option_id": "loan_full"
+              },
+              {
+                "description": "Lend EUR 3000 with a written twelve-month repayment date.",
+                "option_id": "loan_limited_contract"
+              },
+              {
+                "description": "Lend no money.",
+                "option_id": "loan_decline"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Whether a new loan will be repaid on time is unknown.",
+                "unknown_id": "loan_unknown_repayment"
+              },
+              {
+                "text": "How each option will affect the relationship is unknown.",
+                "unknown_id": "loan_unknown_relationship"
+              },
+              {
+                "text": "Whether self will need a large part of the reserve during the next six months is unknown.",
+                "unknown_id": "loan_unknown_own_costs"
+              }
+            ]
+          },
+          "route_packets": {
+            "emocio": {
+              "attention_recognition": "Attention is between self, the borrower, and the visible act; no public recognition is grounded.",
+              "attraction_enjoyment": "not_relevant",
+              "audience": "not_relevant",
+              "broken_scene": "Self disappears from the active relationship scene or the chosen act remains visually unresolved.",
+              "current_scene": "Self and the borrower face each other across a table with the repair invoice visible; no audience is present.",
+              "desired_scene": "Self remains centered as an active participant in a face-to-face scene where the chosen act and its relationship image are immediately visible.",
+              "movement_immediacy": "Each option creates a different immediate transfer or non-transfer movement.",
+              "option_visible_changes": [
+                {
+                  "change": "The full amount crosses the table and the repair invoice becomes fully funded.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "option_id": "loan_full"
+                },
+                {
+                  "change": "A smaller amount and written date cross the table while part of the invoice remains.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_terms"
+                  ],
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "change": "No amount crosses the table and the invoice remains unfunded.",
+                  "evidence_ids": [
+                    "loan_ev_need"
+                  ],
+                  "option_id": "loan_decline"
+                }
+              ],
+              "rival_or_obstacle": "The unfunded invoice and uncertainty about the relationship image are obstacles; no rival is present.",
+              "self_position": "Centered opposite the borrower."
+            },
+            "instinkt": {
+              "attachment_care": "The repair need is genuine and can activate compassion, but there is no shared attachment history or reported fear of relationship loss.",
+              "boundary": "The limited option adds a written twelve-month date; the full option adds no new contract; decline sets a no-transfer boundary.",
+              "danger_types": "Resource scarcity, repeated late repayment, and an ineffective boundary; no close-attachment loss is grounded.",
+              "escape_reversibility": "A transfer cannot be immediately reversed; a written claim may support later recovery but does not guarantee it.",
+              "familiarity": "The borrower is a distant acquaintance met three times.",
+              "option_consequences": [
+                {
+                  "consequence": "The full need is funded and compassion can be enacted, while 45 percent of reserve is exposed without a new boundary and no close attachment is grounded.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_history",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "option_id": "loan_full"
+                },
+                {
+                  "consequence": "Part of the need is funded, a written boundary is added, and money recovery remains uncertain without a close attachment.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_terms",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "consequence": "The reserve is retained, the genuine need is not funded by self, and no close-attachment loss is grounded.",
+                  "evidence_ids": [
+                    "loan_ev_need",
+                    "loan_ev_reserve",
+                    "loan_ev_relationship",
+                    "loan_ev_attachment"
+                  ],
+                  "option_id": "loan_decline"
+                }
+              ],
+              "possible_loss": "Self may lose money needed within six months; the acquaintance's genuine need may remain unmet by self.",
+              "prior_association": "Two late repayments are grounded prior events; no further motive is inferred.",
+              "protected_target": "Self's reserve, a workable repayment boundary, and the borrower's genuine need without a grounded close attachment.",
+              "recoverability": "Money recovery is unknown; the effect on the limited acquaintance relationship is also unknown.",
+              "scarcity": "The full amount exposes 45 percent of the reserve; future own costs are unknown.",
+              "trust_distrust": "Only three meetings and two late repayments ground limited trust and repayment distrust."
+            },
+            "racio": {
+              "enforceability_control": "The limited option has a written date but repayment capacity and enforcement outcome remain unknown; the full option adds no new contract.",
+              "explicit_beneficiary": "self",
+              "explicit_goal": "Protect self's liquidity and enforceable repayment position while deciding whether to fund the repair.",
+              "facts": [
+                "loan_ev_need",
+                "loan_ev_history",
+                "loan_ev_reserve",
+                "loan_ev_terms",
+                "loan_ev_no_strategic_benefit"
+              ],
+              "material_strategic_consequences": [
+                {
+                  "beneficiary": "self",
+                  "consequence": "Self exposes 45 percent of the reserve without a new repayment contract.",
+                  "option_id": "loan_full"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "Self exposes EUR 3000 under a written twelve-month repayment date.",
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "beneficiary": "self",
+                  "consequence": "Self retains the reserve and acquires no repayment claim.",
+                  "option_id": "loan_decline"
+                },
+                {
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed EUR 9000 repair invoice can be fully funded.",
+                  "option_id": "loan_full"
+                },
+                {
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives EUR 3000 and remains partly unfunded.",
+                  "option_id": "loan_limited_contract"
+                },
+                {
+                  "beneficiary": "borrower",
+                  "consequence": "The confirmed repair receives no funds from self.",
+                  "option_id": "loan_decline"
+                }
+              ],
+              "opportunity_cost": "Transferred money cannot cover self's unknown six-month reserve needs; retained money does not fund the borrower's repair.",
+              "time_sequence": [
+                "Two prior repayments were late before the current request.",
+                "Any transfer occurs now.",
+                "The limited written repayment date occurs twelve months later."
+              ],
+              "unknowns": [
+                "loan_unknown_repayment",
+                "loan_unknown_own_costs"
+              ]
+            }
+          },
+          "variant_id": "distant_acquaintance"
+        }
+      ]
+    },
+    {
+      "isolation_target": "emocio_status_recognition",
+      "pair_id": "factory_public_status",
+      "variant_fact_ids": [
+        "factory_ev_audience",
+        "factory_ev_status"
+      ],
+      "variants": [
+        {
+          "canonical_sl": {
+            "event": "Procesna temperatura hitro narašča ob nasprotujočih si senzorjih.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Procesna temperatura je v šestih minutah narasla za 11 C."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "Rezervni senzor kaže 8 C manj od primarnega; pravilnost odčitkov ni potrjena."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "Odločitev mora biti sprejeta v treh minutah."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Nadaljnje segrevanje lahko poškoduje opremo."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "Nadzorovan shutdown povzroči 75000 EUR neposredne izgube."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "Za nobeno možnost ni dodane grožnje povračilnega ukrepa ali kaznovanja operaterja."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "Odločitev v živo opazujejo vodja obrata in osem članov izmene; občinstvo je nevtralno ali podporno."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Uspešno obvladovanje dogodka bo z imenom operaterja zapisano v pregled usposobljenosti in vidno istemu občinstvu; plača in tehnična odgovornost se ne spremenita."
+              }
+            ],
+            "options": [
+              {
+                "description": "Takoj izvedi nadzorovan shutdown.",
+                "option_id": "factory_shutdown"
+              },
+              {
+                "description": "Največ tri minute preverjaj oba senzorja in nato ponovno odloči.",
+                "option_id": "factory_verify"
+              },
+              {
+                "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah.",
+                "option_id": "factory_continue"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Ni znano, kateri senzor je pravilen.",
+                "unknown_id": "factory_unknown_sensor"
+              },
+              {
+                "text": "Ni znano, ali je oprema že poškodovana.",
+                "unknown_id": "factory_unknown_damage"
+              }
+            ]
+          },
+          "case_id": "factory_public_status_visible",
+          "operational_en": {
+            "event": "Process temperature is rising rapidly while sensors disagree.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Process temperature rose by 11 C during six minutes."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "A decision must be made within three minutes."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Further heating can damage equipment."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "A controlled shutdown causes a direct loss of EUR 75000."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "No retaliation or operator-punishment threat is added to any option."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "The plant manager and eight shift members observe the decision live; the audience is neutral or supportive."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Successful handling will be entered under the operator's name in the competency review and visible to the same audience; pay and technical responsibility do not change."
+              }
+            ],
+            "options": [
+              {
+                "description": "Execute a controlled shutdown immediately.",
+                "option_id": "factory_shutdown"
+              },
+              {
+                "description": "Verify both sensors for no more than three minutes and then decide again.",
+                "option_id": "factory_verify"
+              },
+              {
+                "description": "Continue production at the current settings.",
+                "option_id": "factory_continue"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Which sensor is correct is unknown.",
+                "unknown_id": "factory_unknown_sensor"
+              },
+              {
+                "text": "Whether equipment is already damaged is unknown.",
+                "unknown_id": "factory_unknown_damage"
+              }
+            ]
+          },
+          "route_packets": {
+            "emocio": {
+              "attention_recognition": "Attention is on the event and self's handling; successful handling creates named visible recognition without a material reward.",
+              "attraction_enjoyment": "not_relevant",
+              "audience": "Plant manager and eight shift members, neutral or supportive.",
+              "broken_scene": "The warning and unresolved process dominate the visible scene while self loses the recognized control position.",
+              "current_scene": "Self is at the controls before the plant manager and eight shift members while the rising gauge and conflicting displays hold attention.",
+              "desired_scene": "Self is centered in a visibly successful handling scene where decisive action removes the process obstacle and the named audience recognizes the operator.",
+              "movement_immediacy": "Each option creates an immediate, visibly different operator action.",
+              "option_visible_changes": [
+                {
+                  "change": "Self executes the stop sequence before the audience and the active heat input leaves the scene.",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "option_id": "factory_shutdown"
+                },
+                {
+                  "change": "Self moves between the displays before the audience while the unresolved heat obstacle remains for up to three minutes.",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "option_id": "factory_verify"
+                },
+                {
+                  "change": "Self keeps production moving before the audience while the rising-heat obstacle remains visible.",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "option_id": "factory_continue"
+                }
+              ],
+              "rival_or_obstacle": "The rising heat, conflicting displays, and unresolved process are obstacles; no human rival is present.",
+              "self_position": "At the controls before the named audience."
+            },
+            "instinkt": {
+              "attachment_care": "Protection of the shift members is relevant only as a bounded physical-integrity target; no injury evidence is added.",
+              "boundary": "The three-minute window and listed process actions define the operational boundary.",
+              "danger_types": "Rising heat, conflicting sensor truth, possible equipment damage, and time-limited exposure.",
+              "escape_reversibility": "Shutdown stops heat input; verification delays escape for up to three minutes; continuation preserves exposure.",
+              "familiarity": "The operator is in the existing plant and known control process.",
+              "option_consequences": [
+                {
+                  "consequence": "Heat input stops and the plant incurs EUR 75000 loss; restart recovery remains unknown.",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_shutdown_loss"
+                  ],
+                  "option_id": "factory_shutdown"
+                },
+                {
+                  "consequence": "Conflicting readings are examined while heat exposure continues for no more than three minutes.",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_damage"
+                  ],
+                  "option_id": "factory_verify"
+                },
+                {
+                  "consequence": "Rising-heat exposure and possible equipment damage continue.",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_damage"
+                  ],
+                  "option_id": "factory_continue"
+                }
+              ],
+              "possible_loss": "Equipment damage or EUR 75000 shutdown loss.",
+              "prior_association": "not_relevant",
+              "protected_target": "Operator and equipment integrity, escape from escalating heat, and recoverable plant resources.",
+              "recoverability": "Shutdown loss is stated but restart recovery is unknown; equipment recovery after damage is unknown.",
+              "scarcity": "Shutdown consumes EUR 75000 of plant resources.",
+              "trust_distrust": "Neither sensor reading is confirmed."
+            },
+            "racio": {
+              "enforceability_control": "The operator controls the listed process action but does not control sensor truth or existing damage.",
+              "explicit_beneficiary": "plant_owner",
+              "explicit_goal": "Limit equipment damage and avoid unnecessary direct loss during the three-minute decision window.",
+              "facts": [
+                "factory_ev_temperature",
+                "factory_ev_sensor",
+                "factory_ev_time",
+                "factory_ev_damage",
+                "factory_ev_shutdown_loss",
+                "factory_ev_retaliation"
+              ],
+              "material_strategic_consequences": [
+                {
+                  "beneficiary": "plant_owner",
+                  "consequence": "Heat input stops and a direct EUR 75000 loss occurs.",
+                  "option_id": "factory_shutdown"
+                },
+                {
+                  "beneficiary": "plant_owner",
+                  "consequence": "Sensor information can improve while heat exposure continues for up to three minutes.",
+                  "option_id": "factory_verify"
+                },
+                {
+                  "beneficiary": "plant_owner",
+                  "consequence": "The direct shutdown loss is avoided while the documented heating and damage possibility continue.",
+                  "option_id": "factory_continue"
+                }
+              ],
+              "opportunity_cost": "Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.",
+              "time_sequence": [
+                "The 11 C rise occurs during the six minutes before the decision.",
+                "The decision window lasts three minutes.",
+                "Heating or shutdown consequences follow the selected option."
+              ],
+              "unknowns": [
+                "factory_unknown_sensor",
+                "factory_unknown_damage"
+              ]
+            }
+          },
+          "variant_id": "status_visible"
+        },
+        {
+          "canonical_sl": {
+            "event": "Procesna temperatura hitro narašča ob nasprotujočih si senzorjih.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Procesna temperatura je v šestih minutah narasla za 11 C."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "Rezervni senzor kaže 8 C manj od primarnega; pravilnost odčitkov ni potrjena."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "Odločitev mora biti sprejeta v treh minutah."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Nadaljnje segrevanje lahko poškoduje opremo."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "Nadzorovan shutdown povzroči 75000 EUR neposredne izgube."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "Za nobeno možnost ni dodane grožnje povračilnega ukrepa ali kaznovanja operaterja."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "Odločitev se izvede brez opazovalcev in se shrani samo v anonimen tehnični dnevnik."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Uspešno obvladovanje ne bo pripisano operaterju ter ne spremeni priznanja, statusa, plače ali tehnične odgovornosti."
+              }
+            ],
+            "options": [
+              {
+                "description": "Takoj izvedi nadzorovan shutdown.",
+                "option_id": "factory_shutdown"
+              },
+              {
+                "description": "Največ tri minute preverjaj oba senzorja in nato ponovno odloči.",
+                "option_id": "factory_verify"
+              },
+              {
+                "description": "Nadaljuj proizvodnjo pri trenutnih nastavitvah.",
+                "option_id": "factory_continue"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Ni znano, kateri senzor je pravilen.",
+                "unknown_id": "factory_unknown_sensor"
+              },
+              {
+                "text": "Ni znano, ali je oprema že poškodovana.",
+                "unknown_id": "factory_unknown_damage"
+              }
+            ]
+          },
+          "case_id": "factory_public_status_anonymous",
+          "operational_en": {
+            "event": "Process temperature is rising rapidly while sensors disagree.",
+            "facts": [
+              {
+                "evidence_id": "factory_ev_temperature",
+                "text": "Process temperature rose by 11 C during six minutes."
+              },
+              {
+                "evidence_id": "factory_ev_sensor",
+                "text": "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed."
+              },
+              {
+                "evidence_id": "factory_ev_time",
+                "text": "A decision must be made within three minutes."
+              },
+              {
+                "evidence_id": "factory_ev_damage",
+                "text": "Further heating can damage equipment."
+              },
+              {
+                "evidence_id": "factory_ev_shutdown_loss",
+                "text": "A controlled shutdown causes a direct loss of EUR 75000."
+              },
+              {
+                "evidence_id": "factory_ev_retaliation",
+                "text": "No retaliation or operator-punishment threat is added to any option."
+              },
+              {
+                "evidence_id": "factory_ev_audience",
+                "text": "The decision is performed without observers and is stored only in an anonymous technical log."
+              },
+              {
+                "evidence_id": "factory_ev_status",
+                "text": "Successful handling will not be attributed to the operator and changes no recognition, status, pay, or technical responsibility."
+              }
+            ],
+            "options": [
+              {
+                "description": "Execute a controlled shutdown immediately.",
+                "option_id": "factory_shutdown"
+              },
+              {
+                "description": "Verify both sensors for no more than three minutes and then decide again.",
+                "option_id": "factory_verify"
+              },
+              {
+                "description": "Continue production at the current settings.",
+                "option_id": "factory_continue"
+              }
+            ],
+            "unknowns": [
+              {
+                "text": "Which sensor is correct is unknown.",
+                "unknown_id": "factory_unknown_sensor"
+              },
+              {
+                "text": "Whether equipment is already damaged is unknown.",
+                "unknown_id": "factory_unknown_damage"
+              }
+            ]
+          },
+          "route_packets": {
+            "emocio": {
+              "attention_recognition": "The process event holds self's attention; no external recognition or status change is grounded.",
+              "attraction_enjoyment": "not_relevant",
+              "audience": "not_relevant",
+              "broken_scene": "The warning and unresolved process dominate the scene while self's action does not realize the intended control image.",
+              "current_scene": "Self is alone at the controls while the rising gauge and conflicting displays hold attention; no observer or attributed record is present.",
+              "desired_scene": "Self is centered in a visibly decisive handling scene where action removes the process obstacle, without an audience or recognition effect.",
+              "movement_immediacy": "Each option creates an immediate, visibly different operator action.",
+              "option_visible_changes": [
+                {
+                  "change": "Self executes the stop sequence alone and the active heat input leaves the scene without recognition.",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "option_id": "factory_shutdown"
+                },
+                {
+                  "change": "Self moves between the displays alone while the unresolved heat obstacle remains for up to three minutes.",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "option_id": "factory_verify"
+                },
+                {
+                  "change": "Self keeps production moving alone while the rising-heat obstacle remains visible.",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_audience",
+                    "factory_ev_status"
+                  ],
+                  "option_id": "factory_continue"
+                }
+              ],
+              "rival_or_obstacle": "The rising heat, conflicting displays, and unresolved process are obstacles; no human rival is present.",
+              "self_position": "At the controls without observers."
+            },
+            "instinkt": {
+              "attachment_care": "Protection of the shift members is relevant only as a bounded physical-integrity target; no injury evidence is added.",
+              "boundary": "The three-minute window and listed process actions define the operational boundary.",
+              "danger_types": "Rising heat, conflicting sensor truth, possible equipment damage, and time-limited exposure.",
+              "escape_reversibility": "Shutdown stops heat input; verification delays escape for up to three minutes; continuation preserves exposure.",
+              "familiarity": "The operator is in the existing plant and known control process.",
+              "option_consequences": [
+                {
+                  "consequence": "Heat input stops and the plant incurs EUR 75000 loss; restart recovery remains unknown.",
+                  "evidence_ids": [
+                    "factory_ev_damage",
+                    "factory_ev_shutdown_loss"
+                  ],
+                  "option_id": "factory_shutdown"
+                },
+                {
+                  "consequence": "Conflicting readings are examined while heat exposure continues for no more than three minutes.",
+                  "evidence_ids": [
+                    "factory_ev_sensor",
+                    "factory_ev_time",
+                    "factory_ev_damage"
+                  ],
+                  "option_id": "factory_verify"
+                },
+                {
+                  "consequence": "Rising-heat exposure and possible equipment damage continue.",
+                  "evidence_ids": [
+                    "factory_ev_temperature",
+                    "factory_ev_damage"
+                  ],
+                  "option_id": "factory_continue"
+                }
+              ],
+              "possible_loss": "Equipment damage or EUR 75000 shutdown loss.",
+              "prior_association": "not_relevant",
+              "protected_target": "Operator and equipment integrity, escape from escalating heat, and recoverable plant resources.",
+              "recoverability": "Shutdown loss is stated but restart recovery is unknown; equipment recovery after damage is unknown.",
+              "scarcity": "Shutdown consumes EUR 75000 of plant resources.",
+              "trust_distrust": "Neither sensor reading is confirmed."
+            },
+            "racio": {
+              "enforceability_control": "The operator controls the listed process action but does not control sensor truth or existing damage.",
+              "explicit_beneficiary": "plant_owner",
+              "explicit_goal": "Limit equipment damage and avoid unnecessary direct loss during the three-minute decision window.",
+              "facts": [
+                "factory_ev_temperature",
+                "factory_ev_sensor",
+                "factory_ev_time",
+                "factory_ev_damage",
+                "factory_ev_shutdown_loss",
+                "factory_ev_retaliation"
+              ],
+              "material_strategic_consequences": [
+                {
+                  "beneficiary": "plant_owner",
+                  "consequence": "Heat input stops and a direct EUR 75000 loss occurs.",
+                  "option_id": "factory_shutdown"
+                },
+                {
+                  "beneficiary": "plant_owner",
+                  "consequence": "Sensor information can improve while heat exposure continues for up to three minutes.",
+                  "option_id": "factory_verify"
+                },
+                {
+                  "beneficiary": "plant_owner",
+                  "consequence": "The direct shutdown loss is avoided while the documented heating and damage possibility continue.",
+                  "option_id": "factory_continue"
+                }
+              ],
+              "opportunity_cost": "Shutdown gives up EUR 75000; verification gives up up to three minutes of hazard reduction; continuation gives up immediate hazard removal.",
+              "time_sequence": [
+                "The 11 C rise occurs during the six minutes before the decision.",
+                "The decision window lasts three minutes.",
+                "Heating or shutdown consequences follow the selected option."
+              ],
+              "unknowns": [
+                "factory_unknown_sensor",
+                "factory_unknown_damage"
+              ]
+            }
+          },
+          "variant_id": "status_absent"
+        }
+      ]
+    }
+  ],
+  "schema_version": "triad-iso-e3-execution-candidate-v1",
+  "source_candidate": {
+    "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-p1-2026-07-23/route_isolation_corpus_candidate.json",
+    "sha256": "e9e1608b5eb3e472e6953c310749f21b676013602d5658849ab36356701144aa"
+  },
+  "status": "unsealed_candidate"
+}
