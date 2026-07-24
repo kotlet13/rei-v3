@@ -1,0 +1,33 @@
+{
+  "calls": 2,
+  "candidate_sha256": "ad4c9259fec42313381edea79f7c9cd83bdf0fbff8c37876d85138166d3c2e0b",
+  "character_replay": 0,
+  "emocio_utility_pair_stable": true,
+  "failure_categories": {},
+  "fallbacks": 0,
+  "global_rei_score": null,
+  "instinkt_protective_pair_distinguishable": true,
+  "instinkt_utility_pair_stable": true,
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "phase": "TRIAD-ISO-E2",
+  "pre_call_seal_sha256": "cd71aedc4f693d09bafe012d50c2ecc1bf3e902eb402d2f9d66126bf2dfa5b21",
+  "private_thinking_persisted": false,
+  "protective_racio_reuse_status": "passed",
+  "racio": {
+    "accepted": 2,
+    "provider_failed": 0,
+    "rejected": 0,
+    "selected_options": {
+      "trip_racio_utility_material": "utility_trip_book",
+      "trip_racio_utility_pleasure": "utility_trip_local"
+    },
+    "utility_route_distinct": true
+  },
+  "retries": 0,
+  "schema_version": "triad-iso-e2-summary-v1",
+  "status": "complete_mixed_or_accepted_two_call_screen"
+}

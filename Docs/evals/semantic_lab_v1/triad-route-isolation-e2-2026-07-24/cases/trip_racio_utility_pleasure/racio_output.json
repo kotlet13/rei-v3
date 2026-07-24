@@ -1,0 +1,55 @@
+{
+  "case_id": "trip_racio_utility_pleasure",
+  "conclusion": {
+    "abstains": false,
+    "causal_sequence": [
+      "Evaluating the cost of three travel options against a fixed discretionary budget.",
+      "Comparing the high-cost rare experience with a lower-cost local alternative and the option to save funds.",
+      "Assessing the risk of future unknown expenses versus the immediate pleasure of the trip.",
+      "Determining if the rarity of the offer justifies the 25 percent budget allocation."
+    ],
+    "conclusion_id": "racio_conclusion_511c213029b4a6c6a87d66e46ad132cb",
+    "confidence": 0.8,
+    "evidence_ids_used": [
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility",
+      "utility_ev_benefit",
+      "utility_ev_beneficiary",
+      "utility_ev_budget_base"
+    ],
+    "explicit_goal": "Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+    "facts_used": [
+      "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+      "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.",
+      "The same offer was available once during the last three years.",
+      "The booking can be cancelled within 24 hours at a 10-percent cost.",
+      "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+      "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.",
+      "The discretionary budget at decision time is EUR 4800."
+    ],
+    "main_objection": "Spending a significant portion of the budget on a non-strategic leisure activity may leave insufficient funds for unknown future costs.",
+    "mind": "R",
+    "option_id": "utility_trip_local",
+    "reasoning_provider_result_hash": "28078f2abc40bbc9c2322fa74be84345b0ea530907a7066800572e3f231e3124",
+    "reasoning_provider_result_id": "ollama_racio_response_54b2cba8aa4c3964e1500788ca030ad0",
+    "schema_version": "rei-native-racio-conclusion-v1",
+    "source_packet_hash": "0e1dd75e5e44c8fd3bb4d86dc33cf8d6fc51f115da480b6e1cb7cb3fd08c6474",
+    "source_packet_id": "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+    "source_scene_id": "triad_iso_e1_racio_scene_e1519f70b78f42509287581136fe4465",
+    "uncertainty": "The decision balances the rarity of the primary trip against the financial safety provided by the local option or staying home, given unknown future costs and satisfaction levels.",
+    "unknowns": [
+      "Whether other major costs will arise next month is unknown.",
+      "How satisfying the leisure experience will be is unknown."
+    ],
+    "utility_structure": [
+      "High cost/high rarity pleasure vs. Low cost/standard pleasure vs. Zero cost/no pleasure",
+      "Budget preservation vs. Experience acquisition"
+    ]
+  },
+  "failure": null,
+  "processor_execution_count": 1,
+  "schema_version": "triad-iso-e2-racio-output-v1",
+  "status": "accepted"
+}

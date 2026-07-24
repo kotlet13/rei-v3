@@ -1,0 +1,318 @@
+{
+  "call_record": {
+    "call_id": "provider_call_2a1363b6571ce3ab92daf3981e2db2db",
+    "fallback": null,
+    "finished_at": "2026-07-24T06:55:42.466396Z",
+    "input_artifact_ids": [
+      "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+      "triad_iso_e1_racio_world_8502c8769486db16ba2150ed310c9f9a",
+      "utility_ev_beneficiary",
+      "utility_ev_benefit",
+      "utility_ev_budget_base",
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility"
+    ],
+    "output_artifact_ids": [
+      "ollama_racio_response_54b2cba8aa4c3964e1500788ca030ad0",
+      "racio_conclusion_511c213029b4a6c6a87d66e46ad132cb"
+    ],
+    "parameters": [
+      {
+        "canonical_json_value": "false",
+        "name": "allow_remote"
+      },
+      {
+        "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+        "name": "endpoint"
+      },
+      {
+        "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+        "name": "format_schema_sha256"
+      },
+      {
+        "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+        "name": "instruction_sha256"
+      },
+      {
+        "canonical_json_value": "\"10m\"",
+        "name": "keep_alive"
+      },
+      {
+        "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+        "name": "local_model_language_policy_id"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "logprobs"
+      },
+      {
+        "canonical_json_value": "65536",
+        "name": "num_ctx"
+      },
+      {
+        "canonical_json_value": "999",
+        "name": "num_gpu"
+      },
+      {
+        "canonical_json_value": "1536",
+        "name": "num_predict"
+      },
+      {
+        "canonical_json_value": "\"0.31.2\"",
+        "name": "ollama_server_version"
+      },
+      {
+        "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+        "name": "operator_expected_model_digest"
+      },
+      {
+        "canonical_json_value": "\"operational_en_only\"",
+        "name": "presentation_mode"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "raw"
+      },
+      {
+        "canonical_json_value": "true",
+        "name": "require_full_gpu"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "shift"
+      },
+      {
+        "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+        "name": "source_provider_revision"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "stream"
+      },
+      {
+        "canonical_json_value": "0.0",
+        "name": "temperature"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "think"
+      },
+      {
+        "canonical_json_value": "64",
+        "name": "top_k"
+      },
+      {
+        "canonical_json_value": "0.95",
+        "name": "top_p"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "truncate"
+      }
+    ],
+    "primary_finished_at": "2026-07-24T06:55:42.466396Z",
+    "primary_status": "succeeded",
+    "provider": {
+      "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+      "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+      "kind": "text_reasoner",
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "schema_version": "rei-native-provider-identity-v1",
+      "uses_model": true
+    },
+    "request_id": "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+    "safety_notice": {
+      "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+      "conceptual_simulator": true,
+      "diagnostic_use_allowed": false,
+      "real_person_characterization_allowed": false
+    },
+    "schema_version": "rei-native-provider-call-record-v1",
+    "seed": 314159,
+    "spec_hash": "94381eb48b1b54c8f7985fc95182445f6c2bbfdb09a23a617f42b5a4cefec67e",
+    "started_at": "2026-07-24T06:55:30.890128Z",
+    "status": "succeeded",
+    "timeout_seconds": 600.0,
+    "warnings": []
+  },
+  "call_spec": {
+    "call_id": "provider_call_2a1363b6571ce3ab92daf3981e2db2db",
+    "fallback_policy": {
+      "mode": "none",
+      "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+      "plan": null
+    },
+    "input_artifact_ids": [
+      "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+      "triad_iso_e1_racio_world_8502c8769486db16ba2150ed310c9f9a",
+      "utility_ev_beneficiary",
+      "utility_ev_benefit",
+      "utility_ev_budget_base",
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility"
+    ],
+    "parameters": [
+      {
+        "canonical_json_value": "false",
+        "name": "allow_remote"
+      },
+      {
+        "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+        "name": "endpoint"
+      },
+      {
+        "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+        "name": "format_schema_sha256"
+      },
+      {
+        "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+        "name": "instruction_sha256"
+      },
+      {
+        "canonical_json_value": "\"10m\"",
+        "name": "keep_alive"
+      },
+      {
+        "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+        "name": "local_model_language_policy_id"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "logprobs"
+      },
+      {
+        "canonical_json_value": "65536",
+        "name": "num_ctx"
+      },
+      {
+        "canonical_json_value": "999",
+        "name": "num_gpu"
+      },
+      {
+        "canonical_json_value": "1536",
+        "name": "num_predict"
+      },
+      {
+        "canonical_json_value": "\"0.31.2\"",
+        "name": "ollama_server_version"
+      },
+      {
+        "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+        "name": "operator_expected_model_digest"
+      },
+      {
+        "canonical_json_value": "\"operational_en_only\"",
+        "name": "presentation_mode"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "raw"
+      },
+      {
+        "canonical_json_value": "true",
+        "name": "require_full_gpu"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "shift"
+      },
+      {
+        "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+        "name": "source_provider_revision"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "stream"
+      },
+      {
+        "canonical_json_value": "0.0",
+        "name": "temperature"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "think"
+      },
+      {
+        "canonical_json_value": "64",
+        "name": "top_k"
+      },
+      {
+        "canonical_json_value": "0.95",
+        "name": "top_p"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "truncate"
+      }
+    ],
+    "provider": {
+      "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+      "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+      "kind": "text_reasoner",
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "schema_version": "rei-native-provider-identity-v1",
+      "uses_model": true
+    },
+    "request_id": "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+    "safety_notice": {
+      "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+      "conceptual_simulator": true,
+      "diagnostic_use_allowed": false,
+      "real_person_characterization_allowed": false
+    },
+    "schema_version": "rei-native-provider-call-spec-v1",
+    "seed": 314159,
+    "timeout_seconds": 600.0
+  },
+  "case_id": "trip_racio_utility_pleasure",
+  "failed_output_diagnostic": null,
+  "failure": null,
+  "fallbacks": 0,
+  "private_thinking_persisted": false,
+  "result_evidence": {
+    "active_context_length": 65536,
+    "active_gpu_percent_rounded": 100,
+    "active_size_bytes": 20166119259,
+    "active_size_vram_bytes": 20166119259,
+    "call_id": "provider_call_2a1363b6571ce3ab92daf3981e2db2db",
+    "call_spec_hash": "94381eb48b1b54c8f7985fc95182445f6c2bbfdb09a23a617f42b5a4cefec67e",
+    "done_reason": "stop",
+    "eval_count": 548,
+    "eval_duration_ns": 9629326000,
+    "evidence_ids_used": [
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility",
+      "utility_ev_benefit",
+      "utility_ev_beneficiary",
+      "utility_ev_budget_base"
+    ],
+    "load_duration_ns": 254102768,
+    "model": "gemma4:31b",
+    "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "ollama_server_version": "0.31.2",
+    "packet_hash": "0e1dd75e5e44c8fd3bb4d86dc33cf8d6fc51f115da480b6e1cb7cb3fd08c6474",
+    "packet_id": "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+    "prompt_eval_count": 1691,
+    "prompt_eval_duration_ns": 817906000,
+    "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+    "request_payload_hash": "398e643fb0cb6bb8832aea4ff5a3442762114f94987c0e2ed9514fb6a52f1827",
+    "response_created_at": "2026-07-24T06:55:42.448135315Z",
+    "response_envelope_hash": "35b602e7ba74a481bb16a70a1a1d5e8cd6ce0b964a888989c5c39e880d887f66",
+    "response_text": "{\n  \"abstains\": false,\n  \"causal_sequence\": [\n    \"Evaluating the cost of three travel options against a fixed discretionary budget.\",\n    \"Comparing the high-cost rare experience with a lower-cost local alternative and the option to save funds.\",\n    \"Assessing the risk of future unknown expenses versus the immediate pleasure of the trip.\",\n    \"Determining if the rarity of the offer justifies the 25 percent budget allocation.\"\n  ],\n  \"confidence\": 0.8,\n  \"evidence_ids_used\": [\n    \"utility_ev_cost\",\n    \"utility_ev_local_cost\",\n    \"utility_ev_rarity\",\n    \"utility_ev_reversibility\",\n    \"utility_ev_benefit\",\n    \"utility_ev_beneficiary\",\n    \"utility_ev_budget_base\"\n  ],\n  \"explicit_goal\": \"Decide whether to spend the stated budget amount on the explicitly pleasurable experience.\",\n  \"facts_used\": [\n    \"The trip costs EUR 1200, or 25 percent of the discretionary budget.\",\n    \"The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.\",\n    \"The same offer was available once during the last three years.\",\n    \"The booking can be cancelled within 24 hours at a 10-percent cost.\",\n    \"The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.\",\n    \"Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.\",\n    \"The discretionary budget at decision time is EUR 4800.\"\n  ],\n  \"main_objection\": \"Spending a significant portion of the budget on a non-strategic leisure activity may leave insufficient funds for unknown future costs.\",\n  \"option_id\": \"utility_trip_local\",\n  \"uncertainty\": \"The decision balances the rarity of the primary trip against the financial safety provided by the local option or staying home, given unknown future costs and satisfaction levels.\",\n  \"unknowns\": [\n    \"Whether other major costs will arise next month is unknown.\",\n    \"How satisfying the leisure experience will be is unknown.\"\n  ],\n  \"utility_structure\": [\n    \"High cost/high rarity pleasure vs. Low cost/standard pleasure vs. Zero cost/no pleasure\",\n    \"Budget preservation vs. Experience acquisition\"\n  ]\n}",
+    "result_id": "ollama_racio_response_54b2cba8aa4c3964e1500788ca030ad0",
+    "schema_version": "rei-native-ollama-racio-response-v1",
+    "total_duration_ns": 11530083456
+  },
+  "retries": 0,
+  "schema_version": "triad-iso-e2-call-record-v1"
+}

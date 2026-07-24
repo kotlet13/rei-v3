@@ -1,0 +1,318 @@
+{
+  "call_record": {
+    "call_id": "provider_call_670391457341fa53ded0a3d54c8e23a2",
+    "fallback": null,
+    "finished_at": "2026-07-24T06:55:08.697341Z",
+    "input_artifact_ids": [
+      "racio_packet_8e6b5e912696ecae4dda24c63a7cab0d",
+      "triad_iso_e1_racio_world_3ba9039fa6c7eb0b010c8af96e7adda5",
+      "utility_ev_beneficiary",
+      "utility_ev_benefit",
+      "utility_ev_budget_base",
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility"
+    ],
+    "output_artifact_ids": [
+      "ollama_racio_response_aa64cfdec8e9acb4c7a02b0cc02d58d6",
+      "racio_conclusion_ade981c7a52daa54e9410fb939f5e641"
+    ],
+    "parameters": [
+      {
+        "canonical_json_value": "false",
+        "name": "allow_remote"
+      },
+      {
+        "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+        "name": "endpoint"
+      },
+      {
+        "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+        "name": "format_schema_sha256"
+      },
+      {
+        "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+        "name": "instruction_sha256"
+      },
+      {
+        "canonical_json_value": "\"10m\"",
+        "name": "keep_alive"
+      },
+      {
+        "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+        "name": "local_model_language_policy_id"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "logprobs"
+      },
+      {
+        "canonical_json_value": "65536",
+        "name": "num_ctx"
+      },
+      {
+        "canonical_json_value": "999",
+        "name": "num_gpu"
+      },
+      {
+        "canonical_json_value": "1536",
+        "name": "num_predict"
+      },
+      {
+        "canonical_json_value": "\"0.31.2\"",
+        "name": "ollama_server_version"
+      },
+      {
+        "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+        "name": "operator_expected_model_digest"
+      },
+      {
+        "canonical_json_value": "\"operational_en_only\"",
+        "name": "presentation_mode"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "raw"
+      },
+      {
+        "canonical_json_value": "true",
+        "name": "require_full_gpu"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "shift"
+      },
+      {
+        "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+        "name": "source_provider_revision"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "stream"
+      },
+      {
+        "canonical_json_value": "0.0",
+        "name": "temperature"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "think"
+      },
+      {
+        "canonical_json_value": "64",
+        "name": "top_k"
+      },
+      {
+        "canonical_json_value": "0.95",
+        "name": "top_p"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "truncate"
+      }
+    ],
+    "primary_finished_at": "2026-07-24T06:55:08.697341Z",
+    "primary_status": "succeeded",
+    "provider": {
+      "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+      "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+      "kind": "text_reasoner",
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "schema_version": "rei-native-provider-identity-v1",
+      "uses_model": true
+    },
+    "request_id": "racio_packet_8e6b5e912696ecae4dda24c63a7cab0d",
+    "safety_notice": {
+      "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+      "conceptual_simulator": true,
+      "diagnostic_use_allowed": false,
+      "real_person_characterization_allowed": false
+    },
+    "schema_version": "rei-native-provider-call-record-v1",
+    "seed": 314159,
+    "spec_hash": "1066f19a3270d9bf9f61a299be783c35a9051eaae41010a37a8897a5d7c6c963",
+    "started_at": "2026-07-24T06:54:41.246718Z",
+    "status": "succeeded",
+    "timeout_seconds": 600.0,
+    "warnings": []
+  },
+  "call_spec": {
+    "call_id": "provider_call_670391457341fa53ded0a3d54c8e23a2",
+    "fallback_policy": {
+      "mode": "none",
+      "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+      "plan": null
+    },
+    "input_artifact_ids": [
+      "racio_packet_8e6b5e912696ecae4dda24c63a7cab0d",
+      "triad_iso_e1_racio_world_3ba9039fa6c7eb0b010c8af96e7adda5",
+      "utility_ev_beneficiary",
+      "utility_ev_benefit",
+      "utility_ev_budget_base",
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility"
+    ],
+    "parameters": [
+      {
+        "canonical_json_value": "false",
+        "name": "allow_remote"
+      },
+      {
+        "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+        "name": "endpoint"
+      },
+      {
+        "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+        "name": "format_schema_sha256"
+      },
+      {
+        "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+        "name": "instruction_sha256"
+      },
+      {
+        "canonical_json_value": "\"10m\"",
+        "name": "keep_alive"
+      },
+      {
+        "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+        "name": "local_model_language_policy_id"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "logprobs"
+      },
+      {
+        "canonical_json_value": "65536",
+        "name": "num_ctx"
+      },
+      {
+        "canonical_json_value": "999",
+        "name": "num_gpu"
+      },
+      {
+        "canonical_json_value": "1536",
+        "name": "num_predict"
+      },
+      {
+        "canonical_json_value": "\"0.31.2\"",
+        "name": "ollama_server_version"
+      },
+      {
+        "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+        "name": "operator_expected_model_digest"
+      },
+      {
+        "canonical_json_value": "\"operational_en_only\"",
+        "name": "presentation_mode"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "raw"
+      },
+      {
+        "canonical_json_value": "true",
+        "name": "require_full_gpu"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "shift"
+      },
+      {
+        "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+        "name": "source_provider_revision"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "stream"
+      },
+      {
+        "canonical_json_value": "0.0",
+        "name": "temperature"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "think"
+      },
+      {
+        "canonical_json_value": "64",
+        "name": "top_k"
+      },
+      {
+        "canonical_json_value": "0.95",
+        "name": "top_p"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "truncate"
+      }
+    ],
+    "provider": {
+      "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+      "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+      "kind": "text_reasoner",
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "schema_version": "rei-native-provider-identity-v1",
+      "uses_model": true
+    },
+    "request_id": "racio_packet_8e6b5e912696ecae4dda24c63a7cab0d",
+    "safety_notice": {
+      "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+      "conceptual_simulator": true,
+      "diagnostic_use_allowed": false,
+      "real_person_characterization_allowed": false
+    },
+    "schema_version": "rei-native-provider-call-spec-v1",
+    "seed": 314159,
+    "timeout_seconds": 600.0
+  },
+  "case_id": "trip_racio_utility_material",
+  "failed_output_diagnostic": null,
+  "failure": null,
+  "fallbacks": 0,
+  "private_thinking_persisted": false,
+  "result_evidence": {
+    "active_context_length": 65536,
+    "active_gpu_percent_rounded": 100,
+    "active_size_bytes": 20166119259,
+    "active_size_vram_bytes": 20166119259,
+    "call_id": "provider_call_670391457341fa53ded0a3d54c8e23a2",
+    "call_spec_hash": "1066f19a3270d9bf9f61a299be783c35a9051eaae41010a37a8897a5d7c6c963",
+    "done_reason": "stop",
+    "eval_count": 577,
+    "eval_duration_ns": 10152979000,
+    "evidence_ids_used": [
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility",
+      "utility_ev_benefit",
+      "utility_ev_beneficiary",
+      "utility_ev_budget_base"
+    ],
+    "load_duration_ns": 16202810480,
+    "model": "gemma4:31b",
+    "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "ollama_server_version": "0.31.2",
+    "packet_hash": "ecfb11211f4239453c907a88b553ed4438d79e52d9da829b0f1b6fa1be51130c",
+    "packet_id": "racio_packet_8e6b5e912696ecae4dda24c63a7cab0d",
+    "prompt_eval_count": 1788,
+    "prompt_eval_duration_ns": 982605000,
+    "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+    "request_payload_hash": "e91283e0c25e47917704e77e7aeb766568801fbba555864f6c4f554a6c39e773",
+    "response_created_at": "2026-07-24T06:55:08.636698819Z",
+    "response_envelope_hash": "4f21314e27987934deb7e0b4fa9099232d49ce1d2691ff1c9155c012d99cc645",
+    "response_text": "{\n  \"abstains\": false,\n  \"causal_sequence\": [\n    \"Evaluating the cost of the trip against the discretionary budget.\",\n    \"Assessing the potential for external demonstration cost savings for the studio.\",\n    \"Comparing the net financial impact of booking the trip versus local travel or staying home.\",\n    \"Considering the uncertainty regarding delivery quality and future costs.\"\n  ],\n  \"confidence\": 0.9,\n  \"evidence_ids_used\": [\n    \"utility_ev_cost\",\n    \"utility_ev_local_cost\",\n    \"utility_ev_rarity\",\n    \"utility_ev_reversibility\",\n    \"utility_ev_benefit\",\n    \"utility_ev_beneficiary\",\n    \"utility_ev_budget_base\"\n  ],\n  \"explicit_goal\": \"Decide whether the trip advances the studio's demonstration-cost goal within the available budget.\",\n  \"facts_used\": [\n    \"The trip costs EUR 1200, or 25 percent of the discretionary budget.\",\n    \"The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.\",\n    \"The same offer was available once during the last three years.\",\n    \"The booking can be cancelled within 24 hours at a 10-percent cost.\",\n    \"The trip includes a signed invitation to a buyer demonstration that can save self's studio up to EUR 900 in external demonstration costs if delivery succeeds.\",\n    \"The explicit recipient of the bounded strategic and material benefit is self's studio; no public status or recognition is involved.\",\n    \"The discretionary budget at decision time is EUR 4800.\"\n  ],\n  \"main_objection\": \"The trip requires a significant budget commitment (EUR 1200) with an uncertain return on the potential cost savings.\",\n  \"option_id\": \"utility_trip_book\",\n  \"uncertainty\": \"The actual saving depends on whether the demonstration is delivered well enough, and future monthly costs are unknown.\",\n  \"unknowns\": [\n    \"Whether other major costs will arise next month is unknown.\",\n    \"Whether the demonstration will be delivered well enough for the full saving is unknown.\"\n  ],\n  \"utility_structure\": [\n    \"Booking the trip provides a potential studio saving of up to EUR 900 against a cost of EUR 1200.\",\n    \"Local travel costs EUR 480 without providing the strategic demonstration benefit.\",\n    \"Staying home preserves the full budget but forfeits the opportunity for studio savings.\"\n  ]\n}",
+    "result_id": "ollama_racio_response_aa64cfdec8e9acb4c7a02b0cc02d58d6",
+    "schema_version": "rei-native-ollama-racio-response-v1",
+    "total_duration_ns": 27347572981
+  },
+  "retries": 0,
+  "schema_version": "triad-iso-e2-call-record-v1"
+}

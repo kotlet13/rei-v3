@@ -1,0 +1,37 @@
+{
+  "actual": {
+    "character_replay": 0,
+    "fallbacks": 0,
+    "model_call_attempts": 2,
+    "native_emocio_processor_executions": 0,
+    "native_instinkt_processor_executions": 0,
+    "retries": 0
+  },
+  "entries": [
+    {
+      "attempt_recorded_before_dispatch": true,
+      "call_id": "provider_call_670391457341fa53ded0a3d54c8e23a2",
+      "case_id": "trip_racio_utility_material",
+      "ordinal": 1,
+      "racio_status": "accepted",
+      "status": "complete"
+    },
+    {
+      "attempt_recorded_before_dispatch": true,
+      "call_id": "provider_call_2a1363b6571ce3ab92daf3981e2db2db",
+      "case_id": "trip_racio_utility_pleasure",
+      "ordinal": 2,
+      "racio_status": "accepted",
+      "status": "complete"
+    }
+  ],
+  "expected": {
+    "character_replay": 0,
+    "fallbacks": 0,
+    "model_calls": 2,
+    "retries": 0
+  },
+  "pre_call_seal_sha256": "cd71aedc4f693d09bafe012d50c2ecc1bf3e902eb402d2f9d66126bf2dfa5b21",
+  "schema_version": "triad-iso-e2-call-ledger-v1",
+  "state": "complete"
+}

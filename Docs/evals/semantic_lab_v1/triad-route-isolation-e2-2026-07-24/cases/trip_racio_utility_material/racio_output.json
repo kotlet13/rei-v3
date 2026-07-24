@@ -1,0 +1,56 @@
+{
+  "case_id": "trip_racio_utility_material",
+  "conclusion": {
+    "abstains": false,
+    "causal_sequence": [
+      "Evaluating the cost of the trip against the discretionary budget.",
+      "Assessing the potential for external demonstration cost savings for the studio.",
+      "Comparing the net financial impact of booking the trip versus local travel or staying home.",
+      "Considering the uncertainty regarding delivery quality and future costs."
+    ],
+    "conclusion_id": "racio_conclusion_ade981c7a52daa54e9410fb939f5e641",
+    "confidence": 0.9,
+    "evidence_ids_used": [
+      "utility_ev_cost",
+      "utility_ev_local_cost",
+      "utility_ev_rarity",
+      "utility_ev_reversibility",
+      "utility_ev_benefit",
+      "utility_ev_beneficiary",
+      "utility_ev_budget_base"
+    ],
+    "explicit_goal": "Decide whether the trip advances the studio's demonstration-cost goal within the available budget.",
+    "facts_used": [
+      "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+      "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.",
+      "The same offer was available once during the last three years.",
+      "The booking can be cancelled within 24 hours at a 10-percent cost.",
+      "The trip includes a signed invitation to a buyer demonstration that can save self's studio up to EUR 900 in external demonstration costs if delivery succeeds.",
+      "The explicit recipient of the bounded strategic and material benefit is self's studio; no public status or recognition is involved.",
+      "The discretionary budget at decision time is EUR 4800."
+    ],
+    "main_objection": "The trip requires a significant budget commitment (EUR 1200) with an uncertain return on the potential cost savings.",
+    "mind": "R",
+    "option_id": "utility_trip_book",
+    "reasoning_provider_result_hash": "704d17621a508d4dae48745cf21f85d84df502d74a0da0ca361869d4c430ba7a",
+    "reasoning_provider_result_id": "ollama_racio_response_aa64cfdec8e9acb4c7a02b0cc02d58d6",
+    "schema_version": "rei-native-racio-conclusion-v1",
+    "source_packet_hash": "ecfb11211f4239453c907a88b553ed4438d79e52d9da829b0f1b6fa1be51130c",
+    "source_packet_id": "racio_packet_8e6b5e912696ecae4dda24c63a7cab0d",
+    "source_scene_id": "triad_iso_e1_racio_scene_1e718070a39e4246724bc9c2e7a98b0e",
+    "uncertainty": "The actual saving depends on whether the demonstration is delivered well enough, and future monthly costs are unknown.",
+    "unknowns": [
+      "Whether other major costs will arise next month is unknown.",
+      "Whether the demonstration will be delivered well enough for the full saving is unknown."
+    ],
+    "utility_structure": [
+      "Booking the trip provides a potential studio saving of up to EUR 900 against a cost of EUR 1200.",
+      "Local travel costs EUR 480 without providing the strategic demonstration benefit.",
+      "Staying home preserves the full budget but forfeits the opportunity for studio savings."
+    ]
+  },
+  "failure": null,
+  "processor_execution_count": 1,
+  "schema_version": "triad-iso-e2-racio-output-v1",
+  "status": "accepted"
+}
