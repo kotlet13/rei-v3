@@ -1,0 +1,491 @@
+{
+  "active_instinkt_runtime_changed": false,
+  "cases": [
+    {
+      "case_id": "trip_racio_utility_material",
+      "corrected_effect_paths": [
+        {
+          "corrected_body_deltas": {
+            "attachment_security": 0.15,
+            "escape_availability": 0.12,
+            "predictability": 0.08,
+            "resource_security": -0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "corrected_effect_categories": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "frozen_consequence_fact": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "utility_trip_book",
+          "original_effect_categories": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "source_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_cost",
+            "utility_ev_reversibility",
+            "utility_ev_safety"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "resource_security": 0.15
+          },
+          "corrected_effect_categories": [
+            "resource_preserved"
+          ],
+          "frozen_consequence_fact": "Self preserves the travel budget; no claim is made that home is universally free of danger.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "utility_trip_home",
+          "original_effect_categories": [
+            "resource_preserved"
+          ],
+          "source_evidence_ids": [
+            "utility_ev_cost"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "attachment_security": 0.15,
+            "predictability": 0.08,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "corrected_effect_categories": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "frozen_consequence_fact": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "utility_trip_local",
+          "original_effect_categories": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "source_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_safety"
+          ]
+        }
+      ],
+      "corrected_protected_target": "Self's physical integrity, trusted attachment context, return ability, and discretionary budget.",
+      "corrected_protective_costs": {
+        "utility_trip_book": 0.551,
+        "utility_trip_home": 0.560625,
+        "utility_trip_local": 0.544625
+      },
+      "corrected_selected_option_id": "utility_trip_local",
+      "corrected_tied_option_ids": [],
+      "frozen_consequence_facts_changed": false,
+      "instinkt_native_processor_executions": 0,
+      "model_calls": 0,
+      "option_flip_targeted": false,
+      "original_effect_paths": [
+        {
+          "effect_categories": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "option_id": "utility_trip_book",
+          "protective_cost": 0.551
+        },
+        {
+          "effect_categories": [
+            "resource_preserved"
+          ],
+          "option_id": "utility_trip_home",
+          "protective_cost": 0.560625
+        },
+        {
+          "effect_categories": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "option_id": "utility_trip_local",
+          "protective_cost": 0.544625
+        }
+      ],
+      "original_protected_target": "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+      "original_selected_option_id": "utility_trip_local",
+      "selection_changed": false
+    },
+    {
+      "case_id": "trip_racio_utility_pleasure",
+      "corrected_effect_paths": [
+        {
+          "corrected_body_deltas": {
+            "attachment_security": 0.15,
+            "escape_availability": 0.12,
+            "predictability": 0.08,
+            "resource_security": -0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "corrected_effect_categories": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "frozen_consequence_fact": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "utility_trip_book",
+          "original_effect_categories": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "source_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_cost",
+            "utility_ev_reversibility",
+            "utility_ev_safety"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "resource_security": 0.15
+          },
+          "corrected_effect_categories": [
+            "resource_preserved"
+          ],
+          "frozen_consequence_fact": "Self preserves the travel budget; no claim is made that home is universally free of danger.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "utility_trip_home",
+          "original_effect_categories": [
+            "resource_preserved"
+          ],
+          "source_evidence_ids": [
+            "utility_ev_cost"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "attachment_security": 0.15,
+            "predictability": 0.08,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "corrected_effect_categories": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "frozen_consequence_fact": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "utility_trip_local",
+          "original_effect_categories": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "source_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_safety"
+          ]
+        }
+      ],
+      "corrected_protected_target": "Self's physical integrity, trusted attachment context, return ability, and discretionary budget.",
+      "corrected_protective_costs": {
+        "utility_trip_book": 0.551,
+        "utility_trip_home": 0.560625,
+        "utility_trip_local": 0.544625
+      },
+      "corrected_selected_option_id": "utility_trip_local",
+      "corrected_tied_option_ids": [],
+      "frozen_consequence_facts_changed": false,
+      "instinkt_native_processor_executions": 0,
+      "model_calls": 0,
+      "option_flip_targeted": false,
+      "original_effect_paths": [
+        {
+          "effect_categories": [
+            "bounded_cancellation",
+            "resource_commitment_25",
+            "trusted_attachment_support"
+          ],
+          "option_id": "utility_trip_book",
+          "protective_cost": 0.551
+        },
+        {
+          "effect_categories": [
+            "resource_preserved"
+          ],
+          "option_id": "utility_trip_home",
+          "protective_cost": 0.560625
+        },
+        {
+          "effect_categories": [
+            "local_bounded_exposure",
+            "trusted_attachment_support"
+          ],
+          "option_id": "utility_trip_local",
+          "protective_cost": 0.544625
+        }
+      ],
+      "original_protected_target": "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+      "original_selected_option_id": "utility_trip_local",
+      "selection_changed": false
+    },
+    {
+      "case_id": "trip_protective_context_exposed",
+      "corrected_effect_paths": [
+        {
+          "corrected_body_deltas": {
+            "attachment_security": -0.15,
+            "escape_availability": -0.25,
+            "predictability": -0.15,
+            "resource_security": -0.25,
+            "tension": 0.1,
+            "trust": -0.25,
+            "uncertainty": 0.25
+          },
+          "corrected_effect_categories": [
+            "alone_without_trusted_support",
+            "nonrefundable_commitment",
+            "resource_commitment_38",
+            "uncertain_return_path",
+            "unfamiliar_environment",
+            "unverified_providers"
+          ],
+          "frozen_consequence_fact": "Self enters the unfamiliar route alone with unverified providers, uncertain physical return, and non-refundable reserve exposure.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "trip_book",
+          "original_effect_categories": [
+            "alone_without_trusted_support",
+            "nonrefundable_commitment",
+            "resource_commitment_38",
+            "uncertain_return_path",
+            "unfamiliar_environment",
+            "unverified_providers"
+          ],
+          "source_evidence_ids": [
+            "protective_ev_companion",
+            "protective_ev_environment",
+            "protective_ev_lodging_transport",
+            "protective_ev_price",
+            "protective_ev_refund",
+            "protective_ev_return_path"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "escape_availability": 0.12,
+            "resource_security": 0.15,
+            "tension": -0.08
+          },
+          "corrected_effect_categories": [
+            "avoids_unfamiliar_uncertain_exposure",
+            "resource_preserved"
+          ],
+          "frozen_consequence_fact": "Self avoids the travel commitment and preserves the reserve; no claim is made that home is universally free of danger.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "trip_home",
+          "original_effect_categories": [
+            "avoids_distant_exposure",
+            "resource_preserved"
+          ],
+          "source_evidence_ids": [
+            "protective_ev_price",
+            "protective_ev_refund"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "escape_availability": 0.12,
+            "predictability": 0.08,
+            "tension": -0.08
+          },
+          "corrected_effect_categories": [
+            "avoids_unfamiliar_uncertain_exposure",
+            "local_bounded_exposure"
+          ],
+          "frozen_consequence_fact": "Self avoids the distant provider and return-path uncertainties while accepting a smaller, unquantified local cost.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "trip_local",
+          "original_effect_categories": [
+            "avoids_distant_exposure",
+            "local_bounded_exposure"
+          ],
+          "source_evidence_ids": [
+            "protective_ev_environment",
+            "protective_ev_price"
+          ]
+        }
+      ],
+      "corrected_protected_target": "Self's physical integrity, ability to return, trusted attachment context, and discretionary budget.",
+      "corrected_protective_costs": {
+        "trip_book": 0.6581250000000001,
+        "trip_home": 0.537625,
+        "trip_local": 0.545
+      },
+      "corrected_selected_option_id": "trip_home",
+      "corrected_tied_option_ids": [],
+      "frozen_consequence_facts_changed": false,
+      "instinkt_native_processor_executions": 0,
+      "model_calls": 0,
+      "option_flip_targeted": false,
+      "original_effect_paths": [
+        {
+          "effect_categories": [
+            "alone_without_trusted_support",
+            "nonrefundable_commitment",
+            "resource_commitment_38",
+            "uncertain_return_path",
+            "unfamiliar_environment",
+            "unverified_providers"
+          ],
+          "option_id": "trip_book",
+          "protective_cost": 0.6581250000000001
+        },
+        {
+          "effect_categories": [
+            "avoids_distant_exposure",
+            "resource_preserved"
+          ],
+          "option_id": "trip_home",
+          "protective_cost": 0.537625
+        },
+        {
+          "effect_categories": [
+            "avoids_distant_exposure",
+            "local_bounded_exposure"
+          ],
+          "option_id": "trip_local",
+          "protective_cost": 0.545
+        }
+      ],
+      "original_protected_target": "Self's physical integrity, ability to return, trusted attachment context, and necessary cash reserve.",
+      "original_selected_option_id": "trip_home",
+      "selection_changed": false
+    },
+    {
+      "case_id": "trip_protective_context_supported",
+      "corrected_effect_paths": [
+        {
+          "corrected_body_deltas": {
+            "attachment_security": 0.15,
+            "escape_availability": 0.05,
+            "predictability": 0.2,
+            "resource_security": -0.25,
+            "tension": -0.05,
+            "trust": 0.22
+          },
+          "corrected_effect_categories": [
+            "nonrefundable_commitment",
+            "resource_commitment_38",
+            "trusted_attachment_support",
+            "verified_providers",
+            "verified_return_path"
+          ],
+          "frozen_consequence_fact": "Self enters the documented distant route with a trusted companion, verified providers, confirmed physical return, and non-refundable reserve exposure.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "trip_book",
+          "original_effect_categories": [
+            "nonrefundable_commitment",
+            "resource_commitment_38",
+            "trusted_attachment_support",
+            "verified_providers",
+            "verified_return_path"
+          ],
+          "source_evidence_ids": [
+            "protective_ev_companion",
+            "protective_ev_environment",
+            "protective_ev_lodging_transport",
+            "protective_ev_price",
+            "protective_ev_refund",
+            "protective_ev_return_path"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "resource_security": 0.15
+          },
+          "corrected_effect_categories": [
+            "resource_preserved"
+          ],
+          "frozen_consequence_fact": "Self avoids the travel commitment and preserves the reserve; no claim is made that home is universally free of danger.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "trip_home",
+          "original_effect_categories": [
+            "avoids_distant_exposure",
+            "resource_preserved"
+          ],
+          "source_evidence_ids": [
+            "protective_ev_price",
+            "protective_ev_refund"
+          ]
+        },
+        {
+          "corrected_body_deltas": {
+            "predictability": 0.08
+          },
+          "corrected_effect_categories": [
+            "local_bounded_exposure"
+          ],
+          "frozen_consequence_fact": "Self avoids the distant commitment while accepting a smaller, unquantified local cost.",
+          "numeric_delta_tuning_for_option_flip": false,
+          "option_id": "trip_local",
+          "original_effect_categories": [
+            "avoids_distant_exposure",
+            "local_bounded_exposure"
+          ],
+          "source_evidence_ids": [
+            "protective_ev_environment",
+            "protective_ev_price"
+          ]
+        }
+      ],
+      "corrected_protected_target": "Self's physical integrity, ability to return, trusted attachment context, and discretionary budget.",
+      "corrected_protective_costs": {
+        "trip_book": 0.5547500000000001,
+        "trip_home": 0.560625,
+        "trip_local": 0.5680000000000001
+      },
+      "corrected_selected_option_id": "trip_book",
+      "corrected_tied_option_ids": [],
+      "frozen_consequence_facts_changed": false,
+      "instinkt_native_processor_executions": 0,
+      "model_calls": 0,
+      "option_flip_targeted": false,
+      "original_effect_paths": [
+        {
+          "effect_categories": [
+            "nonrefundable_commitment",
+            "resource_commitment_38",
+            "trusted_attachment_support",
+            "verified_providers",
+            "verified_return_path"
+          ],
+          "option_id": "trip_book",
+          "protective_cost": 0.5547500000000001
+        },
+        {
+          "effect_categories": [
+            "avoids_distant_exposure",
+            "resource_preserved"
+          ],
+          "option_id": "trip_home",
+          "protective_cost": 0.537625
+        },
+        {
+          "effect_categories": [
+            "avoids_distant_exposure",
+            "local_bounded_exposure"
+          ],
+          "option_id": "trip_local",
+          "protective_cost": 0.545
+        }
+      ],
+      "original_protected_target": "Self's physical integrity, ability to return, trusted attachment context, and necessary cash reserve.",
+      "original_selected_option_id": "trip_home",
+      "selection_changed": true
+    }
+  ],
+  "mode": "research_only_effect_sensitivity_projection",
+  "schema_version": "triad-iso-r1-instinkt-sensitivity-v1"
+}

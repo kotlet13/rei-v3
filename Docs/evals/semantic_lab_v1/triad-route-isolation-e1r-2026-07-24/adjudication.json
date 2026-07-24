@@ -1,0 +1,77 @@
+{
+  "formal_verification": {
+    "accepted": 3,
+    "byte_inventory_unchanged": true,
+    "character_replay_rows": 0,
+    "domain_validators_relaxed": false,
+    "frozen_file_count": 19,
+    "frozen_inventory_sha256": "ea6bb560b646839dae38961deacf24b8ce370642d3965b767c18759876f44d1b",
+    "model_calls": 0,
+    "rejected": 1,
+    "seal_sha256": "1360554ad44b64f1aa8cdeb4e92d3bf278b8d812d381f0685e4e4595ccf86080",
+    "status": "passed",
+    "validation_mode": "pydantic_json"
+  },
+  "material_rejection": {
+    "adjudication": {
+      "evidence_to_fact_mapping": {
+        "utility_ev_beneficiary": "The explicit recipient of the bounded strategic and material benefit is self's studio; no public status or recognition is involved.",
+        "utility_ev_benefit": "The trip includes a signed invitation to a buyer demonstration that can save self's studio up to EUR 900 in external demonstration costs if delivery succeeds.",
+        "utility_ev_cost": "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+        "utility_ev_rarity": "The same offer was available once during the last three years.",
+        "utility_ev_reversibility": "The booking can be cancelled within 24 hours at a 10-percent cost."
+      },
+      "exact_contract_preserved": true,
+      "failure_code": "fact_evidence_mismatch",
+      "thinking_included": false,
+      "unsupported_evidence_ids": [
+        "utility_ev_rarity"
+      ],
+      "used_facts_without_required_citations": []
+    },
+    "case_id": "trip_racio_utility_material",
+    "final_json_sha256": "15fbfb4d294b9859eaf56b2ee3a34b35e1e3216e2194a813c81d3374a2467474",
+    "original_failed_output_changed": false,
+    "original_failure_code": "fact_evidence_mismatch",
+    "original_status": "rejected"
+  },
+  "racio_commensurability": {
+    "absolute_eur_mentions": [
+      "EUR 1200",
+      "EUR 900"
+    ],
+    "absolute_spend_present": true,
+    "budget_base_facts": [],
+    "budget_base_status": "under_specified",
+    "comparison_status": "partially_commensurable",
+    "percentage_mentions": [
+      "25 percent"
+    ],
+    "percentage_vs_absolute_benefit": true,
+    "required_route_constraints": {
+      "confidence_cap": 0.65,
+      "hardcoded_abstention": false,
+      "net_benefit_claim_requires_common_unit": true,
+      "uncertainty_must_be_explicit": true
+    }
+  },
+  "schema_version": "triad-iso-r1-adjudication-v1",
+  "seal_reconciliation": {
+    "committed_e1_origin": {
+      "artifact": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1-2026-07-24/pre_call_seal.json",
+      "artifact_sha256": "6b2542dce7b1421e680917752658aa19da5c997bdcf80e2e25965d70fa7e6b2e",
+      "field": "seal_sha256",
+      "phase": "TRIAD-ISO-E1"
+    },
+    "committed_e1_value": "1360554ad44b64f1aa8cdeb4e92d3bf278b8d812d381f0685e4e4595ccf86080",
+    "e1_artifact_or_calculation_defect": false,
+    "reported_value": "ce64ce5b8a8a98d03c0fe2795f30fe60fc29b7ec28d416e0425feb2ee41cd376",
+    "reported_value_origin": {
+      "artifact": "Docs/evals/semantic_lab_v1/triad-response-screen-v2-2026-07-23/pre_call_seal.json",
+      "artifact_sha256": "6091e428c15a7a69fe6b1dbcac122dcfc10a47b32d772484e96a0b83a3000710",
+      "field": "seal_sha256",
+      "phase": "TRIAD-S2"
+    },
+    "verdict": "operator_response_cross_phase_misattribution"
+  }
+}

@@ -1,0 +1,1036 @@
+{
+  "active_emocio_runtime_changed": false,
+  "cases": [
+    {
+      "case_id": "trip_racio_utility_material",
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "new_aggregate_scores": {
+        "utility_trip_book": 0.727273,
+        "utility_trip_home": 0.068182,
+        "utility_trip_local": 0.427273
+      },
+      "new_selected_option_id": "utility_trip_book",
+      "new_semantic_representation": {
+        "broken_target": "closed_routes_no_travel_movement",
+        "companion_adds_grounded_enjoyment": false,
+        "companion_visible": true,
+        "desired_target": "distant_coast_active_movement",
+        "options": [
+          {
+            "attraction_strength": "stronger",
+            "attraction_target": "distant_coast",
+            "broken_state_relation": "escaped",
+            "desired_state_relation": "aligned",
+            "evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_destination"
+            ],
+            "immediacy": "immediate",
+            "movement_destination": "distant_coast",
+            "movement_magnitude": "large_new",
+            "obstacle_state": "removed",
+            "option_id": "utility_trip_book",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "distant_coast"
+          },
+          {
+            "attraction_strength": "absent",
+            "attraction_target": null,
+            "broken_state_relation": "remains",
+            "desired_state_relation": "not_aligned",
+            "evidence_ids": [
+              "utility_ev_destination"
+            ],
+            "immediacy": "none",
+            "movement_destination": null,
+            "movement_magnitude": "none",
+            "obstacle_state": "persists",
+            "option_id": "utility_trip_home",
+            "self_position_relation": "centered_at_decision",
+            "target_scene_identity": "home"
+          },
+          {
+            "attraction_strength": "present",
+            "attraction_target": "local_coast",
+            "broken_state_relation": "partial_escape",
+            "desired_state_relation": "partial",
+            "evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_destination"
+            ],
+            "immediacy": "bounded",
+            "movement_destination": "local_coast",
+            "movement_magnitude": "bounded",
+            "obstacle_state": "transformed",
+            "option_id": "utility_trip_local",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "local_coast"
+          }
+        ],
+        "self_identity": "self"
+      },
+      "new_tied_option_ids": [],
+      "new_valuation_vectors": {
+        "utility_trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "utility_trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.5,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.5,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "old_abstention_cause": "representation_collapse",
+      "old_aggregate_scores": {
+        "utility_trip_book": 0.487879,
+        "utility_trip_home": 0.39697,
+        "utility_trip_local": 0.487879
+      },
+      "old_representation": [
+        {
+          "actual_scene_signature": "c1f12572fb7caff37ec623cbc957c5d2f2b603277e628f3a070bcd99c2c043dc",
+          "candidate_counterfactual_signature": "f8c88ddd687230b51b9bc34e603bdaac17fc071176a232215f2bed9b0cad8ba0",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Self and the companion enter the distant coastal route."
+            ],
+            "entities_added": [
+              "Self and the companion enter the distant coastal route."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "Self and the companion enter the distant coastal route."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The inactive route and booking threshold are obstacles; no rival is present."
+            ],
+            "self_position": "Centered at the route decision point beside the companion.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "utility_ev_destination",
+            "utility_ev_companion"
+          ],
+          "option_id": "utility_trip_book"
+        },
+        {
+          "actual_scene_signature": "e8da3a63b115db6aa7c8a4d36313227d6864a8a0fc688f32ef2f754bc79147e3",
+          "candidate_counterfactual_signature": "fd24412c068a4bb5a405b3a4314f90e8f76d90bd2c78dfcc8edc2ca736aebbb1",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Both coastal routes remain inactive and self stays in the home scene."
+            ],
+            "entities_added": [
+              "Both coastal routes remain inactive and self stays in the home scene."
+            ],
+            "entities_removed": [],
+            "movement": [],
+            "obstacle_persistence": [
+              "The inactive route and booking threshold are obstacles; no rival is present."
+            ],
+            "obstacle_removal": [],
+            "self_position": "Centered at the route decision point beside the companion.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "utility_ev_destination"
+          ],
+          "option_id": "utility_trip_home"
+        },
+        {
+          "actual_scene_signature": "52e58b347fc5c55144fc8479d2aeeb1e0b23c0b6388f8ba3991beab8c48511e7",
+          "candidate_counterfactual_signature": "544f97b945cd9f3400fc7db40a18d8ead5ef5ba55febee23b20bb01e8231656d",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Self and the companion enter the smaller local coastal route."
+            ],
+            "entities_added": [
+              "Self and the companion enter the smaller local coastal route."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "Self and the companion enter the smaller local coastal route."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The inactive route and booking threshold are obstacles; no rival is present."
+            ],
+            "self_position": "Centered at the route decision point beside the companion.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "utility_ev_destination",
+            "utility_ev_companion"
+          ],
+          "option_id": "utility_trip_local"
+        }
+      ],
+      "old_selected_option_id": null,
+      "old_tied_option_ids": [
+        "utility_trip_book",
+        "utility_trip_local"
+      ],
+      "old_valuation_vectors": {
+        "utility_trip_book": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_home": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_local": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "source_case_sha256": "9234b2cf145ac7f8e616810bb138ae38999e75595c1fb43c5ebb5945d9c06b5f"
+    },
+    {
+      "case_id": "trip_racio_utility_pleasure",
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "new_aggregate_scores": {
+        "utility_trip_book": 0.727273,
+        "utility_trip_home": 0.068182,
+        "utility_trip_local": 0.427273
+      },
+      "new_selected_option_id": "utility_trip_book",
+      "new_semantic_representation": {
+        "broken_target": "closed_routes_no_travel_movement",
+        "companion_adds_grounded_enjoyment": false,
+        "companion_visible": true,
+        "desired_target": "distant_coast_active_movement",
+        "options": [
+          {
+            "attraction_strength": "stronger",
+            "attraction_target": "distant_coast",
+            "broken_state_relation": "escaped",
+            "desired_state_relation": "aligned",
+            "evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_destination"
+            ],
+            "immediacy": "immediate",
+            "movement_destination": "distant_coast",
+            "movement_magnitude": "large_new",
+            "obstacle_state": "removed",
+            "option_id": "utility_trip_book",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "distant_coast"
+          },
+          {
+            "attraction_strength": "absent",
+            "attraction_target": null,
+            "broken_state_relation": "remains",
+            "desired_state_relation": "not_aligned",
+            "evidence_ids": [
+              "utility_ev_destination"
+            ],
+            "immediacy": "none",
+            "movement_destination": null,
+            "movement_magnitude": "none",
+            "obstacle_state": "persists",
+            "option_id": "utility_trip_home",
+            "self_position_relation": "centered_at_decision",
+            "target_scene_identity": "home"
+          },
+          {
+            "attraction_strength": "present",
+            "attraction_target": "local_coast",
+            "broken_state_relation": "partial_escape",
+            "desired_state_relation": "partial",
+            "evidence_ids": [
+              "utility_ev_companion",
+              "utility_ev_destination"
+            ],
+            "immediacy": "bounded",
+            "movement_destination": "local_coast",
+            "movement_magnitude": "bounded",
+            "obstacle_state": "transformed",
+            "option_id": "utility_trip_local",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "local_coast"
+          }
+        ],
+        "self_identity": "self"
+      },
+      "new_tied_option_ids": [],
+      "new_valuation_vectors": {
+        "utility_trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "utility_trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.5,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.5,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "old_abstention_cause": "representation_collapse",
+      "old_aggregate_scores": {
+        "utility_trip_book": 0.487879,
+        "utility_trip_home": 0.39697,
+        "utility_trip_local": 0.487879
+      },
+      "old_representation": [
+        {
+          "actual_scene_signature": "c1f12572fb7caff37ec623cbc957c5d2f2b603277e628f3a070bcd99c2c043dc",
+          "candidate_counterfactual_signature": "f8c88ddd687230b51b9bc34e603bdaac17fc071176a232215f2bed9b0cad8ba0",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Self and the companion enter the distant coastal route."
+            ],
+            "entities_added": [
+              "Self and the companion enter the distant coastal route."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "Self and the companion enter the distant coastal route."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The inactive route and booking threshold are obstacles; no rival is present."
+            ],
+            "self_position": "Centered at the route decision point beside the companion.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "utility_ev_destination",
+            "utility_ev_companion"
+          ],
+          "option_id": "utility_trip_book"
+        },
+        {
+          "actual_scene_signature": "e8da3a63b115db6aa7c8a4d36313227d6864a8a0fc688f32ef2f754bc79147e3",
+          "candidate_counterfactual_signature": "fd24412c068a4bb5a405b3a4314f90e8f76d90bd2c78dfcc8edc2ca736aebbb1",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Both coastal routes remain inactive and self stays in the home scene."
+            ],
+            "entities_added": [
+              "Both coastal routes remain inactive and self stays in the home scene."
+            ],
+            "entities_removed": [],
+            "movement": [],
+            "obstacle_persistence": [
+              "The inactive route and booking threshold are obstacles; no rival is present."
+            ],
+            "obstacle_removal": [],
+            "self_position": "Centered at the route decision point beside the companion.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "utility_ev_destination"
+          ],
+          "option_id": "utility_trip_home"
+        },
+        {
+          "actual_scene_signature": "52e58b347fc5c55144fc8479d2aeeb1e0b23c0b6388f8ba3991beab8c48511e7",
+          "candidate_counterfactual_signature": "544f97b945cd9f3400fc7db40a18d8ead5ef5ba55febee23b20bb01e8231656d",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Self and the companion enter the smaller local coastal route."
+            ],
+            "entities_added": [
+              "Self and the companion enter the smaller local coastal route."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "Self and the companion enter the smaller local coastal route."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The inactive route and booking threshold are obstacles; no rival is present."
+            ],
+            "self_position": "Centered at the route decision point beside the companion.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "utility_ev_destination",
+            "utility_ev_companion"
+          ],
+          "option_id": "utility_trip_local"
+        }
+      ],
+      "old_selected_option_id": null,
+      "old_tied_option_ids": [
+        "utility_trip_book",
+        "utility_trip_local"
+      ],
+      "old_valuation_vectors": {
+        "utility_trip_book": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_home": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_local": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "source_case_sha256": "b8c84b5a6d3614418185556c42090a24444a9b5a57a3109313dcb1d0ab55caa5"
+    },
+    {
+      "case_id": "trip_protective_context_exposed",
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "new_aggregate_scores": {
+        "trip_book": 0.727273,
+        "trip_home": 0.068182,
+        "trip_local": 0.427273
+      },
+      "new_selected_option_id": "trip_book",
+      "new_semantic_representation": {
+        "broken_target": "closed_routes_no_travel_movement",
+        "companion_adds_grounded_enjoyment": false,
+        "companion_visible": false,
+        "desired_target": "distant_coast_active_movement",
+        "options": [
+          {
+            "attraction_strength": "stronger",
+            "attraction_target": "distant_coast",
+            "broken_state_relation": "escaped",
+            "desired_state_relation": "aligned",
+            "evidence_ids": [
+              "protective_ev_attraction",
+              "protective_ev_rarity"
+            ],
+            "immediacy": "immediate",
+            "movement_destination": "distant_coast",
+            "movement_magnitude": "large_new",
+            "obstacle_state": "removed",
+            "option_id": "trip_book",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "distant_coast"
+          },
+          {
+            "attraction_strength": "absent",
+            "attraction_target": null,
+            "broken_state_relation": "remains",
+            "desired_state_relation": "not_aligned",
+            "evidence_ids": [
+              "protective_ev_attraction"
+            ],
+            "immediacy": "none",
+            "movement_destination": null,
+            "movement_magnitude": "none",
+            "obstacle_state": "persists",
+            "option_id": "trip_home",
+            "self_position_relation": "centered_at_decision",
+            "target_scene_identity": "home"
+          },
+          {
+            "attraction_strength": "present",
+            "attraction_target": "local_coast",
+            "broken_state_relation": "partial_escape",
+            "desired_state_relation": "partial",
+            "evidence_ids": [
+              "protective_ev_attraction"
+            ],
+            "immediacy": "bounded",
+            "movement_destination": "local_coast",
+            "movement_magnitude": "bounded",
+            "obstacle_state": "transformed",
+            "option_id": "trip_local",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "local_coast"
+          }
+        ],
+        "self_identity": "self"
+      },
+      "new_tied_option_ids": [],
+      "new_valuation_vectors": {
+        "trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.5,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.5,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "old_abstention_cause": "representation_collapse",
+      "old_aggregate_scores": {
+        "trip_book": 0.487879,
+        "trip_home": 0.39697,
+        "trip_local": 0.487879
+      },
+      "old_representation": [
+        {
+          "actual_scene_signature": "6d8246f79cb1357aff89f684a79cb44001b5b61be886097d56a6681ebbfa2fb8",
+          "candidate_counterfactual_signature": "e20370e05b472e2cd2fde598747440670cd68c0cc4b7f185b0fc073b7d00deed",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast and experience are explicitly attractive; the local route has a smaller but present movement image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "The distant coast becomes the active route and self begins distant movement."
+            ],
+            "entities_added": [
+              "The distant coast becomes the active route and self begins distant movement."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "The distant coast becomes the active route and self begins distant movement."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The unchosen route and the booking decision are visible obstacles; no human rival is present."
+            ],
+            "self_position": "At the route decision point.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "protective_ev_attraction",
+            "protective_ev_rarity"
+          ],
+          "option_id": "trip_book"
+        },
+        {
+          "actual_scene_signature": "bdae6ec2f1206c4fc0832c620207df61b5815c061ad044998699737d2ebaa47a",
+          "candidate_counterfactual_signature": "4d4b4beb44ab1f0ca9f12f84121b22eb995c0b572f055b59eb0b715e45c7b7b8",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Both travel routes remain inactive and self remains in the home scene."
+            ],
+            "entities_added": [
+              "Both travel routes remain inactive and self remains in the home scene."
+            ],
+            "entities_removed": [],
+            "movement": [],
+            "obstacle_persistence": [
+              "The unchosen route and the booking decision are visible obstacles; no human rival is present."
+            ],
+            "obstacle_removal": [],
+            "self_position": "At the route decision point.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "protective_ev_attraction"
+          ],
+          "option_id": "trip_home"
+        },
+        {
+          "actual_scene_signature": "93d0c98fba5ce19c8dffe25c9613f43d8f5ae15a55d995949f0c907acb2651e3",
+          "candidate_counterfactual_signature": "5523f594022b0dbb11a44e8771bd9eb5a1ca0bad74894dae1a127051102efb86",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast and experience are explicitly attractive; the local route has a smaller but present movement image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "The distant route closes and self begins a smaller local movement scene."
+            ],
+            "entities_added": [
+              "The distant route closes and self begins a smaller local movement scene."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "The distant route closes and self begins a smaller local movement scene."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The unchosen route and the booking decision are visible obstacles; no human rival is present."
+            ],
+            "self_position": "At the route decision point.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "protective_ev_attraction"
+          ],
+          "option_id": "trip_local"
+        }
+      ],
+      "old_selected_option_id": null,
+      "old_tied_option_ids": [
+        "trip_book",
+        "trip_local"
+      ],
+      "old_valuation_vectors": {
+        "trip_book": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_home": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_local": {
+          "attack_or_breakthrough_affordance": 0.466667,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.4,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "source_case_sha256": "16e1fe41f4fc0e1b582880eab76395e488b67fb7fc28d1af6f3f4bfc7026edc9"
+    },
+    {
+      "case_id": "trip_protective_context_supported",
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "new_aggregate_scores": {
+        "trip_book": 0.727273,
+        "trip_home": 0.068182,
+        "trip_local": 0.427273
+      },
+      "new_selected_option_id": "trip_book",
+      "new_semantic_representation": {
+        "broken_target": "closed_routes_no_travel_movement",
+        "companion_adds_grounded_enjoyment": false,
+        "companion_visible": true,
+        "desired_target": "distant_coast_active_movement",
+        "options": [
+          {
+            "attraction_strength": "stronger",
+            "attraction_target": "distant_coast",
+            "broken_state_relation": "escaped",
+            "desired_state_relation": "aligned",
+            "evidence_ids": [
+              "protective_ev_attraction",
+              "protective_ev_rarity"
+            ],
+            "immediacy": "immediate",
+            "movement_destination": "distant_coast",
+            "movement_magnitude": "large_new",
+            "obstacle_state": "removed",
+            "option_id": "trip_book",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "distant_coast"
+          },
+          {
+            "attraction_strength": "absent",
+            "attraction_target": null,
+            "broken_state_relation": "remains",
+            "desired_state_relation": "not_aligned",
+            "evidence_ids": [
+              "protective_ev_attraction"
+            ],
+            "immediacy": "none",
+            "movement_destination": null,
+            "movement_magnitude": "none",
+            "obstacle_state": "persists",
+            "option_id": "trip_home",
+            "self_position_relation": "centered_at_decision",
+            "target_scene_identity": "home"
+          },
+          {
+            "attraction_strength": "present",
+            "attraction_target": "local_coast",
+            "broken_state_relation": "partial_escape",
+            "desired_state_relation": "partial",
+            "evidence_ids": [
+              "protective_ev_attraction"
+            ],
+            "immediacy": "bounded",
+            "movement_destination": "local_coast",
+            "movement_magnitude": "bounded",
+            "obstacle_state": "transformed",
+            "option_id": "trip_local",
+            "self_position_relation": "centered_in_result_scene",
+            "target_scene_identity": "local_coast"
+          }
+        ],
+        "self_identity": "self"
+      },
+      "new_tied_option_ids": [],
+      "new_valuation_vectors": {
+        "trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.5,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.5,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "old_abstention_cause": "representation_collapse",
+      "old_aggregate_scores": {
+        "trip_book": 0.479798,
+        "trip_home": 0.388889,
+        "trip_local": 0.479798
+      },
+      "old_representation": [
+        {
+          "actual_scene_signature": "b8257694e7113b9562d41253ac21a1f36f32498cef09ea39c7bef7c14d5bacfb",
+          "candidate_counterfactual_signature": "e20370e05b472e2cd2fde598747440670cd68c0cc4b7f185b0fc073b7d00deed",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast and experience are explicitly attractive; the local route has a smaller but present movement image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "The distant coast becomes the active route and self begins distant movement."
+            ],
+            "entities_added": [
+              "The distant coast becomes the active route and self begins distant movement."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "The distant coast becomes the active route and self begins distant movement."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The unchosen route and the booking decision are visible obstacles; no human rival is present."
+            ],
+            "self_position": "At the route decision point.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "protective_ev_attraction",
+            "protective_ev_rarity"
+          ],
+          "option_id": "trip_book"
+        },
+        {
+          "actual_scene_signature": "b6d688c1bcd44aa1a5c3d844dc292990c382a0a4315888d792fc1c5faf816df7",
+          "candidate_counterfactual_signature": "4d4b4beb44ab1f0ca9f12f84121b22eb995c0b572f055b59eb0b715e45c7b7b8",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "Both travel routes remain inactive and self remains in the home scene."
+            ],
+            "entities_added": [
+              "Both travel routes remain inactive and self remains in the home scene."
+            ],
+            "entities_removed": [],
+            "movement": [],
+            "obstacle_persistence": [
+              "The unchosen route and the booking decision are visible obstacles; no human rival is present."
+            ],
+            "obstacle_removal": [],
+            "self_position": "At the route decision point.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "protective_ev_attraction"
+          ],
+          "option_id": "trip_home"
+        },
+        {
+          "actual_scene_signature": "ad731b463337eef7bb62be8d6cc2a8ec490e10460f05425e0f7d207e76842360",
+          "candidate_counterfactual_signature": "5523f594022b0dbb11a44e8771bd9eb5a1ca0bad74894dae1a127051102efb86",
+          "delta": {
+            "attention": [],
+            "attraction_markers": [
+              "The distant coast and experience are explicitly attractive; the local route has a smaller but present movement image."
+            ],
+            "belonging": "not_relevant",
+            "composition_changes": [
+              "The distant route closes and self begins a smaller local movement scene."
+            ],
+            "entities_added": [
+              "The distant route closes and self begins a smaller local movement scene."
+            ],
+            "entities_removed": [],
+            "movement": [
+              "The distant route closes and self begins a smaller local movement scene."
+            ],
+            "obstacle_persistence": [],
+            "obstacle_removal": [
+              "The unchosen route and the booking decision are visible obstacles; no human rival is present."
+            ],
+            "self_position": "At the route decision point.",
+            "status_relations": []
+          },
+          "evidence_basis_ids": [
+            "protective_ev_attraction"
+          ],
+          "option_id": "trip_local"
+        }
+      ],
+      "old_selected_option_id": null,
+      "old_tied_option_ids": [
+        "trip_book",
+        "trip_local"
+      ],
+      "old_valuation_vectors": {
+        "trip_book": {
+          "attack_or_breakthrough_affordance": 0.444444,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.333333,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_home": {
+          "attack_or_breakthrough_affordance": 0.444444,
+          "attention": 0.5,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.333333,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_local": {
+          "attack_or_breakthrough_affordance": 0.444444,
+          "attention": 0.5,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 1.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 0.0,
+          "novelty": 0.333333,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      },
+      "source_case_sha256": "a9bf9dd65591990ee4b49872517e7281a1f886883366808983f9ce07da49fab6"
+    }
+  ],
+  "image_generation_calls": 0,
+  "mode": "research_only_semantic_projection",
+  "schema_version": "triad-iso-r1-emocio-replay-v1"
+}

@@ -1,0 +1,55 @@
+{
+  "base_commit": "187a06a62369bed8aa7b2fd680ae9b3b99602a1b",
+  "character_replay_rows": 0,
+  "corrected_candidate": {
+    "execution_authorized": false,
+    "sha256": "77724ec00a06a6da5d0ff8d42443f01704173c633d7033359f14807c683abfa3",
+    "status": "unsealed_candidate"
+  },
+  "image_generation_calls": 0,
+  "local_absolute_paths_persisted": false,
+  "manifest_sha256": "49e3264fec3c1891bd1915b2a35bb194d2cf28032b9cf052d9c6fa9f715e1380",
+  "model_calls": 0,
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0,
+    "R": 0
+  },
+  "outputs": [
+    {
+      "bytes": 3299,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r-2026-07-24/adjudication.json",
+      "sha256": "534f38831aa62333ee086b3e6701bed03d09e6e3f51176c2802be7a42cfd1931"
+    },
+    {
+      "bytes": 38554,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r-2026-07-24/emocio_replay.json",
+      "sha256": "76d1268a3169f83441a8119b8af0ff8897940abb2beb0ec395ee59635facd161"
+    },
+    {
+      "bytes": 17560,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r-2026-07-24/instinkt_sensitivity.json",
+      "sha256": "3dfe7d80a5d7b1c46139bb81bbe1d8fa48f38a5800d0edc31016f0f3219fb765"
+    },
+    {
+      "bytes": 57309,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r-2026-07-24/corrected_candidate.json",
+      "sha256": "77724ec00a06a6da5d0ff8d42443f01704173c633d7033359f14807c683abfa3"
+    },
+    {
+      "bytes": 5013,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1-2026-07-24/offline_route_adjudication.md",
+      "sha256": "fd253f55aea688c71e92ddc50d335ffcc49c3048cf94cf40016c53ef4c531fe6"
+    }
+  ],
+  "phase": "TRIAD-ISO-R1",
+  "schema_version": "triad-iso-r1-manifest-v1",
+  "source_e1": {
+    "bytes_changed": false,
+    "frozen_file_count": 19,
+    "frozen_inventory_sha256": "ea6bb560b646839dae38961deacf24b8ce370642d3965b767c18759876f44d1b",
+    "seal_sha256": "1360554ad44b64f1aa8cdeb4e92d3bf278b8d812d381f0685e4e4595ccf86080"
+  },
+  "status": "offline_adjudication_complete",
+  "thinking_persisted": false
+}
