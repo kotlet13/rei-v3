@@ -1,0 +1,3139 @@
+{
+  "cases": {
+    "trip_protective_context_exposed": {
+      "emocio": {
+        "aggregate_scores": {
+          "trip_book": 0.636364,
+          "trip_home": 0.068182,
+          "trip_local": 0.390909
+        },
+        "case_id": "trip_protective_context_exposed",
+        "evidence_closure": "passed",
+        "manual_annotation_valid": true,
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "processor_capability_claimed": false,
+        "selected_option_id": "trip_book",
+        "source_r1_case_sha256": "e951272a85aa252525520dff1472aeef3626db5d4428bdd2baf0f3d382240ffe",
+        "tied_option_ids": [],
+        "typed_annotation": {
+          "annotation_mode": "explicit_source_addressed_for_human_review",
+          "companion_enjoyment_relation": {
+            "evidence_ids": [],
+            "state": "not_relevant",
+            "value": null
+          },
+          "companion_visible": {
+            "evidence_ids": [
+              "protective_ev_companion"
+            ],
+            "state": "grounded",
+            "value": "absent"
+          },
+          "options": [
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "escaped"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "immediate"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "large_new"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "protective_ev_rarity"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "removed"
+              },
+              "option_id": "trip_book",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "protective_ev_attraction",
+                "protective_ev_rarity"
+              ],
+              "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "attraction_target": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "remains"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "not_aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "movement_destination": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "persists"
+              },
+              "option_id": "trip_home",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "centered_at_decision"
+              },
+              "source_evidence_scope_ids": [
+                "protective_ev_attraction"
+              ],
+              "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "home_scene"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "partial_escape"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "partial"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "transformed"
+              },
+              "option_id": "trip_local",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "protective_ev_attraction"
+              ],
+              "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              }
+            }
+          ],
+          "schema_version": "triad-emocio-typed-route-annotation-v1",
+          "source_evidence_sha256": "5cee565f1cb374558654bf06d5b2c4153b9e35ed3b089c1aa8a2ab3b53508723"
+        },
+        "valuation_vectors": {
+          "trip_book": {
+            "attack_or_breakthrough_affordance": 1.0,
+            "attention": 0.0,
+            "attraction": 1.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 1.0,
+            "distance_from_broken_scene": 1.0,
+            "movement": 1.0,
+            "novelty": 1.0,
+            "self_visibility": 1.0,
+            "status": 0.0
+          },
+          "trip_home": {
+            "attack_or_breakthrough_affordance": 0.0,
+            "attention": 0.0,
+            "attraction": 0.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.0,
+            "distance_from_broken_scene": 0.0,
+            "movement": 0.0,
+            "novelty": 0.0,
+            "self_visibility": 0.75,
+            "status": 0.0
+          },
+          "trip_local": {
+            "attack_or_breakthrough_affordance": 0.5,
+            "attention": 0.0,
+            "attraction": 0.6,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.55,
+            "distance_from_broken_scene": 0.55,
+            "movement": 0.5,
+            "novelty": 0.6,
+            "self_visibility": 1.0,
+            "status": 0.0
+          }
+        }
+      },
+      "instinkt": {
+        "case_id": "trip_protective_context_exposed",
+        "evidence_closure": "passed",
+        "manual_mapping_valid": true,
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "option_results": [
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "attachment_security": -0.15,
+                  "tension": 0.1,
+                  "trust": -0.1
+                },
+                "category_id": "absence_of_trusted_support",
+                "marginal_protective_cost_contribution": 0.035625,
+                "semantic_predicate": "absence_of_trusted_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "resource_security": -0.2
+                },
+                "category_id": "discretionary_resource_commitment_38",
+                "marginal_protective_cost_contribution": 0.0125,
+                "semantic_predicate": "discretionary_resource_commitment_38",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": -0.1,
+                  "resource_security": -0.05
+                },
+                "category_id": "nonrefundable_resource_exposure",
+                "marginal_protective_cost_contribution": 0.004375,
+                "semantic_predicate": "nonrefundable_resource_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_refund"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": -0.2,
+                  "uncertainty": 0.15
+                },
+                "category_id": "uncertain_return_danger",
+                "marginal_protective_cost_contribution": 0.00675,
+                "semantic_predicate": "uncertain_return_danger",
+                "supporting_evidence_ids": [
+                  "protective_ev_return_path"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "predictability": -0.15,
+                  "uncertainty": 0.12
+                },
+                "category_id": "unfamiliar_environment_danger",
+                "marginal_protective_cost_contribution": 0.00375,
+                "semantic_predicate": "unfamiliar_environment_danger",
+                "supporting_evidence_ids": [
+                  "protective_ev_environment"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "trust": -0.15,
+                  "uncertainty": 0.1
+                },
+                "category_id": "unverified_provider_danger",
+                "marginal_protective_cost_contribution": 0.001875,
+                "semantic_predicate": "unverified_provider_danger",
+                "supporting_evidence_ids": [
+                  "protective_ev_lodging_transport"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": -0.15,
+              "escape_availability": -0.25,
+              "predictability": -0.15,
+              "resource_security": -0.25,
+              "tension": 0.1,
+              "trust": -0.25,
+              "uncertainty": 0.25
+            },
+            "option_id": "trip_book",
+            "predicted_loss": 0.37,
+            "protective_cost": 0.6581250000000001,
+            "recoverability": 0.49750000000000005,
+            "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "escape_availability": 0.12,
+                  "tension": -0.08
+                },
+                "category_id": "avoids_unfamiliar_uncertain_exposure",
+                "marginal_protective_cost_contribution": -0.023,
+                "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_environment",
+                  "protective_ev_lodging_transport",
+                  "protective_ev_return_path"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "resource_security": 0.15
+                },
+                "category_id": "discretionary_resource_preserved",
+                "marginal_protective_cost_contribution": -0.009375,
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "escape_availability": 0.12,
+              "resource_security": 0.15,
+              "tension": -0.08
+            },
+            "option_id": "trip_home",
+            "predicted_loss": 0.3245,
+            "protective_cost": 0.537625,
+            "recoverability": 0.5895,
+            "source_consequence": "Self does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path and does not make the stated discretionary-budget commitment."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "attachment_security": -0.15,
+                  "tension": 0.1,
+                  "trust": -0.1
+                },
+                "category_id": "absence_of_trusted_support",
+                "marginal_protective_cost_contribution": 0.035625,
+                "semantic_predicate": "absence_of_trusted_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": 0.12,
+                  "tension": -0.08
+                },
+                "category_id": "avoids_unfamiliar_uncertain_exposure",
+                "marginal_protective_cost_contribution": -0.023,
+                "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_environment",
+                  "protective_ev_lodging_transport",
+                  "protective_ev_return_path"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": -0.15,
+              "escape_availability": 0.12,
+              "tension": 0.02,
+              "trust": -0.1
+            },
+            "option_id": "trip_local",
+            "predicted_loss": 0.34950000000000003,
+            "protective_cost": 0.5826250000000001,
+            "recoverability": 0.5695,
+            "source_consequence": "Self takes the local option without trusted attachment support and does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path."
+          }
+        ],
+        "processor_capability_claimed": false,
+        "selected_option_id": "trip_home",
+        "source_r1_case_sha256": "e951272a85aa252525520dff1472aeef3626db5d4428bdd2baf0f3d382240ffe",
+        "tied_option_ids": [],
+        "typed_mapping": {
+          "budget_kind": "discretionary_budget",
+          "evidence_assertions": [
+            {
+              "assertions": [
+                "trusted_companion_absent"
+              ],
+              "evidence_id": "protective_ev_companion",
+              "source_text_sha256": "d4ed74c316eb01741d1f6c03f153705ff855f4b4f989e5eb80d87816d1f7090f"
+            },
+            {
+              "assertions": [
+                "unfamiliar_environment"
+              ],
+              "evidence_id": "protective_ev_environment",
+              "source_text_sha256": "e79bc1c3836f7f925db40f1cb36d8202b0ebd3c3d8ae22f35b0e439409b0bf56"
+            },
+            {
+              "assertions": [
+                "unverified_providers"
+              ],
+              "evidence_id": "protective_ev_lodging_transport",
+              "source_text_sha256": "70066d2bc986544fe54b2ef550506cd6eb3addf80d547b4a7cfe726205cb0f03"
+            },
+            {
+              "assertions": [
+                "discretionary_budget_exposure"
+              ],
+              "evidence_id": "protective_ev_price",
+              "source_text_sha256": "6d3348ac8f36c376deea19201cee0c5316955bb4479cbd1fd78efcfdaec82d1f"
+            },
+            {
+              "assertions": [
+                "nonrefundable_purchase"
+              ],
+              "evidence_id": "protective_ev_refund",
+              "source_text_sha256": "35f2b698082515fd4519edbff30f0accfbf83eedce64d34d18c068afcf14acf7"
+            },
+            {
+              "assertions": [
+                "uncertain_return_path"
+              ],
+              "evidence_id": "protective_ev_return_path",
+              "source_text_sha256": "bca0fdc151f491d5fb5d27f65859d54a84b652881c71c559e4b8587992e0dec2"
+            }
+          ],
+          "mapping_mode": "explicit_source_addressed_for_human_review",
+          "necessary_cash_reserve_claim": false,
+          "option_effects": [
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": -0.1,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "absence_of_trusted_support",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "absence_of_trusted_support",
+                  "supporting_evidence_ids": [
+                    "protective_ev_companion"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.2,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_commitment_38",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "discretionary_resource_commitment_38",
+                  "supporting_evidence_ids": [
+                    "protective_ev_price"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.1,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "nonrefundable_resource_exposure",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "nonrefundable_resource_exposure",
+                  "supporting_evidence_ids": [
+                    "protective_ev_refund"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.2,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": 0.15,
+                      "dimension": "uncertainty"
+                    }
+                  ],
+                  "category_id": "uncertain_return_danger",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "uncertain_return_danger",
+                  "supporting_evidence_ids": [
+                    "protective_ev_return_path"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.15,
+                      "dimension": "predictability"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "uncertainty"
+                    }
+                  ],
+                  "category_id": "unfamiliar_environment_danger",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "unfamiliar_environment_danger",
+                  "supporting_evidence_ids": [
+                    "protective_ev_environment"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.15,
+                      "dimension": "trust"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "uncertainty"
+                    }
+                  ],
+                  "category_id": "unverified_provider_danger",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "unverified_provider_danger",
+                  "supporting_evidence_ids": [
+                    "protective_ev_lodging_transport"
+                  ]
+                }
+              ],
+              "option_id": "trip_book",
+              "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure.",
+              "source_evidence_scope_ids": [
+                "protective_ev_companion",
+                "protective_ev_environment",
+                "protective_ev_lodging_transport",
+                "protective_ev_price",
+                "protective_ev_refund",
+                "protective_ev_return_path"
+              ],
+              "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.12,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": -0.08,
+                      "dimension": "tension"
+                    }
+                  ],
+                  "category_id": "avoids_unfamiliar_uncertain_exposure",
+                  "option_id": "trip_home",
+                  "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+                  "supporting_evidence_ids": [
+                    "protective_ev_environment",
+                    "protective_ev_lodging_transport",
+                    "protective_ev_return_path"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_preserved",
+                  "option_id": "trip_home",
+                  "semantic_predicate": "discretionary_resource_preserved",
+                  "supporting_evidence_ids": [
+                    "protective_ev_price"
+                  ]
+                }
+              ],
+              "option_id": "trip_home",
+              "source_consequence": "Self does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path and does not make the stated discretionary-budget commitment.",
+              "source_evidence_scope_ids": [
+                "protective_ev_environment",
+                "protective_ev_lodging_transport",
+                "protective_ev_price",
+                "protective_ev_return_path"
+              ],
+              "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": -0.1,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "absence_of_trusted_support",
+                  "option_id": "trip_local",
+                  "semantic_predicate": "absence_of_trusted_support",
+                  "supporting_evidence_ids": [
+                    "protective_ev_companion"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.12,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": -0.08,
+                      "dimension": "tension"
+                    }
+                  ],
+                  "category_id": "avoids_unfamiliar_uncertain_exposure",
+                  "option_id": "trip_local",
+                  "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+                  "supporting_evidence_ids": [
+                    "protective_ev_environment",
+                    "protective_ev_lodging_transport",
+                    "protective_ev_return_path"
+                  ]
+                }
+              ],
+              "option_id": "trip_local",
+              "source_consequence": "Self takes the local option without trusted attachment support and does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path.",
+              "source_evidence_scope_ids": [
+                "protective_ev_companion",
+                "protective_ev_environment",
+                "protective_ev_lodging_transport",
+                "protective_ev_return_path"
+              ],
+              "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116"
+            }
+          ],
+          "protected_target_label": "Self's physical integrity, ability to return, trusted attachment context, and discretionary budget.",
+          "schema_version": "triad-instinkt-typed-route-mapping-v1",
+          "source_evidence_sha256": "5cee565f1cb374558654bf06d5b2c4153b9e35ed3b089c1aa8a2ab3b53508723"
+        }
+      },
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "projection_mode": "frozen_r2_deterministic_reference"
+    },
+    "trip_protective_context_supported": {
+      "emocio": {
+        "aggregate_scores": {
+          "trip_book": 0.636364,
+          "trip_home": 0.068182,
+          "trip_local": 0.390909
+        },
+        "case_id": "trip_protective_context_supported",
+        "evidence_closure": "passed",
+        "manual_annotation_valid": true,
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "processor_capability_claimed": false,
+        "selected_option_id": "trip_book",
+        "source_r1_case_sha256": "c1dc6eed046c3f2ab442253274de511d321a14cf6a7470f7dcbbb89c7ed891bf",
+        "tied_option_ids": [],
+        "typed_annotation": {
+          "annotation_mode": "explicit_source_addressed_for_human_review",
+          "companion_enjoyment_relation": {
+            "evidence_ids": [],
+            "state": "not_relevant",
+            "value": null
+          },
+          "companion_visible": {
+            "evidence_ids": [
+              "protective_ev_companion"
+            ],
+            "state": "grounded",
+            "value": "present"
+          },
+          "options": [
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "escaped"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "immediate"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "large_new"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "protective_ev_rarity"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "removed"
+              },
+              "option_id": "trip_book",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "protective_ev_attraction",
+                "protective_ev_rarity"
+              ],
+              "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "attraction_target": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "remains"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "not_aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "movement_destination": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "persists"
+              },
+              "option_id": "trip_home",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "centered_at_decision"
+              },
+              "source_evidence_scope_ids": [
+                "protective_ev_attraction"
+              ],
+              "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "home_scene"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "partial_escape"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "partial"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "transformed"
+              },
+              "option_id": "trip_local",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "protective_ev_attraction"
+              ],
+              "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "protective_ev_attraction"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              }
+            }
+          ],
+          "schema_version": "triad-emocio-typed-route-annotation-v1",
+          "source_evidence_sha256": "b6ca2410fbbdb0814a98c4f907ced31c8f660c1d1c14b46bee322bb9c5c9a48e"
+        },
+        "valuation_vectors": {
+          "trip_book": {
+            "attack_or_breakthrough_affordance": 1.0,
+            "attention": 0.0,
+            "attraction": 1.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 1.0,
+            "distance_from_broken_scene": 1.0,
+            "movement": 1.0,
+            "novelty": 1.0,
+            "self_visibility": 1.0,
+            "status": 0.0
+          },
+          "trip_home": {
+            "attack_or_breakthrough_affordance": 0.0,
+            "attention": 0.0,
+            "attraction": 0.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.0,
+            "distance_from_broken_scene": 0.0,
+            "movement": 0.0,
+            "novelty": 0.0,
+            "self_visibility": 0.75,
+            "status": 0.0
+          },
+          "trip_local": {
+            "attack_or_breakthrough_affordance": 0.5,
+            "attention": 0.0,
+            "attraction": 0.6,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.55,
+            "distance_from_broken_scene": 0.55,
+            "movement": 0.5,
+            "novelty": 0.6,
+            "self_visibility": 1.0,
+            "status": 0.0
+          }
+        }
+      },
+      "instinkt": {
+        "case_id": "trip_protective_context_supported",
+        "evidence_closure": "passed",
+        "manual_mapping_valid": true,
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "option_results": [
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "resource_security": -0.2
+                },
+                "category_id": "discretionary_resource_commitment_38",
+                "marginal_protective_cost_contribution": 0.0125,
+                "semantic_predicate": "discretionary_resource_commitment_38",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": -0.1,
+                  "resource_security": -0.05
+                },
+                "category_id": "nonrefundable_resource_exposure",
+                "marginal_protective_cost_contribution": 0.005625,
+                "semantic_predicate": "nonrefundable_resource_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_refund"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "attachment_security": 0.15,
+                  "tension": -0.05,
+                  "trust": 0.12
+                },
+                "category_id": "trusted_attachment_support",
+                "marginal_protective_cost_contribution": -0.023375,
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "predictability": 0.1,
+                  "trust": 0.1
+                },
+                "category_id": "verified_provider_support",
+                "marginal_protective_cost_contribution": -0.00375,
+                "semantic_predicate": "verified_provider_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_lodging_transport"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": 0.15,
+                  "predictability": 0.1
+                },
+                "category_id": "verified_return_support",
+                "marginal_protective_cost_contribution": -0.00625,
+                "semantic_predicate": "verified_return_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_return_path"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": 0.15,
+              "escape_availability": 0.05,
+              "predictability": 0.2,
+              "resource_security": -0.25,
+              "tension": -0.05,
+              "trust": 0.22
+            },
+            "option_id": "trip_book",
+            "predicted_loss": 0.3400000000000001,
+            "protective_cost": 0.5547500000000001,
+            "recoverability": 0.601,
+            "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "resource_security": 0.15
+                },
+                "category_id": "discretionary_resource_preserved",
+                "marginal_protective_cost_contribution": -0.009375,
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "resource_security": 0.15
+            },
+            "option_id": "trip_home",
+            "predicted_loss": 0.3325,
+            "protective_cost": 0.560625,
+            "recoverability": 0.5775,
+            "source_consequence": "Self does not make the stated discretionary-budget commitment; no distance-avoidance benefit is inferred."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "attachment_security": 0.15,
+                  "tension": -0.05,
+                  "trust": 0.12
+                },
+                "category_id": "trusted_attachment_support",
+                "marginal_protective_cost_contribution": -0.023375,
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": 0.15,
+              "tension": -0.05,
+              "trust": 0.12
+            },
+            "option_id": "trip_local",
+            "predicted_loss": 0.32750000000000007,
+            "protective_cost": 0.546625,
+            "recoverability": 0.5835,
+            "source_consequence": "Self takes the local option with grounded trusted attachment support; verified distance is not represented as danger."
+          }
+        ],
+        "processor_capability_claimed": false,
+        "selected_option_id": "trip_local",
+        "source_r1_case_sha256": "c1dc6eed046c3f2ab442253274de511d321a14cf6a7470f7dcbbb89c7ed891bf",
+        "tied_option_ids": [],
+        "typed_mapping": {
+          "budget_kind": "discretionary_budget",
+          "evidence_assertions": [
+            {
+              "assertions": [
+                "trusted_companion_present"
+              ],
+              "evidence_id": "protective_ev_companion",
+              "source_text_sha256": "f21eb2579b22b4ac954faa87c5983f39f573608c52b91920bf0948aa98e5afd5"
+            },
+            {
+              "assertions": [
+                "documented_environment"
+              ],
+              "evidence_id": "protective_ev_environment",
+              "source_text_sha256": "dc49fd0e766d7138792c0087f39bd5a1118eab3e2392c394dc611c03b59f996b"
+            },
+            {
+              "assertions": [
+                "verified_providers"
+              ],
+              "evidence_id": "protective_ev_lodging_transport",
+              "source_text_sha256": "940092507a40b2e4c886d3d71ec6b8ebd60acedba6a26740cd2971f0deeec7f1"
+            },
+            {
+              "assertions": [
+                "discretionary_budget_exposure"
+              ],
+              "evidence_id": "protective_ev_price",
+              "source_text_sha256": "6d3348ac8f36c376deea19201cee0c5316955bb4479cbd1fd78efcfdaec82d1f"
+            },
+            {
+              "assertions": [
+                "nonrefundable_purchase"
+              ],
+              "evidence_id": "protective_ev_refund",
+              "source_text_sha256": "35f2b698082515fd4519edbff30f0accfbf83eedce64d34d18c068afcf14acf7"
+            },
+            {
+              "assertions": [
+                "verified_return_path"
+              ],
+              "evidence_id": "protective_ev_return_path",
+              "source_text_sha256": "97604fa29c785aec793bd1a2c5ad694590c102b65774bf266b29afdbdd0c34b5"
+            }
+          ],
+          "mapping_mode": "explicit_source_addressed_for_human_review",
+          "necessary_cash_reserve_claim": false,
+          "option_effects": [
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.2,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_commitment_38",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "discretionary_resource_commitment_38",
+                  "supporting_evidence_ids": [
+                    "protective_ev_price"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.1,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "nonrefundable_resource_exposure",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "nonrefundable_resource_exposure",
+                  "supporting_evidence_ids": [
+                    "protective_ev_refund"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "trusted_attachment_support",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "trusted_attachment_support",
+                  "supporting_evidence_ids": [
+                    "protective_ev_companion"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.1,
+                      "dimension": "predictability"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "verified_provider_support",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "verified_provider_support",
+                  "supporting_evidence_ids": [
+                    "protective_ev_lodging_transport"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "predictability"
+                    }
+                  ],
+                  "category_id": "verified_return_support",
+                  "option_id": "trip_book",
+                  "semantic_predicate": "verified_return_support",
+                  "supporting_evidence_ids": [
+                    "protective_ev_return_path"
+                  ]
+                }
+              ],
+              "option_id": "trip_book",
+              "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure.",
+              "source_evidence_scope_ids": [
+                "protective_ev_companion",
+                "protective_ev_environment",
+                "protective_ev_lodging_transport",
+                "protective_ev_price",
+                "protective_ev_refund",
+                "protective_ev_return_path"
+              ],
+              "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_preserved",
+                  "option_id": "trip_home",
+                  "semantic_predicate": "discretionary_resource_preserved",
+                  "supporting_evidence_ids": [
+                    "protective_ev_price"
+                  ]
+                }
+              ],
+              "option_id": "trip_home",
+              "source_consequence": "Self does not make the stated discretionary-budget commitment; no distance-avoidance benefit is inferred.",
+              "source_evidence_scope_ids": [
+                "protective_ev_price"
+              ],
+              "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "trusted_attachment_support",
+                  "option_id": "trip_local",
+                  "semantic_predicate": "trusted_attachment_support",
+                  "supporting_evidence_ids": [
+                    "protective_ev_companion"
+                  ]
+                }
+              ],
+              "option_id": "trip_local",
+              "source_consequence": "Self takes the local option with grounded trusted attachment support; verified distance is not represented as danger.",
+              "source_evidence_scope_ids": [
+                "protective_ev_companion"
+              ],
+              "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116"
+            }
+          ],
+          "protected_target_label": "Self's physical integrity, ability to return, trusted attachment context, and discretionary budget.",
+          "schema_version": "triad-instinkt-typed-route-mapping-v1",
+          "source_evidence_sha256": "b6ca2410fbbdb0814a98c4f907ced31c8f660c1d1c14b46bee322bb9c5c9a48e"
+        }
+      },
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "projection_mode": "frozen_r2_deterministic_reference"
+    },
+    "trip_racio_utility_material": {
+      "emocio": {
+        "aggregate_scores": {
+          "utility_trip_book": 0.636364,
+          "utility_trip_home": 0.068182,
+          "utility_trip_local": 0.390909
+        },
+        "annotation_sha256": "a351ed6da2ac1be05947ead9c381ba5b01d5ee28ae2832ae35533b8786b09443",
+        "evidence_closure": "passed",
+        "manual_annotation": true,
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "processor_capability_claimed": false,
+        "projection_mode": "human_reviewed_annotation_deterministic_projection",
+        "selected_option_id": "utility_trip_book",
+        "tied_option_ids": [],
+        "typed_annotation": {
+          "annotation_mode": "explicit_source_addressed_for_human_review",
+          "companion_enjoyment_relation": {
+            "evidence_ids": [],
+            "state": "not_relevant",
+            "value": null
+          },
+          "companion_visible": {
+            "evidence_ids": [
+              "utility_ev_companion"
+            ],
+            "state": "grounded",
+            "value": "present"
+          },
+          "options": [
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "escaped"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "immediate"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "large_new"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "utility_ev_rarity"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "removed"
+              },
+              "option_id": "utility_trip_book",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "utility_ev_destination",
+                "utility_ev_rarity"
+              ],
+              "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "attraction_target": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "remains"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "not_aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "movement_destination": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "persists"
+              },
+              "option_id": "utility_trip_home",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "centered_at_decision"
+              },
+              "source_evidence_scope_ids": [
+                "utility_ev_destination"
+              ],
+              "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "home_scene"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "partial_escape"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "partial"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "transformed"
+              },
+              "option_id": "utility_trip_local",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "utility_ev_destination"
+              ],
+              "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              }
+            }
+          ],
+          "schema_version": "triad-emocio-typed-route-annotation-v1",
+          "source_evidence_sha256": "3b7d948180e14506bd01490447e4cfe967ee650ad82b6fff7d1f87bd4e574c39"
+        },
+        "valuation_vectors": {
+          "utility_trip_book": {
+            "attack_or_breakthrough_affordance": 1.0,
+            "attention": 0.0,
+            "attraction": 1.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 1.0,
+            "distance_from_broken_scene": 1.0,
+            "movement": 1.0,
+            "novelty": 1.0,
+            "self_visibility": 1.0,
+            "status": 0.0
+          },
+          "utility_trip_home": {
+            "attack_or_breakthrough_affordance": 0.0,
+            "attention": 0.0,
+            "attraction": 0.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.0,
+            "distance_from_broken_scene": 0.0,
+            "movement": 0.0,
+            "novelty": 0.0,
+            "self_visibility": 0.75,
+            "status": 0.0
+          },
+          "utility_trip_local": {
+            "attack_or_breakthrough_affordance": 0.5,
+            "attention": 0.0,
+            "attraction": 0.6,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.55,
+            "distance_from_broken_scene": 0.55,
+            "movement": 0.5,
+            "novelty": 0.6,
+            "self_visibility": 1.0,
+            "status": 0.0
+          }
+        }
+      },
+      "instinkt": {
+        "category_evidence_closure": "passed",
+        "mapping": {
+          "budget_kind": "discretionary_budget",
+          "evidence_assertions": [
+            {
+              "assertions": [
+                "trusted_companion_present"
+              ],
+              "evidence_id": "utility_ev_companion",
+              "source_text_sha256": "f27f5de2a6e2bcb0b48a4d68734156ea0e3980a897a401ddf556ac553b1386d6"
+            },
+            {
+              "assertions": [
+                "discretionary_budget_exposure"
+              ],
+              "evidence_id": "utility_ev_cost",
+              "source_text_sha256": "04ab555fdc530d62eff5ccd8032fe1502de1ed570a313f780c1f40015a0cfaf6"
+            },
+            {
+              "assertions": [
+                "discretionary_budget_exposure_10"
+              ],
+              "evidence_id": "utility_ev_local_cost",
+              "source_text_sha256": "a4dafee3b9770e8f333a0ac95896a1a95bea746bc5d36f2a6f4e78a62396fef6"
+            },
+            {
+              "assertions": [
+                "bounded_cancellation"
+              ],
+              "evidence_id": "utility_ev_reversibility",
+              "source_text_sha256": "b8898342144459d6dc853ace91e221861bae7fa25dd85206695b6671d20216d8"
+            },
+            {
+              "assertions": [
+                "verified_providers",
+                "verified_return_path"
+              ],
+              "evidence_id": "utility_ev_safety",
+              "source_text_sha256": "2721c2ba29f69e0395a830516aafeb87e6ca0b87cb809a58c236179ee3166f28"
+            }
+          ],
+          "mapping_mode": "explicit_source_addressed_for_human_review",
+          "necessary_cash_reserve_claim": false,
+          "option_effects": [
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.12,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": 0.08,
+                      "dimension": "predictability"
+                    }
+                  ],
+                  "category_id": "bounded_cancellation_recovery",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "bounded_cancellation_recovery",
+                  "supporting_evidence_ids": [
+                    "utility_ev_reversibility"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.15,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_commitment_25",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "discretionary_resource_commitment_25",
+                  "supporting_evidence_ids": [
+                    "utility_ev_cost"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "trusted_attachment_support",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "trusted_attachment_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_companion"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.1,
+                      "dimension": "predictability"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "verified_provider_support",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "verified_provider_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_safety"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "predictability"
+                    }
+                  ],
+                  "category_id": "verified_return_support",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "verified_return_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_safety"
+                  ]
+                }
+              ],
+              "option_id": "utility_trip_book",
+              "source_consequence": "Self enters verified distant travel with trusted attachment support, a 25-percent discretionary-budget commitment, bounded cancellation, verified providers, and verified return.",
+              "source_evidence_scope_ids": [
+                "utility_ev_companion",
+                "utility_ev_cost",
+                "utility_ev_reversibility",
+                "utility_ev_safety"
+              ],
+              "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_preserved",
+                  "option_id": "utility_trip_home",
+                  "semantic_predicate": "discretionary_resource_preserved",
+                  "supporting_evidence_ids": [
+                    "utility_ev_cost"
+                  ]
+                }
+              ],
+              "option_id": "utility_trip_home",
+              "source_consequence": "Self makes neither stated travel expenditure and retains the discretionary budget.",
+              "source_evidence_scope_ids": [
+                "utility_ev_cost"
+              ],
+              "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.09,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_commitment_10",
+                  "option_id": "utility_trip_local",
+                  "semantic_predicate": "discretionary_resource_commitment_10",
+                  "supporting_evidence_ids": [
+                    "utility_ev_local_cost"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "trusted_attachment_support",
+                  "option_id": "utility_trip_local",
+                  "semantic_predicate": "trusted_attachment_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_companion"
+                  ]
+                }
+              ],
+              "option_id": "utility_trip_local",
+              "source_consequence": "Self enters the local coastal trip with trusted attachment support and commits 10 percent of the discretionary budget; no distant-provider or distant-return support is inferred.",
+              "source_evidence_scope_ids": [
+                "utility_ev_companion",
+                "utility_ev_local_cost"
+              ],
+              "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc"
+            }
+          ],
+          "protected_target_label": "Self's physical integrity, trusted attachment context, return ability, and discretionary budget.",
+          "schema_version": "triad-instinkt-e2-typed-route-mapping-v1",
+          "source_evidence_sha256": "3b7d948180e14506bd01490447e4cfe967ee650ad82b6fff7d1f87bd4e574c39"
+        },
+        "mapping_sha256": "21a78a9ecdc02cc43f5185de34ca678175fc634e259375e79359436e01d03ffd",
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "option_results": [
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "escape_availability": 0.12,
+                  "predictability": 0.08
+                },
+                "category_id": "bounded_cancellation_recovery",
+                "marginal_protective_cost_contribution": -0.00375,
+                "semantic_predicate": "bounded_cancellation_recovery",
+                "supporting_evidence_ids": [
+                  "utility_ev_reversibility"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "resource_security": -0.15
+                },
+                "category_id": "discretionary_resource_commitment_25",
+                "marginal_protective_cost_contribution": 0.009375,
+                "semantic_predicate": "discretionary_resource_commitment_25",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "attachment_security": 0.15,
+                  "tension": -0.05,
+                  "trust": 0.12
+                },
+                "category_id": "trusted_attachment_support",
+                "marginal_protective_cost_contribution": -0.023375,
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "predictability": 0.1,
+                  "trust": 0.1
+                },
+                "category_id": "verified_provider_support",
+                "marginal_protective_cost_contribution": -0.003,
+                "semantic_predicate": "verified_provider_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_safety"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": 0.15,
+                  "predictability": 0.1
+                },
+                "category_id": "verified_return_support",
+                "marginal_protective_cost_contribution": -0.005,
+                "semantic_predicate": "verified_return_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_safety"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": 0.15,
+              "escape_availability": 0.25,
+              "predictability": 0.25,
+              "resource_security": -0.15,
+              "tension": -0.05,
+              "trust": 0.22
+            },
+            "option_id": "utility_trip_book",
+            "predicted_loss": 0.3350000000000001,
+            "protective_cost": 0.54225,
+            "recoverability": 0.6310000000000001,
+            "source_consequence": "Self enters verified distant travel with trusted attachment support, a 25-percent discretionary-budget commitment, bounded cancellation, verified providers, and verified return."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "resource_security": 0.15
+                },
+                "category_id": "discretionary_resource_preserved",
+                "marginal_protective_cost_contribution": -0.009375,
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "resource_security": 0.15
+            },
+            "option_id": "utility_trip_home",
+            "predicted_loss": 0.3325,
+            "protective_cost": 0.560625,
+            "recoverability": 0.5775,
+            "source_consequence": "Self makes neither stated travel expenditure and retains the discretionary budget."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "resource_security": -0.09
+                },
+                "category_id": "discretionary_resource_commitment_10",
+                "marginal_protective_cost_contribution": 0.005625,
+                "semantic_predicate": "discretionary_resource_commitment_10",
+                "supporting_evidence_ids": [
+                  "utility_ev_local_cost"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "attachment_security": 0.15,
+                  "tension": -0.05,
+                  "trust": 0.12
+                },
+                "category_id": "trusted_attachment_support",
+                "marginal_protective_cost_contribution": -0.023375,
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": 0.15,
+              "resource_security": -0.09,
+              "tension": -0.05,
+              "trust": 0.12
+            },
+            "option_id": "utility_trip_local",
+            "predicted_loss": 0.3320000000000001,
+            "protective_cost": 0.55225,
+            "recoverability": 0.5790000000000001,
+            "source_consequence": "Self enters the local coastal trip with trusted attachment support and commits 10 percent of the discretionary budget; no distant-provider or distant-return support is inferred."
+          }
+        ],
+        "processor_capability_claimed": false,
+        "projection_mode": "human_reviewed_typed_mapping_deterministic_projection",
+        "selected_option_id": "utility_trip_book",
+        "tied_option_ids": [],
+        "typed_mapping": true
+      }
+    },
+    "trip_racio_utility_pleasure": {
+      "emocio": {
+        "aggregate_scores": {
+          "utility_trip_book": 0.636364,
+          "utility_trip_home": 0.068182,
+          "utility_trip_local": 0.390909
+        },
+        "annotation_sha256": "ed7b027ab6bb31bcb2ef073f8ec8caa09118bc8a69f6c0a0de301b7308c1baf2",
+        "evidence_closure": "passed",
+        "manual_annotation": true,
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "processor_capability_claimed": false,
+        "projection_mode": "human_reviewed_annotation_deterministic_projection",
+        "selected_option_id": "utility_trip_book",
+        "tied_option_ids": [],
+        "typed_annotation": {
+          "annotation_mode": "explicit_source_addressed_for_human_review",
+          "companion_enjoyment_relation": {
+            "evidence_ids": [],
+            "state": "not_relevant",
+            "value": null
+          },
+          "companion_visible": {
+            "evidence_ids": [
+              "utility_ev_companion"
+            ],
+            "state": "grounded",
+            "value": "present"
+          },
+          "options": [
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "escaped"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "immediate"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "large_new"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "utility_ev_rarity"
+                ],
+                "state": "grounded",
+                "value": "stronger"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "removed"
+              },
+              "option_id": "utility_trip_book",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "utility_ev_destination",
+                "utility_ev_rarity"
+              ],
+              "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "distant_coast"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "attraction_target": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "remains"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "not_aligned"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "movement_destination": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "none"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "absent"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "persists"
+              },
+              "option_id": "utility_trip_home",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "centered_at_decision"
+              },
+              "source_evidence_scope_ids": [
+                "utility_ev_destination"
+              ],
+              "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "home_scene"
+              }
+            },
+            {
+              "attention_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "attraction_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "attraction_target": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "belonging_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "broken_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "partial_escape"
+              },
+              "competition_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "desired_state_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "partial"
+              },
+              "immediacy": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "movement_destination": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              },
+              "movement_magnitude": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "bounded"
+              },
+              "novelty_strength": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "present"
+              },
+              "obstacle_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "transformed"
+              },
+              "option_id": "utility_trip_local",
+              "self_position_relation": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "centered_in_result_scene"
+              },
+              "source_evidence_scope_ids": [
+                "utility_ev_destination"
+              ],
+              "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc",
+              "status_relation": {
+                "evidence_ids": [],
+                "state": "not_relevant",
+                "value": null
+              },
+              "target_scene_identity": {
+                "evidence_ids": [
+                  "utility_ev_destination"
+                ],
+                "state": "grounded",
+                "value": "local_coast"
+              }
+            }
+          ],
+          "schema_version": "triad-emocio-typed-route-annotation-v1",
+          "source_evidence_sha256": "fd80a2ecd31a114bf2cd42342202f1bfdce0ae0dd195db08c3b6faa9d4c239ff"
+        },
+        "valuation_vectors": {
+          "utility_trip_book": {
+            "attack_or_breakthrough_affordance": 1.0,
+            "attention": 0.0,
+            "attraction": 1.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 1.0,
+            "distance_from_broken_scene": 1.0,
+            "movement": 1.0,
+            "novelty": 1.0,
+            "self_visibility": 1.0,
+            "status": 0.0
+          },
+          "utility_trip_home": {
+            "attack_or_breakthrough_affordance": 0.0,
+            "attention": 0.0,
+            "attraction": 0.0,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.0,
+            "distance_from_broken_scene": 0.0,
+            "movement": 0.0,
+            "novelty": 0.0,
+            "self_visibility": 0.75,
+            "status": 0.0
+          },
+          "utility_trip_local": {
+            "attack_or_breakthrough_affordance": 0.5,
+            "attention": 0.0,
+            "attraction": 0.6,
+            "belonging": 0.0,
+            "competitive_success": 0.0,
+            "desired_scene_match": 0.55,
+            "distance_from_broken_scene": 0.55,
+            "movement": 0.5,
+            "novelty": 0.6,
+            "self_visibility": 1.0,
+            "status": 0.0
+          }
+        }
+      },
+      "instinkt": {
+        "category_evidence_closure": "passed",
+        "mapping": {
+          "budget_kind": "discretionary_budget",
+          "evidence_assertions": [
+            {
+              "assertions": [
+                "trusted_companion_present"
+              ],
+              "evidence_id": "utility_ev_companion",
+              "source_text_sha256": "f27f5de2a6e2bcb0b48a4d68734156ea0e3980a897a401ddf556ac553b1386d6"
+            },
+            {
+              "assertions": [
+                "discretionary_budget_exposure"
+              ],
+              "evidence_id": "utility_ev_cost",
+              "source_text_sha256": "04ab555fdc530d62eff5ccd8032fe1502de1ed570a313f780c1f40015a0cfaf6"
+            },
+            {
+              "assertions": [
+                "discretionary_budget_exposure_10"
+              ],
+              "evidence_id": "utility_ev_local_cost",
+              "source_text_sha256": "a4dafee3b9770e8f333a0ac95896a1a95bea746bc5d36f2a6f4e78a62396fef6"
+            },
+            {
+              "assertions": [
+                "bounded_cancellation"
+              ],
+              "evidence_id": "utility_ev_reversibility",
+              "source_text_sha256": "b8898342144459d6dc853ace91e221861bae7fa25dd85206695b6671d20216d8"
+            },
+            {
+              "assertions": [
+                "verified_providers",
+                "verified_return_path"
+              ],
+              "evidence_id": "utility_ev_safety",
+              "source_text_sha256": "2721c2ba29f69e0395a830516aafeb87e6ca0b87cb809a58c236179ee3166f28"
+            }
+          ],
+          "mapping_mode": "explicit_source_addressed_for_human_review",
+          "necessary_cash_reserve_claim": false,
+          "option_effects": [
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.12,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": 0.08,
+                      "dimension": "predictability"
+                    }
+                  ],
+                  "category_id": "bounded_cancellation_recovery",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "bounded_cancellation_recovery",
+                  "supporting_evidence_ids": [
+                    "utility_ev_reversibility"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.15,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_commitment_25",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "discretionary_resource_commitment_25",
+                  "supporting_evidence_ids": [
+                    "utility_ev_cost"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "trusted_attachment_support",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "trusted_attachment_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_companion"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.1,
+                      "dimension": "predictability"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "verified_provider_support",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "verified_provider_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_safety"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "escape_availability"
+                    },
+                    {
+                      "delta": 0.1,
+                      "dimension": "predictability"
+                    }
+                  ],
+                  "category_id": "verified_return_support",
+                  "option_id": "utility_trip_book",
+                  "semantic_predicate": "verified_return_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_safety"
+                  ]
+                }
+              ],
+              "option_id": "utility_trip_book",
+              "source_consequence": "Self enters verified distant travel with trusted attachment support, a 25-percent discretionary-budget commitment, bounded cancellation, verified providers, and verified return.",
+              "source_evidence_scope_ids": [
+                "utility_ev_companion",
+                "utility_ev_cost",
+                "utility_ev_reversibility",
+                "utility_ev_safety"
+              ],
+              "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_preserved",
+                  "option_id": "utility_trip_home",
+                  "semantic_predicate": "discretionary_resource_preserved",
+                  "supporting_evidence_ids": [
+                    "utility_ev_cost"
+                  ]
+                }
+              ],
+              "option_id": "utility_trip_home",
+              "source_consequence": "Self makes neither stated travel expenditure and retains the discretionary budget.",
+              "source_evidence_scope_ids": [
+                "utility_ev_cost"
+              ],
+              "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996"
+            },
+            {
+              "categories": [
+                {
+                  "body_deltas": [
+                    {
+                      "delta": -0.09,
+                      "dimension": "resource_security"
+                    }
+                  ],
+                  "category_id": "discretionary_resource_commitment_10",
+                  "option_id": "utility_trip_local",
+                  "semantic_predicate": "discretionary_resource_commitment_10",
+                  "supporting_evidence_ids": [
+                    "utility_ev_local_cost"
+                  ]
+                },
+                {
+                  "body_deltas": [
+                    {
+                      "delta": 0.15,
+                      "dimension": "attachment_security"
+                    },
+                    {
+                      "delta": -0.05,
+                      "dimension": "tension"
+                    },
+                    {
+                      "delta": 0.12,
+                      "dimension": "trust"
+                    }
+                  ],
+                  "category_id": "trusted_attachment_support",
+                  "option_id": "utility_trip_local",
+                  "semantic_predicate": "trusted_attachment_support",
+                  "supporting_evidence_ids": [
+                    "utility_ev_companion"
+                  ]
+                }
+              ],
+              "option_id": "utility_trip_local",
+              "source_consequence": "Self enters the local coastal trip with trusted attachment support and commits 10 percent of the discretionary budget; no distant-provider or distant-return support is inferred.",
+              "source_evidence_scope_ids": [
+                "utility_ev_companion",
+                "utility_ev_local_cost"
+              ],
+              "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc"
+            }
+          ],
+          "protected_target_label": "Self's physical integrity, trusted attachment context, return ability, and discretionary budget.",
+          "schema_version": "triad-instinkt-e2-typed-route-mapping-v1",
+          "source_evidence_sha256": "fd80a2ecd31a114bf2cd42342202f1bfdce0ae0dd195db08c3b6faa9d4c239ff"
+        },
+        "mapping_sha256": "dd281253089c54f825b76c64313b2fb5c6a15ba14ccd2b03e08cf6d29f85246c",
+        "model_calls": 0,
+        "native_processor_executions": 0,
+        "option_results": [
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "escape_availability": 0.12,
+                  "predictability": 0.08
+                },
+                "category_id": "bounded_cancellation_recovery",
+                "marginal_protective_cost_contribution": -0.00375,
+                "semantic_predicate": "bounded_cancellation_recovery",
+                "supporting_evidence_ids": [
+                  "utility_ev_reversibility"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "resource_security": -0.15
+                },
+                "category_id": "discretionary_resource_commitment_25",
+                "marginal_protective_cost_contribution": 0.009375,
+                "semantic_predicate": "discretionary_resource_commitment_25",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "attachment_security": 0.15,
+                  "tension": -0.05,
+                  "trust": 0.12
+                },
+                "category_id": "trusted_attachment_support",
+                "marginal_protective_cost_contribution": -0.023375,
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "predictability": 0.1,
+                  "trust": 0.1
+                },
+                "category_id": "verified_provider_support",
+                "marginal_protective_cost_contribution": -0.003,
+                "semantic_predicate": "verified_provider_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_safety"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "escape_availability": 0.15,
+                  "predictability": 0.1
+                },
+                "category_id": "verified_return_support",
+                "marginal_protective_cost_contribution": -0.005,
+                "semantic_predicate": "verified_return_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_safety"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": 0.15,
+              "escape_availability": 0.25,
+              "predictability": 0.25,
+              "resource_security": -0.15,
+              "tension": -0.05,
+              "trust": 0.22
+            },
+            "option_id": "utility_trip_book",
+            "predicted_loss": 0.3350000000000001,
+            "protective_cost": 0.54225,
+            "recoverability": 0.6310000000000001,
+            "source_consequence": "Self enters verified distant travel with trusted attachment support, a 25-percent discretionary-budget commitment, bounded cancellation, verified providers, and verified return."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "resource_security": 0.15
+                },
+                "category_id": "discretionary_resource_preserved",
+                "marginal_protective_cost_contribution": -0.009375,
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "resource_security": 0.15
+            },
+            "option_id": "utility_trip_home",
+            "predicted_loss": 0.3325,
+            "protective_cost": 0.560625,
+            "recoverability": 0.5775,
+            "source_consequence": "Self makes neither stated travel expenditure and retains the discretionary budget."
+          },
+          {
+            "category_contributions": [
+              {
+                "body_deltas": {
+                  "resource_security": -0.09
+                },
+                "category_id": "discretionary_resource_commitment_10",
+                "marginal_protective_cost_contribution": 0.005625,
+                "semantic_predicate": "discretionary_resource_commitment_10",
+                "supporting_evidence_ids": [
+                  "utility_ev_local_cost"
+                ]
+              },
+              {
+                "body_deltas": {
+                  "attachment_security": 0.15,
+                  "tension": -0.05,
+                  "trust": 0.12
+                },
+                "category_id": "trusted_attachment_support",
+                "marginal_protective_cost_contribution": -0.023375,
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              }
+            ],
+            "combined_body_deltas": {
+              "attachment_security": 0.15,
+              "resource_security": -0.09,
+              "tension": -0.05,
+              "trust": 0.12
+            },
+            "option_id": "utility_trip_local",
+            "predicted_loss": 0.3320000000000001,
+            "protective_cost": 0.55225,
+            "recoverability": 0.5790000000000001,
+            "source_consequence": "Self enters the local coastal trip with trusted attachment support and commits 10 percent of the discretionary budget; no distant-provider or distant-return support is inferred."
+          }
+        ],
+        "processor_capability_claimed": false,
+        "projection_mode": "human_reviewed_typed_mapping_deterministic_projection",
+        "selected_option_id": "utility_trip_book",
+        "tied_option_ids": [],
+        "typed_mapping": true
+      }
+    }
+  },
+  "model_calls": 0,
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "research_hypothesis": {
+    "name": "monotone_discretionary_budget_exposure",
+    "resource_security_deltas": {
+      "10_percent": -0.09,
+      "25_percent": -0.15,
+      "38_percent": -0.2
+    },
+    "status": "implementation_hypothesis"
+  },
+  "schema_version": "triad-iso-e2-deterministic-references-v1"
+}

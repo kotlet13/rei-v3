@@ -1,0 +1,705 @@
+{
+  "canonical_sl": {
+    "event": "Self se odloča o potovanju na redko in privlačno obalno destinacijo.",
+    "facts": [
+      {
+        "evidence_id": "utility_ev_destination",
+        "text": "Destinacija, pot in obalno doživetje so za self izrecno privlačni."
+      },
+      {
+        "evidence_id": "utility_ev_cost",
+        "text": "Potovanje stane 1200 EUR oziroma 25 odstotkov prostega proračuna."
+      },
+      {
+        "evidence_id": "utility_ev_local_cost",
+        "text": "Cenejši lokalni obalni izlet stane 480 EUR, kar je 10 odstotkov prostega proračuna."
+      },
+      {
+        "evidence_id": "utility_ev_rarity",
+        "text": "Ista ponudba je bila v zadnjih treh letih na voljo enkrat."
+      },
+      {
+        "evidence_id": "utility_ev_reversibility",
+        "text": "Rezervacijo je mogoče preklicati v 24 urah z 10-odstotnim stroškom."
+      },
+      {
+        "evidence_id": "utility_ev_companion",
+        "text": "S selfom potuje zaupanja vredna bližnja oseba."
+      },
+      {
+        "evidence_id": "utility_ev_safety",
+        "text": "Prevoz, nastanitev in povratna pot so preverjeni."
+      },
+      {
+        "evidence_id": "utility_ev_benefit",
+        "text": "Potovanje je izrecno samo prostočasno in prijetno doživetje; ne vključuje poslovne, lastniške, izobraževalne ali druge strateške oziroma materialne koristi."
+      },
+      {
+        "evidence_id": "utility_ev_beneficiary",
+        "text": "Self je prejemnik izrecno prijetnega doživetja; ločen strateški ali materialni prejemnik ne obstaja."
+      },
+      {
+        "evidence_id": "utility_ev_budget_base",
+        "text": "Prosti proračun ob času odločitve znaša 4800 EUR."
+      }
+    ],
+    "options": [
+      {
+        "description": "Rezerviraj opisano potovanje.",
+        "option_id": "utility_trip_book"
+      },
+      {
+        "description": "Izberi cenejši lokalni obalni izlet.",
+        "option_id": "utility_trip_local"
+      },
+      {
+        "description": "Ne rezerviraj potovanja in ostani doma.",
+        "option_id": "utility_trip_home"
+      }
+    ],
+    "unknowns": [
+      {
+        "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški.",
+        "unknown_id": "utility_unknown_future_costs"
+      },
+      {
+        "text": "Ni znano, kako zadovoljivo bo prostočasno doživetje.",
+        "unknown_id": "utility_unknown_demo_result"
+      }
+    ]
+  },
+  "case_id": "trip_racio_utility_pleasure",
+  "character_replay": false,
+  "emocio_native_processor_execution": false,
+  "instinkt_native_processor_execution": false,
+  "operational_en": {
+    "event": "Self is deciding about travel to a rare and attractive coastal destination.",
+    "facts": [
+      {
+        "evidence_id": "utility_ev_destination",
+        "text": "The destination, route, and coastal experience are explicitly attractive to self."
+      },
+      {
+        "evidence_id": "utility_ev_cost",
+        "text": "The trip costs EUR 1200, or 25 percent of the discretionary budget."
+      },
+      {
+        "evidence_id": "utility_ev_local_cost",
+        "text": "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget."
+      },
+      {
+        "evidence_id": "utility_ev_rarity",
+        "text": "The same offer was available once during the last three years."
+      },
+      {
+        "evidence_id": "utility_ev_reversibility",
+        "text": "The booking can be cancelled within 24 hours at a 10-percent cost."
+      },
+      {
+        "evidence_id": "utility_ev_companion",
+        "text": "A trusted close person travels with self."
+      },
+      {
+        "evidence_id": "utility_ev_safety",
+        "text": "Transport, lodging, and the return path are verified."
+      },
+      {
+        "evidence_id": "utility_ev_benefit",
+        "text": "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit."
+      },
+      {
+        "evidence_id": "utility_ev_beneficiary",
+        "text": "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+      },
+      {
+        "evidence_id": "utility_ev_budget_base",
+        "text": "The discretionary budget at decision time is EUR 4800."
+      }
+    ],
+    "options": [
+      {
+        "description": "Book the described trip.",
+        "option_id": "utility_trip_book"
+      },
+      {
+        "description": "Take a cheaper local coastal trip.",
+        "option_id": "utility_trip_local"
+      },
+      {
+        "description": "Do not book travel and remain at home.",
+        "option_id": "utility_trip_home"
+      }
+    ],
+    "unknowns": [
+      {
+        "text": "Whether other major costs will arise next month is unknown.",
+        "unknown_id": "utility_unknown_future_costs"
+      },
+      {
+        "text": "How satisfying the leisure experience will be is unknown.",
+        "unknown_id": "utility_unknown_demo_result"
+      }
+    ]
+  },
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_2a1363b6571ce3ab92daf3981e2db2db",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+        "triad_iso_e1_racio_world_8502c8769486db16ba2150ed310c9f9a",
+        "utility_ev_beneficiary",
+        "utility_ev_benefit",
+        "utility_ev_budget_base",
+        "utility_ev_cost",
+        "utility_ev_local_cost",
+        "utility_ev_rarity",
+        "utility_ev_reversibility"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "utility_trip_book",
+        "utility_trip_local",
+        "utility_trip_home"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "evidence_ids": [
+        "utility_ev_cost",
+        "utility_ev_local_cost",
+        "utility_ev_rarity",
+        "utility_ev_reversibility",
+        "utility_ev_benefit",
+        "utility_ev_beneficiary",
+        "utility_ev_budget_base"
+      ],
+      "explicit_consequences": [
+        {
+          "consequence": "Beneficiary self: Self commits EUR 1200 for a stated pleasurable experience with no separate strategic or material return.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_local_cost",
+            "utility_ev_rarity",
+            "utility_ev_reversibility",
+            "utility_ev_benefit",
+            "utility_ev_beneficiary",
+            "utility_ev_budget_base"
+          ],
+          "option_id": "utility_trip_book"
+        },
+        {
+          "consequence": "Beneficiary self: Self commits EUR 480, or 10 percent of the discretionary budget, for a local coastal experience with no separate strategic or material return.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_local_cost",
+            "utility_ev_rarity",
+            "utility_ev_reversibility",
+            "utility_ev_benefit",
+            "utility_ev_beneficiary",
+            "utility_ev_budget_base"
+          ],
+          "option_id": "utility_trip_local"
+        },
+        {
+          "consequence": "Beneficiary self: Self preserves the travel budget and receives no travel experience.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_local_cost",
+            "utility_ev_rarity",
+            "utility_ev_reversibility",
+            "utility_ev_benefit",
+            "utility_ev_beneficiary",
+            "utility_ev_budget_base"
+          ],
+          "option_id": "utility_trip_home"
+        }
+      ],
+      "explicit_facts": [
+        "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+        "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.",
+        "The same offer was available once during the last three years.",
+        "The booking can be cancelled within 24 hours at a 10-percent cost.",
+        "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+        "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.",
+        "The discretionary budget at decision time is EUR 4800."
+      ],
+      "explicit_options": [
+        {
+          "description": "Book the described trip.",
+          "label": "Book the described trip.",
+          "option_id": "utility_trip_book",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Take a cheaper local coastal trip.",
+          "label": "Take a cheaper local coastal trip.",
+          "option_id": "utility_trip_local",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not book travel and remain at home.",
+          "label": "Do not book travel and remain at home.",
+          "option_id": "utility_trip_home",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "Whether other major costs will arise next month is unknown.",
+        "How satisfying the leisure experience will be is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [
+        1200,
+        25,
+        480,
+        10,
+        24,
+        4800
+      ],
+      "packet_id": "racio_packet_a9ecc21d6c02852c79163c4e7a967058",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "scene_id": "triad_iso_e1_racio_scene_e1519f70b78f42509287581136fe4465",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "4e36fc3b63804040596b97dbc7c4c86abc019c005cf8aaf43eff401ad619fcf9",
+      "symbolic_and_language_cues": [
+        "Self is deciding about travel to a rare and attractive coastal destination.",
+        "Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+        "Explicit beneficiary: self"
+      ],
+      "time": [
+        "Booking occurs before the 24-hour cancellation boundary.",
+        "Travel occurs after booking.",
+        "Possible future costs occur after the purchase."
+      ],
+      "world": {
+        "commitments": [
+          "Opportunity cost: The distant trip commits EUR 1200 and the local trip commits EUR 480, so either amount cannot cover other unknown costs; not travelling gives up the explicitly stated experience.",
+          "Control and enforceability: The cancellation rule is documented; satisfaction and future costs are not controlled outcomes."
+        ],
+        "explicit_beliefs": [
+          "Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+          "Explicit beneficiary: self"
+        ],
+        "facts": [
+          "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.",
+          "The same offer was available once during the last three years.",
+          "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+          "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.",
+          "The discretionary budget at decision time is EUR 4800."
+        ],
+        "rules": [
+          "Compassion is not assumed as an unstated decision goal.",
+          "A benefit must be explicit, beneficiary-addressed, and grounded.",
+          "Attraction or rarity is not an undeclared strategic return."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "Booking occurs before the 24-hour cancellation boundary.",
+          "Travel occurs after booking.",
+          "Possible future costs occur after the purchase."
+        ],
+        "world_id": "triad_iso_e1_racio_world_8502c8769486db16ba2150ed310c9f9a"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"utility_trip_book\",\"utility_trip_local\",\"utility_trip_home\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"Use only the explicit facts and unknowns in this packet.\",\"Do not infer undeclared strategic or material benefit.\",\"Retain bounded uncertainty and select only a public option.\"],\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_local_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\",\"utility_ev_budget_base\"],\"explicit_consequences\":[{\"consequence\":\"Beneficiary self: Self commits EUR 1200 for a stated pleasurable experience with no separate strategic or material return.\",\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_local_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\",\"utility_ev_budget_base\"],\"option_id\":\"utility_trip_book\"},{\"consequence\":\"Beneficiary self: Self commits EUR 480, or 10 percent of the discretionary budget, for a local coastal experience with no separate strategic or material return.\",\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_local_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\",\"utility_ev_budget_base\"],\"option_id\":\"utility_trip_local\"},{\"consequence\":\"Beneficiary self: Self preserves the travel budget and receives no travel experience.\",\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_local_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\",\"utility_ev_budget_base\"],\"option_id\":\"utility_trip_home\"}],\"explicit_facts\":[\"The trip costs EUR 1200, or 25 percent of the discretionary budget.\",\"The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.\",\"The same offer was available once during the last three years.\",\"The booking can be cancelled within 24 hours at a 10-percent cost.\",\"The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.\",\"Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.\",\"The discretionary budget at decision time is EUR 4800.\"],\"explicit_options\":[{\"description\":\"Book the described trip.\",\"label\":\"Book the described trip.\",\"option_id\":\"utility_trip_book\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Take a cheaper local coastal trip.\",\"label\":\"Take a cheaper local coastal trip.\",\"option_id\":\"utility_trip_local\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Do not book travel and remain at home.\",\"label\":\"Do not book travel and remain at home.\",\"option_id\":\"utility_trip_home\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Whether other major costs will arise next month is unknown.\",\"How satisfying the leisure experience will be is unknown.\"],\"language\":\"en\",\"numeric_cues\":[1200,25,480,10,24,4800],\"packet_id\":\"racio_packet_a9ecc21d6c02852c79163c4e7a967058\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"scene_id\":\"triad_iso_e1_racio_scene_e1519f70b78f42509287581136fe4465\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"4e36fc3b63804040596b97dbc7c4c86abc019c005cf8aaf43eff401ad619fcf9\",\"symbolic_and_language_cues\":[\"Self is deciding about travel to a rare and attractive coastal destination.\",\"Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.\",\"Explicit beneficiary: self\"],\"time\":[\"Booking occurs before the 24-hour cancellation boundary.\",\"Travel occurs after booking.\",\"Possible future costs occur after the purchase.\"],\"world\":{\"commitments\":[\"Opportunity cost: The distant trip commits EUR 1200 and the local trip commits EUR 480, so either amount cannot cover other unknown costs; not travelling gives up the explicitly stated experience.\",\"Control and enforceability: The cancellation rule is documented; satisfaction and future costs are not controlled outcomes.\"],\"explicit_beliefs\":[\"Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.\",\"Explicit beneficiary: self\"],\"facts\":[\"The trip costs EUR 1200, or 25 percent of the discretionary budget.\",\"The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.\",\"The same offer was available once during the last three years.\",\"The booking can be cancelled within 24 hours at a 10-percent cost.\",\"The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.\",\"Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.\",\"The discretionary budget at decision time is EUR 4800.\"],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"Booking occurs before the 24-hour cancellation boundary.\",\"Travel occurs after booking.\",\"Possible future costs occur after the purchase.\"],\"world_id\":\"triad_iso_e1_racio_world_8502c8769486db16ba2150ed310c9f9a\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "self"
+      ],
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "event_id": "triad_iso_e1_racio_scene_e1519f70b78f42509287581136fe4465",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "evidence_id": "utility_ev_cost",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_cost"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.",
+          "evidence_id": "utility_ev_local_cost",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_local_cost"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The same offer was available once during the last three years.",
+          "evidence_id": "utility_ev_rarity",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_rarity"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "evidence_id": "utility_ev_reversibility",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_reversibility"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+          "evidence_id": "utility_ev_benefit",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_benefit"
+        },
+        {
+          "confidence": 1.0,
+          "content": "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.",
+          "evidence_id": "utility_ev_beneficiary",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_beneficiary"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The discretionary budget at decision time is EUR 4800.",
+          "evidence_id": "utility_ev_budget_base",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_budget_base"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Book the described trip.",
+          "label": "Book the described trip.",
+          "option_id": "utility_trip_book",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Take a cheaper local coastal trip.",
+          "label": "Take a cheaper local coastal trip.",
+          "option_id": "utility_trip_local",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not book travel and remain at home.",
+          "label": "Do not book travel and remain at home.",
+          "option_id": "utility_trip_home",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "Self is deciding about travel to a rare and attractive coastal destination.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "Whether other major costs will arise next month is unknown.",
+        "How satisfying the leisure experience will be is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Opportunity cost: The distant trip commits EUR 1200 and the local trip commits EUR 480, so either amount cannot cover other unknown costs; not travelling gives up the explicitly stated experience.",
+        "Control and enforceability: The cancellation rule is documented; satisfaction and future costs are not controlled outcomes."
+      ],
+      "explicit_beliefs": [
+        "Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+        "Explicit beneficiary: self"
+      ],
+      "facts": [
+        "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+        "The cheaper local coastal trip costs EUR 480, which is 10 percent of the discretionary budget.",
+        "The same offer was available once during the last three years.",
+        "The booking can be cancelled within 24 hours at a 10-percent cost.",
+        "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+        "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.",
+        "The discretionary budget at decision time is EUR 4800."
+      ],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "Booking occurs before the 24-hour cancellation boundary.",
+        "Travel occurs after booking.",
+        "Possible future costs occur after the purchase."
+      ],
+      "world_id": "triad_iso_e1_racio_world_8502c8769486db16ba2150ed310c9f9a"
+    }
+  },
+  "schema_version": "triad-iso-e2-racio-input-v1"
+}

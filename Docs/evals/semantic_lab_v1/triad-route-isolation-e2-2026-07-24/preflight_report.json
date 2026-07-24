@@ -1,0 +1,159 @@
+{
+  "checks": {
+    "candidate_case_order": true,
+    "candidate_unsealed": true,
+    "common_operational_facts_identical": true,
+    "effect_rule_monotone": true,
+    "emocio_projection_model_free": true,
+    "emocio_route_semantics_identical": true,
+    "exact_scope_reviewed": true,
+    "execution_not_authorized": true,
+    "instinkt_projection_model_free": true,
+    "instinkt_route_semantics_identical": true,
+    "local_cost_fact_identical": true,
+    "no_leakage": true,
+    "protective_racio_reuse_exact": true,
+    "public_option_order_identical": true,
+    "public_options_identical": true,
+    "racio_fact_scope_identical": true,
+    "racio_route_diff_benefit_limited": true,
+    "sl_en_ids_match": true
+  },
+  "model_calls": 0,
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "protective_reuse": {
+    "cases": [
+      {
+        "call_spec_hash": "d913e647d8d1e28d93d073208abfa698d992aa0c787839dff649aa0a77e28f72",
+        "case_id": "trip_protective_context_exposed",
+        "conclusion": {
+          "abstains": false,
+          "causal_sequence": [
+            "Evaluating the trade-off between a significant budget expenditure and a confirmed professional training value.",
+            "Assessing the risk of non-refundable spending against potential unforeseen expenses in the following month.",
+            "Comparing the utility of the destination workshop versus the financial security of retaining discretionary funds."
+          ],
+          "conclusion_id": "racio_conclusion_9b8693f3d677fd2ae2cf8d64398c5f14",
+          "confidence": 0.8,
+          "evidence_ids_used": [
+            "protective_ev_price",
+            "protective_ev_refund",
+            "protective_ev_benefit",
+            "protective_ev_rarity"
+          ],
+          "explicit_goal": "Decide whether the training benefit justifies the budget commitment.",
+          "facts_used": [
+            "The trip costs 38 percent of the currently discretionary budget.",
+            "The purchase is financially non-refundable after booking.",
+            "A confirmed workshop at the destination replaces comparable local training worth EUR 400 for self.",
+            "The same route was available once during the last three years."
+          ],
+          "main_objection": "Spending a large portion of the budget on a non-refundable item may leave the individual vulnerable to unknown costs arising next month.",
+          "mind": "R",
+          "option_id": "trip_book",
+          "reasoning_provider_result_hash": "66ecd038f4e3cd401bc7560551e367338d3c04ea1273bbfbd1235414ce856018",
+          "reasoning_provider_result_id": "ollama_racio_response_60546830667108e62ea416ead503cba6",
+          "schema_version": "rei-native-racio-conclusion-v1",
+          "source_packet_hash": "6aaa7df9e334885e3c210f7af8e0ea93fef3da622c27db359f9b8f4b233c5389",
+          "source_packet_id": "racio_packet_62f0dada4236c87607e2708e088599e7",
+          "source_scene_id": "triad_iso_e1_racio_scene_67af06624803b30cccca2a67b60784a9",
+          "uncertainty": "The decision hinges on whether the EUR 400 training value outweighs the risk posed by the unknown future costs.",
+          "unknowns": [
+            "Whether other major costs will arise next month is unknown."
+          ],
+          "utility_structure": [
+            "High utility: Obtaining a confirmed workshop worth EUR 400.",
+            "Low utility: Retaining budget but missing the professional training opportunity.",
+            "Risk factor: Non-refundable nature of the cost combined with potential future expenses."
+          ]
+        },
+        "frozen_packet_hash": "6aaa7df9e334885e3c210f7af8e0ea93fef3da622c27db359f9b8f4b233c5389",
+        "packet_hash": "6aaa7df9e334885e3c210f7af8e0ea93fef3da622c27db359f9b8f4b233c5389",
+        "source_inputs": {
+          "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1-2026-07-24/cases/trip_protective_context_exposed/inputs.json",
+          "sha256": "6bc880669407603b74c6b61193b53e89f1b562063266057f5062b0452a0141a9"
+        },
+        "source_native_outputs": {
+          "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1-2026-07-24/cases/trip_protective_context_exposed/native_outputs.json",
+          "sha256": "602601529a4e3a9bd32da05d116f61eb6470159798be2ec94c21228d5240752f"
+        },
+        "status": "reused_frozen_accepted_conclusion"
+      },
+      {
+        "call_spec_hash": "d913e647d8d1e28d93d073208abfa698d992aa0c787839dff649aa0a77e28f72",
+        "case_id": "trip_protective_context_supported",
+        "conclusion": {
+          "abstains": false,
+          "causal_sequence": [
+            "Evaluating the trade-off between a significant budget expenditure and a confirmed professional training value.",
+            "Assessing the risk of non-refundable spending against potential unforeseen expenses in the following month.",
+            "Comparing the utility of the destination workshop versus the financial security of retaining discretionary funds."
+          ],
+          "conclusion_id": "racio_conclusion_b5738e85cc3b133da3185c8b8a58be78",
+          "confidence": 0.8,
+          "evidence_ids_used": [
+            "protective_ev_price",
+            "protective_ev_refund",
+            "protective_ev_benefit",
+            "protective_ev_rarity"
+          ],
+          "explicit_goal": "Decide whether the training benefit justifies the budget commitment.",
+          "facts_used": [
+            "The trip costs 38 percent of the currently discretionary budget.",
+            "The purchase is financially non-refundable after booking.",
+            "A confirmed workshop at the destination replaces comparable local training worth EUR 400 for self.",
+            "The same route was available once during the last three years."
+          ],
+          "main_objection": "Spending a large portion of the budget on a non-refundable item may leave the individual vulnerable to unknown costs arising next month.",
+          "mind": "R",
+          "option_id": "trip_book",
+          "reasoning_provider_result_hash": "9574511b26c58d245c05612edce6e24a8c08a95ebc1ce3c6fd5a8b747fe1ed0e",
+          "reasoning_provider_result_id": "ollama_racio_response_513afadf8d48f1715241d0bfa9b9951c",
+          "schema_version": "rei-native-racio-conclusion-v1",
+          "source_packet_hash": "6aaa7df9e334885e3c210f7af8e0ea93fef3da622c27db359f9b8f4b233c5389",
+          "source_packet_id": "racio_packet_62f0dada4236c87607e2708e088599e7",
+          "source_scene_id": "triad_iso_e1_racio_scene_67af06624803b30cccca2a67b60784a9",
+          "uncertainty": "The decision hinges on whether the EUR 400 training value outweighs the risk posed by the unknown future costs.",
+          "unknowns": [
+            "Whether other major costs will arise next month is unknown."
+          ],
+          "utility_structure": [
+            "High utility: Obtaining a confirmed workshop worth EUR 400.",
+            "Low utility: Retaining budget but missing the professional training opportunity.",
+            "Risk factor: Non-refundable nature of the cost combined with potential future expenses."
+          ]
+        },
+        "frozen_packet_hash": "6aaa7df9e334885e3c210f7af8e0ea93fef3da622c27db359f9b8f4b233c5389",
+        "packet_hash": "6aaa7df9e334885e3c210f7af8e0ea93fef3da622c27db359f9b8f4b233c5389",
+        "source_inputs": {
+          "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1-2026-07-24/cases/trip_protective_context_supported/inputs.json",
+          "sha256": "013c79e1cea9b3e3f5c08518c119c51a9160980e7ae69772d2379829facf50ac"
+        },
+        "source_native_outputs": {
+          "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1-2026-07-24/cases/trip_protective_context_supported/native_outputs.json",
+          "sha256": "889c30c77e0676425a88656cd384003632a26c24d728f1943ef950aaec2231cd"
+        },
+        "status": "reused_frozen_accepted_conclusion"
+      }
+    ],
+    "checks": {
+      "instruction_sha256": true,
+      "model_digest": true,
+      "model_profile": true,
+      "provider_revision": true,
+      "trip_protective_context_exposed_accepted": true,
+      "trip_protective_context_exposed_options": true,
+      "trip_protective_context_exposed_packet_hash": true,
+      "trip_protective_context_supported_accepted": true,
+      "trip_protective_context_supported_options": true,
+      "trip_protective_context_supported_packet_hash": true
+    },
+    "protective_model_calls": 0,
+    "status": "passed"
+  },
+  "schema_version": "triad-iso-e2-model-free-preflight-v1",
+  "status": "passed"
+}

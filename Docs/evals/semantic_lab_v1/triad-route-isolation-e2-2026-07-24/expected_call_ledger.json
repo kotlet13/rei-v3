@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "call_id": "provider_call_670391457341fa53ded0a3d54c8e23a2",
+      "call_spec_hash": "1066f19a3270d9bf9f61a299be783c35a9051eaae41010a37a8897a5d7c6c963",
+      "case_id": "trip_racio_utility_material",
+      "ordinal": 1,
+      "status": "sealed"
+    },
+    {
+      "call_id": "provider_call_2a1363b6571ce3ab92daf3981e2db2db",
+      "call_spec_hash": "94381eb48b1b54c8f7985fc95182445f6c2bbfdb09a23a617f42b5a4cefec67e",
+      "case_id": "trip_racio_utility_pleasure",
+      "ordinal": 2,
+      "status": "sealed"
+    }
+  ],
+  "expected": {
+    "character_replay": 0,
+    "fallbacks": 0,
+    "model_calls": 2,
+    "retries": 0
+  },
+  "schema_version": "triad-iso-e2-expected-call-ledger-v1",
+  "state": "sealed_before_calls"
+}
