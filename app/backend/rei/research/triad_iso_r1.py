@@ -1206,7 +1206,7 @@ def _render_adjudication(
             "",
         ]
     )
-    return "\n".join(lines)
+    return "\n".join(lines).rstrip()
 
 
 def prepare_r1(repository_root: Path) -> Mapping[str, Any]:
