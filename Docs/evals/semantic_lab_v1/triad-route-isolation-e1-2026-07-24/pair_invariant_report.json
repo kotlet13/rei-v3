@@ -1,0 +1,263 @@
+{
+  "checks": {
+    "all_options_and_order_held": true,
+    "no_expected_or_character_governance_leakage": true,
+    "protective_racio_call_spec_identical": true,
+    "protective_racio_request_payload_byte_identical": true,
+    "protective_racio_route_packet_identical": true,
+    "protective_unexpected_pair_diffs_absent": true,
+    "utility_emocio_route_packet_identical": true,
+    "utility_instinkt_route_packet_identical": true,
+    "utility_prepared_emocio_packet_identical": true,
+    "utility_prepared_instinkt_packet_identical": true,
+    "utility_unexpected_pair_diffs_absent": true
+  },
+  "passed": true,
+  "phase": "TRIAD-ISO-E1",
+  "protective_pair": {
+    "declared_differences": [
+      {
+        "left": "Self potuje sam in nima zaupanja vrednega spremljevalca.",
+        "path": "canonical_sl/facts/5/text",
+        "right": "S selfom potuje zaupanja vredna bližnja oseba z več skupnimi potovanji."
+      },
+      {
+        "left": "Pot in okolje sta selfu neznana.",
+        "path": "canonical_sl/facts/6/text",
+        "right": "Cilj je oddaljen, vendar je celotna pot vnaprej dokumentirana in pregledana s spremljevalcem."
+      },
+      {
+        "left": "Ponudnik nastanitve in lokalnega prevoza še ni preverjen.",
+        "path": "canonical_sl/facts/7/text",
+        "right": "Nastanitev in lokalni prevoz imata preverjene rezervacije ter preverjene ponudnike."
+      },
+      {
+        "left": "Fizična povratna pot nima potrjene rezervacije ali preverjene nadomestne poti.",
+        "path": "canonical_sl/facts/8/text",
+        "right": "Fizična povratna pot ima potrjeno rezervacijo in dokumentirano nadomestno povezavo."
+      },
+      {
+        "left_length": 2,
+        "path": "canonical_sl/unknowns",
+        "right_length": 1
+      },
+      {
+        "left": "trip_protective_context_exposed",
+        "path": "case_id",
+        "right": "trip_protective_context_supported"
+      },
+      {
+        "left": "Self travels alone and has no trusted companion.",
+        "path": "operational_en/facts/5/text",
+        "right": "A trusted close person with several shared trips travels with self."
+      },
+      {
+        "left": "The route and environment are unfamiliar to self.",
+        "path": "operational_en/facts/6/text",
+        "right": "The destination is distant, but the entire route has been documented and reviewed with the companion."
+      },
+      {
+        "left": "The lodging and local transport providers have not been verified.",
+        "path": "operational_en/facts/7/text",
+        "right": "The lodging and local transport have confirmed reservations with verified providers."
+      },
+      {
+        "left": "The physical return path has no confirmed booking or verified alternate route.",
+        "path": "operational_en/facts/8/text",
+        "right": "The physical return path has a confirmed booking and a documented alternate connection."
+      },
+      {
+        "left_length": 2,
+        "path": "operational_en/unknowns",
+        "right_length": 1
+      },
+      {
+        "left": "Self stands before an open distant-coast route and a local route; no public audience is present.",
+        "path": "route_packets/emocio/current_scene",
+        "right": "Self stands before an open distant-coast route and a local route; a close companion is present, but no public audience is present."
+      },
+      {
+        "left": "Self is centered in active movement toward the attractive coast and the new experience.",
+        "path": "route_packets/emocio/desired_scene",
+        "right": "Self is centered in active movement toward the attractive coast and the new experience; no extra enjoyment is inferred from companion presence."
+      },
+      {
+        "left": "No trusted close person accompanies self; attachment support during the trip is absent.",
+        "path": "route_packets/instinkt/attachment_care",
+        "right": "The close companion provides grounded attachment support during the trip."
+      },
+      {
+        "left": "Purchase terms are fixed; provider safety boundaries are not verified.",
+        "path": "route_packets/instinkt/boundary",
+        "right": "Purchase terms are fixed; lodging, transport, and return arrangements have documented boundaries."
+      },
+      {
+        "left": "Unfamiliar route, unverified lodging and transport, travel alone, and uncertain physical return path.",
+        "path": "route_packets/instinkt/danger_types",
+        "right": "Distant travel remains a general exposure, while the route, lodging, transport, and return path are verified."
+      },
+      {
+        "left": "The financial purchase is irreversible and the physical return route is uncertain.",
+        "path": "route_packets/instinkt/escape_reversibility",
+        "right": "The financial purchase is irreversible, while the physical return path has a confirmed route and alternate connection."
+      },
+      {
+        "left": "The distant route and environment are unfamiliar; the local route and home are familiar.",
+        "path": "route_packets/instinkt/familiarity",
+        "right": "The distant location is not home, but the route has been reviewed and the companion has shared travel history."
+      },
+      {
+        "left": "Self enters the unfamiliar route alone with unverified providers, uncertain physical return, and non-refundable reserve exposure.",
+        "path": "route_packets/instinkt/option_consequences/0/consequence",
+        "right": "Self enters the documented distant route with a trusted companion, verified providers, confirmed physical return, and non-refundable reserve exposure."
+      },
+      {
+        "left": "Self avoids the distant provider and return-path uncertainties while accepting a smaller, unquantified local cost.",
+        "path": "route_packets/instinkt/option_consequences/1/consequence",
+        "right": "Self avoids the distant commitment while accepting a smaller, unquantified local cost."
+      },
+      {
+        "left": "Possible physical stranding, unverified-provider harm, separation without trusted support, and 38 percent reserve exposure.",
+        "path": "route_packets/instinkt/possible_loss",
+        "right": "The 38 percent reserve exposure remains; no unverified-provider or unsupported-return loss is grounded."
+      },
+      {
+        "left": "not_relevant",
+        "path": "route_packets/instinkt/prior_association",
+        "right": "Several completed shared trips with the companion are grounded; no outcome beyond that history is inferred."
+      },
+      {
+        "left": "Financial recovery is unavailable after booking; physical recovery is bounded unknown because no return route is confirmed.",
+        "path": "route_packets/instinkt/recoverability",
+        "right": "Financial recovery is unavailable after booking; physical return has a confirmed route and alternate connection."
+      },
+      {
+        "left": "No trusted companion is present; lodging and transport providers are unverified.",
+        "path": "route_packets/instinkt/trust_distrust",
+        "right": "A trusted close companion is present; lodging and transport providers are verified."
+      },
+      {
+        "left": "alone_unverified",
+        "path": "variant_id",
+        "right": "trusted_verified"
+      }
+    ],
+    "held_constant": {
+      "options_sha256": "eef5963d0fea4d339c20e5129b962dd256fec3b983ada4318578c9727cad88c8",
+      "racio_request_payload_sha256": "9785753f7967a83e7f825e82b72712c75875db37fa6232037ef33ce879e9389f",
+      "racio_route_packet_sha256": "c8936d7b248e52ab8d11ab3cad70dc8ae91b39dcebead69e6a099a46fcb332d8"
+    },
+    "unexpected_differences": []
+  },
+  "schema_version": "triad-iso-e1-pair-invariants-v1",
+  "utility_pair": {
+    "declared_differences": [
+      {
+        "left": "Pot vključuje podpisano vabilo na predstavitev za kupca, ki selfovemu studiu ob uspešni izvedbi prihrani do 900 EUR zunanjega predstavitvenega stroška.",
+        "path": "canonical_sl/facts/6/text",
+        "right": "Potovanje je izrecno samo prostočasno in prijetno doživetje; ne vključuje poslovne, lastniške, izobraževalne ali druge strateške oziroma materialne koristi."
+      },
+      {
+        "left": "Izrecni prejemnik omejene strateške in materialne koristi je selfov studio; javnega statusa ali priznanja ni.",
+        "path": "canonical_sl/facts/7/text",
+        "right": "Self je prejemnik izrecno prijetnega doživetja; ločen strateški ali materialni prejemnik ne obstaja."
+      },
+      {
+        "left": "Ni znano, ali bo predstavitev izvedena dovolj uspešno za celoten prihranek.",
+        "path": "canonical_sl/unknowns/1/text",
+        "right": "Ni znano, kako zadovoljivo bo prostočasno doživetje."
+      },
+      {
+        "left": "trip_racio_utility_material",
+        "path": "case_id",
+        "right": "trip_racio_utility_pleasure"
+      },
+      {
+        "left": "The trip includes a signed invitation to a buyer demonstration that can save self's studio up to EUR 900 in external demonstration costs if delivery succeeds.",
+        "path": "operational_en/facts/6/text",
+        "right": "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit."
+      },
+      {
+        "left": "The explicit recipient of the bounded strategic and material benefit is self's studio; no public status or recognition is involved.",
+        "path": "operational_en/facts/7/text",
+        "right": "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+      },
+      {
+        "left": "Whether the demonstration will be delivered well enough for the full saving is unknown.",
+        "path": "operational_en/unknowns/1/text",
+        "right": "How satisfying the leisure experience will be is unknown."
+      },
+      {
+        "left": "The invitation and cancellation rule are documented; delivery quality and the full saving are not controlled outcomes.",
+        "path": "route_packets/racio/enforceability_control",
+        "right": "The cancellation rule is documented; satisfaction and future costs are not controlled outcomes."
+      },
+      {
+        "left": "self_studio",
+        "path": "route_packets/racio/explicit_beneficiary",
+        "right": "self"
+      },
+      {
+        "left": "Decide whether the trip advances the studio's demonstration-cost goal within the available budget.",
+        "path": "route_packets/racio/explicit_goal",
+        "right": "Decide whether to spend the stated budget amount on the explicitly pleasurable experience."
+      },
+      {
+        "left": "self_studio",
+        "path": "route_packets/racio/material_strategic_consequences/0/beneficiary",
+        "right": "self"
+      },
+      {
+        "left": "The studio gains access to a signed buyer demonstration and a bounded saving of up to EUR 900, while self commits EUR 1200.",
+        "path": "route_packets/racio/material_strategic_consequences/0/consequence",
+        "right": "Self commits EUR 1200 for a stated pleasurable experience with no separate strategic or material return."
+      },
+      {
+        "left": "self_studio",
+        "path": "route_packets/racio/material_strategic_consequences/1/beneficiary",
+        "right": "self"
+      },
+      {
+        "left": "The studio receives no buyer demonstration or external-cost saving; self incurs a smaller unquantified local cost.",
+        "path": "route_packets/racio/material_strategic_consequences/1/consequence",
+        "right": "Self incurs a smaller unquantified cost for a local coastal experience with no separate strategic or material return."
+      },
+      {
+        "left": "self_studio",
+        "path": "route_packets/racio/material_strategic_consequences/2/beneficiary",
+        "right": "self"
+      },
+      {
+        "left": "The studio receives no buyer demonstration or external-cost saving; self preserves the travel budget.",
+        "path": "route_packets/racio/material_strategic_consequences/2/consequence",
+        "right": "Self preserves the travel budget and receives no travel experience."
+      },
+      {
+        "left": "Booking commits EUR 1200 that cannot cover other costs; not booking gives up the signed demonstration and bounded studio saving.",
+        "path": "route_packets/racio/opportunity_cost",
+        "right": "Travel spending cannot cover other unknown costs; not travelling gives up the explicitly stated experience."
+      },
+      {
+        "left": "Travel and the buyer demonstration occur after booking.",
+        "path": "route_packets/racio/time_sequence/1",
+        "right": "Travel occurs after booking."
+      },
+      {
+        "left": "Any external-cost saving occurs only if the demonstration is delivered.",
+        "path": "route_packets/racio/time_sequence/2",
+        "right": "Possible future costs occur after the purchase."
+      },
+      {
+        "left": "material_benefit",
+        "path": "variant_id",
+        "right": "pure_pleasure"
+      }
+    ],
+    "held_constant": {
+      "emocio_route_packet_sha256": "e4c78cfdc9bdf5f3b62ef28ece68ea2dafd3e7600bb9cd59dfe761fca1e2b5e1",
+      "instinkt_route_packet_sha256": "e4e43c3881f9d8ec2e23b3a36b937adbde78061763e6c56b087ae42c1570e224",
+      "options_sha256": "196132c914dbe7adbe638944d28de3f261e11e6c3c03d04eca65c8c7fe82e470"
+    },
+    "unexpected_differences": []
+  }
+}

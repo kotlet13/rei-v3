@@ -1,0 +1,68 @@
+{
+  "entries": [
+    {
+      "case_id": "trip_racio_utility_material",
+      "emocio_call_id": "provider_call_65b11257d20d967b6227d1dbe55fc871",
+      "instinkt_call_id": "provider_call_21d9ca90fbfcc6f29c61247a1540afc7",
+      "ordinal": 1,
+      "racio_call_id": "provider_call_2ebeb591d09cff3b837991ea1da5c152",
+      "racio_call_spec_hash": "8cc11c470210b2d9f507dbadf3967db231a2e2271de6bd4d76df3a8e81957b89",
+      "status": "sealed"
+    },
+    {
+      "case_id": "trip_racio_utility_pleasure",
+      "emocio_call_id": "provider_call_65b11257d20d967b6227d1dbe55fc871",
+      "instinkt_call_id": "provider_call_21d9ca90fbfcc6f29c61247a1540afc7",
+      "ordinal": 2,
+      "racio_call_id": "provider_call_e9b55cc950f826f9983273de604b9b24",
+      "racio_call_spec_hash": "48fb76e4fa6ef673a49b131ad3fbc590ad61b468a07f687d0b58a4e1a2cc119c",
+      "status": "sealed"
+    },
+    {
+      "case_id": "trip_protective_context_exposed",
+      "emocio_call_id": "provider_call_13af011523e7622ccaa774be9b690228",
+      "instinkt_call_id": "provider_call_0ed8e0c9a83c042d64e3a56219ae90d5",
+      "ordinal": 3,
+      "racio_call_id": "provider_call_99c75797e221ea667c3e6ab22ac4cad9",
+      "racio_call_spec_hash": "d913e647d8d1e28d93d073208abfa698d992aa0c787839dff649aa0a77e28f72",
+      "status": "sealed"
+    },
+    {
+      "case_id": "trip_protective_context_supported",
+      "emocio_call_id": "provider_call_3a0b5fff999922e6115c5b06db4c5f7d",
+      "instinkt_call_id": "provider_call_82e0824a24cbf4e6d813065e4b0a6ff3",
+      "ordinal": 4,
+      "racio_call_id": "provider_call_99c75797e221ea667c3e6ab22ac4cad9",
+      "racio_call_spec_hash": "d913e647d8d1e28d93d073208abfa698d992aa0c787839dff649aa0a77e28f72",
+      "status": "sealed"
+    }
+  ],
+  "execution_policy": {
+    "behavior_resultant": 0,
+    "case_order": [
+      "trip_racio_utility_material",
+      "trip_racio_utility_pleasure",
+      "trip_protective_context_exposed",
+      "trip_protective_context_supported"
+    ],
+    "character_replay": 0,
+    "conscious_decision": 0,
+    "ego_update": 0,
+    "emocio_native_executions_per_case": 1,
+    "execute_emocio_after_racio_rejection_or_provider_failure": true,
+    "execute_instinkt_after_racio_rejection_or_provider_failure": true,
+    "fallbacks": 0,
+    "instinkt_native_executions_per_case": 1,
+    "racio_model_calls_per_case": 1,
+    "retries": 0
+  },
+  "expected": {
+    "character_replay_rows": 0,
+    "fallbacks": 0,
+    "model_calls": 4,
+    "retries": 0
+  },
+  "phase": "TRIAD-ISO-E1",
+  "schema_version": "triad-iso-e1-expected-call-ledger-v1",
+  "state": "sealed_before_calls"
+}

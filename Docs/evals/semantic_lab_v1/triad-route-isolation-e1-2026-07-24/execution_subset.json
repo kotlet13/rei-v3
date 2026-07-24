@@ -1,0 +1,51 @@
+{
+  "case_order": [
+    "trip_racio_utility_material",
+    "trip_racio_utility_pleasure",
+    "trip_protective_context_exposed",
+    "trip_protective_context_supported"
+  ],
+  "cases": [
+    {
+      "candidate_case_sha256": "9234b2cf145ac7f8e616810bb138ae38999e75595c1fb43c5ebb5945d9c06b5f",
+      "case_id": "trip_racio_utility_material",
+      "ordinal": 1,
+      "pair_id": "trip_racio_utility",
+      "projection_contract": "canonical_json_bytes_equal_to_source_case",
+      "source_pointer": "/pairs/3/variants/0"
+    },
+    {
+      "candidate_case_sha256": "b8c84b5a6d3614418185556c42090a24444a9b5a57a3109313dcb1d0ab55caa5",
+      "case_id": "trip_racio_utility_pleasure",
+      "ordinal": 2,
+      "pair_id": "trip_racio_utility",
+      "projection_contract": "canonical_json_bytes_equal_to_source_case",
+      "source_pointer": "/pairs/3/variants/1"
+    },
+    {
+      "candidate_case_sha256": "16e1fe41f4fc0e1b582880eab76395e488b67fb7fc28d1af6f3f4bfc7026edc9",
+      "case_id": "trip_protective_context_exposed",
+      "ordinal": 3,
+      "pair_id": "trip_protective_context",
+      "projection_contract": "canonical_json_bytes_equal_to_source_case",
+      "source_pointer": "/pairs/1/variants/0"
+    },
+    {
+      "candidate_case_sha256": "a9bf9dd65591990ee4b49872517e7281a1f886883366808983f9ce07da49fab6",
+      "case_id": "trip_protective_context_supported",
+      "ordinal": 4,
+      "pair_id": "trip_protective_context",
+      "projection_contract": "canonical_json_bytes_equal_to_source_case",
+      "source_pointer": "/pairs/1/variants/1"
+    }
+  ],
+  "excluded_case_count": 6,
+  "excluded_cases_executed": false,
+  "phase": "TRIAD-ISO-E1",
+  "schema_version": "triad-iso-e1-reference-subset-v1",
+  "source_candidate": {
+    "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-p1-2026-07-23/route_isolation_corpus_candidate.json",
+    "sha256": "e9e1608b5eb3e472e6953c310749f21b676013602d5658849ab36356701144aa"
+  },
+  "status": "sealed_execution_subset"
+}

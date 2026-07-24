@@ -1,0 +1,1552 @@
+{
+  "canonical_sl": {
+    "event": "Self se odloča o potovanju na redko in privlačno obalno destinacijo.",
+    "facts": [
+      {
+        "evidence_id": "utility_ev_destination",
+        "text": "Destinacija, pot in obalno doživetje so za self izrecno privlačni."
+      },
+      {
+        "evidence_id": "utility_ev_cost",
+        "text": "Potovanje stane 1200 EUR oziroma 25 odstotkov prostega proračuna."
+      },
+      {
+        "evidence_id": "utility_ev_rarity",
+        "text": "Ista ponudba je bila v zadnjih treh letih na voljo enkrat."
+      },
+      {
+        "evidence_id": "utility_ev_reversibility",
+        "text": "Rezervacijo je mogoče preklicati v 24 urah z 10-odstotnim stroškom."
+      },
+      {
+        "evidence_id": "utility_ev_companion",
+        "text": "S selfom potuje zaupanja vredna bližnja oseba."
+      },
+      {
+        "evidence_id": "utility_ev_safety",
+        "text": "Prevoz, nastanitev in povratna pot so preverjeni."
+      },
+      {
+        "evidence_id": "utility_ev_benefit",
+        "text": "Potovanje je izrecno samo prostočasno in prijetno doživetje; ne vključuje poslovne, lastniške, izobraževalne ali druge strateške oziroma materialne koristi."
+      },
+      {
+        "evidence_id": "utility_ev_beneficiary",
+        "text": "Self je prejemnik izrecno prijetnega doživetja; ločen strateški ali materialni prejemnik ne obstaja."
+      }
+    ],
+    "options": [
+      {
+        "description": "Rezerviraj opisano potovanje.",
+        "option_id": "utility_trip_book"
+      },
+      {
+        "description": "Izberi cenejši lokalni obalni izlet.",
+        "option_id": "utility_trip_local"
+      },
+      {
+        "description": "Ne rezerviraj potovanja in ostani doma.",
+        "option_id": "utility_trip_home"
+      }
+    ],
+    "unknowns": [
+      {
+        "text": "Ni znano, ali bodo v naslednjem mesecu nastali drugi večji stroški.",
+        "unknown_id": "utility_unknown_future_costs"
+      },
+      {
+        "text": "Ni znano, kako zadovoljivo bo prostočasno doživetje.",
+        "unknown_id": "utility_unknown_demo_result"
+      }
+    ]
+  },
+  "case_id": "trip_racio_utility_pleasure",
+  "character_replay": 0,
+  "emocio": {
+    "call_spec": {
+      "call_id": "provider_call_65b11257d20d967b6227d1dbe55fc871",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "emocio_packet_3c50e9fd3062c8a6ee87d88b438f31de",
+        "emocio_world_input_efb79b64784a4fe159c4fde697af036f",
+        "triad_iso_e1_emocio_scene_cd02f3cc7a3beb2132cf049847345a05",
+        "triad_s2_emocio_counterfactuals_3e1c32f393312cff049a5cb4a4a72d72"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.research.triad_s2.execute_research_emocio_once",
+        "implementation_revision": "triad-s2-counterfactual-structured-v1",
+        "kind": "visual_world_model",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_fa409afdeda447a8f320f9af78f269d7",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "emocio_packet_3c50e9fd3062c8a6ee87d88b438f31de",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "compiled_scenes": {
+      "broken_scene": {
+        "attention_structure": [],
+        "attraction_markers": [],
+        "composition": [
+          "The coast remains outside the active scene and self has no travel movement or new experience."
+        ],
+        "entities": [
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "The coast remains outside the active scene and self has no travel movement or new experience."
+        ],
+        "movement": [],
+        "obstacle_markers": [
+          "The coast remains outside the active scene and self has no travel movement or new experience."
+        ],
+        "option_id": null,
+        "scene_id": "visual_scene_f004e2121a5ed4655dfb5bb7b1111815",
+        "scene_kind": "broken",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": []
+      },
+      "current_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "A trusted close person travels with self.",
+          "The destination, route, and coastal experience are explicitly attractive to self."
+        ],
+        "composition": [
+          "A trusted close person travels with self.",
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+          "The destination, route, and coastal experience are explicitly attractive to self."
+        ],
+        "entities": [
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "unspecified",
+        "inferred_elements": [
+          "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path."
+        ],
+        "movement": [],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_311855972c442402ed5f5c01f47744d4",
+        "scene_kind": "current",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "companion",
+          "self"
+        ]
+      },
+      "desired_scene": {
+        "attention_structure": [],
+        "attraction_markers": [
+          "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+        ],
+        "composition": [
+          "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+        ],
+        "entities": [
+          "companion",
+          "self"
+        ],
+        "grounded_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_destination"
+        ],
+        "group_belonging": "Centered at the route decision point beside the companion.",
+        "inferred_elements": [
+          "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+        ],
+        "movement": [
+          "The distant and local options start different travel scenes; staying home leaves the routes inactive."
+        ],
+        "obstacle_markers": [],
+        "option_id": null,
+        "scene_id": "visual_scene_861b75d557b966a5d224e1b32b38bffe",
+        "scene_kind": "desired",
+        "schema_version": "rei-native-visual-scene-spec-v1",
+        "self_position": "unspecified",
+        "status_relations": [
+          "Centered at the route decision point beside the companion.",
+          "not_relevant"
+        ]
+      },
+      "option_rollouts": [
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "composition": [
+            "A trusted close person travels with self.",
+            "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+            "Self and the companion enter the distant coastal route.",
+            "The destination, route, and coastal experience are explicitly attractive to self.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "entities": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the distant coastal route.",
+            "companion",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_destination"
+          ],
+          "group_belonging": "not_relevant",
+          "inferred_elements": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the distant coastal route.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+            "The inactive route and booking threshold are obstacles; no rival is present.",
+            "not_relevant"
+          ],
+          "movement": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "obstacle_markers": [],
+          "option_id": "utility_trip_book",
+          "scene_id": "visual_scene_14c829949985e782cb94cca7b8522fd1",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [],
+          "composition": [
+            "A trusted close person travels with self.",
+            "Both coastal routes remain inactive and self stays in the home scene.",
+            "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+            "The destination, route, and coastal experience are explicitly attractive to self.",
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "entities": [
+            "Both coastal routes remain inactive and self stays in the home scene.",
+            "Centered at the route decision point beside the companion.",
+            "companion",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "utility_ev_destination"
+          ],
+          "group_belonging": "not_relevant",
+          "inferred_elements": [
+            "Both coastal routes remain inactive and self stays in the home scene.",
+            "Centered at the route decision point beside the companion.",
+            "The inactive route and booking threshold are obstacles; no rival is present.",
+            "not_relevant"
+          ],
+          "movement": [],
+          "obstacle_markers": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "option_id": "utility_trip_home",
+          "scene_id": "visual_scene_11e836d0be307fb392798654abb08309",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        {
+          "attention_structure": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "composition": [
+            "A trusted close person travels with self.",
+            "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+            "Self and the companion enter the smaller local coastal route.",
+            "The destination, route, and coastal experience are explicitly attractive to self.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "entities": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the smaller local coastal route.",
+            "companion",
+            "self"
+          ],
+          "grounded_evidence_ids": [
+            "utility_ev_companion",
+            "utility_ev_destination"
+          ],
+          "group_belonging": "not_relevant",
+          "inferred_elements": [
+            "Centered at the route decision point beside the companion.",
+            "Self and the companion enter the smaller local coastal route.",
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image.",
+            "The inactive route and booking threshold are obstacles; no rival is present.",
+            "not_relevant"
+          ],
+          "movement": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "obstacle_markers": [],
+          "option_id": "utility_trip_local",
+          "scene_id": "visual_scene_d2fe21ab795e1f056acd12a8673679db",
+          "scene_kind": "option_rollout",
+          "schema_version": "rei-native-visual-scene-spec-v1",
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        }
+      ]
+    },
+    "counterfactual_lineage": [
+      {
+        "actual_scene_signature": "c1f12572fb7caff37ec623cbc957c5d2f2b603277e628f3a070bcd99c2c043dc",
+        "candidate_counterfactual_signature": "f8c88ddd687230b51b9bc34e603bdaac17fc071176a232215f2bed9b0cad8ba0",
+        "delta": {
+          "attention": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "belonging": "not_relevant",
+          "composition_changes": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "entities_added": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "entities_removed": [],
+          "movement": [
+            "Self and the companion enter the distant coastal route."
+          ],
+          "obstacle_persistence": [],
+          "obstacle_removal": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        "evidence_basis_ids": [
+          "utility_ev_destination",
+          "utility_ev_companion"
+        ],
+        "option_id": "utility_trip_book"
+      },
+      {
+        "actual_scene_signature": "e8da3a63b115db6aa7c8a4d36313227d6864a8a0fc688f32ef2f754bc79147e3",
+        "candidate_counterfactual_signature": "fd24412c068a4bb5a405b3a4314f90e8f76d90bd2c78dfcc8edc2ca736aebbb1",
+        "delta": {
+          "attention": [],
+          "attraction_markers": [],
+          "belonging": "not_relevant",
+          "composition_changes": [
+            "Both coastal routes remain inactive and self stays in the home scene."
+          ],
+          "entities_added": [
+            "Both coastal routes remain inactive and self stays in the home scene."
+          ],
+          "entities_removed": [],
+          "movement": [],
+          "obstacle_persistence": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "obstacle_removal": [],
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        "evidence_basis_ids": [
+          "utility_ev_destination"
+        ],
+        "option_id": "utility_trip_home"
+      },
+      {
+        "actual_scene_signature": "52e58b347fc5c55144fc8479d2aeeb1e0b23c0b6388f8ba3991beab8c48511e7",
+        "candidate_counterfactual_signature": "544f97b945cd9f3400fc7db40a18d8ead5ef5ba55febee23b20bb01e8231656d",
+        "delta": {
+          "attention": [],
+          "attraction_markers": [
+            "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+          ],
+          "belonging": "not_relevant",
+          "composition_changes": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "entities_added": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "entities_removed": [],
+          "movement": [
+            "Self and the companion enter the smaller local coastal route."
+          ],
+          "obstacle_persistence": [],
+          "obstacle_removal": [
+            "The inactive route and booking threshold are obstacles; no rival is present."
+          ],
+          "self_position": "Centered at the route decision point beside the companion.",
+          "status_relations": []
+        },
+        "evidence_basis_ids": [
+          "utility_ev_destination",
+          "utility_ev_companion"
+        ],
+        "option_id": "utility_trip_local"
+      }
+    ],
+    "image_generation_calls": 0,
+    "mode": "manual_structured_core_route",
+    "packet": {
+      "actor_positions": [],
+      "aesthetic_cues": [
+        "A trusted close person travels with self.",
+        "The destination, route, and coastal experience are explicitly attractive to self."
+      ],
+      "allowed_option_ids": [
+        "utility_trip_book",
+        "utility_trip_home",
+        "utility_trip_local"
+      ],
+      "caveat": "Profilno slep strukturiran paket. Vsebina besedila ni semantično klasificirana in paket ne vsebuje Emocieve izbire. TRIAD-S2 research adapter adds only the sealed grounded evidence basis for manual option counterfactual scenes; the exact source SceneEvent hash is preserved by the enclosing sealed call lineage rather than asserted as an active-router packet.",
+      "evidence_ids": [
+        "utility_ev_companion",
+        "utility_ev_destination"
+      ],
+      "explicit_identity_cues": [
+        "companion",
+        "self"
+      ],
+      "grounded_visual_cues": [
+        "A trusted close person travels with self.",
+        "The destination, route, and coastal experience are explicitly attractive to self."
+      ],
+      "movement_cues": [],
+      "observed_attention": [],
+      "packet_id": "emocio_packet_3c50e9fd3062c8a6ee87d88b438f31de",
+      "scene_id": "triad_iso_e1_emocio_scene_cd02f3cc7a3beb2132cf049847345a05",
+      "schema_version": "rei-native-emocio-input-packet-v1",
+      "social_layout": [
+        "companion",
+        "self"
+      ]
+    },
+    "scene": {
+      "actors": [
+        "self",
+        "companion"
+      ],
+      "constraints": [
+        "Structured visual core route only; no image is generated.",
+        "Material utility and protective safety are not desired-image cues."
+      ],
+      "event_id": "triad_iso_e1_emocio_scene_cd02f3cc7a3beb2132cf049847345a05",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "A trusted close person travels with self.",
+          "evidence_id": "utility_ev_companion",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "image",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:emocio:utility_ev_companion"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The destination, route, and coastal experience are explicitly attractive to self.",
+          "evidence_id": "utility_ev_destination",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "image",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:emocio:utility_ev_destination"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Book the described trip.",
+          "label": "Book the described trip.",
+          "option_id": "utility_trip_book",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Take a cheaper local coastal trip.",
+          "label": "Take a cheaper local coastal trip.",
+          "option_id": "utility_trip_local",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not book travel and remain at home.",
+          "label": "Do not book travel and remain at home.",
+          "option_id": "utility_trip_home",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": []
+    },
+    "world": {
+      "attraction_patterns": [
+        "The distant coast is explicitly attractive; the local coast carries a smaller but still grounded experience image."
+      ],
+      "broken_scenes": [
+        "The coast remains outside the active scene and self has no travel movement or new experience."
+      ],
+      "desired_scenes": [
+        "Self is centered in vivid coastal movement and immediate shared experience, without a public-recognition scene."
+      ],
+      "motor_patterns": [
+        "The distant and local options start different travel scenes; staying home leaves the routes inactive."
+      ],
+      "schema_version": "rei-native-emocio-world-v1",
+      "social_identity_motifs": [
+        "Centered at the route decision point beside the companion.",
+        "not_relevant",
+        "not_relevant"
+      ],
+      "visual_memories": [
+        "Self and a trusted companion face an attractive distant coast, a smaller local coast, and a home path."
+      ],
+      "world_id": "triad_iso_e1_emocio_world_42cf5a2f5a2a5198ed00ed1649cdee1c"
+    }
+  },
+  "instinkt": {
+    "body_state": {
+      "arousal": 0.5,
+      "attachment_security": 0.65,
+      "body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+      "boundary_integrity": 0.8,
+      "energy": 0.75,
+      "escape_availability": 0.65,
+      "fatigue": 0.2,
+      "pain": 0.0,
+      "physical_integrity": 1.0,
+      "predictability": 0.5,
+      "resource_security": 0.65,
+      "schema_version": "rei-native-body-state-v1",
+      "tension": 0.45,
+      "trust": 0.55,
+      "uncertainty": 0.55
+    },
+    "call_spec": {
+      "call_id": "provider_call_21d9ca90fbfcc6f29c61247a1540afc7",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "Provider-free deterministic native execution has no external fallback.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+        "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "option_effect_2c611fcd66963aa41b436d2e51781a20",
+        "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+        "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+        "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+        "triad_iso_e1_instinkt_scene_7e3817d5b6a6eebf89fb6275a7e78f18"
+      ],
+      "parameters": [],
+      "provider": {
+        "implementation": "rei.instinkt.process_instinkt",
+        "implementation_revision": "b11-v1",
+        "kind": "body_dynamics",
+        "model": null,
+        "model_revision": null,
+        "provider_id": "provider_48ffaa63a58e74bcb764efe346af5811",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": false
+      },
+      "request_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": null,
+      "timeout_seconds": 30.0
+    },
+    "effect_lineage": [
+      {
+        "consequence_fact": "Self enters verified travel with a trusted companion and a bounded financial cancellation loss.",
+        "derived_body_deltas": {
+          "attachment_security": 0.15,
+          "escape_availability": 0.12,
+          "predictability": 0.08,
+          "resource_security": -0.15,
+          "tension": -0.05,
+          "trust": 0.12
+        },
+        "effect_categories": [
+          "bounded_cancellation",
+          "resource_commitment_25",
+          "trusted_attachment_support"
+        ],
+        "effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+        "effect_signature": "71bdd52dfb23856b0165b53f2718d73f04c96d99e475e308c128eca7e5349383",
+        "option_id": "utility_trip_book",
+        "source_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_cost",
+          "utility_ev_reversibility",
+          "utility_ev_safety"
+        ],
+        "source_evidence_text": [
+          "A trusted close person travels with self.",
+          "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "Transport, lodging, and the return path are verified."
+        ]
+      },
+      {
+        "consequence_fact": "Self preserves the travel budget; no claim is made that home is universally free of danger.",
+        "derived_body_deltas": {
+          "resource_security": 0.15
+        },
+        "effect_categories": [
+          "resource_preserved"
+        ],
+        "effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+        "effect_signature": "8998e0cef6db8c6a082d98ed1002837b7339ae909cbc66720d9079807b48383e",
+        "option_id": "utility_trip_home",
+        "source_evidence_ids": [
+          "utility_ev_cost"
+        ],
+        "source_evidence_text": [
+          "The trip costs EUR 1200, or 25 percent of the discretionary budget."
+        ]
+      },
+      {
+        "consequence_fact": "Self enters a smaller local travel scene with the same trusted companion and no stated distant-trip commitment.",
+        "derived_body_deltas": {
+          "attachment_security": 0.15,
+          "predictability": 0.08,
+          "tension": -0.05,
+          "trust": 0.12
+        },
+        "effect_categories": [
+          "local_bounded_exposure",
+          "trusted_attachment_support"
+        ],
+        "effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+        "effect_signature": "0b4ccb83234a799510bd70dae8c60399e5d23dbf17397a167aa2b3b1e30e793a",
+        "option_id": "utility_trip_local",
+        "source_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_safety"
+        ],
+        "source_evidence_text": [
+          "A trusted close person travels with self.",
+          "Transport, lodging, and the return path are verified."
+        ]
+      }
+    ],
+    "mode": "typed_core_route",
+    "model_mapper_calls": 0,
+    "option_effects": [
+      {
+        "action_tendency": "conserve",
+        "association_cue_tokens": [
+          "bounded_cancellation",
+          "resource_commitment_25",
+          "trusted_attachment_support"
+        ],
+        "attachment_outcome": "grounded_consequence_delta:attachment_security:+0.150000",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": -0.05,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.12,
+            "dimension": "trust"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "attachment_security"
+          },
+          {
+            "delta": -0.15,
+            "dimension": "resource_security"
+          },
+          {
+            "delta": 0.12,
+            "dimension": "escape_availability"
+          },
+          {
+            "delta": 0.08,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+        "dominant_alarm": "grounded_core_route:bounded_cancellation+resource_commitment_25+trusted_attachment_support",
+        "effect_hash": "f7fa40fa3783fcdf9997377d3da3e828176ff1ccff0166bf29246170b13420a8",
+        "effect_id": "option_effect_30ac0b0a732ecadf7491dda1a884c319",
+        "escape_outcome": "grounded_consequence_delta:escape_availability:+0.120000",
+        "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+        "option_id": "utility_trip_book",
+        "protected_targets": [
+          "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+        "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "triggering_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_cost",
+          "utility_ev_reversibility",
+          "utility_ev_safety"
+        ],
+        "trust_outcome": "grounded_consequence_delta:trust:+0.120000"
+      },
+      {
+        "action_tendency": "maintain",
+        "association_cue_tokens": [
+          "resource_preserved"
+        ],
+        "attachment_outcome": "not_changed_by_grounded_consequence:attachment_security",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": 0.15,
+            "dimension": "resource_security"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+        "dominant_alarm": "grounded_core_route:resource_preserved",
+        "effect_hash": "6f6a55be4d81c97a5e487af41b338c3de8a784b5d0d2adab270bd37f66351e35",
+        "effect_id": "option_effect_2c611fcd66963aa41b436d2e51781a20",
+        "escape_outcome": "not_changed_by_grounded_consequence:escape_availability",
+        "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+        "option_id": "utility_trip_home",
+        "protected_targets": [
+          "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+        "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "triggering_evidence_ids": [
+          "utility_ev_cost"
+        ],
+        "trust_outcome": "not_changed_by_grounded_consequence:trust"
+      },
+      {
+        "action_tendency": "maintain",
+        "association_cue_tokens": [
+          "local_bounded_exposure",
+          "trusted_attachment_support"
+        ],
+        "attachment_outcome": "grounded_consequence_delta:attachment_security:+0.150000",
+        "base_predicted_loss": 0.5,
+        "base_recoverability": 0.5,
+        "body_deltas": [
+          {
+            "delta": -0.05,
+            "dimension": "tension"
+          },
+          {
+            "delta": 0.12,
+            "dimension": "trust"
+          },
+          {
+            "delta": 0.15,
+            "dimension": "attachment_security"
+          },
+          {
+            "delta": 0.08,
+            "dimension": "predictability"
+          }
+        ],
+        "boundary_outcome": "not_changed_by_grounded_consequence:boundary_integrity",
+        "dominant_alarm": "grounded_core_route:local_bounded_exposure+trusted_attachment_support",
+        "effect_hash": "34af13084d0b994eaf8ede2c25fe954dc0270ee25e13a60f34b526ec4c679e1c",
+        "effect_id": "option_effect_8c56ab1fc191d0dc18d527ae4305e011",
+        "escape_outcome": "not_changed_by_grounded_consequence:escape_availability",
+        "minimum_safety_condition": "the grounded consequence and its cited evidence remain valid",
+        "option_id": "utility_trip_local",
+        "protected_targets": [
+          "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve."
+        ],
+        "schema_version": "rei-native-option-body-effect-v1",
+        "source_packet_hash": "1aff9266e6044c7d08bbb56dd6e57ea41ef10789309fde353707b4bf81472ec4",
+        "source_packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+        "triggering_evidence_ids": [
+          "utility_ev_companion",
+          "utility_ev_safety"
+        ],
+        "trust_outcome": "grounded_consequence_delta:trust:+0.120000"
+      }
+    ],
+    "packet": {
+      "attachment_cues": [
+        "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+        "The trusted close companion remains with self through the travel options."
+      ],
+      "boundary_cues": [
+        "The 24-hour cancellation rule defines the purchase boundary."
+      ],
+      "caveat": "TRIAD-ISO-E1 profile-blind typed core-route packet. Effects derive only from grounded option-specific consequence evidence; no preferred option, character, governance tier, or raw-scene claim.",
+      "escape_cues": [
+        "Cancellation is available for 24 hours at a 10-percent cost; physical return is verified.",
+        "Most of the purchase is financially recoverable inside 24 hours; physical return is verified.",
+        "The destination is distant, but the route, lodging, transport, and companion context are verified."
+      ],
+      "evidence_ids": [
+        "utility_ev_companion",
+        "utility_ev_cost",
+        "utility_ev_reversibility",
+        "utility_ev_safety"
+      ],
+      "explicit_body_cues": [],
+      "option_ids": [
+        "utility_trip_book",
+        "utility_trip_home",
+        "utility_trip_local"
+      ],
+      "packet_id": "instinkt_packet_86bd5cda0c8c83594c631fc30fd0f271",
+      "physical_cues": [
+        "A 25-percent budget commitment and 10-percent cancellation cost are possible losses.",
+        "No unverified travel danger is grounded; general travel exposure remains bounded."
+      ],
+      "scarcity_cues": [
+        "The distant trip uses 25 percent of the discretionary budget; future major costs are unknown."
+      ],
+      "scene_id": "triad_iso_e1_instinkt_scene_7e3817d5b6a6eebf89fb6275a7e78f18",
+      "schema_version": "rei-native-instinkt-input-packet-v1",
+      "source_body_state_id": "triad_iso_e1_body_state_4f099f5b8bec19ccf098535735982efb",
+      "trust_cues": [
+        "A trusted close companion and verified providers are grounded."
+      ],
+      "uncertainty_cues": [
+        "Most of the purchase is financially recoverable inside 24 hours; physical return is verified.",
+        "No unverified travel danger is grounded; general travel exposure remains bounded."
+      ]
+    },
+    "raw_scene_perception_claim": false,
+    "scene": {
+      "actors": [
+        "self"
+      ],
+      "constraints": [
+        "Typed protective core route only; no raw-scene perception is claimed.",
+        "Option effects derive only from grounded option consequences."
+      ],
+      "event_id": "triad_iso_e1_instinkt_scene_7e3817d5b6a6eebf89fb6275a7e78f18",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "A trusted close person travels with self.",
+          "evidence_id": "utility_ev_companion",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "body",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:instinkt:utility_ev_companion"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "evidence_id": "utility_ev_cost",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "body",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:instinkt:utility_ev_cost"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "evidence_id": "utility_ev_reversibility",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "body",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:instinkt:utility_ev_reversibility"
+        },
+        {
+          "confidence": 1.0,
+          "content": "Transport, lodging, and the return path are verified.",
+          "evidence_id": "utility_ev_safety",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "body",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:instinkt:utility_ev_safety"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Book the described trip.",
+          "label": "Book the described trip.",
+          "option_id": "utility_trip_book",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Take a cheaper local coastal trip.",
+          "label": "Take a cheaper local coastal trip.",
+          "option_id": "utility_trip_local",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not book travel and remain at home.",
+          "label": "Do not book travel and remain at home.",
+          "option_id": "utility_trip_home",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "Self's physical integrity, trusted attachment context, return ability, and necessary budget reserve.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": []
+    },
+    "simulation_config": {
+      "association_loss_weight": 0.2,
+      "association_recovery_penalty": 0.2,
+      "config_hash": "89da6eea57dd99e39fa0422995e79ed673b2662fd7537bfe714dde394515fa93",
+      "config_id": "instinkt_config_3aa6cd648d6cd09e495b510b3180485c",
+      "intensity_arousal_weight": 0.15,
+      "intensity_loss_weight": 0.6,
+      "intensity_tension_weight": 0.25,
+      "loss_attachment_weight": 0.05,
+      "loss_base_weight": 0.5,
+      "loss_boundary_weight": 0.05,
+      "loss_integrity_weight": 0.15,
+      "loss_pain_weight": 0.1,
+      "loss_resource_weight": 0.05,
+      "loss_tension_weight": 0.1,
+      "max_abs_delta_per_step": 0.25,
+      "max_options": 16,
+      "policy_recoverability_penalty": 0.25,
+      "policy_tension_penalty": 0.15,
+      "policy_uncertainty_penalty": 0.1,
+      "recovery_attachment_weight": 0.05,
+      "recovery_base_weight": 0.5,
+      "recovery_energy_weight": 0.15,
+      "recovery_escape_weight": 0.1,
+      "recovery_predictability_weight": 0.1,
+      "recovery_resource_weight": 0.05,
+      "recovery_trust_weight": 0.05,
+      "rollout_steps": 3,
+      "schema_version": "rei-native-instinkt-simulation-config-v1",
+      "tie_epsilon": 1e-12
+    }
+  },
+  "operational_en": {
+    "event": "Self is deciding about travel to a rare and attractive coastal destination.",
+    "facts": [
+      {
+        "evidence_id": "utility_ev_destination",
+        "text": "The destination, route, and coastal experience are explicitly attractive to self."
+      },
+      {
+        "evidence_id": "utility_ev_cost",
+        "text": "The trip costs EUR 1200, or 25 percent of the discretionary budget."
+      },
+      {
+        "evidence_id": "utility_ev_rarity",
+        "text": "The same offer was available once during the last three years."
+      },
+      {
+        "evidence_id": "utility_ev_reversibility",
+        "text": "The booking can be cancelled within 24 hours at a 10-percent cost."
+      },
+      {
+        "evidence_id": "utility_ev_companion",
+        "text": "A trusted close person travels with self."
+      },
+      {
+        "evidence_id": "utility_ev_safety",
+        "text": "Transport, lodging, and the return path are verified."
+      },
+      {
+        "evidence_id": "utility_ev_benefit",
+        "text": "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit."
+      },
+      {
+        "evidence_id": "utility_ev_beneficiary",
+        "text": "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+      }
+    ],
+    "options": [
+      {
+        "description": "Book the described trip.",
+        "option_id": "utility_trip_book"
+      },
+      {
+        "description": "Take a cheaper local coastal trip.",
+        "option_id": "utility_trip_local"
+      },
+      {
+        "description": "Do not book travel and remain at home.",
+        "option_id": "utility_trip_home"
+      }
+    ],
+    "unknowns": [
+      {
+        "text": "Whether other major costs will arise next month is unknown.",
+        "unknown_id": "utility_unknown_future_costs"
+      },
+      {
+        "text": "How satisfying the leisure experience will be is unknown.",
+        "unknown_id": "utility_unknown_demo_result"
+      }
+    ]
+  },
+  "pair_id": "trip_racio_utility",
+  "profile_blind": true,
+  "racio": {
+    "call_spec": {
+      "call_id": "provider_call_e9b55cc950f826f9983273de604b9b24",
+      "fallback_policy": {
+        "mode": "none",
+        "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+        "plan": null
+      },
+      "input_artifact_ids": [
+        "racio_packet_7de47e7bb77a46226fec818a60f3b6df",
+        "triad_iso_e1_racio_world_d0e05fb98f4763a9717e577eee119668",
+        "utility_ev_beneficiary",
+        "utility_ev_benefit",
+        "utility_ev_cost",
+        "utility_ev_rarity",
+        "utility_ev_reversibility"
+      ],
+      "parameters": [
+        {
+          "canonical_json_value": "false",
+          "name": "allow_remote"
+        },
+        {
+          "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+          "name": "endpoint"
+        },
+        {
+          "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+          "name": "format_schema_sha256"
+        },
+        {
+          "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+          "name": "instruction_sha256"
+        },
+        {
+          "canonical_json_value": "\"10m\"",
+          "name": "keep_alive"
+        },
+        {
+          "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+          "name": "local_model_language_policy_id"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "logprobs"
+        },
+        {
+          "canonical_json_value": "65536",
+          "name": "num_ctx"
+        },
+        {
+          "canonical_json_value": "999",
+          "name": "num_gpu"
+        },
+        {
+          "canonical_json_value": "1536",
+          "name": "num_predict"
+        },
+        {
+          "canonical_json_value": "\"0.31.2\"",
+          "name": "ollama_server_version"
+        },
+        {
+          "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+          "name": "operator_expected_model_digest"
+        },
+        {
+          "canonical_json_value": "\"operational_en_only\"",
+          "name": "presentation_mode"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "raw"
+        },
+        {
+          "canonical_json_value": "true",
+          "name": "require_full_gpu"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "shift"
+        },
+        {
+          "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+          "name": "source_provider_revision"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "stream"
+        },
+        {
+          "canonical_json_value": "0.0",
+          "name": "temperature"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "think"
+        },
+        {
+          "canonical_json_value": "64",
+          "name": "top_k"
+        },
+        {
+          "canonical_json_value": "0.95",
+          "name": "top_p"
+        },
+        {
+          "canonical_json_value": "false",
+          "name": "truncate"
+        }
+      ],
+      "provider": {
+        "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+        "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+        "kind": "text_reasoner",
+        "model": "gemma4:31b",
+        "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+        "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+        "schema_version": "rei-native-provider-identity-v1",
+        "uses_model": true
+      },
+      "request_id": "racio_packet_7de47e7bb77a46226fec818a60f3b6df",
+      "safety_notice": {
+        "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+        "conceptual_simulator": true,
+        "diagnostic_use_allowed": false,
+        "real_person_characterization_allowed": false
+      },
+      "schema_version": "rei-native-provider-call-spec-v1",
+      "seed": 314159,
+      "timeout_seconds": 600.0
+    },
+    "packet": {
+      "allowed_option_ids": [
+        "utility_trip_book",
+        "utility_trip_local",
+        "utility_trip_home"
+      ],
+      "caveat": "Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.",
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "evidence_ids": [
+        "utility_ev_cost",
+        "utility_ev_rarity",
+        "utility_ev_reversibility",
+        "utility_ev_benefit",
+        "utility_ev_beneficiary"
+      ],
+      "explicit_consequences": [
+        {
+          "consequence": "Beneficiary self: Self commits EUR 1200 for a stated pleasurable experience with no separate strategic or material return.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_rarity",
+            "utility_ev_reversibility",
+            "utility_ev_benefit",
+            "utility_ev_beneficiary"
+          ],
+          "option_id": "utility_trip_book"
+        },
+        {
+          "consequence": "Beneficiary self: Self incurs a smaller unquantified cost for a local coastal experience with no separate strategic or material return.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_rarity",
+            "utility_ev_reversibility",
+            "utility_ev_benefit",
+            "utility_ev_beneficiary"
+          ],
+          "option_id": "utility_trip_local"
+        },
+        {
+          "consequence": "Beneficiary self: Self preserves the travel budget and receives no travel experience.",
+          "evidence_ids": [
+            "utility_ev_cost",
+            "utility_ev_rarity",
+            "utility_ev_reversibility",
+            "utility_ev_benefit",
+            "utility_ev_beneficiary"
+          ],
+          "option_id": "utility_trip_home"
+        }
+      ],
+      "explicit_facts": [
+        "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+        "The same offer was available once during the last three years.",
+        "The booking can be cancelled within 24 hours at a 10-percent cost.",
+        "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+        "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+      ],
+      "explicit_options": [
+        {
+          "description": "Book the described trip.",
+          "label": "Book the described trip.",
+          "option_id": "utility_trip_book",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Take a cheaper local coastal trip.",
+          "label": "Take a cheaper local coastal trip.",
+          "option_id": "utility_trip_local",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not book travel and remain at home.",
+          "label": "Do not book travel and remain at home.",
+          "option_id": "utility_trip_home",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "explicit_unknowns": [
+        "Whether other major costs will arise next month is unknown.",
+        "How satisfying the leisure experience will be is unknown."
+      ],
+      "language": "en",
+      "numeric_cues": [
+        1200,
+        25,
+        24,
+        10
+      ],
+      "packet_id": "racio_packet_7de47e7bb77a46226fec818a60f3b6df",
+      "previous_racio_projection_ids": [],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "scene_id": "triad_iso_e1_racio_scene_95e1b247c45800f0b3df50a27cf3afa0",
+      "schema_version": "rei-native-racio-input-packet-v1",
+      "source_scene_hash": "e893d1b9ef811d461d79cb017646b6ef15e30458a76c7d929c087e695b39e46c",
+      "symbolic_and_language_cues": [
+        "Self is deciding about travel to a rare and attractive coastal destination.",
+        "Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+        "Explicit beneficiary: self"
+      ],
+      "time": [
+        "Booking occurs before the 24-hour cancellation boundary.",
+        "Travel occurs after booking.",
+        "Possible future costs occur after the purchase."
+      ],
+      "world": {
+        "commitments": [
+          "Opportunity cost: Travel spending cannot cover other unknown costs; not travelling gives up the explicitly stated experience.",
+          "Control and enforceability: The cancellation rule is documented; satisfaction and future costs are not controlled outcomes."
+        ],
+        "explicit_beliefs": [
+          "Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+          "Explicit beneficiary: self"
+        ],
+        "facts": [
+          "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "The same offer was available once during the last three years.",
+          "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+          "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+        ],
+        "rules": [
+          "Compassion is not assumed as an unstated decision goal.",
+          "A benefit must be explicit, beneficiary-addressed, and grounded.",
+          "Attraction or rarity is not an undeclared strategic return."
+        ],
+        "schema_version": "rei-native-racio-world-v1",
+        "timelines": [
+          "Booking occurs before the 24-hour cancellation boundary.",
+          "Travel occurs after booking.",
+          "Possible future costs occur after the purchase."
+        ],
+        "world_id": "triad_iso_e1_racio_world_d0e05fb98f4763a9717e577eee119668"
+      }
+    },
+    "request_payload": {
+      "format": {
+        "additionalProperties": false,
+        "description": "Untrusted provider output before it becomes a native conclusion.",
+        "properties": {
+          "abstains": {
+            "title": "Abstains",
+            "type": "boolean"
+          },
+          "causal_sequence": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Causal Sequence",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_ids_used": {
+            "items": {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Evidence Ids Used",
+            "type": "array"
+          },
+          "explicit_goal": {
+            "minLength": 1,
+            "title": "Explicit Goal",
+            "type": "string"
+          },
+          "facts_used": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Facts Used",
+            "type": "array"
+          },
+          "main_objection": {
+            "minLength": 1,
+            "title": "Main Objection",
+            "type": "string"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "uncertainty": {
+            "minLength": 1,
+            "title": "Uncertainty",
+            "type": "string"
+          },
+          "unknowns": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Unknowns",
+            "type": "array"
+          },
+          "utility_structure": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Utility Structure",
+            "type": "array"
+          }
+        },
+        "required": [
+          "option_id",
+          "facts_used",
+          "evidence_ids_used",
+          "unknowns",
+          "causal_sequence",
+          "utility_structure",
+          "explicit_goal",
+          "main_objection",
+          "confidence",
+          "abstains",
+          "uncertainty"
+        ],
+        "title": "RacioStructuredOutput",
+        "type": "object"
+      },
+      "keep_alive": "10m",
+      "logprobs": false,
+      "model": "gemma4:31b",
+      "options": {
+        "num_ctx": 65536,
+        "num_gpu": 999,
+        "num_predict": 1536,
+        "seed": 314159,
+        "temperature": 0.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "prompt": "{\"allowed_option_ids\":[\"utility_trip_book\",\"utility_trip_local\",\"utility_trip_home\"],\"caveat\":\"Profile-blind verbal-analytical packet for the conceptual REI simulator; it contains no character authority or hidden Emocio/Instinkt motive.\",\"constraints\":[\"Use only the explicit facts and unknowns in this packet.\",\"Do not infer undeclared strategic or material benefit.\",\"Retain bounded uncertainty and select only a public option.\"],\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\"],\"explicit_consequences\":[{\"consequence\":\"Beneficiary self: Self commits EUR 1200 for a stated pleasurable experience with no separate strategic or material return.\",\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\"],\"option_id\":\"utility_trip_book\"},{\"consequence\":\"Beneficiary self: Self incurs a smaller unquantified cost for a local coastal experience with no separate strategic or material return.\",\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\"],\"option_id\":\"utility_trip_local\"},{\"consequence\":\"Beneficiary self: Self preserves the travel budget and receives no travel experience.\",\"evidence_ids\":[\"utility_ev_cost\",\"utility_ev_rarity\",\"utility_ev_reversibility\",\"utility_ev_benefit\",\"utility_ev_beneficiary\"],\"option_id\":\"utility_trip_home\"}],\"explicit_facts\":[\"The trip costs EUR 1200, or 25 percent of the discretionary budget.\",\"The same offer was available once during the last three years.\",\"The booking can be cancelled within 24 hours at a 10-percent cost.\",\"The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.\",\"Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.\"],\"explicit_options\":[{\"description\":\"Book the described trip.\",\"label\":\"Book the described trip.\",\"option_id\":\"utility_trip_book\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Take a cheaper local coastal trip.\",\"label\":\"Take a cheaper local coastal trip.\",\"option_id\":\"utility_trip_local\",\"schema_version\":\"rei-native-decision-option-v1\"},{\"description\":\"Do not book travel and remain at home.\",\"label\":\"Do not book travel and remain at home.\",\"option_id\":\"utility_trip_home\",\"schema_version\":\"rei-native-decision-option-v1\"}],\"explicit_unknowns\":[\"Whether other major costs will arise next month is unknown.\",\"How satisfying the leisure experience will be is unknown.\"],\"language\":\"en\",\"numeric_cues\":[1200,25,24,10],\"packet_id\":\"racio_packet_7de47e7bb77a46226fec818a60f3b6df\",\"previous_racio_projection_ids\":[],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"scene_id\":\"triad_iso_e1_racio_scene_95e1b247c45800f0b3df50a27cf3afa0\",\"schema_version\":\"rei-native-racio-input-packet-v1\",\"source_scene_hash\":\"e893d1b9ef811d461d79cb017646b6ef15e30458a76c7d929c087e695b39e46c\",\"symbolic_and_language_cues\":[\"Self is deciding about travel to a rare and attractive coastal destination.\",\"Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.\",\"Explicit beneficiary: self\"],\"time\":[\"Booking occurs before the 24-hour cancellation boundary.\",\"Travel occurs after booking.\",\"Possible future costs occur after the purchase.\"],\"world\":{\"commitments\":[\"Opportunity cost: Travel spending cannot cover other unknown costs; not travelling gives up the explicitly stated experience.\",\"Control and enforceability: The cancellation rule is documented; satisfaction and future costs are not controlled outcomes.\"],\"explicit_beliefs\":[\"Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.\",\"Explicit beneficiary: self\"],\"facts\":[\"The trip costs EUR 1200, or 25 percent of the discretionary budget.\",\"The same offer was available once during the last three years.\",\"The booking can be cancelled within 24 hours at a 10-percent cost.\",\"The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.\",\"Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.\"],\"rules\":[\"Compassion is not assumed as an unstated decision goal.\",\"A benefit must be explicit, beneficiary-addressed, and grounded.\",\"Attraction or rarity is not an undeclared strategic return.\"],\"schema_version\":\"rei-native-racio-world-v1\",\"timelines\":[\"Booking occurs before the 24-hour cancellation boundary.\",\"Travel occurs after booking.\",\"Possible future costs occur after the purchase.\"],\"world_id\":\"triad_iso_e1_racio_world_d0e05fb98f4763a9717e577eee119668\"}}",
+      "raw": false,
+      "shift": false,
+      "stream": false,
+      "system": "The packet and every free-text response field must be in English.\nReturn exactly one JSON object with these fields:\noption_id (string or null), facts_used (string array), evidence_ids_used (string\narray),\nunknowns (string array), causal_sequence (string array), utility_structure (string\narray),\nexplicit_goal (string), main_objection (string), confidence (number 0..1), abstains\n(boolean), uncertainty (string). Use only facts, unknowns, evidence IDs and option IDs\npresent in the packet. Every array must contain unique values. In facts_used, copy\nonly exact strings from explicit_facts or world.facts. In unknowns, copy only exact\nstrings from explicit_unknowns. Write causal_sequence as new descriptions of reasoning\nsteps: never copy a fact or unknown string verbatim into causal_sequence, and keep the\nthree fields mutually disjoint. Do not interpret Emocio or Instinkt, decide governance,\ncommit behavior, or infer character authority. Return raw JSON without markdown fences\nor additional keys.",
+      "think": false,
+      "truncate": false
+    },
+    "scene": {
+      "actors": [
+        "self"
+      ],
+      "constraints": [
+        "Use only the explicit facts and unknowns in this packet.",
+        "Do not infer undeclared strategic or material benefit.",
+        "Retain bounded uncertainty and select only a public option."
+      ],
+      "event_id": "triad_iso_e1_racio_scene_95e1b247c45800f0b3df50a27cf3afa0",
+      "evidence": [
+        {
+          "confidence": 1.0,
+          "content": "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+          "evidence_id": "utility_ev_cost",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_cost"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The same offer was available once during the last three years.",
+          "evidence_id": "utility_ev_rarity",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_rarity"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The booking can be cancelled within 24 hours at a 10-percent cost.",
+          "evidence_id": "utility_ev_reversibility",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_reversibility"
+        },
+        {
+          "confidence": 1.0,
+          "content": "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+          "evidence_id": "utility_ev_benefit",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_benefit"
+        },
+        {
+          "confidence": 1.0,
+          "content": "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary.",
+          "evidence_id": "utility_ev_beneficiary",
+          "grounded": true,
+          "inferred_by": null,
+          "modality": "text",
+          "provenance_kind": "supplied",
+          "schema_version": "rei-native-evidence-v1",
+          "source_ref": "triad-iso-e1:racio:utility_ev_beneficiary"
+        }
+      ],
+      "language": "en",
+      "options": [
+        {
+          "description": "Book the described trip.",
+          "label": "Book the described trip.",
+          "option_id": "utility_trip_book",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Take a cheaper local coastal trip.",
+          "label": "Take a cheaper local coastal trip.",
+          "option_id": "utility_trip_local",
+          "schema_version": "rei-native-decision-option-v1"
+        },
+        {
+          "description": "Do not book travel and remain at home.",
+          "label": "Do not book travel and remain at home.",
+          "option_id": "utility_trip_home",
+          "schema_version": "rei-native-decision-option-v1"
+        }
+      ],
+      "raw_input": "Self is deciding about travel to a rare and attractive coastal destination.",
+      "schema_version": "rei-native-scene-event-v1",
+      "unknowns": [
+        "Whether other major costs will arise next month is unknown.",
+        "How satisfying the leisure experience will be is unknown."
+      ]
+    },
+    "world": {
+      "commitments": [
+        "Opportunity cost: Travel spending cannot cover other unknown costs; not travelling gives up the explicitly stated experience.",
+        "Control and enforceability: The cancellation rule is documented; satisfaction and future costs are not controlled outcomes."
+      ],
+      "explicit_beliefs": [
+        "Explicit goal: Decide whether to spend the stated budget amount on the explicitly pleasurable experience.",
+        "Explicit beneficiary: self"
+      ],
+      "facts": [
+        "The trip costs EUR 1200, or 25 percent of the discretionary budget.",
+        "The same offer was available once during the last three years.",
+        "The booking can be cancelled within 24 hours at a 10-percent cost.",
+        "The trip is explicitly only a leisure and pleasurable experience; it includes no business, ownership, educational, or other strategic or material benefit.",
+        "Self receives the explicitly pleasurable experience; there is no separate strategic or material beneficiary."
+      ],
+      "rules": [
+        "Compassion is not assumed as an unstated decision goal.",
+        "A benefit must be explicit, beneficiary-addressed, and grounded.",
+        "Attraction or rarity is not an undeclared strategic return."
+      ],
+      "schema_version": "rei-native-racio-world-v1",
+      "timelines": [
+        "Booking occurs before the 24-hour cancellation boundary.",
+        "Travel occurs after booking.",
+        "Possible future costs occur after the purchase."
+      ],
+      "world_id": "triad_iso_e1_racio_world_d0e05fb98f4763a9717e577eee119668"
+    }
+  },
+  "schema_version": "triad-iso-e1-sealed-inputs-v1",
+  "source_reference": {
+    "candidate_case_sha256": "b8c84b5a6d3614418185556c42090a24444a9b5a57a3109313dcb1d0ab55caa5",
+    "candidate_path": "Docs/evals/semantic_lab_v1/triad-route-isolation-p1-2026-07-23/route_isolation_corpus_candidate.json",
+    "case_id": "trip_racio_utility_pleasure"
+  }
+}
