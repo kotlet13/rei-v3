@@ -1,0 +1,57 @@
+{
+  "conclusion": {
+    "abstains": false,
+    "causal_sequence": [
+      "The borrower has a history of significant payment delays.",
+      "Providing the full amount without a contract exposes nearly half of available cash reserves with no legal repayment guarantee.",
+      "Offering a limited sum with a written agreement reduces financial exposure and establishes an enforceable date, though repayment remains uncertain.",
+      "Declining the loan completely eliminates risk to liquidity and ownership of funds."
+    ],
+    "conclusion_id": "racio_conclusion_36b24f6377815a32f5f535e73d2b5cbb",
+    "confidence": 1.0,
+    "evidence_ids_used": [
+      "loan_ev_need",
+      "loan_ev_history",
+      "loan_ev_reserve",
+      "loan_ev_terms",
+      "loan_ev_no_strategic_benefit"
+    ],
+    "explicit_goal": "Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.",
+    "facts_used": [
+      "A submitted invoice confirms an urgent home repair costing EUR 9000.",
+      "Two previous repayments were more than three months late.",
+      "The full amount is 45 percent of self's cash reserve.",
+      "The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.",
+      "The relationship provides no business, ownership, or other material benefit to self."
+    ],
+    "main_objection": "Past payment delays and the lack of a contract for the full amount create high risk for liquidity loss without guaranteed recovery.",
+    "mind": "R",
+    "option_id": "loan_decline",
+    "reasoning_provider_result_hash": "dd6c72b42939ab62ebfa7b71cee332035eef3fd35d2096dc89614f245be7d78e",
+    "reasoning_provider_result_id": "ollama_racio_response_c90dfbd041745025b8c6946b9f95d0ba",
+    "schema_version": "rei-native-racio-conclusion-v1",
+    "source_packet_hash": "08c6fbfa97321100cf3a5cccd656847c1f039d0402bdddc5f3b1fd8959863bb8",
+    "source_packet_id": "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+    "source_scene_id": "triad_iso_e1_racio_scene_a231fdd768a34e1639b2b22933259c8e",
+    "uncertainty": "The decision is based on prioritizing absolute protection of funds over an uncertain repayment outcome given the borrower's history.",
+    "unknowns": [
+      "Whether a new loan will be repaid on time is unknown.",
+      "Whether self will need a large part of the reserve during the next six months is unknown."
+    ],
+    "utility_structure": [
+      "loan_decline: Maximum protection of liquidity and ownership; zero risk of loss.",
+      "loan_limited_contract: Moderate risk to liquidity; partial funding for borrower; enforceable repayment date established.",
+      "loan_full: High risk to liquidity (45% reserve); full funding for borrower; no new contract or enforcement mechanism."
+    ]
+  },
+  "failure": null,
+  "packet_hash": "08c6fbfa97321100cf3a5cccd656847c1f039d0402bdddc5f3b1fd8959863bb8",
+  "pair_id": "loan_attachment_distance",
+  "processor_execution_count": 1,
+  "reused_for_case_ids": [
+    "loan_attachment_distance_close",
+    "loan_attachment_distance_distant"
+  ],
+  "schema_version": "triad-iso-e3-pair-racio-output-v1",
+  "status": "accepted"
+}

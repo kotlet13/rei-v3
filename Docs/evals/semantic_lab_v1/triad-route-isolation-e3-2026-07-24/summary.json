@@ -1,0 +1,58 @@
+{
+  "calls": 3,
+  "character_replay": 0,
+  "failure_categories": {},
+  "fallbacks": 0,
+  "global_rei_score": null,
+  "model_digest": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "non_target_route_stability": {
+    "factory_instinkt": true,
+    "loan_emocio": true,
+    "public_credit_instinkt": "legitimately_affected_by_named_audience",
+    "racio_pair_shared_all": true
+  },
+  "phase": "TRIAD-ISO-E3",
+  "pre_call_seal_sha256": "92f22a17bc2b3db18f1754ae83adf525d5d075632fffb4b2ce7a2f3866969de3",
+  "private_thinking_persisted": false,
+  "racio": {
+    "factory_public_status": {
+      "selected_option_id": "factory_verify",
+      "status": "accepted"
+    },
+    "loan_attachment_distance": {
+      "selected_option_id": "loan_decline",
+      "status": "accepted"
+    },
+    "public_credit_audience": {
+      "selected_option_id": "credit_public_confront",
+      "status": "accepted"
+    }
+  },
+  "retries": 0,
+  "route_observations": {
+    "factory_public_status": {
+      "emocio_option_difference": false,
+      "emocio_route_distinct": true,
+      "instinkt_option_difference": false,
+      "instinkt_route_distinct": false
+    },
+    "loan_attachment_distance": {
+      "emocio_option_difference": false,
+      "emocio_route_distinct": false,
+      "instinkt_option_difference": true,
+      "instinkt_route_distinct": true
+    },
+    "public_credit_audience": {
+      "emocio_option_difference": false,
+      "emocio_route_distinct": true,
+      "instinkt_option_difference": false,
+      "instinkt_route_distinct": true
+    }
+  },
+  "schema_version": "triad-iso-e3-summary-v1",
+  "status": "complete_three_pair_screen"
+}

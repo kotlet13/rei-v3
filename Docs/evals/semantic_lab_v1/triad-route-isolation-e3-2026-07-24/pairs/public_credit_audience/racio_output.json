@@ -1,0 +1,58 @@
+{
+  "conclusion": {
+    "abstains": false,
+    "causal_sequence": [
+      "A colleague has claimed sole authorship of a solution.",
+      "Existing repository records provide evidence of the user's prior authorship.",
+      "The leader possesses the authority to correct the official record based on this evidence.",
+      "Presenting the evidence during the meeting allows for immediate challenge, whereas private presentation delays it.",
+      "Since the correction mechanism and outcome depend solely on the leader's assessment regardless of timing, a public option is selected per constraints."
+    ],
+    "conclusion_id": "racio_conclusion_14ac1fcc5356733cd962d211e2b44774",
+    "confidence": 1.0,
+    "evidence_ids_used": [
+      "credit_ev_claim",
+      "credit_ev_record",
+      "credit_ev_correction",
+      "credit_ev_material",
+      "credit_ev_retaliation"
+    ],
+    "explicit_goal": "Preserve accurate and enforceable authorship attribution in the official record while controlling interruption and uncertainty.",
+    "facts_used": [
+      "The colleague stated that they alone designed the presented solution.",
+      "A timestamped repository record shows self's authorship before the colleague's contribution.",
+      "After reviewing the record, the leader can correct the official meeting record; the correction mechanism is the same for public or private presentation.",
+      "The presentation channel does not change pay, record ownership, or the leader's authority.",
+      "No retaliation threat is added; those present are neutral or supportive."
+    ],
+    "main_objection": "The outcome depends on the leader's assessment of the evidence, which is an unknown variable regardless of the chosen delivery method.",
+    "mind": "R",
+    "option_id": "credit_public_confront",
+    "reasoning_provider_result_hash": "89ff588e0acd49317b96e4f17af348175f3aa91d0ec23ea68784f83ae8f1e52a",
+    "reasoning_provider_result_id": "ollama_racio_response_8a7f8831c379666bb3db982a28235a78",
+    "schema_version": "rei-native-racio-conclusion-v1",
+    "source_packet_hash": "f731632991ab64c1293ff55b4ff46def50a6605e2a4b4c44b88a99798a94fa17",
+    "source_packet_id": "racio_packet_93249cd4b295a46428c04d8ec571e496",
+    "source_scene_id": "triad_iso_e1_racio_scene_554f4657f454948bd223bc61a4af2168",
+    "uncertainty": "It is unknown if the leader will accept the record as conclusive or how the colleague will react to the verification.",
+    "unknowns": [
+      "Whether the leader will treat the record as conclusive evidence is unknown.",
+      "How the colleague will respond to record verification is unknown."
+    ],
+    "utility_structure": [
+      "Public confrontation provides immediate challenge but interrupts the meeting.",
+      "Private evidence avoids interruption but delays the correction process.",
+      "No response results in an unchallenged incorrect claim."
+    ]
+  },
+  "failure": null,
+  "packet_hash": "f731632991ab64c1293ff55b4ff46def50a6605e2a4b4c44b88a99798a94fa17",
+  "pair_id": "public_credit_audience",
+  "processor_execution_count": 1,
+  "reused_for_case_ids": [
+    "public_credit_audience_visible",
+    "public_credit_audience_absent"
+  ],
+  "schema_version": "triad-iso-e3-pair-racio-output-v1",
+  "status": "accepted"
+}

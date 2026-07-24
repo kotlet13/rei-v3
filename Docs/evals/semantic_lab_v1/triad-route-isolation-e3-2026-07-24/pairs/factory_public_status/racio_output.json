@@ -1,0 +1,57 @@
+{
+  "conclusion": {
+    "abstains": false,
+    "causal_sequence": [
+      "Temperature increase and sensor discrepancy create a risk of equipment damage.",
+      "Immediate shutdown prevents further heating but triggers a known financial loss.",
+      "Continuing production avoids immediate financial loss but maintains the risk of technical damage.",
+      "Verification allows for data clarification within the remaining time window before a final decision is required."
+    ],
+    "conclusion_id": "racio_conclusion_31c18e6e80f57a79617604fc8ea595be",
+    "confidence": 0.8,
+    "evidence_ids_used": [
+      "factory_ev_temperature",
+      "factory_ev_sensor",
+      "factory_ev_time",
+      "factory_ev_damage",
+      "factory_ev_shutdown_loss"
+    ],
+    "explicit_goal": "Minimize expected technical and financial loss under the three-minute decision boundary while retaining stated uncertainty.",
+    "facts_used": [
+      "Process temperature rose by 11 C during six minutes.",
+      "The backup sensor reads 8 C below the primary sensor; neither reading is confirmed.",
+      "A decision must be made within three minutes.",
+      "Further heating can damage equipment.",
+      "A controlled shutdown causes a direct loss of EUR 75000."
+    ],
+    "main_objection": "Immediate shutdown incurs a guaranteed financial loss, while continuing production risks unquantified technical damage due to sensor uncertainty.",
+    "mind": "R",
+    "option_id": "factory_verify",
+    "reasoning_provider_result_hash": "21346f75830a73091d9caaf88efa8bf34a1dcab7ad663a052a7494d549b41ede",
+    "reasoning_provider_result_id": "ollama_racio_response_cd30986d6c250036a2247bc842efdf74",
+    "schema_version": "rei-native-racio-conclusion-v1",
+    "source_packet_hash": "a12eb63535300b1ed821dd54e1798bd082c3101731297f22ed6f316c90d9dd72",
+    "source_packet_id": "racio_packet_568298512021e08ecd5500bcaeb1283f",
+    "source_scene_id": "triad_iso_e1_racio_scene_675e6edde52e15b1eb27c3d77c58f867",
+    "uncertainty": "The correct sensor is unknown and the current state of equipment damage is unknown, making it unclear if the temperature rise has already reached critical levels.",
+    "unknowns": [
+      "Which sensor is correct is unknown.",
+      "Whether equipment is already damaged is unknown."
+    ],
+    "utility_structure": [
+      "factory_shutdown: High financial cost, low technical risk",
+      "factory_verify: Moderate time cost, potential for informed decision",
+      "factory_continue: No immediate financial cost, high technical risk"
+    ]
+  },
+  "failure": null,
+  "packet_hash": "a12eb63535300b1ed821dd54e1798bd082c3101731297f22ed6f316c90d9dd72",
+  "pair_id": "factory_public_status",
+  "processor_execution_count": 1,
+  "reused_for_case_ids": [
+    "factory_public_status_visible",
+    "factory_public_status_anonymous"
+  ],
+  "schema_version": "triad-iso-e3-pair-racio-output-v1",
+  "status": "accepted"
+}

@@ -1,0 +1,312 @@
+{
+  "call_record": {
+    "call_id": "provider_call_e98836a15871a81d4e32161171203178",
+    "fallback": null,
+    "finished_at": "2026-07-24T08:14:13.403047Z",
+    "input_artifact_ids": [
+      "loan_ev_history",
+      "loan_ev_need",
+      "loan_ev_no_strategic_benefit",
+      "loan_ev_reserve",
+      "loan_ev_terms",
+      "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+      "triad_iso_e1_racio_world_e94487beadf51c4f23d2b9a08716e15a"
+    ],
+    "output_artifact_ids": [
+      "ollama_racio_response_c90dfbd041745025b8c6946b9f95d0ba",
+      "racio_conclusion_36b24f6377815a32f5f535e73d2b5cbb"
+    ],
+    "parameters": [
+      {
+        "canonical_json_value": "false",
+        "name": "allow_remote"
+      },
+      {
+        "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+        "name": "endpoint"
+      },
+      {
+        "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+        "name": "format_schema_sha256"
+      },
+      {
+        "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+        "name": "instruction_sha256"
+      },
+      {
+        "canonical_json_value": "\"10m\"",
+        "name": "keep_alive"
+      },
+      {
+        "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+        "name": "local_model_language_policy_id"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "logprobs"
+      },
+      {
+        "canonical_json_value": "65536",
+        "name": "num_ctx"
+      },
+      {
+        "canonical_json_value": "999",
+        "name": "num_gpu"
+      },
+      {
+        "canonical_json_value": "1536",
+        "name": "num_predict"
+      },
+      {
+        "canonical_json_value": "\"0.31.2\"",
+        "name": "ollama_server_version"
+      },
+      {
+        "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+        "name": "operator_expected_model_digest"
+      },
+      {
+        "canonical_json_value": "\"operational_en_only\"",
+        "name": "presentation_mode"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "raw"
+      },
+      {
+        "canonical_json_value": "true",
+        "name": "require_full_gpu"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "shift"
+      },
+      {
+        "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+        "name": "source_provider_revision"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "stream"
+      },
+      {
+        "canonical_json_value": "0.0",
+        "name": "temperature"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "think"
+      },
+      {
+        "canonical_json_value": "64",
+        "name": "top_k"
+      },
+      {
+        "canonical_json_value": "0.95",
+        "name": "top_p"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "truncate"
+      }
+    ],
+    "primary_finished_at": "2026-07-24T08:14:13.403047Z",
+    "primary_status": "succeeded",
+    "provider": {
+      "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+      "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+      "kind": "text_reasoner",
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "schema_version": "rei-native-provider-identity-v1",
+      "uses_model": true
+    },
+    "request_id": "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+    "safety_notice": {
+      "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+      "conceptual_simulator": true,
+      "diagnostic_use_allowed": false,
+      "real_person_characterization_allowed": false
+    },
+    "schema_version": "rei-native-provider-call-record-v1",
+    "seed": 314159,
+    "spec_hash": "2a5d924435129ec42460295c0d79c6acce4e33f88c52473f1a1fe7daa43e446e",
+    "started_at": "2026-07-24T08:14:02.419925Z",
+    "status": "succeeded",
+    "timeout_seconds": 600.0,
+    "warnings": []
+  },
+  "call_spec": {
+    "call_id": "provider_call_e98836a15871a81d4e32161171203178",
+    "fallback_policy": {
+      "mode": "none",
+      "no_fallback_reason": "The native Ollama Racio smoke has no hidden retry or fallback provider.",
+      "plan": null
+    },
+    "input_artifact_ids": [
+      "loan_ev_history",
+      "loan_ev_need",
+      "loan_ev_no_strategic_benefit",
+      "loan_ev_reserve",
+      "loan_ev_terms",
+      "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+      "triad_iso_e1_racio_world_e94487beadf51c4f23d2b9a08716e15a"
+    ],
+    "parameters": [
+      {
+        "canonical_json_value": "false",
+        "name": "allow_remote"
+      },
+      {
+        "canonical_json_value": "\"http://127.0.0.1:11434/api/generate\"",
+        "name": "endpoint"
+      },
+      {
+        "canonical_json_value": "\"060b1e1c1707c48585a835b4adda79eebbb25d246a3ccd94bb461238c1de33be\"",
+        "name": "format_schema_sha256"
+      },
+      {
+        "canonical_json_value": "\"2527bf3dc4373a15d192a52188eda9da3d63103ae10b16586bb2c2b1d9765101\"",
+        "name": "instruction_sha256"
+      },
+      {
+        "canonical_json_value": "\"10m\"",
+        "name": "keep_alive"
+      },
+      {
+        "canonical_json_value": "\"rei-local-model-english-only-v1\"",
+        "name": "local_model_language_policy_id"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "logprobs"
+      },
+      {
+        "canonical_json_value": "65536",
+        "name": "num_ctx"
+      },
+      {
+        "canonical_json_value": "999",
+        "name": "num_gpu"
+      },
+      {
+        "canonical_json_value": "1536",
+        "name": "num_predict"
+      },
+      {
+        "canonical_json_value": "\"0.31.2\"",
+        "name": "ollama_server_version"
+      },
+      {
+        "canonical_json_value": "\"6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7\"",
+        "name": "operator_expected_model_digest"
+      },
+      {
+        "canonical_json_value": "\"operational_en_only\"",
+        "name": "presentation_mode"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "raw"
+      },
+      {
+        "canonical_json_value": "true",
+        "name": "require_full_gpu"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "shift"
+      },
+      {
+        "canonical_json_value": "\"rei-native-ollama-racio-b14-v1\"",
+        "name": "source_provider_revision"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "stream"
+      },
+      {
+        "canonical_json_value": "0.0",
+        "name": "temperature"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "think"
+      },
+      {
+        "canonical_json_value": "64",
+        "name": "top_k"
+      },
+      {
+        "canonical_json_value": "0.95",
+        "name": "top_p"
+      },
+      {
+        "canonical_json_value": "false",
+        "name": "truncate"
+      }
+    ],
+    "provider": {
+      "implementation": "rei.providers.ollama_en.OllamaRacioNativeEnTriadProvider",
+      "implementation_revision": "rei-native-ollama-racio-en-triad-screen-v1;ollama=0.31.2",
+      "kind": "text_reasoner",
+      "model": "gemma4:31b",
+      "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+      "schema_version": "rei-native-provider-identity-v1",
+      "uses_model": true
+    },
+    "request_id": "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+    "safety_notice": {
+      "canonical_sl": "REI-v3 je konceptualni simulator teorije REI; ni diagnostično orodje, empirično potrjena psihologija ali model resnične osebe.",
+      "conceptual_simulator": true,
+      "diagnostic_use_allowed": false,
+      "real_person_characterization_allowed": false
+    },
+    "schema_version": "rei-native-provider-call-spec-v1",
+    "seed": 314159,
+    "timeout_seconds": 600.0
+  },
+  "failed_output_diagnostic": null,
+  "failure": null,
+  "fallbacks": 0,
+  "pair_id": "loan_attachment_distance",
+  "private_thinking_persisted": false,
+  "result_evidence": {
+    "active_context_length": 65536,
+    "active_gpu_percent_rounded": 100,
+    "active_size_bytes": 20166119259,
+    "active_size_vram_bytes": 20166119259,
+    "call_id": "provider_call_e98836a15871a81d4e32161171203178",
+    "call_spec_hash": "2a5d924435129ec42460295c0d79c6acce4e33f88c52473f1a1fe7daa43e446e",
+    "done_reason": "stop",
+    "eval_count": 513,
+    "eval_duration_ns": 9052620000,
+    "evidence_ids_used": [
+      "loan_ev_need",
+      "loan_ev_history",
+      "loan_ev_reserve",
+      "loan_ev_terms",
+      "loan_ev_no_strategic_benefit"
+    ],
+    "load_duration_ns": 255970382,
+    "model": "gemma4:31b",
+    "model_revision": "6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "ollama_server_version": "0.31.2",
+    "packet_hash": "08c6fbfa97321100cf3a5cccd656847c1f039d0402bdddc5f3b1fd8959863bb8",
+    "packet_id": "racio_packet_4a044fc0512a769bdd04b36e2b3651cd",
+    "prompt_eval_count": 1750,
+    "prompt_eval_duration_ns": 752180000,
+    "provider_id": "provider_a011ca34173ec2f54b72f326e4982fc1",
+    "request_payload_hash": "6fe69ecdf5158b8349a1f4d0f5a69a4f5a3fe1fa6c9f97c8d4ed7a61f7cb42aa",
+    "response_created_at": "2026-07-24T08:14:13.360763237Z",
+    "response_envelope_hash": "f02cff64ec3c1f5f42c3ed3033dcd81325f7da8b78dbac2a89d3844a549d2c07",
+    "response_text": "{\n  \"abstains\": false,\n  \"causal_sequence\": [\n    \"The borrower has a history of significant payment delays.\",\n    \"Providing the full amount without a contract exposes nearly half of available cash reserves with no legal repayment guarantee.\",\n    \"Offering a limited sum with a written agreement reduces financial exposure and establishes an enforceable date, though repayment remains uncertain.\",\n    \"Declining the loan completely eliminates risk to liquidity and ownership of funds.\"\n  ],\n  \"confidence\": 1,\n  \"evidence_ids_used\": [\n    \"loan_ev_need\",\n    \"loan_ev_history\",\n    \"loan_ev_reserve\",\n    \"loan_ev_terms\",\n    \"loan_ev_no_strategic_benefit\"\n  ],\n  \"explicit_goal\": \"Protect self's liquidity, ownership of funds, and enforceable repayment position while responding to the request.\",\n  \"facts_used\": [\n    \"A submitted invoice confirms an urgent home repair costing EUR 9000.\",\n    \"Two previous repayments were more than three months late.\",\n    \"The full amount is 45 percent of self's cash reserve.\",\n    \"The limited option is EUR 3000 with a written twelve-month repayment date; the full option has no new contract.\",\n    \"The relationship provides no business, ownership, or other material benefit to self.\"\n  ],\n  \"main_objection\": \"Past payment delays and the lack of a contract for the full amount create high risk for liquidity loss without guaranteed recovery.\",\n  \"option_id\": \"loan_decline\",\n  \"uncertainty\": \"The decision is based on prioritizing absolute protection of funds over an uncertain repayment outcome given the borrower's history.\",\n  \"unknowns\": [\n    \"Whether a new loan will be repaid on time is unknown.\",\n    \"Whether self will need a large part of the reserve during the next six months is unknown.\"\n  ],\n  \"utility_structure\": [\n    \"loan_decline: Maximum protection of liquidity and ownership; zero risk of loss.\",\n    \"loan_limited_contract: Moderate risk to liquidity; partial funding for borrower; enforceable repayment date established.\",\n    \"loan_full: High risk to liquidity (45% reserve); full funding for borrower; no new contract or enforcement mechanism.\"\n  ]\n}",
+    "result_id": "ollama_racio_response_c90dfbd041745025b8c6946b9f95d0ba",
+    "schema_version": "rei-native-ollama-racio-response-v1",
+    "total_duration_ns": 10886828269
+  },
+  "retries": 0,
+  "schema_version": "triad-iso-e3-call-record-v1"
+}
