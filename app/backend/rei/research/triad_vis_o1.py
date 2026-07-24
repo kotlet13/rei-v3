@@ -803,7 +803,18 @@ def _request_from_manifest(
     profile: VisualPromptProfile,
     source_image: ImageSourceReference | None,
 ) -> ImageRenderRequest:
-    scene = VisualSceneSpec.model_validate(prompt_item["scene_spec"])
+    # FrozenModel is intentionally strict for Python inputs.  The sealed
+    # portable representation is JSON, where arrays are the canonical encoding
+    # of tuple fields, so replay it through Pydantic's strict JSON path.
+    scene = VisualSceneSpec.model_validate_json(
+        json.dumps(
+            prompt_item["scene_spec"],
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ),
+        strict=True,
+    )
     mode = "text_to_image" if prompt_item["role"] == "current" else "image_to_image"
     request = ImageRenderRequest.create(
         mode=mode,

@@ -10,6 +10,7 @@ from app.backend.rei.research.triad_vis_o1 import (
     BANNED_PROMPT_TERMS,
     CASE_ORDER,
     SCENE_SEEDS,
+    _request_from_manifest,
     build_scene_plan,
 )
 
@@ -75,3 +76,51 @@ def test_scene_specs_preserve_route_scope_and_profile_blindness() -> None:
         assert payload["scene_kind"] == (
             "option_rollout" if item["role"].startswith("option_") else item["role"]
         )
+
+
+def test_strict_json_scene_replay_preserves_frozen_scene(monkeypatch) -> None:
+    item = build_scene_plan(REPOSITORY_ROOT)[0]
+    profile = VisualPromptProfile.create(
+        language="en",
+        style_id="documentary_cinematic_v1",
+        style_directive=(
+            "Documentary cinematic still, restrained natural colors, stable identity "
+            "and composition. No text, labels, logos, crowns, weapons, or extra people."
+        ),
+    )
+    compiler = BilingualStructuredScenePromptCompiler(profile)
+
+    class _Provider:
+        identity = None
+
+    # The request factory needs the real provider contract, so this regression
+    # isolates the strict JSON path by intercepting construction after the scene
+    # has been validated and compared.
+    def capture(**kwargs):
+        assert kwargs["source_spec"] == item["scene"]
+        raise RuntimeError("scene_replay_verified")
+
+    monkeypatch.setattr(
+        "app.backend.rei.research.triad_vis_o1.ImageRenderRequest.create",
+        capture,
+    )
+    prompt_item = {
+        **item,
+        "scene_spec": item["scene"].model_dump(mode="json", round_trip=True),
+        "positive_prompt": compiler.compile(item["scene"]),
+        "negative_prompt": "",
+    }
+    provider = _Provider()
+    provider.identity = object()
+    provider.pipeline_spec = lambda _mode: object()
+    try:
+        _request_from_manifest(
+            prompt_item,
+            provider=provider,
+            profile=profile,
+            source_image=None,
+        )
+    except RuntimeError as error:
+        assert str(error) == "scene_replay_verified"
+    else:
+        raise AssertionError("request construction interception did not run")
