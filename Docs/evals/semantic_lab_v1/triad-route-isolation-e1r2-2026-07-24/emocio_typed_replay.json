@@ -1,0 +1,1546 @@
+{
+  "cases": [
+    {
+      "aggregate_scores": {
+        "utility_trip_book": 0.636364,
+        "utility_trip_home": 0.068182,
+        "utility_trip_local": 0.390909
+      },
+      "case_id": "trip_racio_utility_material",
+      "evidence_closure": "passed",
+      "manual_annotation_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "processor_capability_claimed": false,
+      "selected_option_id": "utility_trip_book",
+      "source_r1_case_sha256": "d08ca21a2acbed3b48bf325225a7e54a20c86c3353ad7a5df49ea20f557b9bd8",
+      "tied_option_ids": [],
+      "typed_annotation": {
+        "annotation_mode": "explicit_source_addressed_for_human_review",
+        "companion_enjoyment_relation": {
+          "evidence_ids": [],
+          "state": "not_relevant",
+          "value": null
+        },
+        "companion_visible": {
+          "evidence_ids": [
+            "utility_ev_companion"
+          ],
+          "state": "grounded",
+          "value": "present"
+        },
+        "options": [
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "escaped"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "immediate"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "large_new"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "utility_ev_rarity"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "removed"
+            },
+            "option_id": "utility_trip_book",
+            "self_position_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "utility_ev_destination",
+              "utility_ev_rarity"
+            ],
+            "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "attraction_target": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "remains"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "not_aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "movement_destination": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "persists"
+            },
+            "option_id": "utility_trip_home",
+            "self_position_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "centered_at_decision"
+            },
+            "source_evidence_scope_ids": [
+              "utility_ev_destination"
+            ],
+            "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "home_scene"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "partial_escape"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "partial"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "transformed"
+            },
+            "option_id": "utility_trip_local",
+            "self_position_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "utility_ev_destination"
+            ],
+            "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            }
+          }
+        ],
+        "schema_version": "triad-emocio-typed-route-annotation-v1",
+        "source_evidence_sha256": "5a47fe8bc2f5a4d5c58600227716a3a56e114b5b360c60a7e67fc258bd20e89a"
+      },
+      "valuation_vectors": {
+        "utility_trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "utility_trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.6,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      }
+    },
+    {
+      "aggregate_scores": {
+        "utility_trip_book": 0.636364,
+        "utility_trip_home": 0.068182,
+        "utility_trip_local": 0.390909
+      },
+      "case_id": "trip_racio_utility_pleasure",
+      "evidence_closure": "passed",
+      "manual_annotation_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "processor_capability_claimed": false,
+      "selected_option_id": "utility_trip_book",
+      "source_r1_case_sha256": "dfed733997b60bde8a54733eea33fd600b574755b1c6a3e62d4bc91b36f3f093",
+      "tied_option_ids": [],
+      "typed_annotation": {
+        "annotation_mode": "explicit_source_addressed_for_human_review",
+        "companion_enjoyment_relation": {
+          "evidence_ids": [],
+          "state": "not_relevant",
+          "value": null
+        },
+        "companion_visible": {
+          "evidence_ids": [
+            "utility_ev_companion"
+          ],
+          "state": "grounded",
+          "value": "present"
+        },
+        "options": [
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "escaped"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "immediate"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "large_new"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "utility_ev_rarity"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "removed"
+            },
+            "option_id": "utility_trip_book",
+            "self_position_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "utility_ev_destination",
+              "utility_ev_rarity"
+            ],
+            "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "attraction_target": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "remains"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "not_aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "movement_destination": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "persists"
+            },
+            "option_id": "utility_trip_home",
+            "self_position_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "centered_at_decision"
+            },
+            "source_evidence_scope_ids": [
+              "utility_ev_destination"
+            ],
+            "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "home_scene"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "partial_escape"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "partial"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "transformed"
+            },
+            "option_id": "utility_trip_local",
+            "self_position_relation": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "utility_ev_destination"
+            ],
+            "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "utility_ev_destination"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            }
+          }
+        ],
+        "schema_version": "triad-emocio-typed-route-annotation-v1",
+        "source_evidence_sha256": "226e675353f1954dd114319e6af0732d552e771783a2453dbcf784daffe16bd6"
+      },
+      "valuation_vectors": {
+        "utility_trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "utility_trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "utility_trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.6,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      }
+    },
+    {
+      "aggregate_scores": {
+        "trip_book": 0.636364,
+        "trip_home": 0.068182,
+        "trip_local": 0.390909
+      },
+      "case_id": "trip_protective_context_exposed",
+      "evidence_closure": "passed",
+      "manual_annotation_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "processor_capability_claimed": false,
+      "selected_option_id": "trip_book",
+      "source_r1_case_sha256": "e951272a85aa252525520dff1472aeef3626db5d4428bdd2baf0f3d382240ffe",
+      "tied_option_ids": [],
+      "typed_annotation": {
+        "annotation_mode": "explicit_source_addressed_for_human_review",
+        "companion_enjoyment_relation": {
+          "evidence_ids": [],
+          "state": "not_relevant",
+          "value": null
+        },
+        "companion_visible": {
+          "evidence_ids": [
+            "protective_ev_companion"
+          ],
+          "state": "grounded",
+          "value": "absent"
+        },
+        "options": [
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "escaped"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "immediate"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "large_new"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "protective_ev_rarity"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "removed"
+            },
+            "option_id": "trip_book",
+            "self_position_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "protective_ev_attraction",
+              "protective_ev_rarity"
+            ],
+            "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "attraction_target": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "remains"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "not_aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "movement_destination": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "persists"
+            },
+            "option_id": "trip_home",
+            "self_position_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "centered_at_decision"
+            },
+            "source_evidence_scope_ids": [
+              "protective_ev_attraction"
+            ],
+            "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "home_scene"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "partial_escape"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "partial"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "transformed"
+            },
+            "option_id": "trip_local",
+            "self_position_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "protective_ev_attraction"
+            ],
+            "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            }
+          }
+        ],
+        "schema_version": "triad-emocio-typed-route-annotation-v1",
+        "source_evidence_sha256": "5cee565f1cb374558654bf06d5b2c4153b9e35ed3b089c1aa8a2ab3b53508723"
+      },
+      "valuation_vectors": {
+        "trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.6,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      }
+    },
+    {
+      "aggregate_scores": {
+        "trip_book": 0.636364,
+        "trip_home": 0.068182,
+        "trip_local": 0.390909
+      },
+      "case_id": "trip_protective_context_supported",
+      "evidence_closure": "passed",
+      "manual_annotation_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "processor_capability_claimed": false,
+      "selected_option_id": "trip_book",
+      "source_r1_case_sha256": "c1dc6eed046c3f2ab442253274de511d321a14cf6a7470f7dcbbb89c7ed891bf",
+      "tied_option_ids": [],
+      "typed_annotation": {
+        "annotation_mode": "explicit_source_addressed_for_human_review",
+        "companion_enjoyment_relation": {
+          "evidence_ids": [],
+          "state": "not_relevant",
+          "value": null
+        },
+        "companion_visible": {
+          "evidence_ids": [
+            "protective_ev_companion"
+          ],
+          "state": "grounded",
+          "value": "present"
+        },
+        "options": [
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "escaped"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "immediate"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "large_new"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "protective_ev_rarity"
+              ],
+              "state": "grounded",
+              "value": "stronger"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "removed"
+            },
+            "option_id": "trip_book",
+            "self_position_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "protective_ev_attraction",
+              "protective_ev_rarity"
+            ],
+            "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "distant_coast"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "attraction_target": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "remains"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "not_aligned"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "movement_destination": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "none"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "absent"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "persists"
+            },
+            "option_id": "trip_home",
+            "self_position_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "centered_at_decision"
+            },
+            "source_evidence_scope_ids": [
+              "protective_ev_attraction"
+            ],
+            "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "home_scene"
+            }
+          },
+          {
+            "attention_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "attraction_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "attraction_target": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "belonging_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "broken_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "partial_escape"
+            },
+            "competition_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "desired_state_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "partial"
+            },
+            "immediacy": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "movement_destination": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            },
+            "movement_magnitude": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "bounded"
+            },
+            "novelty_strength": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "present"
+            },
+            "obstacle_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "transformed"
+            },
+            "option_id": "trip_local",
+            "self_position_relation": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "centered_in_result_scene"
+            },
+            "source_evidence_scope_ids": [
+              "protective_ev_attraction"
+            ],
+            "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116",
+            "status_relation": {
+              "evidence_ids": [],
+              "state": "not_relevant",
+              "value": null
+            },
+            "target_scene_identity": {
+              "evidence_ids": [
+                "protective_ev_attraction"
+              ],
+              "state": "grounded",
+              "value": "local_coast"
+            }
+          }
+        ],
+        "schema_version": "triad-emocio-typed-route-annotation-v1",
+        "source_evidence_sha256": "b6ca2410fbbdb0814a98c4f907ced31c8f660c1d1c14b46bee322bb9c5c9a48e"
+      },
+      "valuation_vectors": {
+        "trip_book": {
+          "attack_or_breakthrough_affordance": 1.0,
+          "attention": 0.0,
+          "attraction": 1.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 1.0,
+          "distance_from_broken_scene": 1.0,
+          "movement": 1.0,
+          "novelty": 1.0,
+          "self_visibility": 1.0,
+          "status": 0.0
+        },
+        "trip_home": {
+          "attack_or_breakthrough_affordance": 0.0,
+          "attention": 0.0,
+          "attraction": 0.0,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.0,
+          "distance_from_broken_scene": 0.0,
+          "movement": 0.0,
+          "novelty": 0.0,
+          "self_visibility": 0.75,
+          "status": 0.0
+        },
+        "trip_local": {
+          "attack_or_breakthrough_affordance": 0.5,
+          "attention": 0.0,
+          "attraction": 0.6,
+          "belonging": 0.0,
+          "competitive_success": 0.0,
+          "desired_scene_match": 0.55,
+          "distance_from_broken_scene": 0.55,
+          "movement": 0.5,
+          "novelty": 0.6,
+          "self_visibility": 1.0,
+          "status": 0.0
+        }
+      }
+    }
+  ],
+  "mode": "manual_annotation_deterministic_valuation",
+  "schema_version": "triad-iso-r2-emocio-typed-replay-v1"
+}

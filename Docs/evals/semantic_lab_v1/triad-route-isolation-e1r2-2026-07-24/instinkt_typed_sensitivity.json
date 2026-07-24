@@ -1,0 +1,1384 @@
+{
+  "cases": [
+    {
+      "case_id": "trip_racio_utility_material",
+      "evidence_closure": "passed",
+      "manual_mapping_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "option_results": [
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "escape_availability": 0.12,
+                "predictability": 0.08
+              },
+              "category_id": "bounded_cancellation_recovery",
+              "marginal_protective_cost_contribution": -0.005,
+              "semantic_predicate": "bounded_cancellation_recovery",
+              "supporting_evidence_ids": [
+                "utility_ev_reversibility"
+              ]
+            },
+            {
+              "body_deltas": {
+                "resource_security": -0.15
+              },
+              "category_id": "discretionary_resource_commitment_25",
+              "marginal_protective_cost_contribution": 0.009375,
+              "semantic_predicate": "discretionary_resource_commitment_25",
+              "supporting_evidence_ids": [
+                "utility_ev_cost"
+              ]
+            },
+            {
+              "body_deltas": {
+                "attachment_security": 0.15,
+                "tension": -0.05,
+                "trust": 0.12
+              },
+              "category_id": "trusted_attachment_support",
+              "marginal_protective_cost_contribution": -0.023375,
+              "semantic_predicate": "trusted_attachment_support",
+              "supporting_evidence_ids": [
+                "utility_ev_companion"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": 0.15,
+            "escape_availability": 0.12,
+            "predictability": 0.08,
+            "resource_security": -0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "option_id": "utility_trip_book",
+          "predicted_loss": 0.3350000000000001,
+          "protective_cost": 0.551,
+          "recoverability": 0.5960000000000001,
+          "source_consequence": "Self enters verified travel with trusted attachment support, a 25-percent discretionary-budget commitment, and bounded cancellation."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "resource_security": 0.15
+              },
+              "category_id": "discretionary_resource_preserved",
+              "marginal_protective_cost_contribution": -0.009375,
+              "semantic_predicate": "discretionary_resource_preserved",
+              "supporting_evidence_ids": [
+                "utility_ev_cost"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "resource_security": 0.15
+          },
+          "option_id": "utility_trip_home",
+          "predicted_loss": 0.3325,
+          "protective_cost": 0.560625,
+          "recoverability": 0.5775,
+          "source_consequence": "Self does not make the stated travel expenditure and retains the discretionary budget."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "attachment_security": 0.15,
+                "tension": -0.05,
+                "trust": 0.12
+              },
+              "category_id": "trusted_attachment_support",
+              "marginal_protective_cost_contribution": -0.023375,
+              "semantic_predicate": "trusted_attachment_support",
+              "supporting_evidence_ids": [
+                "utility_ev_companion"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": 0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "option_id": "utility_trip_local",
+          "predicted_loss": 0.32750000000000007,
+          "protective_cost": 0.546625,
+          "recoverability": 0.5835,
+          "source_consequence": "Self enters the local travel option with the same grounded trusted companion; no local price is inferred."
+        }
+      ],
+      "processor_capability_claimed": false,
+      "selected_option_id": "utility_trip_local",
+      "source_r1_case_sha256": "d08ca21a2acbed3b48bf325225a7e54a20c86c3353ad7a5df49ea20f557b9bd8",
+      "tied_option_ids": [],
+      "typed_mapping": {
+        "budget_kind": "discretionary_budget",
+        "evidence_assertions": [
+          {
+            "assertions": [
+              "trusted_companion_present"
+            ],
+            "evidence_id": "utility_ev_companion",
+            "source_text_sha256": "f27f5de2a6e2bcb0b48a4d68734156ea0e3980a897a401ddf556ac553b1386d6"
+          },
+          {
+            "assertions": [
+              "discretionary_budget_exposure"
+            ],
+            "evidence_id": "utility_ev_cost",
+            "source_text_sha256": "04ab555fdc530d62eff5ccd8032fe1502de1ed570a313f780c1f40015a0cfaf6"
+          },
+          {
+            "assertions": [
+              "bounded_cancellation"
+            ],
+            "evidence_id": "utility_ev_reversibility",
+            "source_text_sha256": "b8898342144459d6dc853ace91e221861bae7fa25dd85206695b6671d20216d8"
+          },
+          {
+            "assertions": [
+              "verified_providers",
+              "verified_return_path"
+            ],
+            "evidence_id": "utility_ev_safety",
+            "source_text_sha256": "2721c2ba29f69e0395a830516aafeb87e6ca0b87cb809a58c236179ee3166f28"
+          }
+        ],
+        "mapping_mode": "explicit_source_addressed_for_human_review",
+        "necessary_cash_reserve_claim": false,
+        "option_effects": [
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.12,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": 0.08,
+                    "dimension": "predictability"
+                  }
+                ],
+                "category_id": "bounded_cancellation_recovery",
+                "option_id": "utility_trip_book",
+                "semantic_predicate": "bounded_cancellation_recovery",
+                "supporting_evidence_ids": [
+                  "utility_ev_reversibility"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.15,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_commitment_25",
+                "option_id": "utility_trip_book",
+                "semantic_predicate": "discretionary_resource_commitment_25",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "trusted_attachment_support",
+                "option_id": "utility_trip_book",
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              }
+            ],
+            "option_id": "utility_trip_book",
+            "source_consequence": "Self enters verified travel with trusted attachment support, a 25-percent discretionary-budget commitment, and bounded cancellation.",
+            "source_evidence_scope_ids": [
+              "utility_ev_companion",
+              "utility_ev_cost",
+              "utility_ev_reversibility",
+              "utility_ev_safety"
+            ],
+            "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_preserved",
+                "option_id": "utility_trip_home",
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              }
+            ],
+            "option_id": "utility_trip_home",
+            "source_consequence": "Self does not make the stated travel expenditure and retains the discretionary budget.",
+            "source_evidence_scope_ids": [
+              "utility_ev_cost"
+            ],
+            "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "trusted_attachment_support",
+                "option_id": "utility_trip_local",
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              }
+            ],
+            "option_id": "utility_trip_local",
+            "source_consequence": "Self enters the local travel option with the same grounded trusted companion; no local price is inferred.",
+            "source_evidence_scope_ids": [
+              "utility_ev_companion"
+            ],
+            "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc"
+          }
+        ],
+        "protected_target_label": "Self's physical integrity, trusted attachment context, return ability, and discretionary budget.",
+        "schema_version": "triad-instinkt-typed-route-mapping-v1",
+        "source_evidence_sha256": "5a47fe8bc2f5a4d5c58600227716a3a56e114b5b360c60a7e67fc258bd20e89a"
+      }
+    },
+    {
+      "case_id": "trip_racio_utility_pleasure",
+      "evidence_closure": "passed",
+      "manual_mapping_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "option_results": [
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "escape_availability": 0.12,
+                "predictability": 0.08
+              },
+              "category_id": "bounded_cancellation_recovery",
+              "marginal_protective_cost_contribution": -0.005,
+              "semantic_predicate": "bounded_cancellation_recovery",
+              "supporting_evidence_ids": [
+                "utility_ev_reversibility"
+              ]
+            },
+            {
+              "body_deltas": {
+                "resource_security": -0.15
+              },
+              "category_id": "discretionary_resource_commitment_25",
+              "marginal_protective_cost_contribution": 0.009375,
+              "semantic_predicate": "discretionary_resource_commitment_25",
+              "supporting_evidence_ids": [
+                "utility_ev_cost"
+              ]
+            },
+            {
+              "body_deltas": {
+                "attachment_security": 0.15,
+                "tension": -0.05,
+                "trust": 0.12
+              },
+              "category_id": "trusted_attachment_support",
+              "marginal_protective_cost_contribution": -0.023375,
+              "semantic_predicate": "trusted_attachment_support",
+              "supporting_evidence_ids": [
+                "utility_ev_companion"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": 0.15,
+            "escape_availability": 0.12,
+            "predictability": 0.08,
+            "resource_security": -0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "option_id": "utility_trip_book",
+          "predicted_loss": 0.3350000000000001,
+          "protective_cost": 0.551,
+          "recoverability": 0.5960000000000001,
+          "source_consequence": "Self enters verified travel with trusted attachment support, a 25-percent discretionary-budget commitment, and bounded cancellation."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "resource_security": 0.15
+              },
+              "category_id": "discretionary_resource_preserved",
+              "marginal_protective_cost_contribution": -0.009375,
+              "semantic_predicate": "discretionary_resource_preserved",
+              "supporting_evidence_ids": [
+                "utility_ev_cost"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "resource_security": 0.15
+          },
+          "option_id": "utility_trip_home",
+          "predicted_loss": 0.3325,
+          "protective_cost": 0.560625,
+          "recoverability": 0.5775,
+          "source_consequence": "Self does not make the stated travel expenditure and retains the discretionary budget."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "attachment_security": 0.15,
+                "tension": -0.05,
+                "trust": 0.12
+              },
+              "category_id": "trusted_attachment_support",
+              "marginal_protective_cost_contribution": -0.023375,
+              "semantic_predicate": "trusted_attachment_support",
+              "supporting_evidence_ids": [
+                "utility_ev_companion"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": 0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "option_id": "utility_trip_local",
+          "predicted_loss": 0.32750000000000007,
+          "protective_cost": 0.546625,
+          "recoverability": 0.5835,
+          "source_consequence": "Self enters the local travel option with the same grounded trusted companion; no local price is inferred."
+        }
+      ],
+      "processor_capability_claimed": false,
+      "selected_option_id": "utility_trip_local",
+      "source_r1_case_sha256": "dfed733997b60bde8a54733eea33fd600b574755b1c6a3e62d4bc91b36f3f093",
+      "tied_option_ids": [],
+      "typed_mapping": {
+        "budget_kind": "discretionary_budget",
+        "evidence_assertions": [
+          {
+            "assertions": [
+              "trusted_companion_present"
+            ],
+            "evidence_id": "utility_ev_companion",
+            "source_text_sha256": "f27f5de2a6e2bcb0b48a4d68734156ea0e3980a897a401ddf556ac553b1386d6"
+          },
+          {
+            "assertions": [
+              "discretionary_budget_exposure"
+            ],
+            "evidence_id": "utility_ev_cost",
+            "source_text_sha256": "04ab555fdc530d62eff5ccd8032fe1502de1ed570a313f780c1f40015a0cfaf6"
+          },
+          {
+            "assertions": [
+              "bounded_cancellation"
+            ],
+            "evidence_id": "utility_ev_reversibility",
+            "source_text_sha256": "b8898342144459d6dc853ace91e221861bae7fa25dd85206695b6671d20216d8"
+          },
+          {
+            "assertions": [
+              "verified_providers",
+              "verified_return_path"
+            ],
+            "evidence_id": "utility_ev_safety",
+            "source_text_sha256": "2721c2ba29f69e0395a830516aafeb87e6ca0b87cb809a58c236179ee3166f28"
+          }
+        ],
+        "mapping_mode": "explicit_source_addressed_for_human_review",
+        "necessary_cash_reserve_claim": false,
+        "option_effects": [
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.12,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": 0.08,
+                    "dimension": "predictability"
+                  }
+                ],
+                "category_id": "bounded_cancellation_recovery",
+                "option_id": "utility_trip_book",
+                "semantic_predicate": "bounded_cancellation_recovery",
+                "supporting_evidence_ids": [
+                  "utility_ev_reversibility"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.15,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_commitment_25",
+                "option_id": "utility_trip_book",
+                "semantic_predicate": "discretionary_resource_commitment_25",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "trusted_attachment_support",
+                "option_id": "utility_trip_book",
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              }
+            ],
+            "option_id": "utility_trip_book",
+            "source_consequence": "Self enters verified travel with trusted attachment support, a 25-percent discretionary-budget commitment, and bounded cancellation.",
+            "source_evidence_scope_ids": [
+              "utility_ev_companion",
+              "utility_ev_cost",
+              "utility_ev_reversibility",
+              "utility_ev_safety"
+            ],
+            "source_option_sha256": "20f0e3886687fc817dd1af97c6f6cab0f2be32e81b91a97e511ae96d8b24d9ae"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_preserved",
+                "option_id": "utility_trip_home",
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "utility_ev_cost"
+                ]
+              }
+            ],
+            "option_id": "utility_trip_home",
+            "source_consequence": "Self does not make the stated travel expenditure and retains the discretionary budget.",
+            "source_evidence_scope_ids": [
+              "utility_ev_cost"
+            ],
+            "source_option_sha256": "fe1a04ac8b2f3aeb8fdb4d16c8ee12f791fc024189e1fbfeaf90175656832996"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "trusted_attachment_support",
+                "option_id": "utility_trip_local",
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "utility_ev_companion"
+                ]
+              }
+            ],
+            "option_id": "utility_trip_local",
+            "source_consequence": "Self enters the local travel option with the same grounded trusted companion; no local price is inferred.",
+            "source_evidence_scope_ids": [
+              "utility_ev_companion"
+            ],
+            "source_option_sha256": "46439fe7826a17c96ff74c57ca25570f03645bc27620ef971d52d45fa80b90bc"
+          }
+        ],
+        "protected_target_label": "Self's physical integrity, trusted attachment context, return ability, and discretionary budget.",
+        "schema_version": "triad-instinkt-typed-route-mapping-v1",
+        "source_evidence_sha256": "226e675353f1954dd114319e6af0732d552e771783a2453dbcf784daffe16bd6"
+      }
+    },
+    {
+      "case_id": "trip_protective_context_exposed",
+      "evidence_closure": "passed",
+      "manual_mapping_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "option_results": [
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "attachment_security": -0.15,
+                "tension": 0.1,
+                "trust": -0.1
+              },
+              "category_id": "absence_of_trusted_support",
+              "marginal_protective_cost_contribution": 0.035625,
+              "semantic_predicate": "absence_of_trusted_support",
+              "supporting_evidence_ids": [
+                "protective_ev_companion"
+              ]
+            },
+            {
+              "body_deltas": {
+                "resource_security": -0.2
+              },
+              "category_id": "discretionary_resource_commitment_38",
+              "marginal_protective_cost_contribution": 0.0125,
+              "semantic_predicate": "discretionary_resource_commitment_38",
+              "supporting_evidence_ids": [
+                "protective_ev_price"
+              ]
+            },
+            {
+              "body_deltas": {
+                "escape_availability": -0.1,
+                "resource_security": -0.05
+              },
+              "category_id": "nonrefundable_resource_exposure",
+              "marginal_protective_cost_contribution": 0.004375,
+              "semantic_predicate": "nonrefundable_resource_exposure",
+              "supporting_evidence_ids": [
+                "protective_ev_refund"
+              ]
+            },
+            {
+              "body_deltas": {
+                "escape_availability": -0.2,
+                "uncertainty": 0.15
+              },
+              "category_id": "uncertain_return_danger",
+              "marginal_protective_cost_contribution": 0.00675,
+              "semantic_predicate": "uncertain_return_danger",
+              "supporting_evidence_ids": [
+                "protective_ev_return_path"
+              ]
+            },
+            {
+              "body_deltas": {
+                "predictability": -0.15,
+                "uncertainty": 0.12
+              },
+              "category_id": "unfamiliar_environment_danger",
+              "marginal_protective_cost_contribution": 0.00375,
+              "semantic_predicate": "unfamiliar_environment_danger",
+              "supporting_evidence_ids": [
+                "protective_ev_environment"
+              ]
+            },
+            {
+              "body_deltas": {
+                "trust": -0.15,
+                "uncertainty": 0.1
+              },
+              "category_id": "unverified_provider_danger",
+              "marginal_protective_cost_contribution": 0.001875,
+              "semantic_predicate": "unverified_provider_danger",
+              "supporting_evidence_ids": [
+                "protective_ev_lodging_transport"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": -0.15,
+            "escape_availability": -0.25,
+            "predictability": -0.15,
+            "resource_security": -0.25,
+            "tension": 0.1,
+            "trust": -0.25,
+            "uncertainty": 0.25
+          },
+          "option_id": "trip_book",
+          "predicted_loss": 0.37,
+          "protective_cost": 0.6581250000000001,
+          "recoverability": 0.49750000000000005,
+          "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "escape_availability": 0.12,
+                "tension": -0.08
+              },
+              "category_id": "avoids_unfamiliar_uncertain_exposure",
+              "marginal_protective_cost_contribution": -0.023,
+              "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+              "supporting_evidence_ids": [
+                "protective_ev_environment",
+                "protective_ev_lodging_transport",
+                "protective_ev_return_path"
+              ]
+            },
+            {
+              "body_deltas": {
+                "resource_security": 0.15
+              },
+              "category_id": "discretionary_resource_preserved",
+              "marginal_protective_cost_contribution": -0.009375,
+              "semantic_predicate": "discretionary_resource_preserved",
+              "supporting_evidence_ids": [
+                "protective_ev_price"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "escape_availability": 0.12,
+            "resource_security": 0.15,
+            "tension": -0.08
+          },
+          "option_id": "trip_home",
+          "predicted_loss": 0.3245,
+          "protective_cost": 0.537625,
+          "recoverability": 0.5895,
+          "source_consequence": "Self does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path and does not make the stated discretionary-budget commitment."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "attachment_security": -0.15,
+                "tension": 0.1,
+                "trust": -0.1
+              },
+              "category_id": "absence_of_trusted_support",
+              "marginal_protective_cost_contribution": 0.035625,
+              "semantic_predicate": "absence_of_trusted_support",
+              "supporting_evidence_ids": [
+                "protective_ev_companion"
+              ]
+            },
+            {
+              "body_deltas": {
+                "escape_availability": 0.12,
+                "tension": -0.08
+              },
+              "category_id": "avoids_unfamiliar_uncertain_exposure",
+              "marginal_protective_cost_contribution": -0.023,
+              "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+              "supporting_evidence_ids": [
+                "protective_ev_environment",
+                "protective_ev_lodging_transport",
+                "protective_ev_return_path"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": -0.15,
+            "escape_availability": 0.12,
+            "tension": 0.02,
+            "trust": -0.1
+          },
+          "option_id": "trip_local",
+          "predicted_loss": 0.34950000000000003,
+          "protective_cost": 0.5826250000000001,
+          "recoverability": 0.5695,
+          "source_consequence": "Self takes the local option without trusted attachment support and does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path."
+        }
+      ],
+      "processor_capability_claimed": false,
+      "selected_option_id": "trip_home",
+      "source_r1_case_sha256": "e951272a85aa252525520dff1472aeef3626db5d4428bdd2baf0f3d382240ffe",
+      "tied_option_ids": [],
+      "typed_mapping": {
+        "budget_kind": "discretionary_budget",
+        "evidence_assertions": [
+          {
+            "assertions": [
+              "trusted_companion_absent"
+            ],
+            "evidence_id": "protective_ev_companion",
+            "source_text_sha256": "d4ed74c316eb01741d1f6c03f153705ff855f4b4f989e5eb80d87816d1f7090f"
+          },
+          {
+            "assertions": [
+              "unfamiliar_environment"
+            ],
+            "evidence_id": "protective_ev_environment",
+            "source_text_sha256": "e79bc1c3836f7f925db40f1cb36d8202b0ebd3c3d8ae22f35b0e439409b0bf56"
+          },
+          {
+            "assertions": [
+              "unverified_providers"
+            ],
+            "evidence_id": "protective_ev_lodging_transport",
+            "source_text_sha256": "70066d2bc986544fe54b2ef550506cd6eb3addf80d547b4a7cfe726205cb0f03"
+          },
+          {
+            "assertions": [
+              "discretionary_budget_exposure"
+            ],
+            "evidence_id": "protective_ev_price",
+            "source_text_sha256": "6d3348ac8f36c376deea19201cee0c5316955bb4479cbd1fd78efcfdaec82d1f"
+          },
+          {
+            "assertions": [
+              "nonrefundable_purchase"
+            ],
+            "evidence_id": "protective_ev_refund",
+            "source_text_sha256": "35f2b698082515fd4519edbff30f0accfbf83eedce64d34d18c068afcf14acf7"
+          },
+          {
+            "assertions": [
+              "uncertain_return_path"
+            ],
+            "evidence_id": "protective_ev_return_path",
+            "source_text_sha256": "bca0fdc151f491d5fb5d27f65859d54a84b652881c71c559e4b8587992e0dec2"
+          }
+        ],
+        "mapping_mode": "explicit_source_addressed_for_human_review",
+        "necessary_cash_reserve_claim": false,
+        "option_effects": [
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": 0.1,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": -0.1,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "absence_of_trusted_support",
+                "option_id": "trip_book",
+                "semantic_predicate": "absence_of_trusted_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.2,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_commitment_38",
+                "option_id": "trip_book",
+                "semantic_predicate": "discretionary_resource_commitment_38",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.1,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "nonrefundable_resource_exposure",
+                "option_id": "trip_book",
+                "semantic_predicate": "nonrefundable_resource_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_refund"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.2,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": 0.15,
+                    "dimension": "uncertainty"
+                  }
+                ],
+                "category_id": "uncertain_return_danger",
+                "option_id": "trip_book",
+                "semantic_predicate": "uncertain_return_danger",
+                "supporting_evidence_ids": [
+                  "protective_ev_return_path"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.15,
+                    "dimension": "predictability"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "uncertainty"
+                  }
+                ],
+                "category_id": "unfamiliar_environment_danger",
+                "option_id": "trip_book",
+                "semantic_predicate": "unfamiliar_environment_danger",
+                "supporting_evidence_ids": [
+                  "protective_ev_environment"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.15,
+                    "dimension": "trust"
+                  },
+                  {
+                    "delta": 0.1,
+                    "dimension": "uncertainty"
+                  }
+                ],
+                "category_id": "unverified_provider_danger",
+                "option_id": "trip_book",
+                "semantic_predicate": "unverified_provider_danger",
+                "supporting_evidence_ids": [
+                  "protective_ev_lodging_transport"
+                ]
+              }
+            ],
+            "option_id": "trip_book",
+            "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure.",
+            "source_evidence_scope_ids": [
+              "protective_ev_companion",
+              "protective_ev_environment",
+              "protective_ev_lodging_transport",
+              "protective_ev_price",
+              "protective_ev_refund",
+              "protective_ev_return_path"
+            ],
+            "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.12,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": -0.08,
+                    "dimension": "tension"
+                  }
+                ],
+                "category_id": "avoids_unfamiliar_uncertain_exposure",
+                "option_id": "trip_home",
+                "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_environment",
+                  "protective_ev_lodging_transport",
+                  "protective_ev_return_path"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_preserved",
+                "option_id": "trip_home",
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              }
+            ],
+            "option_id": "trip_home",
+            "source_consequence": "Self does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path and does not make the stated discretionary-budget commitment.",
+            "source_evidence_scope_ids": [
+              "protective_ev_environment",
+              "protective_ev_lodging_transport",
+              "protective_ev_price",
+              "protective_ev_return_path"
+            ],
+            "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": 0.1,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": -0.1,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "absence_of_trusted_support",
+                "option_id": "trip_local",
+                "semantic_predicate": "absence_of_trusted_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.12,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": -0.08,
+                    "dimension": "tension"
+                  }
+                ],
+                "category_id": "avoids_unfamiliar_uncertain_exposure",
+                "option_id": "trip_local",
+                "semantic_predicate": "avoids_unfamiliar_uncertain_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_environment",
+                  "protective_ev_lodging_transport",
+                  "protective_ev_return_path"
+                ]
+              }
+            ],
+            "option_id": "trip_local",
+            "source_consequence": "Self takes the local option without trusted attachment support and does not enter the evidenced unfamiliar route, unverified providers, or uncertain return path.",
+            "source_evidence_scope_ids": [
+              "protective_ev_companion",
+              "protective_ev_environment",
+              "protective_ev_lodging_transport",
+              "protective_ev_return_path"
+            ],
+            "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116"
+          }
+        ],
+        "protected_target_label": "Self's physical integrity, ability to return, trusted attachment context, and discretionary budget.",
+        "schema_version": "triad-instinkt-typed-route-mapping-v1",
+        "source_evidence_sha256": "5cee565f1cb374558654bf06d5b2c4153b9e35ed3b089c1aa8a2ab3b53508723"
+      }
+    },
+    {
+      "case_id": "trip_protective_context_supported",
+      "evidence_closure": "passed",
+      "manual_mapping_valid": true,
+      "model_calls": 0,
+      "native_processor_executions": 0,
+      "option_results": [
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "resource_security": -0.2
+              },
+              "category_id": "discretionary_resource_commitment_38",
+              "marginal_protective_cost_contribution": 0.0125,
+              "semantic_predicate": "discretionary_resource_commitment_38",
+              "supporting_evidence_ids": [
+                "protective_ev_price"
+              ]
+            },
+            {
+              "body_deltas": {
+                "escape_availability": -0.1,
+                "resource_security": -0.05
+              },
+              "category_id": "nonrefundable_resource_exposure",
+              "marginal_protective_cost_contribution": 0.005625,
+              "semantic_predicate": "nonrefundable_resource_exposure",
+              "supporting_evidence_ids": [
+                "protective_ev_refund"
+              ]
+            },
+            {
+              "body_deltas": {
+                "attachment_security": 0.15,
+                "tension": -0.05,
+                "trust": 0.12
+              },
+              "category_id": "trusted_attachment_support",
+              "marginal_protective_cost_contribution": -0.023375,
+              "semantic_predicate": "trusted_attachment_support",
+              "supporting_evidence_ids": [
+                "protective_ev_companion"
+              ]
+            },
+            {
+              "body_deltas": {
+                "predictability": 0.1,
+                "trust": 0.1
+              },
+              "category_id": "verified_provider_support",
+              "marginal_protective_cost_contribution": -0.00375,
+              "semantic_predicate": "verified_provider_support",
+              "supporting_evidence_ids": [
+                "protective_ev_lodging_transport"
+              ]
+            },
+            {
+              "body_deltas": {
+                "escape_availability": 0.15,
+                "predictability": 0.1
+              },
+              "category_id": "verified_return_support",
+              "marginal_protective_cost_contribution": -0.00625,
+              "semantic_predicate": "verified_return_support",
+              "supporting_evidence_ids": [
+                "protective_ev_return_path"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": 0.15,
+            "escape_availability": 0.05,
+            "predictability": 0.2,
+            "resource_security": -0.25,
+            "tension": -0.05,
+            "trust": 0.22
+          },
+          "option_id": "trip_book",
+          "predicted_loss": 0.3400000000000001,
+          "protective_cost": 0.5547500000000001,
+          "recoverability": 0.601,
+          "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "resource_security": 0.15
+              },
+              "category_id": "discretionary_resource_preserved",
+              "marginal_protective_cost_contribution": -0.009375,
+              "semantic_predicate": "discretionary_resource_preserved",
+              "supporting_evidence_ids": [
+                "protective_ev_price"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "resource_security": 0.15
+          },
+          "option_id": "trip_home",
+          "predicted_loss": 0.3325,
+          "protective_cost": 0.560625,
+          "recoverability": 0.5775,
+          "source_consequence": "Self does not make the stated discretionary-budget commitment; no distance-avoidance benefit is inferred."
+        },
+        {
+          "category_contributions": [
+            {
+              "body_deltas": {
+                "attachment_security": 0.15,
+                "tension": -0.05,
+                "trust": 0.12
+              },
+              "category_id": "trusted_attachment_support",
+              "marginal_protective_cost_contribution": -0.023375,
+              "semantic_predicate": "trusted_attachment_support",
+              "supporting_evidence_ids": [
+                "protective_ev_companion"
+              ]
+            }
+          ],
+          "combined_body_deltas": {
+            "attachment_security": 0.15,
+            "tension": -0.05,
+            "trust": 0.12
+          },
+          "option_id": "trip_local",
+          "predicted_loss": 0.32750000000000007,
+          "protective_cost": 0.546625,
+          "recoverability": 0.5835,
+          "source_consequence": "Self takes the local option with grounded trusted attachment support; verified distance is not represented as danger."
+        }
+      ],
+      "processor_capability_claimed": false,
+      "selected_option_id": "trip_local",
+      "source_r1_case_sha256": "c1dc6eed046c3f2ab442253274de511d321a14cf6a7470f7dcbbb89c7ed891bf",
+      "tied_option_ids": [],
+      "typed_mapping": {
+        "budget_kind": "discretionary_budget",
+        "evidence_assertions": [
+          {
+            "assertions": [
+              "trusted_companion_present"
+            ],
+            "evidence_id": "protective_ev_companion",
+            "source_text_sha256": "f21eb2579b22b4ac954faa87c5983f39f573608c52b91920bf0948aa98e5afd5"
+          },
+          {
+            "assertions": [
+              "documented_environment"
+            ],
+            "evidence_id": "protective_ev_environment",
+            "source_text_sha256": "dc49fd0e766d7138792c0087f39bd5a1118eab3e2392c394dc611c03b59f996b"
+          },
+          {
+            "assertions": [
+              "verified_providers"
+            ],
+            "evidence_id": "protective_ev_lodging_transport",
+            "source_text_sha256": "940092507a40b2e4c886d3d71ec6b8ebd60acedba6a26740cd2971f0deeec7f1"
+          },
+          {
+            "assertions": [
+              "discretionary_budget_exposure"
+            ],
+            "evidence_id": "protective_ev_price",
+            "source_text_sha256": "6d3348ac8f36c376deea19201cee0c5316955bb4479cbd1fd78efcfdaec82d1f"
+          },
+          {
+            "assertions": [
+              "nonrefundable_purchase"
+            ],
+            "evidence_id": "protective_ev_refund",
+            "source_text_sha256": "35f2b698082515fd4519edbff30f0accfbf83eedce64d34d18c068afcf14acf7"
+          },
+          {
+            "assertions": [
+              "verified_return_path"
+            ],
+            "evidence_id": "protective_ev_return_path",
+            "source_text_sha256": "97604fa29c785aec793bd1a2c5ad694590c102b65774bf266b29afdbdd0c34b5"
+          }
+        ],
+        "mapping_mode": "explicit_source_addressed_for_human_review",
+        "necessary_cash_reserve_claim": false,
+        "option_effects": [
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.2,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_commitment_38",
+                "option_id": "trip_book",
+                "semantic_predicate": "discretionary_resource_commitment_38",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": -0.1,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "nonrefundable_resource_exposure",
+                "option_id": "trip_book",
+                "semantic_predicate": "nonrefundable_resource_exposure",
+                "supporting_evidence_ids": [
+                  "protective_ev_refund"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "trusted_attachment_support",
+                "option_id": "trip_book",
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.1,
+                    "dimension": "predictability"
+                  },
+                  {
+                    "delta": 0.1,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "verified_provider_support",
+                "option_id": "trip_book",
+                "semantic_predicate": "verified_provider_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_lodging_transport"
+                ]
+              },
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "escape_availability"
+                  },
+                  {
+                    "delta": 0.1,
+                    "dimension": "predictability"
+                  }
+                ],
+                "category_id": "verified_return_support",
+                "option_id": "trip_book",
+                "semantic_predicate": "verified_return_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_return_path"
+                ]
+              }
+            ],
+            "option_id": "trip_book",
+            "source_consequence": "Self enters the distant travel option under the source-addressed protective context and non-refundable 38-percent discretionary-budget exposure.",
+            "source_evidence_scope_ids": [
+              "protective_ev_companion",
+              "protective_ev_environment",
+              "protective_ev_lodging_transport",
+              "protective_ev_price",
+              "protective_ev_refund",
+              "protective_ev_return_path"
+            ],
+            "source_option_sha256": "7765c1ef00bb44ea860029640a19e405e6ef5622cabbb2fb58bc4f36c3e2378a"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "resource_security"
+                  }
+                ],
+                "category_id": "discretionary_resource_preserved",
+                "option_id": "trip_home",
+                "semantic_predicate": "discretionary_resource_preserved",
+                "supporting_evidence_ids": [
+                  "protective_ev_price"
+                ]
+              }
+            ],
+            "option_id": "trip_home",
+            "source_consequence": "Self does not make the stated discretionary-budget commitment; no distance-avoidance benefit is inferred.",
+            "source_evidence_scope_ids": [
+              "protective_ev_price"
+            ],
+            "source_option_sha256": "7c02a7dd83a4f069defe7174adab3d0eecf9aa4bd548875f36e11b769ef76345"
+          },
+          {
+            "categories": [
+              {
+                "body_deltas": [
+                  {
+                    "delta": 0.15,
+                    "dimension": "attachment_security"
+                  },
+                  {
+                    "delta": -0.05,
+                    "dimension": "tension"
+                  },
+                  {
+                    "delta": 0.12,
+                    "dimension": "trust"
+                  }
+                ],
+                "category_id": "trusted_attachment_support",
+                "option_id": "trip_local",
+                "semantic_predicate": "trusted_attachment_support",
+                "supporting_evidence_ids": [
+                  "protective_ev_companion"
+                ]
+              }
+            ],
+            "option_id": "trip_local",
+            "source_consequence": "Self takes the local option with grounded trusted attachment support; verified distance is not represented as danger.",
+            "source_evidence_scope_ids": [
+              "protective_ev_companion"
+            ],
+            "source_option_sha256": "bf22ab3f4751856b353e3653517578db588bb2f806f597a6f667ad3181c42116"
+          }
+        ],
+        "protected_target_label": "Self's physical integrity, ability to return, trusted attachment context, and discretionary budget.",
+        "schema_version": "triad-instinkt-typed-route-mapping-v1",
+        "source_evidence_sha256": "b6ca2410fbbdb0814a98c4f907ced31c8f660c1d1c14b46bee322bb9c5c9a48e"
+      }
+    }
+  ],
+  "mode": "manual_mapping_deterministic_effect_sensitivity",
+  "schema_version": "triad-iso-r2-instinkt-typed-sensitivity-v1"
+}

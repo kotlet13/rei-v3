@@ -1,0 +1,17 @@
+{
+  "all_checks_passed": true,
+  "model_calls": 0,
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0
+  },
+  "protective_pair": {
+    "emocio_typed_valuation_stable": true,
+    "instinkt_typed_route_distinguishable": true
+  },
+  "schema_version": "triad-iso-r2-pair-invariance-v1",
+  "utility_pair": {
+    "emocio_non_target_route_stable": true,
+    "instinkt_non_target_route_stable": true
+  }
+}

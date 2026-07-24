@@ -1,0 +1,55 @@
+{
+  "base_commit": "fff7617a22948f595e075da267d52d90720cca03",
+  "character_replay_rows": 0,
+  "corrected_candidate_v2": {
+    "execution_authorized": false,
+    "sha256": "1cb5fdefdedd379da3b4448758e05c40b9901b27af91f7a30ff26caa90b8d2e3",
+    "status": "unsealed_candidate"
+  },
+  "image_generation_calls": 0,
+  "local_absolute_paths_persisted": false,
+  "manifest_sha256": "fb0d1008872bcae702085711cfb60f8d638c089e04b32305552271b59133b886",
+  "model_calls": 0,
+  "native_processor_executions": {
+    "E": 0,
+    "I": 0,
+    "R": 0
+  },
+  "outputs": [
+    {
+      "bytes": 128089,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r2-2026-07-24/corrected_candidate_v2.json",
+      "sha256": "1cb5fdefdedd379da3b4448758e05c40b9901b27af91f7a30ff26caa90b8d2e3"
+    },
+    {
+      "bytes": 48265,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r2-2026-07-24/emocio_typed_replay.json",
+      "sha256": "0be6c93422c44a1867f795adc8f2a44ccda258e9341c7d36de4af682485377ea"
+    },
+    {
+      "bytes": 52296,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r2-2026-07-24/instinkt_typed_sensitivity.json",
+      "sha256": "37d3a025f2c0fd555eafef1b077afd9b7a690d30c4f67ef7956b4e4ac878439f"
+    },
+    {
+      "bytes": 404,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r2-2026-07-24/pair_invariance.json",
+      "sha256": "af40f7335fd273f4aa765c15c34d29790fca1cc254d84f5eedaac9ab28b80a5c"
+    },
+    {
+      "bytes": 33227,
+      "path": "Docs/evals/semantic_lab_v1/triad-route-isolation-e1r2-2026-07-24/report.md",
+      "sha256": "c946072f06e515ca1a199a58199ace8bf5a8b5648b136a1cfbb9426bdb99825f"
+    }
+  ],
+  "phase": "TRIAD-ISO-R2",
+  "schema_version": "triad-iso-r2-manifest-v1",
+  "source_r1": {
+    "bytes_changed": false,
+    "candidate_sha256": "77724ec00a06a6da5d0ff8d42443f01704173c633d7033359f14807c683abfa3",
+    "frozen_file_count": 6,
+    "frozen_inventory_sha256": "4ff4d6962d13628590f7c6679e68ca8f2fd7189c0b38e83e050a8631c85cc136"
+  },
+  "status": "offline_typed_route_correction_complete",
+  "thinking_persisted": false
+}
