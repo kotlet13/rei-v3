@@ -1,0 +1,1 @@
+{"excluded_as_unknown":["leader decision","official correction","public recognition","colleague response","later organizational response"],"fixed_horizon":"Immediately after the action, before any unknown leader decision or later organizational response.","included":["option action","immediate visible result"],"schema_version":"triad-vis-m1-temporal-horizon-v1"}
