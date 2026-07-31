@@ -1,0 +1,13 @@
+{
+  "schema_version": "rei-emocio-vwm-research-phase-v1",
+  "branch": "codex/emocio-visual-world-model-mvp",
+  "direct_base_commit": "1300e1d6e1a94a4baae20152e895141543fbcd37",
+  "phase": "exploration",
+  "research_date": "2026-07-31",
+  "reproducible_timestamp": "2026-07-31T00:00:00.000Z",
+  "validation_started": false,
+  "human_review_required_before_validation": true,
+  "active_rei_runtime_modified": false,
+  "training_dataset_generated": false,
+  "model_invoked": false
+}

@@ -1,0 +1,42 @@
+{
+  "call_lineage": "lineage.json",
+  "checksums": "checksums.json",
+  "contact_sheets": [
+    "contact_sheets/grounded_key_mosaic.png"
+  ],
+  "dataset_manifest": "dataset_manifest.json",
+  "human_review": "human_review.md",
+  "imagined_samples": [],
+  "metrics": "metrics.json",
+  "model_lineage": "lpwm_preflight.json",
+  "phase": "exploration",
+  "samples": [
+    {
+      "path": "grounded/ep_d3b7c4d861bddca87bb6/grounded.mp4",
+      "sha256": "9e0c671a5963f7f9c1fb29bbba6946eac7ad3bcf639b7ee327188bf149036020"
+    },
+    {
+      "path": "grounded/ep_b3fac6f6c460f6fdc8c0/grounded.mp4",
+      "sha256": "79cadc700da94753b42498525ed95392c2b8f79e77bc033538b21b582f1a2267"
+    },
+    {
+      "path": "grounded/ep_2212a096492cfa160697/grounded.mp4",
+      "sha256": "48064485c06894bc07b7549e5c016c69d4b2fb3444f5591f42072e93d255eefc"
+    },
+    {
+      "path": "grounded/ep_75a0915c3c5cfc516893/grounded.mp4",
+      "sha256": "ad0c767db3b31b0a5579e1419b068386fcfbbd3895b02b6b068077ea172f43f1"
+    },
+    {
+      "path": "grounded/ep_8b642f3d91220ede322d/grounded.mp4",
+      "sha256": "9fa0a88f23718351de9babebe62a581c2924859b95f8dd0199ebccf8f47e3b78"
+    },
+    {
+      "path": "grounded/ep_fbc5fdee6513f9ee4d37/grounded.mp4",
+      "sha256": "a0f26107b044a1ff21337f42f0f103b1c1023f192201b8e942dd56a00d3ec488"
+    }
+  ],
+  "schema_version": "rei-emocio-vwm-research-bundle-v1",
+  "verdict": "verdict.json",
+  "world_manifest": "specs/world_manifest.json"
+}

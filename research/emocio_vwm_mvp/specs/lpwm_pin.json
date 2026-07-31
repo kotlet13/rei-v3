@@ -1,0 +1,31 @@
+{
+  "schema_version": "rei-emocio-lpwm-pin-v1",
+  "upstream": "https://github.com/taldatech/lpwm.git",
+  "commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "license": "MIT",
+  "external_environment": {
+    "required_root_env": "REI_LPWM_ROOT",
+    "required_checkpoint_env": "REI_LPWM_CHECKPOINT",
+    "python": "3.11",
+    "local_example_root": "C:/Users/Kotlet/Codex/research-envs/lpwm-4cf53c403433",
+    "repo_relative_venv": ".venv"
+  },
+  "weights": {
+    "vendored": false,
+    "automatic_download": false,
+    "checkpoint_required_for_validation": true,
+    "accepted_checkpoint_sha256": []
+  },
+  "conditioning": {
+    "latent_action_sampling": true,
+    "image_goal_condition": true,
+    "action_condition": false,
+    "language_condition": false,
+    "language_embed_dim": 0,
+    "language_max_len": 0
+  },
+  "upstream_evidence": {
+    "readme": "https://github.com/taldatech/lpwm/tree/4cf53c403433e64c01652ac2adbec66231a46dea",
+    "paper": "https://openreview.net/forum?id=lTaPtGiUUc"
+  }
+}

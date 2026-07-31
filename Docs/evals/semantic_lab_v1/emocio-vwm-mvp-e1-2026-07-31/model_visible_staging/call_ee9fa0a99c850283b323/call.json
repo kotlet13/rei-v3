@@ -1,0 +1,28 @@
+{
+  "schema_version": "rei-emocio-vwm-clean-media-call-v1",
+  "conditioning": "latent_action_image_goal",
+  "inputs": [
+    {
+      "slot": "observation",
+      "media_type": "video/mp4",
+      "path": "i0.mp4",
+      "sha256": "19de3f9f424882a954d2f6efcd0bec0649479a29b384fb8928fb7ffade39c9a1"
+    },
+    {
+      "slot": "self_reference",
+      "media_type": "image/png",
+      "path": "i1.png",
+      "sha256": "d277963f00f847c2277b7a569c6cdbdb68c21e837e075323a8d4807856f7d75e"
+    },
+    {
+      "slot": "goal",
+      "media_type": "image/png",
+      "path": "i2.png",
+      "sha256": "4a07ba7572ea96c956a7cd17693d7b35ad4815844d4cf0162a10f2d37f24e4a0"
+    }
+  ],
+  "sampling": {
+    "samples": 8,
+    "stochastic": true
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "rei-emocio-vwm-acceptance-v1",
+  "frozen": true,
+  "freeze_rule": "No threshold or test may change after the first LPWM call.",
+  "verdicts": [
+    "medium_failed",
+    "model_fit_failed",
+    "model_fit_promising",
+    "not_executed_resource_block"
+  ],
+  "medium_gate": {
+    "render_success_rate_min": 1.0,
+    "deterministic_pixel_hash_match_rate_min": 1.0,
+    "meeting_person_count_accuracy_min": 1.0,
+    "private_office_person_count_accuracy_min": 1.0,
+    "duplicate_entity_rate_max": 0.0,
+    "visual_only_leakage_failures_max": 0
+  },
+  "technical_overfit_gate": {
+    "identity_stability_min": 0.98,
+    "person_count_accuracy_min": 0.98,
+    "duplicate_person_rate_max": 0.01,
+    "foreground_lpips_max": 0.18,
+    "goal_marker_accuracy_min": 0.90
+  },
+  "social_model_fit_gate": {
+    "identity_stability_min": 0.90,
+    "person_count_accuracy_min": 0.95,
+    "duplicate_person_rate_max": 0.03,
+    "stochastic_pairwise_lpips_min": 0.04,
+    "stochastic_pairwise_lpips_max": 0.35,
+    "self_anchor_identity_gain_min": 0.10,
+    "matched_vs_mismatched_goal_gain_min": 0.15,
+    "grounded_imagined_lineage_accuracy_min": 1.0,
+    "held_out_goal_marker_accuracy_min": 0.60,
+    "blind_human_correct_path_rate_min": 0.65,
+    "blind_human_severe_artifact_rate_max": 0.05
+  },
+  "stop_condition": {
+    "technical_overfit_failure": "model_fit_failed",
+    "social_model_fit_failure": "model_fit_failed",
+    "model_substitution_within_result": false,
+    "acceptance_relaxation_within_result": false
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "rei-emocio-vwm-model-output-contract-v1",
+  "native_model_output": "visual_media_only",
+  "required_future_samples": 8,
+  "wrapper_metadata_is_not_native_output": true,
+  "sample_record_allowlist": [
+    "sample_id",
+    "clip_path",
+    "clip_sha256",
+    "sampling_seed",
+    "source_call_sha256",
+    "checkpoint_sha256",
+    "reality_authority"
+  ],
+  "bundle_outputs": {
+    "future_clips": "imagined/samples/i000.mp4 through i007.mp4",
+    "key_mosaic": "imagined/key_mosaic.png",
+    "selected_visual_path": "imagined/selected.json"
+  },
+  "selection_record_allowlist": [
+    "selected_sample_id",
+    "selected_clip_sha256",
+    "selection_metric_id",
+    "selection_metric_value",
+    "reality_authority"
+  ],
+  "forbidden_native_outputs": [
+    "caption",
+    "explanation",
+    "rationale",
+    "scenario_text",
+    "role_name",
+    "entity_id",
+    "option_description",
+    "scene_graph",
+    "character",
+    "semantic_label"
+  ],
+  "reality_authority": false
+}

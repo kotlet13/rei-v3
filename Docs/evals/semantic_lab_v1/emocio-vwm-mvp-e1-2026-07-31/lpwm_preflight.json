@@ -1,0 +1,31 @@
+{
+  "automatic_download_attempted": false,
+  "blockers": [
+    "lpwm_dependencies_missing:PIL,cv2,numpy,torch,torchvision",
+    "explicit_checkpoint_missing"
+  ],
+  "checkpoint": {
+    "explicit": false,
+    "present": false,
+    "sha256": null
+  },
+  "dependencies": {
+    "PIL": false,
+    "cv2": false,
+    "numpy": false,
+    "torch": false,
+    "torchvision": false
+  },
+  "expected_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "gpu": {
+    "available": true,
+    "description": "NVIDIA GeForce RTX 5090, 32607 MiB, 596.36"
+  },
+  "ready": false,
+  "schema_version": "rei-emocio-lpwm-preflight-v1",
+  "source_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "source_pin_match": true,
+  "source_present": true,
+  "source_root": "C:\\Users\\Kotlet\\Codex\\research-envs\\lpwm-4cf53c403433",
+  "venv_python_present": true
+}

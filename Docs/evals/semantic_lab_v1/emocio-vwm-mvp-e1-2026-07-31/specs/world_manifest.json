@@ -1,0 +1,69 @@
+{
+  "schema_version": "rei-emocio-vwm-world-v1",
+  "world_id": "public_credit_world_v1",
+  "authority": "evaluator_ground_truth_only",
+  "model_visible": false,
+  "scenario": {
+    "scenario_id": "public_credit_attribution_capture",
+    "rooms": [
+      {
+        "room_id": "meeting_room",
+        "kind": "meeting_room",
+        "bounds": [-8.0, 8.0, -5.0, 5.0]
+      },
+      {
+        "room_id": "private_office",
+        "kind": "private_office",
+        "bounds": [10.0, 17.0, -4.0, 4.0]
+      }
+    ],
+    "people": [
+      {"entity_id": "person_self", "role": "self", "palette": "coral", "signature": "double_wrist_band"},
+      {"entity_id": "person_coworker", "role": "coworker", "palette": "cyan", "signature": "square_lapel"},
+      {"entity_id": "person_leader", "role": "leader", "palette": "gold", "signature": "shoulder_bar"},
+      {"entity_id": "person_audience_01", "role": "audience", "palette": "violet", "signature": "head_ring"},
+      {"entity_id": "person_audience_02", "role": "audience", "palette": "green", "signature": "head_ring"},
+      {"entity_id": "person_audience_03", "role": "audience", "palette": "rose", "signature": "head_ring"},
+      {"entity_id": "person_audience_04", "role": "audience", "palette": "blue", "signature": "head_ring"},
+      {"entity_id": "person_audience_05", "role": "audience", "palette": "orange", "signature": "head_ring"},
+      {"entity_id": "person_audience_06", "role": "audience", "palette": "lime", "signature": "head_ring"}
+    ],
+    "props": [
+      {"entity_id": "prop_projection", "kind": "projection", "visual_code": "white_panel_three_shapes"},
+      {"entity_id": "prop_evidence_card", "kind": "evidence_card", "visual_code": "coral_card_three_punches"},
+      {"entity_id": "marker_official_attribution", "kind": "official_attribution_marker", "visual_code": "green_seal"},
+      {"entity_id": "marker_pending", "kind": "pending_marker", "visual_code": "amber_broken_ring"}
+    ]
+  },
+  "invariants": {
+    "meeting_room_person_count": 9,
+    "private_office_person_count": 2,
+    "unique_person_count": 9,
+    "rooms": 2,
+    "required_props": 4,
+    "duplicate_entity_ids_allowed": false,
+    "text_glyphs_allowed": false
+  },
+  "render": {
+    "engine": "three",
+    "engine_version": "0.185.1",
+    "width": 128,
+    "height": 128,
+    "fps": 6,
+    "frames_per_episode": 24,
+    "color_space": "srgb",
+    "antialias": true,
+    "shadows": false
+  },
+  "future_paths": [
+    "public_reclaim",
+    "private_evidence",
+    "no_response"
+  ],
+  "reality_contract": {
+    "grounded_namespace": "grounded",
+    "imagined_namespace": "imagined",
+    "imagined_reality_authority": false,
+    "imagined_may_mutate_grounded": false
+  }
+}

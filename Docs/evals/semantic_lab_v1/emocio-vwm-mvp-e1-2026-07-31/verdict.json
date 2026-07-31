@@ -1,0 +1,12 @@
+{
+  "acceptance_changed_after_call": false,
+  "model": "LPWM",
+  "model_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "model_invoked": false,
+  "model_substituted": false,
+  "phase": "exploration",
+  "reason": "LPWM dependencies and explicit local checkpoint are unavailable; validation was not executed",
+  "review_gate": "stop_for_human_review_before_validation",
+  "schema_version": "rei-emocio-vwm-verdict-v1",
+  "verdict": "not_executed_resource_block"
+}

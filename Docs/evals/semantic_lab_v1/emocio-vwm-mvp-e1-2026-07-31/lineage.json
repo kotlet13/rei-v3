@@ -1,0 +1,17 @@
+{
+  "grounded": {
+    "authority": "three_js_evaluator_ground_truth",
+    "dataset_manifest": "dataset_manifest.json",
+    "reality_authority": true
+  },
+  "imagined": {
+    "artifacts": [],
+    "authority": "lpwm_prediction_only",
+    "may_mutate_grounded": false,
+    "reality_authority": false
+  },
+  "model_call": null,
+  "natural_language_native_output": false,
+  "schema_version": "rei-emocio-vwm-lineage-v1",
+  "selected_visual_path": null
+}

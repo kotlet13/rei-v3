@@ -1,0 +1,59 @@
+{
+  "acceptance_sha256": "be5a5896694fec39f36411070b6d8f7fdee5caa2a99cf207bc08f4f4c802cd3b",
+  "boundary_failures": [],
+  "medium": {
+    "deterministic_pixel_hash_match_rate": 1.0,
+    "duplicate_entity_rate": 0.0,
+    "meeting_person_count_accuracy": 1.0,
+    "private_office_person_count_accuracy": 1.0,
+    "render_success_rate": 1.0,
+    "visual_only_leakage_failures": 0
+  },
+  "medium_checks": {
+    "deterministic_pixels": true,
+    "meeting_count": true,
+    "no_duplicates": true,
+    "office_count": true,
+    "render_success": true,
+    "visual_only": true
+  },
+  "model_tests": {
+    "absence_of_duplication": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "blind_human_review": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "grounded_imagined_lineage": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "held_out_generalization": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "identity_stability": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "image_goal_sensitivity": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "person_count": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "self_anchor_ablation": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    },
+    "stochastic_diversity": {
+      "reason": "exploration_phase_and_lpwm_resource_block",
+      "status": "not_executed"
+    }
+  },
+  "schema_version": "rei-emocio-vwm-exploration-metrics-v1"
+}

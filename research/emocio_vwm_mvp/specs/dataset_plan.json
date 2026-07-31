@@ -1,0 +1,71 @@
+{
+  "schema_version": "rei-emocio-vwm-dataset-plan-v1",
+  "plan_status": "frozen_before_validation",
+  "source_world": "world_manifest.json",
+  "seed": 73013,
+  "episode_frames": 24,
+  "conditioning_frames": 6,
+  "splits": [
+    {
+      "name": "exploration_preview",
+      "episodes": 6,
+      "purpose": "model_free_medium_and_contract_review",
+      "may_train": false,
+      "layout_family": "preview"
+    },
+    {
+      "name": "technical_overfit",
+      "episodes": 12,
+      "purpose": "first_lpwm_gate",
+      "may_train": true,
+      "layout_family": "overfit_single_layout"
+    },
+    {
+      "name": "train",
+      "episodes": 240,
+      "purpose": "social_dynamics_fit",
+      "may_train": true,
+      "layout_family": "train_layouts_a_to_d"
+    },
+    {
+      "name": "validation",
+      "episodes": 60,
+      "purpose": "threshold_selection_forbidden_metrics_only",
+      "may_train": false,
+      "layout_family": "train_layouts_a_to_d"
+    },
+    {
+      "name": "held_out",
+      "episodes": 72,
+      "purpose": "generalization",
+      "may_train": false,
+      "layout_family": "unseen_layouts_e_and_f"
+    },
+    {
+      "name": "blind_human_review",
+      "episodes": 36,
+      "purpose": "sealed_blind_review",
+      "may_train": false,
+      "layout_family": "mixed_without_semantic_labels"
+    }
+  ],
+  "arms": [
+    "self_anchor_on_goal_off",
+    "self_anchor_off_goal_off",
+    "self_anchor_on_goal_match",
+    "self_anchor_on_goal_mismatch"
+  ],
+  "sampling": {
+    "future_samples_per_call": 8,
+    "fixed_seed_repeats": 2,
+    "distinct_seed_repeats": 8,
+    "selection": "visual_metric_only_no_natural_language"
+  },
+  "split_rules": {
+    "episode_seed_disjoint": true,
+    "camera_trajectory_disjoint_for_held_out": true,
+    "layout_family_disjoint_for_held_out": true,
+    "identity_palette_stable_across_splits": true,
+    "scenario_text_materialized_in_model_visible_assets": false
+  }
+}

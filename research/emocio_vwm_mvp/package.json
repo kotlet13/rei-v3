@@ -1,0 +1,11 @@
+{
+  "name": "rei-emocio-vwm-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pinned local Three.js laboratory for the isolated Emocio VWM research bundle",
+  "dependencies": {
+    "playwright-core": "1.62.1",
+    "three": "0.185.1"
+  }
+}
