@@ -1,0 +1,13 @@
+{
+  "model_fit_failed": "The frozen model, inputs, environment, optimizer, and valid full run executed the complete budget, but at least one frozen hard gate failed.",
+  "model_fit_promising": "All frozen hard gates and lineage/boundary checks passed in the one LPWM technical-overfit run. This is a narrow technical result only.",
+  "not_executed_resource_block": "Environment, CUDA, source/interface construction, optimizer execution, budget completion, or visual-only input boundary prevented a valid full run.",
+  "precedence": [
+    "medium_failed",
+    "not_executed_resource_block",
+    "model_fit_failed",
+    "model_fit_promising"
+  ],
+  "schema_version": "rei-emocio-vwm-e2-verdict-taxonomy-v1",
+  "medium_failed": "The sealed E1R deterministic visual medium regressed or its prerequisite review is invalid."
+}

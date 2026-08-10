@@ -1,0 +1,59 @@
+{
+  "branch": "codex/emocio-visual-world-model-mvp",
+  "dataset": {
+    "episode_count": 12,
+    "frames_per_episode": 24,
+    "root_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+    "routes_evaluator_only": {
+      "no_response_hold": 4,
+      "private_pending": 4,
+      "public_pending": 4
+    }
+  },
+  "e1r_prerequisite": {
+    "commit_sha": "01aa8d3e10c04275e528fd45796d0c4c5bb4ac0b",
+    "medium_review_attempt": 3,
+    "medium_review_status": "passed"
+  },
+  "execution_order": [
+    "push_this_protocol_commit",
+    "install_exact_external_environment",
+    "write_exact_environment_manifest",
+    "run_cuda_smoke",
+    "construct_unmodified_lpwm",
+    "record_from_scratch_initial_state_hash",
+    "run_synthetic_forward_loss_backward_optimizer_smoke",
+    "run_one_measured_technical_overfit",
+    "evaluate_frozen_outputs",
+    "seal_result_bundle"
+  ],
+  "forbidden": [
+    "LPWM import before protocol push",
+    "LPWM construction before protocol push",
+    "pretrained checkpoint acquisition",
+    "model substitution",
+    "language conditioning",
+    "semantic model input",
+    "threshold changes",
+    "dataset regeneration",
+    "seed selection beyond the frozen visual selection rule",
+    "budget extension",
+    "social-fit execution",
+    "active REI runtime modification",
+    "PR creation",
+    "merge"
+  ],
+  "lpwm": {
+    "commit_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "initialization": "from_scratch",
+    "pretrained_checkpoint_sha256": null,
+    "repository": "taldatech/lpwm",
+    "separate_self_reference_slot": "unsupported_not_faked"
+  },
+  "measured_run_count": 1,
+  "phase": "E2_LPWM_technical_overfit",
+  "protocol_change_after_commit_allowed": false,
+  "required_commit_message": "research: freeze LPWM technical-overfit E2 protocol",
+  "schema_version": "rei-emocio-vwm-e2-protocol-freeze-v1",
+  "stop_condition": "After a result commit with one frozen verdict, stop for independent review; do not start social fit."
+}

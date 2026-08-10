@@ -49,6 +49,15 @@ Docs/evals/semantic_lab_v1/triad-response-screen-v1-2026-07-23/** text eol=lf
 # E1R freezes the complete research bundle by raw SHA-256.
 Docs/evals/semantic_lab_v1/emocio-vwm-mvp-e1r-2026-08-10/** -text -whitespace
 
+# E2 freezes protocol and generated research artifacts by raw SHA-256.
+research/emocio_vwm_mvp_e2/** -text -whitespace
+scripts/acquire_emocio_vwm_e2_metric_weights.ps1 -text -whitespace
+scripts/bootstrap_emocio_vwm_e2_env.ps1 -text -whitespace
+scripts/freeze_emocio_vwm_e2_dataset.py -text -whitespace
+scripts/run_emocio_vwm_e2.py -text -whitespace
+scripts/seal_emocio_vwm_e2_protocol.py -text -whitespace
+tests/research/test_emocio_vwm_e2_protocol.py -text -whitespace
+
 # C1/C4-C7 freeze these fixtures and evaluation artifacts by raw SHA-256.
 tests/fixtures/semantic_lab_v1/** text eol=lf
 tests/fixtures/native_bundles/** text eol=lf

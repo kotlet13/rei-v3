@@ -1,0 +1,38 @@
+{
+  "adapter_may_read": [
+    "model_visible/<opaque_episode_id>/<six_digit_frame>.png"
+  ],
+  "allowed_model_inputs": [
+    "rgb_observation_prefix",
+    "rgb_image_goal"
+  ],
+  "conditioning_frames": 6,
+  "dedicated_self_reference": {
+    "status": "unsupported_by_unmodified_lpwm",
+    "ablation_status": "not_tested",
+    "synthetic_replacement_allowed": false
+  },
+  "forbidden_model_inputs": [
+    "scenario_text",
+    "path_name",
+    "role_name",
+    "entity_id",
+    "option_description",
+    "option_id",
+    "scene_graph",
+    "attribution_target_metadata",
+    "evidence_class",
+    "character",
+    "racio_interpretation",
+    "human_review",
+    "semantic_filename",
+    "semantic_action"
+  ],
+  "goal_frame": 23,
+  "image_goal_condition": true,
+  "language_condition": false,
+  "model_visible_media": "RGB tensors decoded only from metadata-clean PNG files",
+  "neutral_action_tensor": null,
+  "schema_version": "rei-emocio-vwm-e2-model-visible-contract-v1",
+  "sequence_frames": 24
+}

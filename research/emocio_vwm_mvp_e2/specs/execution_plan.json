@@ -1,0 +1,37 @@
+{
+  "checkpoint_policy": {
+    "best": "lowest finite frozen training objective at a 100-step measurement boundary",
+    "final": "optimizer step 1200",
+    "storage": "external_lpwm_environment_only"
+  },
+  "determinism": {
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": true,
+    "seed": 73013,
+    "two_run_artifact_tree_comparison": "required for deterministic evaluator/media pipeline; model optimization remains the one measured run"
+  },
+  "early_stop": {
+    "enabled": false,
+    "reason": "exact frozen budget"
+  },
+  "evaluation_every_steps": 100,
+  "measured_run_count": 1,
+  "oom_fallback": {
+    "allowed_only_before_first_optimizer_step": true,
+    "fallback": "bfloat16_autocast_batch_1",
+    "primary": "float32_batch_1",
+    "second_failure_verdict": "not_executed_resource_block"
+  },
+  "optimizer": {
+    "betas": [0.9, 0.999],
+    "eps": 1e-06,
+    "gradient_accumulation_steps": 1,
+    "learning_rate": 8e-05,
+    "name": "Adam",
+    "scheduler": null,
+    "weight_decay": 0.0
+  },
+  "optimizer_steps": 1200,
+  "schema_version": "rei-emocio-vwm-e2-execution-plan-v1",
+  "shuffle": "seeded cyclic permutation of 12 opaque episode directories"
+}

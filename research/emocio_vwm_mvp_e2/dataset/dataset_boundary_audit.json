@@ -1,0 +1,31 @@
+{
+  "allowed_model_tensors": [
+    "rgb_observation_prefix",
+    "rgb_image_goal"
+  ],
+  "forbidden": [
+    "scenario_text",
+    "path_name",
+    "role_name",
+    "entity_id",
+    "option_id",
+    "scene_graph",
+    "attribution_target_metadata",
+    "evidence_class",
+    "character",
+    "racio_interpretation",
+    "human_review",
+    "semantic_filename"
+  ],
+  "model_visible_file_count": 300,
+  "model_visible_json_files": 0,
+  "model_visible_media_types": [
+    "image/png",
+    "video/mp4"
+  ],
+  "mp4_ffprobe_stream_and_metadata_validation": "passed",
+  "opaque_path_pattern": "model_visible/<24-lower-hex>/<6-digits>.(png|mp4)",
+  "png_metadata_validation": "passed",
+  "schema_version": "rei-emocio-vwm-e2-dataset-boundary-audit-v1",
+  "status": "passed"
+}

@@ -1,0 +1,24 @@
+{
+  "claim_scope": "technical_overfit_only",
+  "hard_gates": {
+    "duplicate_person_rate_max": 0.01,
+    "foreground_lpips_max": 0.18,
+    "goal_marker_accuracy_min": 0.9,
+    "identity_stability_min": 0.98,
+    "person_count_accuracy_min": 0.98
+  },
+  "metric_source": "generated_model_visuals_against_evaluator_only_gold",
+  "numeric_threshold_changes_after_freeze_allowed": false,
+  "particle_diagnostics": {
+    "mandatory": [
+      "active_particle_count",
+      "particle_position_coverage",
+      "particle_temporal_displacement",
+      "particle_objectness_distribution",
+      "latent_context_variance"
+    ],
+    "numeric_pass_thresholds": null
+  },
+  "schema_version": "rei-emocio-vwm-e2-acceptance-v1",
+  "segmentation_policy": "fixed_color_technical_overfit_evaluator_only"
+}

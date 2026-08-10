@@ -1,0 +1,46 @@
+{
+  "constructor_required_frozen_arguments": [
+    "cdim",
+    "image_size",
+    "n_kp_per_patch",
+    "patch_size",
+    "n_kp_enc",
+    "n_kp_prior",
+    "timestep_horizon",
+    "context_dim",
+    "action_condition",
+    "random_action_condition",
+    "language_condition",
+    "img_goal_condition"
+  ],
+  "forward_conditioning_arguments": [
+    "actions",
+    "actions_mask",
+    "lang_embed",
+    "done_mask",
+    "x_goal"
+  ],
+  "sample_from_x_arguments": [
+    "x",
+    "num_steps",
+    "deterministic",
+    "cond_steps",
+    "return_z",
+    "use_all_ctx",
+    "actions",
+    "actions_mask",
+    "lang_embed",
+    "x_goal",
+    "decode",
+    "n_pred_eq_gt",
+    "return_context_posterior"
+  ],
+  "schema_version": "rei-emocio-vwm-e2-lpwm-interface-audit-v1",
+  "source_commit_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "source_files": {
+    "configs/obj3d128.json": "0b28ae5438416d44e01b1c60882cdc66b1b2b9106c799b4ba8c6292393214cde",
+    "models.py": "1724a21d11201192c1bb56444a35e2444a9daf6bfc3a7fdcf45560f2da4e6807",
+    "requirements.txt": "4258796c844f9098ed1a4f5130ffb4219b8055512aa98965fd027ed9bc07e8f6"
+  },
+  "static_source_audit_status": "passed_before_first_lpwm_import"
+}

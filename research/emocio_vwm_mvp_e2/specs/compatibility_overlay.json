@@ -1,0 +1,32 @@
+{
+  "base": "LPWM requirements at 4cf53c403433e64c01652ac2adbec66231a46dea",
+  "cuda_smoke_requirements": {
+    "cuda_available": true,
+    "device_name_contains": "NVIDIA GeForce RTX 5090",
+    "minimum_cuda_runtime": "12.8",
+    "torch_arch_list_contains": "sm_120"
+  },
+  "overrides": {
+    "h5py": {
+      "from": "3.6.0",
+      "reason": "Python 3.11 wheel compatibility",
+      "to": "3.12.1"
+    },
+    "scikit-image": {
+      "from": "unversioned",
+      "reason": "exact environment reproducibility",
+      "to": "0.25.2"
+    },
+    "torch": {
+      "from": "2.6.0",
+      "reason": "official stable CUDA 13.0 wheel with Blackwell sm_120 support",
+      "to": "2.11.0+cu130"
+    },
+    "torchvision": {
+      "from": "0.21.0",
+      "reason": "match the frozen torch release",
+      "to": "0.26.0+cu130"
+    }
+  },
+  "schema_version": "rei-emocio-vwm-e2-compatibility-overlay-v1"
+}

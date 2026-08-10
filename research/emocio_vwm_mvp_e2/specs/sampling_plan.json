@@ -1,0 +1,19 @@
+{
+  "distinct_sample_seeds": [83011, 83012, 83013, 83014, 83015, 83016, 83017, 83018],
+  "future_steps": 18,
+  "goal_sensitivity": {
+    "comparison": "same observation prefix with terminal RGB goals from alternate authored routes of the same appearance variant",
+    "model_inputs_remain_visual_only": true
+  },
+  "output_conditions": [
+    "stochastic_latent_action_with_rgb_goal",
+    "deterministic_rgb_goal_reference"
+  ],
+  "repeat_sample_seeds": [83001, 83001],
+  "schema_version": "rei-emocio-vwm-e2-sampling-plan-v1",
+  "selection_rule": {
+    "manual_selection_allowed": false,
+    "primary": "lowest mean normalized hard-gate deficit plus foreground_lpips",
+    "tie_break": "lowest numeric seed"
+  }
+}

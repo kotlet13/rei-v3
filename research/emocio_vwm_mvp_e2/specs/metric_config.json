@@ -1,0 +1,33 @@
+{
+  "duplicate_detection": {
+    "color_distance_linf": 34,
+    "component_connectivity": 2,
+    "dilation_radius_px": 4,
+    "minimum_component_area_px": 4,
+    "rate_denominator": "expected_person_observations"
+  },
+  "foreground_lpips": {
+    "background_replacement_rgb": [0, 0, 0],
+    "foreground_mask": "evaluator identity body/gaze colors plus fixed evidence, official, and pending marker colors, linf tolerance 18, dilation radius 3",
+    "implementation": "piqa.LPIPS network=alex reduction=none",
+    "network_weights": {
+      "acquisition": "explicit_after_protocol_push_into_external_torch_cache",
+      "automatic_download_during_evaluation_allowed": false,
+      "hashes_recorded_before_metric_use": true,
+      "imagenet_source": "torchvision AlexNet DEFAULT",
+      "lpips_source": "https://github.com/richzhang/PerceptualSimilarity/raw/master/lpips/weights/v0.1/alex.pth"
+    }
+  },
+  "goal_marker_accuracy": {
+    "binary_pixel_threshold": 4,
+    "colors": {
+      "evidence_card": "#c4554e",
+      "official_attribution": "#48d17a",
+      "pending": "#f0ab45"
+    },
+    "score": "mean exact three-bit presence-vector match on terminal generated frames"
+  },
+  "identity_stability": "expected evaluator appearance body color detected in each generated future frame divided by expected person observations",
+  "person_count_accuracy": "fraction of generated future frames whose detected appearance count equals evaluator person_count",
+  "schema_version": "rei-emocio-vwm-e2-metric-config-v1"
+}

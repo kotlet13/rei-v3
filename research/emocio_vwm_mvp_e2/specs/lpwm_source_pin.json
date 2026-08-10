@@ -1,0 +1,14 @@
+{
+  "checkout_policy": "isolated_external_environment",
+  "core_modifications_allowed": false,
+  "expected_commit_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "expected_repository": "https://github.com/taldatech/lpwm.git",
+  "model_substitution_allowed": false,
+  "schema_version": "rei-emocio-vwm-e2-lpwm-source-pin-v1",
+  "vendoring_allowed": false,
+  "weights": {
+    "acquisition_allowed": false,
+    "initialization": "from_scratch",
+    "pretrained_checkpoint": null
+  }
+}
