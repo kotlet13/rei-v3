@@ -1,0 +1,95 @@
+{
+  "episode_id": "ep_6be5b88ed93195b1c3de",
+  "frame": 23,
+  "evidence_class": "authored_goal",
+  "source_event_reality_authority": false,
+  "may_update_grounded_state": false,
+  "room_id": "meeting_room",
+  "visible_roles": [
+    "self",
+    "coworker",
+    "leader",
+    "audience_01",
+    "audience_02",
+    "audience_03",
+    "audience_04",
+    "audience_05",
+    "audience_06"
+  ],
+  "person_count": 9,
+  "duplicate_role_count": 0,
+  "appearance_by_role": {
+    "self": "A03",
+    "coworker": "A04",
+    "leader": "A05",
+    "audience_01": "A06",
+    "audience_02": "A07",
+    "audience_03": "A08",
+    "audience_04": "A09",
+    "audience_05": "A01",
+    "audience_06": "A02"
+  },
+  "pixel_identity_targets": [
+    {
+      "role": "self",
+      "appearance_id": "A03",
+      "body_color": "#e8bd55",
+      "gaze_color": "#f5e3b8"
+    },
+    {
+      "role": "coworker",
+      "appearance_id": "A04",
+      "body_color": "#8b70d1",
+      "gaze_color": "#cec3ec"
+    },
+    {
+      "role": "leader",
+      "appearance_id": "A05",
+      "body_color": "#43ad7b",
+      "gaze_color": "#b0ddc8"
+    },
+    {
+      "role": "audience_01",
+      "appearance_id": "A06",
+      "body_color": "#d36d9a",
+      "gaze_color": "#edc2d5"
+    },
+    {
+      "role": "audience_02",
+      "appearance_id": "A07",
+      "body_color": "#5480cf",
+      "gaze_color": "#b7caeb"
+    },
+    {
+      "role": "audience_03",
+      "appearance_id": "A08",
+      "body_color": "#df894b",
+      "gaze_color": "#f2cdb3"
+    },
+    {
+      "role": "audience_04",
+      "appearance_id": "A09",
+      "body_color": "#94bf52",
+      "gaze_color": "#d2e4b6"
+    },
+    {
+      "role": "audience_05",
+      "appearance_id": "A01",
+      "body_color": "#ef6a62",
+      "gaze_color": "#f8c0bd"
+    },
+    {
+      "role": "audience_06",
+      "appearance_id": "A02",
+      "body_color": "#38bfd2",
+      "gaze_color": "#abe4ec"
+    }
+  ],
+  "official_attribution_target": "coworker",
+  "visible_official_marker_target": "coworker",
+  "visible_pending_marker_target": "self",
+  "evidence_card_visible": false,
+  "path": "no_response",
+  "camera_variant": 2,
+  "orientation_visible_in_pixels": true
+}

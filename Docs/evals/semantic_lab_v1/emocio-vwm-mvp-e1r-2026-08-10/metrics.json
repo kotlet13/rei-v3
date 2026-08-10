@@ -1,0 +1,64 @@
+{
+  "acceptance_sha256": "4febd16280adce67ff2a920c674adba438043ee667964dc256b1edcd02bbc20c",
+  "boundary_failures": [],
+  "checks": {
+    "camera_edges": true,
+    "camera_separation": true,
+    "independent_visual_review": true,
+    "no_duplicates": true,
+    "person_count": true,
+    "pixel_gaze": true,
+    "pixel_identity": true,
+    "render_success": true,
+    "trajectory_protocol": true,
+    "two_run_artifact_tree": true,
+    "visual_only_boundary": true
+  },
+  "independent_visual_review": {
+    "history": [
+      {
+        "path": "review_history/human_visual_review_attempt_1.json",
+        "sha256": "9fadbfc2d42bbea22306360f9c289504162cac7b61accd46c6e4aaf3d373d8d2"
+      },
+      {
+        "path": "review_history/human_visual_review_attempt_1.md",
+        "sha256": "b930331aa2313bbc4b5054c9ff9fddcbb0f87bdd2490b9c63c8de23e41e5f918"
+      },
+      {
+        "path": "review_history/visual_review_attempt_2.json",
+        "sha256": "f07746bec88c33a8e256ea54d142052829e6b53fb815c86f5e76cfc2ab92fbc4"
+      },
+      {
+        "path": "review_history/visual_review_attempt_2.md",
+        "sha256": "eddd5484156cbe30fad364248b7613f969757e9c503fb07a7cb3504f708dca75"
+      }
+    ],
+    "human_review_performed": false,
+    "passed": true,
+    "record": "visual_review_attempt_3.json",
+    "review_source": "research_owner_supplied_external_assistant_review",
+    "reviewed_artifact_sha256": "6531711a323431fd23ea9cdd9ebca9d25855f9e07f6bc1fdcde0add1a864f9e2",
+    "reviewer_type": "external_ai_assistant",
+    "status": "complete"
+  },
+  "medium": {
+    "camera_edge_clipping_rate": 0.0,
+    "camera_min_identity_separation_px": 10.031035403089497,
+    "duplicate_entity_rate": 0.0,
+    "human_visual_review_performed": false,
+    "independent_visual_review_passed": true,
+    "person_count_accuracy": 1.0,
+    "pixel_gaze_marker_detection_rate": 0.9994292237442922,
+    "pixel_identity_detection_rate": 1.0,
+    "render_success_rate": 1.0,
+    "trajectory_protocol_failures": 0,
+    "two_run_artifact_tree_match": 1.0,
+    "visual_only_leakage_failures": 0
+  },
+  "model_fit_metrics": {
+    "reason": "no_lpwm_call",
+    "status": "not_assessed"
+  },
+  "schema_version": "rei-emocio-vwm-e1r-metrics-v1",
+  "trajectory_failures": []
+}

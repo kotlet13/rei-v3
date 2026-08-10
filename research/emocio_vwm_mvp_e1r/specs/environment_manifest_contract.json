@@ -1,0 +1,22 @@
+{
+  "schema_version": "rei-emocio-lpwm-environment-contract-v1",
+  "required_manifest_schema": "rei-emocio-lpwm-exact-environment-v1",
+  "required_fields": [
+    "python_version",
+    "platform",
+    "lpwm_source_commit",
+    "package_inventory",
+    "torch_version",
+    "torchvision_version",
+    "torch_cuda_version",
+    "cuda_device_name",
+    "cuda_compute_capability",
+    "cuda_smoke"
+  ],
+  "package_inventory_must_be_exact": true,
+  "cuda_smoke_contract": {
+    "tensor_device": "cuda:0",
+    "operation": "matrix_multiply_and_synchronize",
+    "must_pass": true
+  }
+}

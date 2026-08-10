@@ -1,0 +1,20 @@
+{
+  "schema_version": "rei-emocio-vwm-visual-review-v2",
+  "review_source": "research_owner_supplied_external_assistant_review",
+  "reviewer_type": "external_ai_assistant",
+  "reviewer_id": "GPT-5.6-Pro",
+  "reviewed_artifact_sha256": "6531711a323431fd23ea9cdd9ebca9d25855f9e07f6bc1fdcde0add1a864f9e2",
+  "body_orientation_readable": true,
+  "gaze_attention_readable": true,
+  "identity_stability": true,
+  "no_response_attribution_retained": true,
+  "immediate_results_pending": true,
+  "self_official_only_in_non_authoritative_goal": true,
+  "camera_expression_acceptable": true,
+  "failed_items": [],
+  "partial_items": [],
+  "passed_items": [1, 2, 3, 4, 5, 6, 7],
+  "overall": "pass",
+  "human_review_performed": false,
+  "notes": "Vizualni medij je pri R3 dovolj stabilen in berljiv za kanonicni E1R zakljucek. Public pending jasno pokaze selfov vstop v socialni center z dokazom, odziv leaderja in preusmeritev obcinstva brez dokoncne odlocitve. Private pending jasno loci zasebni prostor in pending rezultat. No-response hold ohrani obstojece stanje. Identitete, orientacija teles, gaze indikatorji, locevanje oseb in kamera so za ta raziskovalni 128 x 128 medij sprejemljivi. Ta pass potrjuje E1R medium, ne pa LPWM model-fita ali delujocega Emocia."
+}

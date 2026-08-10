@@ -1,0 +1,66 @@
+{
+  "schema_version": "rei-emocio-vwm-world-v2",
+  "world_id": "public_credit_world_e1r",
+  "evaluator_only": true,
+  "evidence_classes": {
+    "observed_grounded": {
+      "source_event_reality_authority": true,
+      "may_update_grounded_state": true
+    },
+    "authored_counterfactual": {
+      "source_event_reality_authority": false,
+      "may_update_grounded_state": false
+    },
+    "authored_goal": {
+      "source_event_reality_authority": false,
+      "may_update_grounded_state": false
+    },
+    "imagined_completion": {
+      "source_event_reality_authority": false,
+      "may_update_grounded_state": false
+    }
+  },
+  "scenario": {
+    "scenario_id": "public_credit_attribution_capture",
+    "rooms": [
+      {"room_id": "meeting_room", "kind": "meeting_room"},
+      {"room_id": "private_office", "kind": "private_office"}
+    ],
+    "roles": ["self", "coworker", "leader", "audience_01", "audience_02", "audience_03", "audience_04", "audience_05", "audience_06"],
+    "props": ["projection", "evidence_card", "official_attribution_marker", "pending_marker"]
+  },
+  "trajectory_contract": {
+    "observed_frames": [0, 5],
+    "authored_counterfactual_frames": [6, 23],
+    "no_response": {
+      "official_attribution_target": "coworker",
+      "pending_target": "self"
+    },
+    "private_evidence": {
+      "immediate_result": "pending",
+      "official_attribution_target": "coworker",
+      "pending_target": "self"
+    },
+    "public_reclaim": {
+      "immediate_result": "pending",
+      "official_attribution_target": "coworker",
+      "pending_target": "self"
+    },
+    "authored_goal": {
+      "official_attribution_target": "self",
+      "source_event_reality_authority": false
+    }
+  },
+  "render": {
+    "engine": "three",
+    "engine_version": "0.185.1",
+    "width": 128,
+    "height": 128,
+    "fps": 6,
+    "frames_per_episode": 24,
+    "conditioning_frames": 6,
+    "color_space": "srgb",
+    "text_glyphs_allowed": false
+  },
+  "future_paths": ["public_reclaim", "private_evidence", "no_response"]
+}

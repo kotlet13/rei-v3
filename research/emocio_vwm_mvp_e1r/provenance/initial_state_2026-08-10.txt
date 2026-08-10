@@ -1,0 +1,29 @@
+command: git status --short
+output:
+?? research/emocio_vwm_mvp_e1r/
+?? scripts/run_emocio_vwm_e1r.py
+?? tests/research/test_emocio_vwm_e1r.py
+
+command: git branch --show-current
+output:
+codex/emocio-visual-world-model-mvp
+
+command: git rev-parse HEAD
+output:
+a1a8e0922a9fb1fd21893b46087cc0e9155146d9
+
+command: git rev-parse origin/codex/emocio-visual-world-model-mvp
+output:
+a1a8e0922a9fb1fd21893b46087cc0e9155146d9
+
+command: git diff --stat
+output: empty
+
+command: git diff --name-status
+output: empty
+
+scope_assessment:
+- expected E1R untracked paths only
+- immutable E1 commit unchanged
+- active REI runtime unchanged
+- no unrelated user-owned changes detected

@@ -1,0 +1,6 @@
+{
+  "schema_version": "rei-emocio-vwm-approved-resources-v1",
+  "approved_checkpoint_sha256": [],
+  "approved_environment_manifest_sha256": [],
+  "approval_state": "no_model_execution_authorized"
+}

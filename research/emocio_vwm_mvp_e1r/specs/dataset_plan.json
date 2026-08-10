@@ -1,0 +1,29 @@
+{
+  "schema_version": "rei-emocio-vwm-dataset-plan-v2",
+  "plan_status": "frozen_before_first_model_call",
+  "seed": 73013,
+  "episode_frames": 24,
+  "conditioning_frames": 6,
+  "exploration_preview_episodes": 9,
+  "preview_counterbalance_blocks": ["cb0", "cb1", "cb2"],
+  "splits": [
+    {"name": "technical_overfit", "episodes": 12, "may_train": true, "identity_plan": "overfit_fixed"},
+    {"name": "social_train", "episodes": 240, "may_train": true, "identity_plan": "counterbalanced_train"},
+    {"name": "validation", "episodes": 60, "may_train": false, "identity_plan": "counterbalanced_train"},
+    {"name": "held_out", "episodes": 72, "may_train": false, "identity_plan": "held_out_identities"},
+    {"name": "blind_human_review", "episodes": 36, "may_train": false, "identity_plan": "sealed_mixed"}
+  ],
+  "arms": [
+    "self_anchor_on_goal_off",
+    "self_anchor_off_goal_off",
+    "self_anchor_on_goal_match",
+    "self_anchor_on_goal_mismatch"
+  ],
+  "sampling": {"future_samples_per_call": 8, "fixed_seed_repeats": 2, "distinct_seed_repeats": 8},
+  "held_out_rules": {
+    "episode_seed_disjoint": true,
+    "layout_disjoint": true,
+    "camera_trajectory_disjoint": true,
+    "identity_disjoint": true
+  }
+}

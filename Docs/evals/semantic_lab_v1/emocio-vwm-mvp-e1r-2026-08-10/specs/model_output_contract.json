@@ -1,0 +1,10 @@
+{
+  "schema_version": "rei-emocio-vwm-model-output-contract-v2",
+  "native_output": "visual_media_only",
+  "future_samples": 8,
+  "key_mosaic_required": true,
+  "selected_visual_path_required": true,
+  "imagined_completion_reality_authority": false,
+  "imagined_completion_may_mutate_observed_grounded": false,
+  "natural_language_native_output_allowed": false
+}

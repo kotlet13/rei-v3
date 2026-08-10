@@ -1,0 +1,13 @@
+{
+  "schema_version": "rei-emocio-vwm-review-gate-approval-v1",
+  "approved": true,
+  "approval_source": "research_owner_explicit_chat_approval",
+  "approval_date": "2026-08-10",
+  "decision": "owner_supplied_external_ai_review_may_satisfy_e1r_review_gate",
+  "human_review_performed": false,
+  "required_transparency": [
+    "reviewer_must_not_be_described_as_human",
+    "review_source_and_reviewer_type_must_be_preserved",
+    "review_pass_must_not_be_described_as_lpwm_model_fit"
+  ]
+}

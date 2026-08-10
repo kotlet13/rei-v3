@@ -1,0 +1,52 @@
+{
+  "schema_version": "rei-emocio-vwm-acceptance-v2",
+  "frozen": true,
+  "freeze_rule": "No threshold, identity plan, model, checkpoint, or test may change after the first LPWM call.",
+  "medium_gate": {
+    "render_success_rate_min": 1.0,
+    "two_run_artifact_tree_match_min": 1.0,
+    "person_count_accuracy_min": 1.0,
+    "duplicate_entity_rate_max": 0.0,
+    "visual_only_leakage_failures_max": 0,
+    "pixel_identity_detection_rate_min": 0.98,
+    "pixel_gaze_marker_detection_rate_min": 0.95,
+    "camera_edge_clipping_rate_max": 0.02,
+    "camera_min_identity_separation_px_min": 3.0,
+    "owner_approved_independent_visual_review_required": true,
+    "accepted_review_source": "research_owner_supplied_external_assistant_review",
+    "accepted_reviewer_type": "external_ai_assistant",
+    "human_review_required": false,
+    "human_review_performed": false,
+    "gate_change_authority": "research_owner_explicit_chat_approval_2026-08-10"
+  },
+  "technical_overfit_gate": {
+    "identity_stability_min": 0.98,
+    "person_count_accuracy_min": 0.98,
+    "duplicate_person_rate_max": 0.01,
+    "foreground_lpips_max": 0.18,
+    "goal_marker_accuracy_min": 0.90
+  },
+  "social_model_fit_gate": {
+    "identity_stability_min": 0.90,
+    "person_count_accuracy_min": 0.95,
+    "duplicate_person_rate_max": 0.03,
+    "stochastic_pairwise_lpips_min": 0.04,
+    "stochastic_pairwise_lpips_max": 0.35,
+    "self_anchor_identity_gain_min": 0.10,
+    "matched_vs_mismatched_goal_gain_min": 0.15,
+    "grounded_imagined_lineage_accuracy_min": 1.0,
+    "held_out_goal_marker_accuracy_min": 0.60,
+    "blind_human_correct_path_rate_min": 0.65,
+    "blind_human_severe_artifact_rate_max": 0.05
+  },
+  "status_layers": {
+    "environment_status": ["blocked", "ready"],
+    "execution_status": ["not_started", "infrastructure_failed", "completed"],
+    "model_fit_status": ["not_assessed", "technical_overfit_failed", "social_fit_failed", "promising"]
+  },
+  "failure_mapping": {
+    "environment_or_execution_failure": {"model_fit_status": "not_assessed", "verdict": "not_executed_resource_block"},
+    "completed_technical_gate_failure": {"model_fit_status": "technical_overfit_failed", "verdict": "model_fit_failed"},
+    "completed_social_gate_failure": {"model_fit_status": "social_fit_failed", "verdict": "model_fit_failed"}
+  }
+}

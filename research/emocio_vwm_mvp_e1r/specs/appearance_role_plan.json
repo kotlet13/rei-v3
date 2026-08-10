@@ -1,0 +1,42 @@
+{
+  "schema_version": "rei-emocio-vwm-appearance-role-plan-v1",
+  "frozen": true,
+  "identity_signal_rule": "Identity is the conjunction of shape signature, face marker, and episode self-reference; no role owns a fixed color.",
+  "technical_overfit": {
+    "fixed_identities_allowed": true,
+    "assignment_block": "overfit_fixed"
+  },
+  "social_fit": {
+    "fixed_role_color_forbidden": true,
+    "role_order": ["self", "coworker", "leader", "audience_01", "audience_02", "audience_03", "audience_04", "audience_05", "audience_06"],
+    "counterbalance_rule": "For block cbN, role index R receives A((R + N) mod 9)+1.",
+    "counterbalance_blocks": ["cb0", "cb1", "cb2", "cb3", "cb4", "cb5", "cb6", "cb7", "cb8"],
+    "train_identity_ids": ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09"],
+    "held_out_identity_ids": ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09"],
+    "held_out_counterbalance_rule": "For held-out block hbN, role index R receives H((R + N) mod 9)+1.",
+    "held_out_blocks": ["hb0", "hb1", "hb2", "hb3", "hb4", "hb5", "hb6", "hb7", "hb8"],
+    "held_out_identity_overlap_with_train": false,
+    "self_reference_source": "current_episode_assigned_self_identity",
+    "self_reference_ablation_removes_anchor_only": true
+  },
+  "appearance_catalog": {
+    "A01": {"color": "#ef6a62", "signature": "double_band"},
+    "A02": {"color": "#38bfd2", "signature": "square_lapel"},
+    "A03": {"color": "#e8bd55", "signature": "shoulder_bar"},
+    "A04": {"color": "#8b70d1", "signature": "double_band"},
+    "A05": {"color": "#43ad7b", "signature": "square_lapel"},
+    "A06": {"color": "#d36d9a", "signature": "shoulder_bar"},
+    "A07": {"color": "#5480cf", "signature": "head_ring"},
+    "A08": {"color": "#df894b", "signature": "head_ring"},
+    "A09": {"color": "#94bf52", "signature": "head_ring"},
+    "H01": {"color": "#bd5bdb", "signature": "chevron"},
+    "H02": {"color": "#3aa89b", "signature": "face_bar"},
+    "H03": {"color": "#c9823e", "signature": "chest_disc"},
+    "H04": {"color": "#6574dc", "signature": "chevron"},
+    "H05": {"color": "#b95b76", "signature": "face_bar"},
+    "H06": {"color": "#75a342", "signature": "chest_disc"},
+    "H07": {"color": "#367eb0", "signature": "head_ring"},
+    "H08": {"color": "#a864b8", "signature": "head_ring"},
+    "H09": {"color": "#b09638", "signature": "head_ring"}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "authored_counterfactual": {
+    "may_update_grounded_state": false,
+    "source_event_reality_authority": false
+  },
+  "authored_goal": {
+    "may_update_grounded_state": false,
+    "source_event_reality_authority": false
+  },
+  "imagined_completion": {
+    "artifacts": [],
+    "may_update_grounded_state": false,
+    "source_event_reality_authority": false
+  },
+  "model_call": null,
+  "observed_grounded": {
+    "may_update_grounded_state": true,
+    "source_event_reality_authority": true
+  },
+  "schema_version": "rei-emocio-vwm-lineage-v2"
+}

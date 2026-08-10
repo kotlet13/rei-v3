@@ -1,0 +1,17 @@
+{
+  "active_rei_runtime_modified": false,
+  "environment_status": "blocked",
+  "execution_status": "not_started",
+  "immutable_e1_parent": "a1a8e0922a9fb1fd21893b46087cc0e9155146d9",
+  "lpwm_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "model_fit_status": "not_assessed",
+  "model_invoked": false,
+  "protocol_status": "protocol_correction_passed",
+  "review_gate": {
+    "human_review_performed": false,
+    "reviewer_type": "external_ai_assistant",
+    "status": "passed"
+  },
+  "schema_version": "rei-emocio-vwm-e1r-verdict-v1",
+  "verdict": "not_executed_resource_block"
+}

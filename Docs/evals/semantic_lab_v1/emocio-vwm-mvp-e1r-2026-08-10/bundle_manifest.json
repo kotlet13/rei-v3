@@ -1,0 +1,38 @@
+{
+  "checksums": "checksums.json",
+  "contact_sheets": [
+    "contact_sheets/review_mosaic.png",
+    "contact_sheets/sealed_mosaic.png"
+  ],
+  "dataset_manifest": "dataset_manifest.json",
+  "external_ai_gate_approval": "external_ai_gate_approval_2026-08-10.json",
+  "independent_visual_review": "visual_review_attempt_3.json",
+  "lineage": "lineage.json",
+  "lpwm_execution_gate": "lpwm_execution_gate.json",
+  "metrics": "metrics.json",
+  "pixel_camera_metrics": "pixel_camera_metrics.json",
+  "pytest_regression_comparison": "pytest_regression_comparison.json",
+  "review_seal_lineage": "review_seal_lineage.json",
+  "schema_version": "rei-emocio-vwm-e1r-bundle-v1",
+  "test_results": "test_results.json",
+  "two_run_determinism": "two_run_determinism.json",
+  "verdict": "verdict.json",
+  "visual_review_history": [
+    {
+      "path": "review_history/human_visual_review_attempt_1.json",
+      "sha256": "9fadbfc2d42bbea22306360f9c289504162cac7b61accd46c6e4aaf3d373d8d2"
+    },
+    {
+      "path": "review_history/human_visual_review_attempt_1.md",
+      "sha256": "b930331aa2313bbc4b5054c9ff9fddcbb0f87bdd2490b9c63c8de23e41e5f918"
+    },
+    {
+      "path": "review_history/visual_review_attempt_2.json",
+      "sha256": "f07746bec88c33a8e256ea54d142052829e6b53fb815c86f5e76cfc2ab92fbc4"
+    },
+    {
+      "path": "review_history/visual_review_attempt_2.md",
+      "sha256": "eddd5484156cbe30fad364248b7613f969757e9c503fb07a7cb3504f708dca75"
+    }
+  ]
+}

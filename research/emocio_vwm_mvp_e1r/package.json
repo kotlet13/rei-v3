@@ -1,0 +1,10 @@
+{
+  "name": "rei-emocio-vwm-e1r-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "playwright-core": "1.62.1",
+    "three": "0.185.1"
+  }
+}

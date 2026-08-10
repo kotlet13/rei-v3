@@ -1,0 +1,32 @@
+{
+  "schema_version": "rei-emocio-vwm-renderer-drift-diagnostic-v1",
+  "reviewed_artifact_sha256": "f0e2f5d804653b464683164e02f795a9352dc92cde562a1a236ca596b5284753",
+  "diagnostic_rerender_sha256": "8b6ad87d92b10cdaa7b14d3219f53a7e86ae3b9cbce5351ca38d07cc576bd6a0",
+  "reviewed_artifact_currently_available": false,
+  "diagnostic_rerender_authority_over_reviewed_artifact": false,
+  "current_browser": "Microsoft Edge 150.0.4078.83",
+  "browser_executable_sha256": "f13f03c60b48664b5ab5b294c32feb1ff2fd632f206ee6732d3ddffb919a8b57",
+  "three_version": "0.185.1",
+  "playwright_core_version": "1.62.1",
+  "os": "Microsoft Windows 11 Pro 10.0.26200 build 26200",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "gpu_driver": "596.36",
+  "render_dimensions": [128, 128],
+  "device_scale_factor": 1,
+  "color_space": "srgb",
+  "antialias": true,
+  "same_environment_two_run_determinism": {
+    "status": "pass",
+    "identical_artifacts": 327,
+    "total_artifacts": 327
+  },
+  "cross_environment_byte_reproducibility": {
+    "status": "not_established"
+  },
+  "semantic_visual_drift_review": {
+    "status": "no_visible_semantic_regression",
+    "reviewer_id": "GPT-5.6-Pro",
+    "basis": "externally supplied visual comparison",
+    "note": "Differences are consistent with small rasterization or antialiasing drift; this is not proof of the exact root cause. Edge or browser-environment drift is a likely explanation, not a confirmed unique cause."
+  }
+}

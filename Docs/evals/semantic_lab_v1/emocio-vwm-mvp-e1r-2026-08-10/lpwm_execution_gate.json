@@ -1,0 +1,45 @@
+{
+  "automatic_source_download_attempted": false,
+  "automatic_weight_download_attempted": false,
+  "blockers": [
+    "explicit_checkpoint_missing",
+    "explicit_environment_manifest_missing",
+    "explicit_lpwm_root_missing",
+    "live_cuda_smoke_not_authorized_by_prerequisites"
+  ],
+  "checkpoint": {
+    "approved": false,
+    "explicit": false,
+    "present": false,
+    "sha256": null
+  },
+  "environment_install_attempted": false,
+  "environment_manifest": {
+    "approved": false,
+    "contract_valid": false,
+    "explicit": false,
+    "present": false,
+    "sha256": null
+  },
+  "environment_status": "blocked",
+  "execution_status": "not_started",
+  "expected_source_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "hardware_discovery": {
+    "available": true,
+    "description": "NVIDIA GeForce RTX 5090, 32607 MiB, 596.36"
+  },
+  "live_cuda_smoke": {
+    "attempted": false,
+    "passed": false,
+    "record": null
+  },
+  "model_fit_status": "not_assessed",
+  "ready_for_first_model_call": false,
+  "schema_version": "rei-emocio-lpwm-execution-gate-v2",
+  "source": {
+    "commit": null,
+    "explicit": false,
+    "pin_match": false,
+    "present": false
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "human_review_performed": false,
+  "rerender_performed": false,
+  "review_attempt": 3,
+  "reviewed_artifact_sha256": "6531711a323431fd23ea9cdd9ebca9d25855f9e07f6bc1fdcde0add1a864f9e2",
+  "schema_version": "rei-emocio-vwm-review-seal-lineage-v1",
+  "visual_media_file_count": 275,
+  "visual_media_tree_sha256_after": "56a3b505bd9a37a8c9f491cd4c0f504ce285a5f10470ab7dc95c50dde7d9dad8",
+  "visual_media_tree_sha256_before": "56a3b505bd9a37a8c9f491cd4c0f504ce285a5f10470ab7dc95c50dde7d9dad8",
+  "visual_media_unchanged": true
+}

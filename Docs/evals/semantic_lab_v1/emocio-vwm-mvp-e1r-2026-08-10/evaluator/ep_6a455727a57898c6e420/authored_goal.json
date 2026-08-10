@@ -1,0 +1,46 @@
+{
+  "episode_id": "ep_6a455727a57898c6e420",
+  "frame": 23,
+  "evidence_class": "authored_goal",
+  "source_event_reality_authority": false,
+  "may_update_grounded_state": false,
+  "room_id": "private_office",
+  "visible_roles": [
+    "self",
+    "leader"
+  ],
+  "person_count": 2,
+  "duplicate_role_count": 0,
+  "appearance_by_role": {
+    "self": "A01",
+    "coworker": "A02",
+    "leader": "A03",
+    "audience_01": "A04",
+    "audience_02": "A05",
+    "audience_03": "A06",
+    "audience_04": "A07",
+    "audience_05": "A08",
+    "audience_06": "A09"
+  },
+  "pixel_identity_targets": [
+    {
+      "role": "self",
+      "appearance_id": "A01",
+      "body_color": "#ef6a62",
+      "gaze_color": "#f8c0bd"
+    },
+    {
+      "role": "leader",
+      "appearance_id": "A03",
+      "body_color": "#e8bd55",
+      "gaze_color": "#f5e3b8"
+    }
+  ],
+  "official_attribution_target": "self",
+  "visible_official_marker_target": "self",
+  "visible_pending_marker_target": null,
+  "evidence_card_visible": true,
+  "path": "private_evidence",
+  "camera_variant": 0,
+  "orientation_visible_in_pixels": true
+}

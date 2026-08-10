@@ -1,0 +1,19 @@
+{
+  "schema_version": "rei-emocio-vwm-research-phase-v2",
+  "branch": "codex/emocio-visual-world-model-mvp",
+  "immutable_e1_commit": "a1a8e0922a9fb1fd21893b46087cc0e9155146d9",
+  "direct_research_base_commit": "1300e1d6e1a94a4baae20152e895141543fbcd37",
+  "phase": "E1R_protocol_correction",
+  "research_date": "2026-07-31",
+  "reproducible_timestamp": "2026-07-31T12:00:00.000Z",
+  "lpwm_call_count": 0,
+  "lpwm_environment_install_performed": false,
+  "checkpoint_acquisition_performed": false,
+  "training_performed": false,
+  "inference_performed": false,
+  "active_rei_runtime_modified": false,
+  "review_gate": "owner_approved_independent_visual_review",
+  "review_gate_satisfied_by": "research_owner_supplied_external_assistant_review",
+  "human_review_performed": false,
+  "external_ai_gate_approval_date": "2026-08-10"
+}

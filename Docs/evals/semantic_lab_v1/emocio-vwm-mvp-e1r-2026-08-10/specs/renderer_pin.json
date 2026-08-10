@@ -1,0 +1,28 @@
+{
+  "schema_version": "rei-emocio-vwm-e1r-renderer-pin-v1",
+  "browser": {
+    "product": "Chromium",
+    "version": "151.0.7922.10",
+    "executable_basename": "chrome.exe",
+    "executable_sha256": "aa0492971e09477da33db5fd550a1ad4c8bbd228e34c7f0f87f5ae8b0d37db4f",
+    "required_environment_variable": "REI_CHROMIUM_EXECUTABLE"
+  },
+  "launch": {
+    "headless": true,
+    "arguments": [
+      "--use-angle=swiftshader",
+      "--enable-unsafe-swiftshader",
+      "--disable-gpu-compositing"
+    ]
+  },
+  "render": {
+    "width": 128,
+    "height": 128,
+    "device_scale_factor": 1,
+    "color_space": "srgb",
+    "antialias": false,
+    "power_preference": "low-power"
+  },
+  "three_version": "0.185.1",
+  "playwright_core_version": "1.62.1"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "rei-emocio-vwm-human-visual-review-v1",
+  "review_source": "human_supplied",
+  "reviewer_id": "GPT-5.6-Pro",
+  "reviewed_artifact_sha256": "a0094963c651ad4cf71d5b4673c66c9930e86a2718fb467c1968eab135367ac8",
+  "body_orientation_readable": false,
+  "gaze_attention_readable": false,
+  "identity_stability": true,
+  "no_response_attribution_retained": false,
+  "immediate_results_pending": false,
+  "self_official_only_in_non_authoritative_goal": true,
+  "camera_expression_acceptable": false,
+  "overall": "fail",
+  "notes": "Identitete in epistemic ločitev so tehnično stabilne, vendar so orientacija teles, gaze/attention in socialni center pri 128x128 nezadostno berljivi. Public/private pomen večinoma nosijo arbitrarni markerji namesto teles, pogledov in odzivov oseb. Pred passom je potrebna jasnejša vizualna slovnica orientacije, pozornosti, leaderjevega dejanja in bližji socialni kader. Items 4 and 5 were partial and are conservatively recorded as false."
+}

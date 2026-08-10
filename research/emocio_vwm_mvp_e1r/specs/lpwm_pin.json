@@ -1,0 +1,14 @@
+{
+  "schema_version": "rei-emocio-lpwm-pin-v2",
+  "upstream": "https://github.com/taldatech/lpwm.git",
+  "commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "language_condition": false,
+  "latent_action_sampling": true,
+  "image_goal_condition": true,
+  "automatic_source_download": false,
+  "automatic_weight_download": false,
+  "required_root_env": "REI_LPWM_ROOT",
+  "required_checkpoint_env": "REI_LPWM_CHECKPOINT",
+  "required_environment_manifest_env": "REI_LPWM_ENV_MANIFEST",
+  "required_checkpoint_approval_file": "approved_resources.json"
+}

@@ -1,0 +1,29 @@
+{
+  "active_rei_runtime_modified": false,
+  "exact_failure_set_match": true,
+  "full_suite_baseline": {
+    "commit": "a1a8e0922a9fb1fd21893b46087cc0e9155146d9",
+    "failed": 30,
+    "junit_sha256": "ed930ef229781843e2cc0f8f53eb265d1aff098422856c39014d734f11f3f85a",
+    "passed": 2111,
+    "skipped": 0,
+    "wall_time_seconds": 540.49
+  },
+  "full_suite_candidate": {
+    "candidate": "uncommitted_e1r_candidate",
+    "failed": 30,
+    "junit_sha256": "d636dfb214f816b3310f93894fd875401cd2e06d2de0dc3d54f2aaec901cba28",
+    "passed": 2123,
+    "skipped": 0,
+    "wall_time_seconds": 481.01
+  },
+  "new_failure_count": 0,
+  "regression_comparison": "pytest_regression_comparison.json",
+  "schema_version": "rei-emocio-vwm-e1r-test-results-v1",
+  "targeted_suite": {
+    "command": "python -m pytest tests/research/test_emocio_vwm_e1r.py -q --tb=short --basetemp=<external-path>",
+    "failed": 0,
+    "passed": 13,
+    "wall_time_seconds": 0.23
+  }
+}
