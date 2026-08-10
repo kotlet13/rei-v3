@@ -1,0 +1,92 @@
+{
+  "branch": "codex/emocio-visual-world-model-mvp",
+  "e2_frozen": {
+    "protocol_commit_sha": "e409ecbdebd220db9da934827f2b1e0a7d73b65c",
+    "result_commit_sha": "d1415007b97e651e59953bbdf093d64516603365",
+    "verdict": "not_executed_resource_block",
+    "optimizer_steps_completed": 0,
+    "failure_evidence_mutation_allowed": false
+  },
+  "e2r": {
+    "phase": "E2R_LPWM_determinism_compatibility_remediation",
+    "research_question_changed": false,
+    "model_changed": false,
+    "dataset_changed": false,
+    "hard_gates_changed": false,
+    "execution_policy_change_only": true
+  },
+  "immutable_lineage": {
+    "lpwm_source_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "e1r_commit_sha": "01aa8d3e10c04275e528fd45796d0c4c5bb4ac0b",
+    "dataset_tree_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+    "environment_manifest_sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2"
+  },
+  "determinism_policy": {
+    "before_torch_import": {"CUBLAS_WORKSPACE_CONFIG": ":4096:8"},
+    "torch": {
+      "use_deterministic_algorithms": true,
+      "warn_only": true,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true
+    },
+    "known_limitation": "CUDA grid_sample backward remains potentially nondeterministic.",
+    "bitwise_model_optimization_reproducibility_claimed": false
+  },
+  "frozen_run": {
+    "initialization": "from_scratch",
+    "seed": 73013,
+    "optimizer": "Adam",
+    "learning_rate": 0.00008,
+    "optimizer_steps": 1200,
+    "batch_size": 1,
+    "early_stop": false,
+    "measured_run_count": 1,
+    "checkpoint_interval_steps": 100,
+    "oom_fallback": "unchanged_from_e2",
+    "hard_acceptance_gates": "unchanged_from_e2"
+  },
+  "reproducibility_smokes": {
+    "count": 2,
+    "measured_model_fit_runs": false,
+    "fresh_from_scratch_model_each": true,
+    "same_seed": 73013,
+    "same_model_config": true,
+    "same_synthetic_input": true,
+    "backward_per_smoke": 1,
+    "optimizer_steps_per_smoke": 1,
+    "initial_state_hashes_must_match": true,
+    "post_step_state_hashes_must_match": false,
+    "selection_use_forbidden": true
+  },
+  "unchanged_constraints": [
+    "visual-only boundary",
+    "no pretrained checkpoint",
+    "no language conditioning",
+    "no model substitution",
+    "no dataset regeneration",
+    "no hyperparameter sweep",
+    "no seed selection",
+    "no budget extension",
+    "no threshold changes",
+    "no social model-fit",
+    "no active REI runtime modification"
+  ],
+  "verdict_policy": {
+    "backward_or_execution_block_before_budget": "not_executed_resource_block",
+    "completed_budget_with_any_hard_gate_failure": "model_fit_failed",
+    "completed_budget_with_all_hard_gates_passed": "model_fit_promising",
+    "model_fit_promising_scope": "technical_overfit_only"
+  },
+  "execution_order": [
+    "push_this_protocol_commit",
+    "set_and_record_CUBLAS_WORKSPACE_CONFIG_before_torch_import",
+    "verify_exact_environment_and_cuda",
+    "run_two_independent_one_step_reproducibility_smokes",
+    "stop_as_not_executed_resource_block_if_either_backward_fails",
+    "run_exactly_one_1200_step_measured_technical_overfit",
+    "evaluate_unchanged_hard_gates_if_budget_completes",
+    "seal_result_and_stop_for_review"
+  ],
+  "required_commit_message": "research: freeze LPWM E2R determinism remediation protocol",
+  "schema_version": "rei-emocio-vwm-e2r-protocol-freeze-v1"
+}

@@ -1,0 +1,62 @@
+{
+  "algorithm": "sha256",
+  "file_count": 9,
+  "files": [
+    {
+      "bytes": 1209,
+      "path": "README.md",
+      "root": "e2r",
+      "sha256": "c532aa78f88fdf7009dbcef0f7db185751133954c8939a11fef7fa8d00b71812"
+    },
+    {
+      "bytes": 66,
+      "path": "python/emocio_vwm_mvp_e2r/__init__.py",
+      "root": "e2r",
+      "sha256": "68fbc0a9fe7ea67a7b4a7d64c28675d71c8600e1a02a0a3cf3ddb84616ecb419"
+    },
+    {
+      "bytes": 3997,
+      "path": "python/emocio_vwm_mvp_e2r/preflight.py",
+      "root": "e2r",
+      "sha256": "f8ed55b85777f794cbe6d30eb16e8c3e643105128ad40c8146855728fa329d44"
+    },
+    {
+      "bytes": 31371,
+      "path": "python/emocio_vwm_mvp_e2r/runner.py",
+      "root": "e2r",
+      "sha256": "8e2e8b513b0f63671c8219fab1ec1fcd72f96dbdcada15635496eec439041649"
+    },
+    {
+      "bytes": 3425,
+      "path": "specs/e2r_protocol_freeze.json",
+      "root": "e2r",
+      "sha256": "60a57d53f5f5c96be50f5c5370eaebf12b93a96077efcce1875a8a59584c496d"
+    },
+    {
+      "bytes": 1277,
+      "path": "specs/execution_plan.json",
+      "root": "e2r",
+      "sha256": "56162f6c4422d8666cd328f02dc9b55828e5544e7407803b197e82f6cb4c5603"
+    },
+    {
+      "bytes": 598,
+      "path": "scripts/run_emocio_vwm_e2r.py",
+      "root": "repo",
+      "sha256": "62f13a821f23ce280b951f5b14428c2ba4f5d072c0fd4b80dd7e3d92f8997690"
+    },
+    {
+      "bytes": 1901,
+      "path": "scripts/seal_emocio_vwm_e2r_protocol.py",
+      "root": "repo",
+      "sha256": "dfdb2119621090d5339abe236e8dfc562016384d20e0b489f059c349721b461f"
+    },
+    {
+      "bytes": 7820,
+      "path": "tests/research/test_emocio_vwm_e2r_protocol.py",
+      "root": "repo",
+      "sha256": "8c8095e8def5bb756a888efab9e02754dbd0a5304db1e96436e574127effcf65"
+    }
+  ],
+  "protocol_tree_sha256": "74d87432757f6eda0661a3177a0e227aaa273f3836efc4cdcf10ea9677157bb0",
+  "schema_version": "rei-emocio-vwm-e2r-protocol-lineage-v1"
+}
