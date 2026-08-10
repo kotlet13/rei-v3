@@ -1,0 +1,1891 @@
+{
+  "counts": {
+    "detected_person_observations": 1431,
+    "duplicate_person_observations": 3428,
+    "expected_person_observations": 1608,
+    "future_frames": 216,
+    "terminal_frames": 12
+  },
+  "evaluator_only": true,
+  "frames": [
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 22,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11596909910440445,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 20,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12003947049379349,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 21,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11455977708101273,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 21,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11908596754074097,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 18,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1305922567844391,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 18,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12509922683238983,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 18,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1277424842119217,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 17,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12765003740787506,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 20,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12288764119148254,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 20,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12257171422243118,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 20,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1216752752661705,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 20,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12012102454900742,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 22,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11467001587152481,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.112589530646801,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1129453182220459,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11266603320837021,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 23,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11523126065731049,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 22,
+      "episode_id": "19d5ddc28c32ce409822f232",
+      "expected_markers": {
+        "evidence_card": false,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11268483102321625,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 21,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11751199513673782,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 15,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.13146917521953583,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 19,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11985445767641068,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 19,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12131886184215546,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 19,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1693873107433319,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 22,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16928178071975708,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.18999159336090088,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.19415391981601715,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.19459685683250427,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.1968928873538971,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.19640208780765533,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.1974131166934967,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.19789806008338928,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.19919854402542114,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20365028083324432,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20639468729496002,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20356450974941254,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 5,
+      "episode_id": "21327d3fd4d9a7146094062a",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": false,
+        "pending": true
+      },
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20739011466503143,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10514397919178009,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10337696969509125,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1033063679933548,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10270270705223083,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10655896365642548,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10377909243106842,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10348846763372421,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10294388234615326,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10173246264457703,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.09809987246990204,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10032887756824493,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.09822319447994232,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10072609782218933,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.0976744219660759,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10045305639505386,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.09949902445077896,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10278256982564926,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "27b845c67f5d125805177865",
+      "expected_markers": {
+        "evidence_card": false,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.09757007658481598,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10506656765937805,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 24,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10900050401687622,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10551226139068604,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10513481497764587,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 14,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1788364052772522,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 16,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18192064762115479,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2022949755191803,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20309215784072876,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2078055441379547,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21400758624076843,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21418611705303192,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2181462049484253,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.22285181283950806,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 0,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2276826947927475,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 1,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.22716262936592102,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 1,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.22601372003555298,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 1,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2262420952320099,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 1,
+      "episode_id": "3061ae6a8a960612d7c41b3c",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": false,
+        "pending": true
+      },
+      "expected_person_count": 2,
+      "foreground_lpips": 0.22619754076004028,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 16,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17567797005176544,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18527543544769287,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1828254759311676,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1777573674917221,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 16,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16728319227695465,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 17,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17801493406295776,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 18,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18333184719085693,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18429625034332275,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1881304383277893,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18046191334724426,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16904102265834808,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15084752440452576,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16789646446704865,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15668891370296478,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15941667556762695,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16791954636573792,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17783775925636292,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "3d9877c2a959c91c4671b70d",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16712599992752075,
+      "frame": 23,
+      "marker_match": true,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 24,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10289746522903442,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10572533309459686,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10381915420293808,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10355816781520844,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1588706076145172,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1632441133260727,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 3,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20858147740364075,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 2,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21047045290470123,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 3,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21155592799186707,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2133883833885193,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2127716839313507,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21455508470535278,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.22135835886001587,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2281818985939026,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2391648143529892,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 5,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.24193787574768066,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 4,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.24218487739562988,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 1,
+      "duplicate_count": 5,
+      "episode_id": "3e4320ec87b3c37e32d52362",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": false,
+        "pending": true
+      },
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2411121428012848,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 25,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16495589911937714,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17470714449882507,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17036640644073486,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 19,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.14754001796245575,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 16,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1455930918455124,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15953485667705536,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17021214962005615,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1507343351840973,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16248227655887604,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1351069062948227,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.12977035343647003,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 15,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.13336217403411865,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 17,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15564659237861633,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 20,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.152687668800354,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.131109356880188,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11971324682235718,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 19,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.13365629315376282,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "5003f4818e5878c0cf8bd29f",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.13338634371757507,
+      "frame": 23,
+      "marker_match": true,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10705637186765671,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10681206732988358,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10635637491941452,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10429960489273071,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 25,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11014822870492935,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10614936798810959,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1075601577758789,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10788658261299133,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10805225372314453,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10976681113243103,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10910733044147491,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10999979078769684,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11122947186231613,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1151610016822815,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.107779361307621,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10865509510040283,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 23,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10995185375213623,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 24,
+      "episode_id": "65e0bd7f94c605663f33433d",
+      "expected_markers": {
+        "evidence_card": false,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11144605278968811,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 22,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10050937533378601,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 19,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10735678672790527,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 23,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10072433948516846,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 23,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10031737387180328,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 21,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16831520199775696,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 18,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16881076991558075,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.19034764170646667,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.201827734708786,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2022855430841446,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20657142996788025,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 4,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20659129321575165,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.20896482467651367,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 2,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21020713448524475,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21128764748573303,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21709653735160828,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.21951542794704437,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_person_count": 2,
+      "foreground_lpips": 0.2163739800453186,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 2,
+      "duplicate_count": 3,
+      "episode_id": "828a382431c8c684b39ac51d",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": false,
+        "pending": true
+      },
+      "expected_person_count": 2,
+      "foreground_lpips": 0.22177870571613312,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 16,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1665712594985962,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16948777437210083,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1680249273777008,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1622212529182434,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 17,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18189769983291626,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 18,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.19428524374961853,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 17,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18234509229660034,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 16,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1761850118637085,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 16,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18161603808403015,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1706448346376419,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17988267540931702,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1760542094707489,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17627950012683868,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17650771141052246,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 13,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17591983079910278,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.19553719460964203,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.20188790559768677,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 14,
+      "episode_id": "ba5c48fb6593d2b8e94d8608",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.18920989334583282,
+      "frame": 23,
+      "marker_match": true,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 20,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17635098099708557,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 19,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1785496324300766,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 19,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16573107242584229,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 17,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15463484823703766,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 18,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.14771589636802673,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1638079136610031,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.17434461414813995,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16976185142993927,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.16113309562206268,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 16,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15241007506847382,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 15,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15156865119934082,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 16,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.14625617861747742,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 19,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.13961893320083618,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 19,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.14149923622608185,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1433299332857132,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15296103060245514,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 21,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.15532314777374268,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 7,
+      "duplicate_count": 18,
+      "episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "expected_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1510888636112213,
+      "frame": 23,
+      "marker_match": true,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.09833213686943054,
+      "frame": 6
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 23,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10252010822296143,
+      "frame": 7
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10047705471515656,
+      "frame": 8
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 26,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10401761531829834,
+      "frame": 9
+    },
+    {
+      "detected_person_count": 8,
+      "duplicate_count": 20,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11030298471450806,
+      "frame": 10
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 21,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10609385371208191,
+      "frame": 11
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 22,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10494974255561829,
+      "frame": 12
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10600735247135162,
+      "frame": 13
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10648005455732346,
+      "frame": 14
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10764019191265106,
+      "frame": 15
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10747814178466797,
+      "frame": 16
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11317482590675354,
+      "frame": 17
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 24,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10465777665376663,
+      "frame": 18
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10881610214710236,
+      "frame": 19
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.10980439186096191,
+      "frame": 20
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11083150655031204,
+      "frame": 21
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 25,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_person_count": 9,
+      "foreground_lpips": 0.11184220016002655,
+      "frame": 22
+    },
+    {
+      "detected_person_count": 9,
+      "duplicate_count": 24,
+      "episode_id": "d5792b51fa8ed994f00a03a0",
+      "expected_markers": {
+        "evidence_card": false,
+        "official_attribution": true,
+        "pending": true
+      },
+      "expected_person_count": 9,
+      "foreground_lpips": 0.1183127909898758,
+      "frame": 23,
+      "marker_match": false,
+      "predicted_markers": {
+        "evidence_card": true,
+        "official_attribution": true,
+        "pending": true
+      }
+    }
+  ],
+  "hard_gates": {
+    "all_passed": false,
+    "checks": {
+      "duplicate_person_rate": false,
+      "foreground_lpips": true,
+      "goal_marker_accuracy": false,
+      "identity_stability": false,
+      "person_count_accuracy": false
+    }
+  },
+  "metric_source": "generated_model_visuals",
+  "metrics": {
+    "duplicate_person_rate": 2.1318407960199006,
+    "foreground_lpips": 0.15281087777542848,
+    "goal_marker_accuracy": 0.3333333333333333,
+    "identity_stability": 0.8899253731343284,
+    "person_count_accuracy": 0.30092592592592593
+  },
+  "schema_version": "rei-emocio-vwm-e2-visual-metrics-v1"
+}

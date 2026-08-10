@@ -1,0 +1,9 @@
+{
+  "claim_scope": "technical_overfit_only",
+  "failed_stage": "bundle",
+  "full_frozen_budget_completed": false,
+  "medium_failure_claimed": false,
+  "model_fit_failure_claimed": false,
+  "schema_version": "rei-emocio-vwm-e2r-verdict-v1",
+  "verdict": "not_executed_resource_block"
+}

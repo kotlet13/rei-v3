@@ -1,0 +1,12 @@
+{
+  "duration_seconds": 2.274471700191498,
+  "hard_gate_evaluation": false,
+  "loaded_state_sha256": "dba0076750ba1201eeafc20b3d7b02017e8e1065a753f7ada712ed8dc6a9f94a",
+  "optimizer_steps": 0,
+  "peak_allocated_vram_bytes": 2027474944,
+  "peak_reserved_vram_bytes": 3284140032,
+  "purpose": "pre_registered_particle_mask_reconstruction_evidence_only",
+  "sample_selection": false,
+  "schema_version": "rei-emocio-vwm-e2r-diagnostic-postprocess-v1",
+  "warnings": []
+}

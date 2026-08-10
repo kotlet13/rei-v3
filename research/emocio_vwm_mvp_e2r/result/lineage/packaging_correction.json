@@ -1,0 +1,13 @@
+{
+  "attempt_1_failure_preserved_at": "post_execution/bundle_attempt_1_failure",
+  "classification": "post_budget_packaging_defect_not_model_execution_failure",
+  "failure_message": "'lpwm_smoke'",
+  "failure_stage": "bundle_after_completed_budget_and_evaluation",
+  "failure_type": "KeyError",
+  "hard_gates_recomputed": false,
+  "measured_run_reexecuted": false,
+  "optimizer_steps_added": 0,
+  "samples_regenerated": false,
+  "schema_version": "rei-emocio-vwm-e2r-packaging-correction-v1",
+  "verdict_changed_by_correction": false
+}

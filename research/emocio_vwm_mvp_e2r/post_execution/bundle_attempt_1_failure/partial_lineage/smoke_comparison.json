@@ -1,0 +1,16 @@
+{
+  "initial_state_hashes_equal": true,
+  "numeric_difference": {
+    "floating_values_compared": 190135286,
+    "gradient_norm_absolute": 0.010456562042236328,
+    "initial_loss_absolute": 0.0,
+    "parameter_delta_norm_absolute": 5.498036304008025e-09,
+    "post_step_state_l2": 0.00023073723024397467,
+    "post_step_state_max_abs": 8.760951459407806e-05
+  },
+  "post_step_byte_identity_required": false,
+  "post_step_hashes_equal": false,
+  "schema_version": "rei-emocio-vwm-e2r-smoke-comparison-v1",
+  "status": "passed",
+  "used_for_selection": false
+}

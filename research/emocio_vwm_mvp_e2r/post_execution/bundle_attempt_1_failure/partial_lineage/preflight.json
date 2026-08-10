@@ -1,0 +1,94 @@
+{
+  "dataset": {
+    "browser_executable_sha256": "aa0492971e09477da33db5fd550a1ad4c8bbd228e34c7f0f87f5ae8b0d37db4f",
+    "dataset_manifest_sha256": "8e454d2f7ee3df9381a29d5c5ed378e670cd1286d1adc70d2c77abd3cec80e8d",
+    "dataset_tree_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+    "environment_relative_root": "datasets/emocio_e2_01aa8d3_v1",
+    "file_count": 313,
+    "freeze_status": "frozen_before_first_lpwm_call",
+    "generator_source_sha256": "635635612be0cd4d35885a17d2ac06ef1dea4d8128544fe3a2f0ca5358bdb729",
+    "model_visible_content": "visual_media_only",
+    "model_visible_root": "model_visible",
+    "playwright_core_version": "1.62.1",
+    "pre_training_hash_verification_required": true,
+    "reproducible_run_id": "b9ff0cbbfea7011160008f61",
+    "rerender_after_protocol_freeze_allowed": false,
+    "schema_version": "rei-emocio-vwm-e2-frozen-dataset-v1",
+    "source_e1r_sha": "01aa8d3e10c04275e528fd45796d0c4c5bb4ac0b",
+    "three_version": "0.185.1",
+    "total_bytes": 2913227
+  },
+  "e1r_sha": "01aa8d3e10c04275e528fd45796d0c4c5bb4ac0b",
+  "expected_environment_manifest_sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2",
+  "frozen_e2_protocol_sha": "e409ecbdebd220db9da934827f2b1e0a7d73b65c",
+  "frozen_e2_result_sha": "d1415007b97e651e59953bbdf093d64516603365",
+  "lpwm": {
+    "repository_commit_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "tracked_source_clean": true
+  },
+  "protocol": {
+    "algorithm": "sha256",
+    "file_count": 9,
+    "files": [
+      {
+        "bytes": 1209,
+        "path": "README.md",
+        "root": "e2r",
+        "sha256": "c532aa78f88fdf7009dbcef0f7db185751133954c8939a11fef7fa8d00b71812"
+      },
+      {
+        "bytes": 66,
+        "path": "python/emocio_vwm_mvp_e2r/__init__.py",
+        "root": "e2r",
+        "sha256": "68fbc0a9fe7ea67a7b4a7d64c28675d71c8600e1a02a0a3cf3ddb84616ecb419"
+      },
+      {
+        "bytes": 3997,
+        "path": "python/emocio_vwm_mvp_e2r/preflight.py",
+        "root": "e2r",
+        "sha256": "f8ed55b85777f794cbe6d30eb16e8c3e643105128ad40c8146855728fa329d44"
+      },
+      {
+        "bytes": 31371,
+        "path": "python/emocio_vwm_mvp_e2r/runner.py",
+        "root": "e2r",
+        "sha256": "8e2e8b513b0f63671c8219fab1ec1fcd72f96dbdcada15635496eec439041649"
+      },
+      {
+        "bytes": 3425,
+        "path": "specs/e2r_protocol_freeze.json",
+        "root": "e2r",
+        "sha256": "60a57d53f5f5c96be50f5c5370eaebf12b93a96077efcce1875a8a59584c496d"
+      },
+      {
+        "bytes": 1277,
+        "path": "specs/execution_plan.json",
+        "root": "e2r",
+        "sha256": "56162f6c4422d8666cd328f02dc9b55828e5544e7407803b197e82f6cb4c5603"
+      },
+      {
+        "bytes": 598,
+        "path": "scripts/run_emocio_vwm_e2r.py",
+        "root": "repo",
+        "sha256": "62f13a821f23ce280b951f5b14428c2ba4f5d072c0fd4b80dd7e3d92f8997690"
+      },
+      {
+        "bytes": 1901,
+        "path": "scripts/seal_emocio_vwm_e2r_protocol.py",
+        "root": "repo",
+        "sha256": "dfdb2119621090d5339abe236e8dfc562016384d20e0b489f059c349721b461f"
+      },
+      {
+        "bytes": 7820,
+        "path": "tests/research/test_emocio_vwm_e2r_protocol.py",
+        "root": "repo",
+        "sha256": "8c8095e8def5bb756a888efab9e02754dbd0a5304db1e96436e574127effcf65"
+      }
+    ],
+    "protocol_tree_sha256": "74d87432757f6eda0661a3177a0e227aaa273f3836efc4cdcf10ea9677157bb0",
+    "schema_version": "rei-emocio-vwm-e2r-protocol-lineage-v1"
+  },
+  "protocol_commit_sha": "b01e95ded1a4e990cd29ece4753ea04d41c5c091",
+  "schema_version": "rei-emocio-vwm-e2r-preflight-v1",
+  "status": "passed"
+}

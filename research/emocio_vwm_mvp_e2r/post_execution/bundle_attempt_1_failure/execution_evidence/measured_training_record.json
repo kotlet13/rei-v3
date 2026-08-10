@@ -1,0 +1,227 @@
+{
+  "best_checkpoint": {
+    "bytes": 439699078,
+    "external_relative_path": "checkpoints/step_1200_state_dict.pt",
+    "sha256": "99ce54d6240182a2796201e590437b8cb21e3f88301ebf9fc41219177c1eca4b",
+    "step": 1200
+  },
+  "best_measurement_loss": 30.002216339111328,
+  "best_step": 1200,
+  "captured_warnings": [
+    {
+      "category": "UserWarning",
+      "count": 3600,
+      "message": "grid_sampler_2d_backward_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at C:\\actions-runner\\_work\\pytorch\\pytorch\\pytorch\\aten\\src\\ATen\\Context.cpp:164.)"
+    }
+  ],
+  "checkpoints": [
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0100_state_dict.pt",
+      "sha256": "173ed4c35d8c4dbaf390141b17d59208cb659e65a486e1557a3717c158e94772",
+      "step": 100
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0200_state_dict.pt",
+      "sha256": "f6d66a5fb0c8d31160455e62593c5b7ccc96bdeced3d26f06c40302cd67efada",
+      "step": 200
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0300_state_dict.pt",
+      "sha256": "ad0044b5e0adb4579404e7dc90d772fe977515c1d15c19f699c142be845d5cef",
+      "step": 300
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0400_state_dict.pt",
+      "sha256": "7654d05f0fbc1264700a1a09d11f841db6c8205ffbddf9f23bbda1b913f717a5",
+      "step": 400
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0500_state_dict.pt",
+      "sha256": "e99be07f19b7759e50961ba9aaf70e36257174e1b7d1798dd6f607a12e6fd2e0",
+      "step": 500
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0600_state_dict.pt",
+      "sha256": "8b064b9b2a970bcf17395b6852f5bdac996119e833cb25e2a427b36da550b7c4",
+      "step": 600
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0700_state_dict.pt",
+      "sha256": "8a2ca42536a9b1585fe93cc81820cf332f9bcdadb3a588ebadd8d996da9c8553",
+      "step": 700
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0800_state_dict.pt",
+      "sha256": "47a71e74a09d47d71c3072a46727030859e6263711eba4571e58ce4e5e4e76d4",
+      "step": 800
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_0900_state_dict.pt",
+      "sha256": "fc1e4da3ba5a80a02ed5633ed484f26082ec62e731d58a842e753ec241ca04dc",
+      "step": 900
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_1000_state_dict.pt",
+      "sha256": "5757f7dd32c968d94c830a7bde1d9b7487d95ad075cd7fd8cb4cb147246c2158",
+      "step": 1000
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_1100_state_dict.pt",
+      "sha256": "07d99666249953aa3313c249b9ad5ed9750ab76ffb9c75dbdddca485a435316b",
+      "step": 1100
+    },
+    {
+      "bytes": 439699078,
+      "external_relative_path": "checkpoints/step_1200_state_dict.pt",
+      "sha256": "99ce54d6240182a2796201e590437b8cb21e3f88301ebf9fc41219177c1eca4b",
+      "step": 1200
+    }
+  ],
+  "dataset_tree_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+  "environment_manifest_sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2",
+  "exception": null,
+  "final_checkpoint": {
+    "bytes": 439699078,
+    "external_relative_path": "checkpoints/step_1200_state_dict.pt",
+    "sha256": "99ce54d6240182a2796201e590437b8cb21e3f88301ebf9fc41219177c1eca4b",
+    "step": 1200
+  },
+  "final_state_sha256": "dba0076750ba1201eeafc20b3d7b02017e8e1065a753f7ada712ed8dc6a9f94a",
+  "finite_loss": true,
+  "forward_status": "passed",
+  "initial_loss": 467.42144775390625,
+  "initial_state_sha256": "94838e369457dc266b75a20839ef272fc4c3e9b53c9acbd5bcbda091d702f94b",
+  "measured_run_count": 1,
+  "measurements": [
+    {
+      "checkpoint_sha256": "173ed4c35d8c4dbaf390141b17d59208cb659e65a486e1557a3717c158e94772",
+      "loss": 114.53685760498047,
+      "opaque_episode_id": "828a382431c8c684b39ac51d",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 16.34300994873047,
+      "step": 100
+    },
+    {
+      "checkpoint_sha256": "f6d66a5fb0c8d31160455e62593c5b7ccc96bdeced3d26f06c40302cd67efada",
+      "loss": 78.49214172363281,
+      "opaque_episode_id": "3e4320ec87b3c37e32d52362",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 17.993656158447266,
+      "step": 200
+    },
+    {
+      "checkpoint_sha256": "ad0044b5e0adb4579404e7dc90d772fe977515c1d15c19f699c142be845d5cef",
+      "loss": 81.7573471069336,
+      "opaque_episode_id": "d5792b51fa8ed994f00a03a0",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 17.807781219482422,
+      "step": 300
+    },
+    {
+      "checkpoint_sha256": "7654d05f0fbc1264700a1a09d11f841db6c8205ffbddf9f23bbda1b913f717a5",
+      "loss": 45.890052795410156,
+      "opaque_episode_id": "828a382431c8c684b39ac51d",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 20.324077606201172,
+      "step": 400
+    },
+    {
+      "checkpoint_sha256": "e99be07f19b7759e50961ba9aaf70e36257174e1b7d1798dd6f607a12e6fd2e0",
+      "loss": 40.81057357788086,
+      "opaque_episode_id": "3061ae6a8a960612d7c41b3c",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 20.819881439208984,
+      "step": 500
+    },
+    {
+      "checkpoint_sha256": "8b064b9b2a970bcf17395b6852f5bdac996119e833cb25e2a427b36da550b7c4",
+      "loss": 50.431453704833984,
+      "opaque_episode_id": "19d5ddc28c32ce409822f232",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 19.897720336914062,
+      "step": 600
+    },
+    {
+      "checkpoint_sha256": "8a2ca42536a9b1585fe93cc81820cf332f9bcdadb3a588ebadd8d996da9c8553",
+      "loss": 31.18886375427246,
+      "opaque_episode_id": "3e4320ec87b3c37e32d52362",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 21.996604919433594,
+      "step": 700
+    },
+    {
+      "checkpoint_sha256": "47a71e74a09d47d71c3072a46727030859e6263711eba4571e58ce4e5e4e76d4",
+      "loss": 74.28703308105469,
+      "opaque_episode_id": "5003f4818e5878c0cf8bd29f",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 18.218481063842773,
+      "step": 800
+    },
+    {
+      "checkpoint_sha256": "fc1e4da3ba5a80a02ed5633ed484f26082ec62e731d58a842e753ec241ca04dc",
+      "loss": 32.98422622680664,
+      "opaque_episode_id": "3e4320ec87b3c37e32d52362",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 21.747085571289062,
+      "step": 900
+    },
+    {
+      "checkpoint_sha256": "5757f7dd32c968d94c830a7bde1d9b7487d95ad075cd7fd8cb4cb147246c2158",
+      "loss": 49.17079544067383,
+      "opaque_episode_id": "5003f4818e5878c0cf8bd29f",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 20.01020050048828,
+      "step": 1000
+    },
+    {
+      "checkpoint_sha256": "07d99666249953aa3313c249b9ad5ed9750ab76ffb9c75dbdddca485a435316b",
+      "loss": 46.646400451660156,
+      "opaque_episode_id": "c7dbae4dc5272e3a2adbb5b2",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 20.243064880371094,
+      "step": 1100
+    },
+    {
+      "checkpoint_sha256": "99ce54d6240182a2796201e590437b8cb21e3f88301ebf9fc41219177c1eca4b",
+      "loss": 30.002216339111328,
+      "opaque_episode_id": "65e0bd7f94c605663f33433d",
+      "peak_allocated_vram_bytes": 9723751936,
+      "peak_reserved_vram_bytes": 11179917312,
+      "psnr": 22.1589298248291,
+      "step": 1200
+    }
+  ],
+  "model_config_sha256": "b9559e928936e1f06fc25dd50b6cb3887b269c971a0eaf8c35ae76127b7d5928",
+  "optimizer_steps_completed": 1200,
+  "optimizer_steps_required": 1200,
+  "peak_allocated_vram_bytes": 9723751936,
+  "peak_reserved_vram_bytes": 11179917312,
+  "precision": "float32",
+  "schema_version": "rei-emocio-vwm-e2r-measured-training-v1",
+  "seed": 73013,
+  "stage": "completed",
+  "status": "completed",
+  "training_duration_seconds": 517.8413387001492
+}

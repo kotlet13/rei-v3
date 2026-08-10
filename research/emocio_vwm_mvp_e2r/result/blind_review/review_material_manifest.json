@@ -1,0 +1,67 @@
+{
+  "clips": [
+    {
+      "bytes": 11561,
+      "clip": "clip_000.mp4",
+      "sha256": "df51a389d60f8716817b5aaafe25d68836b3e173c357bfd22fb1159c7df63794"
+    },
+    {
+      "bytes": 12041,
+      "clip": "clip_001.mp4",
+      "sha256": "e354d9b7a56f4eab7e0bf36e4bda24659bc2016945d1a2d0c16fd964c1263ef1"
+    },
+    {
+      "bytes": 11822,
+      "clip": "clip_002.mp4",
+      "sha256": "9e860d8229912d88988431e05ca6b2410be197b385e5d0fc252878ef804e2686"
+    },
+    {
+      "bytes": 12007,
+      "clip": "clip_003.mp4",
+      "sha256": "b0add9c76133b6c309028df12465a8ba66595e91c3d9d0dc05d71b520a9c7aea"
+    },
+    {
+      "bytes": 10867,
+      "clip": "clip_004.mp4",
+      "sha256": "6391bf4897736dbdc8b82f46682b084cf4ab40b3dca2c75d633d140ab0fc183b"
+    },
+    {
+      "bytes": 6426,
+      "clip": "clip_005.mp4",
+      "sha256": "c55cd8a93c21ba4703e7fd255de17bef6056eec8c942ac492703e39b21866f39"
+    },
+    {
+      "bytes": 6617,
+      "clip": "clip_006.mp4",
+      "sha256": "9149b5286828163185f1c3290c0e307dff83b670c508f1a1eb1a75bb65aa1a03"
+    },
+    {
+      "bytes": 7095,
+      "clip": "clip_007.mp4",
+      "sha256": "000e5a9b551fd77f419a05393f035a46ac8248dbe77731a439a327cd654dd668"
+    },
+    {
+      "bytes": 12249,
+      "clip": "clip_008.mp4",
+      "sha256": "67d6096fa8c6aca8685c80d5d7a20d84369fc3f059d8694f1c473ae8af7c5042"
+    },
+    {
+      "bytes": 10814,
+      "clip": "clip_009.mp4",
+      "sha256": "070fa2e04f3a601e6547e9437ce602ef7acc61763c789c6db0f091e8ae6e88dc"
+    },
+    {
+      "bytes": 11644,
+      "clip": "clip_010.mp4",
+      "sha256": "66b82158620086a384ab7e59dca6a86baebbd7aeb10f03f78b7281a0888f82c5"
+    },
+    {
+      "bytes": 6511,
+      "clip": "clip_011.mp4",
+      "sha256": "05194cb8555bf70b58c639cae04a18c0bf360f0c63b7f45483bcb014229c99c7"
+    }
+  ],
+  "route_mapping_in_review_material": false,
+  "schema_version": "rei-emocio-vwm-e2r-blind-review-material-v1",
+  "sealed": true
+}

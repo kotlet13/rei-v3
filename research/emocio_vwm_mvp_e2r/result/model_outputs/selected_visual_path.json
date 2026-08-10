@@ -1,0 +1,21 @@
+{
+  "key_mosaic": "contact_sheets/selected_key_mosaic.png",
+  "native_output_is_natural_language": false,
+  "opaque_episode_ids": [
+    "19d5ddc28c32ce409822f232",
+    "21327d3fd4d9a7146094062a",
+    "27b845c67f5d125805177865",
+    "3061ae6a8a960612d7c41b3c",
+    "3d9877c2a959c91c4671b70d",
+    "3e4320ec87b3c37e32d52362",
+    "5003f4818e5878c0cf8bd29f",
+    "65e0bd7f94c605663f33433d",
+    "828a382431c8c684b39ac51d",
+    "ba5c48fb6593d2b8e94d8608",
+    "c7dbae4dc5272e3a2adbb5b2",
+    "d5792b51fa8ed994f00a03a0"
+  ],
+  "schema_version": "rei-emocio-vwm-e2r-selected-visual-path-v1",
+  "selected_seed": 83015,
+  "terminal_mosaic": "contact_sheets/selected_terminal_mosaic.png"
+}

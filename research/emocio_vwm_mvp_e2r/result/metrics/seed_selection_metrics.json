@@ -1,0 +1,96 @@
+{
+  "candidates": [
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.366915422885572,
+        "foreground_lpips": 0.15271136971811453,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.9048507462686567,
+        "person_count_accuracy": 0.375
+      },
+      "objective": 237.86359826736708,
+      "seed": 83011
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.3488805970149254,
+        "foreground_lpips": 0.1525041281970011,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.8949004975124378,
+        "person_count_accuracy": 0.3472222222222222
+      },
+      "objective": 236.09746232477764,
+      "seed": 83012
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.318407960199005,
+        "foreground_lpips": 0.152515874106299,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.8986318407960199,
+        "person_count_accuracy": 0.35185185185185186
+      },
+      "objective": 233.04173229322376,
+      "seed": 83013
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.4017412935323383,
+        "foreground_lpips": 0.15048236641342994,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.9011194029850746,
+        "person_count_accuracy": 0.37962962962962965
+      },
+      "objective": 241.33288536163053,
+      "seed": 83014
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.1318407960199006,
+        "foreground_lpips": 0.15281087777542848,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.8899253731343284,
+        "person_count_accuracy": 0.30092592592592593
+      },
+      "objective": 214.44750416579814,
+      "seed": 83015
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.5416666666666665,
+        "foreground_lpips": 0.14869268155760235,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.9148009950248757,
+        "person_count_accuracy": 0.4351851851851852
+      },
+      "objective": 255.2448298308124,
+      "seed": 83016
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.316542288557214,
+        "foreground_lpips": 0.15231992014580303,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.8930348258706468,
+        "person_count_accuracy": 0.35185185185185186
+      },
+      "objective": 232.85978773565054,
+      "seed": 83017
+    },
+    {
+      "metrics": {
+        "duplicate_person_rate": 2.2686567164179103,
+        "foreground_lpips": 0.1525100126379618,
+        "goal_marker_accuracy": 0.3333333333333333,
+        "identity_stability": 0.8961442786069652,
+        "person_count_accuracy": 0.35648148148148145
+      },
+      "objective": 228.06438956829865,
+      "seed": 83018
+    }
+  ],
+  "manual_selection": false,
+  "rule": "lowest mean normalized hard-gate deficit plus foreground_lpips; lowest seed tie-break",
+  "schema_version": "rei-emocio-vwm-e2-seed-selection-v1",
+  "selected_seed": 83015
+}

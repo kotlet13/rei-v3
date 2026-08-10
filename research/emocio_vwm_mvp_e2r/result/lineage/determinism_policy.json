@@ -1,0 +1,10 @@
+{
+  "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+  "bitwise_model_optimization_reproducibility_claimed": false,
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": true,
+  "grid_sample_backward_potentially_nondeterministic": true,
+  "schema_version": "rei-emocio-vwm-e2r-determinism-policy-v1",
+  "torch_deterministic_algorithms": true,
+  "warn_only": true
+}

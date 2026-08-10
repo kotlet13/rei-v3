@@ -1,0 +1,37 @@
+{
+  "backward_status": "passed",
+  "captured_warnings": [
+    {
+      "category": "UserWarning",
+      "count": 3,
+      "message": "grid_sampler_2d_backward_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at C:\\actions-runner\\_work\\pytorch\\pytorch\\pytorch\\aten\\src\\ATen\\Context.cpp:164.)"
+    }
+  ],
+  "dataset_tree_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+  "duration_seconds": 2.61760829994455,
+  "environment_manifest_sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2",
+  "evaluation_role": "non_evaluative_execution_smoke",
+  "exception": null,
+  "finite_loss": true,
+  "forward_status": "passed",
+  "gradient_norm": 3047384752.436854,
+  "initial_loss": 1255.0283203125,
+  "initial_state_sha256": "94838e369457dc266b75a20839ef272fc4c3e9b53c9acbd5bcbda091d702f94b",
+  "model_config_sha256": "b9559e928936e1f06fc25dd50b6cb3887b269c971a0eaf8c35ae76127b7d5928",
+  "optimizer_step_count": 1,
+  "parameter_delta_norm": 0.35352095622488106,
+  "peak_allocated_vram_bytes": 8835738624,
+  "peak_reserved_vram_bytes": 11179917312,
+  "post_step_checkpoint": {
+    "bytes": 439699078,
+    "external_relative_path": "smokes/run_2/post_step_state_dict.pt",
+    "sha256": "e43f982ddb5ddd67256b6e9ddc1d2fbd5be4f1f15e63216a6d4f801ee7e7e301"
+  },
+  "post_step_state_sha256": "10263556d113ed17154f8bcfd4650977284418a76ea1fb94327b0ac9fdea6ce7",
+  "precision": "float32",
+  "schema_version": "rei-emocio-vwm-e2r-reproducibility-smoke-v1",
+  "seed": 73013,
+  "smoke_index": 2,
+  "stage": "completed",
+  "status": "passed"
+}

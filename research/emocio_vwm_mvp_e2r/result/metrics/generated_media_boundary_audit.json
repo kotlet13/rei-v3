@@ -1,0 +1,7 @@
+{
+  "ffprobe_stream_and_metadata_validation": "passed",
+  "mp4_files_checked": 39,
+  "png_files_checked": 288,
+  "schema_version": "rei-emocio-vwm-e2r-generated-media-boundary-v1",
+  "status": "passed"
+}

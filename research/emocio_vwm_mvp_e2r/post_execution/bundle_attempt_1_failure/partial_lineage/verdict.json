@@ -1,0 +1,21 @@
+{
+  "claim_scope": "technical_overfit_only",
+  "full_frozen_budget_completed": true,
+  "hard_gates": {
+    "all_passed": false,
+    "checks": {
+      "duplicate_person_rate": false,
+      "foreground_lpips": true,
+      "goal_marker_accuracy": false,
+      "identity_stability": false,
+      "person_count_accuracy": false
+    }
+  },
+  "model_substitution": false,
+  "schema_version": "rei-emocio-vwm-e2r-verdict-v1",
+  "selected_visual_sample_seed": 83015,
+  "social_model_fit_started": false,
+  "threshold_changes": false,
+  "verdict": "model_fit_failed",
+  "working_emocio_claimed": false
+}

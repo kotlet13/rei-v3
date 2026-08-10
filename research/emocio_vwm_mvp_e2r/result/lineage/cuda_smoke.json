@@ -1,0 +1,26 @@
+{
+  "backward": "passed",
+  "convolution": "passed",
+  "cuda_available": true,
+  "device_capability": [
+    12,
+    0
+  ],
+  "device_name": "NVIDIA GeForce RTX 5090",
+  "finite_loss": 0.3362853527069092,
+  "free_vram_bytes_after_smoke": 32370589696,
+  "optimizer_step": "passed",
+  "peak_allocated_bytes": 354816,
+  "schema_version": "rei-emocio-vwm-e2-cuda-smoke-v1",
+  "status": "passed",
+  "tensor": "passed",
+  "torch_arch_list": [
+    "sm_75",
+    "sm_80",
+    "sm_86",
+    "sm_90",
+    "sm_100",
+    "sm_120"
+  ],
+  "total_vram_bytes": 34190458880
+}

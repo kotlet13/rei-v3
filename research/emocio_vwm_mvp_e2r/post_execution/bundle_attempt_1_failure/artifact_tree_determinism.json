@@ -1,0 +1,107 @@
+{
+  "byte_identical": true,
+  "file_count_each": 19,
+  "files": [
+    {
+      "bytes": 582,
+      "path": "execution_evidence/cuda_smoke.json",
+      "sha256": "ffea84679812df76f813a23599b8a2ca44f4d139546dfa1fbb3eace4f8cfda2c"
+    },
+    {
+      "bytes": 2139,
+      "path": "execution_evidence/environment_manifest.json",
+      "sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2"
+    },
+    {
+      "bytes": 8931,
+      "path": "execution_evidence/measured_training_record.json",
+      "sha256": "fff5c8a28f92e81dbb35eaf399a51b1796a28b511036c63cccbd9d511e663392"
+    },
+    {
+      "bytes": 575,
+      "path": "execution_evidence/smokes/comparison.json",
+      "sha256": "6abbe9c865d79dfb9b27b2d38df2d4b1974751c5045bfab1e7aa459a483d125e"
+    },
+    {
+      "bytes": 1850,
+      "path": "execution_evidence/smokes/run_1/execution_record.json",
+      "sha256": "9644bec9c6167e32c4dc9f65f0c9b6891dbf5b222145ca05684f9b376db1bf99"
+    },
+    {
+      "bytes": 1848,
+      "path": "execution_evidence/smokes/run_2/execution_record.json",
+      "sha256": "7f7ac4687f50f2415f8af338e38047b55416999835f7d3c34166bd2cf54d4680"
+    },
+    {
+      "bytes": 810,
+      "path": "failure.json",
+      "sha256": "5eb7a9dc5ce872e7504920d86229da469ebb21f329738dfe66afbe2bc5d72685"
+    },
+    {
+      "bytes": 582,
+      "path": "partial_lineage/cuda_smoke.json",
+      "sha256": "ffea84679812df76f813a23599b8a2ca44f4d139546dfa1fbb3eace4f8cfda2c"
+    },
+    {
+      "bytes": 363,
+      "path": "partial_lineage/determinism_policy.json",
+      "sha256": "7dacd0845509137936921339aca25b9ffbf6cb2a59bb9cbf35117389172f36a5"
+    },
+    {
+      "bytes": 2139,
+      "path": "partial_lineage/environment.json",
+      "sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2"
+    },
+    {
+      "bytes": 641,
+      "path": "partial_lineage/metric_weights.json",
+      "sha256": "9cc8d11694dbf1b893ebd1004b1f39120f89528bef75d6c9d4062cabec8a1f0e"
+    },
+    {
+      "bytes": 3763,
+      "path": "partial_lineage/preflight.json",
+      "sha256": "c87e838d6cd3220dd42f1ffe04b7b8774b4d68ec875956183fdacdc9f793fc03"
+    },
+    {
+      "bytes": 3448,
+      "path": "partial_lineage/sampling.json",
+      "sha256": "e776bd2ecbf49dac038e352d6e48387a48ca64cebfeeda0930f8dd52e0f9f3ef"
+    },
+    {
+      "bytes": 1850,
+      "path": "partial_lineage/smoke_1.json",
+      "sha256": "9644bec9c6167e32c4dc9f65f0c9b6891dbf5b222145ca05684f9b376db1bf99"
+    },
+    {
+      "bytes": 1848,
+      "path": "partial_lineage/smoke_2.json",
+      "sha256": "7f7ac4687f50f2415f8af338e38047b55416999835f7d3c34166bd2cf54d4680"
+    },
+    {
+      "bytes": 575,
+      "path": "partial_lineage/smoke_comparison.json",
+      "sha256": "6abbe9c865d79dfb9b27b2d38df2d4b1974751c5045bfab1e7aa459a483d125e"
+    },
+    {
+      "bytes": 8931,
+      "path": "partial_lineage/training.json",
+      "sha256": "fff5c8a28f92e81dbb35eaf399a51b1796a28b511036c63cccbd9d511e663392"
+    },
+    {
+      "bytes": 615,
+      "path": "partial_lineage/verdict.json",
+      "sha256": "18d782f5146d1b58ed4b54e956233d45da89cb76f84ea3de319836d2d63667f2"
+    },
+    {
+      "bytes": 294,
+      "path": "verdict.json",
+      "sha256": "9fabd111461cea8023d1f845f67bb9af96f76f4460e64816c998b9ae91e1a76f"
+    }
+  ],
+  "runs": 2,
+  "schema_version": "rei-emocio-vwm-e2r-artifact-tree-determinism-v1",
+  "scope": "evaluator_and_media_artifact_pipeline_not_model_optimization",
+  "status": "passed",
+  "tree_sha256_a": "db70f10aac460295b3436a65752b8f0f1eacfffafdfc20f1421508069b49ef6f",
+  "tree_sha256_b": "db70f10aac460295b3436a65752b8f0f1eacfffafdfc20f1421508069b49ef6f"
+}

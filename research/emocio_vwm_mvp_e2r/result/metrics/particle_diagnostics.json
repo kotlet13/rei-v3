@@ -1,0 +1,33 @@
+{
+  "numeric_acceptance_thresholds": null,
+  "routes": {
+    "no_response": {
+      "active_particle_count_mean": 0.0,
+      "latent_context_variance": 0.016291959211230278,
+      "opaque_episode_id": "d5792b51fa8ed994f00a03a0",
+      "particle_objectness_mean": 0.0022024945355951786,
+      "particle_objectness_std": 9.038879943545908e-05,
+      "particle_position_coverage": 1.942919373512268,
+      "particle_temporal_displacement": 0.007317814510315657
+    },
+    "private_evidence": {
+      "active_particle_count_mean": 0.0,
+      "latent_context_variance": 0.019245272502303123,
+      "opaque_episode_id": "828a382431c8c684b39ac51d",
+      "particle_objectness_mean": 0.0022024891804903746,
+      "particle_objectness_std": 9.038633288582787e-05,
+      "particle_position_coverage": 1.9429198503494263,
+      "particle_temporal_displacement": 0.007317769806832075
+    },
+    "public_reclaim": {
+      "active_particle_count_mean": 0.0,
+      "latent_context_variance": 0.015320527367293835,
+      "opaque_episode_id": "3d9877c2a959c91c4671b70d",
+      "particle_objectness_mean": 0.0022024542558938265,
+      "particle_objectness_std": 9.037258860189468e-05,
+      "particle_position_coverage": 1.9429188966751099,
+      "particle_temporal_displacement": 0.0073175858706235886
+    }
+  },
+  "schema_version": "rei-emocio-vwm-e2-particle-diagnostics-v1"
+}

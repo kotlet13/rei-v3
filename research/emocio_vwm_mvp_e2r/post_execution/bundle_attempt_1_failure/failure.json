@@ -1,0 +1,8 @@
+{
+  "classification": "environment_or_execution_failure",
+  "exception_type": "KeyError",
+  "message": "'lpwm_smoke'",
+  "schema_version": "rei-emocio-vwm-e2r-execution-failure-v1",
+  "stage": "bundle",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Kotlet\\Codex\\github\\rei-v3-emocio-vwm-mvp\\research\\emocio_vwm_mvp_e2r\\python\\emocio_vwm_mvp_e2r\\runner.py\", line 658, in execute\n    _build_payload(\n  File \"C:\\Users\\Kotlet\\Codex\\github\\rei-v3-emocio-vwm-mvp\\research\\emocio_vwm_mvp_e2\\python\\emocio_vwm_mvp_e2\\runner.py\", line 499, in _build_payload\n    write_json(payload_root / \"lineage\" / \"lpwm_smoke.json\", records[\"lpwm_smoke\"])\n                                                             ~~~~~~~^^^^^^^^^^^^^^\nKeyError: 'lpwm_smoke'\n"
+}
