@@ -1,0 +1,36 @@
+{
+  "byte_identical": true,
+  "file_count_each": 5,
+  "files": [
+    {
+      "bytes": 2110,
+      "path": "failure.json",
+      "sha256": "4fc01120163caaaab7cbb8c921f0cdf0d1ad932cd8960c6b49b259dc8de0bcae"
+    },
+    {
+      "bytes": 583,
+      "path": "partial_lineage/cuda_smoke.json",
+      "sha256": "14f094f956c7987270c61086d7358da6905fa604c11aa32b82716ff73ccc4337"
+    },
+    {
+      "bytes": 2139,
+      "path": "partial_lineage/environment.json",
+      "sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2"
+    },
+    {
+      "bytes": 8565,
+      "path": "partial_lineage/preflight.json",
+      "sha256": "43247d9a9e4e8e248725909c5767afb92966b4edcc20ccc7f51152ec344c5082"
+    },
+    {
+      "bytes": 255,
+      "path": "verdict.json",
+      "sha256": "a66364e768b1e891f8a67e0974c16c7e54dabd4636168a90504fe00e42bed5e2"
+    }
+  ],
+  "runs": 2,
+  "schema_version": "rei-emocio-vwm-e2-artifact-tree-determinism-v1",
+  "status": "passed",
+  "tree_sha256_a": "32a7d9a680b5153a7d5a0c9380bb1d55f28b80acdd7663d7ff08fc2606068ab3",
+  "tree_sha256_b": "32a7d9a680b5153a7d5a0c9380bb1d55f28b80acdd7663d7ff08fc2606068ab3"
+}

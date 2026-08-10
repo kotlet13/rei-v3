@@ -1,0 +1,66 @@
+{
+  "active_rei_runtime_changed": false,
+  "blind_human_review": "not_executed_no_model_samples",
+  "cuda_smoke": {
+    "device": "NVIDIA GeForce RTX 5090",
+    "device_capability": [12, 0],
+    "status": "passed",
+    "torch_arch_list_contains_sm_120": true
+  },
+  "dataset_tree_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+  "environment": {
+    "cuda_runtime": "13.0",
+    "manifest_sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2",
+    "python": "3.11.15",
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130"
+  },
+  "execution": {
+    "failure_operation": "grid_sampler_2d_backward_cuda",
+    "failure_reason": "strict deterministic implementation unavailable",
+    "failure_stage": "lpwm_smoke",
+    "first_measured_optimizer_step_completed": false,
+    "full_frozen_budget_completed": false,
+    "lpwm_constructed": true,
+    "measured_run_count_completed": 0,
+    "model_forward_and_finite_loss_reached": true,
+    "model_samples_created": false,
+    "optimizer_steps_required": 1200,
+    "protocol_rerun_performed": false,
+    "synthetic_backward_completed": false
+  },
+  "failure_file_sha256": "4fc01120163caaaab7cbb8c921f0cdf0d1ad932cd8960c6b49b259dc8de0bcae",
+  "external_install_report_lineage": {
+    "dependencies-install-report.json": {
+      "bytes": 692611,
+      "sha256": "3e49f4fba679e3928fc5a577e4560beb19679aaa35e97dc9d9e85f24fafa53d2"
+    },
+    "metric-weights.json": {
+      "bytes": 853,
+      "sha256": "0449d9c6e5368a27e45dcc44e26d6e629cf62b390949fe6ec7c0e7a09faa3d41"
+    },
+    "torch-install-report.json": {
+      "bytes": 113214,
+      "sha256": "2bbf0aece17d501919098a7d838bfc8c01056ff5cd312ea0f2e260499878383e"
+    }
+  },
+  "lpwm": {
+    "checkpoint": null,
+    "commit_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "initialization": "from_scratch",
+    "model_fit_test_executed": false,
+    "substitution": false
+  },
+  "metric_weights": {
+    "acquired_explicitly": true,
+    "used": false
+  },
+  "preflight_status": "passed",
+  "protocol_commit_sha": "e409ecbdebd220db9da934827f2b1e0a7d73b65c",
+  "result_bundle_bytes": 15064,
+  "result_bundle_files": 7,
+  "schema_version": "rei-emocio-vwm-e2-execution-summary-v1",
+  "verdict": "not_executed_resource_block",
+  "verdict_file_sha256": "a66364e768b1e891f8a67e0974c16c7e54dabd4636168a90504fe00e42bed5e2",
+  "working_emocio_claimed": false
+}

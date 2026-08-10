@@ -1,0 +1,40 @@
+{
+  "discarded_environment_attempts": [
+    {
+      "reason": "default Windows pytest temp root denied access",
+      "valid_regression_result": false
+    },
+    {
+      "failed": 106,
+      "passed": 2070,
+      "reason": "repo-local basetemp intentionally triggered external-runtime guards",
+      "valid_regression_result": false
+    }
+  ],
+  "e1r_baseline": {
+    "failed": 30,
+    "passed": 2123,
+    "source": "Docs/evals/semantic_lab_v1/emocio-vwm-mvp-e1r-2026-08-10/pytest_regression_comparison.json"
+  },
+  "full_suite": {
+    "command": "python -m pytest -q --tb=short --basetemp=<external> --junitxml=research/emocio_vwm_mvp_e2/post_execution/full_pytest_final.xml",
+    "duration_seconds": 505.7,
+    "errors": 0,
+    "failed": 30,
+    "failure_node_set_sha256": "6257de12dea3994fdaa5ae4c91abad544fed932fad51b1b37a35eb0c1be7f551",
+    "junit_bytes": 355495,
+    "junit_sha256": "d70aa7fa70811df31a3cab9d6bd581b467baa541102b2d2fb89d356010cb982e",
+    "passed": 2146
+  },
+  "regression_comparison": {
+    "exact_e1r_failure_set_match": true,
+    "new_failures": [],
+    "resolved_failures": []
+  },
+  "schema_version": "rei-emocio-vwm-e2-pytest-summary-v1",
+  "targeted_suite": {
+    "command": "python -m pytest tests/research/test_emocio_vwm_e2_protocol.py tests/research/test_emocio_vwm_e2_result.py -q",
+    "failed": 0,
+    "passed": 24
+  }
+}

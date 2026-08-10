@@ -1,0 +1,240 @@
+{
+  "dataset": {
+    "browser_executable_sha256": "aa0492971e09477da33db5fd550a1ad4c8bbd228e34c7f0f87f5ae8b0d37db4f",
+    "dataset_manifest_sha256": "8e454d2f7ee3df9381a29d5c5ed378e670cd1286d1adc70d2c77abd3cec80e8d",
+    "dataset_tree_sha256": "f84bcb3f93734b99d5ebb62a3c02718b14f713b4265d006635770daf3d1e7991",
+    "environment_relative_root": "datasets/emocio_e2_01aa8d3_v1",
+    "file_count": 313,
+    "freeze_status": "frozen_before_first_lpwm_call",
+    "generator_source_sha256": "635635612be0cd4d35885a17d2ac06ef1dea4d8128544fe3a2f0ca5358bdb729",
+    "model_visible_content": "visual_media_only",
+    "model_visible_root": "model_visible",
+    "playwright_core_version": "1.62.1",
+    "pre_training_hash_verification_required": true,
+    "reproducible_run_id": "b9ff0cbbfea7011160008f61",
+    "rerender_after_protocol_freeze_allowed": false,
+    "schema_version": "rei-emocio-vwm-e2-frozen-dataset-v1",
+    "source_e1r_sha": "01aa8d3e10c04275e528fd45796d0c4c5bb4ac0b",
+    "three_version": "0.185.1",
+    "total_bytes": 2913227
+  },
+  "lpwm": {
+    "repository_commit_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "tracked_source_clean": true
+  },
+  "protocol": {
+    "algorithm": "sha256",
+    "file_count": 34,
+    "files": [
+      {
+        "bytes": 1227,
+        "path": "README.md",
+        "root": "e2",
+        "sha256": "6843fe24a0de1eba198918feeb5019c19a03df0811757b160fd2052ed7c3d2d7"
+      },
+      {
+        "bytes": 798,
+        "path": "dataset/dataset_boundary_audit.json",
+        "root": "e2",
+        "sha256": "cfb4f32cdd5c3ad11e4a298f32b4797cde2217c1e2636454f22e9a11403eba78"
+      },
+      {
+        "bytes": 59247,
+        "path": "dataset/dataset_checksums.json",
+        "root": "e2",
+        "sha256": "53b2edf60652093a0717dfca5ba3acbdb1fd76002281b0bac2249ccd6995cd9c"
+      },
+      {
+        "bytes": 1007,
+        "path": "dataset/frozen_dataset_manifest.json",
+        "root": "e2",
+        "sha256": "e5c7eeab03f9dbe02597e27c9e33630f811d636f810fbbe6a5f349d2da937a63"
+      },
+      {
+        "bytes": 71,
+        "path": "python/emocio_vwm_mvp_e2/__init__.py",
+        "root": "e2",
+        "sha256": "06e2427626413226f1a07ef18cce83b785b77ea3064dd90ea3fe7b6c3399d4d3"
+      },
+      {
+        "bytes": 3470,
+        "path": "python/emocio_vwm_mvp_e2/artifacts.py",
+        "root": "e2",
+        "sha256": "1afe666e48aa1841b557dbe9f97aaf36dc756120005a96446797a128abd45752"
+      },
+      {
+        "bytes": 5026,
+        "path": "python/emocio_vwm_mvp_e2/boundary.py",
+        "root": "e2",
+        "sha256": "efd800dff757b76b74bd1311568e5cc5267d45bab33975eefd3dfbfeb4620c88"
+      },
+      {
+        "bytes": 7254,
+        "path": "python/emocio_vwm_mvp_e2/evaluator.py",
+        "root": "e2",
+        "sha256": "300ddf54df258ab65dd9338c45ab9b2299df98dfa17b8b11c3023a8194b4f2e1"
+      },
+      {
+        "bytes": 2617,
+        "path": "python/emocio_vwm_mvp_e2/model_adapter.py",
+        "root": "e2",
+        "sha256": "8da94d25343d69e5e8826ad757367802e7ed852f30f2fec3f1c4d01235ff087b"
+      },
+      {
+        "bytes": 4451,
+        "path": "python/emocio_vwm_mvp_e2/preflight.py",
+        "root": "e2",
+        "sha256": "bce007822e037c5523df0a76ec789eed52068e1b3f6f5cafa30529d9983cf596"
+      },
+      {
+        "bytes": 32550,
+        "path": "python/emocio_vwm_mvp_e2/runner.py",
+        "root": "e2",
+        "sha256": "447b51dc7d3e02c3ca65955b88766c3cc238608bbb1f0af7d129c56c34ff325d"
+      },
+      {
+        "bytes": 3034,
+        "path": "python/emocio_vwm_mvp_e2/visual_dataset.py",
+        "root": "e2",
+        "sha256": "b107a89ac8c75f95c465b66c655360577fe20e3929b77404597ad326ab0f2cd2"
+      },
+      {
+        "bytes": 790,
+        "path": "specs/acceptance.json",
+        "root": "e2",
+        "sha256": "d155d173ae088fa14ec99dca966291818d1ecb2d5bc231fbe0588e9b46f147c9"
+      },
+      {
+        "bytes": 891,
+        "path": "specs/compatibility_overlay.json",
+        "root": "e2",
+        "sha256": "f46691a240d27a4d71ce347ec649e06449322bc47e9e43e7b78f35b2902a47b1"
+      },
+      {
+        "bytes": 776,
+        "path": "specs/dependency_manifest.json",
+        "root": "e2",
+        "sha256": "4f0a4eb88cdad0294a77292d1cedc1a3fedbf37a117d6462f05f1a2399582090"
+      },
+      {
+        "bytes": 384,
+        "path": "specs/e1r_prerequisite_review.json",
+        "root": "e2",
+        "sha256": "b671a27eca58b1c9fe8816086cf9a41bed14c160869db5d9f5212d9487d8f3f7"
+      },
+      {
+        "bytes": 2005,
+        "path": "specs/e2_protocol_freeze.json",
+        "root": "e2",
+        "sha256": "502fc073f00245929565344c91307ce09680512f6a8805824a52ac77cd516e75"
+      },
+      {
+        "bytes": 1176,
+        "path": "specs/execution_plan.json",
+        "root": "e2",
+        "sha256": "d0585fcee092fccbb6bab73cd63bfce54fae99cf0d7c9657eed7e97527763f18"
+      },
+      {
+        "bytes": 1197,
+        "path": "specs/lpwm_interface_audit.json",
+        "root": "e2",
+        "sha256": "b7931bd2c099a3a485e42016095f98ec6a227b60f3a40e560e9218148972b9f5"
+      },
+      {
+        "bytes": 486,
+        "path": "specs/lpwm_source_pin.json",
+        "root": "e2",
+        "sha256": "e6729943d0b69f4b91d9c9c739f8dfd27041cc3679c017ac6d694c2c50a76a04"
+      },
+      {
+        "bytes": 1515,
+        "path": "specs/metric_config.json",
+        "root": "e2",
+        "sha256": "d7bc2543ed602510aa6992209fcd43104e6256014ccd68d57bac2ae599c8ecdb"
+      },
+      {
+        "bytes": 2012,
+        "path": "specs/model_config.json",
+        "root": "e2",
+        "sha256": "f389d5bb3fee1343c54e07ad647fe5b242e964a981e37b2710f459d76f03a817"
+      },
+      {
+        "bytes": 1000,
+        "path": "specs/model_visible_contract.json",
+        "root": "e2",
+        "sha256": "9a1d9f84b55238e9a3bc5a1456c7c1a704a9ec0b74873c2f424da54754514971"
+      },
+      {
+        "bytes": 714,
+        "path": "specs/sampling_plan.json",
+        "root": "e2",
+        "sha256": "3823a676351489b4ba7b7fa13d7442333b2ecae014b682c6881694e54b1d6509"
+      },
+      {
+        "bytes": 821,
+        "path": "specs/verdict_taxonomy.json",
+        "root": "e2",
+        "sha256": "8ad3513b145cd27af6eddac4db84c979a31339395cb80e406dcfaa7cd4f6115b"
+      },
+      {
+        "bytes": 1163,
+        "path": "templates/blind_visual_review.md",
+        "root": "e2",
+        "sha256": "aa1dd88a09cdfd25a595f8dc6f50d9e4d4f114bc23b17c31f49d54dd07dd9615"
+      },
+      {
+        "bytes": 9444,
+        "path": "tools/render_frozen_dataset.mjs",
+        "root": "e2",
+        "sha256": "635635612be0cd4d35885a17d2ac06ef1dea4d8128544fe3a2f0ca5358bdb729"
+      },
+      {
+        "bytes": 4284,
+        "path": ".gitattributes",
+        "root": "repo",
+        "sha256": "18560bc6cf9f61761c951c7365e21f3cfe72612b304e1180421d0b68a9bf83fb"
+      },
+      {
+        "bytes": 1437,
+        "path": "scripts/acquire_emocio_vwm_e2_metric_weights.ps1",
+        "root": "repo",
+        "sha256": "900c3f3bb11985a53bfc472ea87d2eed8750e25f542eec3fa03813931e35b07e"
+      },
+      {
+        "bytes": 1038,
+        "path": "scripts/bootstrap_emocio_vwm_e2_env.ps1",
+        "root": "repo",
+        "sha256": "f2cc631404f34d2162b5dcf78b659bad2ddf3092346995130e2018e9d776fc67"
+      },
+      {
+        "bytes": 7389,
+        "path": "scripts/freeze_emocio_vwm_e2_dataset.py",
+        "root": "repo",
+        "sha256": "9ace1bb047e6260a8dab90ffc150dec167345abf54acb9ca0484742de81b06b8"
+      },
+      {
+        "bytes": 366,
+        "path": "scripts/run_emocio_vwm_e2.py",
+        "root": "repo",
+        "sha256": "721bf854ebd6be9ca936e869e30044379c7a54b5847ed0fb423010f716e27b0f"
+      },
+      {
+        "bytes": 2097,
+        "path": "scripts/seal_emocio_vwm_e2_protocol.py",
+        "root": "repo",
+        "sha256": "16bb3de583e4277e8d5c193bd1d3a8ba5574014291fd90310d0b7831f8118e62"
+      },
+      {
+        "bytes": 11009,
+        "path": "tests/research/test_emocio_vwm_e2_protocol.py",
+        "root": "repo",
+        "sha256": "2610a8c0373078ac75c4b12fa13efa2e83b1cfae5884cc10cc1a603d3ecbeef1"
+      }
+    ],
+    "protocol_tree_sha256": "bbe17106c2b2dfec225de527d2d2eba4b0d9a592528122ca856508c615b77297",
+    "schema_version": "rei-emocio-vwm-e2-protocol-lineage-v1"
+  },
+  "protocol_commit_sha": "e409ecbdebd220db9da934827f2b1e0a7d73b65c",
+  "schema_version": "rei-emocio-vwm-e2-preflight-v1",
+  "status": "passed"
+}
