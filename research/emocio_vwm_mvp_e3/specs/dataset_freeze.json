@@ -1,0 +1,19 @@
+{
+  "browser_executable_sha256": "aa0492971e09477da33db5fd550a1ad4c8bbd228e34c7f0f87f5ae8b0d37db4f",
+  "content_bytes": 44813392,
+  "dataset_manifest_sha256": "dbba503fddbf56055c1ef375b192e626ee6bf7510b75d7541e26ab2e524827e7",
+  "dataset_tree_sha256": "c8f953d7190bbe133851de40ba6cb93770947f1c2ed8471c4389c6cf35aeb87e",
+  "episodes": 256,
+  "external_root_sanitized": "${REI_E3_DATASET_ROOT}",
+  "file_count": 16385,
+  "frames_per_episode": 21,
+  "generator_sha256": "771272f17909563807118b66129279b79595930e488cd17d45b28854be3bdfe4",
+  "individual_hashes_embedded_in": "frozen_dataset_manifest.json",
+  "schema_version": "rei-emocio-vwm-e3-dataset-freeze-v1",
+  "seed": 73013,
+  "splits": {
+    "holdout": 32,
+    "train": 192,
+    "validation": 32
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version":"rei-emocio-vwm-e3-execution-v1","seed":73013,"optimizer":"Adam","learning_rate":0.00008,"adam_betas":[0.9,0.999],"adam_eps":0.000001,"weight_decay":0.0,"optimizer_steps":2400,"evaluation_boundaries":[100,200,400,800,1200,1800,2400],"verdict_boundary":2400,"warmup_entire_run":true,"measured_runs":1,"early_stop":false,"sweep":false,
+  "primary":{"precision":"float32","microbatch":2,"gradient_accumulation":3,"effective_batch":6},
+  "oom_before_first_optimizer_step_only":[{"precision":"bfloat16","microbatch":2,"gradient_accumulation":3,"effective_batch":6},{"precision":"bfloat16","microbatch":1,"gradient_accumulation":6,"effective_batch":6}],
+  "determinism":{"CUBLAS_WORKSPACE_CONFIG":":4096:8","use_deterministic_algorithms":true,"warn_only":true,"cudnn_benchmark":false,"cudnn_deterministic":true,"bitwise_optimization_claimed":false}
+}
