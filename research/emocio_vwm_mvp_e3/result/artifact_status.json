@@ -1,0 +1,6 @@
+{
+  "schema_version":"rei-emocio-vwm-e3-artifact-status-v1",
+  "positive_control":{"record":"positive_control/record.json","source_frames_external":"${REI_E3_CONTROL_ROOT}/sketchy/subset","reconstruction":null,"background_only":null,"foreground_only":null,"particle_overlay":null,"bounding_boxes":null,"alpha_overlay":null,"union_mask":null,"rollout_video":null,"reason":"diagnostic obj_on reshape failed before artifact sealing"},
+  "target":{"contact_sheets":null,"videos":null,"samples":null,"metrics":null,"hard_gates":null,"particle_collapse_diagnostics":null,"blind_review":null,"reason":"target was not started after mandatory positive-control failure"},
+  "human_review":{"performed":false,"reason":"no sealed visual evidence existed after the positive-control stop"}
+}

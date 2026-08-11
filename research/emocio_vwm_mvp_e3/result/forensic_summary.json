@@ -1,0 +1,9 @@
+{
+  "schema_version":"rei-emocio-vwm-e3-forensic-summary-v1",
+  "branch":"codex/emocio-visual-world-model-mvp",
+  "protocol_commit_sha":"99e86d3780d268e21ffbe2492d00378dabfc6461",
+  "lpwm_source_sha":"4cf53c403433e64c01652ac2adbec66231a46dea",
+  "positive_control":{"checkpoint_loaded":true,"forward_inference_completed":true,"diagnostic_pipeline_completed":false,"failure_node":"positive_control.obj_on_reshape","observed_shape":[1,21,64,1],"invalid_requested_shape":[1,21,21,64,1],"checkpoint_sha256":"6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731","dataset_subset_tree_sha256":"6026ac8102403a014a8ea14e0e9ca0ee8fa3391889524ce70aeb32842a73b8f6"},
+  "target":{"model_constructed":false,"training_started":false,"optimizer_steps":0,"initial_model_hash":null,"final_checkpoint_hash":null,"precision":null,"microbatch":null,"gradient_accumulation":null,"training_seconds":0,"peak_allocated_vram_bytes":null,"peak_reserved_vram_bytes":null,"metrics_not_computed":true},
+  "stop_rule_applied":true,"social_model_fit_started":false,"dynamics_gate_started":false,"active_rei_runtime_modified":false,"target_model_fit_failure_claimed":false,"verdict":"positive_control_failed"
+}

@@ -1,0 +1,7 @@
+{
+  "bytes_before_manifest": 1183041,
+  "file_count_before_manifest": 15,
+  "schema_version": "rei-emocio-vwm-e3-result-bundle-v1",
+  "tree_sha256_before_manifest": "299dbc5ccac7e4dd3eb0c1140dbf31717a4e66195e119f3234bdbac77e24c2fb",
+  "verdict": "positive_control_failed"
+}

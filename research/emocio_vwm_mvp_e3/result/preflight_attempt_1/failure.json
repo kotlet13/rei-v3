@@ -1,0 +1,6 @@
+{
+  "message": "LPWM source pin/cleanliness failure",
+  "stage": "preflight",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Kotlet\\Codex\\github\\rei-v3-emocio-vwm-mvp\\research\\emocio_vwm_mvp_e3\\python\\emocio_vwm_mvp_e3\\runner.py\", line 106, in execute\n    record[\"preflight\"]=check(root,Path(args.lpwm),Path(args.dataset),args.protocol_sha);write(out/\"lineage/preflight.json\",record[\"preflight\"]);stage=\"torch_import\";import torch;torch.use_deterministic_algorithms(True,warn_only=True);torch.backends.cudnn.benchmark=False;torch.backends.cudnn.deterministic=True\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kotlet\\Codex\\github\\rei-v3-emocio-vwm-mvp\\research\\emocio_vwm_mvp_e3\\python\\emocio_vwm_mvp_e3\\preflight.py\", line 20, in check\n    if source!=LPWM_SHA or dirty:raise RuntimeError(\"LPWM source pin/cleanliness failure\")\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: LPWM source pin/cleanliness failure\n",
+  "type": "RuntimeError"
+}

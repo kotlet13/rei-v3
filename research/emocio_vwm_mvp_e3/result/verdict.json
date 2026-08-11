@@ -1,0 +1,11 @@
+{
+  "schema_version":"rei-emocio-vwm-e3-verdict-v1",
+  "verdict":"positive_control_failed",
+  "failed_stage":"official_positive_control_diagnostic_packaging",
+  "checkpoint_loaded":true,
+  "forward_inference_completed":true,
+  "target_training_started":false,
+  "target_optimizer_steps":0,
+  "target_model_fit_failure_claimed":false,
+  "active_rei_runtime_modified":false
+}

@@ -1,0 +1,148 @@
+﻿{
+    "schema_version":  "rei-emocio-vwm-e3-positive-control-acquisition-v1",
+    "acquired_utc":  "2026-08-11T07:20:37.1224869Z",
+    "lpwm_source_sha":  "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "checkpoint":  {
+                       "source":  "official LPWM README Sketchy 128 MEGA link",
+                       "local_ref":  "${REI_E3_CONTROL_ROOT}/checkpoint/extracted/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+                       "bytes":  438807002,
+                       "sha256":  "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+                       "archive_bytes":  406488462,
+                       "archive_sha256":  "979a0cee748c67bf9f6dda3a86b5caffca1f2ba204d54ba483189bcdfcf4454f"
+                   },
+    "hparams":  {
+                    "local_ref":  "${REI_E3_CONTROL_ROOT}/checkpoint/extracted/hparams.json",
+                    "bytes":  2556,
+                    "sha256":  "70f413905ed6295dc7e1f47f30ac52dcffee416b1311e7e97f85e9bc41514c44"
+                },
+    "dataset":  {
+                    "source":  "https://huggingface.co/datasets/taldatech/sketchy_128",
+                    "revision":  "2a152aa6361587b1a50db2ff2c05c31488a49c33",
+                    "archive_xet_hash":  "d5108ce566af68e87d341a431b3b8f9341734031577d11b0d95b51d0292f5a7f",
+                    "archive_linked_sha256":  "e7a71885b3112f553e6dfd63aa0aff5ae78c27e1e975021528838590fe92f83a",
+                    "archive_bytes":  12742190782,
+                    "subset":  "data/test/demos/ep000179 frames 000-020 fl_full RGB only",
+                    "local_ref":  "${REI_E3_CONTROL_ROOT}/sketchy/subset",
+                    "file_count":  21,
+                    "bytes":  413835,
+                    "tree_sha256":  "6026ac8102403a014a8ea14e0e9ca0ee8fa3391889524ce70aeb32842a73b8f6",
+                    "files":  [
+                                  {
+                                      "name":  "ep000179_t000_fl_full.png",
+                                      "bytes":  19672,
+                                      "sha256":  "18fde625db2c9eec29a5e8efa19c1ef61b41a06f07aa0029a56c9d4221049d2c"
+                                  },
+                                  {
+                                      "name":  "ep000179_t001_fl_full.png",
+                                      "bytes":  19694,
+                                      "sha256":  "b85743c40a74874e8527edafcf1cd3c3367e7caa273b16bb14ed7a62719000ca"
+                                  },
+                                  {
+                                      "name":  "ep000179_t002_fl_full.png",
+                                      "bytes":  19938,
+                                      "sha256":  "62bde25cad0bfc1297f3113708beaac5c11feb5446847bd0fafac18795f5a5a7"
+                                  },
+                                  {
+                                      "name":  "ep000179_t003_fl_full.png",
+                                      "bytes":  19873,
+                                      "sha256":  "020267bd27d0475b6e5bd61a7c27c219420cd37471c48a292e1091597022c602"
+                                  },
+                                  {
+                                      "name":  "ep000179_t004_fl_full.png",
+                                      "bytes":  19307,
+                                      "sha256":  "53d0bad4b185efa73a02c9e6517f5903a7c758851ccee66d0931715a0d4f17ae"
+                                  },
+                                  {
+                                      "name":  "ep000179_t005_fl_full.png",
+                                      "bytes":  19349,
+                                      "sha256":  "62d4332fb98736032db85fa6d9e28355be109bfb680b85b0c1e34f6f3da02a7c"
+                                  },
+                                  {
+                                      "name":  "ep000179_t006_fl_full.png",
+                                      "bytes":  19437,
+                                      "sha256":  "576a0c428c6c231b76748d16f1d90938c41334f98db14a199a2bd045e69e264a"
+                                  },
+                                  {
+                                      "name":  "ep000179_t007_fl_full.png",
+                                      "bytes":  19505,
+                                      "sha256":  "091f586ec237dbb4558a66c216a3e739e37e3476088327c594d193a36f01444c"
+                                  },
+                                  {
+                                      "name":  "ep000179_t008_fl_full.png",
+                                      "bytes":  19884,
+                                      "sha256":  "e784be13bc930a642b6a1145aabc51cc07dd3cd6006f43addf98e299f03101f0"
+                                  },
+                                  {
+                                      "name":  "ep000179_t009_fl_full.png",
+                                      "bytes":  20579,
+                                      "sha256":  "a94bd62e1242193c8b50cb89a66019f4c8ca39ca7799b422cdfc8d077545c28a"
+                                  },
+                                  {
+                                      "name":  "ep000179_t010_fl_full.png",
+                                      "bytes":  21016,
+                                      "sha256":  "35c9e5bf49258ce4ba7709e441451b3e3809965215512796e278bbd1eeeb0e9b"
+                                  },
+                                  {
+                                      "name":  "ep000179_t011_fl_full.png",
+                                      "bytes":  21108,
+                                      "sha256":  "450b64a99081aa3512b62ac2c2435f9eb0450b24493c18cb090b775fc83957bc"
+                                  },
+                                  {
+                                      "name":  "ep000179_t012_fl_full.png",
+                                      "bytes":  20950,
+                                      "sha256":  "3881c181a4b6140c22ebcb0529c766878f220576b6049bb3cc2bd57e38af5810"
+                                  },
+                                  {
+                                      "name":  "ep000179_t013_fl_full.png",
+                                      "bytes":  20474,
+                                      "sha256":  "8abcbe4f281ed598c48051a3a571cc7d40fa4616045ca57e0e1bfd7c3525a274"
+                                  },
+                                  {
+                                      "name":  "ep000179_t014_fl_full.png",
+                                      "bytes":  19877,
+                                      "sha256":  "ab095631e43457823edfd0f818f70e6b93d651a1b528684129223215d36b47ee"
+                                  },
+                                  {
+                                      "name":  "ep000179_t015_fl_full.png",
+                                      "bytes":  19529,
+                                      "sha256":  "1123450b986ecc7fc45bf36ddfea78b27fc18bebfa511d203e77c40ea55e554e"
+                                  },
+                                  {
+                                      "name":  "ep000179_t016_fl_full.png",
+                                      "bytes":  19375,
+                                      "sha256":  "78f201652aec532c002913453d71ae9dfca5b31b52dbce3dd96f5245976ecbd7"
+                                  },
+                                  {
+                                      "name":  "ep000179_t017_fl_full.png",
+                                      "bytes":  19374,
+                                      "sha256":  "e30f6b4c5bb41672556c50c20bac3e6f4051d002bee3b84d6f3924f444d674e5"
+                                  },
+                                  {
+                                      "name":  "ep000179_t018_fl_full.png",
+                                      "bytes":  19058,
+                                      "sha256":  "92acf347c2a7df8a31fcb35ad2f47762517a18e337002861f0257ae25f140f28"
+                                  },
+                                  {
+                                      "name":  "ep000179_t019_fl_full.png",
+                                      "bytes":  18016,
+                                      "sha256":  "dd3e9940b19c42345e8d08801092a45a0adf85128d6a820a626508c55e9ba290"
+                                  },
+                                  {
+                                      "name":  "ep000179_t020_fl_full.png",
+                                      "bytes":  17820,
+                                      "sha256":  "b60dea6169ed2c56398dbc950663457701cc46ebdea00e18957e518a3ea6c0cc"
+                                  }
+                              ]
+                },
+    "lpips_linear_weights":  {
+                                 "local_ref":  "${LPWM_ROOT}/eval/lpips/vgg.pth",
+                                 "bytes":  7289,
+                                 "sha256":  "a78928a0af1e5f0fcb1f3b9e8f8c3a2a5a3de244d830ad5c1feddc79b8432868"
+                             },
+    "torchvision_vgg16_weights":  {
+                                       "source":  "https://download.pytorch.org/models/vgg16-397923af.pth",
+                                       "local_ref":  "${REI_E3_CONTROL_ROOT}/torch-cache/hub/checkpoints/vgg16-397923af.pth",
+                                       "bytes":  553433881,
+                                       "sha256":  "397923af8e79cdbb6a7127f12361acd7a2f83e06b05044ddf496e83de57a5bf0"
+                                   }
+}

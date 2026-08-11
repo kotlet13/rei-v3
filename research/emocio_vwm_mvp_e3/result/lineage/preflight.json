@@ -1,0 +1,7 @@
+{
+  "dataset_manifest_sha256": "dbba503fddbf56055c1ef375b192e626ee6bf7510b75d7541e26ab2e524827e7",
+  "dataset_tree_sha256": "c8f953d7190bbe133851de40ba6cb93770947f1c2ed8471c4389c6cf35aeb87e",
+  "environment_manifest_sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2",
+  "lpwm_source_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "protocol_commit_sha": "99e86d3780d268e21ffbe2492d00378dabfc6461"
+}

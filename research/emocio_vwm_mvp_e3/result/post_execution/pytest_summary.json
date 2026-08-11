@@ -1,0 +1,11 @@
+{
+  "schema_version":"rei-emocio-vwm-e3-pytest-summary-v1",
+  "targeted_and_e1_e2r_regression":{"passed":82,"failed":0,"errors":0,"junit":"targeted_regression.xml"},
+  "full_suite_attempts":[
+    {"tests":2207,"passed":2176,"failed":31,"errors":0,"duration_seconds":528.64,"junit":"full_pytest.xml"},
+    {"tests":2207,"passed":2176,"failed":31,"errors":0,"duration_seconds":517.19,"junit":"full_pytest_final.xml"}
+  ],
+  "additional_node":{"node_id":"tests/evaluation/test_resource_telemetry.py::test_background_sampler_status_preserves_superseded_cuda_peak","classification":"preexisting_timing_race_nonreproducible_in_isolation","isolated_result":{"passed":1,"failed":0},"observed_full_suite_failure":"wait_for_initial_sample observed the second 10 ms sample (100) before the caller read the intended first sample (20)","source_modified":false},
+  "composite_full_coverage":{"baseline_node_run":{"tests":2206,"passed":2176,"failed":30,"errors":0,"deselected":1,"duration_seconds":518.25,"junit":"full_pytest_baseline_nodes.xml","junit_sha256":"a072fa021f81ba416c0a5b2b740f7b3d3e9d478acfb659dc7bee88872f7b8937"},"deselected_node_isolated":{"passed":1,"failed":0},"all_test_nodes_executed":true},
+  "baseline_comparison":{"baseline_commit":"36853bc1b1487e380daf1fb3618370720190aaad","baseline_passed":2168,"baseline_failed":30,"baseline_failure_node_set_sha256":"6257de12dea3994fdaa5ae4c91abad544fed932fad51b1b37a35eb0c1be7f551","shared_failure_nodes":30,"new_reproducible_failures":[],"resolved_failures":[],"exact_baseline_failure_set_match_in_composite_coverage":true,"old_failures_modified":false}
+}

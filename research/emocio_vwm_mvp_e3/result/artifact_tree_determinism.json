@@ -1,0 +1,87 @@
+{
+  "byte_identical": true,
+  "file_count_each": 15,
+  "files": [
+    {
+      "bytes": 778,
+      "path": "artifact_status.json",
+      "sha256": "a592fc5b8080343ccf045951e1aa2b5b0721f82af50f9d816d401e52127c9c00"
+    },
+    {
+      "bytes": 1191,
+      "path": "forensic_summary.json",
+      "sha256": "2c8ec6d987dc961405eaa03562c0389d663391023bec565379dbf40c2fccdd64"
+    },
+    {
+      "bytes": 9668,
+      "path": "lineage/acquisition_manifest.json",
+      "sha256": "df883dff25c8076d32b1049643be25af8e5950ba5dac3ebfa2bb82689a414cbd"
+    },
+    {
+      "bytes": 2139,
+      "path": "lineage/environment_manifest.json",
+      "sha256": "2f88a3f694eed8c7af84959e0a53db09a41d10614bcf423b8a100186497dcfc2"
+    },
+    {
+      "bytes": 435,
+      "path": "lineage/preflight.json",
+      "sha256": "694dd918fad918433777ca474cbe8cfe9ba8c12f67ce371aab69d33c66cd9b4e"
+    },
+    {
+      "bytes": 1112,
+      "path": "positive_control/record.json",
+      "sha256": "9d2a57c7ecf3fbafbf165f9f1907d5087406a223ef950b05bc4aa378c16e984c"
+    },
+    {
+      "bytes": 384929,
+      "path": "post_execution/full_pytest.xml",
+      "sha256": "87c8bc99e6c1b957833d23bb06f21e13a6eb9af23aab6d05b263fd1b23243956"
+    },
+    {
+      "bytes": 382182,
+      "path": "post_execution/full_pytest_baseline_nodes.xml",
+      "sha256": "a072fa021f81ba416c0a5b2b740f7b3d3e9d478acfb659dc7bee88872f7b8937"
+    },
+    {
+      "bytes": 384930,
+      "path": "post_execution/full_pytest_final.xml",
+      "sha256": "6410cf83001758b94152c8766a16b59369ccf3afe0f0bd3cf6f315ffbd681c77"
+    },
+    {
+      "bytes": 1605,
+      "path": "post_execution/pytest_summary.json",
+      "sha256": "d546e887ee5b4d41fa795940956801d60da5b97ede63c1f6ae0a43a758a096de"
+    },
+    {
+      "bytes": 11675,
+      "path": "post_execution/targeted_regression.xml",
+      "sha256": "47d95993850b9059e91b1d548164b901b3a3f03fe0739d03a6df6415c4b2e9ba"
+    },
+    {
+      "bytes": 1128,
+      "path": "preflight_attempt_1/failure.json",
+      "sha256": "d43c2e142dd6585fbc5e53e5c3dc662226a1d5bc47f068152f43f9aaf3102184"
+    },
+    {
+      "bytes": 121,
+      "path": "preflight_attempt_1/verdict.json",
+      "sha256": "5297ec1631c3efafeac2e03f4b898d62907b6f742823d648bdd1c98d69229614"
+    },
+    {
+      "bytes": 774,
+      "path": "README.md",
+      "sha256": "6e0560ce3a42fc2d3f381878f489609ae11c3206c3d02d543d618cc1ae91ca5e"
+    },
+    {
+      "bytes": 374,
+      "path": "verdict.json",
+      "sha256": "84e18f648fe0b45017bf68e567a95e8bd58b554e016a60c1310b26732566cf52"
+    }
+  ],
+  "runs": 2,
+  "schema_version": "rei-emocio-vwm-e3-artifact-tree-determinism-v1",
+  "scope": "result packaging only, not model optimization",
+  "status": "passed",
+  "tree_sha256_a": "299dbc5ccac7e4dd3eb0c1140dbf31717a4e66195e119f3234bdbac77e24c2fb",
+  "tree_sha256_b": "299dbc5ccac7e4dd3eb0c1140dbf31717a4e66195e119f3234bdbac77e24c2fb"
+}

@@ -1,0 +1,14 @@
+{
+  "checkpoint": {
+    "bytes": 438807002,
+    "sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731"
+  },
+  "dataset_root": "${REI_E3_SKETCHY_CONTROL_ROOT}",
+  "exception": {
+    "message": "shape '[1, 21, 21, 64, 1]' is invalid for input of size 1344",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Kotlet\\Codex\\github\\rei-v3-emocio-vwm-mvp\\research\\emocio_vwm_mvp_e3\\python\\emocio_vwm_mvp_e3\\runner.py\", line 45, in positive_control\n    rec=o[\"rec_rgb\"].reshape(1,21,3,128,128)[0];alpha=o[\"alpha_masks\"].reshape(1,21,*o[\"alpha_masks\"].shape[1:])[0];obj=o[\"obj_on\"].reshape(1,21,*o[\"obj_on\"].shape[1:])[0];active=float((obj>.5).float().sum(-2).mean().cpu());\n                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: shape '[1, 21, 21, 64, 1]' is invalid for input of size 1344\n",
+    "type": "RuntimeError"
+  },
+  "schema_version": "rei-emocio-vwm-e3-positive-control-v1",
+  "status": "failed"
+}
