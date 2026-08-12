@@ -1,0 +1,103 @@
+{
+  "schema_version": "rei-emocio-vwm-e3r-protocol-freeze-v1",
+  "branch": "codex/emocio-visual-world-model-mvp",
+  "phase": "E3R_LPWM_POSITIVE_CONTROL_HARNESS_REMEDIATION",
+  "direct_parent": "3d56eeaad45ce21eae36049b9bfe63cc3b52b045",
+  "frozen_history": {
+    "e3_protocol_sha": "99e86d3780d268e21ffbe2492d00378dabfc6461",
+    "e3_result_sha": "3d56eeaad45ce21eae36049b9bfe63cc3b52b045",
+    "e3_verdict": "positive_control_failed",
+    "e3_failure": "diagnostic_adapter_obj_on_time_dimension_duplication",
+    "e3_checkpoint_load_succeeded": true,
+    "e3_forward_succeeded": true,
+    "e3_positive_control_model_result_evaluated": false,
+    "e3_target_started": false,
+    "mutable": false
+  },
+  "scope": {
+    "changes": ["control_adapter", "target_evaluation_adapter", "evidence_capture"],
+    "model_changed": false,
+    "dataset_changed": false,
+    "budget_changed": false,
+    "hard_gates_changed": false,
+    "visual_only_boundary_changed": false,
+    "social_model_fit": false,
+    "dynamics_gate": false,
+    "active_rei_runtime_modified": false
+  },
+  "pins": {
+    "lpwm_source_sha": "4cf53c403433e64c01652ac2adbec66231a46dea",
+    "official_checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+    "official_hparams_sha256": "70f413905ed6295dc7e1f47f30ac52dcffee416b1311e7e97f85e9bc41514c44",
+    "official_subset_tree_sha256": "6026ac8102403a014a8ea14e0e9ca0ee8fa3391889524ce70aeb32842a73b8f6",
+    "target_dataset_tree_sha256": "c8f953d7190bbe133851de40ba6cb93770947f1c2ed8471c4389c6cf35aeb87e",
+    "target_model_config_sha256": "30c96f5e521b0025e6fc62fa0d3a230448f5cf680aefc4727d6162711b09ca07"
+  },
+  "shape_contract": {
+    "function": "normalize_lpwm_output_shapes",
+    "raw_and_normalized_manifests_required": true,
+    "fail_closed": true,
+    "background_output": "bg_rgb",
+    "legacy_background_output_forbidden": true,
+    "K_enc": "obj_on and mu_tot; active-particle diagnostics",
+    "K_dec": "alpha_masks; mask-coverage diagnostics",
+    "K_enc_equals_K_dec_required": false
+  },
+  "positive_control": {
+    "must_pass_before_target": true,
+    "constructor_source": "exact official hparams mapped as pinned upstream train_lpwm.py",
+    "checkpoint_load": "strict",
+    "missing_keys_required": [],
+    "unexpected_keys_required": [],
+    "sequence": "ep000179 frames 000-020 contiguous",
+    "frames": 21,
+    "required_evidence": [
+      "source_frames", "full_reconstruction", "background_only", "foreground_only",
+      "union_mask", "particle_overlay", "active_counts", "objectness_distribution",
+      "reconstruction_mp4", "mask_mp4", "particle_mp4", "real_rollout", "artifact_hashes"
+    ],
+    "rollout": {
+      "method": "sample_from_x",
+      "conditioning_prefix_frames": 6,
+      "cond_steps": 6,
+      "future_steps": 15,
+      "output_frames": 21,
+      "return_z": true,
+      "decode": true,
+      "language_conditioning": false,
+      "action_conditioning": false,
+      "image_goal_conditioning": false
+    }
+  },
+  "target": {
+    "start_condition": "complete real positive-control pass only",
+    "protocol_source": "unchanged E3 target specs",
+    "from_scratch": true,
+    "seed": 73013,
+    "optimizer": "Adam",
+    "learning_rate": 0.00008,
+    "optimizer_steps": 2400,
+    "warmup_entire_run": true,
+    "measured_runs": 1,
+    "oom_fallback": "unchanged E3",
+    "hard_gates": "research/emocio_vwm_mvp_e3/specs/metrics_freeze.json",
+    "conditioning": {"language": false, "action": false, "image_goal": false}
+  },
+  "verdict_taxonomy": {
+    "not_executed_resource_block": "any adapter, shape, packaging, artifact, load, inference, rollout, checkpoint, or dataset technical failure",
+    "positive_control_failed": "complete harness and artifacts, but empty reconstruction/masks or zero active particles",
+    "candidate_objectness_failed": "target completes 2400 steps and at least one frozen hard gate fails",
+    "candidate_objectness_promising": "target completes 2400 steps and all frozen hard gates pass"
+  },
+  "evidence": {
+    "two_run_artifact_tree_manifest_comparison": true,
+    "targeted_suite": true,
+    "e1_through_e3_regression": true,
+    "full_pytest": true,
+    "failure_node_baseline_sha": "3d56eeaad45ce21eae36049b9bfe63cc3b52b045",
+    "old_telemetry_race_fix_forbidden": true
+  },
+  "required_protocol_commit_message": "research: freeze LPWM E3R positive-control harness remediation",
+  "required_result_commit_message": "research: record LPWM E3R objectness qualification result",
+  "next_phase_auto_start": false
+}

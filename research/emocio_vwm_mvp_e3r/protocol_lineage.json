@@ -1,0 +1,63 @@
+{
+  "algorithm": "sha256",
+  "file_count": 11,
+  "files": [
+    {
+      "bytes": 1497,
+      "path": "research/emocio_vwm_mvp_e3r/README.md",
+      "sha256": "ba9a9bf9eacb0ae2303c9cae0d9563d44d1e5c0d030dbce3a39129b806446a8b"
+    },
+    {
+      "bytes": 4542,
+      "path": "research/emocio_vwm_mvp_e3r/specs/e3r_protocol_freeze.json",
+      "sha256": "f98e27620b0ff6469229fcc1f20b2548059ea7f18eef146113dbcd2ea8aa72c2"
+    },
+    {
+      "bytes": 197,
+      "path": "research/emocio_vwm_mvp_e3r/python/emocio_vwm_mvp_e3r/__init__.py",
+      "sha256": "6e45b765dde4a15a9ff065e0fc61cb7395dfc439fe99940538284b7860c02563"
+    },
+    {
+      "bytes": 3567,
+      "path": "research/emocio_vwm_mvp_e3r/python/emocio_vwm_mvp_e3r/preflight.py",
+      "sha256": "2106b3957e042ded6bc6b41ee30fa3b8553880ef653a7464311b5b31989486ac"
+    },
+    {
+      "bytes": 5235,
+      "path": "research/emocio_vwm_mvp_e3r/python/emocio_vwm_mvp_e3r/shape_contract.py",
+      "sha256": "84e137eb71e3cb02e2a5c396758ccb31b36853f6ac40271f8df6f95d24aec195"
+    },
+    {
+      "bytes": 4053,
+      "path": "research/emocio_vwm_mvp_e3r/python/emocio_vwm_mvp_e3r/evaluator.py",
+      "sha256": "f1931a807524290da62cd6e837c467e244c569f1b16688e81443a92089c85c8d"
+    },
+    {
+      "bytes": 4186,
+      "path": "research/emocio_vwm_mvp_e3r/python/emocio_vwm_mvp_e3r/model_adapter.py",
+      "sha256": "c63a7ff392dcf0c56c489d7d06dae251fd6802968606129f54388e0572caff03"
+    },
+    {
+      "bytes": 16172,
+      "path": "research/emocio_vwm_mvp_e3r/python/emocio_vwm_mvp_e3r/runner.py",
+      "sha256": "32bb8569e78e985bbe916f034fa4e954a55b70793a7d47e16e2d90025a33d6a2"
+    },
+    {
+      "bytes": 346,
+      "path": "scripts/run_emocio_vwm_e3r.py",
+      "sha256": "37ad4a8d199c60b5eb8a61f68041d5d822801cae6fb1e673927b666087a8496c"
+    },
+    {
+      "bytes": 1478,
+      "path": "scripts/seal_emocio_vwm_e3r_protocol.py",
+      "sha256": "2d6882c93eda6f62b33adf589e26f992a60396f4e8b69d5d38edcdd4ff09562b"
+    },
+    {
+      "bytes": 5920,
+      "path": "tests/research/test_emocio_vwm_e3r_protocol.py",
+      "sha256": "14d791960364e0a8d01e5c3ae3a8017f38fdb755d4d5e22e0a53edf560e000fd"
+    }
+  ],
+  "protocol_tree_sha256": "66c7f1aa99da0a795a860215e72402ffc36f119250d131d7374645de415da1fd",
+  "schema_version": "rei-emocio-vwm-e3r-protocol-lineage-v1"
+}
